@@ -1,0 +1,95 @@
+{
+  "nodes": [
+    {
+      "id": "repopackage",
+      "label": "repopackage",
+      "node_type": "module",
+      "position": { "x": 0.0, "y": 200.0, "z": 0.0 },
+      "compliance_status": "valid",
+      "metadata": {
+        "description": "Multi-repo composition and workspace management.",
+        "layer": "Control Plane"
+      }
+    },
+    {
+      "id": "kgdb",
+      "label": "kgdb",
+      "node_type": "module",
+      "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "compliance_status": "valid",
+      "metadata": {
+        "description": "Central graph substrate and query engine.",
+        "layer": "Graph Hub"
+      }
+    },
+    {
+      "id": "sldb",
+      "label": "sldb",
+      "node_type": "module",
+      "position": { "x": -200.0, "y": -100.0, "z": 0.0 },
+      "compliance_status": "valid",
+      "metadata": {
+        "description": "Structured Language Database; maps Markdown to Pydantic models.",
+        "layer": "Persistence"
+      }
+    },
+    {
+      "id": "ontology",
+      "label": "ontology",
+      "node_type": "module",
+      "position": { "x": 200.0, "y": -100.0, "z": 0.0 },
+      "compliance_status": "valid",
+      "metadata": {
+        "description": "Semantic audits and reasoning layer.",
+        "layer": "Reasoning"
+      }
+    },
+    {
+      "id": "graph_ui",
+      "label": "graph_ui",
+      "node_type": "module",
+      "position": { "x": 0.0, "y": -200.0, "z": 0.0 },
+      "compliance_status": "valid",
+      "metadata": {
+        "description": "Domain-agnostic visual graph editor.",
+        "layer": "Visual UI"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "repopackage",
+      "target": "kgdb",
+      "relation_type": "orchestrates",
+      "metadata": { "weight": 1.0 }
+    },
+    {
+      "source": "kgdb",
+      "target": "sldb",
+      "relation_type": "persists_to",
+      "metadata": { "weight": 1.0 }
+    },
+    {
+      "source": "ontology",
+      "target": "kgdb",
+      "relation_type": "audits",
+      "metadata": { "weight": 1.0 }
+    },
+    {
+      "source": "graph_ui",
+      "target": "kgdb",
+      "relation_type": "visualizes",
+      "metadata": { "weight": 1.0 }
+    },
+    {
+      "source": "repopackage",
+      "target": "sldb",
+      "relation_type": "syncs",
+      "metadata": { "weight": 0.5 }
+    }
+  ],
+  "metadata": {
+    "view_name": "Ecosystem Core Slice",
+    "layout_algorithm": "fixed"
+  }
+}
