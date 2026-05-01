@@ -2,6 +2,8 @@
 
 ## 2026-05-01
 
+- resolved task `006-prove-one-safe-edit-flow`: 006-prove-one-safe-edit-flow
+
 - resolved task `005-surface-semantic-signals`: 005-surface-semantic-signals
 
 - resolved task `004-wire-reusable-editor-to-real-fixture`: 004-wire-reusable-editor-to-real-fixture
