@@ -2,6 +2,8 @@
 
 ## 2026-05-01
 
+- resolved task `003-create-real-graph-fixture`: 003-create-real-graph-fixture
+
 - resolved task `002-define-minimal-editing-surface`: 002-define-minimal-editing-surface
 
 - resolved task `001-define-graph-ui-data-contract`: 001-define-graph-ui-data-contract
