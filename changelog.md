@@ -2,6 +2,8 @@
 
 ## 2026-05-01
 
+- resolved task `001-define-graph-ui-data-contract`: 001-define-graph-ui-data-contract
+
 - resolved task `006-prove-one-safe-edit-flow`: 006-prove-one-safe-edit-flow
 
 - resolved task `005-surface-semantic-signals`: 005-surface-semantic-signals
