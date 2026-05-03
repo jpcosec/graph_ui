@@ -2,3 +2,4 @@
 node_modules/
 dist/
 auto_user_test/
+*.tsbuildinfo
