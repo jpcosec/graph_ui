@@ -1,0 +1,66 @@
+{
+  "name": "HUM Overlay Flow",
+  "baseUrl": "http://127.0.0.1:5173",
+  "steps": [
+    {
+      "id": "01_open_app",
+      "action": "goto",
+      "url": "/",
+      "description": "Open the workbench"
+    },
+    {
+      "id": "02_switch_body",
+      "action": "click",
+      "selector": "[data-testid='mode-tab-body']",
+      "description": "Switch to body mode"
+    },
+    {
+      "id": "03_wait_body_copy",
+      "action": "wait_text",
+      "value": "Inspect the body, route the routine, replay the trace",
+      "description": "Wait for body mode hero copy"
+    },
+    {
+      "id": "04_wait_core_organ",
+      "action": "wait",
+      "selector": "[data-testid='node-organ-core']",
+      "description": "Wait for core organ rendering"
+    },
+    {
+      "id": "05_switch_routine",
+      "action": "click",
+      "selector": "[data-testid='mode-tab-routine']",
+      "description": "Switch to routine mode"
+    },
+    {
+      "id": "06_wait_routine_overlay",
+      "action": "wait",
+      "selector": "[data-testid='node-routine-task-execution-rt-close']",
+      "description": "Wait for routine step overlay"
+    },
+    {
+      "id": "07_switch_trace",
+      "action": "click",
+      "selector": "[data-testid='mode-tab-trace']",
+      "description": "Switch to trace mode"
+    },
+    {
+      "id": "08_wait_trace_overlay",
+      "action": "wait",
+      "selector": "[data-testid='node-trace-trace-inspection-loop-te-inspect-1']",
+      "description": "Wait for trace event overlay"
+    },
+    {
+      "id": "09_switch_compare",
+      "action": "click",
+      "selector": "[data-testid='mode-tab-compare']",
+      "description": "Switch to compare mode"
+    },
+    {
+      "id": "10_wait_compare_context",
+      "action": "wait",
+      "selector": "[data-testid='node-trace-trace-inspection-loop-te-loop']",
+      "description": "Wait for compare mode trace summary"
+    }
+  ]
+}

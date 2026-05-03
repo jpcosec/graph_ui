@@ -1,0 +1,113 @@
+{
+  "nodes": [
+    {
+      "id": "g-vehiculos",
+      "type": "group",
+      "position": { "x": 60, "y": 60 },
+      "style": { "width": 1020, "height": 520 },
+      "data": { "label": "Vehículos", "category": "document" }
+    },
+    {
+      "id": "g-terrestres",
+      "type": "group",
+      "position": { "x": 20, "y": 70 },
+      "parentId": "g-vehiculos",
+      "extent": "parent",
+      "style": { "width": 280, "height": 360 },
+      "data": { "label": "Terrestres", "category": "section" }
+    },
+    {
+      "id": "g-aereos",
+      "type": "group",
+      "position": { "x": 370, "y": 70 },
+      "parentId": "g-vehiculos",
+      "extent": "parent",
+      "style": { "width": 280, "height": 360 },
+      "data": { "label": "Aéreos", "category": "section" }
+    },
+    {
+      "id": "g-acuaticos",
+      "type": "group",
+      "position": { "x": 720, "y": 70 },
+      "parentId": "g-vehiculos",
+      "extent": "parent",
+      "style": { "width": 260, "height": 360 },
+      "data": { "label": "Acuáticos", "category": "section" }
+    },
+    {
+      "id": "n-autos",
+      "position": { "x": 40, "y": 80 },
+      "parentId": "g-terrestres",
+      "extent": "parent",
+      "data": { "label": "Autos", "category": "entry", "modelo": "Sedán", "capacidad_pasajeros": "5", "peso_toneladas": "1.5", "color": "Rojo" }
+    },
+    {
+      "id": "n-camiones",
+      "position": { "x": 40, "y": 200 },
+      "parentId": "g-terrestres",
+      "extent": "parent",
+      "data": { "label": "Camiones", "category": "entry", "modelo": "Carga Pesada", "capacidad_pasajeros": "3", "peso_toneladas": "12.0" }
+    },
+    {
+      "id": "n-aviones",
+      "position": { "x": 40, "y": 80 },
+      "parentId": "g-aereos",
+      "extent": "parent",
+      "data": { "label": "Aviones", "category": "concept", "modelo": "Comercial", "capacidad_pasajeros": "150", "altitud_maxima_pies": "40000" }
+    },
+    {
+      "id": "n-helicopteros",
+      "position": { "x": 40, "y": 200 },
+      "parentId": "g-aereos",
+      "extent": "parent",
+      "data": { "label": "Helicópteros", "category": "concept", "modelo": "Rescate", "capacidad_pasajeros": "6", "peso_toneladas": "3.5" }
+    },
+    {
+      "id": "n-lanchas",
+      "position": { "x": 30, "y": 80 },
+      "parentId": "g-acuaticos",
+      "extent": "parent",
+      "data": { "label": "Lanchas", "category": "entry", "modelo": "Deportiva", "capacidad_pasajeros": "8", "peso_toneladas": "1.2" }
+    },
+    {
+      "id": "n-submarinos",
+      "position": { "x": 30, "y": 200 },
+      "parentId": "g-acuaticos",
+      "extent": "parent",
+      "data": { "label": "Submarinos", "category": "entry", "modelo": "Exploración", "capacidad_pasajeros": "12", "peso_toneladas": "850.0" }
+    },
+    {
+      "id": "n-rueda",
+      "position": { "x": 100, "y": 680 },
+      "data": { "label": "Rueda", "category": "skill", "diametro_cm": "40", "material_llanta": "Aleación de aluminio", "presion_ideal_psi": "32" }
+    },
+    {
+      "id": "n-helice",
+      "position": { "x": 400, "y": 680 },
+      "data": { "label": "Hélice", "category": "skill", "numero_aspas": "4", "rpm_maximo": "3500", "material": "Fibra de carbono" }
+    },
+    {
+      "id": "n-motor",
+      "position": { "x": 680, "y": 680 },
+      "data": { "label": "Motor", "category": "skill", "caballos_fuerza": "300", "tipo_combustible": "Multicombustible", "consumo_litros_hora": "15" }
+    },
+    {
+      "id": "n-radar",
+      "position": { "x": 960, "y": 680 },
+      "data": { "label": "Radar", "category": "skill", "alcance_km": "150", "frecuencia_ghz": "9.5" }
+    }
+  ],
+  "edges": [
+    { "id": "e-rueda-autos", "source": "n-rueda", "target": "n-autos", "data": { "relationType": "uses" } },
+    { "id": "e-rueda-camiones", "source": "n-rueda", "target": "n-camiones", "data": { "relationType": "uses" } },
+    { "id": "e-helice-heli", "source": "n-helice", "target": "n-helicopteros", "data": { "relationType": "uses" } },
+    { "id": "e-helice-lanchas", "source": "n-helice", "target": "n-lanchas", "data": { "relationType": "uses" } },
+    { "id": "e-motor-autos", "source": "n-motor", "target": "n-autos", "data": { "relationType": "uses" } },
+    { "id": "e-motor-camiones", "source": "n-motor", "target": "n-camiones", "data": { "relationType": "uses" } },
+    { "id": "e-motor-aviones", "source": "n-motor", "target": "n-aviones", "data": { "relationType": "uses" } },
+    { "id": "e-motor-heli", "source": "n-motor", "target": "n-helicopteros", "data": { "relationType": "uses" } },
+    { "id": "e-motor-lanchas", "source": "n-motor", "target": "n-lanchas", "data": { "relationType": "uses" } },
+    { "id": "e-radar-aviones", "source": "n-radar", "target": "n-aviones", "data": { "relationType": "uses" } },
+    { "id": "e-radar-submarinos", "source": "n-radar", "target": "n-submarinos", "data": { "relationType": "uses" } }
+  ]
+}
