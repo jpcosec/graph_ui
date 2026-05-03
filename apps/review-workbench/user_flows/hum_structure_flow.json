@@ -22,11 +22,8 @@
     },
     {
       "id": "04_collapse_main_file",
-      "action": "click",
-      "selector": "[aria-label='Collapse main.lisp']",
-      "hoverSelector": "[data-testid='node-ast-main']",
-      "hoverWaitMs": 100,
-      "force": true,
+      "action": "dispatch_click",
+      "selector": "[data-testid='group-toggle-ast-main']",
       "description": "Collapse the main.lisp file group"
     },
     {
@@ -37,11 +34,8 @@
     },
     {
       "id": "06_expand_main_file",
-      "action": "click",
-      "selector": "[aria-label='Expand main.lisp']",
-      "hoverSelector": "[data-testid='node-ast-main']",
-      "hoverWaitMs": 100,
-      "force": true,
+      "action": "dispatch_click",
+      "selector": "[data-testid='group-toggle-ast-main']",
       "description": "Expand the main.lisp file group again"
     },
     {

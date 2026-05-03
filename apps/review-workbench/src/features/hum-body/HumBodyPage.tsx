@@ -212,7 +212,7 @@ export function HumBodyPage() {
             ];
 
   const overlay = (
-    <div className={`pointer-events-auto hum-overlay-panel ${modeMeta.accentClass} mt-2 flex w-full ${mode === 'structure' ? 'max-w-[720px]' : 'max-w-[960px]'} flex-col gap-3 rounded-2xl px-4 py-3`}>
+    <div className={`pointer-events-auto hum-overlay-panel ${modeMeta.accentClass} mt-2 flex w-full ${mode === 'structure' ? 'max-w-[660px]' : 'max-w-[920px]'} flex-col gap-2 rounded-2xl px-4 py-3`}>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-3">
@@ -223,6 +223,7 @@ export function HumBodyPage() {
             <h2 className="text-[1.05rem] font-semibold leading-tight text-white/94">{modeMeta.title}</h2>
             <p className="mt-1 text-[12px] leading-relaxed text-white/58">{modeMeta.description}</p>
           </div> : null}
+          {mode === 'structure' ? <p className="mt-2 max-w-[34rem] text-[12px] leading-relaxed text-white/58">Expand files, scan forms, then switch lenses once you know the terrain.</p> : null}
           <Tabs value={mode} onValueChange={(value) => setMode(value as HumViewMode)} className="mt-2">
             <TabsList className="h-auto flex-wrap justify-start gap-1 rounded-xl bg-white/5 p-1">
               <TabsTrigger value="structure" data-testid="mode-tab-structure">Structure</TabsTrigger>
@@ -234,7 +235,7 @@ export function HumBodyPage() {
           </Tabs>
         </div>
 
-        <div className="min-w-[220px] rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-xs text-muted-foreground">
+        <div className="min-w-[210px] rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-xs text-muted-foreground">
           <div className="grid grid-cols-3 gap-3 text-on-surface">
             {statTiles.map(([label, value]) => (
               <div key={label}>
@@ -246,7 +247,7 @@ export function HumBodyPage() {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-end gap-3 border-t border-white/8 pt-3">
+      <div className="flex flex-wrap items-end gap-3 border-t border-white/8 pt-2.5">
         {showRoutinePicker ? <div className="min-w-[240px] flex-1">
           <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Routine</p>
           <Select value={routineId} onValueChange={setRoutineId}>
@@ -280,7 +281,7 @@ export function HumBodyPage() {
         </div> : null}
 
         <div className="min-w-[220px] flex-[1.2] text-xs text-muted-foreground">
-          <p>{modeMeta.note}</p>
+          {mode !== 'structure' ? <p>{modeMeta.note}</p> : null}
           {showRoutinePicker ? <p><span className="font-mono uppercase tracking-[0.12em] text-white/55">Routine:</span> {summary.routineLabel}</p> : null}
           {showTracePicker ? <p className="mt-1"><span className="font-mono uppercase tracking-[0.12em] text-white/55">Trace:</span> {summary.traceLabel}</p> : null}
         </div>
@@ -305,6 +306,7 @@ export function HumBodyPage() {
       }}
       topOverlay={overlay}
       chromeVariant={mode === 'structure' ? 'structure' : 'default'}
+      canvasTopInset={mode === 'structure' ? 176 : 154}
     />
   );
 }

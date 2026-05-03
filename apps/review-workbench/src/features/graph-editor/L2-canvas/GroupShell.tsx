@@ -97,16 +97,8 @@ export const GroupShell = memo(function GroupShell({ id, data, selected }: NodeP
     return (
     <div data-testid={`node-${id}`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <NodeToolbar position={Position.Top} align="start" isVisible={selected || isHovered}>
-        <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-[rgba(8,12,16,0.9)] px-2.5 py-1 text-[11px] text-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.24)]">
-          <button
-            onClick={toggleCollapse}
-            className="transition-colors hover:text-primary"
-            type="button"
-            aria-label={`${collapsed ? 'Expand' : 'Collapse'} ${getGroupTitle(data)}`}
-          >
-            {collapsed ? 'Expand' : 'Collapse'}
-          </button>
-          <span className="max-w-[220px] truncate font-mono text-[10px] tracking-[0.08em] text-white/65">{getGroupTitle(data)}</span>
+        <div className="rounded-lg border border-white/10 bg-[rgba(8,12,16,0.9)] px-2.5 py-1 text-[10px] font-mono tracking-[0.08em] text-white/58 shadow-[0_10px_30px_rgba(0,0,0,0.24)]">
+          {getGroupTitle(data)}
         </div>
       </NodeToolbar>
 
@@ -114,13 +106,24 @@ export const GroupShell = memo(function GroupShell({ id, data, selected }: NodeP
         className="relative h-full w-full overflow-hidden rounded-[1.1rem] border bg-[linear-gradient(180deg,rgba(12,16,21,0.78),rgba(10,13,18,0.34))]"
         style={{ borderColor }}
       >
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-center justify-between border-b border-white/8 bg-[linear-gradient(180deg,rgba(8,11,16,0.96),rgba(8,11,16,0.72))] px-3 py-2">
-          <div className="min-w-0">
+        <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between gap-3 border-b border-white/8 bg-[linear-gradient(180deg,rgba(8,11,16,0.96),rgba(8,11,16,0.72))] px-3 py-2">
+          <div className="min-w-0 pointer-events-none">
             <p className="truncate font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">lisp file</p>
             <p className="truncate text-[12px] font-semibold text-white/92">{label ?? getGroupTitle(data)}</p>
           </div>
-          <div className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[10px] text-white/62">
-            {formCount ? `${formCount} forms` : 'file'}
+          <div className="flex items-center gap-2">
+            <div className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[10px] text-white/62">
+              {formCount ? `${formCount} forms` : 'file'}
+            </div>
+            <button
+              onClick={toggleCollapse}
+              className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-[10px] text-white/72 transition hover:border-white/20 hover:bg-white/10"
+              type="button"
+              aria-label={`${collapsed ? 'Expand' : 'Collapse'} ${getGroupTitle(data)}`}
+              data-testid={`group-toggle-${id}`}
+            >
+              {collapsed ? 'Expand' : 'Collapse'}
+            </button>
           </div>
         </div>
         <NodeResizer
