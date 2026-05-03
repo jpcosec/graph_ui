@@ -87,9 +87,6 @@ function renderNodeBody(data: ASTNode['data'], colorToken: string, zoom: number)
 
   // Get properties from direct JSON or AST format
   const properties = asJson.properties as Record<string, string> | undefined;
-  const isForm = safeTypeId === 'hum-ast-form';
-  const isRoutineStep = safeTypeId === 'hum-routine-step';
-  const isTraceEvent = safeTypeId === 'hum-trace-event';
 
   if (tier === 'detail') {
     const DetailRenderer = definition.renderers.detail as ComponentType<Record<string, unknown>>;
@@ -162,10 +159,10 @@ export const NodeShell = memo(function NodeShell(props: NodeProps<CanvasNode>) {
     : colorToken;
   
   const nodeBody = useMemo(() => renderNodeBody(data, nodeBorderColor, zoom), [data, nodeBorderColor, zoom]);
-  const isFormNode = safeTypeId === 'hum-ast-form';
-  const isRoutineNode = safeTypeId === 'hum-routine-step';
-  const isTraceNode = safeTypeId === 'hum-trace-event';
-  const isOrganNode = safeTypeId === 'hum-organ';
+  const isFormNode = category === 'concept';
+  const isRoutineNode = category === 'routine-step';
+  const isTraceNode = category === 'trace-event';
+  const isOrganNode = category === 'organ';
 
   const toolbarVisible = selected || isHovered;
 

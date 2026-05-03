@@ -7,6 +7,7 @@
     "hum:sync": "node scripts/generate-hum-ast.mjs",
     "dev": "npm run hum:sync && vite",
     "build": "npm run hum:sync && tsc -b && vite build",
+    "lint:architecture": "node scripts/lint-architecture.mjs",
     "preview": "vite preview",
     "test": "npm run hum:sync && vitest run",
     "test:user-flow": "node scripts/run-user-flow.mjs",

@@ -17,6 +17,7 @@ This copy is now wired to a dedicated `HumBodyPage` that visualizes:
 - Install: `npm --prefix apps/review-workbench install`
 - Dev server: `npm --prefix apps/review-workbench run dev`
 - Tests: `npm --prefix apps/review-workbench run test`
+- Architecture lint: `npm --prefix apps/review-workbench run lint:architecture`
 - Single operator flow: `npm --prefix apps/review-workbench run test:user-flow -- --flow user_flows/hum_structure_flow.json`
 - All operator flows: `npm --prefix apps/review-workbench run test:user-flows`
 - Build: `npm --prefix apps/review-workbench run build`

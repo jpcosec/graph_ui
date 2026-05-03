@@ -305,8 +305,8 @@ export function HumBodyPage() {
         description: mode === 'structure' ? 'Source-first reading surface' : 'Projection tuned to the active lens',
       }}
       topOverlay={overlay}
-      chromeVariant={mode === 'structure' ? 'structure' : 'default'}
-      canvasTopInset={mode === 'structure' ? 0 : 154}
+      shellVariant={mode === 'structure' ? 'compact' : 'default'}
+      contentTopInset={mode === 'structure' ? 0 : 154}
       overlayPlacement={mode === 'structure' ? 'sidebar' : 'canvas'}
     />
   );
