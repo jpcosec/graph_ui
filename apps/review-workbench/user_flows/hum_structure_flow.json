@@ -10,9 +10,9 @@
     },
     {
       "id": "02_wait_structure_copy",
-      "action": "wait_text",
-      "value": "Load the Lisp tree and open the body as needed",
-      "description": "Wait for the HUM structure hero copy"
+      "action": "wait",
+      "selector": "[data-testid='node-ast-main']",
+      "description": "Wait for the HUM structure projection to render"
     },
     {
       "id": "03_wait_main_file",

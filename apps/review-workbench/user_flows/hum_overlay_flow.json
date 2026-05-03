@@ -16,9 +16,9 @@
     },
     {
       "id": "03_wait_body_copy",
-      "action": "wait_text",
-      "value": "Inspect the body, route the routine, replay the trace",
-      "description": "Wait for body mode hero copy"
+      "action": "wait",
+      "selector": "[data-testid='node-organ-core']",
+      "description": "Wait for body mode content"
     },
     {
       "id": "04_wait_core_organ",

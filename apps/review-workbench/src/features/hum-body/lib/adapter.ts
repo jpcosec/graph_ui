@@ -562,6 +562,8 @@ export function summarizeHumSelection(mode: HumViewMode, routineId: string, trac
     organs: model.organs.length,
     capabilities: model.capabilities.length,
     artifacts: model.artifacts.length,
+    routineSteps: routine?.steps.length ?? 0,
+    traceEvents: trace?.events.length ?? 0,
     mode,
     routineLabel: routine?.label ?? 'Unknown routine',
     traceLabel: trace?.label ?? 'Unknown trace',

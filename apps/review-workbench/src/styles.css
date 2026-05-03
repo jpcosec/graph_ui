@@ -119,6 +119,26 @@
   backdrop-filter: blur(16px);
 }
 
+.hum-mode-structure {
+  box-shadow: inset 0 1px 0 rgba(148, 163, 184, 0.09), 0 18px 48px rgba(0, 0, 0, 0.24);
+}
+
+.hum-mode-body {
+  box-shadow: inset 0 1px 0 rgba(0, 242, 255, 0.12), 0 18px 48px rgba(0, 0, 0, 0.24);
+}
+
+.hum-mode-routine {
+  box-shadow: inset 0 1px 0 rgba(34, 197, 94, 0.14), 0 18px 48px rgba(0, 0, 0, 0.24);
+}
+
+.hum-mode-trace {
+  box-shadow: inset 0 1px 0 rgba(249, 115, 22, 0.14), 0 18px 48px rgba(0, 0, 0, 0.24);
+}
+
+.hum-mode-compare {
+  box-shadow: inset 0 1px 0 rgba(251, 191, 36, 0.14), 0 18px 48px rgba(0, 0, 0, 0.24);
+}
+
 .react-flow__node-group {
   background: linear-gradient(180deg, rgba(14, 19, 25, 0.82), rgba(9, 12, 16, 0.46)) !important;
   border-radius: 18px;

@@ -24,6 +24,49 @@ function modeLabel(mode: HumViewMode): string {
   }[mode];
 }
 
+const modeCopy: Record<HumViewMode, { eyebrow: string; title: string; description: string; accentClass: string; lens: string; note: string }> = {
+  structure: {
+    eyebrow: 'Source Topology',
+    title: 'Read the Lisp organism as a calm expandable archive',
+    description: 'Files become containers, top-level forms become rows, and structural links stay quiet until you need them.',
+    accentClass: 'hum-mode-structure',
+    lens: 'Topological lens',
+    note: 'Start here when you need location and provenance before meaning.',
+  },
+  body: {
+    eyebrow: 'Embodied View',
+    title: 'See the shell as organs, capabilities, and memory tissue',
+    description: 'Packages are anatomy, tools are embodied actuators, and state artifacts remain peripheral but legible.',
+    accentClass: 'hum-mode-body',
+    lens: 'Anatomical lens',
+    note: 'Use this to understand what HUM is, not what it just did.',
+  },
+  routine: {
+    eyebrow: 'Normative Flow',
+    title: 'Trace the intended pathway through the body',
+    description: 'Canonical steps align across organs so the expected choreography reads before the concrete execution.',
+    accentClass: 'hum-mode-routine',
+    lens: 'Routine lens',
+    note: 'Routine mode should answer what ought to happen.',
+  },
+  trace: {
+    eyebrow: 'Observed Run',
+    title: 'Replay an actual path and inspect its pressure points',
+    description: 'Events become the foreground and the body fades into the support structure behind them.',
+    accentClass: 'hum-mode-trace',
+    lens: 'Forensic lens',
+    note: 'Use this when debugging a concrete execution.',
+  },
+  compare: {
+    eyebrow: 'Divergence View',
+    title: 'Compare the intended routine against what the trace really did',
+    description: 'Routine and trace sit in tension so loops, skips, and substitutions become immediately visible.',
+    accentClass: 'hum-mode-compare',
+    lens: 'Deviation lens',
+    note: 'Compare mode is the diagnosis surface.',
+  },
+};
+
 export function HumBodyPage() {
   const loadGraph = useGraphStore((state) => state.loadGraph);
   const markSaved = useGraphStore((state) => state.markSaved);
@@ -137,12 +180,49 @@ export function HumBodyPage() {
 
   const showRoutinePicker = mode !== 'structure';
   const showTracePicker = mode === 'trace' || mode === 'compare';
+  const modeMeta = modeCopy[mode];
+  const statTiles = mode === 'structure'
+    ? [
+        ['Files', summary.astFiles],
+        ['Forms', summary.astForms],
+        ['Mode', modeLabel(summary.mode)],
+      ]
+    : mode === 'body'
+      ? [
+          ['Organs', summary.organs],
+          ['Capabilities', summary.capabilities],
+          ['Artifacts', summary.artifacts],
+        ]
+      : mode === 'routine'
+        ? [
+            ['Steps', summary.routineSteps],
+            ['Organs', summary.organs],
+            ['Routine', summary.routineLabel],
+          ]
+        : mode === 'trace'
+          ? [
+              ['Events', summary.traceEvents],
+              ['Routine', summary.routineLabel],
+              ['Trace', summary.traceLabel],
+            ]
+          : [
+              ['Steps', summary.routineSteps],
+              ['Events', summary.traceEvents],
+              ['Trace', summary.traceLabel],
+            ];
 
   const overlay = (
-    <div className="pointer-events-auto hum-overlay-panel mt-2 flex w-full max-w-[940px] flex-col gap-3 rounded-2xl px-4 py-3">
+    <div className={`pointer-events-auto hum-overlay-panel ${modeMeta.accentClass} mt-2 flex w-full max-w-[960px] flex-col gap-3 rounded-2xl px-4 py-3`}>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
-          <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary">Embodied Modes</p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary">{modeMeta.eyebrow}</p>
+            <span className="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.16em] text-white/55">{modeMeta.lens}</span>
+          </div>
+          <div className="mt-2 max-w-[36rem]">
+            <h2 className="text-[1.05rem] font-semibold leading-tight text-white/94">{modeMeta.title}</h2>
+            <p className="mt-1 text-[12px] leading-relaxed text-white/58">{modeMeta.description}</p>
+          </div>
           <Tabs value={mode} onValueChange={(value) => setMode(value as HumViewMode)} className="mt-2">
             <TabsList className="h-auto flex-wrap justify-start gap-1 rounded-xl bg-white/5 p-1">
               <TabsTrigger value="structure" data-testid="mode-tab-structure">Structure</TabsTrigger>
@@ -156,18 +236,12 @@ export function HumBodyPage() {
 
         <div className="min-w-[220px] rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-xs text-muted-foreground">
           <div className="grid grid-cols-3 gap-3 text-on-surface">
-            <div>
-              <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/45">Files</div>
-              <div className="mt-1 text-sm font-semibold">{summary.astFiles}</div>
-            </div>
-            <div>
-              <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/45">Forms</div>
-              <div className="mt-1 text-sm font-semibold">{summary.astForms}</div>
-            </div>
-            <div>
-              <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/45">Mode</div>
-              <div className="mt-1 text-sm font-semibold">{modeLabel(summary.mode)}</div>
-            </div>
+            {statTiles.map(([label, value]) => (
+              <div key={label}>
+                <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/45">{label}</div>
+                <div className="mt-1 text-sm font-semibold">{value}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -206,7 +280,7 @@ export function HumBodyPage() {
         </div> : null}
 
         <div className="min-w-[220px] flex-[1.2] text-xs text-muted-foreground">
-          {mode === 'structure' ? <p>Expand a file to inspect top-level forms; switch to `Body` only after you know where you are.</p> : null}
+          <p>{modeMeta.note}</p>
           {showRoutinePicker ? <p><span className="font-mono uppercase tracking-[0.12em] text-white/55">Routine:</span> {summary.routineLabel}</p> : null}
           {showTracePicker ? <p className="mt-1"><span className="font-mono uppercase tracking-[0.12em] text-white/55">Trace:</span> {summary.traceLabel}</p> : null}
         </div>
@@ -220,17 +294,14 @@ export function HumBodyPage() {
       initialEdges={graph.edges}
       onSave={handleSave}
       hero={{
-        eyebrow: 'Hum Body View',
-        title: mode === 'structure' ? 'Load the Lisp tree and open the body as needed' : 'Inspect the body, route the routine, replay the trace',
-        description:
-          mode === 'structure'
-            ? 'The whole HUM Lisp tree is projected as collapsible files and forms; use structure first, then switch to body or trace overlays.'
-            : 'Packages become organs, tools become embodied capabilities, and traces become enacted motion through the shell.',
+        eyebrow: modeMeta.eyebrow,
+        title: modeMeta.title,
+        description: modeMeta.description,
       }}
       workspace={{
-        label: 'Projection',
-        title: 'HUM anatomy studio',
-        description: 'Body, routine, trace, and divergence overlays',
+        label: modeMeta.lens,
+        title: 'HUM observatory',
+        description: mode === 'structure' ? 'Source-first reading surface' : 'Projection tuned to the active lens',
       }}
       topOverlay={overlay}
     />
