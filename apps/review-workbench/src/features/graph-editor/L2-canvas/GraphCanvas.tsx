@@ -88,7 +88,7 @@ export function GraphCanvas() {
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
       fitView
-      fitViewOptions={{ padding: 0.2 }}
+      fitViewOptions={{ padding: 0.3 }}
       minZoom={0.1}
       maxZoom={2}
       defaultEdgeOptions={{ type: 'floating' }}

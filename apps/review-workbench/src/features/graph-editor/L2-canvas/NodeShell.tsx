@@ -87,6 +87,9 @@ function renderNodeBody(data: ASTNode['data'], colorToken: string, zoom: number)
 
   // Get properties from direct JSON or AST format
   const properties = asJson.properties as Record<string, string> | undefined;
+  const isForm = safeTypeId === 'hum-ast-form';
+  const isRoutineStep = safeTypeId === 'hum-routine-step';
+  const isTraceEvent = safeTypeId === 'hum-trace-event';
 
   if (tier === 'detail') {
     const DetailRenderer = definition.renderers.detail as ComponentType<Record<string, unknown>>;
@@ -159,6 +162,10 @@ export const NodeShell = memo(function NodeShell(props: NodeProps<CanvasNode>) {
     : colorToken;
   
   const nodeBody = useMemo(() => renderNodeBody(data, nodeBorderColor, zoom), [data, nodeBorderColor, zoom]);
+  const isFormNode = safeTypeId === 'hum-ast-form';
+  const isRoutineNode = safeTypeId === 'hum-routine-step';
+  const isTraceNode = safeTypeId === 'hum-trace-event';
+  const isOrganNode = safeTypeId === 'hum-organ';
 
   const toolbarVisible = selected || isHovered;
 
@@ -274,10 +281,20 @@ export const NodeShell = memo(function NodeShell(props: NodeProps<CanvasNode>) {
       <ContextMenu>
         <ContextMenuTrigger disabled={selected}>
           <div
-            className={`rounded-lg border-2 bg-card ${selected ? 'ring-2 ring-primary/40' : ''}`}
+            className={`rounded-lg border bg-card ${selected ? 'ring-2 ring-primary/30' : ''}`}
             style={{
-              borderColor: nodeBorderColor,
+              borderColor: isFormNode ? `${String(nodeBorderColor)}66` : nodeBorderColor,
               minWidth: definition.defaultSize.width,
+              background: isFormNode
+                ? 'linear-gradient(180deg, rgba(12,16,21,0.92), rgba(9,12,16,0.86))'
+                : isRoutineNode
+                  ? 'linear-gradient(180deg, rgba(11,27,18,0.96), rgba(7,16,12,0.88))'
+                  : isTraceNode
+                    ? 'linear-gradient(180deg, rgba(40,20,8,0.96), rgba(21,11,8,0.88))'
+                    : isOrganNode
+                      ? 'linear-gradient(180deg, rgba(10,15,20,0.98), rgba(9,12,17,0.92))'
+                      : undefined,
+              boxShadow: isFormNode ? '0 8px 24px rgba(0,0,0,0.18)' : undefined,
             }}
           >
             <Handle

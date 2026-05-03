@@ -120,6 +120,24 @@
 }
 
 .react-flow__node-group {
-  background: linear-gradient(180deg, rgba(14, 19, 25, 0.7), rgba(8, 12, 16, 0.56)) !important;
+  background: linear-gradient(180deg, rgba(14, 19, 25, 0.82), rgba(9, 12, 16, 0.46)) !important;
   border-radius: 18px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 18px 40px rgba(0,0,0,0.18);
+}
+
+.react-flow__node[data-testid*='node-ast-'] {
+  transition: transform 140ms ease, filter 140ms ease;
+}
+
+.react-flow__node[data-testid*='node-ast-']:hover {
+  filter: brightness(1.04);
+}
+
+.react-flow__edge-path {
+  transition: opacity 140ms ease, stroke-width 140ms ease;
+}
+
+.react-flow__edge:hover .react-flow__edge-path {
+  opacity: 0.82 !important;
+  stroke-width: 1.7 !important;
 }

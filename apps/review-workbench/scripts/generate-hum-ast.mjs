@@ -99,23 +99,23 @@ function descriptionForForm(formType, name, filePath) {
 
 function buildAstFiles(relativePaths) {
   const columns = 3;
-  const columnWidth = 430;
-  const rowHeight = 760;
+  const columnWidth = 448;
+  const rowHeight = 840;
 
   return relativePaths.map((relativePath, index) => {
     const source = fs.readFileSync(path.join(humRoot, relativePath), 'utf8');
     const forms = extractTopLevelForms(source);
     const row = Math.floor(index / columns);
     const column = index % columns;
-    const height = Math.max(180, 100 + forms.length * 72);
+    const height = Math.max(220, 140 + forms.length * 62);
 
     return {
       id: `ast-${slugify(relativePath.replace(/\.lisp$/, ''))}`,
       label: relativePath,
       filePath: `hum/${relativePath}`,
       description: `${forms.length} top-level forms parsed from ${relativePath}.`,
-      position: { x: 48 + column * columnWidth, y: 220 + row * rowHeight },
-      size: { width: 340, height },
+      position: { x: 72 + column * columnWidth, y: 250 + row * rowHeight },
+      size: { width: 372, height },
       formCount: forms.length,
       forms,
     };
@@ -133,7 +133,7 @@ function buildAstForms(files) {
         label: labelForForm(formType, name, compact),
         formType,
         description: descriptionForForm(formType, name, file.filePath),
-        position: { x: 24, y: 36 + index * 68 },
+        position: { x: 18, y: 74 + index * 56 },
       };
     }),
   );

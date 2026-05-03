@@ -7,12 +7,12 @@ export const generatedHumAstFiles: HumAstFile[] = [
     "filePath": "hum/main.lisp",
     "description": "8 top-level forms parsed from main.lisp.",
     "position": {
-      "x": 48,
-      "y": 220
+      "x": 72,
+      "y": 250
     },
     "size": {
-      "width": 340,
-      "height": 676
+      "width": 372,
+      "height": 636
     }
   },
   {
@@ -21,12 +21,12 @@ export const generatedHumAstFiles: HumAstFile[] = [
     "filePath": "hum/agent/packages.lisp",
     "description": "8 top-level forms parsed from agent/packages.lisp.",
     "position": {
-      "x": 478,
-      "y": 220
+      "x": 520,
+      "y": 250
     },
     "size": {
-      "width": 340,
-      "height": 676
+      "width": 372,
+      "height": 636
     }
   },
   {
@@ -35,12 +35,12 @@ export const generatedHumAstFiles: HumAstFile[] = [
     "filePath": "hum/agent/core.lisp",
     "description": "11 top-level forms parsed from agent/core.lisp.",
     "position": {
-      "x": 908,
-      "y": 220
+      "x": 968,
+      "y": 250
     },
     "size": {
-      "width": 340,
-      "height": 892
+      "width": 372,
+      "height": 822
     }
   },
   {
@@ -49,12 +49,12 @@ export const generatedHumAstFiles: HumAstFile[] = [
     "filePath": "hum/execution/system.lisp",
     "description": "21 top-level forms parsed from execution/system.lisp.",
     "position": {
-      "x": 48,
-      "y": 980
+      "x": 72,
+      "y": 1090
     },
     "size": {
-      "width": 340,
-      "height": 1612
+      "width": 372,
+      "height": 1442
     }
   },
   {
@@ -63,12 +63,12 @@ export const generatedHumAstFiles: HumAstFile[] = [
     "filePath": "hum/execution/tools.lisp",
     "description": "24 top-level forms parsed from execution/tools.lisp.",
     "position": {
-      "x": 478,
-      "y": 980
+      "x": 520,
+      "y": 1090
     },
     "size": {
-      "width": 340,
-      "height": 1828
+      "width": 372,
+      "height": 1628
     }
   },
   {
@@ -77,11 +77,11 @@ export const generatedHumAstFiles: HumAstFile[] = [
     "filePath": "hum/agent/context.lisp",
     "description": "4 top-level forms parsed from agent/context.lisp.",
     "position": {
-      "x": 908,
-      "y": 980
+      "x": 968,
+      "y": 1090
     },
     "size": {
-      "width": 340,
+      "width": 372,
       "height": 388
     }
   },
@@ -91,11 +91,11 @@ export const generatedHumAstFiles: HumAstFile[] = [
     "filePath": "hum/agent/thoughts.lisp",
     "description": "4 top-level forms parsed from agent/thoughts.lisp.",
     "position": {
-      "x": 48,
-      "y": 1740
+      "x": 72,
+      "y": 1930
     },
     "size": {
-      "width": 340,
+      "width": 372,
       "height": 388
     }
   },
@@ -105,12 +105,12 @@ export const generatedHumAstFiles: HumAstFile[] = [
     "filePath": "hum/agent/knowledge.lisp",
     "description": "10 top-level forms parsed from agent/knowledge.lisp.",
     "position": {
-      "x": 478,
-      "y": 1740
+      "x": 520,
+      "y": 1930
     },
     "size": {
-      "width": 340,
-      "height": 820
+      "width": 372,
+      "height": 760
     }
   },
   {
@@ -119,12 +119,12 @@ export const generatedHumAstFiles: HumAstFile[] = [
     "filePath": "hum/energy/core.lisp",
     "description": "3 top-level forms parsed from energy/core.lisp.",
     "position": {
-      "x": 908,
-      "y": 1740
+      "x": 968,
+      "y": 1930
     },
     "size": {
-      "width": 340,
-      "height": 316
+      "width": 372,
+      "height": 326
     }
   },
   {
@@ -133,12 +133,12 @@ export const generatedHumAstFiles: HumAstFile[] = [
     "filePath": "hum/energy/stats.lisp",
     "description": "8 top-level forms parsed from energy/stats.lisp.",
     "position": {
-      "x": 48,
-      "y": 2500
+      "x": 72,
+      "y": 2770
     },
     "size": {
-      "width": 340,
-      "height": 676
+      "width": 372,
+      "height": 636
     }
   }
 ];
@@ -151,8 +151,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "load",
     "description": "Top-level load form in hum/main.lisp.",
     "position": {
-      "x": 24,
-      "y": 36
+      "x": 18,
+      "y": 74
     }
   },
   {
@@ -162,8 +162,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "let",
     "description": "Top-level let form in hum/main.lisp.",
     "position": {
-      "x": 24,
-      "y": 104
+      "x": 18,
+      "y": 130
     }
   },
   {
@@ -173,8 +173,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "push",
     "description": "Top-level push form in hum/main.lisp.",
     "position": {
-      "x": 24,
-      "y": 172
+      "x": 18,
+      "y": 186
     }
   },
   {
@@ -184,8 +184,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "ql:quickload",
     "description": "Top-level ql:quickload form in hum/main.lisp.",
     "position": {
-      "x": 24,
-      "y": 240
+      "x": 18,
+      "y": 242
     }
   },
   {
@@ -195,8 +195,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "ql:quickload",
     "description": "Top-level ql:quickload form in hum/main.lisp.",
     "position": {
-      "x": 24,
-      "y": 308
+      "x": 18,
+      "y": 298
     }
   },
   {
@@ -206,8 +206,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "in-package",
     "description": "Switches the reader into package :hum.core.",
     "position": {
-      "x": 24,
-      "y": 376
+      "x": 18,
+      "y": 354
     }
   },
   {
@@ -217,8 +217,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function main.",
     "position": {
-      "x": 24,
-      "y": 444
+      "x": 18,
+      "y": 410
     }
   },
   {
@@ -228,8 +228,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "unless",
     "description": "Conditional top-level form in hum/main.lisp.",
     "position": {
-      "x": 24,
-      "y": 512
+      "x": 18,
+      "y": 466
     }
   },
   {
@@ -239,8 +239,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defpackage",
     "description": "Declares package :hum.system.",
     "position": {
-      "x": 24,
-      "y": 36
+      "x": 18,
+      "y": 74
     }
   },
   {
@@ -250,8 +250,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defpackage",
     "description": "Declares package :hum.stats.",
     "position": {
-      "x": 24,
-      "y": 104
+      "x": 18,
+      "y": 130
     }
   },
   {
@@ -261,8 +261,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defpackage",
     "description": "Declares package :hum.tools.",
     "position": {
-      "x": 24,
-      "y": 172
+      "x": 18,
+      "y": 186
     }
   },
   {
@@ -272,8 +272,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defpackage",
     "description": "Declares package :hum.knowledge.",
     "position": {
-      "x": 24,
-      "y": 240
+      "x": 18,
+      "y": 242
     }
   },
   {
@@ -283,8 +283,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defpackage",
     "description": "Declares package :hum.context.",
     "position": {
-      "x": 24,
-      "y": 308
+      "x": 18,
+      "y": 298
     }
   },
   {
@@ -294,8 +294,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defpackage",
     "description": "Declares package :hum.thoughts.",
     "position": {
-      "x": 24,
-      "y": 376
+      "x": 18,
+      "y": 354
     }
   },
   {
@@ -305,8 +305,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defpackage",
     "description": "Declares package :hum.energy.",
     "position": {
-      "x": 24,
-      "y": 444
+      "x": 18,
+      "y": 410
     }
   },
   {
@@ -316,8 +316,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defpackage",
     "description": "Declares package :hum.core.",
     "position": {
-      "x": 24,
-      "y": 512
+      "x": 18,
+      "y": 466
     }
   },
   {
@@ -327,8 +327,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "in-package",
     "description": "Switches the reader into package :hum.core.",
     "position": {
-      "x": 24,
-      "y": 36
+      "x": 18,
+      "y": 74
     }
   },
   {
@@ -338,8 +338,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function bootstrap.",
     "position": {
-      "x": 24,
-      "y": 104
+      "x": 18,
+      "y": 130
     }
   },
   {
@@ -349,8 +349,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function get-llm-entrypoint.",
     "position": {
-      "x": 24,
-      "y": 172
+      "x": 18,
+      "y": 186
     }
   },
   {
@@ -360,8 +360,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function extraer-obj-lisp.",
     "position": {
-      "x": 24,
-      "y": 240
+      "x": 18,
+      "y": 242
     }
   },
   {
@@ -371,8 +371,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function validate-thought.",
     "position": {
-      "x": 24,
-      "y": 308
+      "x": 18,
+      "y": 298
     }
   },
   {
@@ -382,8 +382,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function extraer-unl.",
     "position": {
-      "x": 24,
-      "y": 376
+      "x": 18,
+      "y": 354
     }
   },
   {
@@ -393,8 +393,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function consulta-llm.",
     "position": {
-      "x": 24,
-      "y": 444
+      "x": 18,
+      "y": 410
     }
   },
   {
@@ -404,8 +404,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "think",
     "description": "Top-level think form in hum/agent/core.lisp.",
     "position": {
-      "x": 24,
-      "y": 512
+      "x": 18,
+      "y": 466
     }
   },
   {
@@ -415,8 +415,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function ejecutar-accion.",
     "position": {
-      "x": 24,
-      "y": 580
+      "x": 18,
+      "y": 522
     }
   },
   {
@@ -426,8 +426,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function agente.",
     "position": {
-      "x": 24,
-      "y": 648
+      "x": 18,
+      "y": 578
     }
   },
   {
@@ -437,8 +437,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function loop-autopoyetico.",
     "position": {
-      "x": 24,
-      "y": 716
+      "x": 18,
+      "y": 634
     }
   },
   {
@@ -448,8 +448,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "in-package",
     "description": "Switches the reader into package :hum.system.",
     "position": {
-      "x": 24,
-      "y": 36
+      "x": 18,
+      "y": 74
     }
   },
   {
@@ -459,8 +459,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defvar",
     "description": "Defines variable *yolo-mode*.",
     "position": {
-      "x": 24,
-      "y": 104
+      "x": 18,
+      "y": 130
     }
   },
   {
@@ -470,8 +470,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defparameter",
     "description": "Defines variable *desk-dir*.",
     "position": {
-      "x": 24,
-      "y": 172
+      "x": 18,
+      "y": 186
     }
   },
   {
@@ -481,8 +481,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defparameter",
     "description": "Defines variable *tools-file*.",
     "position": {
-      "x": 24,
-      "y": 240
+      "x": 18,
+      "y": 242
     }
   },
   {
@@ -492,8 +492,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defparameter",
     "description": "Defines variable *context-file*.",
     "position": {
-      "x": 24,
-      "y": 308
+      "x": 18,
+      "y": 298
     }
   },
   {
@@ -503,8 +503,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defparameter",
     "description": "Defines variable *knowledge-file*.",
     "position": {
-      "x": 24,
-      "y": 376
+      "x": 18,
+      "y": 354
     }
   },
   {
@@ -514,8 +514,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defparameter",
     "description": "Defines variable *thoughts-file*.",
     "position": {
-      "x": 24,
-      "y": 444
+      "x": 18,
+      "y": 410
     }
   },
   {
@@ -525,8 +525,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defparameter",
     "description": "Defines variable *journal-file*.",
     "position": {
-      "x": 24,
-      "y": 512
+      "x": 18,
+      "y": 466
     }
   },
   {
@@ -536,8 +536,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defparameter",
     "description": "Defines variable *stats-file*.",
     "position": {
-      "x": 24,
-      "y": 580
+      "x": 18,
+      "y": 522
     }
   },
   {
@@ -547,8 +547,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defparameter",
     "description": "Defines variable *raw-logs-dir*.",
     "position": {
-      "x": 24,
-      "y": 648
+      "x": 18,
+      "y": 578
     }
   },
   {
@@ -558,8 +558,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function run-system-command.",
     "position": {
-      "x": 24,
-      "y": 716
+      "x": 18,
+      "y": 634
     }
   },
   {
@@ -569,8 +569,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function git-tree-dirty-p.",
     "position": {
-      "x": 24,
-      "y": 784
+      "x": 18,
+      "y": 690
     }
   },
   {
@@ -580,8 +580,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function file-tracked-p.",
     "position": {
-      "x": 24,
-      "y": 852
+      "x": 18,
+      "y": 746
     }
   },
   {
@@ -591,8 +591,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function get-body-merkle-hash.",
     "position": {
-      "x": 24,
-      "y": 920
+      "x": 18,
+      "y": 802
     }
   },
   {
@@ -602,8 +602,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function validate-action.",
     "position": {
-      "x": 24,
-      "y": 988
+      "x": 18,
+      "y": 858
     }
   },
   {
@@ -613,8 +613,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function pedir-confirmacion.",
     "position": {
-      "x": 24,
-      "y": 1056
+      "x": 18,
+      "y": 914
     }
   },
   {
@@ -624,8 +624,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function init-session.",
     "position": {
-      "x": 24,
-      "y": 1124
+      "x": 18,
+      "y": 970
     }
   },
   {
@@ -635,8 +635,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function commit-state.",
     "position": {
-      "x": 24,
-      "y": 1192
+      "x": 18,
+      "y": 1026
     }
   },
   {
@@ -646,8 +646,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function log-event.",
     "position": {
-      "x": 24,
-      "y": 1260
+      "x": 18,
+      "y": 1082
     }
   },
   {
@@ -657,8 +657,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function dump-raw-log.",
     "position": {
-      "x": 24,
-      "y": 1328
+      "x": 18,
+      "y": 1138
     }
   },
   {
@@ -668,8 +668,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function sense-fractures.",
     "position": {
-      "x": 24,
-      "y": 1396
+      "x": 18,
+      "y": 1194
     }
   },
   {
@@ -679,8 +679,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "in-package",
     "description": "Switches the reader into package :hum.tools.",
     "position": {
-      "x": 24,
-      "y": 36
+      "x": 18,
+      "y": 74
     }
   },
   {
@@ -690,8 +690,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defvar",
     "description": "Defines variable *tools-registry*.",
     "position": {
-      "x": 24,
-      "y": 104
+      "x": 18,
+      "y": 130
     }
   },
   {
@@ -701,8 +701,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defmacro",
     "description": "Defines macro def-tool.",
     "position": {
-      "x": 24,
-      "y": 172
+      "x": 18,
+      "y": 186
     }
   },
   {
@@ -712,8 +712,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function list-tools.",
     "position": {
-      "x": 24,
-      "y": 240
+      "x": 18,
+      "y": 242
     }
   },
   {
@@ -723,8 +723,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function call-tool.",
     "position": {
-      "x": 24,
-      "y": 308
+      "x": 18,
+      "y": 298
     }
   },
   {
@@ -734,8 +734,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function path-safe-p.",
     "position": {
-      "x": 24,
-      "y": 376
+      "x": 18,
+      "y": 354
     }
   },
   {
@@ -745,8 +745,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function leer-archivo.",
     "position": {
-      "x": 24,
-      "y": 444
+      "x": 18,
+      "y": 410
     }
   },
   {
@@ -756,8 +756,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function escribir-archivo.",
     "position": {
-      "x": 24,
-      "y": 512
+      "x": 18,
+      "y": 466
     }
   },
   {
@@ -767,8 +767,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function borrar-archivo.",
     "position": {
-      "x": 24,
-      "y": 580
+      "x": 18,
+      "y": 522
     }
   },
   {
@@ -778,8 +778,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function listar-directorio.",
     "position": {
-      "x": 24,
-      "y": 648
+      "x": 18,
+      "y": 578
     }
   },
   {
@@ -789,8 +789,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function sldb-extraer.",
     "position": {
-      "x": 24,
-      "y": 716
+      "x": 18,
+      "y": 634
     }
   },
   {
@@ -800,8 +800,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function inspeccionar-self.",
     "position": {
-      "x": 24,
-      "y": 784
+      "x": 18,
+      "y": 690
     }
   },
   {
@@ -811,8 +811,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function leer-tareas.",
     "position": {
-      "x": 24,
-      "y": 852
+      "x": 18,
+      "y": 746
     }
   },
   {
@@ -822,8 +822,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function query-g.",
     "position": {
-      "x": 24,
-      "y": 920
+      "x": 18,
+      "y": 802
     }
   },
   {
@@ -833,8 +833,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function persist-to-g.",
     "position": {
-      "x": 24,
-      "y": 988
+      "x": 18,
+      "y": 858
     }
   },
   {
@@ -844,8 +844,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "setf",
     "description": "Mutates runtime state through hum/execution/tools.lisp.",
     "position": {
-      "x": 24,
-      "y": 1056
+      "x": 18,
+      "y": 914
     }
   },
   {
@@ -855,8 +855,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "setf",
     "description": "Mutates runtime state through hum/execution/tools.lisp.",
     "position": {
-      "x": 24,
-      "y": 1124
+      "x": 18,
+      "y": 970
     }
   },
   {
@@ -866,8 +866,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "setf",
     "description": "Mutates runtime state through hum/execution/tools.lisp.",
     "position": {
-      "x": 24,
-      "y": 1192
+      "x": 18,
+      "y": 1026
     }
   },
   {
@@ -877,8 +877,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "setf",
     "description": "Mutates runtime state through hum/execution/tools.lisp.",
     "position": {
-      "x": 24,
-      "y": 1260
+      "x": 18,
+      "y": 1082
     }
   },
   {
@@ -888,8 +888,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "setf",
     "description": "Mutates runtime state through hum/execution/tools.lisp.",
     "position": {
-      "x": 24,
-      "y": 1328
+      "x": 18,
+      "y": 1138
     }
   },
   {
@@ -899,8 +899,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "setf",
     "description": "Mutates runtime state through hum/execution/tools.lisp.",
     "position": {
-      "x": 24,
-      "y": 1396
+      "x": 18,
+      "y": 1194
     }
   },
   {
@@ -910,8 +910,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "setf",
     "description": "Mutates runtime state through hum/execution/tools.lisp.",
     "position": {
-      "x": 24,
-      "y": 1464
+      "x": 18,
+      "y": 1250
     }
   },
   {
@@ -921,8 +921,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "setf",
     "description": "Mutates runtime state through hum/execution/tools.lisp.",
     "position": {
-      "x": 24,
-      "y": 1532
+      "x": 18,
+      "y": 1306
     }
   },
   {
@@ -932,8 +932,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "setf",
     "description": "Mutates runtime state through hum/execution/tools.lisp.",
     "position": {
-      "x": 24,
-      "y": 1600
+      "x": 18,
+      "y": 1362
     }
   },
   {
@@ -943,8 +943,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "in-package",
     "description": "Switches the reader into package :hum.context.",
     "position": {
-      "x": 24,
-      "y": 36
+      "x": 18,
+      "y": 74
     }
   },
   {
@@ -954,8 +954,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defvar",
     "description": "Defines variable *abstract-context*.",
     "position": {
-      "x": 24,
-      "y": 104
+      "x": 18,
+      "y": 130
     }
   },
   {
@@ -965,8 +965,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function save-context.",
     "position": {
-      "x": 24,
-      "y": 172
+      "x": 18,
+      "y": 186
     }
   },
   {
@@ -976,8 +976,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function load-context.",
     "position": {
-      "x": 24,
-      "y": 240
+      "x": 18,
+      "y": 242
     }
   },
   {
@@ -987,8 +987,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "in-package",
     "description": "Switches the reader into package :hum.thoughts.",
     "position": {
-      "x": 24,
-      "y": 36
+      "x": 18,
+      "y": 74
     }
   },
   {
@@ -998,8 +998,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defvar",
     "description": "Defines variable *chain-of-thought*.",
     "position": {
-      "x": 24,
-      "y": 104
+      "x": 18,
+      "y": 130
     }
   },
   {
@@ -1009,8 +1009,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function add-thought.",
     "position": {
-      "x": 24,
-      "y": 172
+      "x": 18,
+      "y": 186
     }
   },
   {
@@ -1020,8 +1020,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function save-thoughts.",
     "position": {
-      "x": 24,
-      "y": 240
+      "x": 18,
+      "y": 242
     }
   },
   {
@@ -1031,8 +1031,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "in-package",
     "description": "Switches the reader into package :hum.knowledge.",
     "position": {
-      "x": 24,
-      "y": 36
+      "x": 18,
+      "y": 74
     }
   },
   {
@@ -1042,8 +1042,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defvar",
     "description": "Defines variable *knowledge-base*.",
     "position": {
-      "x": 24,
-      "y": 104
+      "x": 18,
+      "y": 130
     }
   },
   {
@@ -1053,8 +1053,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defvar",
     "description": "Defines variable *domains*.",
     "position": {
-      "x": 24,
-      "y": 172
+      "x": 18,
+      "y": 186
     }
   },
   {
@@ -1064,8 +1064,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defmacro",
     "description": "Defines macro def-domain.",
     "position": {
-      "x": 24,
-      "y": 240
+      "x": 18,
+      "y": 242
     }
   },
   {
@@ -1075,8 +1075,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function validate-data.",
     "position": {
-      "x": 24,
-      "y": 308
+      "x": 18,
+      "y": 298
     }
   },
   {
@@ -1086,8 +1086,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defmacro",
     "description": "Defines macro def-knowledge.",
     "position": {
-      "x": 24,
-      "y": 376
+      "x": 18,
+      "y": 354
     }
   },
   {
@@ -1097,8 +1097,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function ingest-json-knowledge.",
     "position": {
-      "x": 24,
-      "y": 444
+      "x": 18,
+      "y": 410
     }
   },
   {
@@ -1108,8 +1108,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function add-knowledge.",
     "position": {
-      "x": 24,
-      "y": 512
+      "x": 18,
+      "y": 466
     }
   },
   {
@@ -1119,8 +1119,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function save-knowledge.",
     "position": {
-      "x": 24,
-      "y": 580
+      "x": 18,
+      "y": 522
     }
   },
   {
@@ -1130,8 +1130,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function load-knowledge.",
     "position": {
-      "x": 24,
-      "y": 648
+      "x": 18,
+      "y": 578
     }
   },
   {
@@ -1141,8 +1141,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "in-package",
     "description": "Switches the reader into package :hum.energy.",
     "position": {
-      "x": 24,
-      "y": 36
+      "x": 18,
+      "y": 74
     }
   },
   {
@@ -1152,8 +1152,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function measure-entropy.",
     "position": {
-      "x": 24,
-      "y": 104
+      "x": 18,
+      "y": 130
     }
   },
   {
@@ -1163,8 +1163,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function calculate-systemic-energy.",
     "position": {
-      "x": 24,
-      "y": 172
+      "x": 18,
+      "y": 186
     }
   },
   {
@@ -1174,8 +1174,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "in-package",
     "description": "Switches the reader into package :hum.stats.",
     "position": {
-      "x": 24,
-      "y": 36
+      "x": 18,
+      "y": 74
     }
   },
   {
@@ -1185,8 +1185,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defvar",
     "description": "Defines variable *total-tokens*.",
     "position": {
-      "x": 24,
-      "y": 104
+      "x": 18,
+      "y": 130
     }
   },
   {
@@ -1196,8 +1196,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defvar",
     "description": "Defines variable *g-hits*.",
     "position": {
-      "x": 24,
-      "y": 172
+      "x": 18,
+      "y": 186
     }
   },
   {
@@ -1207,8 +1207,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defvar",
     "description": "Defines variable *llm-calls*.",
     "position": {
-      "x": 24,
-      "y": 240
+      "x": 18,
+      "y": 242
     }
   },
   {
@@ -1218,8 +1218,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function add-tokens.",
     "position": {
-      "x": 24,
-      "y": 308
+      "x": 18,
+      "y": 298
     }
   },
   {
@@ -1229,8 +1229,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function register-g-hit.",
     "position": {
-      "x": 24,
-      "y": 376
+      "x": 18,
+      "y": 354
     }
   },
   {
@@ -1240,8 +1240,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function register-llm-call.",
     "position": {
-      "x": 24,
-      "y": 444
+      "x": 18,
+      "y": 410
     }
   },
   {
@@ -1251,8 +1251,8 @@ export const generatedHumAstForms: HumAstForm[] = [
     "formType": "defun",
     "description": "Defines function save-stats.",
     "position": {
-      "x": 24,
-      "y": 512
+      "x": 18,
+      "y": 466
     }
   }
 ];

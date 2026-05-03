@@ -70,6 +70,8 @@ export const GroupShell = memo(function GroupShell({ id, data, selected }: NodeP
   const category = asJson.category as string | undefined;
   const label = asJson.label as string | undefined;
   const visualToken = asJson.visualToken as string | undefined;
+  const properties = asJson.properties as Record<string, string> | undefined;
+  const formCount = properties?.formCount;
   
   const categoryColors: Record<string, string> = {
     document: '#8b5cf6',
@@ -95,7 +97,7 @@ export const GroupShell = memo(function GroupShell({ id, data, selected }: NodeP
     return (
     <div data-testid={`node-${id}`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <NodeToolbar position={Position.Top} align="start" isVisible={selected || isHovered}>
-        <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-[rgba(8,12,16,0.94)] px-2.5 py-1 text-[11px] text-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.28)]">
+        <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-[rgba(8,12,16,0.9)] px-2.5 py-1 text-[11px] text-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.24)]">
           <button
             onClick={toggleCollapse}
             className="transition-colors hover:text-primary"
@@ -104,14 +106,23 @@ export const GroupShell = memo(function GroupShell({ id, data, selected }: NodeP
           >
             {collapsed ? 'Expand' : 'Collapse'}
           </button>
-          <span className="max-w-[220px] truncate font-mono text-[10px] uppercase tracking-[0.12em] text-white/65">{getGroupTitle(data)}</span>
+          <span className="max-w-[220px] truncate font-mono text-[10px] tracking-[0.08em] text-white/65">{getGroupTitle(data)}</span>
         </div>
       </NodeToolbar>
 
       <div
-        className="h-full w-full rounded-lg border-2 border-dashed bg-transparent"
+        className="relative h-full w-full overflow-hidden rounded-[1.1rem] border bg-[linear-gradient(180deg,rgba(12,16,21,0.78),rgba(10,13,18,0.34))]"
         style={{ borderColor }}
       >
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-center justify-between border-b border-white/8 bg-[linear-gradient(180deg,rgba(8,11,16,0.96),rgba(8,11,16,0.72))] px-3 py-2">
+          <div className="min-w-0">
+            <p className="truncate font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">lisp file</p>
+            <p className="truncate text-[12px] font-semibold text-white/92">{label ?? getGroupTitle(data)}</p>
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[10px] text-white/62">
+            {formCount ? `${formCount} forms` : 'file'}
+          </div>
+        </div>
         <NodeResizer
           isVisible={selected && !collapsed}
           minWidth={160}

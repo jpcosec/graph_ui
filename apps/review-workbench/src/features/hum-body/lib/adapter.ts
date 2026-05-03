@@ -320,6 +320,7 @@ function structureNodes(model: HumBodyModel): ASTNode[] {
         propertyRecord([
           ['path', file.filePath],
           ['layer', 'lisp-ast'],
+          ['formCount', model.astForms.filter((form) => form.fileId === file.id).length],
         ]),
         file.size,
         {
