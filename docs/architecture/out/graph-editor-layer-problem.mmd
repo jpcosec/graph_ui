@@ -1,0 +1,51 @@
+graph TD
+    L1["L1 App Layer"]
+    L1 --> GraphEditorPage
+    L1 --> HumBodyPage
+    GraphEditorPage["GraphEditorPage
+(generic page adapter)"]
+    HumBodyPage["HumBodyPage
+(mode state + layout decisions)"]
+    L2["L2 Canvas Layer"]
+    L2 --> GraphEditor
+    L2 --> GraphCanvas
+    L2 --> CanvasSidebar
+    L2 --> NodeInspector
+    L2 --> EdgeInspector
+    L2 --> NodeShell
+    L2 --> GroupShell
+    GraphEditor["GraphEditor
+(shell composition)"]
+    GraphCanvas["GraphCanvas"]
+    CanvasSidebar["CanvasSidebar"]
+    NodeInspector["NodeInspector"]
+    EdgeInspector["EdgeInspector"]
+    NodeShell["NodeShell"]
+    GroupShell["GroupShell"]
+    L3["L3 Content Components"]
+    L3 --> HumModePanel
+    L3 --> HumCard
+    HumModePanel["HumModePanel
+(should own HUM controls only)"]
+    HumCard["HumCard / renderers"]
+    ProblemA["Problem A
+Navigation/controller logic placed in GUI shell"]
+    ProblemB["Problem B
+View-specific layout patches leak across layers"]
+    GraphEditorPage -->|generic graph editor| GraphEditor
+    HumBodyPage -->|HUM graph editor| GraphEditor
+    HumBodyPage -->|graph + mode data| GraphCanvas
+    HumBodyPage -->|sidebar placement indirectly| CanvasSidebar
+    HumBodyPage -->|mode-specific layout decisions| ProblemB
+    GraphEditor -->|canvas slot| GraphCanvas
+    GraphEditor -->|sidebar slot| CanvasSidebar
+    GraphEditor -->|inspector slot| NodeInspector
+    GraphEditor -->|inspector slot| EdgeInspector
+    GraphEditor -->|hero + overlay + workspace chrome| ProblemA
+    GraphEditor -->|overlayPlacement + canvasTopInset + variant branching| ProblemB
+    GraphCanvas -->|default nodes| NodeShell
+    GraphCanvas -->|group nodes| GroupShell
+    NodeShell -->|HUM renderer path| HumCard
+    HumBodyPage -->|current overlay content| HumModePanel
+    HumModePanel -->|structure mode controls| CanvasSidebar
+    HumModePanel -->|non-structure mode overlay slot| GraphEditor

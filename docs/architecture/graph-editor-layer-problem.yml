@@ -1,0 +1,198 @@
+id: graph_ui.review_workbench.layers
+title: Graph UI Review Workbench Layer Boundary Problem
+type: component
+version: "0.1"
+
+style:
+  kinds:
+    layer:
+      plantuml:
+        background: "#D8ECFF"
+        border: "#4C78A8"
+        font: "#16324F"
+    shell:
+      plantuml:
+        background: "#DDF7E8"
+        border: "#3F8F5F"
+        font: "#17351F"
+    generic:
+      plantuml:
+        background: "#F4F6F8"
+        border: "#7A8793"
+        font: "#2A3137"
+    hum:
+      plantuml:
+        background: "#FCECC9"
+        border: "#D4A73C"
+        font: "#5E450B"
+    issue:
+      plantuml:
+        background: "#FADADD"
+        border: "#C33A4D"
+        font: "#5E1721"
+
+data:
+  nodes:
+    L1:
+      label: "L1 App Layer"
+      kind: layer
+      contains:
+        - GraphEditorPage
+        - HumBodyPage
+
+    GraphEditorPage:
+      label: "GraphEditorPage\n(generic page adapter)"
+      kind: generic
+
+    HumBodyPage:
+      label: "HumBodyPage\n(mode state + layout decisions)"
+      kind: hum
+
+    L2:
+      label: "L2 Canvas Layer"
+      kind: layer
+      contains:
+        - GraphEditor
+        - GraphCanvas
+        - CanvasSidebar
+        - NodeInspector
+        - EdgeInspector
+        - NodeShell
+        - GroupShell
+
+    GraphEditor:
+      label: "GraphEditor\n(shell composition)"
+      kind: shell
+
+    GraphCanvas:
+      label: "GraphCanvas"
+      kind: generic
+
+    CanvasSidebar:
+      label: "CanvasSidebar"
+      kind: generic
+
+    NodeInspector:
+      label: "NodeInspector"
+      kind: generic
+
+    EdgeInspector:
+      label: "EdgeInspector"
+      kind: generic
+
+    NodeShell:
+      label: "NodeShell"
+      kind: generic
+
+    GroupShell:
+      label: "GroupShell"
+      kind: generic
+
+    L3:
+      label: "L3 Content Components"
+      kind: layer
+      contains:
+        - HumModePanel
+        - HumCard
+
+    HumModePanel:
+      label: "HumModePanel\n(should own HUM controls only)"
+      kind: hum
+
+    HumCard:
+      label: "HumCard / renderers"
+      kind: hum
+
+    ProblemA:
+      label: "Problem A\nNavigation/controller logic placed in GUI shell"
+      kind: issue
+
+    ProblemB:
+      label: "Problem B\nView-specific layout patches leak across layers"
+      kind: issue
+
+  edges:
+    - from: GraphEditorPage
+      to: GraphEditor
+      relation: renders
+      label: generic graph editor
+
+    - from: HumBodyPage
+      to: GraphEditor
+      relation: renders
+      label: HUM graph editor
+
+    - from: HumBodyPage
+      to: GraphCanvas
+      relation: configures
+      label: graph + mode data
+
+    - from: HumBodyPage
+      to: CanvasSidebar
+      relation: configures
+      label: sidebar placement indirectly
+
+    - from: HumBodyPage
+      to: ProblemB
+      relation: causes
+      label: mode-specific layout decisions
+
+    - from: GraphEditor
+      to: GraphCanvas
+      relation: owns
+      label: canvas slot
+
+    - from: GraphEditor
+      to: CanvasSidebar
+      relation: owns
+      label: sidebar slot
+
+    - from: GraphEditor
+      to: NodeInspector
+      relation: owns
+      label: inspector slot
+
+    - from: GraphEditor
+      to: EdgeInspector
+      relation: owns
+      label: inspector slot
+
+    - from: GraphEditor
+      to: ProblemA
+      relation: causes
+      label: hero + overlay + workspace chrome
+
+    - from: GraphEditor
+      to: ProblemB
+      relation: causes
+      label: overlayPlacement + canvasTopInset + variant branching
+
+    - from: GraphCanvas
+      to: NodeShell
+      relation: renders
+      label: default nodes
+
+    - from: GraphCanvas
+      to: GroupShell
+      relation: renders
+      label: group nodes
+
+    - from: NodeShell
+      to: HumCard
+      relation: renders
+      label: HUM renderer path
+
+    - from: HumBodyPage
+      to: HumModePanel
+      relation: should_extract
+      label: current overlay content
+
+    - from: HumModePanel
+      to: CanvasSidebar
+      relation: should_mount_in
+      label: structure mode controls
+
+    - from: HumModePanel
+      to: GraphEditor
+      relation: should_mount_in
+      label: non-structure mode overlay slot
