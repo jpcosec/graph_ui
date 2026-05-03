@@ -212,7 +212,7 @@ export function HumBodyPage() {
             ];
 
   const overlay = (
-    <div className={`pointer-events-auto hum-overlay-panel ${modeMeta.accentClass} mt-2 flex w-full ${mode === 'structure' ? 'max-w-[660px]' : 'max-w-[920px]'} flex-col gap-2 rounded-2xl px-4 py-3`}>
+    <div className={`pointer-events-auto hum-overlay-panel ${modeMeta.accentClass} flex w-full ${mode === 'structure' ? 'max-w-full' : 'max-w-[920px]'} flex-col gap-2 rounded-2xl px-4 py-3`}>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-3">
@@ -306,7 +306,8 @@ export function HumBodyPage() {
       }}
       topOverlay={overlay}
       chromeVariant={mode === 'structure' ? 'structure' : 'default'}
-      canvasTopInset={mode === 'structure' ? 176 : 154}
+      canvasTopInset={mode === 'structure' ? 0 : 154}
+      overlayPlacement={mode === 'structure' ? 'sidebar' : 'canvas'}
     />
   );
 }

@@ -20,6 +20,7 @@ const accordionClassName = 'px-4 font-mono text-[10px] uppercase tracking-[0.24e
 interface CanvasSidebarProps {
   onSave: () => void;
   variant?: 'default' | 'compact';
+  topPanel?: ReactNode;
 }
 
 function AccordionPanel({
@@ -39,7 +40,7 @@ function AccordionPanel({
   );
 }
 
-export function CanvasSidebar({ onSave, variant = 'default' }: CanvasSidebarProps) {
+export function CanvasSidebar({ onSave, variant = 'default', topPanel }: CanvasSidebarProps) {
   const sidebarOpen = useUIStore((state) => state.sidebarOpen);
   const toggleSidebar = useUIStore((state) => state.toggleSidebar);
 
@@ -88,6 +89,8 @@ export function CanvasSidebar({ onSave, variant = 'default' }: CanvasSidebarProp
         </div>
 
         <div className={`space-y-4 ${variant === 'compact' ? 'p-3' : 'p-4'}`}>
+          {topPanel ? <div className="rounded-[1.5rem]">{topPanel}</div> : null}
+
           <div className="section-card rounded-[1.5rem] px-4 py-3 opacity-80">
             <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">Flow</p>
             <div className="mt-2 grid grid-cols-2 gap-3 text-sm">

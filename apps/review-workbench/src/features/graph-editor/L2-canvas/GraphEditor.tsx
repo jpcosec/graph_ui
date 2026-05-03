@@ -32,9 +32,10 @@ interface GraphEditorProps {
   topOverlay?: ReactNode;
   chromeVariant?: 'default' | 'structure' | 'immersive';
   canvasTopInset?: number;
+  overlayPlacement?: 'canvas' | 'sidebar';
 }
 
-export function GraphEditor({ initialNodes, initialEdges, onSave, hero, workspace, topOverlay, chromeVariant = 'default', canvasTopInset = 0 }: GraphEditorProps) {
+export function GraphEditor({ initialNodes, initialEdges, onSave, hero, workspace, topOverlay, chromeVariant = 'default', canvasTopInset = 0, overlayPlacement = 'canvas' }: GraphEditorProps) {
   useKeyboard();
 
   void initialNodes;
@@ -81,14 +82,18 @@ export function GraphEditor({ initialNodes, initialEdges, onSave, hero, workspac
           </div>
         </div>
 
-        {topOverlay ? <div className={`pointer-events-none absolute left-6 z-10 ${chromeVariant === 'structure' ? 'top-[6.25rem]' : 'top-[8.5rem]'}`}>{topOverlay}</div> : null}
+        {topOverlay && overlayPlacement === 'canvas' ? <div className={`pointer-events-none absolute left-6 z-10 ${chromeVariant === 'structure' ? 'top-[6.25rem]' : 'top-[8.5rem]'}`}>{topOverlay}</div> : null}
 
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,242,255,0.08),transparent_26%),radial-gradient(circle_at_bottom_left,rgba(255,170,0,0.08),transparent_24%)]" />
         <div className="relative h-full" style={{ paddingTop: canvasTopInset ? `${canvasTopInset}px` : undefined }}>
           <GraphCanvas />
         </div>
       </div>
-      <CanvasSidebar onSave={onSave} variant={chromeVariant === 'structure' ? 'compact' : 'default'} />
+      <CanvasSidebar
+        onSave={onSave}
+        variant={chromeVariant === 'structure' ? 'compact' : 'default'}
+        topPanel={topOverlay && overlayPlacement === 'sidebar' ? topOverlay : undefined}
+      />
       <NodeInspector />
       <EdgeInspector />
       <DeleteConfirm
