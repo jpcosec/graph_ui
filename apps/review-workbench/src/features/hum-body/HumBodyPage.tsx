@@ -212,17 +212,17 @@ export function HumBodyPage() {
             ];
 
   const overlay = (
-    <div className={`pointer-events-auto hum-overlay-panel ${modeMeta.accentClass} mt-2 flex w-full max-w-[960px] flex-col gap-3 rounded-2xl px-4 py-3`}>
+    <div className={`pointer-events-auto hum-overlay-panel ${modeMeta.accentClass} mt-2 flex w-full ${mode === 'structure' ? 'max-w-[720px]' : 'max-w-[960px]'} flex-col gap-3 rounded-2xl px-4 py-3`}>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-3">
             <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary">{modeMeta.eyebrow}</p>
             <span className="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.16em] text-white/55">{modeMeta.lens}</span>
           </div>
-          <div className="mt-2 max-w-[36rem]">
+          {mode !== 'structure' ? <div className="mt-2 max-w-[36rem]">
             <h2 className="text-[1.05rem] font-semibold leading-tight text-white/94">{modeMeta.title}</h2>
             <p className="mt-1 text-[12px] leading-relaxed text-white/58">{modeMeta.description}</p>
-          </div>
+          </div> : null}
           <Tabs value={mode} onValueChange={(value) => setMode(value as HumViewMode)} className="mt-2">
             <TabsList className="h-auto flex-wrap justify-start gap-1 rounded-xl bg-white/5 p-1">
               <TabsTrigger value="structure" data-testid="mode-tab-structure">Structure</TabsTrigger>
@@ -304,6 +304,7 @@ export function HumBodyPage() {
         description: mode === 'structure' ? 'Source-first reading surface' : 'Projection tuned to the active lens',
       }}
       topOverlay={overlay}
+      chromeVariant={mode === 'structure' ? 'structure' : 'default'}
     />
   );
 }

@@ -30,9 +30,10 @@ interface GraphEditorProps {
     description: string;
   };
   topOverlay?: ReactNode;
+  chromeVariant?: 'default' | 'structure' | 'immersive';
 }
 
-export function GraphEditor({ initialNodes, initialEdges, onSave, hero, workspace, topOverlay }: GraphEditorProps) {
+export function GraphEditor({ initialNodes, initialEdges, onSave, hero, workspace, topOverlay, chromeVariant = 'default' }: GraphEditorProps) {
   useKeyboard();
 
   void initialNodes;
@@ -66,27 +67,27 @@ export function GraphEditor({ initialNodes, initialEdges, onSave, hero, workspac
     <div className="flex h-screen w-full overflow-hidden px-4 pb-4 pt-4">
       <div className="relative flex-1 overflow-hidden rounded-[2rem] border border-white/8 shadow-[0_30px_90px_rgba(0,0,0,0.28)]">
         <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between px-6 py-4">
-          <div className="glass-panel max-w-[29rem] rounded-2xl px-4 py-3">
+          <div className={`glass-panel ${chromeVariant === 'structure' ? 'max-w-[23rem] rounded-[1.4rem] px-3.5 py-2.5' : 'max-w-[29rem] rounded-2xl px-4 py-3'}`}>
             <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-primary">{heroCopy.eyebrow}</p>
-            <h1 className="mt-1.5 font-headline text-[1.65rem] font-bold leading-tight text-on-surface">{heroCopy.title}</h1>
-            <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">{heroCopy.description}</p>
+            <h1 className={`font-headline font-bold leading-tight text-on-surface ${chromeVariant === 'structure' ? 'mt-1 text-[1.3rem]' : 'mt-1.5 text-[1.65rem]'}`}>{heroCopy.title}</h1>
+            <p className={`leading-relaxed text-muted-foreground ${chromeVariant === 'structure' ? 'mt-1 text-[12px]' : 'mt-1 text-[13px]'}`}>{heroCopy.description}</p>
           </div>
 
-          <div className="glass-panel rounded-2xl px-4 py-3 text-right">
+          <div className={`glass-panel text-right ${chromeVariant === 'structure' ? 'rounded-[1.3rem] px-3.5 py-2.5 opacity-85' : 'rounded-2xl px-4 py-3'}`}>
             <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">{workspaceCopy.label}</p>
             <p className="mt-1 text-sm font-medium text-on-surface">{workspaceCopy.title}</p>
             <p className="text-xs text-muted-foreground">{workspaceCopy.description}</p>
           </div>
         </div>
 
-        {topOverlay ? <div className="pointer-events-none absolute left-6 top-[8.5rem] z-10">{topOverlay}</div> : null}
+        {topOverlay ? <div className={`pointer-events-none absolute left-6 z-10 ${chromeVariant === 'structure' ? 'top-[6.9rem]' : 'top-[8.5rem]'}`}>{topOverlay}</div> : null}
 
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,242,255,0.08),transparent_26%),radial-gradient(circle_at_bottom_left,rgba(255,170,0,0.08),transparent_24%)]" />
         <div className="relative h-full">
           <GraphCanvas />
         </div>
       </div>
-      <CanvasSidebar onSave={onSave} />
+      <CanvasSidebar onSave={onSave} variant={chromeVariant === 'structure' ? 'compact' : 'default'} />
       <NodeInspector />
       <EdgeInspector />
       <DeleteConfirm
