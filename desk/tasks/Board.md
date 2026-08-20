@@ -1,7 +1,9 @@
 ---
+# board-xxx
 id: board-graph-ui
-title: Graph UI Tasks Board
+# Affected workspace or domain
 scope: graph_ui
+# List of task-xxx paths
 tasks:
 - desk/tasks/001-define-graph-ui-data-contract.md
 - desk/tasks/002-define-minimal-editing-surface.md
@@ -9,11 +11,16 @@ tasks:
 - desk/tasks/004-wire-reusable-editor-to-real-fixture.md
 - desk/tasks/005-surface-semantic-signals.md
 - desk/tasks/006-prove-one-safe-edit-flow.md
+- desk/tasks/task-build-kgdb-to-ui-graph-adapter.md
+- desk/tasks/task-add-relationfilter-to-kgdb-structuredquery.md
+# List of pill-xxx paths
 pills: []
+# List of ritual-xxx paths
 rituals:
 - desk/rituals/execution.md
 - desk/rituals/testing.md
 - desk/rituals/closeout.md
+# e.g., system:sldb, workspace:desk
 tags:
 - system:graph_ui
 - workspace:desk
@@ -21,58 +28,27 @@ tags:
 
 # Graph UI Tasks Board
 
-## Current State Summary
+## Purpose
 
-- Objective: build the sidebar-driven, savable, cross-database projection grammar on top of the reconstructed editor
-- Current state: delivery tasks 001-006 resolved (closed via ritual, see git history)
-- Next work: projection-grammar feature decomposed into 7 drawer tasks in `desk/drawer/tasks/`, ready to promote
+_Explain what this board routes and why it exists._
 
-## Delivery Phases
+Routes graph_ui delivery work. Phase A (tasks 001-006) resolved. Phase B builds the projection grammar per desk/drawer/PROJECTION_GRAMMAR_SPEC.md.
 
-### Phase A (done) - Reconstruct the reusable editor
-- `desk/tasks/001-define-graph-ui-data-contract.md`
-- `desk/tasks/002-define-minimal-editing-surface.md`
-- `desk/tasks/003-create-real-graph-fixture.md`
-- `desk/tasks/004-wire-reusable-editor-to-real-fixture.md`
-- `desk/tasks/005-surface-semantic-signals.md`
-- `desk/tasks/006-prove-one-safe-edit-flow.md`
+## Notes
 
-### Phase B - Projection grammar (drawer, ready to promote)
-Data layer first, then presentation, then UI, then end-to-end proof. See `desk/drawer/features/` and `desk/drawer/PROJECTION_GRAMMAR_SPEC.md`.
+_Add short operational notes about the current routed set._
 
-- `desk/drawer/tasks/task-kgdb-to-ui-graph-adapter.md` (no deps)
-- `desk/drawer/tasks/task-relationfilter-in-kgdb-query.md` (no deps)
-- `desk/drawer/tasks/task-projectionview-store.md` (after RelationFilter)
-- `desk/drawer/tasks/task-encoding-rules-l2.md` (after adapter)
-- `desk/drawer/tasks/task-layout-strategy-registry.md` (after encoding)
-- `desk/drawer/tasks/task-projection-sidebar-ui.md` (after store + encoding + layout)
-- `desk/drawer/tasks/task-sldb-end-to-end-proof.md` (after sidebar + adapter)
+Active tasks are the two no-dep data-layer tasks (adapter and RelationFilter). Five deferred tasks remain in drawer (store, encoding, layout, sidebar, sldb proof). Promote data layer before presentation before UI. Run phase.md when a layer closes.
 
-## Active
+## Task Details
 
-| ID | Domain | Task | Priority | Depends On |
-|----|--------|------|----------|------------|
-| - | - | none | - | - |
+_Generated from the task references above._
 
-## Resolved
-
-| ID | Domain | Task | Priority | Depends On |
-|----|--------|------|----------|------------|
-| 001 | contract | Define graph UI data contract | p0 | none |
-| 002 | editing | Define minimal editing surface | p0 | 001 |
-| 003 | fixtures | Create real graph fixture | p1 | 001 |
-| 004 | reconstruction | Wire reusable editor to real fixture | p1 | 001, 002, 003 |
-| 005 | signals | Surface semantic signals | p1 | 004 |
-| 006 | editing | Prove one safe edit flow | p1 | 002, 004 |
-
-## Blocked
-
-| ID | Domain | Task | Priority | Depends On |
-|----|--------|------|----------|------------|
-| - | - | none | - | - |
-
-## Working Rules
-
-1. Start from `desk/SPEC.md`.
-2. Define data contracts before implementation.
-3. Prove each phase with fixtures before advancing.
+- Define graph UI data contract [resolved] - 
+- Define minimal editing surface [resolved] - 
+- Create real graph fixture [resolved] - 
+- Wire reusable editor to real fixture [resolved] - 
+- Surface semantic signals [resolved] - 
+- Prove one safe edit flow [resolved] - 
+- Build kgdb-to-UI graph adapter [active] - Add an additive `kgdb_to_ui_graph(snapshot: GraphSnapshot) -> GraphData` adapter in `graph_ui/src/` that maps kgdb's canonical `KnowledgeNode`/`Edge` onto graph_ui's existing `UINode`/`UIEdge`, with unit tests, without changing either contract.
+- Add RelationFilter to kgdb StructuredQuery [active] - Add an additive `RelationFilter` to kgdb's `StructuredQuery` and one executor branch that filters edges by `relation_type` membership and direction, with tests, keeping kgdb domain-agnostic (no visual concepts).
