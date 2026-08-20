@@ -11,7 +11,6 @@ tasks:
 - desk/tasks/004-wire-reusable-editor-to-real-fixture.md
 - desk/tasks/005-surface-semantic-signals.md
 - desk/tasks/006-prove-one-safe-edit-flow.md
-- desk/tasks/task-build-kgdb-to-ui-graph-adapter.md
 - desk/tasks/task-add-relationfilter-to-kgdb-structuredquery.md
 # List of pill-xxx paths
 pills: []
@@ -50,5 +49,4 @@ _Generated from the task references above._
 - Wire reusable editor to real fixture [resolved] - 
 - Surface semantic signals [resolved] - 
 - Prove one safe edit flow [resolved] - 
-- Build kgdb-to-UI graph adapter [active] - Add an additive `kgdb_to_ui_graph(snapshot: GraphSnapshot) -> GraphData` adapter in `graph_ui/src/` that maps kgdb's canonical `KnowledgeNode`/`Edge` onto graph_ui's existing `UINode`/`UIEdge`, with unit tests, without changing either contract.
 - Add RelationFilter to kgdb StructuredQuery [active] - Add an additive `RelationFilter` to kgdb's `StructuredQuery` and one executor branch that filters edges by `relation_type` membership and direction, with tests, keeping kgdb domain-agnostic (no visual concepts).
