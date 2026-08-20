@@ -23,23 +23,30 @@ tags:
 
 ## Current State Summary
 
-- Objective: reconstruct the reusable graph editor against a real ecosystem graph contract
+- Objective: build the sidebar-driven, savable, cross-database projection grammar on top of the reconstructed editor
 - Current state: delivery tasks 001-006 resolved (closed via ritual, see git history)
-- Next candidate work: projection grammar feature staged in `desk/drawer/features/`
+- Next work: projection-grammar feature decomposed into 7 drawer tasks in `desk/drawer/tasks/`, ready to promote
 
 ## Delivery Phases
 
-### Phase 1 - Lock the interface contract
+### Phase A (done) - Reconstruct the reusable editor
 - `desk/tasks/001-define-graph-ui-data-contract.md`
 - `desk/tasks/002-define-minimal-editing-surface.md`
-
-### Phase 2 - Reconstruct against real data
 - `desk/tasks/003-create-real-graph-fixture.md`
 - `desk/tasks/004-wire-reusable-editor-to-real-fixture.md`
-
-### Phase 3 - Prove operator value
 - `desk/tasks/005-surface-semantic-signals.md`
 - `desk/tasks/006-prove-one-safe-edit-flow.md`
+
+### Phase B - Projection grammar (drawer, ready to promote)
+Data layer first, then presentation, then UI, then end-to-end proof. See `desk/drawer/features/` and `desk/drawer/PROJECTION_GRAMMAR_SPEC.md`.
+
+- `desk/drawer/tasks/task-kgdb-to-ui-graph-adapter.md` (no deps)
+- `desk/drawer/tasks/task-relationfilter-in-kgdb-query.md` (no deps)
+- `desk/drawer/tasks/task-projectionview-store.md` (after RelationFilter)
+- `desk/drawer/tasks/task-encoding-rules-l2.md` (after adapter)
+- `desk/drawer/tasks/task-layout-strategy-registry.md` (after encoding)
+- `desk/drawer/tasks/task-projection-sidebar-ui.md` (after store + encoding + layout)
+- `desk/drawer/tasks/task-sldb-end-to-end-proof.md` (after sidebar + adapter)
 
 ## Active
 
