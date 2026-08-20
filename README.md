@@ -6,7 +6,7 @@ Specification and reconstruction guide for the domain-agnostic visual graph edit
 
 | File | What it covers |
 |---|---|
-| [spec.md](spec.md) | Full product and architecture specification |
+| [spec.md](spec.md) | Full product and architecture specification (Match / CV / KnowledgeGraph domains) |
 | [sources.md](sources.md) | Where each piece lives in the two source worktrees |
 | [reconstruction.md](reconstruction.md) | Step-by-step guide to rebuild the complete system |
 | [pitfalls.md](pitfalls.md) | Architectural pitfalls and how to avoid them |

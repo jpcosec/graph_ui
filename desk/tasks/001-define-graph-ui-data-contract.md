@@ -1,7 +1,7 @@
 ---
 id: '001'
 domain: contract
-status: open
+status: resolved
 priority: p0
 depends_on: []
 created: ''

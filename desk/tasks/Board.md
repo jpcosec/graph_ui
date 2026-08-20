@@ -1,9 +1,31 @@
+---
+id: board-graph-ui
+title: Graph UI Tasks Board
+scope: graph_ui
+tasks:
+- desk/tasks/001-define-graph-ui-data-contract.md
+- desk/tasks/002-define-minimal-editing-surface.md
+- desk/tasks/003-create-real-graph-fixture.md
+- desk/tasks/004-wire-reusable-editor-to-real-fixture.md
+- desk/tasks/005-surface-semantic-signals.md
+- desk/tasks/006-prove-one-safe-edit-flow.md
+pills: []
+rituals:
+- desk/rituals/execution.md
+- desk/rituals/testing.md
+- desk/rituals/closeout.md
+tags:
+- system:graph_ui
+- workspace:desk
+---
+
 # Graph UI Tasks Board
 
 ## Current State Summary
 
 - Objective: reconstruct the reusable graph editor against a real ecosystem graph contract
-- Current blocker: architecture exists, but the reusable editor is not yet integrated back into a real graph workflow
+- Current state: delivery tasks 001-006 resolved (closed via ritual, see git history)
+- Next candidate work: projection grammar feature staged in `desk/drawer/features/`
 
 ## Delivery Phases
 
@@ -20,6 +42,12 @@
 - `desk/tasks/006-prove-one-safe-edit-flow.md`
 
 ## Active
+
+| ID | Domain | Task | Priority | Depends On |
+|----|--------|------|----------|------------|
+| - | - | none | - | - |
+
+## Resolved
 
 | ID | Domain | Task | Priority | Depends On |
 |----|--------|------|----------|------------|

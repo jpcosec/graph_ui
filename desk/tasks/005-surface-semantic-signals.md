@@ -1,7 +1,7 @@
 ---
 id: '005'
 domain: signals
-status: open
+status: resolved
 priority: p1
 depends_on:
 - '004'

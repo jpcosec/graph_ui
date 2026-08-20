@@ -1,7 +1,7 @@
 ---
 id: '004'
 domain: reconstruction
-status: open
+status: resolved
 priority: p1
 depends_on:
 - '001'

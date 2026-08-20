@@ -1,7 +1,7 @@
 ---
 id: '003'
 domain: fixtures
-status: open
+status: resolved
 priority: p1
 depends_on:
 - '001'

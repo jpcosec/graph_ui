@@ -1,7 +1,7 @@
 ---
 id: '002'
 domain: editing
-status: open
+status: resolved
 priority: p0
 depends_on:
 - '001'
