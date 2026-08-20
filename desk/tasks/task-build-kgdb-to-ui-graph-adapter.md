@@ -1,14 +1,16 @@
 ---
 id: task-build-kgdb-to-ui-graph-adapter
-status: active
+status: ready_for_testing
 summary: ''
 tags:
 - workspace:desk
 - artifact:task
 - source:drawer
 routine: routine-task-build-kgdb-to-ui-graph-adapter
-current_node: checklist-task-build-kgdb-to-ui-graph-adapter-execution-ready
-history: []
+current_node: checklist-task-build-kgdb-to-ui-graph-adapter-closeout-ready
+history:
+- operator-task-build-kgdb-to-ui-graph-adapter-activate
+- operator-task-build-kgdb-to-ui-graph-adapter-ready-for-testing
 references: []
 depends_on: []
 pills:
@@ -26,6 +28,7 @@ atoms:
 - atom-three-incompatible-graph-node-edge-contracts-exist-across-the-ecosystem
 - atom-projection-grammar
 - atom-graph-ui
+closeout_evidence_verified: false
 ---
 
 # Build kgdb-to-UI graph adapter

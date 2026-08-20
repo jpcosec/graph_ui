@@ -1,0 +1,6 @@
+Task session log: task-build-kgdb-to-ui-graph-adapter
+- Recovered board/task state with deskops show/next/graph missing and git status.
+- Read task, pills, atoms, projection grammar spec, graph_ui GraphData contract, and kgdb KnowledgeNode/Edge/GraphSnapshot contracts.
+- Implemented additive adapter at src/adapters/kgdb_adapter.py.
+- Added unit test at tests/test_kgdb_adapter.py.
+- Validated with targeted pytest and full pytest.

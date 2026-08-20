@@ -1,0 +1,17 @@
+Task: task-build-kgdb-to-ui-graph-adapter
+Title: Build kgdb-to-UI graph adapter
+Status: active
+Current node: checklist-task-build-kgdb-to-ui-graph-adapter-execution-ready
+Task type: 
+Routine: routine-task-build-kgdb-to-ui-graph-adapter
+Effective pills:
+- desk/contexts/pill-guardrail-kgdb-edge-knowledgenode-is-the-canonical-graph-contract.md
+- desk/contexts/pill-guardrail-filtering-is-primary-encoding-is-secondary-scope-stays-narrow.md
+Effective atoms:
+- atom-three-incompatible-graph-node-edge-contracts-exist-across-the-ecosystem
+- atom-projection-grammar
+- atom-graph-ui
+Checklist status:
+- checklist-task-build-kgdb-to-ui-graph-adapter-execution-ready: complete
+- checklist-task-build-kgdb-to-ui-graph-adapter-testing-ready: complete
+- checklist-task-build-kgdb-to-ui-graph-adapter-closeout-ready: pending
