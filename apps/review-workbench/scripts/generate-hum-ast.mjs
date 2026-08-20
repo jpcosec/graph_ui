@@ -139,7 +139,24 @@ function buildAstForms(files) {
   );
 }
 
-const astFiles = buildAstFiles(listLispFiles(humRoot));
+const lispFiles = listLispFiles(humRoot);
+
+// The `hum` source repo is optional in this checkout. When it is absent there
+// are no .lisp files to parse, so regenerating would overwrite the committed
+// fixture with empty data. In that case keep the existing generated fixture.
+if (lispFiles.length === 0) {
+  const hasExisting = fs.existsSync(outputPath) && fs.statSync(outputPath).size > 0;
+  console.log(
+    hasExisting
+      ? `hum source not found at ${path.relative(appRoot, humRoot)}; keeping existing HUM AST fixture.`
+      : `hum source not found at ${path.relative(appRoot, humRoot)} and no existing fixture; writing empty HUM AST fixture.`,
+  );
+  if (hasExisting) {
+    process.exit(0);
+  }
+}
+
+const astFiles = buildAstFiles(lispFiles);
 const astForms = buildAstForms(astFiles);
 
 const output = `import type { HumAstFile, HumAstForm } from './types';
