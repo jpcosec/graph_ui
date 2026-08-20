@@ -11,7 +11,6 @@ tasks:
 - desk/tasks/004-wire-reusable-editor-to-real-fixture.md
 - desk/tasks/005-surface-semantic-signals.md
 - desk/tasks/006-prove-one-safe-edit-flow.md
-- desk/tasks/task-add-relationfilter-to-kgdb-structuredquery.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -31,13 +30,13 @@ tags:
 
 _Explain what this board routes and why it exists._
 
-Routes graph_ui delivery work. Phase A (tasks 001-006) resolved. Phase B builds the projection grammar per desk/drawer/PROJECTION_GRAMMAR_SPEC.md.
+Routes graph_ui delivery work. Phase A (tasks 001-006) resolved. Phase B builds the graph_ui side of the projection grammar per desk/drawer/PROJECTION_GRAMMAR_SPEC.md. Cross-repo pieces (kgdb RelationFilter, sldb AST export) are delegated to their home repos via inbox, not executed here.
 
 ## Notes
 
 _Add short operational notes about the current routed set._
 
-Active tasks are the two no-dep data-layer tasks (adapter and RelationFilter). Five deferred tasks remain in drawer (store, encoding, layout, sidebar, sldb proof). Promote data layer before presentation before UI. Run phase.md when a layer closes.
+Phase B active work is graph_ui-local only. RelationFilter lives in the kgdb repo (not here); it was delegated via kgdb desk/inbox on 2026-08-20 and tracked as a dependency, not a graph_ui task. Four deferred drawer tasks remain local (store, encoding, layout, sidebar). The sldb-proof task also spans kgdb+sldb. Promote data layer before presentation before UI. Run phase.md when a layer closes.
 
 ## Task Details
 
@@ -48,5 +47,4 @@ _Generated from the task references above._
 - Create real graph fixture [resolved] - 
 - Wire reusable editor to real fixture [resolved] - 
 - Surface semantic signals [resolved] - 
-- Prove one safe edit flow [resolved] - 
-- Add RelationFilter to kgdb StructuredQuery [active] - Add an additive `RelationFilter` to kgdb's `StructuredQuery` and one executor branch that filters edges by `relation_type` membership and direction, with tests, keeping kgdb domain-agnostic (no visual concepts).
+- Prove one safe edit flow [resolved] -
