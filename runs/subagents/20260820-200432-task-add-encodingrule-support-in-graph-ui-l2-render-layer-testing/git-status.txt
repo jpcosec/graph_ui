@@ -1,0 +1,7 @@
+## master
+ M apps/review-workbench/src/features/graph-editor/L2-canvas/NodeShell.tsx
+ M apps/review-workbench/src/features/graph-editor/L2-canvas/edges/FloatingEdge.tsx
+?? apps/review-workbench/src/features/graph-editor/L2-canvas/encoding/
+?? runs/subagents/20260820-200041-task-add-encodingrule-support-in-graph-ui-l2-render-layer/
+?? runs/subagents/20260820-200426-task-add-encodingrule-support-in-graph-ui-l2-render-layer-testing/
+?? runs/subagents/20260820-200432-task-add-encodingrule-support-in-graph-ui-l2-render-layer-testing/

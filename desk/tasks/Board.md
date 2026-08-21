@@ -11,6 +11,7 @@ tasks:
 - desk/tasks/004-wire-reusable-editor-to-real-fixture.md
 - desk/tasks/005-surface-semantic-signals.md
 - desk/tasks/006-prove-one-safe-edit-flow.md
+- desk/tasks/task-add-layout-strategy-registry-with-elk-layered-and-elk-rings.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -47,4 +48,5 @@ _Generated from the task references above._
 - Create real graph fixture [resolved] - 
 - Wire reusable editor to real fixture [resolved] - 
 - Surface semantic signals [resolved] - 
-- Prove one safe edit flow [resolved] -
+- Prove one safe edit flow [resolved] - 
+- Add layout strategy registry with elk-layered and elk-rings [active] - Introduce a `LAYOUT_REGISTRY` (name -> `LayoutStrategy`) in graph_ui's L2, register the existing ELK layered layout under `elk-layered`, and add a second `elk-rings` (radial) strategy, selected by `ProjectionView.layout_strategy`.
