@@ -11,7 +11,6 @@ tasks:
 - desk/tasks/004-wire-reusable-editor-to-real-fixture.md
 - desk/tasks/005-surface-semantic-signals.md
 - desk/tasks/006-prove-one-safe-edit-flow.md
-- desk/tasks/task-add-encodingrule-support-in-graph-ui-l2-render-layer.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -48,5 +47,4 @@ _Generated from the task references above._
 - Create real graph fixture [resolved] - 
 - Wire reusable editor to real fixture [resolved] - 
 - Surface semantic signals [resolved] - 
-- Prove one safe edit flow [resolved] - 
-- Add EncodingRule support in graph_ui L2 render layer [active] - Introduce an `EncodingRule` type in the TS render layer and make `NodeShell`/`FloatingEdge` consult an active rule list instead of a single hardcoded `colorToken` per type, so filtered-in nodes/edges can be visually distinguished.
+- Prove one safe edit flow [resolved] -
