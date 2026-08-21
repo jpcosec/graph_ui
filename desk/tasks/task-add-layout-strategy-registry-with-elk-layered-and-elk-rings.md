@@ -1,16 +1,18 @@
 ---
 id: task-add-layout-strategy-registry-with-elk-layered-and-elk-rings
-status: active
+status: ready_for_testing
 summary: ''
 tags:
 - workspace:desk
 - artifact:task
 - source:drawer
 routine: routine-task-add-layout-strategy-registry-with-elk-layered-and-elk-rings
-current_node: checklist-task-add-layout-strategy-registry-with-elk-layered-and-elk-rings-execution-ready
-history: []
+current_node: checklist-task-add-layout-strategy-registry-with-elk-layered-and-elk-rings-closeout-ready
+history:
+- operator-task-add-layout-strategy-registry-with-elk-layered-and-elk-rings-activate
+- operator-task-add-layout-strategy-registry-with-elk-layered-and-elk-rings-ready-for-testing
 references:
-- apps/review-workbench/src/features/graph-editor/L2-canvas/hooks/use-graph-layout.ts
+- 0fd2fe8
 depends_on: []
 pills:
 - desk/contexts/pill-guardrail-encoding-and-layout-live-in-graph-ui-spec2viz-not-in-kgdb.md
@@ -26,6 +28,7 @@ inherit_acceptance_context: false
 atoms:
 - atom-hardcoded-static-lenses-are-the-anti-pattern-for-projection
 - atom-projection-grammar
+closeout_evidence_verified: false
 ---
 
 # Add layout strategy registry with elk-layered and elk-rings

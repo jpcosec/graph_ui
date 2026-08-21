@@ -1,0 +1,6 @@
+## master
+ M apps/review-workbench/src/features/graph-editor/L2-canvas/hooks/use-graph-layout.ts
+?? apps/review-workbench/src/features/graph-editor/L2-canvas/layout/
+?? runs/subagents/20260820-202332-task-add-layout-strategy-registry-with-elk-layered-and-elk-rings/
+?? runs/subagents/20260820-202837-task-add-layout-strategy-registry-with-elk-layered-and-elk-rings-testing/
+?? runs/subagents/20260820-202855-task-add-layout-strategy-registry-with-elk-layered-and-elk-rings-testing/

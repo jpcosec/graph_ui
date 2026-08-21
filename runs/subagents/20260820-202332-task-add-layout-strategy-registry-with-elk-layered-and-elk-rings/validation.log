@@ -1,0 +1,45 @@
+
+ RUN  v1.6.1 /home/jp/proyectos/hum-ecosystem/tools/graph_ui/apps/review-workbench
+
+ ✓ src/features/graph-editor/L2-canvas/layout/layout-strategies.test.ts  (5 tests) 16ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  20:26:33
+   Duration  623ms (transform 48ms, setup 0ms, collect 82ms, tests 16ms, environment 0ms, prepare 158ms)
+
+
+> graph-ui-review-workbench@0.1.0 test
+> npm run hum:sync && vitest run
+
+
+> graph-ui-review-workbench@0.1.0 hum:sync
+> node scripts/generate-hum-ast.mjs
+
+hum source not found at ../../../hum; keeping existing HUM AST fixture.
+
+ RUN  v1.6.1 /home/jp/proyectos/hum-ecosystem/tools/graph_ui/apps/review-workbench
+
+ ✓ src/testing/userFlowRunnerCore.test.js  (4 tests) 5ms
+ ✓ src/features/graph-editor/lib/graph-to-domain.test.ts  (4 tests) 9ms
+ ✓ src/features/graph-editor/L2-canvas/encoding/encoding-rules.test.ts  (5 tests) 6ms
+ ✓ src/schema/registry.test.ts  (5 tests) 20ms
+ ✓ src/stores/graph-store.test.ts  (6 tests) 19ms
+ ✓ src/features/graph-editor/L2-canvas/hooks/use-edge-inheritance.test.ts  (2 tests) 39ms
+ ✓ src/features/graph-editor/L2-canvas/hooks/use-keyboard.test.ts  (4 tests) 10ms
+ ✓ src/features/graph-editor/L2-canvas/layout/layout-strategies.test.ts  (5 tests) 84ms
+ ✓ src/features/graph-editor/lib/schema-to-graph.test.ts  (10 tests) 68ms
+ ✓ src/features/hum-body/lib/adapter.test.ts  (5 tests) 138ms
+ ✓ src/stores/ui-store.test.ts  (2 tests) 6ms
+ ✓ src/schema/register-defaults.test.ts  (1 test) 3ms
+ ✓ src/features/graph-editor/lib/data-provider.test.ts  (3 tests) 92ms
+ ✓ src/features/graph-editor/L2-canvas/edges/ButtonEdge.test.ts  (3 tests) 7ms
+ ✓ src/features/graph-editor/L2-canvas/GroupShell.test.ts  (2 tests) 5ms
+ ✓ src/features/graph-editor/L2-canvas/NodeShell.test.ts  (3 tests) 3ms
+ ✓ src/features/graph-editor/L1-app/GraphEditorPage.test.ts  (2 tests) 3ms
+
+ Test Files  17 passed (17)
+      Tests  66 passed (66)
+   Start at  20:26:37
+   Duration  2.67s (transform 2.04s, setup 1ms, collect 7.59s, tests 517ms, environment 18ms, prepare 4.83s)
+

@@ -1,0 +1,16 @@
+Task: task-add-layout-strategy-registry-with-elk-layered-and-elk-rings
+Title: Add layout strategy registry with elk-layered and elk-rings
+Status: active
+Current node: checklist-task-add-layout-strategy-registry-with-elk-layered-and-elk-rings-execution-ready
+Task type: 
+Routine: routine-task-add-layout-strategy-registry-with-elk-layered-and-elk-rings
+Effective pills:
+- desk/contexts/pill-guardrail-encoding-and-layout-live-in-graph-ui-spec2viz-not-in-kgdb.md
+- desk/contexts/pill-guardrail-filtering-is-primary-encoding-is-secondary-scope-stays-narrow.md
+Effective atoms:
+- atom-hardcoded-static-lenses-are-the-anti-pattern-for-projection
+- atom-projection-grammar
+Checklist status:
+- checklist-task-add-layout-strategy-registry-with-elk-layered-and-elk-rings-execution-ready: complete
+- checklist-task-add-layout-strategy-registry-with-elk-layered-and-elk-rings-testing-ready: complete
+- checklist-task-add-layout-strategy-registry-with-elk-layered-and-elk-rings-closeout-ready: pending
