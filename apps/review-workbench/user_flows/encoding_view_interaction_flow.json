@@ -1,0 +1,56 @@
+{
+  "name": "Encoding View Interaction Flow",
+  "baseUrl": "http://127.0.0.1:5173",
+  "steps": [
+    {
+      "id": "01_open_app",
+      "action": "goto",
+      "url": "/",
+      "description": "Open the workbench"
+    },
+    {
+      "id": "02_wait_encoding_section",
+      "action": "wait",
+      "selector": "[data-testid='encoding-section']",
+      "timeout": 10000,
+      "description": "Wait for the EncodingSection to render"
+    },
+    {
+      "id": "03_wait_views_section",
+      "action": "wait",
+      "selector": "[data-testid='views-section']",
+      "description": "Wait for the ViewsSection to render"
+    },
+    {
+      "id": "04_type_view_name",
+      "action": "type",
+      "selector": "input[aria-label='View name']",
+      "value": "My Test View",
+      "description": "Type a view name"
+    },
+    {
+      "id": "05_save_named_view",
+      "action": "click",
+      "selector": "text=Save current as view",
+      "description": "Save the named view"
+    },
+    {
+      "id": "06_assert_view_selected",
+      "action": "assert_text",
+      "selector": "#saved-view-select option:checked",
+      "value": "My Test View",
+      "description": "Verify the saved view appears as the selected option"
+    },
+    {
+      "id": "07_reload_page",
+      "action": "reload",
+      "description": "Reload to verify localStorage persistence"
+    },
+    {
+      "id": "08_wait_sidebar_reloaded",
+      "action": "wait",
+      "selector": "[data-testid='views-section']",
+      "description": "Wait for sidebar after reload"
+    }
+  ]
+}
