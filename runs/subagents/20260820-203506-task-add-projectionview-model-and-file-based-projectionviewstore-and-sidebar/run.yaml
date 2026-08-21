@@ -2,4 +2,4 @@ run_dir: runs/subagents/20260820-203506-task-add-projectionview-model-and-file-b
 run_id: null
 session: null
 session_sha256: null
-task_id: task-add-projectionview-model-and-file-based-projectionviewstore
+task_id: task-add-encodingsection-and-viewssection-to-the-sidebar

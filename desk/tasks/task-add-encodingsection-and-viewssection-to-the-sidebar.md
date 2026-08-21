@@ -1,16 +1,18 @@
 ---
 id: task-add-encodingsection-and-viewssection-to-the-sidebar
-status: active
+status: ready_for_testing
 summary: ''
 tags:
 - workspace:desk
 - artifact:task
 - source:drawer
 routine: routine-task-add-encodingsection-and-viewssection-to-the-sidebar
-current_node: checklist-task-add-encodingsection-and-viewssection-to-the-sidebar-execution-ready
-history: []
+current_node: checklist-task-add-encodingsection-and-viewssection-to-the-sidebar-closeout-ready
+history:
+- operator-task-add-encodingsection-and-viewssection-to-the-sidebar-activate
+- operator-task-add-encodingsection-and-viewssection-to-the-sidebar-ready-for-testing
 references:
-- desk/drawer/tasks/task-projection-sidebar-ui.md
+- dff1577
 depends_on: []
 pills:
 - desk/contexts/pill-guardrail-saved-views-reference-facet-relation-names-never-literal-node-ids.md
@@ -27,6 +29,7 @@ atoms:
 - atom-saved-views-must-reference-facet-and-relation-names-never-literal-node-ids
 - atom-hardcoded-static-lenses-are-the-anti-pattern-for-projection
 - atom-projection-grammar
+closeout_evidence_verified: false
 ---
 
 # Add EncodingSection and ViewsSection to the sidebar
