@@ -1,0 +1,17 @@
+Task: task-add-projectionview-model-and-file-based-projectionviewstore
+Title: Add ProjectionView model and file-based ProjectionViewStore
+Status: active
+Current node: checklist-task-add-projectionview-model-and-file-based-projectionviewstore-execution-ready
+Task type: 
+Routine: routine-task-add-projectionview-model-and-file-based-projectionviewstore
+Effective pills:
+- desk/contexts/pill-guardrail-saved-views-reference-facet-relation-names-never-literal-node-ids.md
+- desk/contexts/pill-guardrail-filtering-is-primary-encoding-is-secondary-scope-stays-narrow.md
+Effective atoms:
+- atom-saved-views-must-reference-facet-and-relation-names-never-literal-node-ids
+- atom-hardcoded-static-lenses-are-the-anti-pattern-for-projection
+- atom-projection-grammar
+Checklist status:
+- checklist-task-add-projectionview-model-and-file-based-projectionviewstore-execution-ready: complete
+- checklist-task-add-projectionview-model-and-file-based-projectionviewstore-testing-ready: complete
+- checklist-task-add-projectionview-model-and-file-based-projectionviewstore-closeout-ready: pending

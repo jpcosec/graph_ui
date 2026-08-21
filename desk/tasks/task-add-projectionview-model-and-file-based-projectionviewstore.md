@@ -1,16 +1,18 @@
 ---
 id: task-add-projectionview-model-and-file-based-projectionviewstore
-status: active
+status: ready_for_testing
 summary: ''
 tags:
 - workspace:desk
 - artifact:task
 - source:drawer
 routine: routine-task-add-projectionview-model-and-file-based-projectionviewstore
-current_node: checklist-task-add-projectionview-model-and-file-based-projectionviewstore-execution-ready
-history: []
+current_node: checklist-task-add-projectionview-model-and-file-based-projectionviewstore-closeout-ready
+history:
+- operator-task-add-projectionview-model-and-file-based-projectionviewstore-activate
+- operator-task-add-projectionview-model-and-file-based-projectionviewstore-ready-for-testing
 references:
-- desk/drawer/tasks/task-projectionview-store.md
+- dff1577
 depends_on: []
 pills:
 - desk/contexts/pill-guardrail-saved-views-reference-facet-relation-names-never-literal-node-ids.md
@@ -27,6 +29,7 @@ atoms:
 - atom-saved-views-must-reference-facet-and-relation-names-never-literal-node-ids
 - atom-hardcoded-static-lenses-are-the-anti-pattern-for-projection
 - atom-projection-grammar
+closeout_evidence_verified: false
 ---
 
 # Add ProjectionView model and file-based ProjectionViewStore

@@ -1,0 +1,7 @@
+Missing graph references:
+- missing_declared_target: task:task-add-encodingsection-and-viewssection-to-the-sidebar -> desk/drawer/tasks/task-projection-sidebar-ui.md
+  provenance: desk/tasks/task-add-encodingsection-and-viewssection-to-the-sidebar.md:line:13:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-add-projectionview-model-and-file-based-projectionviewstore -> desk/drawer/tasks/task-projectionview-store.md
+  provenance: desk/tasks/task-add-projectionview-model-and-file-based-projectionviewstore.md:line:13:source-file-reference
+  reason: declared target was not found among extracted graph nodes

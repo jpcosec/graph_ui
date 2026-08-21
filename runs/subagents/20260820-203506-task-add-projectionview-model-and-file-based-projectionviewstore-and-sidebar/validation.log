@@ -1,0 +1,9 @@
+$ cd apps/review-workbench && npx vitest run src/features/graph-editor/lib/projection-view-store.test.ts
+PASS - 1 file, 4 tests passed.
+
+$ cd apps/review-workbench && npx vitest run src/features/graph-editor/L2-canvas/sidebar
+PASS - 2 files, 6 tests passed.
+
+$ cd apps/review-workbench && npm run test
+PASS - full suite green after hum:sync fallback notice.
+20 files passed, 76 tests passed.

@@ -1,0 +1,17 @@
+Task: task-add-encodingsection-and-viewssection-to-the-sidebar
+Title: Add EncodingSection and ViewsSection to the sidebar
+Status: active
+Current node: checklist-task-add-encodingsection-and-viewssection-to-the-sidebar-execution-ready
+Task type: 
+Routine: routine-task-add-encodingsection-and-viewssection-to-the-sidebar
+Effective pills:
+- desk/contexts/pill-guardrail-saved-views-reference-facet-relation-names-never-literal-node-ids.md
+- desk/contexts/pill-guardrail-filtering-is-primary-encoding-is-secondary-scope-stays-narrow.md
+Effective atoms:
+- atom-saved-views-must-reference-facet-and-relation-names-never-literal-node-ids
+- atom-hardcoded-static-lenses-are-the-anti-pattern-for-projection
+- atom-projection-grammar
+Checklist status:
+- checklist-task-add-encodingsection-and-viewssection-to-the-sidebar-execution-ready: complete
+- checklist-task-add-encodingsection-and-viewssection-to-the-sidebar-testing-ready: complete
+- checklist-task-add-encodingsection-and-viewssection-to-the-sidebar-closeout-ready: pending

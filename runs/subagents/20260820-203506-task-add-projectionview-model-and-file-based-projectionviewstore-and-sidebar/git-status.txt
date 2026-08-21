@@ -1,0 +1,2 @@
+## master
+?? runs/subagents/20260820-203506-task-add-projectionview-model-and-file-based-projectionviewstore-and-sidebar/

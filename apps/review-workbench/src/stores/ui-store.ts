@@ -1,5 +1,8 @@
 import { create } from 'zustand';
 
+import { DEFAULT_ENCODING_RULES, type EncodingRule } from '@/features/graph-editor/L2-canvas/encoding/encoding-rules';
+import { DEFAULT_LAYOUT_STRATEGY_NAME } from '@/features/graph-editor/L2-canvas/layout/layout-strategies';
+
 export type EditorState = 'browse' | 'focus' | 'edit_node' | 'edit_relation';
 
 export interface FilterState {
@@ -23,6 +26,9 @@ export interface UIStore {
   selectedEdge: string | null;
   sidebarOpen: boolean;
   filters: FilterState;
+  activeEncodingRules: EncodingRule[];
+  activeLayoutStrategy: string;
+  activeViewId: string | null;
   copiedNodeId: string | null;
   copiedNodeData: unknown;
   deleteConfirmOpen: boolean;
@@ -37,6 +43,10 @@ export interface UIStore {
   toggleSidebar: () => void;
   setFilter: (patch: Partial<FilterState>) => void;
   clearFilters: () => void;
+  setActiveEncodingRules: (rules: EncodingRule[]) => void;
+  resetActiveEncodingRules: () => void;
+  setActiveLayoutStrategy: (layoutStrategy: string) => void;
+  setActiveViewId: (viewId: string | null) => void;
   copyNode: (id: string, data?: unknown) => void;
   openDeleteConfirm: (target: DeleteTarget, nodeIds?: string[], edgeIds?: string[]) => void;
   closeDeleteConfirm: () => void;
@@ -52,6 +62,13 @@ const defaultFilters: FilterState = {
   hideNonNeighbors: true,
 };
 
+function cloneEncodingRules(rules: EncodingRule[]): EncodingRule[] {
+  return rules.map((rule) => ({
+    when: { ...rule.when },
+    style: { ...rule.style },
+  }));
+}
+
 export const useUIStore = create<UIStore>((set) => ({
   editorState: 'browse',
   focusedNodeId: null,
@@ -60,6 +77,9 @@ export const useUIStore = create<UIStore>((set) => ({
   selectedEdge: null,
   sidebarOpen: true,
   filters: defaultFilters,
+  activeEncodingRules: cloneEncodingRules(DEFAULT_ENCODING_RULES),
+  activeLayoutStrategy: DEFAULT_LAYOUT_STRATEGY_NAME,
+  activeViewId: 'default-view',
   copiedNodeId: null,
   copiedNodeData: null,
   deleteConfirmOpen: false,
@@ -80,6 +100,10 @@ export const useUIStore = create<UIStore>((set) => ({
       },
     })),
   clearFilters: () => set({ filters: defaultFilters }),
+  setActiveEncodingRules: (activeEncodingRules) => set({ activeEncodingRules: cloneEncodingRules(activeEncodingRules) }),
+  resetActiveEncodingRules: () => set({ activeEncodingRules: cloneEncodingRules(DEFAULT_ENCODING_RULES), activeViewId: 'default-view' }),
+  setActiveLayoutStrategy: (activeLayoutStrategy) => set({ activeLayoutStrategy }),
+  setActiveViewId: (activeViewId) => set({ activeViewId }),
   copyNode: (copiedNodeId, copiedNodeData) => set({ copiedNodeId, copiedNodeData }),
   openDeleteConfirm: (target, nodeIds = [], edgeIds = []) => 
     set({ 

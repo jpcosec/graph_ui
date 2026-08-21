@@ -12,7 +12,9 @@ import { useUIStore } from '@/stores/ui-store';
 
 import { ActionsSection } from './ActionsSection';
 import { CreationSection } from './CreationSection';
+import { EncodingSection } from './EncodingSection';
 import { FiltersSection } from './FiltersSection';
+import { ViewsSection } from './ViewsSection';
 import { ViewSection } from './ViewSection';
 
 const accordionClassName = 'px-4 font-mono text-[10px] uppercase tracking-[0.24em]';
@@ -105,7 +107,7 @@ export function CanvasSidebar({ onSave, variant = 'default', topPanel }: CanvasS
             </div>
           </div>
 
-          <Accordion type="multiple" defaultValue={variant === 'compact' ? ['actions', 'view'] : ['actions', 'filters', 'creation', 'view']} className="space-y-3 px-1 pb-4">
+          <Accordion type="multiple" defaultValue={variant === 'compact' ? ['actions', 'view', 'encoding', 'views'] : ['actions', 'filters', 'creation', 'view', 'encoding', 'views']} className="space-y-3 px-1 pb-4">
             <AccordionPanel value="actions" title="Actions">
               <ActionsSection onSave={onSave} />
             </AccordionPanel>
@@ -120,6 +122,14 @@ export function CanvasSidebar({ onSave, variant = 'default', topPanel }: CanvasS
 
             <AccordionPanel value="view" title="View">
               <ViewSection />
+            </AccordionPanel>
+
+            <AccordionPanel value="encoding" title="Encoding">
+              <EncodingSection />
+            </AccordionPanel>
+
+            <AccordionPanel value="views" title="Views">
+              <ViewsSection />
             </AccordionPanel>
           </Accordion>
         </div>
