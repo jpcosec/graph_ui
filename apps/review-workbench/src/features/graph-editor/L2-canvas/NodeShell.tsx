@@ -11,6 +11,7 @@ import {
   ContextMenuTrigger,
 } from '@/components/ui/context-menu';
 import { Button } from '@/components/ui/button';
+import { resolveNodeStyle } from '@/features/graph-editor/L2-canvas/encoding/encoding-rules';
 import { registry } from '@/schema/registry';
 import type { NodePayload } from '@/stores/types';
 import { useUIStore } from '@/stores/ui-store';
@@ -146,18 +147,10 @@ export const NodeShell = memo(function NodeShell(props: NodeProps<CanvasNode>) {
   const safeTypeId = typeId ?? '';
   const definition = registry.get(safeTypeId) ?? registry.get('entity');
   const colorToken = definition?.colorToken ?? 'token-surface-primary';
-  
+
   const category = asJson.category as string | undefined;
-  const categoryColors: Record<string, string> = {
-    entry: '#22c55e',
-    concept: '#3b82f6',
-    section: '#8b5cf6',
-    document: '#f59e0b',
-  };
-  const nodeBorderColor = category 
-    ? categoryColors[category] ?? colorToken 
-    : colorToken;
-  
+  const { nodeColorToken: nodeBorderColor } = resolveNodeStyle(data, undefined, colorToken);
+
   const nodeBody = useMemo(() => renderNodeBody(data, nodeBorderColor, zoom), [data, nodeBorderColor, zoom]);
   const isFormNode = category === 'concept';
   const isRoutineNode = category === 'routine-step';

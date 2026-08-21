@@ -1,16 +1,19 @@
 ---
 id: task-add-encodingrule-support-in-graph-ui-l2-render-layer
-status: active
+status: ready_for_testing
 summary: ''
 tags:
 - workspace:desk
 - artifact:task
 - source:drawer
 routine: routine-task-add-encodingrule-support-in-graph-ui-l2-render-layer
-current_node: checklist-task-add-encodingrule-support-in-graph-ui-l2-render-layer-execution-ready
-history: []
+current_node: checklist-task-add-encodingrule-support-in-graph-ui-l2-render-layer-closeout-ready
+history:
+- operator-task-add-encodingrule-support-in-graph-ui-l2-render-layer-activate
+- operator-task-add-encodingrule-support-in-graph-ui-l2-render-layer-ready-for-testing
 references:
-- apps/review-workbench/src/features/graph-editor/L2-canvas/NodeShell.tsx
+- atom-encoding-rules-l2 - testing via Vitest ts
+- commit:HEAD
 depends_on: []
 pills:
 - desk/contexts/pill-guardrail-filtering-is-primary-encoding-is-secondary-scope-stays-narrow.md
@@ -27,6 +30,7 @@ atoms:
 - atom-filtering-is-the-primary-projection-mechanism-encoding-is-secondary
 - atom-hardcoded-static-lenses-are-the-anti-pattern-for-projection
 - atom-projection-grammar
+closeout_evidence_verified: false
 ---
 
 # Add EncodingRule support in graph_ui L2 render layer

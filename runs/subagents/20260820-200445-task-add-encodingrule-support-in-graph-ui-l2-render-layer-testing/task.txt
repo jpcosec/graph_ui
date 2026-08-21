@@ -1,0 +1,17 @@
+Task: task-add-encodingrule-support-in-graph-ui-l2-render-layer
+Title: Add EncodingRule support in graph_ui L2 render layer
+Status: active
+Current node: checklist-task-add-encodingrule-support-in-graph-ui-l2-render-layer-execution-ready
+Task type: 
+Routine: routine-task-add-encodingrule-support-in-graph-ui-l2-render-layer
+Effective pills:
+- desk/contexts/pill-guardrail-filtering-is-primary-encoding-is-secondary-scope-stays-narrow.md
+- desk/contexts/pill-guardrail-encoding-and-layout-live-in-graph-ui-spec2viz-not-in-kgdb.md
+Effective atoms:
+- atom-filtering-is-the-primary-projection-mechanism-encoding-is-secondary
+- atom-hardcoded-static-lenses-are-the-anti-pattern-for-projection
+- atom-projection-grammar
+Checklist status:
+- checklist-task-add-encodingrule-support-in-graph-ui-l2-render-layer-execution-ready: complete
+- checklist-task-add-encodingrule-support-in-graph-ui-l2-render-layer-testing-ready: complete
+- checklist-task-add-encodingrule-support-in-graph-ui-l2-render-layer-closeout-ready: pending
