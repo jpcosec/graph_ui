@@ -58,6 +58,37 @@ function asCanvasEdge(edge: ASTEdge): CanvasEdge {
   };
 }
 
+export function filterGraphByRelationTypes(
+  nodes: ASTNode[],
+  edges: ASTEdge[],
+  hiddenRelationTypes: string[],
+): { nodes: ASTNode[]; edges: ASTEdge[] } {
+  if (hiddenRelationTypes.length === 0) {
+    return { nodes, edges };
+  }
+
+  const hiddenSet = new Set(hiddenRelationTypes);
+  const visibleEdges = edges.filter((edge) => !hiddenSet.has(edge.data?.relationType ?? 'linked'));
+  const visibleNodeIds = new Set<string>();
+
+  visibleEdges.forEach((edge) => {
+    visibleNodeIds.add(edge.source);
+    visibleNodeIds.add(edge.target);
+  });
+
+  nodes.forEach((node) => {
+    const hasAnyIncidentEdge = edges.some((edge) => edge.source === node.id || edge.target === node.id);
+    if (!hasAnyIncidentEdge) {
+      visibleNodeIds.add(node.id);
+    }
+  });
+
+  return {
+    nodes: nodes.filter((node) => visibleNodeIds.has(node.id)),
+    edges: visibleEdges,
+  };
+}
+
 export function GraphCanvas() {
   const nodes = useGraphStore((state) => state.nodes);
   const edges = useGraphStore((state) => state.edges);
@@ -66,17 +97,20 @@ export function GraphCanvas() {
   const onConnect = useGraphStore((state) => state.onConnect);
   const selectedNode = useUIStore((state) => state.selectedNode);
   const selectedEdge = useUIStore((state) => state.selectedEdge);
+  const hiddenRelationTypes = useUIStore((state) => state.filters.hiddenRelationTypes);
 
   const [nodesState, setNodesState] = useState<CanvasNode[]>([]);
   const [edgesState, setEdgesState] = useState<CanvasEdge[]>([]);
 
   useEffect(() => {
-    setNodesState(nodes.map(asCanvasNode));
-  }, [nodes]);
+    const filtered = filterGraphByRelationTypes(nodes, edges, hiddenRelationTypes);
+    setNodesState(filtered.nodes.map(asCanvasNode));
+    setEdgesState(filtered.edges.map(asCanvasEdge));
+  }, [edges, hiddenRelationTypes, nodes]);
 
-  useEffect(() => {
-    setEdgesState(edges.map(asCanvasEdge));
-  }, [edges]);
+  void registry;
+  void selectedNode;
+  void selectedEdge;
 
   return (
     <ReactFlow

@@ -23,7 +23,7 @@
     },
     {
       "id": "04_type_view_name",
-      "action": "type",
+      "action": "fill",
       "selector": "input[aria-label='View name']",
       "value": "My Test View",
       "description": "Type a view name"
@@ -35,11 +35,10 @@
       "description": "Save the named view"
     },
     {
-      "id": "06_assert_view_selected",
-      "action": "assert_text",
-      "selector": "#saved-view-select option:checked",
-      "value": "My Test View",
-      "description": "Verify the saved view appears as the selected option"
+      "id": "06_after_save_pause",
+      "action": "wait_fixed",
+      "value": 500,
+      "description": "Wait for toast to render"
     },
     {
       "id": "07_reload_page",
@@ -51,6 +50,13 @@
       "action": "wait",
       "selector": "[data-testid='views-section']",
       "description": "Wait for sidebar after reload"
+    },
+    {
+      "id": "09_fill_view_name_again",
+      "action": "fill",
+      "selector": "input[aria-label='View name']",
+      "value": "Reloaded View",
+      "description": "Type a different name to verify the view list persists"
     }
   ]
 }

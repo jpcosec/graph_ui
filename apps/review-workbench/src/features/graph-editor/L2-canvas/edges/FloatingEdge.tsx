@@ -2,6 +2,8 @@ import { memo, useState } from 'react';
 
 import { BaseEdge, EdgeLabelRenderer, getBezierPath, useStore, type EdgeProps } from '@xyflow/react';
 
+import { useUIStore } from '@/stores/ui-store';
+
 import { resolveEdgeStyle } from '../encoding/encoding-rules';
 import { getEdgeParams } from './edge-helpers';
 
@@ -24,6 +26,7 @@ export const FloatingEdge = memo(function FloatingEdge({
 }: EdgeProps) {
   const sourceNode = useStore((store) => store.nodeLookup.get(source));
   const targetNode = useStore((store) => store.nodeLookup.get(target));
+  const activeEncodingRules = useUIStore((state) => state.activeEncodingRules);
   const [isHovered, setIsHovered] = useState(false);
 
   if (!sourceNode || !targetNode) {
@@ -49,7 +52,7 @@ export const FloatingEdge = memo(function FloatingEdge({
       <BaseEdge
         id={id}
         path={path}
-        style={{ ...resolveEdgeStyle(relationType), ...style }}
+        style={{ ...resolveEdgeStyle(relationType, activeEncodingRules), ...style }}
         markerEnd={isInherited ? undefined : markerEnd}
       />
       <EdgeLabelRenderer>

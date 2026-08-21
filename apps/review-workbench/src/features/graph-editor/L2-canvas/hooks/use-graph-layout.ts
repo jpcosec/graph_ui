@@ -7,6 +7,7 @@ import {
   type LayoutResult,
 } from '@/features/graph-editor/L2-canvas/layout/layout-strategies';
 import { useGraphStore } from '@/stores/graph-store';
+import { useUIStore } from '@/stores/ui-store';
 
 type UpdateNode = (
   id: string,
@@ -22,6 +23,7 @@ export function useGraphLayout(): UseGraphLayoutResult {
   const nodes = useGraphStore((state) => state.nodes);
   const edges = useGraphStore((state) => state.edges);
   const updateNode = useGraphStore((state) => state.updateNode);
+  const activeLayoutStrategy = useUIStore((state) => state.activeLayoutStrategy);
 
   const layout = useCallback(
     async (options: LayoutOptions = {}): Promise<LayoutResult> => {
@@ -40,7 +42,7 @@ export function useGraphLayout(): UseGraphLayoutResult {
         },
       }));
 
-      const strategy = getLayoutStrategy(DEFAULT_LAYOUT_STRATEGY_NAME);
+      const strategy = getLayoutStrategy(activeLayoutStrategy ?? DEFAULT_LAYOUT_STRATEGY_NAME);
       const result = await strategy.computeLayout(nodesInput, edgesInput, options);
 
       result.forEach(({ id, position }) => {
@@ -49,7 +51,7 @@ export function useGraphLayout(): UseGraphLayoutResult {
 
       return result;
     },
-    [edges, nodes, updateNode],
+    [activeLayoutStrategy, edges, nodes, updateNode],
   );
 
   return { layout };

@@ -143,13 +143,14 @@ export const NodeShell = memo(function NodeShell(props: NodeProps<CanvasNode>) {
   const setEditorState = useUIStore((state) => state.setEditorState);
   const copyNode = useUIStore((state) => state.copyNode);
   const openDeleteConfirm = useUIStore((state) => state.openDeleteConfirm);
+  const activeEncodingRules = useUIStore((state) => state.activeEncodingRules);
 
   const safeTypeId = typeId ?? '';
   const definition = registry.get(safeTypeId) ?? registry.get('entity');
   const colorToken = definition?.colorToken ?? 'token-surface-primary';
 
   const category = asJson.category as string | undefined;
-  const { nodeColorToken: nodeBorderColor } = resolveNodeStyle(data, undefined, colorToken);
+  const { nodeColorToken: nodeBorderColor } = resolveNodeStyle(data, activeEncodingRules, colorToken);
 
   const nodeBody = useMemo(() => renderNodeBody(data, nodeBorderColor, zoom), [data, nodeBorderColor, zoom]);
   const isFormNode = category === 'concept';

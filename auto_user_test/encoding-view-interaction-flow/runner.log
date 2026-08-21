@@ -1,0 +1,16 @@
+[2026-08-21T00:49:28.111Z] Step 01_01_open_app: Open the workbench (goto)
+[2026-08-21T00:49:28.155Z] [BROWSER CONSOLE] [debug] [vite] connecting...
+[2026-08-21T00:49:28.171Z] [BROWSER CONSOLE] [debug] [vite] connected.
+[2026-08-21T00:49:28.289Z] [BROWSER CONSOLE] [info] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold
+[2026-08-21T00:49:30.159Z] Step 02_02_wait_encoding_section: Wait for the EncodingSection to render (wait)
+[2026-08-21T00:49:30.605Z] Step 03_03_wait_views_section: Wait for the ViewsSection to render (wait)
+[2026-08-21T00:49:31.027Z] Step 04_04_type_view_name: Type a view name (fill)
+[2026-08-21T00:49:31.462Z] Step 05_05_save_named_view: Save the named view (click)
+[2026-08-21T00:49:31.964Z] Step 06_06_after_save_pause: Wait for toast to render (wait_fixed)
+[2026-08-21T00:49:32.871Z] Step 07_07_reload_page: Reload to verify localStorage persistence (reload)
+[2026-08-21T00:49:32.906Z] [BROWSER CONSOLE] [debug] [vite] connecting...
+[2026-08-21T00:49:32.922Z] [BROWSER CONSOLE] [debug] [vite] connected.
+[2026-08-21T00:49:32.957Z] [BROWSER CONSOLE] [info] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold
+[2026-08-21T00:49:33.485Z] Step 08_08_wait_sidebar_reloaded: Wait for sidebar after reload (wait)
+[2026-08-21T00:49:33.915Z] Step 09_09_fill_view_name_again: Type a different name to verify the view list persists (fill)
+[2026-08-21T00:49:34.346Z] Flow completed successfully
