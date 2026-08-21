@@ -1,0 +1,25 @@
+[2026-08-21T16:17:49.960Z] Step 01_01_open_app: Open the workbench in structure mode (goto)
+[2026-08-21T16:17:50.023Z] [BROWSER CONSOLE] [debug] [vite] connecting...
+[2026-08-21T16:17:50.050Z] [BROWSER CONSOLE] [debug] [vite] connected.
+[2026-08-21T16:17:50.190Z] [BROWSER CONSOLE] [info] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold
+[2026-08-21T16:17:52.043Z] Step 02_02_wait_graph_loaded: Wait for the HUM structure graph to fully render (wait)
+[2026-08-21T16:17:52.479Z] Step 03_03_assert_initial_node_count: Verify baseline node count (111). Proves no regression from encoding/layout refactors. (assert_count_equals)
+[2026-08-21T16:17:52.903Z] Step 04_04_wait_encoding_section: Wait for the EncodingSection to render in the sidebar (wait)
+[2026-08-21T16:17:53.326Z] Step 05_05_wait_views_section: Wait for the ViewsSection to render in the sidebar (wait)
+[2026-08-21T16:17:53.750Z] Step 06_06_select_form_node: Select a form node for editing (dispatch_click)
+[2026-08-21T16:17:54.211Z] Step 07_07_copy_node: Copy the selected node (click)
+[2026-08-21T16:17:54.693Z] Step 08_08_paste_node: Paste a duplicate node to create a dirty state (click)
+[2026-08-21T16:17:55.279Z] Step 09_09_verify_pasted_count: Verify copy/paste still works with encoding sidebar present (112 nodes) (assert_count_equals)
+[2026-08-21T16:17:55.699Z] Step 10_10_save_graph: Save graph state to clear dirty flag (click)
+[2026-08-21T16:17:56.180Z] Step 11_11_wait_save_disabled: Verify save button disables after saving (dirty state cleared) (assert_disabled)
+[2026-08-21T16:17:56.617Z] Step 12_12_type_view_name: Type a distinctive view name into the ViewsSection input (fill)
+[2026-08-21T16:17:57.044Z] Step 13_13_save_view: Save the current state as a named view (click)
+[2026-08-21T16:17:57.519Z] Step 14_14_reload_page: Reload page to verify localStorage persistence (reload)
+[2026-08-21T16:17:57.540Z] [BROWSER CONSOLE] [debug] [vite] connecting...
+[2026-08-21T16:17:57.547Z] [BROWSER CONSOLE] [debug] [vite] connected.
+[2026-08-21T16:17:57.598Z] [BROWSER CONSOLE] [info] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold
+[2026-08-21T16:17:58.186Z] Step 15_15_wait_sidebar_after_reload: Wait for encoding section after reload (wait)
+[2026-08-21T16:17:58.611Z] Step 16_16_reset_to_defaults: Reset encoding rules to defaults after reload (click)
+[2026-08-21T16:17:59.078Z] Step 17_17_pause_after_reset: Pause for re-render after reset (wait_fixed)
+[2026-08-21T16:17:59.999Z] Step 18_18_assert_node_count_stable: Node count still >= 110 after all encoding/sidebar operations, proving graph integrity (assert_count_at_least)
+[2026-08-21T16:18:00.418Z] Flow completed successfully

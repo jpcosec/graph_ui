@@ -1,0 +1,195 @@
+{
+  "name": "Encoding View Full Interaction Flow",
+  "source": "/home/jp/proyectos/hum-ecosystem/tools/graph_ui/apps/review-workbench/user_flows/encoding_view_full_interaction_flow.json",
+  "success": true,
+  "startTime": "2026-08-21T16:17:49.959Z",
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "pageErrors": [],
+  "steps": [
+    {
+      "id": "01_open_app",
+      "action": "goto",
+      "url": "http://127.0.0.1:5173/",
+      "description": "Open the workbench in structure mode",
+      "startTime": "2026-08-21T16:17:49.960Z",
+      "success": true,
+      "endTime": "2026-08-21T16:17:50.850Z"
+    },
+    {
+      "id": "02_wait_graph_loaded",
+      "action": "wait",
+      "selector": "[data-testid='node-ast-main-form-main-7']",
+      "timeout": 10000,
+      "description": "Wait for the HUM structure graph to fully render",
+      "startTime": "2026-08-21T16:17:52.043Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:52.358Z"
+    },
+    {
+      "id": "03_assert_initial_node_count",
+      "action": "assert_count_equals",
+      "selector": ".react-flow__node",
+      "value": 111,
+      "description": "Verify baseline node count (111). Proves no regression from encoding/layout refactors.",
+      "startTime": "2026-08-21T16:17:52.479Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:52.782Z"
+    },
+    {
+      "id": "04_wait_encoding_section",
+      "action": "wait",
+      "selector": "[data-testid='encoding-section']",
+      "description": "Wait for the EncodingSection to render in the sidebar",
+      "startTime": "2026-08-21T16:17:52.903Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:53.211Z"
+    },
+    {
+      "id": "05_wait_views_section",
+      "action": "wait",
+      "selector": "[data-testid='views-section']",
+      "description": "Wait for the ViewsSection to render in the sidebar",
+      "startTime": "2026-08-21T16:17:53.326Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:53.633Z"
+    },
+    {
+      "id": "06_select_form_node",
+      "action": "dispatch_click",
+      "selector": "[data-testid='node-ast-main-form-main-7']",
+      "description": "Select a form node for editing",
+      "startTime": "2026-08-21T16:17:53.750Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:54.086Z"
+    },
+    {
+      "id": "07_copy_node",
+      "action": "click",
+      "selector": "[data-testid='sidebar-copy']",
+      "description": "Copy the selected node",
+      "startTime": "2026-08-21T16:17:54.211Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:54.566Z"
+    },
+    {
+      "id": "08_paste_node",
+      "action": "click",
+      "selector": "[data-testid='sidebar-paste']",
+      "description": "Paste a duplicate node to create a dirty state",
+      "startTime": "2026-08-21T16:17:54.693Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:55.150Z"
+    },
+    {
+      "id": "09_verify_pasted_count",
+      "action": "assert_count_equals",
+      "selector": ".react-flow__node",
+      "value": 112,
+      "description": "Verify copy/paste still works with encoding sidebar present (112 nodes)",
+      "startTime": "2026-08-21T16:17:55.279Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:55.582Z"
+    },
+    {
+      "id": "10_save_graph",
+      "action": "click",
+      "selector": "[data-testid='sidebar-save']",
+      "description": "Save graph state to clear dirty flag",
+      "startTime": "2026-08-21T16:17:55.699Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:56.051Z"
+    },
+    {
+      "id": "11_wait_save_disabled",
+      "action": "assert_disabled",
+      "selector": "[data-testid='sidebar-save']",
+      "description": "Verify save button disables after saving (dirty state cleared)",
+      "startTime": "2026-08-21T16:17:56.180Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:56.485Z"
+    },
+    {
+      "id": "12_type_view_name",
+      "action": "fill",
+      "selector": "input[aria-label='View name']",
+      "value": "Comprehensive Test",
+      "description": "Type a distinctive view name into the ViewsSection input",
+      "startTime": "2026-08-21T16:17:56.617Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:56.930Z"
+    },
+    {
+      "id": "13_save_view",
+      "action": "click",
+      "selector": "text=Save current as view",
+      "description": "Save the current state as a named view",
+      "startTime": "2026-08-21T16:17:57.043Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:57.406Z"
+    },
+    {
+      "id": "14_reload_page",
+      "action": "reload",
+      "description": "Reload page to verify localStorage persistence",
+      "startTime": "2026-08-21T16:17:57.519Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:57.916Z"
+    },
+    {
+      "id": "15_wait_sidebar_after_reload",
+      "action": "wait",
+      "selector": "[data-testid='encoding-section']",
+      "description": "Wait for encoding section after reload",
+      "startTime": "2026-08-21T16:17:58.186Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:58.493Z"
+    },
+    {
+      "id": "16_reset_to_defaults",
+      "action": "click",
+      "selector": "text=Reset to defaults",
+      "description": "Reset encoding rules to defaults after reload",
+      "startTime": "2026-08-21T16:17:58.611Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:58.966Z"
+    },
+    {
+      "id": "17_pause_after_reset",
+      "action": "wait_fixed",
+      "value": 500,
+      "description": "Pause for re-render after reset",
+      "startTime": "2026-08-21T16:17:59.078Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:17:59.880Z"
+    },
+    {
+      "id": "18_assert_node_count_stable",
+      "action": "assert_count_at_least",
+      "selector": ".react-flow__node",
+      "value": 110,
+      "description": "Node count still >= 110 after all encoding/sidebar operations, proving graph integrity",
+      "startTime": "2026-08-21T16:17:59.999Z",
+      "success": true,
+      "url": "http://127.0.0.1:5173/",
+      "endTime": "2026-08-21T16:18:00.302Z"
+    }
+  ],
+  "endTime": "2026-08-21T16:18:00.418Z"
+}
