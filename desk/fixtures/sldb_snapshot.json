@@ -1,0 +1,5213 @@
+{
+  "version": "1.0",
+  "created_at": "2026-08-21T05:22:57.791141+00:00",
+  "metadata": {
+    "source": "sldb",
+    "store_path": "/home/jp/proyectos/hum-ecosystem/tools/sldb/.sldb",
+    "model_count": 20,
+    "node_count": 352,
+    "total_edges": 332
+  },
+  "nodes": [
+    {
+      "identity": {
+        "node_id": "model:ArchitectureDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "ArchitectureDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:ArchitectureDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ArchitectureDoc:body",
+          "relation_type": "defines",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:ArchitectureDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ArchitectureDoc:body",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "body"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:ArchitectureNarrativeDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "ArchitectureNarrativeDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:ArchitectureNarrativeDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ArchitectureNarrativeDoc:body",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:arch-current-cli-tree",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:arch-current-source-tree",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:arch-current-system-overview",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:arch-database-component-diagram",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:arch-deskops-boundary-proposal",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:arch-refactored-components",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:arch-smg-ir",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:ArchitectureNarrativeDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ArchitectureNarrativeDoc:body",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "body"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:arch-current-cli-tree",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "arch-current-cli-tree"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:arch-current-source-tree",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "arch-current-source-tree"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:arch-current-system-overview",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "arch-current-system-overview"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:arch-database-component-diagram",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "arch-database-component-diagram"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:arch-deskops-boundary-proposal",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "arch-deskops-boundary-proposal"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:arch-refactored-components",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "arch-refactored-components"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:arch-smg-ir",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "arch-smg-ir"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:AtomicDocumentDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "AtomicDocumentDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:AtomicDocumentDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:AtomicDocumentDoc:related_concepts",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:AtomicDocumentDoc:what_it_is",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:AtomicDocumentDoc:why_it_matters",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:AtomicDocumentDoc:how_it_works",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:AtomicDocumentDoc:when_it_shows_up",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:AtomicDocumentDoc:where_it_lives",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:AtomicDocumentDoc:who_uses_it",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:atom-ast-view",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:atom-compose-vs-recover",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:atom-model-reference",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:atom-payload-inputs",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:atom-semantic-vs-physical",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:atom-store",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:atom-structurednldoc-model",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:atom-tracked-document",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:one-question-per-diagram.atom",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:AtomicDocumentDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:AtomicDocumentDoc:related_concepts",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "related_concepts"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:AtomicDocumentDoc:what_it_is",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "what_it_is"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:AtomicDocumentDoc:why_it_matters",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "why_it_matters"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:AtomicDocumentDoc:how_it_works",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "how_it_works"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:AtomicDocumentDoc:when_it_shows_up",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "when_it_shows_up"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:AtomicDocumentDoc:where_it_lives",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "where_it_lives"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:AtomicDocumentDoc:who_uses_it",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "who_uses_it"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:atom-ast-view",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "atom-ast-view"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:atom-compose-vs-recover",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "atom-compose-vs-recover"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:atom-model-reference",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "atom-model-reference"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:atom-payload-inputs",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "atom-payload-inputs"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:atom-semantic-vs-physical",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "atom-semantic-vs-physical"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:atom-store",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "atom-store"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:atom-structurednldoc-model",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "atom-structurednldoc-model"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:atom-tracked-document",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "atom-tracked-document"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:one-question-per-diagram.atom",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "one-question-per-diagram.atom"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:BoardDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "BoardDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:BoardDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:BoardDoc:id",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:BoardDoc:status",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:BoardDoc:summary",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:BoardDoc:tags",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:BoardDoc:routine",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:BoardDoc:current_node",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:BoardDoc:history",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:BoardDoc:scope",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:BoardDoc:purpose",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:BoardDoc:tasks",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:BoardDoc:pills",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:BoardDoc:rituals",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:BoardDoc:notes",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:Board",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:desk-board",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:BoardDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:BoardDoc:id",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "id"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:BoardDoc:status",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "status"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:BoardDoc:summary",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "summary"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:BoardDoc:tags",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "tags"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:BoardDoc:routine",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "routine"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:BoardDoc:current_node",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "current_node"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:BoardDoc:history",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "history"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:BoardDoc:scope",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "scope"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:BoardDoc:purpose",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "purpose"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:BoardDoc:tasks",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "tasks"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:BoardDoc:pills",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "pills"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:BoardDoc:rituals",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "rituals"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:BoardDoc:notes",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "notes"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:Board",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "Board"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:desk-board",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "desk-board"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:ChecklistDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "ChecklistDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:ChecklistDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ChecklistDoc:id",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ChecklistDoc:status",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ChecklistDoc:summary",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ChecklistDoc:tags",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ChecklistDoc:items",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ChecklistDoc:condition_refs",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ChecklistDoc:mode",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-define-sldb-addressability-model-closeout-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-define-sldb-addressability-model-execution-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-define-sldb-addressability-model-testing-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-definir-arquitectura-objetivo-modular-de-sldb-closeout-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-definir-arquitectura-objetivo-modular-de-sldb-execution-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-definir-arquitectura-objetivo-modular-de-sldb-testing-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-design-sldb-ast-query-primitives-closeout-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-design-sldb-ast-query-primitives-execution-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-design-sldb-ast-query-primitives-testing-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-closeout-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-execution-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-testing-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-ejecutar-refactor-base-del-n\u00facleo-sldb-closeout-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-ejecutar-refactor-base-del-n\u00facleo-sldb-execution-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-ejecutar-refactor-base-del-n\u00facleo-sldb-testing-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-expand-sldb-composition-modes-closeout-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-expand-sldb-composition-modes-execution-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-expand-sldb-composition-modes-testing-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-mapear-arquitectura-real-de-sldb-closeout-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-mapear-arquitectura-real-de-sldb-execution-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-mapear-arquitectura-real-de-sldb-testing-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-tighten-semantic-export-provenance-contract-closeout-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-tighten-semantic-export-provenance-contract-execution-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:checklist-task-tighten-semantic-export-provenance-contract-testing-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:ChecklistDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ChecklistDoc:id",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "id"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ChecklistDoc:status",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "status"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ChecklistDoc:summary",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "summary"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ChecklistDoc:tags",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "tags"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ChecklistDoc:items",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "items"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ChecklistDoc:condition_refs",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "condition_refs"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ChecklistDoc:mode",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "mode"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-define-sldb-addressability-model-closeout-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-define-sldb-addressability-model-closeout-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-define-sldb-addressability-model-execution-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-define-sldb-addressability-model-execution-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-define-sldb-addressability-model-testing-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-define-sldb-addressability-model-testing-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-definir-arquitectura-objetivo-modular-de-sldb-closeout-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-definir-arquitectura-objetivo-modular-de-sldb-closeout-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-definir-arquitectura-objetivo-modular-de-sldb-execution-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-definir-arquitectura-objetivo-modular-de-sldb-execution-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-definir-arquitectura-objetivo-modular-de-sldb-testing-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-definir-arquitectura-objetivo-modular-de-sldb-testing-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-design-sldb-ast-query-primitives-closeout-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-design-sldb-ast-query-primitives-closeout-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-design-sldb-ast-query-primitives-execution-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-design-sldb-ast-query-primitives-execution-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-design-sldb-ast-query-primitives-testing-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-design-sldb-ast-query-primitives-testing-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-closeout-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-closeout-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-execution-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-execution-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-testing-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-testing-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-ejecutar-refactor-base-del-n\u00facleo-sldb-closeout-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-ejecutar-refactor-base-del-n\u00facleo-sldb-closeout-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-ejecutar-refactor-base-del-n\u00facleo-sldb-execution-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-ejecutar-refactor-base-del-n\u00facleo-sldb-execution-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-ejecutar-refactor-base-del-n\u00facleo-sldb-testing-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-ejecutar-refactor-base-del-n\u00facleo-sldb-testing-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-expand-sldb-composition-modes-closeout-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-expand-sldb-composition-modes-closeout-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-expand-sldb-composition-modes-execution-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-expand-sldb-composition-modes-execution-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-expand-sldb-composition-modes-testing-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-expand-sldb-composition-modes-testing-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-mapear-arquitectura-real-de-sldb-closeout-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-mapear-arquitectura-real-de-sldb-closeout-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-mapear-arquitectura-real-de-sldb-execution-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-mapear-arquitectura-real-de-sldb-execution-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-mapear-arquitectura-real-de-sldb-testing-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-mapear-arquitectura-real-de-sldb-testing-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-tighten-semantic-export-provenance-contract-closeout-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-tighten-semantic-export-provenance-contract-closeout-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-tighten-semantic-export-provenance-contract-execution-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-tighten-semantic-export-provenance-contract-execution-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:checklist-task-tighten-semantic-export-provenance-contract-testing-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "checklist-task-tighten-semantic-export-provenance-contract-testing-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:ConditionDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "ConditionDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:ConditionDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ConditionDoc:id",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ConditionDoc:status",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ConditionDoc:summary",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ConditionDoc:tags",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ConditionDoc:subject",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ConditionDoc:predicate",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:ConditionDoc:expected",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-define-sldb-addressability-model-has-implementation-path",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-define-sldb-addressability-model-has-testing-evidence",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-define-sldb-addressability-model-has-validation",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-define-sldb-addressability-model-ready-for-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-definir-arquitectura-objetivo-modular-de-sldb-has-closeout-evidence",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-definir-arquitectura-objetivo-modular-de-sldb-has-implementation-path",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-definir-arquitectura-objetivo-modular-de-sldb-has-validation",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-definir-arquitectura-objetivo-modular-de-sldb-ready-for-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-design-sldb-ast-query-primitives-has-implementation-path",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-design-sldb-ast-query-primitives-has-testing-evidence",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-design-sldb-ast-query-primitives-has-validation",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-design-sldb-ast-query-primitives-ready-for-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-has-closeout-evidence",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-has-implementation-path",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-has-validation",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-ready-for-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-ejecutar-refactor-base-del-n\u00facleo-sldb-has-closeout-evidence",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-ejecutar-refactor-base-del-n\u00facleo-sldb-has-implementation-path",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-ejecutar-refactor-base-del-n\u00facleo-sldb-has-validation",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-ejecutar-refactor-base-del-n\u00facleo-sldb-ready-for-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-expand-sldb-composition-modes-has-implementation-path",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-expand-sldb-composition-modes-has-testing-evidence",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-expand-sldb-composition-modes-has-validation",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-expand-sldb-composition-modes-ready-for-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-mapear-arquitectura-real-de-sldb-has-closeout-evidence",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-mapear-arquitectura-real-de-sldb-has-implementation-path",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-mapear-arquitectura-real-de-sldb-has-validation",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-mapear-arquitectura-real-de-sldb-ready-for-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-tighten-semantic-export-provenance-contract-has-implementation-path",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-tighten-semantic-export-provenance-contract-has-testing-evidence",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-tighten-semantic-export-provenance-contract-has-validation",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:condition-task-tighten-semantic-export-provenance-contract-ready-for-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:ConditionDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ConditionDoc:id",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "id"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ConditionDoc:status",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "status"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ConditionDoc:summary",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "summary"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ConditionDoc:tags",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "tags"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ConditionDoc:subject",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "subject"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ConditionDoc:predicate",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "predicate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:ConditionDoc:expected",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "expected"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-define-sldb-addressability-model-has-implementation-path",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-define-sldb-addressability-model-has-implementation-path"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-define-sldb-addressability-model-has-testing-evidence",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-define-sldb-addressability-model-has-testing-evidence"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-define-sldb-addressability-model-has-validation",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-define-sldb-addressability-model-has-validation"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-define-sldb-addressability-model-ready-for-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-define-sldb-addressability-model-ready-for-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-definir-arquitectura-objetivo-modular-de-sldb-has-closeout-evidence",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-definir-arquitectura-objetivo-modular-de-sldb-has-closeout-evidence"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-definir-arquitectura-objetivo-modular-de-sldb-has-implementation-path",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-definir-arquitectura-objetivo-modular-de-sldb-has-implementation-path"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-definir-arquitectura-objetivo-modular-de-sldb-has-validation",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-definir-arquitectura-objetivo-modular-de-sldb-has-validation"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-definir-arquitectura-objetivo-modular-de-sldb-ready-for-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-definir-arquitectura-objetivo-modular-de-sldb-ready-for-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-design-sldb-ast-query-primitives-has-implementation-path",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-design-sldb-ast-query-primitives-has-implementation-path"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-design-sldb-ast-query-primitives-has-testing-evidence",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-design-sldb-ast-query-primitives-has-testing-evidence"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-design-sldb-ast-query-primitives-has-validation",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-design-sldb-ast-query-primitives-has-validation"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-design-sldb-ast-query-primitives-ready-for-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-design-sldb-ast-query-primitives-ready-for-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-has-closeout-evidence",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-has-closeout-evidence"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-has-implementation-path",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-has-implementation-path"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-has-validation",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-has-validation"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-ready-for-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-ready-for-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-ejecutar-refactor-base-del-n\u00facleo-sldb-has-closeout-evidence",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-ejecutar-refactor-base-del-n\u00facleo-sldb-has-closeout-evidence"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-ejecutar-refactor-base-del-n\u00facleo-sldb-has-implementation-path",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-ejecutar-refactor-base-del-n\u00facleo-sldb-has-implementation-path"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-ejecutar-refactor-base-del-n\u00facleo-sldb-has-validation",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-ejecutar-refactor-base-del-n\u00facleo-sldb-has-validation"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-ejecutar-refactor-base-del-n\u00facleo-sldb-ready-for-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-ejecutar-refactor-base-del-n\u00facleo-sldb-ready-for-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-expand-sldb-composition-modes-has-implementation-path",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-expand-sldb-composition-modes-has-implementation-path"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-expand-sldb-composition-modes-has-testing-evidence",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-expand-sldb-composition-modes-has-testing-evidence"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-expand-sldb-composition-modes-has-validation",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-expand-sldb-composition-modes-has-validation"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-expand-sldb-composition-modes-ready-for-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-expand-sldb-composition-modes-ready-for-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-mapear-arquitectura-real-de-sldb-has-closeout-evidence",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-mapear-arquitectura-real-de-sldb-has-closeout-evidence"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-mapear-arquitectura-real-de-sldb-has-implementation-path",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-mapear-arquitectura-real-de-sldb-has-implementation-path"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-mapear-arquitectura-real-de-sldb-has-validation",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-mapear-arquitectura-real-de-sldb-has-validation"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-mapear-arquitectura-real-de-sldb-ready-for-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-mapear-arquitectura-real-de-sldb-ready-for-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-tighten-semantic-export-provenance-contract-has-implementation-path",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-tighten-semantic-export-provenance-contract-has-implementation-path"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-tighten-semantic-export-provenance-contract-has-testing-evidence",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-tighten-semantic-export-provenance-contract-has-testing-evidence"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-tighten-semantic-export-provenance-contract-has-validation",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-tighten-semantic-export-provenance-contract-has-validation"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:condition-task-tighten-semantic-export-provenance-contract-ready-for-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "condition-task-tighten-semantic-export-provenance-contract-ready-for-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:DeskSpecDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "DeskSpecDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:DeskSpecDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:DeskSpecDoc:product_goal",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:DeskSpecDoc:real_use_case",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:DeskSpecDoc:minimal_feature_slice",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:DeskSpecDoc:current_missing",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:DeskSpecDoc:non_goals",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:DeskSpecDoc:acceptance_criteria",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:desk-spec",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:DeskSpecDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:DeskSpecDoc:product_goal",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "product_goal"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:DeskSpecDoc:real_use_case",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "real_use_case"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:DeskSpecDoc:minimal_feature_slice",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "minimal_feature_slice"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:DeskSpecDoc:current_missing",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "current_missing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:DeskSpecDoc:non_goals",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "non_goals"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:DeskSpecDoc:acceptance_criteria",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "acceptance_criteria"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:desk-spec",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "desk-spec"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:DeskStandardsDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "DeskStandardsDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:DeskStandardsDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:DeskStandardsDoc:purpose",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:DeskStandardsDoc:task_rules",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:DeskStandardsDoc:current_priority",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:desk-standards",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:DeskStandardsDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:DeskStandardsDoc:purpose",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "purpose"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:DeskStandardsDoc:task_rules",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "task_rules"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:DeskStandardsDoc:current_priority",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "current_priority"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:desk-standards",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "desk-standards"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:EdgeDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "EdgeDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:EdgeDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:EdgeDoc:id",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:EdgeDoc:status",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:EdgeDoc:summary",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:EdgeDoc:tags",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:EdgeDoc:source",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:EdgeDoc:target",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:EdgeDoc:condition_ref",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-define-sldb-addressability-model-activate-to-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-define-sldb-addressability-model-close-to-complete",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-define-sldb-addressability-model-closeout-to-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-define-sldb-addressability-model-execution-to-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-define-sldb-addressability-model-ready-to-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-define-sldb-addressability-model-testing-to-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-definir-arquitectura-objetivo-modular-de-sldb-activate-to-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-definir-arquitectura-objetivo-modular-de-sldb-close-to-complete",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-definir-arquitectura-objetivo-modular-de-sldb-closeout-to-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-definir-arquitectura-objetivo-modular-de-sldb-execution-to-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-definir-arquitectura-objetivo-modular-de-sldb-ready-to-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-definir-arquitectura-objetivo-modular-de-sldb-testing-to-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-design-sldb-ast-query-primitives-activate-to-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-design-sldb-ast-query-primitives-close-to-complete",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-design-sldb-ast-query-primitives-closeout-to-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-design-sldb-ast-query-primitives-execution-to-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-design-sldb-ast-query-primitives-ready-to-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-design-sldb-ast-query-primitives-testing-to-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-activate-to-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-close-to-complete",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-closeout-to-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-execution-to-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-ready-to-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-testing-to-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-activate-to-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-close-to-complete",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-closeout-to-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-execution-to-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-ready-to-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-testing-to-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-expand-sldb-composition-modes-activate-to-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-expand-sldb-composition-modes-close-to-complete",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-expand-sldb-composition-modes-closeout-to-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-expand-sldb-composition-modes-execution-to-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-expand-sldb-composition-modes-ready-to-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-expand-sldb-composition-modes-testing-to-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-mapear-arquitectura-real-de-sldb-activate-to-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-mapear-arquitectura-real-de-sldb-close-to-complete",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-mapear-arquitectura-real-de-sldb-closeout-to-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-mapear-arquitectura-real-de-sldb-execution-to-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-mapear-arquitectura-real-de-sldb-ready-to-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-mapear-arquitectura-real-de-sldb-testing-to-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-tighten-semantic-export-provenance-contract-activate-to-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-tighten-semantic-export-provenance-contract-close-to-complete",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-tighten-semantic-export-provenance-contract-closeout-to-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-tighten-semantic-export-provenance-contract-execution-to-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-tighten-semantic-export-provenance-contract-ready-to-closeout",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:edge-task-tighten-semantic-export-provenance-contract-testing-to-ready",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:EdgeDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:EdgeDoc:id",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "id"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:EdgeDoc:status",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "status"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:EdgeDoc:summary",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "summary"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:EdgeDoc:tags",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "tags"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:EdgeDoc:source",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "source"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:EdgeDoc:target",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "target"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:EdgeDoc:condition_ref",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "condition_ref"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-define-sldb-addressability-model-activate-to-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-define-sldb-addressability-model-activate-to-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-define-sldb-addressability-model-close-to-complete",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-define-sldb-addressability-model-close-to-complete"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-define-sldb-addressability-model-closeout-to-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-define-sldb-addressability-model-closeout-to-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-define-sldb-addressability-model-execution-to-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-define-sldb-addressability-model-execution-to-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-define-sldb-addressability-model-ready-to-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-define-sldb-addressability-model-ready-to-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-define-sldb-addressability-model-testing-to-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-define-sldb-addressability-model-testing-to-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-definir-arquitectura-objetivo-modular-de-sldb-activate-to-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-definir-arquitectura-objetivo-modular-de-sldb-activate-to-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-definir-arquitectura-objetivo-modular-de-sldb-close-to-complete",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-definir-arquitectura-objetivo-modular-de-sldb-close-to-complete"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-definir-arquitectura-objetivo-modular-de-sldb-closeout-to-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-definir-arquitectura-objetivo-modular-de-sldb-closeout-to-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-definir-arquitectura-objetivo-modular-de-sldb-execution-to-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-definir-arquitectura-objetivo-modular-de-sldb-execution-to-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-definir-arquitectura-objetivo-modular-de-sldb-ready-to-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-definir-arquitectura-objetivo-modular-de-sldb-ready-to-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-definir-arquitectura-objetivo-modular-de-sldb-testing-to-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-definir-arquitectura-objetivo-modular-de-sldb-testing-to-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-design-sldb-ast-query-primitives-activate-to-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-design-sldb-ast-query-primitives-activate-to-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-design-sldb-ast-query-primitives-close-to-complete",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-design-sldb-ast-query-primitives-close-to-complete"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-design-sldb-ast-query-primitives-closeout-to-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-design-sldb-ast-query-primitives-closeout-to-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-design-sldb-ast-query-primitives-execution-to-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-design-sldb-ast-query-primitives-execution-to-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-design-sldb-ast-query-primitives-ready-to-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-design-sldb-ast-query-primitives-ready-to-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-design-sldb-ast-query-primitives-testing-to-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-design-sldb-ast-query-primitives-testing-to-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-activate-to-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-activate-to-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-close-to-complete",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-close-to-complete"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-closeout-to-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-closeout-to-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-execution-to-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-execution-to-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-ready-to-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-ready-to-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-testing-to-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-testing-to-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-activate-to-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-activate-to-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-close-to-complete",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-close-to-complete"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-closeout-to-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-closeout-to-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-execution-to-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-execution-to-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-ready-to-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-ready-to-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-testing-to-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-ejecutar-refactor-base-del-n\u00facleo-sldb-testing-to-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-expand-sldb-composition-modes-activate-to-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-expand-sldb-composition-modes-activate-to-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-expand-sldb-composition-modes-close-to-complete",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-expand-sldb-composition-modes-close-to-complete"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-expand-sldb-composition-modes-closeout-to-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-expand-sldb-composition-modes-closeout-to-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-expand-sldb-composition-modes-execution-to-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-expand-sldb-composition-modes-execution-to-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-expand-sldb-composition-modes-ready-to-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-expand-sldb-composition-modes-ready-to-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-expand-sldb-composition-modes-testing-to-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-expand-sldb-composition-modes-testing-to-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-mapear-arquitectura-real-de-sldb-activate-to-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-mapear-arquitectura-real-de-sldb-activate-to-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-mapear-arquitectura-real-de-sldb-close-to-complete",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-mapear-arquitectura-real-de-sldb-close-to-complete"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-mapear-arquitectura-real-de-sldb-closeout-to-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-mapear-arquitectura-real-de-sldb-closeout-to-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-mapear-arquitectura-real-de-sldb-execution-to-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-mapear-arquitectura-real-de-sldb-execution-to-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-mapear-arquitectura-real-de-sldb-ready-to-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-mapear-arquitectura-real-de-sldb-ready-to-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-mapear-arquitectura-real-de-sldb-testing-to-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-mapear-arquitectura-real-de-sldb-testing-to-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-tighten-semantic-export-provenance-contract-activate-to-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-tighten-semantic-export-provenance-contract-activate-to-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-tighten-semantic-export-provenance-contract-close-to-complete",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-tighten-semantic-export-provenance-contract-close-to-complete"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-tighten-semantic-export-provenance-contract-closeout-to-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-tighten-semantic-export-provenance-contract-closeout-to-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-tighten-semantic-export-provenance-contract-execution-to-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-tighten-semantic-export-provenance-contract-execution-to-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-tighten-semantic-export-provenance-contract-ready-to-closeout",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-tighten-semantic-export-provenance-contract-ready-to-closeout"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:edge-task-tighten-semantic-export-provenance-contract-testing-to-ready",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "edge-task-tighten-semantic-export-provenance-contract-testing-to-ready"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:FAQDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "FAQDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:FAQDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:FAQDoc:body",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:faq",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:FAQDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:FAQDoc:body",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "body"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:faq",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "faq"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:InboxNoteDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "InboxNoteDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:InboxNoteDoc:kind",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:InboxNoteDoc:sender_project",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:InboxNoteDoc:created_at",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:InboxNoteDoc:status",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:InboxNoteDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:InboxNoteDoc:body",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:20260614-000000-suggestion-stabilize-stores-init-failures",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:20260614-000001-suggestion-stabilize-models-add-error-output",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:20260614-000002-suggestion-add-store-health-check-api",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:20260614-000003-suggestion-add-model-registration-query-api",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:20260625-120000-suggestion-redesign-primitives-via-ast-and-nested-templates",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:20260811-011208-suggestion-doctor-confunde-superficies-no-modeladas-con-untracked-en-sldb",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:InboxNoteDoc:kind",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "kind"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:InboxNoteDoc:sender_project",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "sender_project"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:InboxNoteDoc:created_at",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "created_at"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:InboxNoteDoc:status",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "status"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:InboxNoteDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:InboxNoteDoc:body",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "body"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:20260614-000000-suggestion-stabilize-stores-init-failures",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "20260614-000000-suggestion-stabilize-stores-init-failures"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:20260614-000001-suggestion-stabilize-models-add-error-output",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "20260614-000001-suggestion-stabilize-models-add-error-output"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:20260614-000002-suggestion-add-store-health-check-api",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "20260614-000002-suggestion-add-store-health-check-api"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:20260614-000003-suggestion-add-model-registration-query-api",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "20260614-000003-suggestion-add-model-registration-query-api"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:20260625-120000-suggestion-redesign-primitives-via-ast-and-nested-templates",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "20260625-120000-suggestion-redesign-primitives-via-ast-and-nested-templates"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:20260811-011208-suggestion-doctor-confunde-superficies-no-modeladas-con-untracked-en-sldb",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "20260811-011208-suggestion-doctor-confunde-superficies-no-modeladas-con-untracked-en-sldb"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:OperatorDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "OperatorDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:OperatorDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:OperatorDoc:id",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:OperatorDoc:status",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:OperatorDoc:summary",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:OperatorDoc:tags",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:OperatorDoc:action",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:OperatorDoc:target",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:OperatorDoc:value",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-define-sldb-addressability-model-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-define-sldb-addressability-model-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-define-sldb-addressability-model-ready-for-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-definir-arquitectura-objetivo-modular-de-sldb-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-definir-arquitectura-objetivo-modular-de-sldb-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-definir-arquitectura-objetivo-modular-de-sldb-ready-for-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-design-sldb-ast-query-primitives-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-design-sldb-ast-query-primitives-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-design-sldb-ast-query-primitives-ready-for-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-ready-for-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-ejecutar-refactor-base-del-n\u00facleo-sldb-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-ejecutar-refactor-base-del-n\u00facleo-sldb-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-ejecutar-refactor-base-del-n\u00facleo-sldb-ready-for-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-expand-sldb-composition-modes-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-expand-sldb-composition-modes-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-expand-sldb-composition-modes-ready-for-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-mapear-arquitectura-real-de-sldb-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-mapear-arquitectura-real-de-sldb-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-mapear-arquitectura-real-de-sldb-ready-for-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-tighten-semantic-export-provenance-contract-activate",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-tighten-semantic-export-provenance-contract-close",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:operator-task-tighten-semantic-export-provenance-contract-ready-for-testing",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:OperatorDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:OperatorDoc:id",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "id"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:OperatorDoc:status",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "status"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:OperatorDoc:summary",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "summary"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:OperatorDoc:tags",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "tags"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:OperatorDoc:action",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "action"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:OperatorDoc:target",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "target"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:OperatorDoc:value",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "value"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-define-sldb-addressability-model-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-define-sldb-addressability-model-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-define-sldb-addressability-model-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-define-sldb-addressability-model-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-define-sldb-addressability-model-ready-for-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-define-sldb-addressability-model-ready-for-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-definir-arquitectura-objetivo-modular-de-sldb-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-definir-arquitectura-objetivo-modular-de-sldb-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-definir-arquitectura-objetivo-modular-de-sldb-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-definir-arquitectura-objetivo-modular-de-sldb-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-definir-arquitectura-objetivo-modular-de-sldb-ready-for-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-definir-arquitectura-objetivo-modular-de-sldb-ready-for-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-design-sldb-ast-query-primitives-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-design-sldb-ast-query-primitives-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-design-sldb-ast-query-primitives-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-design-sldb-ast-query-primitives-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-design-sldb-ast-query-primitives-ready-for-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-design-sldb-ast-query-primitives-ready-for-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-ready-for-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n-ready-for-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-ejecutar-refactor-base-del-n\u00facleo-sldb-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-ejecutar-refactor-base-del-n\u00facleo-sldb-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-ejecutar-refactor-base-del-n\u00facleo-sldb-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-ejecutar-refactor-base-del-n\u00facleo-sldb-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-ejecutar-refactor-base-del-n\u00facleo-sldb-ready-for-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-ejecutar-refactor-base-del-n\u00facleo-sldb-ready-for-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-expand-sldb-composition-modes-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-expand-sldb-composition-modes-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-expand-sldb-composition-modes-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-expand-sldb-composition-modes-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-expand-sldb-composition-modes-ready-for-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-expand-sldb-composition-modes-ready-for-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-mapear-arquitectura-real-de-sldb-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-mapear-arquitectura-real-de-sldb-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-mapear-arquitectura-real-de-sldb-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-mapear-arquitectura-real-de-sldb-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-mapear-arquitectura-real-de-sldb-ready-for-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-mapear-arquitectura-real-de-sldb-ready-for-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-tighten-semantic-export-provenance-contract-activate",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-tighten-semantic-export-provenance-contract-activate"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-tighten-semantic-export-provenance-contract-close",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-tighten-semantic-export-provenance-contract-close"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:operator-task-tighten-semantic-export-provenance-contract-ready-for-testing",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "operator-task-tighten-semantic-export-provenance-contract-ready-for-testing"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:PackagingDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "PackagingDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:PackagingDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PackagingDoc:body",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:packaging-instructions",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:PackagingDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PackagingDoc:body",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "body"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:packaging-instructions",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "packaging-instructions"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:PillDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "PillDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:PillDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PillDoc:id",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PillDoc:status",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PillDoc:summary",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PillDoc:tags",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PillDoc:routine",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PillDoc:current_node",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PillDoc:history",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PillDoc:what",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PillDoc:why",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PillDoc:when",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PillDoc:where",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PillDoc:how",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PillDoc:how_not",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:pill-001-sldb-vs-deskops-boundary",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:pill-002-onboarding-surface-before-depth",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:pill-003-template-marker-roundtrip-contract",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:pill-004-store-init-idempotency",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:pill-005-store-health-is-sldb-owned",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:pill-006-model-registration-is-queryable",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:pill-007-sldb-text-layer-vs-kgdb-graph-layer",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:pill-008-sldb-cli-document-contract",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:pill-009-cli-error-and-serialization-failure-mode",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:pill-010-active-board-slice-execution-map",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:pill-011-addressability-task-execution-context",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:pill-012-query-task-execution-context",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:pill-013-composition-task-execution-context",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:pill-014-semantic-export-task-execution-context",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:PillDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PillDoc:id",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "id"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PillDoc:status",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "status"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PillDoc:summary",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "summary"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PillDoc:tags",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "tags"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PillDoc:routine",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "routine"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PillDoc:current_node",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "current_node"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PillDoc:history",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "history"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PillDoc:what",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "what"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PillDoc:why",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "why"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PillDoc:when",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "when"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PillDoc:where",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "where"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PillDoc:how",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "how"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PillDoc:how_not",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "how_not"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:pill-001-sldb-vs-deskops-boundary",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "pill-001-sldb-vs-deskops-boundary"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:pill-002-onboarding-surface-before-depth",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "pill-002-onboarding-surface-before-depth"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:pill-003-template-marker-roundtrip-contract",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "pill-003-template-marker-roundtrip-contract"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:pill-004-store-init-idempotency",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "pill-004-store-init-idempotency"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:pill-005-store-health-is-sldb-owned",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "pill-005-store-health-is-sldb-owned"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:pill-006-model-registration-is-queryable",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "pill-006-model-registration-is-queryable"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:pill-007-sldb-text-layer-vs-kgdb-graph-layer",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "pill-007-sldb-text-layer-vs-kgdb-graph-layer"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:pill-008-sldb-cli-document-contract",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "pill-008-sldb-cli-document-contract"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:pill-009-cli-error-and-serialization-failure-mode",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "pill-009-cli-error-and-serialization-failure-mode"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:pill-010-active-board-slice-execution-map",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "pill-010-active-board-slice-execution-map"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:pill-011-addressability-task-execution-context",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "pill-011-addressability-task-execution-context"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:pill-012-query-task-execution-context",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "pill-012-query-task-execution-context"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:pill-013-composition-task-execution-context",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "pill-013-composition-task-execution-context"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:pill-014-semantic-export-task-execution-context",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "pill-014-semantic-export-task-execution-context"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:PlanDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "PlanDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:PlanDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:PlanDoc:body",
+          "relation_type": "defines",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:PlanDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:PlanDoc:body",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "body"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:RequestDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "RequestDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:RequestDoc:frontmatter",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:RequestDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:RequestDoc:body",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:req-knowledge-graph-integration",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:req-ontology-feature-request",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:RequestDoc:frontmatter",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "frontmatter"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:RequestDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:RequestDoc:body",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "body"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:req-knowledge-graph-integration",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "req-knowledge-graph-integration"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:req-ontology-feature-request",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "req-ontology-feature-request"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:RoutineDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "RoutineDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:RoutineDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:RoutineDoc:id",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:RoutineDoc:status",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:RoutineDoc:summary",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:RoutineDoc:tags",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:RoutineDoc:entrypoint",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:RoutineDoc:decomposition",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:RoutineDoc:edges",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:RoutineDoc:terminal_nodes",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:routine-task-define-sldb-addressability-model",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:routine-task-definir-arquitectura-objetivo-modular-de-sldb",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:routine-task-design-sldb-ast-query-primitives",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:routine-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:routine-task-ejecutar-refactor-base-del-n\u00facleo-sldb",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:routine-task-expand-sldb-composition-modes",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:routine-task-mapear-arquitectura-real-de-sldb",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:routine-task-tighten-semantic-export-provenance-contract",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:RoutineDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:RoutineDoc:id",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "id"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:RoutineDoc:status",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "status"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:RoutineDoc:summary",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "summary"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:RoutineDoc:tags",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "tags"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:RoutineDoc:entrypoint",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "entrypoint"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:RoutineDoc:decomposition",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "decomposition"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:RoutineDoc:edges",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "edges"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:RoutineDoc:terminal_nodes",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "terminal_nodes"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:routine-task-define-sldb-addressability-model",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "routine-task-define-sldb-addressability-model"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:routine-task-definir-arquitectura-objetivo-modular-de-sldb",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "routine-task-definir-arquitectura-objetivo-modular-de-sldb"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:routine-task-design-sldb-ast-query-primitives",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "routine-task-design-sldb-ast-query-primitives"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:routine-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "routine-task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:routine-task-ejecutar-refactor-base-del-n\u00facleo-sldb",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "routine-task-ejecutar-refactor-base-del-n\u00facleo-sldb"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:routine-task-expand-sldb-composition-modes",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "routine-task-expand-sldb-composition-modes"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:routine-task-mapear-arquitectura-real-de-sldb",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "routine-task-mapear-arquitectura-real-de-sldb"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:routine-task-tighten-semantic-export-provenance-contract",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "routine-task-tighten-semantic-export-provenance-contract"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:SpecDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "SpecDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:SpecDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:SpecDoc:body",
+          "relation_type": "defines",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:SpecDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:SpecDoc:body",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "body"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:StoreReadmeDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "StoreReadmeDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:StoreReadmeDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:StoreReadmeDoc:purpose",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:StoreReadmeDoc:layout_summary",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:StoreReadmeDoc:core_contract",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:StoreReadmeDoc:runtime_contract",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:StoreReadmeDoc:local_config_contract",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:StoreReadmeDoc:promotion_rules",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:StoreReadmeDoc:git_policy",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:StoreReadmeDoc:command_map",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:StoreReadmeDoc:migration_status",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:sldb-readme",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:StoreReadmeDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:StoreReadmeDoc:purpose",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "purpose"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:StoreReadmeDoc:layout_summary",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "layout_summary"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:StoreReadmeDoc:core_contract",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "core_contract"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:StoreReadmeDoc:runtime_contract",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "runtime_contract"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:StoreReadmeDoc:local_config_contract",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "local_config_contract"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:StoreReadmeDoc:promotion_rules",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "promotion_rules"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:StoreReadmeDoc:git_policy",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "git_policy"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:StoreReadmeDoc:command_map",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "command_map"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:StoreReadmeDoc:migration_status",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "migration_status"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:sldb-readme",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "sldb-readme"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "model:TaskDoc",
+        "node_type": "model"
+      },
+      "semantics": {
+        "name": "TaskDoc"
+      },
+      "edges": [
+        {
+          "target_id": "field:TaskDoc:title",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:id",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:status",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:summary",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:tags",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:routine",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:current_node",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:history",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:frontmatter",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:why",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:goal",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:scope",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:references",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:depends_on",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:pills",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:files",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:checklists",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:implementation_path",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:validation",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:done_when",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:task_type",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:inherits_from",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:inherit_acceptance_context",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "field:TaskDoc:atoms",
+          "relation_type": "defines",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:task-define-sldb-addressability-model",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:task-definir-arquitectura-objetivo-modular-de-sldb",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:task-design-sldb-ast-query-primitives",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:task-ejecutar-refactor-base-del-n\u00facleo-sldb",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:task-expand-sldb-composition-modes",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:task-mapear-arquitectura-real-de-sldb",
+          "relation_type": "contains",
+          "metadata": {}
+        },
+        {
+          "target_id": "doc:task-tighten-semantic-export-provenance-contract",
+          "relation_type": "contains",
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:title",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "title"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:id",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "id"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:status",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "status"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:summary",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "summary"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:tags",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "tags"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:routine",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "routine"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:current_node",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "current_node"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:history",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "history"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:frontmatter",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "frontmatter"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:why",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "why"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:goal",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "goal"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:scope",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "scope"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:references",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "references"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:depends_on",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "depends_on"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:pills",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "pills"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:files",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "files"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:checklists",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "checklists"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:implementation_path",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "implementation_path"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:validation",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "validation"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:done_when",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "done_when"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:task_type",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "task_type"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:inherits_from",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "inherits_from"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:inherit_acceptance_context",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "inherit_acceptance_context"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "field:TaskDoc:atoms",
+        "node_type": "field"
+      },
+      "semantics": {
+        "name": "atoms"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:task-define-sldb-addressability-model",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "task-define-sldb-addressability-model"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:task-definir-arquitectura-objetivo-modular-de-sldb",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "task-definir-arquitectura-objetivo-modular-de-sldb"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:task-design-sldb-ast-query-primitives",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "task-design-sldb-ast-query-primitives"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "task-dise\u00f1ar-estrategia-de-extracci\u00f3n-y-modularizaci\u00f3n"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:task-ejecutar-refactor-base-del-n\u00facleo-sldb",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "task-ejecutar-refactor-base-del-n\u00facleo-sldb"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:task-expand-sldb-composition-modes",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "task-expand-sldb-composition-modes"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:task-mapear-arquitectura-real-de-sldb",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "task-mapear-arquitectura-real-de-sldb"
+      },
+      "edges": []
+    },
+    {
+      "identity": {
+        "node_id": "doc:task-tighten-semantic-export-provenance-contract",
+        "node_type": "document"
+      },
+      "semantics": {
+        "name": "task-tighten-semantic-export-provenance-contract"
+      },
+      "edges": []
+    }
+  ]
+}
