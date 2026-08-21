@@ -12,6 +12,8 @@ tasks:
 - desk/tasks/005-surface-semantic-signals.md
 - desk/tasks/006-prove-one-safe-edit-flow.md
 - desk/tasks/task-add-layout-strategy-registry-with-elk-layered-and-elk-rings.md
+- desk/tasks/task-add-projectionview-model-and-file-based-projectionviewstore.md
+- desk/tasks/task-add-encodingsection-and-viewssection-to-the-sidebar.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -49,4 +51,6 @@ _Generated from the task references above._
 - Wire reusable editor to real fixture [resolved] - 
 - Surface semantic signals [resolved] - 
 - Prove one safe edit flow [resolved] - 
-- Add layout strategy registry with elk-layered and elk-rings [active] - Introduce a `LAYOUT_REGISTRY` (name -> `LayoutStrategy`) in graph_ui's L2, register the existing ELK layered layout under `elk-layered`, and add a second `elk-rings` (radial) strategy, selected by `ProjectionView.layout_strategy`.
+- Add layout strategy registry with elk-layered and elk-rings [ready_for_testing] - Introduce a `LAYOUT_REGISTRY` (name -> `LayoutStrategy`) in graph_ui's L2, register the existing ELK layered layout under `elk-layered`, and add a second `elk-rings` (radial) strategy, selected by `ProjectionView.layout_strategy`.
+- Add ProjectionView model and file-based ProjectionViewStore [active] - Add a `ProjectionView` model and a small file-based `ProjectionViewStore` (`load`, `save`, `list`) that persists named views as JSON under `graph_ui/desk/fixtures/views/`, referencing facet/relation names only.
+- Add EncodingSection and ViewsSection to the sidebar [active] - Extend the existing sidebar with two sections: `EncodingSection` (edit the `EncodingRule` list) and `ViewsSection` (load/save/list `ProjectionView`s), sitting alongside the existing `FiltersSection`/`ViewSection`.
