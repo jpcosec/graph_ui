@@ -1,23 +1,37 @@
 # graph_ui
 
-Specification and reconstruction guide for the domain-agnostic visual graph editor built as part of the PhD 2.0 review workbench.
+Domain-agnostic **visual graph editor** embedded in the PhD 2.0 review workbench.
+It lets an operator inspect, edit, and approve knowledge graphs produced by the
+pipeline — without writing JSON.
 
-## Documents
+graph_ui is the **editing surface** over graph instances. Its companion
+`spec2viz` is the **architecture visualization** surface over specs; the two are
+distinct and do not overlap (edit-instances vs. render-specs).
 
-| File | What it covers |
-|---|---|
-| [spec.md](spec.md) | Full product and architecture specification (Match / CV / KnowledgeGraph domains) |
-| [sources.md](sources.md) | Where each piece lives in the two source worktrees |
-| [reconstruction.md](reconstruction.md) | Step-by-step guide to rebuild the complete system |
-| [pitfalls.md](pitfalls.md) | Architectural pitfalls and how to avoid them |
+## What it is
 
-## The short version
+- React/Vite app under `apps/review-workbench/` — the interactive editor (L1/L2/L3).
+- Python contracts/adapters under `src/` — `GraphData` contract, editor engine,
+  auditor, provider, and the `kgdb_adapter` bridge.
+- deskops workspace under `desk/` — tasks, atoms, pills, rituals governing the work.
 
-We were building a single, reusable graph editor component that can render and edit any knowledge graph regardless of domain (CVs, job requirements, documents, vehicles — anything). The editor is used inside the PhD pipeline review workbench to let the operator inspect and edit match results and CV structure visually.
+## Current focus
 
-Two worktrees accumulated parallel work toward this goal:
+- Make the editor **actually edit** (persist changes, not a no-op save).
+- Move off hardcoded fixtures and work **directly over kgdb** as the data source.
 
-- **`ui-redesign`** — the full review-workbench application with all pages and features, but a monolithic 2,950-line `KnowledgeGraph.tsx` God Component doing everything.
-- **`node-editor`** — a focused refactor that replaced `KnowledgeGraph.tsx` with a clean 3-layer architecture (L1/L2/L3), implemented and tested, but only wired to a toy vehicles dataset, not yet integrated back into the full app.
+## Where truth lives
 
-The task is to merge both: take node-editor's architecture and wire it into ui-redesign's full feature set.
+- `desk/atoms/` — durable architecture and policy truths (canonical).
+- `desk/tasks/Board.md` — active routed work.
+- `docs/` — human-facing materializations of atoms and diagram projections.
+- `legacy/` — pre-merge specs and reconstruction notes (historical only).
+
+## Run
+
+```bash
+cd apps/review-workbench
+npm run dev        # http://127.0.0.1:5173
+npm run test       # vitest
+npm run test:user-flows   # Playwright acceptance flows
+```

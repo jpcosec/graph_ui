@@ -1,0 +1,161 @@
+id: component.graph-ui
+title: graph_ui Architecture Components
+type: component
+version: "0.1"
+
+style:
+  kinds:
+    core:
+      plantuml:
+        background: "#D8ECFF"
+        border: "#4C78A8"
+        font: "#16324F"
+    boundary:
+      plantuml:
+        background: "#FCECC9"
+        border: "#D4A73C"
+        font: "#5E450B"
+    database:
+      plantuml:
+        background: "#E4E4E4"
+        border: "#888888"
+        font: "#333333"
+
+data:
+  nodes:
+    # --- Python backend (src/) ---
+    PyBackend:
+      label: Python Backend (src/)
+      kind: core
+      contains:
+        - Contracts
+        - EditorEngine
+        - Auditor
+        - Provider
+        - KgdbAdapter
+
+    Contracts:
+      label: GraphData / UINode / UIEdge (contracts/graph_data.py)
+      kind: core
+
+    EditorEngine:
+      label: GraphEditorEngine (editor.py)
+      kind: core
+
+    Auditor:
+      label: StructuralAuditor (auditor.py)
+      kind: core
+
+    Provider:
+      label: GraphProvider (provider.py)
+      kind: core
+
+    KgdbAdapter:
+      label: kgdb_to_ui_graph (adapters/kgdb_adapter.py)
+      kind: boundary
+
+    # --- React frontend (apps/review-workbench/) ---
+    Frontend:
+      label: React Editor (apps/review-workbench/)
+      kind: core
+      contains:
+        - L1App
+        - L2Canvas
+        - L3Content
+        - Stores
+        - SchemaRegistry
+        - DataProvider
+
+    L1App:
+      label: L1 App (GraphEditorPage / HumBodyPage)
+      kind: core
+
+    L2Canvas:
+      label: L2 Canvas (ReactFlow, sidebar, layout, encoding, views)
+      kind: core
+
+    L3Content:
+      label: L3 Content (node/edge renderers)
+      kind: core
+
+    Stores:
+      label: graph-store / ui-store (zustand)
+      kind: core
+
+    SchemaRegistry:
+      label: Node type registry (schema/)
+      kind: core
+
+    DataProvider:
+      label: graphDataProvider / mockClient
+      kind: boundary
+
+    # --- External sources ---
+    Kgdb:
+      label: kgdb (graph snapshots)
+      kind: database
+
+    StaticFixtures:
+      label: Static fixtures (generated-hum-ast.ts, graph_data.json)
+      kind: database
+
+  edges:
+    - from: L1App
+      to: DataProvider
+      relation: reads
+      label: getGraph/getSchema
+
+    - from: DataProvider
+      to: StaticFixtures
+      relation: reads
+      label: current source
+
+    - from: DataProvider
+      to: Kgdb
+      relation: reads
+      label: target source
+
+    - from: KgdbAdapter
+      to: Kgdb
+      relation: reads
+      label: GraphSnapshot
+
+    - from: KgdbAdapter
+      to: Contracts
+      relation: produces
+      label: GraphData
+
+    - from: L1App
+      to: Stores
+      relation: writes
+      label: loadGraph
+
+    - from: L2Canvas
+      to: Stores
+      relation: reads_writes
+      label: nodes/edges/undo
+
+    - from: L2Canvas
+      to: L3Content
+      relation: renders
+      label: node/edge views
+
+    - from: L1App
+      to: SchemaRegistry
+      relation: writes
+      label: registerSchemaTypes
+
+    - from: EditorEngine
+      to: Contracts
+      relation: reads_writes
+      label: CRUD edits
+
+    - from: Auditor
+      to: Contracts
+      relation: reads
+      label: compliance signals
+
+    - from: Provider
+      to: StaticFixtures
+      relation: reads
+      label: load_fixture

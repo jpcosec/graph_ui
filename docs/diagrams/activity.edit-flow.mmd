@@ -1,0 +1,30 @@
+flowchart TD
+    __start([Start])
+    load_graph["Load graph into store"]
+    select{"Select node or edge"}
+    create["Create node (drag type / Ctrl+K / right-click)"]
+    edit_node["Open Node Inspector, edit name/properties"]
+    edit_edge["Open Edge Inspector, edit relation type"]
+    mark_dirty["Store records semantic action (undoable)"]
+    more_edits{"More edits?"}
+    save["Save (Ctrl+S -> graphToDomain -> saveGraph)"]
+    persisted_check{"Persisted to backing store?"}
+    mark_saved["markSaved, graph is clean"]
+    save_failed["Show error, stay dirty"]
+    __end([End])
+    __start --> load_graph
+    load_graph --> select
+    select -->|node| edit_node
+    select -->|edge| edit_edge
+    select -->|empty| create
+    create --> mark_dirty
+    edit_node --> mark_dirty
+    edit_edge --> mark_dirty
+    mark_dirty --> more_edits
+    more_edits -->|yes| select
+    more_edits -->|no| save
+    save --> persisted_check
+    persisted_check -->|yes| mark_saved
+    persisted_check -->|no| save_failed
+    mark_saved --> __end
+    save_failed --> __end

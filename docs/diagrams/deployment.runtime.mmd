@@ -1,0 +1,14 @@
+graph TD
+    subgraph browser ["Browser"]
+        review_workbench_spa["review-workbench SPA (React/Vite bundle)"]
+    end
+    subgraph dev_host ["Dev Host (node)"]
+        vite_dev_server["Vite dev server (:5173)"]
+        hum_sync_script["generate-hum-ast.mjs (hum:sync)"]
+    end
+    subgraph backend_host ["Backend (target)"]
+        kgdb_store["kgdb graph store / API"]
+    end
+    review_workbench_spa -->|HTTP| vite_dev_server
+    hum_sync_script -->|build-time-fixture| review_workbench_spa
+    review_workbench_spa -->|HTTP (target, not wired)| kgdb_store

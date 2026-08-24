@@ -1,0 +1,45 @@
+id: deployment.runtime
+title: graph_ui - Runtime Deployment
+type: deployment
+version: "0.1"
+data:
+  nodes:
+    browser:
+      label: Browser
+      kind: client
+      contains:
+        - review_workbench_spa
+    dev_host:
+      label: Dev Host (node)
+      kind: server
+      contains:
+        - vite_dev_server
+        - hum_sync_script
+    backend_host:
+      label: Backend (target)
+      kind: server
+      contains:
+        - kgdb_store
+  artifacts:
+    review_workbench_spa:
+      label: review-workbench SPA (React/Vite bundle)
+      kind: frontend
+    vite_dev_server:
+      label: Vite dev server (:5173)
+      kind: frontend
+    hum_sync_script:
+      label: generate-hum-ast.mjs (hum:sync)
+      kind: backend
+    kgdb_store:
+      label: kgdb graph store / API
+      kind: backend
+  connections:
+    - from: review_workbench_spa
+      to: vite_dev_server
+      protocol: HTTP
+    - from: hum_sync_script
+      to: review_workbench_spa
+      protocol: build-time-fixture
+    - from: review_workbench_spa
+      to: kgdb_store
+      protocol: HTTP (target, not wired)

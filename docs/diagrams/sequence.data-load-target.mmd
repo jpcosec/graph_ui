@@ -1,0 +1,17 @@
+sequenceDiagram
+    actor Operator
+    participant DataProvider
+    participant KgdbAdapter
+    participant Kgdb
+    participant GraphStore
+    participant Canvas
+    Operator->>DataProvider: open editor
+    DataProvider->>Kgdb: fetch GraphSnapshot
+    Kgdb->>KgdbAdapter: GraphSnapshot
+    KgdbAdapter->>DataProvider: kgdb_to_ui_graph -> GraphData
+    DataProvider->>GraphStore: loadGraph(nodes, edges)
+    Operator->>Canvas: edit node/edge/attribute
+    Canvas->>GraphStore: updateNode/addEdge/removeElements
+    Operator->>DataProvider: save (Ctrl+S)
+    DataProvider->>Kgdb: persist mutations (write-back)
+    Kgdb->>DataProvider: ok

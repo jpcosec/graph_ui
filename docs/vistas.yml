@@ -1,0 +1,63 @@
+vistas:
+  - id: component-graph-ui
+    category: Arquitectura
+    title: graph_ui Architecture Components
+    nav: Componentes
+    desc: Backend contracts + React 3-layer editor and how they connect.
+    src: diagrams/component.graph-ui.mmd
+    specs:
+      - specs/component.graph-ui.yml
+
+  - id: matrix-graph-ui-views
+    category: Arquitectura
+    title: Components x Views Matrix
+    nav: Componentes
+    desc: Which parts serve HUM views vs the generic editor, across stages.
+    src: diagrams/matrix.graph-ui-views.vega.json
+    specs:
+      - specs/matrix.graph-ui-views.yml
+
+  - id: sequence-data-load
+    category: Flujos
+    title: Data Load Flow (current)
+    nav: Flujos
+    desc: How the app loads data today (static baked fixture).
+    src: diagrams/sequence.data-load.mmd
+    specs:
+      - specs/sequence.data-load.yml
+
+  - id: sequence-data-load-target
+    category: Flujos
+    title: Data Load + Save Flow (target, over kgdb)
+    nav: Flujos
+    desc: Target read/write flow directly over kgdb.
+    src: diagrams/sequence.data-load-target.mmd
+    specs:
+      - specs/sequence.data-load-target.yml
+
+  - id: activity-edit-flow
+    category: Flujos
+    title: Operator Edit Flow
+    nav: Flujos
+    desc: Select, edit, save; dirty/persist decision points.
+    src: diagrams/activity.edit-flow.mmd
+    specs:
+      - specs/activity.edit-flow.yml
+
+  - id: state-editor-lifecycle
+    category: Flujos
+    title: Editor Graph Lifecycle
+    nav: Flujos
+    desc: loading / clean / dirty / saving / error states.
+    src: diagrams/state.editor-lifecycle.mmd
+    specs:
+      - specs/state.editor-lifecycle.yml
+
+  - id: deployment-runtime
+    category: Arquitectura
+    title: Runtime Deployment
+    nav: Deployment
+    desc: Browser SPA, Vite dev server, hum:sync, target kgdb backend.
+    src: diagrams/deployment.runtime.mmd
+    specs:
+      - specs/deployment.runtime.yml

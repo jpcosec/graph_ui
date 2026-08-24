@@ -1,0 +1,56 @@
+id: sequence.data-load-target
+title: graph_ui - Data Load + Save Flow (target, over kgdb)
+type: sequence
+version: "0.1"
+data:
+  participants:
+    - id: Operator
+      kind: actor
+    - id: DataProvider
+      kind: component
+    - id: KgdbAdapter
+      kind: component
+    - id: Kgdb
+      kind: boundary
+    - id: GraphStore
+      kind: component
+    - id: Canvas
+      kind: component
+  messages:
+    - from: Operator
+      to: DataProvider
+      message: open editor
+    - from: DataProvider
+      to: Kgdb
+      message: fetch GraphSnapshot
+      kind: sync
+    - from: Kgdb
+      to: KgdbAdapter
+      message: GraphSnapshot
+      kind: reply
+    - from: KgdbAdapter
+      to: DataProvider
+      message: kgdb_to_ui_graph -> GraphData
+      kind: reply
+    - from: DataProvider
+      to: GraphStore
+      message: loadGraph(nodes, edges)
+      kind: sync
+    - from: Operator
+      to: Canvas
+      message: edit node/edge/attribute
+    - from: Canvas
+      to: GraphStore
+      message: updateNode/addEdge/removeElements
+      kind: sync
+    - from: Operator
+      to: DataProvider
+      message: save (Ctrl+S)
+    - from: DataProvider
+      to: Kgdb
+      message: persist mutations (write-back)
+      kind: sync
+    - from: Kgdb
+      to: DataProvider
+      message: ok
+      kind: reply

@@ -1,0 +1,151 @@
+id: matrix.graph-ui-views
+title: graph_ui - Components x Views Matrix
+type: component_view_matrix
+version: "0.1"
+data:
+  views:
+    - id: hum
+      label: HUM Body Views (mounted default)
+      stages:
+        - id: structure
+          label: structure
+        - id: body
+          label: body
+        - id: routine
+          label: routine
+        - id: trace
+          label: trace
+        - id: compare
+          label: compare
+    - id: editor
+      label: Generic Graph Editor
+      stages:
+        - id: load
+          label: load
+        - id: edit
+          label: edit
+        - id: filter
+          label: filter
+        - id: layout
+          label: layout
+        - id: save
+          label: save
+
+  components:
+    - name: Frontend
+      kind: core
+      stages:
+        hum: [structure, body, routine, trace, compare]
+        editor: [load, edit, filter, layout, save]
+      children:
+        - name: L1App
+          kind: boundary
+          stages:
+            hum: [structure, body, routine, trace, compare]
+            editor: [load, save]
+          children:
+            - name: HumBodyPage
+              kind: ui
+              stages:
+                hum: [structure, body, routine, trace, compare]
+            - name: GraphEditorPage
+              kind: ui
+              stages:
+                editor: [load, save]
+        - name: L2Canvas
+          kind: core
+          stages:
+            hum: [structure, body, routine, trace, compare]
+            editor: [edit, filter, layout]
+          children:
+            - name: GraphCanvas
+              kind: ui
+              stages:
+                hum: [structure, body, routine, trace, compare]
+                editor: [edit]
+            - name: CanvasSidebar
+              kind: ui
+              stages:
+                editor: [edit, filter, layout, save]
+              children:
+                - name: CreationSection
+                  kind: ui
+                  stages:
+                    editor: [edit]
+                - name: FiltersSection
+                  kind: ui
+                  stages:
+                    editor: [filter]
+                - name: EncodingSection
+                  kind: ui
+                  stages:
+                    editor: [filter]
+                - name: ViewsSection
+                  kind: ui
+                  stages:
+                    editor: [filter, save]
+                - name: ViewSection
+                  kind: ui
+                  stages:
+                    editor: [layout]
+                - name: ActionsSection
+                  kind: ui
+                  stages:
+                    editor: [save]
+            - name: NodeInspector
+              kind: ui
+              stages:
+                editor: [edit]
+            - name: EdgeInspector
+              kind: ui
+              stages:
+                editor: [edit]
+            - name: CommandMenu
+              kind: ui
+              stages:
+                editor: [edit]
+            - name: LayoutStrategies
+              kind: service
+              stages:
+                hum: [structure, body]
+                editor: [layout]
+            - name: EncodingRules
+              kind: service
+              stages:
+                editor: [filter]
+        - name: Stores
+          kind: core
+          stages:
+            hum: [structure, body, routine, trace, compare]
+            editor: [load, edit, save]
+          children:
+            - name: GraphStore
+              kind: database
+              stages:
+                editor: [load, edit, save]
+            - name: UiStore
+              kind: database
+              stages:
+                editor: [edit, filter]
+            - name: ProjectionViewStore
+              kind: database
+              stages:
+                editor: [filter, save]
+        - name: DataLayer
+          kind: boundary
+          stages:
+            hum: [structure]
+            editor: [load, save]
+          children:
+            - name: DataProvider
+              kind: service
+              stages:
+                editor: [load, save]
+            - name: HumAstFixture
+              kind: database
+              stages:
+                hum: [structure]
+            - name: KgdbAdapter
+              kind: service
+              stages:
+                editor: [load]

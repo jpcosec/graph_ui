@@ -1,0 +1,10 @@
+stateDiagram-v2
+    [*] --> loading
+    loading --> clean : data_ready
+    loading --> error : fetch_failed
+    clean --> dirty : semantic_edit [not isVisualOnly]
+    dirty --> dirty : more_edits
+    dirty --> saving : save
+    saving --> clean : persisted [markSaved]
+    saving --> dirty : save_failed
+    clean --> loading : reload [not isDirty]

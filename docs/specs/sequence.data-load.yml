@@ -1,0 +1,50 @@
+id: sequence.data-load
+title: graph_ui - Data Load Flow (current)
+type: sequence
+version: "0.1"
+data:
+  participants:
+    - id: App
+      kind: component
+    - id: HumBodyPage
+      kind: component
+    - id: Adapter
+      kind: component
+    - id: MockData
+      kind: component
+    - id: GeneratedAst
+      kind: boundary
+    - id: GraphStore
+      kind: component
+  messages:
+    - from: App
+      to: HumBodyPage
+      message: mount default page
+    - from: HumBodyPage
+      to: Adapter
+      message: buildHumViewGraph(mode)
+      kind: sync
+    - from: Adapter
+      to: MockData
+      message: read humBodyModel
+      kind: sync
+    - from: MockData
+      to: GeneratedAst
+      message: import generatedHumAstFiles/Forms
+      kind: sync
+    - from: GeneratedAst
+      to: MockData
+      message: static TS array (frozen fixture)
+      kind: reply
+    - from: Adapter
+      to: HumBodyPage
+      message: nodes + edges
+      kind: reply
+    - from: HumBodyPage
+      to: GraphStore
+      message: loadGraph(nodes, edges)
+      kind: sync
+    - from: GraphStore
+      to: HumBodyPage
+      message: in-memory draft graph
+      kind: reply

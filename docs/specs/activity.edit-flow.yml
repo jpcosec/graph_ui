@@ -1,0 +1,64 @@
+id: activity.edit-flow
+title: graph_ui - Operator Edit Flow
+type: activity
+version: "0.1"
+
+data:
+  start: load_graph
+
+  steps:
+    load_graph:
+      label: Load graph into store
+      next: select
+
+    select:
+      label: Select node or edge
+      kind: decision
+      branches:
+        node: edit_node
+        edge: edit_edge
+        empty: create
+
+    create:
+      label: Create node (drag type / Ctrl+K / right-click)
+      next: mark_dirty
+
+    edit_node:
+      label: Open Node Inspector, edit name/properties
+      next: mark_dirty
+
+    edit_edge:
+      label: Open Edge Inspector, edit relation type
+      next: mark_dirty
+
+    mark_dirty:
+      label: Store records semantic action (undoable)
+      next: more_edits
+
+    more_edits:
+      label: More edits?
+      kind: decision
+      branches:
+        "yes": select
+        "no": save
+
+    save:
+      label: Save (Ctrl+S -> graphToDomain -> saveGraph)
+      next: persisted_check
+
+    persisted_check:
+      label: Persisted to backing store?
+      kind: decision
+      branches:
+        "yes": mark_saved
+        "no": save_failed
+
+    mark_saved:
+      label: markSaved, graph is clean
+      next: end
+
+    save_failed:
+      label: Show error, stay dirty
+      next: end
+
+  end: end

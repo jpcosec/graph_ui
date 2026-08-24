@@ -1,0 +1,30 @@
+graph TD
+    subgraph PyBackend ["Python Backend (src/)"]
+        Contracts["GraphData / UINode / UIEdge (contracts/graph_data.py)"]
+        EditorEngine["GraphEditorEngine (editor.py)"]
+        Auditor["StructuralAuditor (auditor.py)"]
+        Provider["GraphProvider (provider.py)"]
+        KgdbAdapter["kgdb_to_ui_graph (adapters/kgdb_adapter.py)"]
+    end
+    subgraph Frontend ["React Editor (apps/review-workbench/)"]
+        L1App["L1 App (GraphEditorPage / HumBodyPage)"]
+        L2Canvas["L2 Canvas (ReactFlow, sidebar, layout, encoding, views)"]
+        L3Content["L3 Content (node/edge renderers)"]
+        Stores["graph-store / ui-store (zustand)"]
+        SchemaRegistry["Node type registry (schema/)"]
+        DataProvider["graphDataProvider / mockClient"]
+    end
+    Kgdb["kgdb (graph snapshots)"]
+    StaticFixtures["Static fixtures (generated-hum-ast.ts, graph_data.json)"]
+    L1App -->|getGraph/getSchema| DataProvider
+    DataProvider -->|current source| StaticFixtures
+    DataProvider -->|target source| Kgdb
+    KgdbAdapter -->|GraphSnapshot| Kgdb
+    KgdbAdapter -->|GraphData| Contracts
+    L1App -->|loadGraph| Stores
+    L2Canvas -->|nodes/edges/undo| Stores
+    L2Canvas -->|node/edge views| L3Content
+    L1App -->|registerSchemaTypes| SchemaRegistry
+    EditorEngine -->|CRUD edits| Contracts
+    Auditor -->|compliance signals| Contracts
+    Provider -->|load_fixture| StaticFixtures

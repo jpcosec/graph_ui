@@ -1,0 +1,46 @@
+id: state.editor-lifecycle
+title: graph_ui - Editor Graph Lifecycle
+type: state
+version: "0.1"
+data:
+  entity: GraphSession
+  initial: loading
+  states:
+    - id: loading
+      label: Loading (fetch schema + graph)
+    - id: clean
+      label: Clean (loaded, no unsaved edits)
+    - id: dirty
+      label: Dirty (unsaved semantic edits)
+    - id: saving
+      label: Saving (persist to backing store)
+    - id: error
+      label: Error (schema/data failure)
+  transitions:
+    - from: loading
+      to: clean
+      "on": data_ready
+    - from: loading
+      to: error
+      "on": fetch_failed
+    - from: clean
+      to: dirty
+      "on": semantic_edit
+      guard: not isVisualOnly
+    - from: dirty
+      to: dirty
+      "on": more_edits
+    - from: dirty
+      to: saving
+      "on": save
+    - from: saving
+      to: clean
+      "on": persisted
+      guard: markSaved
+    - from: saving
+      to: dirty
+      "on": save_failed
+    - from: clean
+      to: loading
+      "on": reload
+      guard: not isDirty

@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant App
+    participant HumBodyPage
+    participant Adapter
+    participant MockData
+    participant GeneratedAst
+    participant GraphStore
+    App->>HumBodyPage: mount default page
+    HumBodyPage->>Adapter: buildHumViewGraph(mode)
+    Adapter->>MockData: read humBodyModel
+    MockData->>GeneratedAst: import generatedHumAstFiles/Forms
+    GeneratedAst->>MockData: static TS array (frozen fixture)
+    Adapter->>HumBodyPage: nodes + edges
+    HumBodyPage->>GraphStore: loadGraph(nodes, edges)
+    GraphStore->>HumBodyPage: in-memory draft graph
