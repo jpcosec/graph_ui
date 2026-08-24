@@ -306,64 +306,71 @@ function anatomyNodes(model: HumBodyModel): ASTNode[] {
   return nodes;
 }
 
-// Pack top-level file groups into columns by their real height so tall groups
-// never overflow into a fixed grid row and overlap the next one. The baked
-// fixture positions assume uniform row heights, which they are not.
+// Height a collapsed group box occupies (header only). Must match
+// COLLAPSED_GROUP_HEIGHT in use-edge-inheritance.ts.
+const COLLAPSED_GROUP_HEIGHT = 52;
+
+// Pack top-level file groups into balanced columns. The structure view starts
+// with every file collapsed, so we pack using the collapsed header height: this
+// keeps all 10 files visible and legible on first load instead of 111 forms
+// crammed into an unreadable wall. Expanding a file reflows via ReactFlow.
 function packFileColumns(
   files: HumBodyModel['astFiles'],
+  groupHeight: number,
 ): Map<string, { x: number; y: number }> {
   const COLUMNS = 3;
   const COL_WIDTH = 372;
   const GAP_X = 76;
-  const GAP_Y = 80;
+  const GAP_Y = 28;
   const START_X = 72;
-  const START_Y = 250;
+  const START_Y = 160;
 
   const columnHeights = new Array<number>(COLUMNS).fill(START_Y);
   const positions = new Map<string, { x: number; y: number }>();
 
-  for (const file of files) {
-    // choose the shortest column so far to keep the layout balanced
-    let col = 0;
-    for (let i = 1; i < COLUMNS; i += 1) {
-      if (columnHeights[i] < columnHeights[col]) {
-        col = i;
-      }
-    }
+  files.forEach((file, index) => {
+    const col = index % COLUMNS;
     const x = START_X + col * (COL_WIDTH + GAP_X);
     const y = columnHeights[col];
     positions.set(file.id, { x, y });
-    columnHeights[col] = y + file.size.height + GAP_Y;
-  }
+    columnHeights[col] = y + groupHeight + GAP_Y;
+  });
 
   return positions;
 }
 
 function structureNodes(model: HumBodyModel): ASTNode[] {
   const nodes: ASTNode[] = [];
-  const packedPositions = packFileColumns(model.astFiles);
+  const packedPositions = packFileColumns(model.astFiles, COLLAPSED_GROUP_HEIGHT);
 
   for (const file of model.astFiles) {
-    nodes.push(
-      makeGroupNode(
-        file.id,
-        'hum-ast-file',
-        file.label,
-        packedPositions.get(file.id) ?? file.position,
-        'token-hum-system',
-        propertyRecord([
-          ['path', file.filePath],
-          ['layer', 'lisp-ast'],
-          ['formCount', model.astForms.filter((form) => form.fileId === file.id).length],
-        ]),
-        file.size,
-        {
-          filePath: file.filePath,
-          description: file.description,
-          badges: ['file', 'ast'],
-        },
-      ),
+    const group = makeGroupNode(
+      file.id,
+      'hum-ast-file',
+      file.label,
+      packedPositions.get(file.id) ?? file.position,
+      'token-hum-system',
+      propertyRecord([
+        ['path', file.filePath],
+        ['layer', 'lisp-ast'],
+        ['formCount', model.astForms.filter((form) => form.fileId === file.id).length],
+      ]),
+      file.size,
+      {
+        filePath: file.filePath,
+        description: file.description,
+        badges: ['file', 'ast'],
+      },
     );
+
+    // Start collapsed: mark state, remember expanded height, shrink to header.
+    group.data.properties = {
+      ...group.data.properties,
+      __collapsed: 'true',
+      __expandedHeight: String(file.size.height),
+    };
+    group.style = { ...group.style, height: COLLAPSED_GROUP_HEIGHT };
+    nodes.push(group);
   }
 
   for (const form of model.astForms) {
@@ -387,6 +394,8 @@ function structureNodes(model: HumBodyModel): ASTNode[] {
       ),
       parentId: form.fileId,
       extent: 'parent',
+      // Children hidden initially because their parent group is collapsed.
+      hidden: true,
     });
   }
 

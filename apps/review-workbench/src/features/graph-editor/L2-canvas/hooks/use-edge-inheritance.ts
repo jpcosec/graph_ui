@@ -4,7 +4,19 @@ import { useGraphStore } from '@/stores/graph-store';
 import type { ASTEdge, ASTNode } from '@/stores/types';
 
 const COLLAPSED_KEY = '__collapsed';
+const EXPANDED_HEIGHT_KEY = '__expandedHeight';
+const COLLAPSED_GROUP_HEIGHT = 52;
 const INHERITED_RELATION_TYPE = 'inherited';
+
+function readStyleHeight(node: ASTNode): number | undefined {
+  const h = node.style?.height;
+  if (typeof h === 'number') return h;
+  if (typeof h === 'string') {
+    const parsed = Number.parseFloat(h);
+    return Number.isFinite(parsed) ? parsed : undefined;
+  }
+  return undefined;
+}
 
 type UpdateNode = (nodeId: string, patch: Partial<ASTNode>, options?: { isVisualOnly?: boolean }) => void;
 type UpdateEdge = (edgeId: string, patch: Partial<ASTEdge>, options?: { isVisualOnly?: boolean }) => void;
@@ -79,10 +91,23 @@ export function collapseGroupEdges(groupId: string, state: EdgeInheritanceState)
     return;
   }
 
+  // Shrink the group box to just its header, remembering the expanded height so
+  // expandGroup can restore it. Without this the collapsed group stays a tall
+  // empty box.
+  const expandedHeight = readStyleHeight(groupNode);
+  const nextData = withCollapsedState(groupNode.data, true);
+  if (expandedHeight !== undefined) {
+    nextData.properties = {
+      ...nextData.properties,
+      [EXPANDED_HEIGHT_KEY]: String(expandedHeight),
+    };
+  }
+
   updateNode(
     groupId,
     {
-      data: withCollapsedState(groupNode.data, true),
+      data: nextData,
+      style: { ...groupNode.style, height: COLLAPSED_GROUP_HEIGHT },
     },
     { isVisualOnly: true },
   );
@@ -136,10 +161,23 @@ export function expandGroupEdges(groupId: string, state: EdgeInheritanceState): 
     return;
   }
 
+  // Restore the remembered expanded height.
+  const remembered = groupNode.data.properties?.[EXPANDED_HEIGHT_KEY];
+  const restoredHeight = remembered ? Number.parseFloat(remembered) : undefined;
+  const nextData = withCollapsedState(groupNode.data, false);
+  if (nextData.properties && EXPANDED_HEIGHT_KEY in nextData.properties) {
+    const { [EXPANDED_HEIGHT_KEY]: _drop, ...rest } = nextData.properties;
+    nextData.properties = rest;
+  }
+
   updateNode(
     groupId,
     {
-      data: withCollapsedState(groupNode.data, false),
+      data: nextData,
+      style: {
+        ...groupNode.style,
+        height: Number.isFinite(restoredHeight) ? restoredHeight : groupNode.style?.height,
+      },
     },
     { isVisualOnly: true },
   );
