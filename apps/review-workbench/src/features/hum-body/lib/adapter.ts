@@ -306,8 +306,42 @@ function anatomyNodes(model: HumBodyModel): ASTNode[] {
   return nodes;
 }
 
+// Pack top-level file groups into columns by their real height so tall groups
+// never overflow into a fixed grid row and overlap the next one. The baked
+// fixture positions assume uniform row heights, which they are not.
+function packFileColumns(
+  files: HumBodyModel['astFiles'],
+): Map<string, { x: number; y: number }> {
+  const COLUMNS = 3;
+  const COL_WIDTH = 372;
+  const GAP_X = 76;
+  const GAP_Y = 80;
+  const START_X = 72;
+  const START_Y = 250;
+
+  const columnHeights = new Array<number>(COLUMNS).fill(START_Y);
+  const positions = new Map<string, { x: number; y: number }>();
+
+  for (const file of files) {
+    // choose the shortest column so far to keep the layout balanced
+    let col = 0;
+    for (let i = 1; i < COLUMNS; i += 1) {
+      if (columnHeights[i] < columnHeights[col]) {
+        col = i;
+      }
+    }
+    const x = START_X + col * (COL_WIDTH + GAP_X);
+    const y = columnHeights[col];
+    positions.set(file.id, { x, y });
+    columnHeights[col] = y + file.size.height + GAP_Y;
+  }
+
+  return positions;
+}
+
 function structureNodes(model: HumBodyModel): ASTNode[] {
   const nodes: ASTNode[] = [];
+  const packedPositions = packFileColumns(model.astFiles);
 
   for (const file of model.astFiles) {
     nodes.push(
@@ -315,7 +349,7 @@ function structureNodes(model: HumBodyModel): ASTNode[] {
         file.id,
         'hum-ast-file',
         file.label,
-        file.position,
+        packedPositions.get(file.id) ?? file.position,
         'token-hum-system',
         propertyRecord([
           ['path', file.filePath],

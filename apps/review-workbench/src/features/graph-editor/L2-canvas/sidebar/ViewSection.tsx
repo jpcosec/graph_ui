@@ -55,7 +55,7 @@ export function ViewSection() {
           <Button size="sm" className="w-full" onClick={applyLayout} disabled={isApplyingLayout}>
             Apply Layout
           </Button>
-          <p className="text-[10px] text-muted-foreground">ELK layout runs in a Web Worker.</p>
+          <p className="text-[10px] text-muted-foreground">Dagre-layered layout repositions all nodes.</p>
         </TabsContent>
 
         <TabsContent value="manual" className="mt-2">

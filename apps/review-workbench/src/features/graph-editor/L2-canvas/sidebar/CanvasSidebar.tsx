@@ -107,7 +107,7 @@ export function CanvasSidebar({ onSave, variant = 'default', topPanel }: CanvasS
             </div>
           </div>
 
-          <Accordion type="multiple" defaultValue={variant === 'compact' ? ['actions', 'view', 'encoding', 'views'] : ['actions', 'filters', 'creation', 'view', 'encoding', 'views']} className="space-y-3 px-1 pb-4">
+          <Accordion type="multiple" defaultValue={variant === 'compact' ? ['actions', 'creation', 'view', 'encoding', 'views'] : ['actions', 'filters', 'creation', 'view', 'encoding', 'views']} className="space-y-3 px-1 pb-4">
             <AccordionPanel value="actions" title="Actions">
               <ActionsSection onSave={onSave} />
             </AccordionPanel>
