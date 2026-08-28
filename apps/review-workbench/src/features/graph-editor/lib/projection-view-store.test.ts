@@ -38,7 +38,7 @@ describe('ProjectionViewStore', () => {
       view_id: 'view-imports',
       label: 'Imports',
       encoding: [{ when: { relationType: 'imports' }, style: { strokeColor: '#fff', strokeWidth: 2 } }],
-      layout_strategy: 'dagre-layered',
+      layout_strategy: 'elk-layered',
       created_by: 'test',
     });
 
@@ -56,7 +56,7 @@ describe('ProjectionViewStore', () => {
       view_id: 'view-calls',
       label: 'Calls',
       encoding: [{ when: { relationType: 'calls' }, style: { strokeStyle: 'dashed' } }],
-      layout_strategy: 'concentric-rings',
+      layout_strategy: 'elk-rings',
     });
 
     store.delete('view-calls');
@@ -74,7 +74,7 @@ describe('ProjectionViewStore', () => {
     expect(defaultView).toMatchObject({
       view_id: DEFAULT_VIEW_ID,
       label: 'Default View',
-      layout_strategy: 'dagre-layered',
+      layout_strategy: 'elk-layered',
     });
     expect(defaultView.encoding.length).toBeGreaterThan(0);
   });
@@ -87,7 +87,7 @@ describe('ProjectionViewStore', () => {
         view_id: 'view-invalid',
         label: 'Invalid',
         encoding: [{ when: { nodeFacet: 'category', facetValue: 'n-autos' }, style: { nodeColorToken: '#ff0' } }],
-        layout_strategy: 'dagre-layered',
+        layout_strategy: 'elk-layered',
       }),
     ).toThrow('Projection views must not reference literal node IDs in encoding rules.');
 

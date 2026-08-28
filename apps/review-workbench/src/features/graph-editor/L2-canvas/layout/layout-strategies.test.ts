@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   DEFAULT_LAYOUT_STRATEGY_NAME,
   LAYOUT_STRATEGIES,
-  computeConcentricRingsLayout,
+  computeElkRingsLayout,
   getLayoutStrategy,
 } from './layout-strategies';
 
@@ -23,16 +23,16 @@ function radiusOf(position: { x: number; y: number }) {
 
 describe('LAYOUT_STRATEGIES', () => {
   it('returns a strategy by name', () => {
-    expect(LAYOUT_STRATEGIES['concentric-rings']).toBeDefined();
-    expect(getLayoutStrategy('concentric-rings')).toBe(LAYOUT_STRATEGIES['concentric-rings']);
+    expect(LAYOUT_STRATEGIES['elk-rings']).toBeDefined();
+    expect(getLayoutStrategy('elk-rings')).toBe(LAYOUT_STRATEGIES['elk-rings']);
   });
 
-  it('falls back to dagre-layered for unknown strategies', () => {
+  it('falls back to elk-layered for unknown strategies', () => {
     expect(getLayoutStrategy('unknown-strategy')).toBe(LAYOUT_STRATEGIES[DEFAULT_LAYOUT_STRATEGY_NAME]);
   });
 
-  it('dagre-layered produces positions for nodes', async () => {
-    const result = await LAYOUT_STRATEGIES['dagre-layered'].computeLayout(
+  it('elk-layered produces positions for nodes', async () => {
+    const result = await LAYOUT_STRATEGIES['elk-layered'].computeLayout(
       [
         { id: 'root' },
         { id: 'child-a' },
@@ -56,8 +56,8 @@ describe('LAYOUT_STRATEGIES', () => {
     );
   });
 
-  it('concentric-rings positions nodes in BFS-based rings', async () => {
-    const result = await LAYOUT_STRATEGIES['concentric-rings'].computeLayout(
+  it('elk-rings positions nodes in BFS-based rings', async () => {
+    const result = await LAYOUT_STRATEGIES['elk-rings'].computeLayout(
       [
         { id: 'root' },
         { id: 'level-1-a' },
@@ -83,8 +83,8 @@ describe('LAYOUT_STRATEGIES', () => {
     expect(radiusOf(positions['level-2-b'])).toBeCloseTo(200, 5);
   });
 
-  it('concentric-rings can restrict traversal to interface relations', () => {
-    const result = computeConcentricRingsLayout(
+  it('elk-rings can restrict traversal to interface relations', () => {
+    const result = computeElkRingsLayout(
       [
         { id: 'root' },
         { id: 'interface-child' },

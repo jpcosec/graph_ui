@@ -46,7 +46,7 @@ describe('ViewsSection', () => {
 
   it('saves and applies a view through the ui store', () => {
     const store = new ProjectionViewStore(createStorage());
-    useUIStore.getState().setActiveLayoutStrategy('concentric-rings');
+    useUIStore.getState().setActiveLayoutStrategy('elk-rings');
     useUIStore.getState().setActiveEncodingRules([
       { when: { relationType: 'imports' }, style: { strokeColor: '#ffffff', strokeStyle: 'dashed' } },
     ]);
@@ -59,7 +59,7 @@ describe('ViewsSection', () => {
     expect(savedView.view_id).toBe('view-imports-view');
     expect(store.load(savedView.view_id)).toMatchObject({ label: 'Imports View' });
     expect(uiState.activeViewId).toBe(savedView.view_id);
-    expect(uiState.activeLayoutStrategy).toBe('concentric-rings');
+    expect(uiState.activeLayoutStrategy).toBe('elk-rings');
     expect(uiState.activeEncodingRules).toEqual(savedView.encoding);
   });
 });

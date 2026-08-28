@@ -1,4 +1,6 @@
-import dagre from 'dagre';
+import ELK from 'elkjs/lib/elk.bundled.js';
+
+const elk = new ELK();
 
 export interface LayoutOptions {
   direction?: 'LR' | 'TB' | 'RL' | 'BT';
@@ -35,7 +37,7 @@ export interface LayoutStrategy {
 const DEFAULT_NODE_WIDTH = 200;
 const DEFAULT_NODE_HEIGHT = 80;
 const DEFAULT_RING_SPACING = 240;
-const DEFAULT_LAYOUT_STRATEGY_NAME = 'dagre-layered';
+const DEFAULT_LAYOUT_STRATEGY_NAME = 'elk-layered';
 const DEFAULT_INTERFACE_RELATION_TYPES = ['inherited'];
 
 function resolveNodeSize(node: LayoutNode) {
@@ -45,48 +47,56 @@ function resolveNodeSize(node: LayoutNode) {
   };
 }
 
-export function computeDagreLayeredLayout(
+const ELK_DIRECTION: Record<NonNullable<LayoutOptions['direction']>, string> = {
+  LR: 'RIGHT',
+  RL: 'LEFT',
+  TB: 'DOWN',
+  BT: 'UP',
+};
+
+export async function computeElkLayeredLayout(
   nodes: LayoutNode[],
   edges: LayoutEdge[],
   options: LayoutOptions = {},
-): LayoutResult {
-  const dagreGraph = new dagre.graphlib.Graph();
-  dagreGraph.setDefaultEdgeLabel(() => ({}));
+): Promise<LayoutResult> {
+  if (nodes.length === 0) {
+    return [];
+  }
 
   const direction = options.direction ?? 'LR';
-  dagreGraph.setGraph({
-    rankdir: direction,
-    nodesep: options.nodeSpacing ?? 50,
-    ranksep: options.rankSpacing ?? 100,
-    marginx: 0,
-    marginy: 0,
-  });
 
-  nodes.forEach((node) => {
-    dagreGraph.setNode(node.id, resolveNodeSize(node));
-  });
+  const graph = {
+    id: 'root',
+    layoutOptions: {
+      'elk.algorithm': 'layered',
+      'elk.direction': ELK_DIRECTION[direction],
+      'elk.spacing.nodeNode': String(options.nodeSpacing ?? 50),
+      'elk.layered.spacing.nodeNodeBetweenLayers': String(options.rankSpacing ?? 100),
+    },
+    children: nodes.map((node) => {
+      const { width, height } = resolveNodeSize(node);
+      return { id: node.id, width, height };
+    }),
+    edges: edges.map((edge) => ({
+      id: edge.id,
+      sources: [edge.source],
+      targets: [edge.target],
+    })),
+  };
 
-  edges.forEach((edge) => {
-    dagreGraph.setEdge(edge.source, edge.target);
-  });
-
-  dagre.layout(dagreGraph);
+  const laidOut = await elk.layout(graph);
+  const positions = new Map<string, { x: number; y: number }>();
+  for (const child of laidOut.children ?? []) {
+    positions.set(child.id, { x: child.x ?? 0, y: child.y ?? 0 });
+  }
 
   return nodes
     .map((node) => {
-      const nodeWithPosition = dagreGraph.node(node.id);
-      if (!nodeWithPosition) {
+      const position = positions.get(node.id);
+      if (!position) {
         return null;
       }
-
-      const { width, height } = resolveNodeSize(node);
-      return {
-        id: node.id,
-        position: {
-          x: nodeWithPosition.x - width / 2,
-          y: nodeWithPosition.y - height / 2,
-        },
-      };
+      return { id: node.id, position };
     })
     .filter((item): item is LayoutResult[number] => item !== null);
 }
@@ -177,7 +187,7 @@ function computeBreadthFirstDepths(nodes: LayoutNode[], edges: LayoutEdge[], opt
   return depths;
 }
 
-export function computeConcentricRingsLayout(
+export function computeElkRingsLayout(
   nodes: LayoutNode[],
   edges: LayoutEdge[],
   options: LayoutOptions = {},
@@ -258,14 +268,14 @@ export function computeConcentricRingsLayout(
 }
 
 export const LAYOUT_STRATEGIES: Record<string, LayoutStrategy> = {
-  'dagre-layered': {
+  'elk-layered': {
     async computeLayout(nodes, edges, config) {
-      return computeDagreLayeredLayout(nodes, edges, config);
+      return computeElkLayeredLayout(nodes, edges, config);
     },
   },
-  'concentric-rings': {
+  'elk-rings': {
     async computeLayout(nodes, edges, config) {
-      return computeConcentricRingsLayout(nodes, edges, config);
+      return computeElkRingsLayout(nodes, edges, config);
     },
   },
 };
