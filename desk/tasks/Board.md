@@ -11,6 +11,7 @@ tasks:
 - desk/tasks/004-wire-reusable-editor-to-real-fixture.md
 - desk/tasks/005-surface-semantic-signals.md
 - desk/tasks/006-prove-one-safe-edit-flow.md
+- desk/tasks/task-generate-graph-ui-node-types-from-sldb-models-at-build-time.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -47,4 +48,9 @@ _Generated from the task references above._
 - Create real graph fixture [resolved] - 
 - Wire reusable editor to real fixture [resolved] - 
 - Surface semantic signals [resolved] - 
-- Prove one safe edit flow [resolved] -
+- Prove one safe edit flow [resolved] - 
+- Generate graph_ui node types from sldb models at build time [active] - A build-time generator that turns one sldb model into a `NodeTypeDefinition`:
+- `payloadSchema` (Zod) derived from the model's `Field`s.
+- `allowedConnections` derived from the model's relation fields.
+- `colorToken` / `category` derived from `__family__`.
+- default renderers wired.

@@ -1,17 +1,50 @@
 ---
-id: drawer-generate-node-types-from-sldb-models-at-build
-status: drawer
+id: task-generate-graph-ui-node-types-from-sldb-models-at-build-time
+status: active
+summary: ''
 tags:
 - workspace:desk
 - artifact:task
 - source:drawer
+routine: routine-task-generate-graph-ui-node-types-from-sldb-models-at-build-time
+current_node: checklist-task-generate-graph-ui-node-types-from-sldb-models-at-build-time-execution-ready
+history: []
+references:
+- desk/drawer/tasks/drawer-generate-node-types-from-sldb-models-at-build.md
 depends_on: []
-atoms:
-- atom-graph-ui-is-a-schema-driven-typed-editor-not-a-generic-canvas
-- atom-graph-ui-node-types-must-not-be-hand-written-zod-generate-them-from-sldb-models-at-build
+pills: []
+files: []
+checklists:
+- checklist-task-generate-graph-ui-node-types-from-sldb-models-at-build-time-execution-ready
+- checklist-task-generate-graph-ui-node-types-from-sldb-models-at-build-time-testing-ready
+- checklist-task-generate-graph-ui-node-types-from-sldb-models-at-build-time-closeout-ready
+task_type: ''
+inherits_from: []
+inherit_acceptance_context: false
+atoms: []
 ---
 
 # Generate graph_ui node types from sldb models at build time
+
+## Rationale
+
+_Explain why this task exists or the business driver behind it._
+
+Not provided.
+
+## Goal
+
+_Describe the concrete result this task must produce._
+
+A build-time generator that turns one sldb model into a `NodeTypeDefinition`:
+- `payloadSchema` (Zod) derived from the model's `Field`s.
+- `allowedConnections` derived from the model's relation fields.
+- `colorToken` / `category` derived from `__family__`.
+- default renderers wired.
+
+## Scope
+
+_State what is in scope and what is out of scope._
 
 ## Rationale
 
@@ -132,3 +165,21 @@ Working dir: `apps/review-workbench/`.
 - `apps/review-workbench/src/schema/register-defaults.ts` (edit)
 - `apps/review-workbench/package.json` (edit `hum:sync`)
 - `apps/review-workbench/src/schema/generate-node-types.test.ts` (new)
+
+## Implementation Path
+
+_Outline the expected implementation route or affected surface._
+
+Promoted from desk/drawer/tasks/drawer-generate-node-types-from-sldb-models-at-build.md.
+
+## Validation
+
+_List the checks required before this task can close._
+
+- pytest
+
+## Done When
+
+_Name the observable condition that makes the task complete._
+
+Promoted work is completed, validated, and closed with a commit.
