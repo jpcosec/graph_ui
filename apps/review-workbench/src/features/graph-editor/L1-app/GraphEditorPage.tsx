@@ -119,7 +119,7 @@ export function GraphEditorPage() {
 
   const { data: schemaData, isLoading: schemaLoading, error: schemaError } = useQuery({
     queryKey: ['schema'],
-    queryFn: () => graphDataProvider.getSchema(),
+    queryFn: () => graphDataProvider.getSchema() as Promise<GraphSchema>,
   });
 
   const { data: rawData, isLoading: dataLoading, error: dataError } = useQuery({

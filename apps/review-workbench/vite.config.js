@@ -17,6 +17,13 @@ export default defineConfig(function (_a) {
         server: {
             host: "127.0.0.1",
             port: 5173,
+            proxy: {
+                '/sldb': {
+                    target: process.env.VITE_SLDB_URL || 'http://127.0.0.1:8787',
+                    changeOrigin: true,
+                    rewrite: function (p) { return p.replace(/^\/sldb/, ''); },
+                },
+            },
             watch: {
                 ignored: ['**/auto_user_test/**'],
             },
