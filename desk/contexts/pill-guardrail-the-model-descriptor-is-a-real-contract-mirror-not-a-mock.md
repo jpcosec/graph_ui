@@ -38,7 +38,7 @@ apps/review-workbench/src/schema/models/*.model.json and the generator that cons
 
 _Describe the correct way to apply this guidance._
 
-Populate the descriptor by faithfully transcribing the real sldb model fields (names, kinds, enums, defaults, relation fields). Verify each field against the real step.py source. The generator then derives everything from this real descriptor.
+Populate the descriptor by faithfully transcribing the real sldb model fields (names, kinds, enums, defaults). Verify each field against the real step.py source. The generator then derives everything from this real descriptor. A field whose real Python type is `str` but which semantically holds relation targets (e.g. allowed_transitions, grounding_atoms) keeps `kind: "string"` (faithful) and carries an ADDITIONAL `projectsAs` hint naming the relation it represents. `projectsAs` is a graph-projection annotation added by us, not a claim about the Python type — it does not violate faithfulness.
 
 ## How Not
 
