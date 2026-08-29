@@ -1,0 +1,25 @@
+{
+  "typeId": "conversation-step",
+  "label": "Conversation Step",
+  "family": "conversation",
+  "icon": "message-square",
+  "fields": [
+    {"name": "id", "kind": "string", "required": true},
+    {"name": "title", "kind": "string", "required": true},
+    {
+      "name": "kind",
+      "kind": "enum",
+      "values": ["interaccion_simple", "obtencion_datos", "handout", "llamado_tool"],
+      "default": "interaccion_simple"
+    },
+    {"name": "instructions", "kind": "string", "required": true},
+    {"name": "required_slots", "kind": "string"},
+    {"name": "handout_target", "kind": "string"},
+    {"name": "tool_ref", "kind": "string"},
+    {"name": "allowed_transitions", "kind": "string", "projectsAs": "flows_to"},
+    {"name": "grounding_atoms", "kind": "string", "projectsAs": "grounded_by"},
+    {"name": "tags", "kind": "stringlist"},
+    {"name": "domain_ref", "kind": "string"},
+    {"name": "completion_condition", "kind": "string"}
+  ]
+}

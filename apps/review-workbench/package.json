@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "hum:sync": "node scripts/generate-hum-ast.mjs",
+    "hum:sync": "node scripts/generate-hum-ast.mjs && node scripts/generate-node-types.mjs",
     "dev": "npm run hum:sync && vite",
     "build": "npm run hum:sync && tsc -b && vite build",
     "lint:architecture": "node scripts/lint-architecture.mjs",

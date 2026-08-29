@@ -1,0 +1,10 @@
+Board: board-graph-ui
+Title: Graph UI Tasks Board
+status: 
+summary: 
+scope: graph_ui
+purpose: Routes graph_ui delivery work. Phase A (tasks 001-006) resolved. Phase B builds the graph_ui side of the projection grammar per desk/drawer/PROJECTION_GRAMMAR_SPEC.md. Cross-repo pieces (kgdb RelationFilter, sldb AST export) are delegated to their home repos via inbox, not executed here.
+tasks: desk/tasks/001-define-graph-ui-data-contract.md, desk/tasks/002-define-minimal-editing-surface.md, desk/tasks/003-create-real-graph-fixture.md, desk/tasks/004-wire-reusable-editor-to-real-fixture.md, desk/tasks/005-surface-semantic-signals.md, desk/tasks/006-prove-one-safe-edit-flow.md, desk/tasks/task-generate-graph-ui-node-types-from-sldb-models-at-build-time.md
+pills: 
+rituals: desk/rituals/execution.md, desk/rituals/testing.md, desk/rituals/closeout.md
+notes: Phase B delivery tasks (adapter, encoding, layout, store, sidebar) are closed. kgdb RelationFilter implemented and merged. Last remaining is sldb end-to-end proof in desk drawer -- requires sldb AST export to kgdb, a cross-repo item. Playwright interaction flow proves save, reload, persist of named views works end to end.

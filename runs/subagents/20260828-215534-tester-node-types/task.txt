@@ -1,0 +1,13 @@
+Task: task-generate-graph-ui-node-types-from-sldb-models-at-build-time
+Title: Generate graph_ui node types from sldb models at build time
+Status: active
+Current node: checklist-task-generate-graph-ui-node-types-from-sldb-models-at-build-time-execution-ready
+Task type: 
+Routine: routine-task-generate-graph-ui-node-types-from-sldb-models-at-build-time
+Effective pills:
+- desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md
+- desk/contexts/pill-guardrail-the-model-descriptor-is-a-real-contract-mirror-not-a-mock.md
+Checklist status:
+- checklist-task-generate-graph-ui-node-types-from-sldb-models-at-build-time-execution-ready: complete
+- checklist-task-generate-graph-ui-node-types-from-sldb-models-at-build-time-testing-ready: complete
+- checklist-task-generate-graph-ui-node-types-from-sldb-models-at-build-time-closeout-ready: pending

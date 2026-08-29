@@ -1,0 +1,84 @@
+=== Validation Log for Tester Run ===
+--- Step 1: Determinism ---
+Running npm run hum:sync (first time)...
+
+> graph-ui-review-workbench@0.1.0 hum:sync
+> node scripts/generate-hum-ast.mjs && node scripts/generate-node-types.mjs
+
+hum source not found at ../../../hum; keeping existing HUM AST fixture.
+Wrote generated node types to src/schema/generated-node-types.ts
+First run completed.
+66c4874b5ccfeeb67059c9aaf23ac2a6cd3f59ba4b150e66dfbcedcb800de3b8  src/schema/generated-node-types.ts
+Running npm run hum:sync (second time)...
+
+> graph-ui-review-workbench@0.1.0 hum:sync
+> node scripts/generate-hum-ast.mjs && node scripts/generate-node-types.mjs
+
+hum source not found at ../../../hum; keeping existing HUM AST fixture.
+Wrote generated node types to src/schema/generated-node-types.ts
+Second run hash:
+66c4874b5ccfeeb67059c9aaf23ac2a6cd3f59ba4b150e66dfbcedcb800de3b8  src/schema/generated-node-types.ts
+Git status after second run:
+?? src/schema/generated-node-types.ts
+--- Step 2: Unit tests ---
+Running npx vitest run src/schema/...
+
+ RUN  v1.6.1 /home/jp/proyectos/hum-ecosystem/tools/graph_ui/apps/review-workbench
+
+ ✓ src/schema/registry.test.ts  (5 tests) 3ms
+ ✓ src/schema/generate-node-types.test.ts  (1 test) 4ms
+ ✓ src/schema/register-defaults.test.ts  (1 test) 3ms
+
+ Test Files  3 passed (3)
+      Tests  7 passed (7)
+   Start at  21:57:05
+   Duration  555ms (transform 112ms, setup 0ms, collect 230ms, tests 10ms, environment 1ms, prepare 496ms)
+
+--- Step 3: Type check ---
+Running npx tsc --noEmit...
+Type check exit code: 0
+--- Step 4: Faithfulness audit ---
+Comparing fields from step.py and conversation-step.model.json:
+Field | step.py (kind, required) | model.json (kind, required, projectsAs) | Match?
+--- | --- | --- | ---
+id | string, required: true | string, required: true | YES
+title | string, required: true | string, required: true | YES
+kind | enum (interaccion_simple, obtencion_datos, handout, llamado_tool) with default interaccion_simple -> required: false | enum, values: [interaccion_simple, obtencion_datos, handout, llamado_tool], default: interaccion_simple -> required: false | YES
+instructions | string, required: true | string, required: true | YES
+required_slots | string, default="" -> required: false | string, no required -> required: false | YES
+handout_target | string, default="" -> required: false | string, no required -> required: false | YES
+tool_ref | string, default="" -> required: false | string, no required -> required: false | YES
+allowed_transitions | string, default="" -> required: false, projectsAs: flows_to | string, no required, projectsAs: flows_to -> required: false | YES
+grounding_atoms | string, default="" -> required: false, projectsAs: grounded_by | string, no required, projectsAs: grounded_by -> required: false | YES
+tags | list[AtomTag] -> kind: stringlist, default_factory=list -> required: false | stringlist, no required -> required: false | YES
+domain_ref | string | None -> default: null -> required: false | string, no required -> required: false | YES
+completion_condition | string | None -> default: null -> required: false | string, no required -> required: false | YES
+--- Step 5: No-mock audit ---
+Checking for mock/stub/fake/TODO/FIXME in the specified files...
+Files to check: scripts/generate-node-types.mjs, src/schema/generated-node-types.ts, src/schema/generate-node-types.test.ts, src/schema/renderer-helpers.ts
+Checking for mock/stub/fake/TODO/FIXME (case-insensitive):
+No matches found.
+Checking for mock/stub/fake/TODO/FIXME:
+No matches found.
+--- Step 6: PLAYWRIGHT end-to-end proof ---
+Starting dev server in the background...
+Checking if dev server is ready...
+Dev server is ready (HTTP 200).
+Running regression smoke flow...
+ENOENT: no such file or directory, open '/home/jp/proyectos/hum-ecosystem/tools/graph_ui/apps/review-workbench/regression_smoke_flow.json'
+Flow exit code: 1
+Running regression smoke flow with correct path...
+[2026-08-29T01:58:57.714Z] Step 01_01_open_app: Open the workbench (goto)
+[2026-08-29T01:58:57.779Z] [BROWSER CONSOLE] [debug] [vite] connecting...
+[2026-08-29T01:58:57.790Z] [BROWSER CONSOLE] [debug] [vite] connected.
+[2026-08-29T01:58:57.955Z] [BROWSER CONSOLE] [info] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold
+[2026-08-29T01:58:59.947Z] Step 02_02_wait_graph_nodes: Verify nodes are present on first render (assert_count_at_least)
+[2026-08-29T01:59:00.370Z] Step 03_03_switch_structure: Confirm structure mode remains reachable (click)
+[2026-08-29T01:59:00.814Z] Step 04_04_wait_structure_tab: Wait for structure guidance (wait)
+[2026-08-29T01:59:01.213Z] Step 05_05_switch_body: Switch to body mode (click)
+[2026-08-29T01:59:01.769Z] Step 06_06_wait_body_mode: Wait for body nodes (wait)
+[2026-08-29T01:59:02.186Z] Step 07_07_switch_compare: Switch to compare mode (click)
+[2026-08-29T01:59:02.730Z] Step 08_08_wait_compare_nodes: Wait for compare overlay (wait)
+[2026-08-29T01:59:03.148Z] Step 09_09_assert_edges_visible: Ensure edges remain rendered (assert_count_at_least)
+[2026-08-29T01:59:03.553Z] Flow completed successfully
+Flow exit code: 0

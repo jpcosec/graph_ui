@@ -1,0 +1,1 @@
+API environment does not expose a separate child session transcript; this file records that fact for evidence completeness.

@@ -1,0 +1,4 @@
+## master
+?? .obsidian/
+?? runs/subagents/20260828-215021-task-generate-graph-ui-node-types-from-sldb-models-at-build-time/
+?? runs/subagents/20260828-215041-task-generate-graph-ui-node-types-from-sldb-models-at-build-time/

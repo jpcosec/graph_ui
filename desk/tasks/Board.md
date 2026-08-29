@@ -11,7 +11,6 @@ tasks:
 - desk/tasks/004-wire-reusable-editor-to-real-fixture.md
 - desk/tasks/005-surface-semantic-signals.md
 - desk/tasks/006-prove-one-safe-edit-flow.md
-- desk/tasks/task-generate-graph-ui-node-types-from-sldb-models-at-build-time.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths

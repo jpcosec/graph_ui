@@ -1,0 +1,4 @@
+Missing graph references:
+- missing_declared_target: task:task-generate-graph-ui-node-types-from-sldb-models-at-build-time -> desk/drawer/tasks/drawer-generate-node-types-from-sldb-models-at-build.md
+  provenance: desk/tasks/task-generate-graph-ui-node-types-from-sldb-models-at-build-time.md:line:13:source-file-reference
+  reason: declared target was not found among extracted graph nodes
