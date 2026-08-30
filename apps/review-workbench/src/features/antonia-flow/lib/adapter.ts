@@ -118,6 +118,13 @@ function shortIdFromNodeId(value: string): string {
   return trimmed;
 }
 
+// Transition refs use underscores (conversation:steps.registro_estado) while doc
+// ids use hyphens (step-antonia-registro-estado). Canonicalize both to hyphens so
+// multi-word steps resolve.
+function canonicalKey(value: string): string {
+  return value.trim().replace(/_/g, '-').toLowerCase();
+}
+
 function buildAliasMap(documents: ConversationDocument[]): Map<string, string> {
   const aliases = new Map<string, string>();
 
@@ -131,6 +138,7 @@ function buildAliasMap(documents: ConversationDocument[]): Map<string, string> {
       .filter((candidate) => candidate.length > 0)
       .forEach((candidate) => {
         aliases.set(candidate, document.id);
+        aliases.set(canonicalKey(candidate), document.id);
       });
   });
 
@@ -150,7 +158,10 @@ function buildEdgesFromDocuments(documents: ConversationDocument[]): ASTEdge[] {
       .map((entry) => entry.trim())
       .filter((entry) => entry.length > 0 && !entry.toLowerCase().startsWith('ninguna'))
       .forEach((entry) => {
-        const targetId = aliases.get(entry) ?? aliases.get(shortIdFromReference(entry));
+        const targetId =
+          aliases.get(entry) ??
+          aliases.get(shortIdFromReference(entry)) ??
+          aliases.get(canonicalKey(shortIdFromReference(entry)));
         if (!targetId) {
           return;
         }

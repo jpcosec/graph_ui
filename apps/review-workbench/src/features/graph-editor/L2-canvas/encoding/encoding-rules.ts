@@ -76,6 +76,12 @@ const DEFAULT_EDGE_RULES: EncodingRule[] = [
     style: { strokeColor: 'rgba(34,197,94,0.28)', strokeWidth: 1, strokeStyle: 'solid' },
   },
   {
+    // The conversation-flow projection edge. Prominent (this IS the graph the
+    // user wants to see), amber to match the conversation family accent.
+    when: { relationType: 'flows_to' },
+    style: { strokeColor: 'rgba(212,165,116,0.85)', strokeWidth: 2, strokeStyle: 'solid' },
+  },
+  {
     when: { relationType: 'inherited' },
     style: { strokeColor: 'rgba(116, 117, 120, 0.7)', strokeWidth: 1, strokeStyle: 'dashed' },
   },
@@ -91,6 +97,7 @@ const DEFAULT_EDGE_OPACITY_BY_RELATION: Record<string, number> = {
   instantiates: 0.42,
   'deviates-from': 0.42,
   'flows-to': 0.28,
+  flows_to: 0.9,
   inherited: 0.34,
 };
 
