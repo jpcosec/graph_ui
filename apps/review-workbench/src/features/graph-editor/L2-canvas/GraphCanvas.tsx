@@ -131,8 +131,8 @@ export function GraphCanvas() {
       <Background gap={20} size={1} color="rgba(148, 163, 184, 0.18)" />
       <Controls showInteractive={false} />
       <MiniMap
-        nodeColor={(node) => (node.selected ? '#00f2ff' : '#94a3b8')}
-        maskColor="rgba(2, 6, 23, 0.55)"
+        nodeColor={(node) => (node.selected ? '#d4a574' : '#9aa7bd')}
+        maskColor="rgba(10, 10, 15, 0.55)"
         pannable
         zoomable
       />

@@ -84,7 +84,7 @@ export function GraphEditor({ initialNodes, initialEdges, onSave, hero, workspac
 
         {topOverlay && overlayPlacement === 'canvas' ? <div className={`pointer-events-none absolute left-6 z-10 ${shellVariant === 'compact' ? 'top-[6.25rem]' : 'top-[8.5rem]'}`}>{topOverlay}</div> : null}
 
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,242,255,0.08),transparent_26%),radial-gradient(circle_at_bottom_left,rgba(255,170,0,0.08),transparent_24%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,165,116,0.08),transparent_26%),radial-gradient(circle_at_bottom_left,rgba(230,168,92,0.08),transparent_24%)]" />
         <div className="relative h-full" style={{ paddingTop: contentTopInset ? `${contentTopInset}px` : undefined }}>
           <GraphCanvas />
         </div>
