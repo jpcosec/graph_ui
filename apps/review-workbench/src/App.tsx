@@ -19,11 +19,13 @@ type AppView = 'hum' | 'antonia';
 
 function getInitialView(): AppView {
   if (typeof window === 'undefined') {
-    return 'hum';
+    return 'antonia';
   }
 
+  // Antonia (live sldb store) is the default view; the HUM/Lisp observatory is
+  // opt-in via ?view=hum.
   const view = new URLSearchParams(window.location.search).get('view');
-  return view === 'antonia' ? 'antonia' : 'hum';
+  return view === 'hum' ? 'hum' : 'antonia';
 }
 
 function setUrlView(view: AppView) {
@@ -32,8 +34,8 @@ function setUrlView(view: AppView) {
   }
 
   const url = new URL(window.location.href);
-  if (view === 'antonia') {
-    url.searchParams.set('view', 'antonia');
+  if (view === 'hum') {
+    url.searchParams.set('view', 'hum');
   } else {
     url.searchParams.delete('view');
   }
