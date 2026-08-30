@@ -14,10 +14,6 @@ export class NodeTypeRegistry {
   private readonly types = new Map<string, NodeTypeDefinition>();
 
   register(definition: NodeTypeDefinition): void {
-    if (this.types.has(definition.typeId)) {
-      console.warn(`Overriding existing node type: ${definition.typeId}`);
-    }
-
     this.types.set(definition.typeId, definition);
   }
 

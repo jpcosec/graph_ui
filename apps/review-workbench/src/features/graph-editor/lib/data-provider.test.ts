@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
-import { graphDataProvider } from './data-provider';
+import { graphDataProvider, type GraphSchema } from './data-provider';
 
 describe('graphDataProvider (Step00)', () => {
   it('returns a minimal schema contract', async () => {
-    const schema = await graphDataProvider.getSchema();
+    const schema = (await graphDataProvider.getSchema()) as GraphSchema;
 
     expect(schema.node_types.length).toBeGreaterThan(0);
     expect(schema.node_types[0]).toMatchObject({

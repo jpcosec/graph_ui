@@ -1,0 +1,358 @@
+{
+  "generatedFrom": "/home/jp/proyectos/gemini_test/knowledge/atoms",
+  "model": "ConversationStep (conversation family)",
+  "stepCount": 12,
+  "edgeCount": 20,
+  "nodes": [
+    {
+      "id": "step-antonia-agendar-recordatorio",
+      "type": "conversation-step",
+      "name": "Agendar recordatorio de aplicacion",
+      "properties": {
+        "id": "step-antonia-agendar-recordatorio",
+        "title": "Agendar recordatorio de aplicacion",
+        "kind": "llamado_tool",
+        "instructions": "Confirmar el dia y hora del recordatorio semanal. Llamar a la tool agendar_recordatorio solo cuando se tienen confirmados dia y hora. Explicar que le llegara un mensaje ese dia. Luego avanzar al seguimiento de recompra.",
+        "required_slots": "dia de recordatorio, hora de recordatorio",
+        "handout_target": "",
+        "tool_ref": "",
+        "allowed_transitions": "conversation:steps.recompra",
+        "grounding_atoms": "atom-antonia-aplicacion",
+        "completion_condition": "La tool se ejecuto correctamente y la persona sabe cuando recibira su recordatorio.",
+        "domain_ref": "psp-selfix",
+        "tags": "conversation:steps.agendar_recordatorio\nsystem:laboratorio-chile"
+      }
+    },
+    {
+      "id": "step-antonia-derivacion-medinfo",
+      "type": "conversation-step",
+      "name": "Derivación MedInfo — consulta médica del programa",
+      "properties": {
+        "id": "step-antonia-derivacion-medinfo",
+        "title": "Derivación MedInfo — consulta médica del programa",
+        "kind": "handout",
+        "instructions": "Acompañar con cercanía y dejar claro que no responderé la consulta clínica directamente. Si la persona hace una pregunta médica sin reportar un malestar o reacción, registrar un ticket MedInfo con trazabilidad y avisar que un profesional del programa la contactará. No interpretar síntomas ni entregar contenido clínico libre.",
+        "required_slots": "consulta médica reportada, confirmación de contacto para seguimiento",
+        "handout_target": "",
+        "tool_ref": "",
+        "allowed_transitions": "conversation:steps.revision_humana, conversation:steps.despedida",
+        "grounding_atoms": "rule-antonia-clasificacion-medinfo, atom-antonia-medinfo, boundary-antonia-clinico",
+        "completion_condition": "La consulta quedó registrada como ticket MedInfo y la persona entendió que un profesional del programa la contactará sin que yo responda el contenido clínico.",
+        "domain_ref": "psp-selfix",
+        "tags": "conversation:steps.derivacion_medinfo\nsystem:laboratorio-chile"
+      }
+    },
+    {
+      "id": "step-antonia-despedida",
+      "type": "conversation-step",
+      "name": "Despedida",
+      "properties": {
+        "id": "step-antonia-despedida",
+        "title": "Despedida",
+        "kind": "interaccion_simple",
+        "instructions": "Cerrar la conversacion con calidez y cercania. Recordar que puede escribir sus dudas cuando quiera. Reforzar que no esta sola en su tratamiento. No hacer nuevas preguntas.",
+        "required_slots": "ninguno (paso terminal)",
+        "handout_target": "",
+        "tool_ref": "",
+        "allowed_transitions": "ninguna (paso terminal)",
+        "grounding_atoms": "self-antonia, style-antonia",
+        "completion_condition": "La persona se despidio sabiendo que puede volver a escribir cuando lo necesite.",
+        "domain_ref": "psp-selfix",
+        "tags": "conversation:steps.despedida\nsystem:laboratorio-chile"
+      }
+    },
+    {
+      "id": "step-antonia-enrolamiento",
+      "type": "conversation-step",
+      "name": "Enrolamiento — inscripción al programa",
+      "properties": {
+        "id": "step-antonia-enrolamiento",
+        "title": "Enrolamiento — inscripción al programa",
+        "kind": "llamado_tool",
+        "instructions": "Cuando la persona no está inscrita en el programa, explicar brevemente en qué consiste el acompañamiento y ofrecer inscribirla. Pedir, una pregunta a la vez, su nombre, un teléfono de contacto y un correo electrónico. Explicar con calidez que esos datos los usa el equipo del programa para contactarla y hacerle seguimiento, no para tomar decisiones clínicas. Si la persona prefiere no entregar sus datos por acá, no tiene claro si le corresponde el programa, o pide hablar primero con alguien, derivar sin insistir. Al tener nombre, teléfono y correo confirmados, ejecutar la tool registrar_enrolamiento. El médico tratante sigue siendo la autoridad clínica; inscribirse en el acompañamiento no reemplaza esa relación.",
+        "required_slots": "nombre de la persona, teléfono de contacto, correo electrónico",
+        "handout_target": "",
+        "tool_ref": "",
+        "allowed_transitions": "conversation:steps.derivacion_medinfo, conversation:steps.onboarding",
+        "grounding_atoms": "self-antonia, style-antonia, boundary-antonia-clinico, rule-antonia-derivar-clinico",
+        "completion_condition": "La tool registrar_enrolamiento se ejecutó con nombre, teléfono y correo confirmados, o la persona fue derivada a un profesional del programa sin completar la inscripción.",
+        "domain_ref": "psp-selfix",
+        "tags": "conversation:steps.enrolamiento\nsystem:laboratorio-chile"
+      }
+    },
+    {
+      "id": "step-antonia-evento-adverso",
+      "type": "conversation-step",
+      "name": "Evento adverso — derivacion",
+      "properties": {
+        "id": "step-antonia-evento-adverso",
+        "title": "Evento adverso — derivacion",
+        "kind": "handout",
+        "instructions": "Responder con calidez y sin alarmar. No interpretar la gravedad ni dar indicaciones clinicas. Registrar internamente el evento con fecha, hora y texto textual para derivacion a farmacovigilancia. Indicar que un profesional la contactara y que si es urgente acuda a su medico o urgencia.",
+        "required_slots": "descripcion del sintoma, si es urgente",
+        "handout_target": "",
+        "tool_ref": "",
+        "allowed_transitions": "conversation:steps.despedida",
+        "grounding_atoms": "rule-antonia-eventos-adversos, boundary-antonia-clinico",
+        "completion_condition": "El evento quedo registrado para derivacion y la persona sabe que el equipo la contactara.",
+        "domain_ref": "psp-selfix",
+        "tags": "conversation:steps.evento_adverso\nsystem:laboratorio-chile"
+      }
+    },
+    {
+      "id": "step-antonia-journey-operativo",
+      "type": "conversation-step",
+      "name": "Journey operativo — contenido preaprobado del programa",
+      "properties": {
+        "id": "step-antonia-journey-operativo",
+        "title": "Journey operativo — contenido preaprobado del programa",
+        "kind": "interaccion_simple",
+        "instructions": "Responder en primera persona con mensajes operativos del programa ya aprobados. Mantener un tono claro y cercano. No generar contenido clínico libre ni complementar con consejos médicos; si aparece una duda clínica, corresponde derivarla fuera de este step. Cuando la interacción operativa lo requiera, continuar al registro de estado o cerrar de forma simple.",
+        "required_slots": "intención operativa identificada",
+        "handout_target": "",
+        "tool_ref": "",
+        "allowed_transitions": "conversation:steps.registro_estado, conversation:steps.despedida",
+        "grounding_atoms": "rule-antonia-clasificacion-operacional, atom-antonia-journeys, atom-antonia-recompra",
+        "completion_condition": "La persona recibió el contenido operativo preaprobado que correspondía y la conversación quedó lista para seguir con registro de estado o cerrar.",
+        "domain_ref": "psp-selfix",
+        "tags": "conversation:steps.journey_operativo\nsystem:laboratorio-chile"
+      }
+    },
+    {
+      "id": "step-antonia-onboarding",
+      "type": "conversation-step",
+      "name": "Onboarding — primera interaccion",
+      "properties": {
+        "id": "step-antonia-onboarding",
+        "title": "Onboarding — primera interaccion",
+        "kind": "obtencion_datos",
+        "instructions": "Dar la bienvenida al programa. Explicar quien soy y en que consiste el acompanamiento. Preguntar si es la primera vez que usan Selfix. Ofrecer el video de primera aplicacion si corresponde. Capturar los datos base de la persona.",
+        "required_slots": "nombre de la persona, dia de aplicacion, si es primera vez",
+        "handout_target": "",
+        "tool_ref": "",
+        "allowed_transitions": "conversation:steps.registro_estado",
+        "grounding_atoms": "atom-antonia-bienvenida, atom-antonia-primeras-semanas, self-antonia",
+        "completion_condition": "La persona entendio el acompanamiento y quedaron registrados su nombre y dia de aplicacion.",
+        "domain_ref": "psp-selfix",
+        "tags": "conversation:steps.onboarding\nsystem:laboratorio-chile"
+      }
+    },
+    {
+      "id": "step-antonia-recompra",
+      "type": "conversation-step",
+      "name": "Seguimiento de recompra y receta",
+      "properties": {
+        "id": "step-antonia-recompra",
+        "title": "Seguimiento de recompra y receta",
+        "kind": "interaccion_simple",
+        "instructions": "Revisar cuanto producto le queda. Recordar la recompra o renovacion de receta antes de que se acabe. Ayudar a prepararse para los controles medicos. Cerrar derivando a la despedida con calidez.",
+        "required_slots": "stock restante",
+        "handout_target": "",
+        "tool_ref": "",
+        "allowed_transitions": "conversation:steps.despedida",
+        "grounding_atoms": "atom-antonia-recompra",
+        "completion_condition": "La persona sabe cuando recomprar o renovar receta y quedo lista para la despedida.",
+        "domain_ref": "psp-selfix",
+        "tags": "conversation:steps.recompra\nsystem:laboratorio-chile"
+      }
+    },
+    {
+      "id": "step-antonia-registro-estado",
+      "type": "conversation-step",
+      "name": "Registro de estado — como va el tratamiento",
+      "properties": {
+        "id": "step-antonia-registro-estado",
+        "title": "Registro de estado — como va el tratamiento",
+        "kind": "obtencion_datos",
+        "instructions": "Preguntar con empatia como va la persona esta semana. Registrar en que semana va, si aplico su dosis y como se ha sentido. Validar emociones. Si reporta cualquier sintoma o reaccion adversa, derivar de inmediato al paso de evento adverso. Si todo va bien, avanzar a agendar el recordatorio.",
+        "required_slots": "semana de tratamiento, si aplico la dosis, como se ha sentido",
+        "handout_target": "",
+        "tool_ref": "",
+        "allowed_transitions": "conversation:steps.evento_adverso, conversation:steps.agendar_recordatorio, conversation:steps.derivacion_medinfo",
+        "grounding_atoms": "atom-antonia-aplicacion, atom-antonia-primeras-semanas, rule-antonia-eventos-adversos",
+        "completion_condition": "Quedo registrado el estado y se determino si hay un sintoma a derivar o si se avanza a agendar.",
+        "domain_ref": "psp-selfix",
+        "tags": "conversation:steps.registro_estado\nsystem:laboratorio-chile"
+      }
+    },
+    {
+      "id": "step-antonia-revision-humana",
+      "type": "conversation-step",
+      "name": "Revisión humana — ticket pendiente",
+      "properties": {
+        "id": "step-antonia-revision-humana",
+        "title": "Revisión humana — ticket pendiente",
+        "kind": "handout",
+        "instructions": "Informar con calidez que su caso quedó registrado y que el equipo del programa la contactará. Mantener el estado de espera sin abrir nuevas preguntas clínicas ni responder contenido médico. Si la persona insiste con detalles clínicos, sostener la derivación y cerrar con contención.",
+        "required_slots": "ninguno",
+        "handout_target": "",
+        "tool_ref": "",
+        "allowed_transitions": "conversation:steps.despedida",
+        "grounding_atoms": "atom-antonia-farmacovigilancia, atom-antonia-medinfo",
+        "completion_condition": "La persona sabe que su ticket quedó pendiente de revisión humana y que el equipo del programa tomará contacto.",
+        "domain_ref": "psp-selfix",
+        "tags": "conversation:steps.revision_humana\nsystem:laboratorio-chile"
+      }
+    },
+    {
+      "id": "step-antonia-saludo",
+      "type": "conversation-step",
+      "name": "Saludo inicial",
+      "properties": {
+        "id": "step-antonia-saludo",
+        "title": "Saludo inicial",
+        "kind": "interaccion_simple",
+        "instructions": "Saludar con calidez una sola vez al inicio. Si la persona ya esta registrada, retomar por su nombre y avanzar al registro de estado. Si es nueva o no reconocida, derivar al onboarding. No repetir el saludo en mensajes posteriores.",
+        "required_slots": "si la persona ya esta registrada",
+        "handout_target": "",
+        "tool_ref": "",
+        "allowed_transitions": "conversation:steps.onboarding, conversation:steps.registro_estado, conversation:steps.journey_operativo, conversation:steps.derivacion_medinfo, conversation:steps.enrolamiento",
+        "grounding_atoms": "self-antonia, style-antonia",
+        "completion_condition": "Se determino si la persona es nueva (onboarding) o ya registrada (registro de estado).",
+        "domain_ref": "psp-selfix",
+        "tags": "conversation:steps.saludo\nsystem:laboratorio-chile"
+      }
+    },
+    {
+      "id": "step-antonia-validacion-policy-gate",
+      "type": "conversation-step",
+      "name": "Validación policy gate — autochequeo post-draft",
+      "properties": {
+        "id": "step-antonia-validacion-policy-gate",
+        "title": "Validación policy gate — autochequeo post-draft",
+        "kind": "interaccion_simple",
+        "instructions": "Antes de emitir una respuesta redactada, autovalidarla contra los criterios del gate: no dosis, no diagnóstico, solo corpus aprobado, derivación cuando corresponde y sin prometer resultados. Si cualquier criterio falla, no emitir la respuesta y derivar el caso a revisión humana con el borrador y el motivo. Si todo cumple, la respuesta queda lista para emitirse fuera de este checkpoint.",
+        "required_slots": "ninguno",
+        "handout_target": "",
+        "tool_ref": "",
+        "allowed_transitions": "conversation:steps.revision_humana",
+        "grounding_atoms": "gate-antonia-dosis, gate-antonia-diagnostico, gate-antonia-corpus, gate-antonia-derivacion, gate-antonia-promesas",
+        "completion_condition": "La respuesta redactada cumple todos los criterios del gate o el caso fue derivado a revisión humana por rechazo.",
+        "domain_ref": "psp-selfix",
+        "tags": "conversation:steps.validacion_policy_gate\nsystem:laboratorio-chile"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "step-antonia-agendar-recordatorio__to__step-antonia-recompra",
+      "source": "step-antonia-agendar-recordatorio",
+      "target": "step-antonia-recompra",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-derivacion-medinfo__to__step-antonia-revision-humana",
+      "source": "step-antonia-derivacion-medinfo",
+      "target": "step-antonia-revision-humana",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-derivacion-medinfo__to__step-antonia-despedida",
+      "source": "step-antonia-derivacion-medinfo",
+      "target": "step-antonia-despedida",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-enrolamiento__to__step-antonia-derivacion-medinfo",
+      "source": "step-antonia-enrolamiento",
+      "target": "step-antonia-derivacion-medinfo",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-enrolamiento__to__step-antonia-onboarding",
+      "source": "step-antonia-enrolamiento",
+      "target": "step-antonia-onboarding",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-evento-adverso__to__step-antonia-despedida",
+      "source": "step-antonia-evento-adverso",
+      "target": "step-antonia-despedida",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-journey-operativo__to__step-antonia-registro-estado",
+      "source": "step-antonia-journey-operativo",
+      "target": "step-antonia-registro-estado",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-journey-operativo__to__step-antonia-despedida",
+      "source": "step-antonia-journey-operativo",
+      "target": "step-antonia-despedida",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-onboarding__to__step-antonia-registro-estado",
+      "source": "step-antonia-onboarding",
+      "target": "step-antonia-registro-estado",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-recompra__to__step-antonia-despedida",
+      "source": "step-antonia-recompra",
+      "target": "step-antonia-despedida",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-registro-estado__to__step-antonia-evento-adverso",
+      "source": "step-antonia-registro-estado",
+      "target": "step-antonia-evento-adverso",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-registro-estado__to__step-antonia-agendar-recordatorio",
+      "source": "step-antonia-registro-estado",
+      "target": "step-antonia-agendar-recordatorio",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-registro-estado__to__step-antonia-derivacion-medinfo",
+      "source": "step-antonia-registro-estado",
+      "target": "step-antonia-derivacion-medinfo",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-revision-humana__to__step-antonia-despedida",
+      "source": "step-antonia-revision-humana",
+      "target": "step-antonia-despedida",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-saludo__to__step-antonia-onboarding",
+      "source": "step-antonia-saludo",
+      "target": "step-antonia-onboarding",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-saludo__to__step-antonia-registro-estado",
+      "source": "step-antonia-saludo",
+      "target": "step-antonia-registro-estado",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-saludo__to__step-antonia-journey-operativo",
+      "source": "step-antonia-saludo",
+      "target": "step-antonia-journey-operativo",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-saludo__to__step-antonia-derivacion-medinfo",
+      "source": "step-antonia-saludo",
+      "target": "step-antonia-derivacion-medinfo",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-saludo__to__step-antonia-enrolamiento",
+      "source": "step-antonia-saludo",
+      "target": "step-antonia-enrolamiento",
+      "kind": "flows_to"
+    },
+    {
+      "id": "step-antonia-validacion-policy-gate__to__step-antonia-revision-humana",
+      "source": "step-antonia-validacion-policy-gate",
+      "target": "step-antonia-revision-humana",
+      "kind": "flows_to"
+    }
+  ]
+}

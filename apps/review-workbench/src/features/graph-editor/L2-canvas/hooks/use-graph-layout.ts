@@ -19,6 +19,8 @@ export interface UseGraphLayoutResult {
   layout: (options?: LayoutOptions) => Promise<LayoutResult>;
 }
 
+export type { LayoutOptions };
+
 export function useGraphLayout(): UseGraphLayoutResult {
   const nodes = useGraphStore((state) => state.nodes);
   const edges = useGraphStore((state) => state.edges);
@@ -29,8 +31,8 @@ export function useGraphLayout(): UseGraphLayoutResult {
     async (options: LayoutOptions = {}): Promise<LayoutResult> => {
       const nodesInput = nodes.map((node) => ({
         id: node.id,
-        width: typeof node.width === 'number' ? node.width : undefined,
-        height: typeof node.height === 'number' ? node.height : undefined,
+        width: typeof node.style?.width === 'number' ? node.style.width : undefined,
+        height: typeof node.style?.height === 'number' ? node.style.height : undefined,
       }));
 
       const edgesInput = edges.map((edge) => ({
