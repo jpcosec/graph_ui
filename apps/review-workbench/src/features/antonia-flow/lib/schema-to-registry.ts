@@ -3,6 +3,13 @@ import { z } from 'zod';
 import type { SldbSchema } from '@/features/graph-editor/lib/data-provider';
 import { registry } from '@/schema/registry';
 import { detailRendererFor, PlaceholderDot, PlaceholderLabel } from '@/schema/renderer-helpers';
+import { StepCard } from '../StepCard';
+
+// conversation-step gets the flow_editor-style card; other models fall back to
+// the generic detail renderer.
+function detailFor(typeId: string, modelId: string) {
+  return typeId === 'conversation-step' ? StepCard : detailRendererFor(modelId, `token-${typeId}`);
+}
 import type { NodeTypeDefinition } from '@/schema/registry.types';
 
 function slugifyModelId(modelId: string): string {
@@ -40,7 +47,7 @@ function createDefinition(typeId: string, modelId: string, fields: NodeTypeDefin
     renderers: {
       dot: PlaceholderDot,
       label: PlaceholderLabel,
-      detail: detailRendererFor(modelId, `token-${typeId}`),
+      detail: detailFor(typeId, modelId),
     },
     defaultSize: { width: 220, height: 100 },
     allowedConnections: [],
@@ -57,6 +64,10 @@ export function registerModelsFromSchema(schema: SldbSchema): void {
         ...existing,
         payloadSchema: z.object({}).passthrough(),
         fields: model.fields,
+        renderers: {
+          ...existing.renderers,
+          detail: detailFor(typeId, model.id),
+        },
       });
       return;
     }
