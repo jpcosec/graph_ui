@@ -13,23 +13,23 @@ created: ''
 
 ## Objective
 
-CLI-managed task materialized from the desk board source of truth.
+Make one safe edit path explicit and proven.
 
 ## Reference
 
 - Board: `graph_ui/desk/tasks/Board.md`
 - Desk: `graph_ui`
+- Closed by: `2ee5376`
 
-## What to Fix
+## What Was Done
 
-- Domain: `editing`
-- Priority: `p1`
-- Status: `open`
-
-## How to Do It
-
-Use the repo tests, changelog, and board workflow managed by the CLI.
+- Added `GraphEditorEngine` in `src/editor.py`: applies CREATE/UPDATE/DELETE node/edge edits with collision and integrity checks.
+- Added `tests/test_editor.py`.
 
 ## Validation
 
-Run the relevant repo tests and keep the board plus changelog in sync.
+`tests/test_editor.py` green; safe-edit flow later proven live end-to-end via `sldb serve` + Playwright (`050a35e`, `ce01267`).
+
+## Status
+
+resolved

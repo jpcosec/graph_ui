@@ -11,23 +11,23 @@ created: ''
 
 ## Objective
 
-CLI-managed task materialized from the desk board source of truth.
+Define the canonical graph UI data contract that every render and edit path consumes.
 
 ## Reference
 
 - Board: `graph_ui/desk/tasks/Board.md`
 - Desk: `graph_ui`
+- Closed by: `3900ad4`
 
-## What to Fix
+## What Was Done
 
-- Domain: `contract`
-- Priority: `p0`
-- Status: `open`
-
-## How to Do It
-
-Use the repo tests, changelog, and board workflow managed by the CLI.
+- Added `UINode`, `UIEdge`, and `GraphData` Pydantic models in `src/contracts/graph_data.py`.
+- Included 3D positioning, compliance signals, and rich metadata.
 
 ## Validation
 
-Run the relevant repo tests and keep the board plus changelog in sync.
+Contract models exercised by downstream fixture, auditor, and editor tasks; repo tests green.
+
+## Status
+
+resolved

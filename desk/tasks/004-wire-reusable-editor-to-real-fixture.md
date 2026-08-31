@@ -14,23 +14,23 @@ created: ''
 
 ## Objective
 
-CLI-managed task materialized from the desk board source of truth.
+Wire the reusable editor architecture to the real fixture.
 
 ## Reference
 
 - Board: `graph_ui/desk/tasks/Board.md`
 - Desk: `graph_ui`
+- Closed by: `4fd4c1e`
 
-## What to Fix
+## What Was Done
 
-- Domain: `reconstruction`
-- Priority: `p1`
-- Status: `open`
-
-## How to Do It
-
-Use the repo tests, changelog, and board workflow managed by the CLI.
+- Connected the editor render path to the ecosystem-slice fixture via the data contract.
+- Established the reusable provider path later evolved into the live `sldb serve` provider.
 
 ## Validation
 
-Run the relevant repo tests and keep the board plus changelog in sync.
+Editor renders the real fixture; superseded live by the Antonia flow (`11ba23f`, `050a35e`).
+
+## Status
+
+resolved

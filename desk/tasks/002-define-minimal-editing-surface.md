@@ -12,23 +12,23 @@ created: ''
 
 ## Objective
 
-CLI-managed task materialized from the desk board source of truth.
+Define the minimal graph editing surface over the data contract.
 
 ## Reference
 
 - Board: `graph_ui/desk/tasks/Board.md`
 - Desk: `graph_ui`
+- Closed by: `ff85428`
 
-## What to Fix
+## What Was Done
 
-- Domain: `editing`
-- Priority: `p0`
-- Status: `open`
-
-## How to Do It
-
-Use the repo tests, changelog, and board workflow managed by the CLI.
+- Added `GraphEdit` base model with `EditMetadata` (author, timestamp, reason) in `src/contracts/editing.py`.
+- Implemented `NodeEdit` and `EdgeEdit` for CREATE, UPDATE, and DELETE operations.
 
 ## Validation
 
-Run the relevant repo tests and keep the board plus changelog in sync.
+Editing contract consumed by the editor engine (task 006); repo tests green.
+
+## Status
+
+resolved

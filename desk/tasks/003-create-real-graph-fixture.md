@@ -12,23 +12,23 @@ created: ''
 
 ## Objective
 
-CLI-managed task materialized from the desk board source of truth.
+Create a real graph fixture that complies with the `GraphData` contract.
 
 ## Reference
 
 - Board: `graph_ui/desk/tasks/Board.md`
 - Desk: `graph_ui`
+- Closed by: `cd84c13`
 
-## What to Fix
+## What Was Done
 
-- Domain: `fixtures`
-- Priority: `p1`
-- Status: `open`
-
-## How to Do It
-
-Use the repo tests, changelog, and board workflow managed by the CLI.
+- Created the ecosystem-slice fixture under desk fixtures.
+- Represents core ecosystem modules (repopackage, kgdb, ontology, graph_ui, sldb).
 
 ## Validation
 
-Run the relevant repo tests and keep the board plus changelog in sync.
+Fixture loads against the `GraphData` contract and feeds the wired editor (task 004).
+
+## Status
+
+resolved

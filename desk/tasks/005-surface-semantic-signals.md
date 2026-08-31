@@ -12,23 +12,23 @@ created: ''
 
 ## Objective
 
-CLI-managed task materialized from the desk board source of truth.
+Surface at least one semantic or structural signal on the graph.
 
 ## Reference
 
 - Board: `graph_ui/desk/tasks/Board.md`
 - Desk: `graph_ui`
+- Closed by: `8d72965`
 
-## What to Fix
+## What Was Done
 
-- Domain: `signals`
-- Priority: `p1`
-- Status: `open`
-
-## How to Do It
-
-Use the repo tests, changelog, and board workflow managed by the CLI.
+- Added `StructuralAuditor` in `src/auditor.py`: analyzes `GraphData`, decorates nodes with compliance signals via in/out adjacency.
+- Added `tests/test_auditor.py`.
 
 ## Validation
 
-Run the relevant repo tests and keep the board plus changelog in sync.
+`tests/test_auditor.py` green.
+
+## Status
+
+resolved

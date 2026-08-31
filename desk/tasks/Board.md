@@ -30,13 +30,13 @@ tags:
 
 _Explain what this board routes and why it exists._
 
-Routes graph_ui delivery work. Phase A (tasks 001-006) resolved. Phase B builds the graph_ui side of the projection grammar per desk/drawer/PROJECTION_GRAMMAR_SPEC.md. Cross-repo pieces (kgdb RelationFilter, sldb AST export) are delegated to their home repos via inbox, not executed here.
+Routes graph_ui delivery work. Phase A (tasks 001-006) resolved. Phase B built the graph_ui side of the projection grammar per desk/drawer/PROJECTION_GRAMMAR_SPEC.md and is closed. The live Antonia typed-editor arc (sldb serve + typed inspector + flow_editor bridge) is merged to master (dae5756). Cross-repo pieces (sldb store extraction, kgdb relation model, gemini lens) are delegated to their home repos via inbox, not executed here.
 
 ## Notes
 
 _Add short operational notes about the current routed set._
 
-Phase B delivery tasks (adapter, encoding, layout, store, sidebar) are closed. kgdb RelationFilter implemented and merged. Last remaining is sldb end-to-end proof in desk drawer -- requires sldb AST export to kgdb, a cross-repo item. Playwright interaction flow proves save, reload, persist of named views works end to end.
+Phase B delivery tasks (adapter, encoding, layout, store, sidebar) are closed. kgdb RelationFilter implemented and merged. The build-time node-type generator (sldb model -> NodeTypeDefinition) is closed (8123184, e6166d8). The sldb end-to-end proof is DONE and lives in this repo, not deferred: live Antonia flow over `sldb serve` with typed inspector save+reload, verified by Playwright (050a35e, ce01267; npm test 79/79; evidence in apps/review-workbench/auto_user_test/antonia_live/). No graph_ui delivery task is currently open; remaining roadmap items are cross-repo (see desk/drawer/DELEGATED_CROSS_REPO_WORK.md).
 
 ## Task Details
 
@@ -48,8 +48,5 @@ _Generated from the task references above._
 - Wire reusable editor to real fixture [resolved] - 
 - Surface semantic signals [resolved] - 
 - Prove one safe edit flow [resolved] - 
-- Generate graph_ui node types from sldb models at build time [active] - A build-time generator that turns one sldb model into a `NodeTypeDefinition`:
-- `payloadSchema` (Zod) derived from the model's `Field`s.
-- `allowedConnections` derived from the model's relation fields.
-- `colorToken` / `category` derived from `__family__`.
-- default renderers wired.
+- Generate graph_ui node types from sldb models at build time [resolved] - Build-time generator turning one sldb model into a `NodeTypeDefinition` (payloadSchema, allowedConnections, colorToken/category from `__family__`, default renderers). Closed by 8123184 (fixed via comprehension gate in e6166d8); see apps/review-workbench/scripts/generate-node-types.mjs and src/schema/generated-node-types.ts.
+- Live Antonia typed-editor arc [resolved] - sldb serve provider + type-driven inspector + StepCard + warm theme + flow_editor verbatim bridge. Closed by 11ba23f..affc478, merged dae5756.
