@@ -5,3 +5,5 @@ __pycache__/
 .sldb/runtime/
 .deskops.log
 desk/config.local.json
+runs/
+node_modules/
