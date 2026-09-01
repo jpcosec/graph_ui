@@ -62,17 +62,57 @@ function makeNode(id: string, payload: Record<string, unknown>, position: { x: n
   };
 }
 
-function makeEdge(edgeId: string, source: string, target: string): ASTEdge {
+function makeEdge(edgeId: string, source: string, target: string, relationType = 'flows_to'): ASTEdge {
   return {
     id: edgeId,
     source,
     target,
     type: 'floating',
     data: {
-      relationType: 'flows_to',
+      relationType,
       properties: {},
     },
   };
+}
+
+// Authored-relation layer (RELATION_MODEL_LAYER_SPEC): edges are their own
+// content-blind documents (RelationDoc), not text fields inside content. This
+// mirrors kgdb's pure assembler `assemble_authored_graph`: route each authored
+// edge onto its source node, and validate referential integrity (drop orphans).
+const RELATION_INSTANCE_TAG = 'type.relation.instance';
+
+function isRelationDoc(document: SldbDocument): boolean {
+  return (
+    document.model_name === 'RelationDoc' ||
+    (document.semantic_tags ?? []).includes(RELATION_INSTANCE_TAG)
+  );
+}
+
+export function buildEdgesFromAuthoredRelations(
+  relationDocs: SldbDocument[],
+  nodeIds: Set<string>,
+): { edges: ASTEdge[]; dropped: string[] } {
+  const edges: ASTEdge[] = [];
+  const dropped: string[] = [];
+
+  relationDocs.forEach((document) => {
+    const payload = asRecord(document.payload);
+    const source = typeof payload.source_id === 'string' ? payload.source_id : '';
+    const target = typeof payload.target_id === 'string' ? payload.target_id : '';
+    const relationType =
+      typeof payload.relation_type === 'string' && payload.relation_type.trim().length > 0
+        ? payload.relation_type
+        : 'flows_to';
+
+    if (!nodeIds.has(source) || !nodeIds.has(target)) {
+      dropped.push(document.id);
+      return;
+    }
+
+    edges.push(makeEdge(`${source}__to__${target}`, source, target, relationType));
+  });
+
+  return { edges, dropped };
 }
 
 function getLayoutedGraph(nodes: ASTNode[], edges: ASTEdge[]): Promise<{ nodes: ASTNode[]; edges: ASTEdge[] }> {
@@ -176,7 +216,17 @@ function buildEdgesFromDocuments(documents: ConversationDocument[]): ASTEdge[] {
 export function buildAntoniaGraphFromDocuments(documents: SldbDocument[]): Promise<{ nodes: ASTNode[]; edges: ASTEdge[] }> {
   const conversationDocs = documents.filter((document) => document.model_name === 'ConversationStep');
   const nodes = conversationDocs.map((document) => makeNode(document.id, asRecord(document.payload), { x: 0, y: 0 }));
-  const edges = buildEdgesFromDocuments(conversationDocs);
+
+  // Prefer authored relations when present (relation layer); otherwise fall
+  // back to the legacy allowed_transitions text field. Same result either way.
+  const relationDocs = documents.filter(isRelationDoc);
+  let edges: ASTEdge[];
+  if (relationDocs.length > 0) {
+    const nodeIds = new Set(nodes.map((node) => node.id));
+    edges = buildEdgesFromAuthoredRelations(relationDocs, nodeIds).edges;
+  } else {
+    edges = buildEdgesFromDocuments(conversationDocs);
+  }
 
   return getLayoutedGraph(nodes, edges);
 }

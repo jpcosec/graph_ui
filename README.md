@@ -27,6 +27,22 @@ distinct and do not overlap (edit-instances vs. render-specs).
 - `docs/` — human-facing materializations of atoms and diagram projections.
 - `legacy/` — pre-merge specs and reconstruction notes (historical only).
 
+## Install
+
+Install the Node.js dependencies:
+
+```bash
+npm install
+```
+
+This will install both runtime and dev dependencies (Vitest, Playwright).
+
+To run Playwright browsers for the first time:
+
+```bash
+npx playwright install
+```
+
 ## Run
 
 ```bash
