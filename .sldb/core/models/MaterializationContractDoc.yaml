@@ -1,0 +1,13 @@
+name: MaterializationContractDoc
+model_ref: deskops.models.materialization:MaterializationContractDoc
+path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/materialization.py
+documents_index: .sldb/core/documents/MaterializationContractDoc.yaml
+sections_index: ''
+hash_b: ''
+version: 1
+canonical: false
+family: null
+semantics:
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+base_models: []

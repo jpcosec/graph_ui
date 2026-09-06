@@ -1,0 +1,41 @@
+documents:
+- name: condition-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-has-implementation-path
+  path: desk/primitives/conditions/condition-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-has-implementation-path.md
+  hash_c: 8ecbb6994112d5bf4b6620d00123cd733ccd0602b7f8a75ea4f80ab1686f6ec4
+  hash_d: 5b8b0136dae29cc1a2d091d7e05258cbe6f897d1ec12310e55bd953b19a1f2a8
+  semantic_tags:
+  - primitive:condition
+  - type.workflow.condition
+  - workspace.desk.primitives
+- name: condition-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-has-validation
+  path: desk/primitives/conditions/condition-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-has-validation.md
+  hash_c: f746c8fb9241b73f201031dd5e7de8f9dd48d2e0602169f299202973cac96d0d
+  hash_d: 0c3461077f348a7a523fa036710bfac95de27e6afe41c8a1e2fb1a0ed8efe41a
+  semantic_tags:
+  - primitive:condition
+  - type.workflow.condition
+  - workspace.desk.primitives
+- name: condition-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-has-closeout-evidence
+  path: desk/primitives/conditions/condition-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-has-closeout-evidence.md
+  hash_c: ba729c1fbae55f2045928b25432b314b64eb71eb0042fe3c9a3f67c5a280060c
+  hash_d: fa3c58871962855e48caff17238317e5c8b3051fb17df546727817cf8fbcc9ad
+  semantic_tags:
+  - primitive:condition
+  - type.workflow.condition
+  - workspace.desk.primitives
+- name: condition-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-pill-knowledge-graduated
+  path: desk/primitives/conditions/condition-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-pill-knowledge-graduated.md
+  hash_c: 080502d8185dcacc90a0c22180954d0a7e148d63e1658712a599fbeaa4473e1f
+  hash_d: 64eef13711a27449bb651eb27d9ff433534f525474b844fa108b5fe3c298ec83
+  semantic_tags:
+  - primitive:condition
+  - type.workflow.condition
+  - workspace.desk.primitives
+- name: condition-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-ready-for-closeout
+  path: desk/primitives/conditions/condition-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-ready-for-closeout.md
+  hash_c: e9e8a9bf230ffcc2c31fb6e150867eb7d2eda6c92ab6749586dd2250064a0830
+  hash_d: f448ea46e7aeca9652d46330c1d41585bd54be8638e819c42143f6d6243c7427
+  semantic_tags:
+  - primitive:condition
+  - type.workflow.condition
+  - workspace.desk.primitives

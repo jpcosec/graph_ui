@@ -1,0 +1,11 @@
+name: PrimitiveDoc
+model_ref: deskops.models.routine:PrimitiveDoc
+path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/base.py
+documents_index: .sldb/core/documents/PrimitiveDoc.yaml
+sections_index: ''
+hash_b: ''
+version: 1
+canonical: false
+family: null
+semantics: []
+base_models: []

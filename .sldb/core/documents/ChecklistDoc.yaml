@@ -1,0 +1,25 @@
+documents:
+- name: checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-execution-ready
+  path: desk/primitives/checklists/checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-execution-ready.md
+  hash_c: c8b35c5d2c83b6d8a591a85b1104fb0b6c6cc4256a7baf2309efab14f116eaf5
+  hash_d: b54a54a7dd0217aecbabe3fecd01ad5053b19bb2bb735b0ba370da5e54e8839c
+  semantic_tags:
+  - primitive:checklist
+  - type.workflow.checklist
+  - workspace.desk.primitives
+- name: checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-testing-ready
+  path: desk/primitives/checklists/checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-testing-ready.md
+  hash_c: 12e69239b9f1ddf4f982ccf55b2b7dc388e1377bcb13d0c29956a2dc3862e0d2
+  hash_d: 6a3ece9bcc1ff1cb0112ddbc699f53970ce04bdfac10dc29341e6db0daba8c00
+  semantic_tags:
+  - primitive:checklist
+  - type.workflow.checklist
+  - workspace.desk.primitives
+- name: checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-closeout-ready
+  path: desk/primitives/checklists/checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-closeout-ready.md
+  hash_c: 2942211d59029456719b8aa567090791c3f0c373310012d231b6e3f267c2b38e
+  hash_d: 412f9fe20925d10474553d5163b60e1c495377dbb7917ed2dcaf3671b536d69b
+  semantic_tags:
+  - primitive:checklist
+  - type.workflow.checklist
+  - workspace.desk.primitives

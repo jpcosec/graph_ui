@@ -1,0 +1,49 @@
+documents:
+- name: edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-execution-to-activate
+  path: desk/primitives/edges/edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-execution-to-activate.md
+  hash_c: 80102d2bf5c2a5715f655183e4850a0bd10bddc57b4d2ad484e860325a0908ac
+  hash_d: c16e06d81b9b21aaff0c05868b1904e42326a0be52594f141e13d6831a97aef3
+  semantic_tags:
+  - primitive:edge
+  - type.workflow.edge
+  - workspace.desk.primitives
+- name: edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-activate-to-testing
+  path: desk/primitives/edges/edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-activate-to-testing.md
+  hash_c: 4c2ba323fc9825d98c6ab0251132e238c041c5378c1255fb9bf594b9379a6ebd
+  hash_d: 2fbb587057c4e4419f4737f89609aa3e23410ab5c7b491626c075a82db4339c2
+  semantic_tags:
+  - primitive:edge
+  - type.workflow.edge
+  - workspace.desk.primitives
+- name: edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-testing-to-ready
+  path: desk/primitives/edges/edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-testing-to-ready.md
+  hash_c: f729cd7efb5d0b6ea08e9578bc5711a9e6518d61e376df058aada676d2a64bfd
+  hash_d: d220a9f65277907e54c51e593bd196b9d6cf26976fa2b79debea5bf3175e2bad
+  semantic_tags:
+  - primitive:edge
+  - type.workflow.edge
+  - workspace.desk.primitives
+- name: edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-ready-to-closeout
+  path: desk/primitives/edges/edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-ready-to-closeout.md
+  hash_c: c0fe6abfbf2f4c5fa400d7c71e3c7bafec82296058c003d89f232edec3b81439
+  hash_d: 90ad3defab3fd9d1c1d5921e19fb0520561aa83869191c5c1fc652da6e031d4a
+  semantic_tags:
+  - primitive:edge
+  - type.workflow.edge
+  - workspace.desk.primitives
+- name: edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-closeout-to-close
+  path: desk/primitives/edges/edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-closeout-to-close.md
+  hash_c: 48ce9f7201dbb8e389fbb24d4d90f3197ea5fac8425cc5a464d468c290af7e00
+  hash_d: effcff857297f81bd4729bc8e2b82500e6c3a23cd591a3afc23031e1e25258b7
+  semantic_tags:
+  - primitive:edge
+  - type.workflow.edge
+  - workspace.desk.primitives
+- name: edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-close-to-complete
+  path: desk/primitives/edges/edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-close-to-complete.md
+  hash_c: d44eca027d8310db4ef1be7c6e00e94fee26627c1395394b869f5126853f26ba
+  hash_d: f82a8a6bc165bcb8d13c947d4b95ef5e9e9cdd2d758dc7f4aabc376d2d3a2d40
+  semantic_tags:
+  - primitive:edge
+  - type.workflow.edge
+  - workspace.desk.primitives

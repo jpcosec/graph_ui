@@ -11,6 +11,7 @@ tasks:
 - desk/tasks/004-wire-reusable-editor-to-real-fixture.md
 - desk/tasks/005-surface-semantic-signals.md
 - desk/tasks/006-prove-one-safe-edit-flow.md
+- desk/tasks/task-feed-hum-body-from-sldb-serve-remove-hardcoded-content.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -48,5 +49,4 @@ _Generated from the task references above._
 - Wire reusable editor to real fixture [resolved] - 
 - Surface semantic signals [resolved] - 
 - Prove one safe edit flow [resolved] - 
-- Generate graph_ui node types from sldb models at build time [resolved] - Build-time generator turning one sldb model into a `NodeTypeDefinition` (payloadSchema, allowedConnections, colorToken/category from `__family__`, default renderers). Closed by 8123184 (fixed via comprehension gate in e6166d8); see apps/review-workbench/scripts/generate-node-types.mjs and src/schema/generated-node-types.ts.
-- Live Antonia typed-editor arc [resolved] - sldb serve provider + type-driven inspector + StepCard + warm theme + flow_editor verbatim bridge. Closed by 11ba23f..affc478, merged dae5756.
+- Feed hum-body from sldb serve (remove hardcoded content) [active] - Promote deferred work from task-hum-body-live-sldb.md.
