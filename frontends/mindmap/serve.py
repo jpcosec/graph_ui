@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+"""Serve the KB editor, SLDB proxy and validated persistence bridge."""
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+from pathlib import Path
+from urllib.parse import urlparse
+import json
+import os
+import sys
+import urllib.error
+import urllib.request
+from persistence import EditorStore, SaveError
+
+SLDB_UPSTREAM = os.environ.get('SLDB_URL', 'http://127.0.0.1:8787')
+MINDMAP_DIR = Path(__file__).resolve().parent
+
+
+class ProxyHandler(SimpleHTTPRequestHandler):
+    editor_store = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+
+    def json_response(self, data, status=200):
+        body = json.dumps(data, ensure_ascii=False).encode()
+        self.send_response(status)
+        self.send_header('Content-Type', 'application/json; charset=utf-8')
+        self.send_header('Cache-Control', 'no-store')
+        self.send_header('Content-Length', str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _proxy_request(self, method):
+        body = self.rfile.read(int(self.headers.get('Content-Length', 0))) if method == 'POST' else None
+        req = urllib.request.Request(SLDB_UPSTREAM + self.path[len('/sldb'):], data=body,
+            headers={'Content-Type': 'application/json'}, method=method)
+        try:
+            with urllib.request.urlopen(req, timeout=15) as response:
+                self.json_response(json.loads(response.read()), response.status)
+        except urllib.error.HTTPError as exc:
+            self.json_response(json.loads(exc.read()), exc.code)
+        except (urllib.error.URLError, TimeoutError) as exc:
+            self.json_response({'ok': False, 'error': f'SLDB no responde: {exc}'}, 502)
+
+    def do_GET(self):
+        route = urlparse(self.path).path
+        if route == '/api/schema':
+            from sldb.cli.serve.schema import schema_models
+            self.json_response({'models': schema_models(self.editor_store.store, self.editor_store.pythonpath)})
+        elif route == '/api/graph':
+            try:
+                self.json_response(self.editor_store.graph())
+            except Exception as exc:
+                self.json_response({'ok': False, 'error': str(exc)}, 500)
+        elif route.startswith('/sldb/'):
+            self._proxy_request('GET')
+        else:
+            if route in ('/flow', '/mindmap'):
+                self.path = '/index.html'
+            super().do_GET()
+
+    def do_POST(self):
+        route = urlparse(self.path).path
+        if route == '/api/save':
+            # A local write endpoint must not accept cross-origin browser writes.
+            origin = self.headers.get('Origin')
+            if origin and urlparse(origin).netloc != self.headers.get('Host'):
+                return self.json_response({'ok': False, 'error': 'Origen no permitido.'}, 403)
+            size = int(self.headers.get('Content-Length', 0))
+            if size > 5_000_000:
+                return self.json_response({'ok': False, 'error': 'Solicitud demasiado grande.'}, 413)
+            try:
+                request = json.loads(self.rfile.read(size))
+                if not isinstance(request, dict):
+                    raise ValueError('Solicitud inválida.')
+                self.json_response(self.editor_store.save(request))
+            except SaveError as exc:
+                self.json_response({'ok': False, 'error': str(exc), 'completed': exc.completed,
+                    **self.editor_store.graph()}, exc.status)
+            except (ValueError, KeyError, TypeError) as exc:
+                self.json_response({'ok': False, 'error': str(exc)}, 400)
+            except Exception as exc:
+                self.json_response({'ok': False, 'error': str(exc)}, 500)
+        elif route.startswith('/sldb/'):
+            self._proxy_request('POST')
+        else:
+            self.json_response({'ok': False, 'error': 'Ruta desconocida.'}, 404)
+
+
+def make_server(port=8088, store=None):
+    backend = EditorStore(store or os.environ.get('SLDB_STORE', str(MINDMAP_DIR.parent.parent / '.sldb')))
+    handler = type('EditorHandler', (ProxyHandler,), {'editor_store': backend})
+    return ThreadingHTTPServer(('127.0.0.1', port), handler)
+
+
+if __name__ == '__main__':
+    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8088
+    server = make_server(port)
+    print(f'KB Mindmap: http://127.0.0.1:{port}/', flush=True)
+    server.serve_forever()
