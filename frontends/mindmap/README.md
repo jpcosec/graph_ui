@@ -38,6 +38,41 @@ Los documentos nuevos se crean en `desk/mindmap/<Clase>/<ID>.md`.
 Quitar retira el documento del índice y limpia las referencias del mapa;
 conserva el archivo Markdown en disco. Quitar un contenedor conserva sus hijos.
 Las posiciones y el plegado se guardan en `.sldb/runtime/mindmap-view.json`.
+
+## Compilar JSON a SLDB
+
+El mapa puede mantenerse como JSON declarativo y compilarse al store. El
+compilador genera las clases `StructuredNLDoc` que falten, las registra en
+SLDB, valida cada documento con el round-trip nativo y escribe los Markdown e
+índices. Las clases existentes se pueden reutilizar con `ref`.
+
+```bash
+PYTHONPATH=src:/home/jp/proyectos/hum-ecosystem/tools/sldb/src \
+  python3 frontends/mindmap/compiler.py mapa.json --store .sldb
+```
+
+Formato mínimo:
+
+```json
+{
+  "models": [{
+    "name": "Board",
+    "family": "workspace",
+    "fields": [
+      {"name": "id", "type": "str", "description": "Stable id"},
+      {"name": "title", "type": "str", "description": "Title"},
+      {"name": "children", "type": "list[str]", "default": [], "description": "Contained docs"}
+    ]
+  }],
+  "documents": [{"id": "main", "model": "Board", "payload": {"title": "Main", "children": []}}],
+  "view": {"positions": {"main": {"x": 0, "y": 0}}}
+}
+```
+
+Para una clase ya existente, el modelo declara por ejemplo
+`"ref": "deskops.models.board:BoardDoc"` y su `name` debe ser `BoardDoc`.
+La compilación es idempotente: un documento existente se actualiza y uno nuevo
+se crea; cambiarle la clase se rechaza para evitar migraciones implícitas.
 No se usa localStorage como fuente de documentos o como mecanismo de guardado.
 
 El servidor rechaza payloads obsoletos para evitar sobrescribir otra edición.
