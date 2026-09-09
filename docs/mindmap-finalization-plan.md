@@ -31,7 +31,7 @@ distintos sobre ese mismo store.
 
 ## Vistas del producto
 
-### Brainstorm
+### Brainstorm (feature nueva)
 
 Es la vista de captura rápida, cercana a MindMup.
 
@@ -42,6 +42,11 @@ Es la vista de captura rápida, cercana a MindMup.
 - Mover nodos cambia la disposición, no inventa relaciones horizontales.
 - La jerarquía visual representa contención.
 - Una idea se puede abrir luego como documento SLDB real.
+
+Esta vista todavía no existe en `frontends/mindmap/`. Debe tener un estado de
+trabajo propio para capturas que aún no son documentos SLDB. La conversión a KB
+debe ser una operación explícita y validada; cerrar o recargar no debe perder
+capturas sin avisar.
 
 ### KB
 
@@ -176,7 +181,28 @@ Termina cuando un fixture JSON represente una KB pequeña sin ambigüedades.
 
 Termina cuando UI y compilador usan el mismo adaptador.
 
-### 3. Terminar Brainstorm
+### 3. Separar captura rápida de Brainstorm
+
+La captura rápida dentro de KB ya existe parcialmente: hay creación con título,
+Enter/Tab y acciones de hijo/hermano. Ese flujo se termina y se prueba como
+parte de KB, pero no se debe confundir con Brainstorm.
+
+### 4. Construir Brainstorm desde cero
+
+- Crear estado y proyección para ideas todavía no persistidas como documentos.
+- Implementar nodos de título, emoji y color.
+- Implementar Enter para hermano y Tab para hijo.
+- Permitir disposición libre horizontal y vertical.
+- Mostrar claramente qué ideas están sin convertir.
+- Convertir una idea o un subárbol a documentos SLDB.
+- Elegir clase y aplicar defaults durante la conversión.
+- Validar la conversión completa antes de escribir.
+- Guardar el borrador de Brainstorm o advertir antes de descartarlo.
+
+Termina cuando una captura de diez ideas pueda convertirse en una KB válida sin
+copiar títulos manualmente.
+
+### 5. Terminar la vista KB
 
 - Crear nodos escribiendo solo título.
 - Hacer que Enter y Tab no abran formularios innecesarios.
@@ -185,9 +211,7 @@ Termina cuando UI y compilador usan el mismo adaptador.
 - Guardar layout y plegado.
 - Evitar relaciones implícitas por mover nodos.
 
-Termina cuando se puedan capturar diez nodos y recargarlos sin pérdida.
-
-### 4. Terminar la vista KB
+Termina cuando se puedan capturar diez nodos en KB y recargarlos sin pérdida.
 
 - Diferenciar visualmente contención y relación.
 - Dibujar etiquetas de relación.
@@ -198,7 +222,7 @@ Termina cuando se puedan capturar diez nodos y recargarlos sin pérdida.
 
 Termina cuando una KB con contenedores y links se entienda sin abrir fichas.
 
-### 5. Terminar edición de documentos
+### 6. Terminar edición de documentos
 
 - Abrir ficha desde nodo y mini-toolbar.
 - Crear rápido con título y defaults válidos.
@@ -209,7 +233,18 @@ Termina cuando una KB con contenedores y links se entienda sin abrir fichas.
 
 Termina cuando crear, editar, conectar, recargar y reabrir un documento sea estable.
 
-### 6. Implementar edición de clases
+### 7. Verificar y luego implementar edición de clases
+
+Antes de construir la UI hay que verificar en la versión de SLDB usada:
+
+- si existe API pública para crear drafts;
+- si los comandos de fields y template tienen equivalente de servicio;
+- si validar un draft devuelve documentos afectados;
+- si promover actualiza hashes, índices y versión;
+- si una migración de campo eliminado o cambiado tiene una política explícita.
+
+Si alguna operación no existe, se debe agregar al API de SLDB o reducir el
+alcance de la UI. El frontend no debe llamar módulos internos para simularla.
 
 - Crear vista de clases y campos.
 - Editar template.
@@ -223,7 +258,7 @@ Termina cuando crear, editar, conectar, recargar y reabrir un documento sea esta
 Termina cuando se pueda añadir un campo, validar impacto y usarlo en el modal
 sin reiniciar el servidor.
 
-### 7. Integrar el compilador
+### 8. Integrar el compilador
 
 - Agregar endpoints o servicios al adaptador SLDB.
 - Implementar `validate`, `dry-run` y `apply`.
@@ -235,7 +270,7 @@ sin reiniciar el servidor.
 Termina cuando un JSON exportado compile en otra KB compatible y produzca el
 mismo grafo lógico.
 
-### 8. Pruebas y cierre
+### 9. Pruebas y cierre
 
 - Tests de proyección y jerarquía.
 - Tests del adaptador SLDB.
@@ -250,18 +285,29 @@ mismo grafo lógico.
 
 El trabajo está terminado cuando:
 
-1. Se pueden crear diez ideas con teclado sin abrir una ficha completa.
-2. Se pueden convertir en documentos SLDB válidos.
-3. Se pueden agregar hijos y hermanos desde el mini-toolbar.
+1. Se pueden crear diez ideas en Brainstorm con teclado sin abrir una ficha.
+2. Se pueden convertir esas ideas en documentos SLDB válidos.
+3. La captura rápida de KB permite agregar hijos y hermanos desde el mini-toolbar.
 4. Se pueden conectar documentos usando un campo de relación real.
 5. Se distinguen contención, relaciones y clases por la UI.
 6. Se puede editar cualquier documento desde un modal.
-7. Se puede editar una clase mediante draft, validar y promover.
+7. La edición de clases solo se habilita después de verificar drafts, impacto y promoción.
 8. Un error de validación no confirma cambios parciales.
 9. Dos sesiones concurrentes producen un conflicto explícito.
 10. Exportar y recompilar conserva documentos, clases, relaciones y layout.
 11. Todas las escrituras pasan por operaciones de SLDB.
 12. La UI no mantiene un modelo paralelo que pueda divergir del store.
+
+## Priorización si hay que recortar
+
+El núcleo que debe mantenerse es: adaptador SLDB único, captura rápida de KB,
+edición modal, relaciones, guardado con conflictos y pruebas de round-trip.
+
+El primer recorte razonable es posponer la edición visual de clases y dejarla
+como operación administrativa de SLDB. El segundo es posponer exportación y
+recompilación completa de JSON. Brainstorm sigue siendo una feature importante,
+pero puede salir inicialmente solo con captura y conversión a documentos; el
+layout avanzado y la edición de color/emoji pueden venir después.
 
 ## Estado actual
 
