@@ -37,7 +37,7 @@ Es la vista de captura rápida, cercana a MindMup.
 
 - El nodo muestra solo emoji, color y título.
 - El nodo es una caja plana y redondeada.
-- Enter crea un hermano y Tab crea un hijo cuando la clase lo permite.
+- Enter crea un hermano y Tab crea un hijo.
 - La creación pide inicialmente solo título y clase.
 - Mover nodos cambia la disposición, no inventa relaciones horizontales.
 - La jerarquía visual representa contención.
@@ -202,16 +202,18 @@ parte de KB, pero no se debe confundir con Brainstorm.
 Termina cuando una captura de diez ideas pueda convertirse en una KB válida sin
 copiar títulos manualmente.
 
-### 5. Terminar la vista KB
+### 5a. Terminar la captura rápida dentro de KB
 
-- Crear nodos escribiendo solo título.
+- Mantener la creación rápida de documentos escribiendo solo el título.
 - Hacer que Enter y Tab no abran formularios innecesarios.
-- Elegir clase con una acción rápida.
-- Convertir una captura en documento válido.
+- Elegir la clase con una acción rápida.
+- Aplicar defaults válidos antes de guardar.
 - Guardar layout y plegado.
 - Evitar relaciones implícitas por mover nodos.
 
 Termina cuando se puedan capturar diez nodos en KB y recargarlos sin pérdida.
+
+### 5b. Terminar la visualización de KB
 
 - Diferenciar visualmente contención y relación.
 - Dibujar etiquetas de relación.
@@ -317,6 +319,7 @@ También existe una primera versión del compilador JSON y documentación de
 desarrollador y usuario.
 
 Lo pendiente de mayor prioridad es consolidar el adaptador contra el API de
-SLDB, implementar edición de clases desde frontend y conectar el compilador a
-ese mismo camino. Hasta completar eso, el editor debe considerarse una base
-funcional y no el producto final.
+SLDB. Después hay que completar la captura KB, construir Brainstorm, verificar
+las operaciones de drafts y recién entonces implementar edición de clases y
+conectar el compilador a ese mismo camino. Hasta completar eso, el editor debe
+considerarse una base funcional y no el producto final.
