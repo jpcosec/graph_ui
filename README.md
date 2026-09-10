@@ -1,53 +1,37 @@
-# graph_ui
+# graph_ui — KB Mindmap
 
-Domain-agnostic **visual graph editor** embedded in the PhD 2.0 review workbench.
-It lets an operator inspect, edit, and approve knowledge graphs produced by the
-pipeline — without writing JSON.
+El desarrollo activo está en `frontends/mindmap/`: editor visual de documentos
+SLDB con creación, referencias, contenedores plegables y guardado real.
 
-graph_ui is the **editing surface** over graph instances. Its companion
-`spec2viz` is the **architecture visualization** surface over specs; the two are
-distinct and do not overlap (edit-instances vs. render-specs).
+## Ejecutar
 
-## What it is
+Desde la raíz del repositorio:
 
-- React/Vite app under `apps/review-workbench/` — the interactive editor (L1/L2/L3).
-- Python contracts/adapters under `src/` — `GraphData` contract, editor engine,
-  auditor, provider, and the `kgdb_adapter` bridge.
-- deskops workspace under `desk/` — tasks, atoms, pills, rituals governing the work.
-
-## Current focus
-
-- Make the editor **actually edit** (persist changes, not a no-op save).
-- Move off hardcoded fixtures and work **directly over kgdb** as the data source.
-
-## Where truth lives
-
-- `desk/atoms/` — durable architecture and policy truths (canonical).
-- `desk/tasks/Board.md` — active routed work.
-- `docs/` — human-facing materializations of atoms and diagram projections.
-- `legacy/` — pre-merge specs and reconstruction notes (historical only).
-
-## Install
-
-Install the Node.js dependencies:
-
-```bash
-npm install
+```sh
+python3 frontends/mindmap/serve.py 8088
 ```
 
-This will install both runtime and dev dependencies (Vitest, Playwright).
+Abrir http://127.0.0.1:8088/. Requiere `sldb` y los modelos registrados
+(`deskops` para esta KB) en el entorno Python. Usa la `.sldb` del repositorio;
+`SLDB_STORE` permite elegir otra. Las dependencias del navegador se cargan vía CDN.
 
-To run Playwright browsers for the first time:
+Ver [uso y pruebas](frontends/mindmap/README.md),
+[guía de desarrollo](docs/mindmap-developer.md) y
+[plan pendiente](docs/mindmap-finalization-plan.md).
 
-```bash
-npx playwright install
+## Vista HUM archivada
+
+La rama `archive/hum-view` conserva la implementación completa del observatorio
+HUM y una evaluación de piezas reutilizables en
+`apps/review-workbench/src/features/hum-body/README.md`.
+HUM está retirado de la rama activa.
+
+Para leer esa evaluación sin cambiar de rama:
+
+```sh
+git show archive/hum-view:apps/review-workbench/src/features/hum-body/README.md
 ```
 
-## Run
-
-```bash
-cd apps/review-workbench
-npm run dev        # http://127.0.0.1:5173
-npm run test       # vitest
-npm run test:user-flows   # Playwright acceptance flows
-```
+`apps/review-workbench/` conserva el editor anterior como referencia.
+El frontend activo y su comando de arranque son los de Mindmap indicados arriba.
+`frontends/flow_editor/` conserva el editor HCP del que se adaptó Mindmap.
