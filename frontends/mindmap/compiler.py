@@ -15,6 +15,7 @@ All store operations go through the shared ``sldb_adapter``.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -36,6 +37,11 @@ IDENTIFIER = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
 class CompileError(ValueError):
     """Input cannot be compiled without losing data or validity."""
+
+    def __init__(self, message, *, completed=None, models_added=None):
+        super().__init__(message)
+        self.completed = completed or []
+        self.models_added = models_added or []
 
 
 def _ensure_object(value: Any, label: str) -> dict[str, Any]:
@@ -85,6 +91,7 @@ def generate_models_module(spec: dict[str, Any], destination: Path) -> list[str]
         if not isinstance(fields, list) or not fields:
             raise CompileError(f"El modelo {name} debe declarar fields o ref.")
         lines.append(f"class {name}(StructuredNLDoc):")
+        lines.append(f"    __mindmap_spec__ = {model!r}")
         if "family" in model:
             lines.append(f"    __family__ = {model['family']!r}")
         if "semantics" in model:
@@ -161,12 +168,22 @@ def plan_source(source: str | Path | dict[str, Any], store: str | Path) -> dict[
         adapter = SldbAdapter(store_path)
         existing = {d.name: d for d in adapter.documents()}
         registered_models = adapter.model_refs()
+        declarations = {m['name']: m for m in adapter.export_models()}
     else:
         existing, registered_models = {}, {}
+        declarations = {}
 
     # Resolución de refs: modelos registrados del store o declarados en el spec.
     # Los modelos inline (fields sin ref) se validan en un módulo temporal.
     spec_models = {m.get("name"): m for m in spec.get("models", [])}
+    model_conflicts = [
+        {'model': name, 'reason': 'La declaración difiere del modelo registrado; la importación no migra clases.'}
+        for name, model in spec_models.items()
+        if name in registered_models and (
+            model.get('ref') != registered_models[name] if model.get('ref')
+            else model != declarations[name]
+        )
+    ]
     refs = dict(registered_models)
     generated_names = []
     temp_dir = None
@@ -182,7 +199,9 @@ def plan_source(source: str | Path | dict[str, Any], store: str | Path) -> dict[
                 # sin esto, un segundo dry-run con schemas inline distintos
                 # resolvería las clases viejas desde sys.modules.
                 sys.modules.pop("_plan_models", None)
-                generated_names = generate_models_module(spec, Path(temp_dir) / "_plan_models.py")
+                generated_names = generate_models_module(
+                    {'models': [m for n, m in spec_models.items() if n not in registered_models]},
+                    Path(temp_dir) / "_plan_models.py")
                 for generated in generated_names:
                     refs[generated] = f"_plan_models:{generated}"
 
@@ -195,6 +214,9 @@ def plan_source(source: str | Path | dict[str, Any], store: str | Path) -> dict[
                 continue
             payload = dict(doc.get("payload") or {})
             payload.setdefault("id", name)
+            if payload['id'] != name:
+                invalid.append({'id': name, 'error': 'payload.id debe coincidir con documents[].id.'})
+                continue
             # Validación real contra SLDB: por ref si ya está resuelta.
             if model_name in refs:
                 try:
@@ -207,7 +229,11 @@ def plan_source(source: str | Path | dict[str, Any], store: str | Path) -> dict[
                     continue
             current = existing.get(name)
             if current is None:
-                creates.append(name)
+                output = store_path.parent / 'desk' / 'mindmap' / model_name / f'{name}.md'
+                if output.exists():
+                    conflicts.append({'id': name, 'reason': 'El archivo destino ya existe sin estar registrado.'})
+                else:
+                    creates.append(name)
             elif current.model_name != model_name:
                 conflicts.append({"id": name, "reason": f"ya existe como {current.model_name}"})
             elif current.payload != payload:
@@ -217,6 +243,7 @@ def plan_source(source: str | Path | dict[str, Any], store: str | Path) -> dict[
         return {"ok": True, "creates": creates, "updates": updates, "unchanged": unchanged,
                 "conflicts": conflicts, "invalid_payloads": invalid,
                 "unknown_models": unknown_models,
+                "model_conflicts": model_conflicts,
                 "new_models": [n for n in spec_models if n not in registered_models]}
     finally:
         if temp_dir:
@@ -238,8 +265,14 @@ def compile_json(source: str | Path | dict[str, Any], store: str | Path, *, modu
     documents = spec.get("documents", [])
     store_path = Path(store).resolve()
     root = store_path.parent
-    module_file = Path(module_path).resolve() if module_path else root / "_sldb_compiled_models.py"
-    generated = generate_models_module(spec, module_file)
+    plan = plan_source(spec, store_path)
+    if any(plan.get(key) for key in ('conflicts', 'invalid_payloads', 'unknown_models', 'model_conflicts')):
+        raise CompileError('No se puede compilar: modelo desconocido, conflicto o payload inválido. ' + json.dumps(plan, ensure_ascii=False))
+    # Never overwrite the module backing already registered classes.
+    new_spec = {'models': [m for m in models if m['name'] in plan['new_models']]}
+    digest = hashlib.sha256(json.dumps(new_spec, sort_keys=True).encode()).hexdigest()[:16]
+    module_file = Path(module_path).resolve() if module_path else root / f"_sldb_compiled_{digest}.py"
+    generated = generate_models_module(new_spec, module_file)
     pythonpath = str(module_file.parent)
     module_name = module_file.stem
     # El mismo nombre de módulo se reusa entre compilaciones (p.ej. en tests o
@@ -247,16 +280,15 @@ def compile_json(source: str | Path | dict[str, Any], store: str | Path, *, modu
     sys.modules.pop(module_name, None)
 
     # ---- Fase 1: resolver refs y prevalidar TODO sin tocar el store. ----
-    registered: dict[str, str] = {}
+    store_existed = (store_path / "core" / "store_index.yaml").exists()
+    registered: dict[str, str] = SldbAdapter(store_path).model_refs() if store_existed else {}
     for raw in models:
         model = _ensure_object(raw, "Cada model")
         name = _identifier(model.get("name"), "El nombre del modelo")
-        if name in registered:
-            raise CompileError(f"Modelo duplicado: {name}.")
-        registered[name] = _model_ref(model, module_name)
+        if name not in registered:
+            registered[name] = _model_ref(model, module_name)
 
     existing = {}
-    store_existed = (store_path / "core" / "store_index.yaml").exists()
     if store_existed:
         existing = {d.name: d for d in SldbAdapter(store_path).documents(pythonpath)}
 
@@ -292,22 +324,27 @@ def compile_json(source: str | Path | dict[str, Any], store: str | Path, *, modu
     adapter = SldbAdapter(store_path)
     adapter.init_store()
     existing_models = adapter.model_names()
-    for name, ref in registered.items():
-        if name not in existing_models:
-            adapter.add_model(ref, pythonpath=pythonpath)
-
     written: list[str] = []
-    for doc, name, model_name, payload in prepared:
-        if name in existing:
-            adapter.update_document(existing[name], payload, pythonpath)
-        else:
-            output = root / "desk" / "mindmap" / model_name / f"{name}.md"
-            adapter.create_document(name, model_name, payload, output, pythonpath)
-        written.append(name)
-    view = spec.get("view")
-    if view is not None:
-        kb_contract.validate({"version": 1, "view": view})
-        adapter.write_view(view)
+    models_added: list[str] = []
+    try:
+        for name, ref in registered.items():
+            if name not in existing_models:
+                adapter.add_model(ref, pythonpath=pythonpath)
+                models_added.append(name)
+        for doc, name, model_name, payload in prepared:
+            if name in plan['unchanged']:
+                continue
+            if name in existing:
+                adapter.update_document(existing[name], payload, pythonpath)
+            else:
+                output = root / "desk" / "mindmap" / model_name / f"{name}.md"
+                adapter.create_document(name, model_name, payload, output, pythonpath)
+            written.append(name)
+        view = spec.get("view")
+        if view is not None:
+            adapter.write_view(view)
+    except (Exception, SystemExit) as exc:
+        raise CompileError(f'La compilación no se completó: {exc}', completed=written, models_added=models_added) from exc
     return {"ok": True, "store": str(store_path), "module": str(module_file), "models": list(registered), "generated_models": generated, "documents": written}
 
 

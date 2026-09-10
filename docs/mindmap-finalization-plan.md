@@ -85,27 +85,42 @@ La ficha completa vive en un modal.
 El frontend maneja interacción, estado transitorio y proyección visual. El
 backend del editor debe ser un adaptador del API de SLDB.
 
-El orden de preferencia es:
+El orden de preferencia, verificado contra SLDB v1 y `sldb-ui`, es:
 
-1. API público de SLDB.
-2. Operaciones de store expuestas por SLDB.
-3. CLI de SLDB como compatibilidad.
-4. Escritura directa de índices solo si SLDB no ofrece una operación equivalente.
+1. API Python pública de SLDB, cuando la operación exista.
+2. CLI pública y documentada de SLDB.
+3. Gateway HTTP existente de `sldb-ui`, que envuelve esa CLI pública.
+4. Operaciones internas de store solo dentro de un adaptador transitorio y con
+   deuda explícita.
+
+No se escriben índices directamente desde `graph_ui`. Si SLDB no ofrece una
+operación equivalente, se reduce el alcance o se implementa la capacidad en el
+sucesor vigente del motor. El repositorio SLDB v1 está congelado y no recibe
+features nuevas.
 
 No se deben duplicar en `graph_ui` las reglas de validación, hash, tracking,
 reindexación o promoción de modelos que pertenecen a SLDB.
 
-El API actual expone principalmente `GET /schema`, `GET /graph` y `POST /save`.
-`/save` cubre actualización de documentos existentes. Para completar el producto
-hay que exponer, o encapsular mediante la API pública equivalente, estas
-operaciones:
+`sldb serve` expone `GET /schema`, `GET /graph`, `GET /kgdb/snapshot` y
+`POST /save`; `/save` cubre actualización de documentos existentes. El ciclo
+de modelos está disponible en la CLI pública. Además, `sldb-ui` ya expone
+detalle de modelos y validación/promoción a través de su gateway a esa CLI.
+Para completar el producto hay que reutilizar o extender esas superficies para
+estas operaciones:
 
 - crear y trackear un documento;
 - eliminar o destrackear un documento;
-- crear un draft de modelo;
-- editar campos y template del draft;
-- validar y promover un draft;
-- obtener el impacto del cambio sobre documentos existentes.
+- generar una clase nueva con `models create` y registrarla explícitamente;
+- editar el template mediante draft con `models template edit`;
+- añadir y quitar campos mediante draft con `models fields add/remove`;
+- validar y promover con `models validate [--promote] --format json`;
+- obtener un reporte completo de impacto cuando existan documentos inválidos.
+
+SLDB v1 todavía no ofrece edición directa de tipo, descripción, default u
+obligatoriedad de un campo existente, descarte explícito de drafts, reporte
+completo de impacto ni política de migración para renombrar, cambiar tipo o
+eliminar campos. Esas capacidades no se simulan editando Python o índices desde
+el frontend.
 
 ## Compilador JSON → SLDB
 
@@ -126,7 +141,8 @@ La primera versión en `frontends/mindmap/compiler.py` prueba la idea y tiene
 tests, pero debe evolucionar para:
 
 - dejar de llamar directamente clases internas de `sldb.cli.commands`;
-- usar el API público de SLDB como punto de entrada;
+- usar la API Python pública cuando exista y, para el ciclo de modelos, la CLI
+  pública mediante un gateway;
 - separar `validate`, `dry-run` y `apply`;
 - informar cambios, conflictos y documentos afectados antes de escribir;
 - tratar referencias a modelos existentes como operación principal;
@@ -235,30 +251,47 @@ Termina cuando una KB con contenedores y links se entienda sin abrir fichas.
 
 Termina cuando crear, editar, conectar, recargar y reabrir un documento sea estable.
 
-### 7. Verificar y luego implementar edición de clases
+### 7. Implementar el alcance de edición de clases soportado por SLDB
 
-Antes de construir la UI hay que verificar en la versión de SLDB usada:
+La verificación contra SLDB v1 y `sldb-ui` está hecha:
 
-- si existe API pública para crear drafts;
-- si los comandos de fields y template tienen equivalente de servicio;
-- si validar un draft devuelve documentos afectados;
-- si promover actualiza hashes, índices y versión;
-- si una migración de campo eliminado o cambiado tiene una política explícita.
+- La CLI pública implementa drafts para template y campos.
+- `models fields add/remove` y `models template edit` escriben un archivo
+  `*.py.temp` sin modificar el modelo activo.
+- `models validate --format json` valida el contrato y los documentos
+  rastreados; el recorrido se detiene en el primer documento inválido.
+- `models validate --promote` instala el draft, incrementa la versión y ejecuta
+  la actualización de hashes e índices.
+- `sldb-ui` ya expone detalle y validación de modelos. Su endpoint de validación
+  acepta `promote`, aunque la pantalla todavía no ofrece esa acción.
+- No hay API Python pública para el ciclo de modelos y `sldb serve` no lo expone.
+  El contrato reutilizable actual es la CLI pública.
 
-Si alguna operación no existe, se debe agregar al API de SLDB o reducir el
-alcance de la UI. El frontend no debe llamar módulos internos para simularla.
+Primera entrega, sobre capacidades existentes:
 
-- Crear vista de clases y campos.
-- Editar template.
+- Crear la vista de clases y campos a partir del schema real.
+- Reutilizar o extender el gateway de `sldb-ui`; no importar clases
+  `sldb.cli.commands` desde el frontend ni reimplementar sus reglas.
+- Editar template mediante draft.
 - Añadir y quitar campos mediante draft.
-- Editar tipo, descripción, default y obligatoriedad.
-- Mostrar documentos afectados.
-- Ejecutar validación de SLDB.
-- Promover solo con validación exitosa.
-- Refrescar schema y UI después de promover.
+- Mostrar la validación devuelta por SLDB y los documentos alcanzados.
+- Promover únicamente después de una validación exitosa y una confirmación
+  explícita del usuario.
+- Refrescar schema, versión y UI después de promover, sin reiniciar el servidor.
 
-Termina cuando se pueda añadir un campo, validar impacto y usarlo en el modal
-sin reiniciar el servidor.
+Alcance diferido hasta que el motor tenga contratos explícitos:
+
+- editar tipo, descripción, default u obligatoriedad de un campo existente;
+- renombrar campos;
+- descartar drafts mediante una operación pública;
+- mostrar el impacto completo después del primer documento inválido;
+- migrar payloads por cambios o eliminación de campos;
+- garantizar rollback si falla la promoción después de reemplazar el modelo.
+
+Termina su primera entrega cuando se pueda editar un template o añadir/quitar un
+campo, validar todos los documentos que SLDB alcance, promover el draft y usar
+el nuevo contrato en el modal. Las operaciones diferidas permanecen
+deshabilitadas y explicadas en la UI.
 
 ### 8. Integrar el compilador
 
@@ -293,7 +326,8 @@ El trabajo está terminado cuando:
 4. Se pueden conectar documentos usando un campo de relación real.
 5. Se distinguen contención, relaciones y clases por la UI.
 6. Se puede editar cualquier documento desde un modal.
-7. La edición de clases solo se habilita después de verificar drafts, impacto y promoción.
+7. La edición de clases habilita solo operaciones soportadas por la CLI pública;
+   las migraciones y mutaciones sin contrato permanecen deshabilitadas.
 8. Un error de validación no confirma cambios parciales.
 9. Dos sesiones concurrentes producen un conflicto explícito.
 10. Exportar y recompilar conserva documentos, clases, relaciones y layout.
@@ -305,11 +339,13 @@ El trabajo está terminado cuando:
 El núcleo que debe mantenerse es: adaptador SLDB único, captura rápida de KB,
 edición modal, relaciones, guardado con conflictos y pruebas de round-trip.
 
-El primer recorte razonable es posponer la edición visual de clases y dejarla
-como operación administrativa de SLDB. El segundo es posponer exportación y
-recompilación completa de JSON. Brainstorm sigue siendo una feature importante,
-pero puede salir inicialmente solo con captura y conversión a documentos; el
-layout avanzado y la edición de color/emoji pueden venir después.
+El primer recorte razonable del editor de clases es implementar solo template,
+alta/baja de campos, validación y promoción sobre la CLI pública; se posponen
+mutaciones de campos existentes y migraciones. El segundo es posponer
+exportación y recompilación completa de JSON. Brainstorm sigue siendo una
+feature importante, pero puede salir inicialmente solo con captura y conversión
+a documentos; el layout avanzado y la edición de color/emoji pueden venir
+después.
 
 ## Estado actual
 
@@ -365,15 +401,26 @@ Avance del plan:
   `__references__`/`__containment__` desde el contrato; el contrato valida
   `containment` con cross-check. Ambos E2E corren dentro de la suite
   (`python_files` incluye `e2e_*.py`).
+- **Paso 7 (edición de clases): superficie verificada y alcance dividido.**
+  SLDB v1 ya ofrece por CLI pública drafts de template, alta/baja de campos,
+  validación JSON y promoción con versión/reindexado. `sldb-ui` ya envuelve
+  detalle y validación/promoción. La primera entrega puede reutilizar ese camino;
+  edición de atributos de campos, impacto completo, migraciones y rollback quedan
+  diferidos porque el motor no ofrece esos contratos.
 - Deuda reconocida: la atomicidad de escritura sigue siendo mejor-esfuerzo
   (reporta `completed` sin rollback); los `except Exception` amplios del
   adaptador; el test de imports no cubre imports dinámicos. El uso de
-  DocCLI/ModelCLI como fachada persiste hasta que SLDB exponga un API público
-  equivalente.
-- El compilador aún no expone `validate/dry-run/apply` como endpoints de la
-  API ni reporte en la UI; eso corresponde al paso 8.
+  DocCLI/ModelCLI como fachada persiste. Para el ciclo de modelos nuevo se debe
+  usar la CLI pública mediante un gateway, no importar esas clases internas.
+- **Paso 8 (integración del compilador): en curso.** El working tree contiene
+  un primer cableado de `validate/plan/compile/export` y un diálogo para mostrar
+  reportes. Antes de considerarlo listo faltan pruebas específicas de endpoints,
+  verificación en navegador y revisión del contrato de exportación/recuperación;
+  no se debe volver a implementar esa misma superficie desde cero.
 
-Lo pendiente de mayor prioridad es completar la captura KB, construir Brainstorm,
-verificar las operaciones de drafts y recién entonces implementar edición de
-classes y conectar el compilador a ese mismo camino. Hasta completar eso, el
-editor debe considerarse una base funcional y no el producto final.
+Lo pendiente de mayor prioridad es integrar el compilador, construir Brainstorm
+y luego implementar la primera entrega acotada de edición de clases sobre la CLI
+pública ya verificada. Las migraciones de modelos se retoman únicamente cuando
+el motor vigente exponga contratos para impacto completo y transformación de
+payloads. Hasta completar eso, el editor debe considerarse una base funcional y
+no el producto final.

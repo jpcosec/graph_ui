@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import path from 'node:path';
 
 import { describe, expect, it } from 'vitest';
@@ -31,8 +32,11 @@ describe('userFlowRunnerCore', () => {
       runAll: true,
     });
 
-    expect(files.length).toBeGreaterThanOrEqual(4);
-    expect(files.every((file) => file.endsWith('.json'))).toBe(true);
+    const expected = fs.readdirSync(path.resolve('user_flows'))
+      .filter((entry) => entry.endsWith('.json'))
+      .sort()
+      .map((entry) => path.resolve('user_flows', entry));
+    expect(files).toEqual(expected);
   });
 
   it('builds stable artifact paths', () => {

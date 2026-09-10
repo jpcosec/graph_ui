@@ -9,6 +9,7 @@ import sys
 import urllib.error
 import urllib.request
 from persistence import EditorStore, SaveError
+from compilation import CompilationService
 
 SLDB_UPSTREAM = os.environ.get('SLDB_URL', 'http://127.0.0.1:8787')
 MINDMAP_DIR = Path(__file__).resolve().parent
@@ -59,25 +60,31 @@ class ProxyHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         route = urlparse(self.path).path
-        if route == '/api/save':
+        if route in ('/api/save', '/api/validate', '/api/plan', '/api/compile', '/api/export'):
             # A local write endpoint must not accept cross-origin browser writes.
             origin = self.headers.get('Origin')
             if origin and urlparse(origin).netloc != self.headers.get('Host'):
                 return self.json_response({'ok': False, 'error': 'Origen no permitido.'}, 403)
-            size = int(self.headers.get('Content-Length', 0))
-            if size > 5_000_000:
-                return self.json_response({'ok': False, 'error': 'Solicitud demasiado grande.'}, 413)
             try:
+                size = int(self.headers.get('Content-Length', 0))
+                if size < 0:
+                    raise ValueError('Content-Length inválido.')
+                if size > 5_000_000:
+                    return self.json_response({'ok': False, 'error': 'Solicitud demasiado grande.'}, 413)
                 request = json.loads(self.rfile.read(size))
                 if not isinstance(request, dict):
                     raise ValueError('Solicitud inválida.')
-                self.json_response(self.editor_store.save(request))
+                if route == '/api/save':
+                    self.json_response(self.editor_store.save(request))
+                else:
+                    report, status = self.compilation.run(route.rsplit('/', 1)[1], request)
+                    self.json_response(report, status)
             except SaveError as exc:
                 self.json_response({'ok': False, 'error': str(exc), 'completed': exc.completed,
                     **self.editor_store.graph()}, exc.status)
             except (ValueError, KeyError, TypeError) as exc:
                 self.json_response({'ok': False, 'error': str(exc)}, 400)
-            except Exception as exc:
+            except (Exception, SystemExit) as exc:
                 self.json_response({'ok': False, 'error': str(exc)}, 500)
         elif route.startswith('/sldb/'):
             self._proxy_request('POST')
@@ -87,7 +94,8 @@ class ProxyHandler(SimpleHTTPRequestHandler):
 
 def make_server(port=8088, store=None):
     backend = EditorStore(store or os.environ.get('SLDB_STORE', str(MINDMAP_DIR.parent.parent / '.sldb')))
-    handler = type('EditorHandler', (ProxyHandler,), {'editor_store': backend})
+    handler = type('EditorHandler', (ProxyHandler,), {
+        'editor_store': backend, 'compilation': CompilationService(backend.adapter)})
     return ThreadingHTTPServer(('127.0.0.1', port), handler)
 
 

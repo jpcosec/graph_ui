@@ -106,6 +106,15 @@ class SldbAdapter:
         """Mapa nombre -> ref de los modelos registrados en el store."""
         return {m.name: m.model_ref for m in load_store_index(self.store).models}
 
+    def export_models(self) -> list[dict[str, Any]]:
+        """Preserve inline declarations; external classes keep their import refs."""
+        result = []
+        for name, ref in self.model_refs().items():
+            model = self.model_for(name)
+            declaration = getattr(model, '__mindmap_spec__', None)
+            result.append(declaration or {'name': name, 'ref': ref})
+        return result
+
     def model_for(self, model_name: str, pythonpath: str | None = None):
         model, _, _ = registered_model(self.store, model_name, pythonpath or self.pythonpath)
         return model
