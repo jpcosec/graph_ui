@@ -9,7 +9,7 @@ function loadDraft(){
     return Array.isArray(parsed?.ideas)?parsed.ideas:null;}catch{return null;}
 }
 
-export function BrainstormView({models,request,onExit,onImported}) {
+export function BrainstormView({models,documents=[],request,onExit,onImported}) {
   const [ideas,setIdeas]=useState(()=>loadDraft()||[]);
   const [selected,setSelected]=useState(null),[editingId,setEditingId]=useState(null),[busy,setBusy]=useState(false);
   const [message,setMessage]=useState(''),[failed,setFailed]=useState(false),[report,setReport]=useState(null);
@@ -45,7 +45,7 @@ export function BrainstormView({models,request,onExit,onImported}) {
     const invalid=new Set(issues.map(i=>i.id));
     const subset=ideas.filter(i=>!i.convertedDocId&&!invalid.has(i.id)&&!invalid.has(i.parentId));
     if(!subset.length)return setFailed(true)||setMessage('No hay ideas convertibles: falta título o clase.');
-    const {source,docIds}=brainstormToSource(subset,models);
+    const {source,docIds}=brainstormToSource(subset,models,documents.map(d=>d.id));
     if(!source.documents.length)return setFailed(true),setMessage('No hay ideas convertibles: elige título y clase.');
     setBusy(true);setFailed(false);setMessage('Validando contra SLDB…');
     try{

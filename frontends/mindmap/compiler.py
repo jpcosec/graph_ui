@@ -205,6 +205,15 @@ def plan_source(source: str | Path | dict[str, Any], store: str | Path) -> dict[
                 for generated in generated_names:
                     refs[generated] = f"_plan_models:{generated}"
 
+        # Un modelo sin documentos también debe ser importable. De otro modo
+        # el plan puede aprobarlo y fallar tras registrar otros modelos.
+        invalid_models = []
+        for name in spec_models:
+            try:
+                SldbAdapter.resolve_ref(refs[name], str(Path(temp_dir)) if temp_dir else None)
+            except AdapterError as exc:
+                invalid_models.append({'model': name, 'error': str(exc)})
+
         creates, updates, unchanged, conflicts, invalid, unknown_models = [], [], [], [], [], []
         for raw in spec.get("documents", []):
             doc = _ensure_object(raw, "Cada document")
@@ -244,6 +253,7 @@ def plan_source(source: str | Path | dict[str, Any], store: str | Path) -> dict[
                 "conflicts": conflicts, "invalid_payloads": invalid,
                 "unknown_models": unknown_models,
                 "model_conflicts": model_conflicts,
+                "invalid_models": invalid_models,
                 "new_models": [n for n in spec_models if n not in registered_models]}
     finally:
         if temp_dir:
@@ -266,8 +276,8 @@ def compile_json(source: str | Path | dict[str, Any], store: str | Path, *, modu
     store_path = Path(store).resolve()
     root = store_path.parent
     plan = plan_source(spec, store_path)
-    if any(plan.get(key) for key in ('conflicts', 'invalid_payloads', 'unknown_models', 'model_conflicts')):
-        raise CompileError('No se puede compilar: modelo desconocido, conflicto o payload inválido. ' + json.dumps(plan, ensure_ascii=False))
+    if any(plan.get(key) for key in ('conflicts', 'invalid_payloads', 'unknown_models', 'model_conflicts', 'invalid_models')):
+        raise CompileError('No se puede compilar: modelo desconocido o inválido, conflicto o payload inválido. ' + json.dumps(plan, ensure_ascii=False))
     # Never overwrite the module backing already registered classes.
     new_spec = {'models': [m for m in models if m['name'] in plan['new_models']]}
     digest = hashlib.sha256(json.dumps(new_spec, sort_keys=True).encode()).hexdigest()[:16]

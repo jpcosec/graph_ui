@@ -255,10 +255,15 @@ export function brainstormIssues(ideas, models) {
   }
   return issues;
 }
-export function brainstormToSource(ideas, models) {
+export function brainstormToSource(ideas, models, reservedIds=[]) {
   const byId=new Map(ideas.map(i=>[i.id,i])),docIds=new Map();
   const valid=ideas.filter(i=>i.title?.trim()&&i.className&&models.some(m=>m.id===i.className));
-  for(const idea of valid)docIds.set(idea.id,slugify(idea.title));
+  const usedIds=new Set(reservedIds);
+  for(const idea of valid){
+    const base=slugify(idea.title);let candidate=base,n=2;
+    while(usedIds.has(candidate)){candidate=`${base}-${n++}`;}
+    usedIds.add(candidate);docIds.set(idea.id,candidate);
+  }
   const documents=valid.map(idea=>({id:docIds.get(idea.id),model:idea.className,
     payload:quickPayload(models.find(m=>m.id===idea.className),idea.title,docIds.get(idea.id))}));
   const byDocId=new Map(documents.map(d=>[d.id,d]));
@@ -275,6 +280,7 @@ export function brainstormToSource(ideas, models) {
     const schema=models.find(m=>m.id===name);
     return schema?.model_ref?{name,ref:schema.model_ref}:{name};
   }).filter(Boolean);
-  return {source:{version:1,models:modelsDecl,documents,view:{positions:{},collapsed:[]}},
+  // Omitir `view` conserva el layout persistido de la KB al convertir ideas.
+  return {source:{version:1,models:modelsDecl,documents},
     docIds:Object.fromEntries(valid.map(i=>[i.id,docIds.get(i.id)]))};
 }

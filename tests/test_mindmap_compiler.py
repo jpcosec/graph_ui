@@ -84,6 +84,34 @@ def test_compile_json_invalid_payload_leaves_store_untouched(tmp_path):
     assert not store.exists(), "el compilador no debe crear el store si la prevalidación falla"
 
 
+def test_plan_rejects_unimportable_model_without_documents_and_writes_nothing(tmp_path):
+    """Una clase inválida sin documentos no puede pasar el dry-run.
+
+    Esta fue la brecha que permitía registrar las clases válidas antes de que
+    fallara una ref que ningún documento alcanzaba a usar.
+    """
+    store = tmp_path / ".sldb"
+    spec = {
+        "models": [
+            {"name": "Board", "fields": [
+                {"name": "id", "type": "str"},
+                {"name": "title", "type": "str"},
+            ]},
+            {"name": "Missing", "ref": "package_that_does_not_exist:Missing"},
+        ],
+        "documents": [],
+    }
+    plan = plan_source(spec, store)
+    assert plan["invalid_models"] and plan["invalid_models"][0]["model"] == "Missing"
+    try:
+        compile_json(spec, store)
+    except ValueError as exc:
+        assert "payload inválido" in str(exc)
+    else:
+        raise AssertionError("expected compile failure")
+    assert not store.exists(), "una ref inválida no debe inicializar ni registrar una KB"
+
+
 def test_compile_json_valid_batch_still_registers_models(tmp_path):
     """Regresión: el reordenamiento no rompe el flujo válido."""
     store = tmp_path / ".sldb"

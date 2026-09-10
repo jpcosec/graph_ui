@@ -51,7 +51,7 @@ class CompilationService:
                 return {'ok': False, 'error': 'El JSON o la KB cambiaron. Calcula el plan nuevamente.'}, 409
             plan = plan_source(source, self.adapter.store)
             applicable = not any(plan.get(k) for k in (
-                'conflicts', 'invalid_payloads', 'unknown_models', 'model_conflicts'))
+                'conflicts', 'invalid_payloads', 'unknown_models', 'model_conflicts', 'invalid_models'))
             plan.update(applicable=applicable, planToken=token)
             if action == 'plan':
                 return plan, 200

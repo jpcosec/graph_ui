@@ -136,8 +136,6 @@ def test_brainstorm_capture_and_conversion():
             assert parent_doc is not None
             assert "escribir-capitulo-1" in parent_doc["payload"].get("tasks", []), \
                 f"contención no persistida: {parent_doc['payload']}"
-            # Las ideas convertidas quedan marcadas.
-            page.locator(".document-node").first.click()
             assert not errors, f"errores JS: {errors}"
     finally:
         server.terminate()

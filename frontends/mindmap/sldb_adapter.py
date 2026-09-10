@@ -136,6 +136,14 @@ class SldbAdapter:
         return validate_model_input_roundtrip(model, rendered)
 
     @staticmethod
+    def resolve_ref(ref: str, pythonpath: str | None = None):
+        """Resolve a model reference without opening or changing a store."""
+        try:
+            return resolve_model_ref(ref, pythonpath)
+        except Exception as exc:  # noqa: BLE001  (SLDBModelError, ImportError…)
+            raise AdapterError(f"No se pudo resolver el modelo {ref!r}: {exc}") from exc
+
+    @staticmethod
     def validate_ref(ref: str, payload: dict[str, Any], pythonpath: str | None = None) -> tuple[bool, Any]:
         """Valida un payload resolviendo el modelo por ref, sin store.
 
@@ -145,10 +153,7 @@ class SldbAdapter:
         importar lanza ``AdapterError``; un payload inválido se reporta como
         ``(False, detalles)``.
         """
-        try:
-            model = resolve_model_ref(ref, pythonpath)
-        except Exception as exc:  # noqa: BLE001  (SLDBModelError, ImportError…)
-            raise AdapterError(f"No se pudo resolver el modelo {ref!r}: {exc}") from exc
+        model = SldbAdapter.resolve_ref(ref, pythonpath)
         try:
             rendered = render_model_markdown(model, payload)
         except Exception as exc:  # noqa: BLE001  (pydantic ValidationError: es un problema del payload)

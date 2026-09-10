@@ -154,8 +154,22 @@ test('brainstormToSource builds a contract-v1 spec with containment on the paren
   const board=source.documents.find(d=>d.id==='main-board');
   assert.equal(board.payload.tasks.includes('first-task'),true,'la contención va en el payload del padre');
   assert.deepEqual(docIds,{a:'main-board',b:'first-task'});
+  assert.equal(source.view,undefined,'Brainstorm no debe reemplazar el layout de la KB');
   // Las ideas inválidas se reportan y no entran al spec.
   const issues=brainstormIssues(ideas,models);
   assert.deepEqual(issues.map(i=>i.id).sort(),['c','d']);
   assert.ok(!source.documents.some(d=>d.id==='ghost'));
+});
+
+test('brainstormToSource gives collisions unique IDs without replacing existing documents',()=>{
+  const models=[{id:'NoteDoc',model_ref:'x.models:NoteDoc',fields:[
+    {name:'id',kind:'string'},{name:'title',kind:'string'}]}];
+  const ideas=[
+    {id:'one',parentId:null,title:'Misma idea',className:'NoteDoc'},
+    {id:'two',parentId:null,title:'Misma idea',className:'NoteDoc'},
+    {id:'three',parentId:null,title:'Misma Idea!',className:'NoteDoc'},
+  ];
+  const {source,docIds}=brainstormToSource(ideas,models,['misma-idea']);
+  assert.deepEqual(source.documents.map(d=>d.id),['misma-idea-2','misma-idea-3','misma-idea-4']);
+  assert.deepEqual(docIds,{one:'misma-idea-2',two:'misma-idea-3',three:'misma-idea-4'});
 });

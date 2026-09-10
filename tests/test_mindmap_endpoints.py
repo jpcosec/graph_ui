@@ -183,7 +183,7 @@ def test_compile_requires_plan_token_and_applies_with_it():
 # ----------------------------------------------------------------- export
 
 def test_export_matches_fixture_and_round_trips(compiled_env):
-    """El export del grafo compila en otro store vacío y produce las mismas altas."""
+    """Exportar, compilar en otra KB y reexportar conserva el estado completo."""
     port, store = compiled_env["env"].port, compiled_env["store"]
     status, exported = _request(port, "/api/export", {})
     assert status == 200 and exported["version"] == 1
@@ -203,6 +203,13 @@ def test_export_matches_fixture_and_round_trips(compiled_env):
             assert planned == ids, f"round-trip pierde documentos: {plan}"
             assert not plan.get("conflicts") and not plan.get("invalid_payloads")
             assert plan["applicable"] is True
+            status, applied = _request(env.port, "/api/compile", {
+                "source": exported, "planToken": plan["planToken"],
+            })
+            assert status == 200 and set(applied["documents"]) == ids
+            status, restored = _request(env.port, "/api/export", {})
+            assert status == 200
+            assert restored == exported, "round-trip debe conservar modelos, payloads y layout"
         finally:
             env.stop()
     finally:
