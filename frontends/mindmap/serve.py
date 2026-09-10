@@ -10,6 +10,7 @@ import urllib.error
 import urllib.request
 from persistence import EditorStore, SaveError
 from compilation import CompilationService
+from models_service import detail as _detail, list_models as _list_models, template_edit as _template_edit, fields_add as _fields_add, fields_remove as _fields_remove, validate as _validate, promote as _promote
 
 SLDB_UPSTREAM = os.environ.get('SLDB_URL', 'http://127.0.0.1:8787')
 MINDMAP_DIR = Path(__file__).resolve().parent
@@ -60,7 +61,7 @@ class ProxyHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         route = urlparse(self.path).path
-        if route in ('/api/save', '/api/validate', '/api/plan', '/api/compile', '/api/export'):
+        if route in ('/api/save', '/api/validate', '/api/plan', '/api/compile', '/api/export') or route.startswith('/api/models/'):
             # A local write endpoint must not accept cross-origin browser writes.
             origin = self.headers.get('Origin')
             if origin and urlparse(origin).netloc != self.headers.get('Host'):
@@ -76,6 +77,28 @@ class ProxyHandler(SimpleHTTPRequestHandler):
                     raise ValueError('Solicitud inválida.')
                 if route == '/api/save':
                     self.json_response(self.editor_store.save(request))
+                    return
+                if route.startswith('/api/models/'):
+                    action = route.rsplit('/', 1)[-1]
+                    store = self.editor_store.store
+                    if action == 'detail':
+                        self.json_response(_detail(store, request['model']))
+                    elif action == 'list':
+                        self.json_response({'models': _list_models(store)})
+                    elif action == 'template-edit':
+                        self.json_response(_template_edit(store, request['model'], request['content']))
+                    elif action == 'fields-add':
+                        self.json_response(_fields_add(store, request['model'], request['field_name'],
+                            request.get('field_type', 'string'), request.get('description', ''), request.get('default', '')))
+                    elif action == 'fields-remove':
+                        self.json_response(_fields_remove(store, request['model'], request['field_name']))
+                    elif action == 'validate':
+                        self.json_response(_validate(store, request['model']))
+                    elif action == 'promote':
+                        self.json_response(_promote(store, request['model']))
+                    else:
+                        self.json_response({'ok': False, 'error': f'Acción desconocida: {action}'}, 400)
+                    return
                 else:
                     report, status = self.compilation.run(route.rsplit('/', 1)[1], request)
                     self.json_response(report, status)
