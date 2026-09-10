@@ -1,0 +1,20 @@
+## iso-lab/graph_ui-antonia-demo
+ M apps/review-workbench/src/App.tsx
+ M apps/review-workbench/src/features/antonia-flow/AntoniaFlowPage.tsx
+ M apps/review-workbench/src/features/antonia-flow/lib/adapter.ts
+ M apps/review-workbench/src/features/graph-editor/L1-app/GraphEditorPage.tsx
+ M apps/review-workbench/src/features/graph-editor/L2-canvas/panels/NodeInspector.tsx
+ M apps/review-workbench/src/features/graph-editor/lib/data-provider.test.ts
+ M apps/review-workbench/src/features/graph-editor/lib/data-provider.ts
+ M apps/review-workbench/src/schema/registry.ts
+ M apps/review-workbench/src/schema/registry.types.ts
+ M apps/review-workbench/vite.config.js
+?? apps/review-workbench/TASK-antonia-flow-page.md
+?? apps/review-workbench/TASK-wire-to-sldb-serve.md
+?? apps/review-workbench/scripts/run-antonia-live-flow.mjs
+?? apps/review-workbench/src/features/antonia-flow/lib/adapter.test.ts
+?? apps/review-workbench/src/features/antonia-flow/lib/schema-to-registry.test.ts
+?? apps/review-workbench/src/features/antonia-flow/lib/schema-to-registry.ts
+?? apps/review-workbench/src/features/graph-editor/lib/sldb-provider.ts
+?? runs/subagents/20260829-161334-TASK-antonia-flow-page/
+?? runs/subagents/20260829-174632-TASK-wire-to-sldb-serve/

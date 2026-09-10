@@ -1,0 +1,1 @@
+Error: No artifact.task file found for selector 'TASK-gemini-theme' in /home/jp/proyectos/hum-ecosystem/tools/graph_ui/desk/tasks

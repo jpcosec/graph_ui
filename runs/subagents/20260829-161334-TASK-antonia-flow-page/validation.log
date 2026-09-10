@@ -1,0 +1,72 @@
+$ npm test
+
+> graph-ui-review-workbench@0.1.0 test
+> npm run hum:sync && vitest run
+
+
+> graph-ui-review-workbench@0.1.0 hum:sync
+> node scripts/generate-hum-ast.mjs && node scripts/generate-node-types.mjs
+
+hum source not found at ../../../hum; keeping existing HUM AST fixture.
+Wrote generated node types to src/schema/generated-node-types.ts
+
+ RUN  v1.6.1 /home/jp/proyectos/hum-ecosystem/tools/graph_ui/apps/review-workbench
+
+ ✓ src/features/graph-editor/L2-canvas/encoding/encoding-rules.test.ts  (5 tests) 4ms
+ ✓ src/features/graph-editor/lib/graph-to-domain.test.ts  (4 tests) 6ms
+ ✓ src/stores/graph-store.test.ts  (6 tests) 11ms
+ ✓ src/features/graph-editor/L2-canvas/hooks/use-edge-inheritance.test.ts  (2 tests) 11ms
+ ✓ src/schema/registry.test.ts  (5 tests) 13ms
+ ✓ src/features/graph-editor/lib/schema-to-graph.test.ts  (10 tests) 31ms
+ ✓ src/features/hum-body/lib/adapter.test.ts  (5 tests) 16ms
+ ✓ src/features/graph-editor/lib/projection-view-store.test.ts  (4 tests) 12ms
+ ✓ src/testing/userFlowRunnerCore.test.js  (4 tests) 7ms
+ ✓ src/features/graph-editor/L2-canvas/hooks/use-keyboard.test.ts  (4 tests) 14ms
+ ✓ src/features/graph-editor/L2-canvas/layout/layout-strategies.test.ts  (5 tests) 161ms
+ ✓ src/features/graph-editor/L2-canvas/sidebar/ViewsSection.test.tsx  (3 tests) 23ms
+ ✓ src/schema/generate-node-types.test.ts  (1 test) 5ms
+ ✓ src/schema/register-defaults.test.ts  (1 test) 3ms
+ ✓ src/features/graph-editor/L2-canvas/sidebar/EncodingSection.test.tsx  (3 tests) 26ms
+ ✓ src/features/graph-editor/lib/data-provider.test.ts  (3 tests) 93ms
+ ✓ src/stores/ui-store.test.ts  (2 tests) 3ms
+ ✓ src/features/graph-editor/L2-canvas/GroupShell.test.ts  (2 tests) 3ms
+ ✓ src/features/graph-editor/L2-canvas/edges/ButtonEdge.test.ts  (3 tests) 6ms
+ ✓ src/features/graph-editor/L2-canvas/NodeShell.test.ts  (3 tests) 2ms
+ ✓ src/features/graph-editor/L1-app/GraphEditorPage.test.ts  (2 tests) 2ms
+
+ Test Files  21 passed (21)
+      Tests  77 passed (77)
+   Start at  16:16:23
+   Duration  2.36s (transform 1.89s, setup 2ms, collect 9.52s, tests 452ms, environment 4ms, prepare 3.45s)
+
+
+$ npm run build
+
+> graph-ui-review-workbench@0.1.0 build
+> npm run hum:sync && tsc -b && vite build
+
+
+> graph-ui-review-workbench@0.1.0 hum:sync
+> node scripts/generate-hum-ast.mjs && node scripts/generate-node-types.mjs
+
+hum source not found at ../../../hum; keeping existing HUM AST fixture.
+Wrote generated node types to src/schema/generated-node-types.ts
+vite v5.4.21 building for production...
+transforming...
+✓ 2123 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.48 kB │ gzip:   0.31 kB
+dist/assets/index-CSP_6YIo.css     65.89 kB │ gzip:  12.08 kB
+dist/assets/index-DF9kyTMH.js   2,252.44 kB │ gzip: 680.47 kB
+✓ built in 9.93s
+
+$ BASE_URL=http://127.0.0.1:5174 node scripts/run-antonia-flow.mjs
+PASS node count = 12
+PASS real Antonia text is visible
+
+$ BASE_URL=http://127.0.0.1:5174 node scripts/run-antonia-flow.mjs
+PASS node count = 12
+PASS real Antonia text is visible
+PASS typed node inspector shows conversation-step fields
+PASS screenshot saved to /home/jp/proyectos/hum-ecosystem/tools/graph_ui/apps/review-workbench/auto_user_test/antonia_flow/antonia-flow-2026-08-29T20-18-22-008Z.png

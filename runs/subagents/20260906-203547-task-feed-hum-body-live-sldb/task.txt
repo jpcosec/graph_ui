@@ -1,0 +1,16 @@
+Task: task-feed-hum-body-from-sldb-serve-remove-hardcoded-content
+Title: Feed hum-body from sldb serve (remove hardcoded content)
+Status: active
+Current node: checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-execution-ready
+Task type: 
+Routine: routine-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content
+Effective pills:
+- desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md
+- desk/contexts/pill-guardrail-the-model-descriptor-is-a-real-contract-mirror-not-a-mock.md
+Effective atoms:
+- desk/atoms/atom-hardcoded-static-lenses-are-the-anti-pattern-for-projection.md
+- desk/atoms/atom-graph-ui-is-a-schema-driven-typed-editor-not-a-generic-canvas.md
+Checklist status:
+- checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-execution-ready: complete
+- checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-testing-ready: complete
+- checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-closeout-ready: pending

@@ -1,0 +1,10 @@
+Missing graph references:
+- dangling_source_atom_reference: task:task-feed-hum-body-from-sldb-serve-remove-hardcoded-content -> atom:desk/atoms/atom-graph-ui-is-a-schema-driven-typed-editor-not-a-generic-canvas.md
+  provenance: desk/tasks/task-feed-hum-body-from-sldb-serve-remove-hardcoded-content.md:frontmatter
+  reason: declared target was not found among extracted graph nodes
+- dangling_source_atom_reference: task:task-feed-hum-body-from-sldb-serve-remove-hardcoded-content -> atom:desk/atoms/atom-hardcoded-static-lenses-are-the-anti-pattern-for-projection.md
+  provenance: desk/tasks/task-feed-hum-body-from-sldb-serve-remove-hardcoded-content.md:frontmatter
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-feed-hum-body-from-sldb-serve-remove-hardcoded-content -> desk/drawer/tasks/task-hum-body-live-sldb.md
+  provenance: desk/tasks/task-feed-hum-body-from-sldb-serve-remove-hardcoded-content.md:line:13:source-file-reference
+  reason: declared target was not found among extracted graph nodes
