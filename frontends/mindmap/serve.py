@@ -87,12 +87,11 @@ class ProxyHandler(SimpleHTTPRequestHandler):
                         self.json_response({'models': _list_models(store)})
                     elif action == 'template-edit':
                         self.json_response(_template_edit(store, request['model'], request['content']))
+                    elif action in ('fields-add', 'fields-remove') and not str(request.get('field_name') or '').strip():
+                        self.json_response({'ok': False, 'error': 'field_name es obligatorio'}, 400)
                     elif action == 'fields-add':
-                        if not request.get('field_name'):
-                            self.json_response({'ok': False, 'error': 'field_name es obligatorio'}, 400)
-                            return
                         self.json_response(_fields_add(store, request['model'], request['field_name'],
-                            request.get('field_type', 'string'), request.get('description', ''), request.get('default', '')))
+                            request.get('field_type', 'str'), request.get('description', ''), request.get('default', '')))
                     elif action == 'fields-remove':
                         self.json_response(_fields_remove(store, request['model'], request['field_name']))
                     elif action == 'validate':

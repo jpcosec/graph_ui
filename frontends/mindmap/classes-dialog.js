@@ -10,8 +10,8 @@ export function ClassDialog({models,request,onClose,onRefresh}) {
   const [templateText,setTemplate]=useState('');
   const [message,setMessage]=useState('');const [failed,setFailed]=useState(false);const [busy,setBusy]=useState(false);
   const [validated,setValidated]=useState(false);
-  // State for add/remove field UI
-  const [newFieldName,setNewField]=useState('');const [newFieldType,setNewFieldType]=useState('string');const [newFieldDesc,setNewFieldDesc]=useState('');
+  // State for add/remove field UI. SLDB escribe el tipo tal cual en el modelo Python: debe ser una anotación válida.
+  const [newFieldName,setNewField]=useState('');const [newFieldType,setNewFieldType]=useState('str');const [newFieldDesc,setNewFieldDesc]=useState('');const [newFieldDefault,setNewFieldDefault]=useState('');
   const ref=useRef(null);
   useEffect(()=>{const d=ref.current;d.showModal();return()=>d.close();},[]);
   const describe=async id=>{
@@ -22,23 +22,24 @@ export function ClassDialog({models,request,onClose,onRefresh}) {
     }catch(e){setDetail({ok:false,error:e.message});setFailed(true);setMessage(e.message);}
   };
   const run=async(action,...args)=>{
-    setBusy(true);setFailed(false);setMessage('');
     if(action==='promote'&&!validated){setFailed(true);return setMessage('Primero debes validar el draft antes de promover.');}
-    if(action==='promote'&&!confirm(`¿Promover el draft de ${classStyle(model).name}? Esta operación actualizará el modelo activo y los hashes de documentos.`)){setBusy(false);return;}
+    if(action==='promote'&&!confirm(`¿Promover el draft de ${classStyle(model).name}? Esta operación actualizará el modelo activo y los hashes de documentos.`))return;
+    setBusy(true);setFailed(false);setMessage('');
+    setValidated(false); // toda operación invalida la validación previa: solo un validate exitoso la restablece
     try{
       let body;
       if(action==='template-edit')body={model,content:templateText};
-      else if(action==='fields-add')body={model,field_name:newFieldName,field_type:newFieldType,description:newFieldDesc};
+      else if(action==='fields-add')body={model,field_name:newFieldName,field_type:newFieldType,description:newFieldDesc,default:newFieldDefault};
       else if(action==='fields-remove')body={model,field_name:args[0]};
       else body={model};
       const result=await request('/api/models/'+action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
       if(action==='validate'){
-        setValidated(result.ok!==false);
+        setValidated(!result.error);
         setDraft(result.draft||false);
       }
-      if(action!=='validate'&&action!=='promote')setValidated(false); // el draft cambió: hay que revalidar
+      if(action==='promote')setDraft(false); // promote consume el draft
       if(result.ok===false||result.error){setFailed(true);setMessage(result.error||'Operación fallida.');setDetail(result);}
-      else{setMessage('Operación completada.');setDetail(result);setNewField('');setNewFieldDesc('');if(action==='promote')await onRefresh();}
+      else{setMessage('Operación completada.');setDetail(result);setNewField('');setNewFieldDesc('');setNewFieldDefault('');if(action==='promote')await onRefresh();}
     }catch(e){setFailed(true);setDetail(e.body||{ok:false,error:e.message});setMessage(e.message);}
     finally{setBusy(false);}
   };
@@ -67,11 +68,11 @@ export function ClassDialog({models,request,onClose,onRefresh}) {
             </tr>`)}
             <tr style=${{borderTop:'1px solid #e2e8f0',background:'#fffbeb'}}><td style=${{padding:'6px 8px'}}><input value=${newFieldName} placeholder="name" style=${{width:'80px'}} onInput=${e=>{setNewField(e.target.value);setValidated(false);}}/></td>
             <td style=${{padding:'6px 8px'}}><select value=${newFieldType} onChange=${e=>setNewFieldType(e.target.value)}>
-              ${['string','integer','number','boolean','json','list','enum'].map(t=>html`<option key=${t} value=${t}>${t}</option>`)}
-            </select></td><td style=${{padding:'6px 8px'}}></td><td style=${{padding:'6px 8px'}}></td>
+              ${['str','int','float','bool','list[str]','dict'].map(t=>html`<option key=${t} value=${t}>${t}</option>`)}
+            </select></td><td style=${{padding:'6px 8px'}}></td><td style=${{padding:'6px 8px'}}><input value=${newFieldDefault} placeholder="default" style=${{width:'70px'}} onInput=${e=>{setNewFieldDefault(e.target.value);setValidated(false);}}/></td>
             <td style=${{padding:'6px 8px'}}><input value=${newFieldDesc} placeholder="description" style=${{width:'100px'}} onInput=${e=>{setNewFieldDesc(e.target.value);setValidated(false);}}/></td>
             <td style=${{padding:'6px 8px'}}><button type="button" disabled=${busy||!newFieldName} onClick=${()=>run('fields-add')}>+</button></td></tr>
-          </table><p style=${{fontSize:'10px',color:'#8490a3',margin:'6px 0 10px'}}>El draft debe tener contenido; usar Validar draft para revisarlo. — Los campos sin draft no se pueden quitar.</p>`:''}
+          </tbody></table><p style=${{fontSize:'10px',color:'#8490a3',margin:'6px 0 10px'}}>El draft debe tener contenido; usar Validar draft para revisarlo. — Los campos sin draft no se pueden quitar. Un campo sin default es obligatorio: si la clase ya tiene documentos, la validación fallará.</p>`:''}
           <details style=${{marginTop:'10px'}}><summary style=${{fontSize:'12px',cursor:'pointer'}}>Template</summary>
             <textarea rows="4" style=${{width:'100%',marginTop:'8px'}} value=${templateText} placeholder="Markdown del template…" onInput=${e=>{setTemplate(e.target.value);setValidated(false);}}/>
             <button type="button" disabled=${busy||!templateText} onClick=${()=>run('template-edit')}>Editar template</button>

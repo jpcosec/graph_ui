@@ -15,9 +15,8 @@ Abrir http://127.0.0.1:8088/. Requiere `sldb` y los modelos registrados
 (`deskops` para esta KB) en el entorno Python. Usa la `.sldb` del repositorio;
 `SLDB_STORE` permite elegir otra. Las dependencias del navegador se cargan vía CDN.
 
-Ver [uso y pruebas](frontends/mindmap/README.md),
-[guía de desarrollo](docs/mindmap-developer.md) y
-[plan pendiente](docs/mindmap-finalization-plan.md).
+Ver [uso y pruebas](frontends/mindmap/README.md) y
+[guía de desarrollo](docs/mindmap-developer.md).
 
 ## Vista HUM archivada
 

@@ -299,7 +299,7 @@ def test_models_fields_add_and_remove(compiled_env):
     port, store = compiled_env["env"].port, compiled_env["store"]
     status, result = _request(port, "/api/models/fields-add", {
         "model": "BoardDoc", "field_name": "priority",
-        "field_type": "integer", "description": "Prioridad 1-5"})
+        "field_type": "int", "description": "Prioridad 1-5"})
     assert status == 200 and result.get("ok") is not False, f"fields-add falló: {result}"
     # El campo se escribe en el draft .py.temp (show muestra el modelo activo)
     drafts = list(Path(store).parent.glob("*.py.temp"))
@@ -317,12 +317,38 @@ def test_models_fields_add_requires_name(compiled_env):
     assert status == 400 and result.get("ok") is False
 
 
-def test_models_promote_requires_validated_draft(compiled_env):
-    """Promover sin draft previo debe fallar limpiamente (CLI lo rechaza)."""
-    port = compiled_env["env"].port
-    # Sin draft: promote valida y promueve sin cambios, o falla; no debe 500.
+@pytest.fixture
+def fresh_env():
+    """Store propio por test: promover muta el modelo y no debe filtrarse al store compartido."""
+    tmp = Path(tempfile.mkdtemp(prefix="kb-promote-"))
+    store = tmp / ".sldb"
+    _compile_fixture(store)
+    env = _Server(store)
+    yield {"env": env, "store": store}
+    env.stop()
+    shutil.rmtree(tmp, ignore_errors=True)
+
+
+def test_models_promote_without_draft_is_rejected(fresh_env):
+    """Sin draft, SLDB valida el modelo activo y rechaza la promoción: nada cambia."""
+    port = fresh_env["env"].port
     status, result = _request(port, "/api/models/promote", {"model": "TaskDoc"}, timeout=60)
-    assert status == 200, f"promote devolvió {status}: {result}"
-    # Tras promover, el modelo sigue siendo consultable.
+    assert status == 200 and result.get("ok") is False, f"promote sin draft no fue rechazado: {result}"
+    assert "draft" in result.get("error", "").lower()
+
+
+def test_models_promote_installs_validated_draft(fresh_env):
+    """fields-add → validate → promote: el modelo activo expone el campo y el draft desaparece."""
+    port, store = fresh_env["env"].port, fresh_env["store"]
+    status, result = _request(port, "/api/models/fields-add", {
+        "model": "TaskDoc", "field_name": "priority", "field_type": "str",
+        "description": "Prioridad", "default": '"normal"'})
+    assert status == 200 and result.get("ok") is not False, f"fields-add falló: {result}"
+    status, result = _request(port, "/api/models/validate", {"model": "TaskDoc"}, timeout=60)
+    assert status == 200 and result.get("valid") is True and result.get("draft") is True, result
+    status, result = _request(port, "/api/models/promote", {"model": "TaskDoc"}, timeout=60)
+    assert status == 200 and result.get("promoted") is True, f"promote falló: {result}"
+    assert not any("class TaskDoc" in d.read_text() for d in Path(store).parent.glob("*.py.temp")), \
+        "el draft sobrevivió a la promoción"
     status, detail = _request(port, "/api/models/detail", {"model": "TaskDoc"})
-    assert status == 200 and "TaskDoc" in str(detail)
+    assert status == 200 and "priority" in str(detail)
