@@ -33,8 +33,12 @@ Para crear otro documento al mismo nivel, selecciona una caja y pulsa
 contención.
 
 También puedes usar `Tab` para añadir un hijo y `Enter` para añadir un hermano.
-Si la clase no tiene un campo de contención compatible, el botón de hijo queda
-desactivado.
+Estas teclas y los botones `＋ Hijo`/`＋ Hermano` abren la **captura rápida**:
+un diálogo mínimo donde solo eliges la clase y escribes el título. Los demás
+campos parten con los defaults válidos del modelo y los completas después con
+✎ Editar. Si la clase no tiene un campo de contención compatible, el botón de
+hijo queda desactivado. El botón `＋ Documento` abre la ficha completa por si
+quieres rellenar más desde el inicio.
 
 ## Editar la ficha en modal
 
@@ -48,6 +52,11 @@ objetivo, alcance, estado, referencias, validación y cualquier otro campo, y
 aplicar los cambios.
 
 Pulsa `Cancelar` o Escape para cerrar sin aplicar la edición de la ficha.
+
+En una ficha, los campos de referencia (relaciones y contención declaradas por el
+modelo) se editan con **búsqueda de documentos**: escribe parte del título o ID,
+elige entre las coincidencias y la referencia queda como chip. Para listas,
+puedes agregar varias y quitarlas con `×`.
 
 ## Conectar documentos
 
@@ -73,8 +82,11 @@ en qué contenedor estás; pulsa `Salir del foco` para volver a la KB completa.
 índices de la KB. El estado superior indica si hay cambios pendientes.
 
 Si otra sesión modificó el mismo documento, el guardado se rechaza para no
-pisar su trabajo. Recarga la KB después de revisar el conflicto. `↶` y `↷`
-permiten deshacer y rehacer cambios locales antes de guardar.
+pisar su trabajo y aparece un diálogo de conflicto que compara tu versión con
+la actual en SLDB. `Mantener mis cambios` cierra el diálogo (guardar de nuevo
+sobrescribe conscientemente) y `Descartar mis cambios y recargar` restaura la
+versión del servidor. `↶` y `↷` permiten deshacer y rehacer cambios locales
+antes de guardar.
 
 Quitar una caja la elimina del índice al guardar y limpia sus referencias;
 el archivo Markdown original se conserva en disco.

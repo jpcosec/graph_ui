@@ -1,45 +1,37 @@
-"""SLDB-backed editor writes. Uses SLDB validation, document operations and indexes."""
+"""SLDB-backed editor writes. Thin batch logic over the shared SldbAdapter.
+
+All store operations, validation and index updates live in ``sldb_adapter``;
+this module only orchestrates a batch: prevalidates everything, rejects stale
+concurrent edits and writes in create→update→delete order.
+"""
 from __future__ import annotations
-import hashlib
-import json
+
 import re
-import threading
-from pathlib import Path
-from types import SimpleNamespace
 
-from sldb.cli.commands.doc import DocCLI
-from sldb.cli.commands.fields_save import save_payload
-from sldb.cli.model_utils import registered_model, resolve_model_ref
-from sldb.cli.serve.routes import serialize_document
-from sldb.cli.store_context import get_store_context
-from sldb.runtime.validation import render_model_markdown, validate_model_input_roundtrip
-from sldb.store.query import load_runtime_documents
+from sldb_adapter import AdapterError, SldbAdapter
 
-
-class SaveError(Exception):
-    def __init__(self, message, status=400, completed=None):
-        super().__init__(message)
-        self.status = status
-        self.completed = completed or []
+SaveError = AdapterError
 
 
 class EditorStore:
     def __init__(self, store):
-        self.store, self.root = get_store_context(str(store))
-        self.pythonpath = str(self.root)
-        self.view_path = self.store / 'runtime' / 'mindmap-view.json'
-        self.lock = threading.RLock()
+        self.adapter = SldbAdapter(store)
+        self.view_path = self.adapter.view_path
+        self.store = self.adapter.store
+        self.root = self.adapter.root
+        self.pythonpath = self.adapter.pythonpath
+
+    def schema(self):
+        return {'models': self.adapter.schema()}
 
     def documents(self):
-        return load_runtime_documents(self.store, resolve_model_ref, self.pythonpath)
+        return self.adapter.documents()
 
     def view(self):
-        raw = self.view_path.read_bytes() if self.view_path.exists() else b'{}'
-        return {'view': json.loads(raw), 'revision': hashlib.sha256(raw).hexdigest()}
+        return self.adapter.view()
 
     def graph(self):
-        with self.lock:
-            return {'documents': [serialize_document(d) for d in self.documents()], **self.view()}
+        return self.adapter.graph()
 
     def save(self, request):
         """Prevalidate the entire batch; never acknowledge partial writes as success.
@@ -48,16 +40,17 @@ class EditorStore:
         the outstanding changes. Optimistic comparisons reject stale documents.
         Deletions untrack documents, preserving their Markdown on disk.
         """
-        with self.lock:
+        adapter = self.adapter
+        with adapter.lock:
             changes = request.get('changes', [])
             if not isinstance(changes, list) or len(changes) > 500:
                 raise SaveError('Lista de cambios inválida.')
             view = request.get('view', {})
             if not isinstance(view, dict):
                 raise SaveError('Vista inválida.')
-            if request.get('viewRevision') != self.view()['revision']:
+            if request.get('viewRevision') != adapter.view()['revision']:
                 raise SaveError('El mapa cambió en otra sesión. Recarga antes de guardar.', 409)
-            existing = {d.name: d for d in self.documents()}
+            existing = {d.name: d for d in adapter.documents()}
             seen, prepared = set(), []
             for change in changes:
                 name, action = change.get('id'), change.get('action')
@@ -82,14 +75,12 @@ class EditorStore:
                     if not isinstance(payload, dict):
                         raise SaveError(f'Contenido inválido: {name}.')
                     try:
-                        model, _, _ = registered_model(self.store, model_name, self.pythonpath)
-                        rendered = render_model_markdown(model, payload)
-                        valid, details = validate_model_input_roundtrip(model, rendered)
+                        valid, details = adapter.validate_payload(model_name, payload)
                         if not valid:
                             raise ValueError(str(details))
                     except (Exception, SystemExit) as exc:
                         raise SaveError(f'{name}: {exc}', 422) from exc
-                    path = self.root / 'desk' / 'mindmap' / model_name / f'{name}.md'
+                    path = adapter.root / 'desk' / 'mindmap' / model_name / f'{name}.md'
                     if action == 'create' and path.exists():
                         raise SaveError(f'El archivo de {name} ya existe; elige otro ID.', 409)
                 else:
@@ -102,18 +93,13 @@ class EditorStore:
                 for change, current, path in sorted(prepared, key=lambda item: order[item[0]['action']]):
                     name, action = change['id'], change['action']
                     if action == 'create':
-                        DocCLI().add(SimpleNamespace(store=str(self.store), pythonpath=self.pythonpath,
-                            model=change['model'], payload=json.dumps(change['payload']),
-                            output=str(path), name=name))
+                        adapter.create_document(name, change['model'], change['payload'], path)
                     elif action == 'update':
-                        save_payload(current, change['payload'], str(self.store), self.pythonpath)
+                        adapter.update_document(current, change['payload'])
                     else:
-                        DocCLI().untrack(SimpleNamespace(store=str(self.store), pythonpath=self.pythonpath, doc=name))
+                        adapter.delete_document(name)
                     completed.append(name)
-                self.view_path.parent.mkdir(parents=True, exist_ok=True)
-                temporary = self.view_path.with_suffix('.tmp')
-                temporary.write_text(json.dumps(view, ensure_ascii=False, indent=2), encoding='utf-8')
-                temporary.replace(self.view_path)
+                adapter.write_view(view)
             except (Exception, SystemExit) as exc:
                 raise SaveError(f'No se completó el guardado: {exc}', 500, completed) from exc
-            return {'ok': True, 'saved': completed, **self.graph()}
+            return {'ok': True, 'saved': completed, **adapter.graph()}

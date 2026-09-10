@@ -89,7 +89,7 @@ export function filterGraphByRelationTypes(
   };
 }
 
-export function GraphCanvas() {
+export function GraphCanvas({ editable = true }: { editable?: boolean }) {
   const nodes = useGraphStore((state) => state.nodes);
   const edges = useGraphStore((state) => state.edges);
   const onNodesChange = useGraphStore((state) => state.onNodesChange);
@@ -119,6 +119,9 @@ export function GraphCanvas() {
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
+      nodesDraggable={editable}
+      nodesConnectable={editable}
+      edgesReconnectable={editable}
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
       fitView
@@ -129,7 +132,7 @@ export function GraphCanvas() {
       proOptions={{ hideAttribution: true }}
     >
       <Background gap={20} size={1} color="rgba(148, 163, 184, 0.18)" />
-      <Controls showInteractive={false} />
+      <Controls showInteractive={editable} />
       <MiniMap
         nodeColor={(node) => (node.selected ? '#d4a574' : '#9aa7bd')}
         maskColor="rgba(10, 10, 15, 0.55)"

@@ -318,8 +318,62 @@ documentos, conexiones, foco, leyenda de clases, persistencia y tests de modelo.
 También existe una primera versión del compilador JSON y documentación de
 desarrollador y usuario.
 
-Lo pendiente de mayor prioridad es consolidar el adaptador contra el API de
-SLDB. Después hay que completar la captura KB, construir Brainstorm, verificar
-las operaciones de drafts y recién entonces implementar edición de clases y
-conectar el compilador a ese mismo camino. Hasta completar eso, el editor debe
-considerarse una base funcional y no el producto final.
+Avance del plan:
+
+- **Paso 1 (contrato de datos): listo.** `frontends/mindmap/contract.py`
+  congela la versión 1 del JSON de intercambio y `fixtures/kb-small.json` es
+  el fixture canónico; los tests viven en `tests/test_mindmap_contract.py`.
+- **Paso 2 (adaptador SLDB): listo.** `frontends/mindmap/sldb_adapter.py` es el
+  único módulo que importa internos de SLDB; `serve.py`, `persistence.py` y
+  `compiler.py` ya lo usan (regla vigilada por test). El compilador ofrece
+  `validate_source` y `plan_source` (dry-run) además de `compile_json`.
+- **Paso 5a (captura rápida en KB): listo.** El adaptador enriquece `/api/schema`
+  con los defaults reales de cada campo; `quickPayload`/`defaultsFor` en
+  `model.mjs` construyen payloads válidos con solo título (verificado contra
+  los 17 modelos del store). Enter/Tab/`＋ Hijo`/`＋ Hermano` abren un diálogo
+  mínimo de captura; `＋ Documento` mantiene la ficha completa. Prueba E2E:
+  `python3 tests/e2e_mindmap_quick_capture.py` (10 nodos con teclado,
+  guardado, recarga sin pérdida). Requirió añadir `__template__` a
+  `PrimitiveDoc` en deskops (no renderizaba Markdown y fallaba el round-trip).
+- **Paso 5b (visualización de KB): listo.** Contención = grupos anidados con
+  cabecera; referencias = aristas punteadas de bajo peso con flecha y etiqueta
+  del campo; leyenda permanente de clases en sidebar con conteos; foco con
+  breadcrumbs; estado de cambios sin guardar. Verificado con captura
+  (`shot-references.png`) y test de proyección.
+- **Correcciones técnicas posteriores (cola del revisor): listas.**
+  `plan_source` valida payloads contra SLDB y reporta cambios reales
+  (`creates/updates/unchanged/conflicts/invalid_payloads`), incluso con store
+  inexistente; limpia `sys.modules` del módulo temporal entre dry-runs. El
+  contrato valida referencias por completo (campo, kind,
+  target_model y cross-check contra modelos/campos declarados). Los metadatos
+  de grafo (`__containment__`/`__references__`) se declaran en los modelos
+  SLDB/deskops y se exponen por el schema del adaptador; `model.mjs` los usa
+  vía `graphMaps()` con fallback legacy **por modelo** (un store mixto no
+  pierde contención). E2E endurecido: selección determinista del contenedor
+  por título, fallo explícito si el servidor no responde, integrado a pytest.
+  Bug sutil corregido: `{}`/`[]` son truthy en JS; tanto `graphMaps` como
+  `childOptions` confundían declaración vacía con ausencia.
+- **Paso 6 (edición de documentos): listo.** El modal resuelve referencias
+  mediante búsqueda de documentos (`ReferenceField` con chips y matches por
+  título/ID/path), valida requeridos y enums client-side contra el schema,
+  aplica defaults reales y cancela sin tocar el documento. El conflicto de
+  revisión muestra un diálogo con la versión local y la actual de SLDB por
+  documento, con salidas explícitas: "Mantener mis cambios" (retry =
+  sobrescritura consciente) y "Descartar y recargar". E2E:
+  `tests/e2e_mindmap_doc_edit.py` (búsqueda → persistencia en SLDB y ciclo
+  completo de conflicto en dos rondas). El compilador emite
+  `__references__`/`__containment__` desde el contrato; el contrato valida
+  `containment` con cross-check. Ambos E2E corren dentro de la suite
+  (`python_files` incluye `e2e_*.py`).
+- Deuda reconocida: la atomicidad de escritura sigue siendo mejor-esfuerzo
+  (reporta `completed` sin rollback); los `except Exception` amplios del
+  adaptador; el test de imports no cubre imports dinámicos. El uso de
+  DocCLI/ModelCLI como fachada persiste hasta que SLDB exponga un API público
+  equivalente.
+- El compilador aún no expone `validate/dry-run/apply` como endpoints de la
+  API ni reporte en la UI; eso corresponde al paso 8.
+
+Lo pendiente de mayor prioridad es completar la captura KB, construir Brainstorm,
+verificar las operaciones de drafts y recién entonces implementar edición de
+classes y conectar el compilador a ese mismo camino. Hasta completar eso, el
+editor debe considerarse una base funcional y no el producto final.

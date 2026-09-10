@@ -57,7 +57,41 @@ export function readingViewport(nodes,width,height) {
   return {x:32-left*zoom,y:48-top*zoom,zoom};
 }
 export const titleOf = doc => doc.payload.title || doc.payload.name || doc.id;
-// These fields are containment in the registered deskops models, not arbitrary links.
+export const slugify = value => String(value||'nuevo-documento').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,100)||'nuevo-documento';
+// Valid defaults from the schema (adapter exposes the model's real defaults).
+export function defaultsFor(model) {
+  return Object.fromEntries((model?.fields||[]).map(f=>[f.name,
+    f.name==='id'?slugify('nuevo-documento')+'-'+Math.random().toString(36).slice(2,6):
+    f.default!==undefined?f.default:
+    f.kind==='enum'?(f.enum&&f.enum.length?f.enum[0]:''):
+    ['stringlist','list','enumlist'].includes(f.kind)?[]:
+    f.kind==='boolean'?false:
+    f.kind==='object'?{}:'']));
+}
+// Payload for a quick capture: real title plus schema defaults for the rest.
+export function quickPayload(model,title,rawId) {
+  const fields=model?.fields||[];
+  const payload={...defaultsFor(model)};
+  const titleField=fields.some(f=>f.name==='name')&&!fields.some(f=>f.name==='title')?'name':'title';
+  payload[titleField]=String(title||'').trim()||'Sin título';
+  payload.id=rawId||slugify(payload[titleField]);
+  return payload;
+}
+// Reference search for the document modal: matches title, id and alias.
+export function searchDocuments(documents,query,limit=10) {
+  const needle=String(query||'').trim().toLowerCase();
+  if(!needle)return documents.slice(0,limit).map(d=>({id:d.id,title:titleOf(d),model_name:d.model_name}));
+  return documents.filter(d=>[titleOf(d),d.id,d.path||''].join(' ').toLowerCase().includes(needle))
+    .slice(0,limit).map(d=>({id:d.id,title:titleOf(d),model_name:d.model_name}));
+}
+// Which fields of a schema descriptor are document references (single or list).
+export function referenceFieldsOf(descriptor) {
+  if(!descriptor)return new Set();
+  const containment=Object.keys(descriptor.containment||{});
+  return new Set([...(descriptor.references||[]),...containment]);
+}
+// Legacy fallback for stores whose models do not declare graph metadata yet;
+// the primary source is the schema exposed by the adapter.
 export const CONTAINMENT = {
   BoardDoc:{tasks:['TaskDoc'],pills:['PillDoc'],rituals:['RitualDoc']},
   TaskDoc:{checklists:['ChecklistDoc'],pills:['PillDoc'],atoms:['AtomDoc']},
@@ -66,24 +100,58 @@ export const CONTAINMENT = {
   RitualDoc:{steps:['StepDoc']},
 };
 export const REFERENCE_FIELDS = new Set(['routine','current_node','entrypoint','source','target','condition_ref','condition_refs','allowed_transitions','decomposition','edges','tasks','pills','steps','depends_on','references','conditions','operators','checklists','grounding_atoms','atoms','rituals','terminal_nodes']);
-export function relationships(documents) {
+// Grafo declarativo desde el schema SLDB: model -> {field -> [targets]} (contención)
+// y model -> Set(fields) (referencias). Es la única fuente cuando el schema
+// declara metadatos; si no, se cae al legacy.
+export function graphMaps(models) {
+  const containment={},references={};
+  let declared=false;
+  for(const m of models||[]) {
+    // Fallback POR MODELO: un modelo que no declara metadatos usa las tablas
+    // legacy de su clase; así un store mixto no pierde contención.
+    const modelDeclared=(m.containment&&Object.keys(m.containment).length)||(m.references&&m.references.length);
+    if(modelDeclared) {
+      declared=true;
+      containment[m.id]=m.containment||{};
+      references[m.id]=new Set(m.references||[]);
+    } else {
+      containment[m.id]=CONTAINMENT[m.id]||{};
+      references[m.id]=null; // null = usar el conjunto legacy global de campos
+    }
+  }
+  if(!declared)return null;
+  return {containment,references};
+}
+function containmentOf(doc,maps) {
+  if(!maps)return CONTAINMENT[doc.model_name];
+  return maps.containment[doc.model_name];
+}
+function isReferenceField(modelName,field,maps) {
+  if(!maps)return REFERENCE_FIELDS.has(field);
+  const declared=maps.references[modelName];
+  if(declared===null)return REFERENCE_FIELDS.has(field);
+  return declared.has(field)||Boolean(maps.containment[modelName]?.[field]);
+}
+export function relationships(documents,maps) {
   const aliases = new Map();
   documents.forEach(d=>[d.id,d.path,d.payload.id,d.path?.split('/').pop()?.replace(/\.md$/,'')].filter(Boolean).forEach(a=>aliases.set(a,d.id)));
   const result=[];
   documents.forEach(d=>Object.entries(d.payload).forEach(([field,raw])=>{
-    if(!REFERENCE_FIELDS.has(field))return;
+    if(!isReferenceField(d.model_name,field,maps))return;
     (Array.isArray(raw)?raw:[raw]).forEach(value=>{
       if(typeof value!=='string')return;
       const target=aliases.get(value)||aliases.get(value.split('/').pop()?.replace(/\.md$/,''));
-      if(target&&target!==d.id)result.push({source:d.id,target,field,contains:Boolean(CONTAINMENT[d.model_name]?.[field])});
+      const containsField=Boolean(containmentOf(d,maps)?.[field]);
+      if(target&&target!==d.id)result.push({source:d.id,target,field,contains:containsField});
     });
   }));
   return result;
 }
-export function hierarchy(documents) {
-  const links=relationships(documents),parents={},byId=Object.fromEntries(documents.map(d=>[d.id,d]));
+export function hierarchy(documents,maps) {
+  const links=relationships(documents,maps),parents={},byId=Object.fromEntries(documents.map(d=>[d.id,d]));
   const priority={BoardDoc:0,RoutineDoc:1,TaskDoc:2,ChecklistDoc:3};
-  links.filter(e=>e.contains).sort((a,b)=>(priority[byId[a.source].model_name]??4)-(priority[byId[b.source].model_name]??4)).forEach(e=>{
+  const isContainment=e=>Boolean(containmentOf(byId[e.source],maps)?.[e.field]);
+  links.filter(isContainment).sort((a,b)=>(priority[byId[a.source].model_name]??4)-(priority[byId[b.source].model_name]??4)).forEach(e=>{
     if(parents[e.target])return;
     let current=e.source;
     while(current&&current!==e.target)current=parents[current]?.source;
@@ -94,8 +162,12 @@ export function hierarchy(documents) {
 }
 export function childOptions(parent, models) {
   const available=new Set(models.map(m=>m.id));
-  const fields=new Set(models.find(m=>m.id===parent.model_name)?.fields.map(f=>f.name)||[]);
-  return Object.entries(CONTAINMENT[parent.model_name]||{}).flatMap(([field,types])=>fields.has(field)?types.filter(t=>available.has(t)).map(model=>({field,model})):[]);
+  const byId=Object.fromEntries(models.map(m=>[m.id,m]));
+  const fields=new Set(byId[parent.model_name]?.fields.map(f=>f.name)||[]);
+  const declared=byId[parent.model_name]?.containment;
+  // {} vacío es truthy en JS: solo cuenta declaraciones con contenido.
+  const table=declared&&Object.keys(declared).length?Object.entries(declared):Object.entries(CONTAINMENT[parent.model_name]||{});
+  return table.flatMap(([field,types])=>fields.has(field)?types.filter(t=>available.has(t)).map(model=>({field,model})):[]);
 }
 export function appendChild(documents,parentId,child,field) {
   return [...documents.map(d=>d.id===parentId?{...d,payload:{...d.payload,[field]:[...new Set([...(d.payload[field]||[]),child.id])]}}:d),child];
@@ -121,8 +193,8 @@ export function changesBetween(baseline,documents) {
   baseline.forEach(d=>{if(!current.has(d.id))result.push({action:'delete',id:d.id,expected:d.payload});});
   return result;
 }
-export function project(documents, view={}) {
-  const {parents,links}=hierarchy(documents),byId=Object.fromEntries(documents.map(d=>[d.id,d])),children={};
+export function project(documents, view={}, maps=null) {
+  const {parents,links}=hierarchy(documents,maps),byId=Object.fromEntries(documents.map(d=>[d.id,d])),children={};
   documents.forEach(d=>{children[d.id]=[];});
   Object.entries(parents).forEach(([id,e])=>children[e.source].push(id));
   const boxes={},nodes=[],collapsed=new Set(view.collapsed||[]);
@@ -151,6 +223,8 @@ export function project(documents, view={}) {
   let x=0,y=0,rowHeight=0;
   roots.sort((a,b)=>boxes[b.id].height-boxes[a.id].height).forEach(d=>{const box=boxes[d.id];if(x&&x+box.width>targetWidth){x=0;y+=rowHeight+40;rowHeight=0;}place(d.id,{x,y});x+=box.width+32;rowHeight=Math.max(rowHeight,box.height);});
   const visible=new Set(nodes.map(n=>n.id));
-  const edges=links.filter(e=>visible.has(e.source)&&visible.has(e.target)&&(!e.contains||parents[e.target]?.source!==e.source)).map((e,i)=>({id:'ref-'+i,source:e.source,target:e.target,type:'smoothstep',label:e.field,style:{stroke:'#94a3b8',strokeWidth:1.5},labelStyle:{fontSize:10,fill:'#64748b'},data:e}));
+  const edges=links.filter(e=>visible.has(e.source)&&visible.has(e.target)&&(!e.contains||parents[e.target]?.source!==e.source)).map((e,i)=>({id:'ref-'+i,source:e.source,target:e.target,type:'smoothstep',label:e.field,
+    // Referencias: línea punteada y de bajo peso visual; la contención es el grupo, nunca una línea.
+    style:{stroke:'#94a3b8',strokeWidth:1.5,strokeDasharray:'5 4'},markerEnd:{type:'arrowclosed',width:16,height:16,color:'#94a3b8'},labelStyle:{fontSize:10,fill:'#64748b',backgroundColor:'#f8fafc'},labelBgPadding:{x:2,y:2},data:e}));
   return {nodes,edges,parents,children};
 }

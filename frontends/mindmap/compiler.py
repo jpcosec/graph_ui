@@ -3,6 +3,14 @@
 The JSON is the authoring format.  SLDB remains the runtime format: models are
 Python ``StructuredNLDoc`` classes, documents are validated Markdown files and
 the store indexes are rebuilt by the native SLDB operations.
+
+Entry points:
+
+- ``compile_json`` writes and returns a report (legacy apply-everything mode);
+- ``validate_source`` checks the frozen contract without touching the store;
+- ``plan_source`` is the dry-run: computes creates, changes and conflicts.
+
+All store operations go through the shared ``sldb_adapter``.
 """
 from __future__ import annotations
 
@@ -10,22 +18,20 @@ import argparse
 import json
 import re
 import sys
+import tempfile
 from pathlib import Path
-from types import SimpleNamespace
 from typing import Any
 
-from sldb.cli.commands.doc import DocCLI
-from sldb.cli.commands.model import ModelCLI
-from sldb.cli.model_utils import registered_model
-from sldb.cli.store_context import get_store_context
-from sldb.runtime.validation import render_model_markdown, validate_model_input_roundtrip
-from sldb.store.io import load_store_index
-from sldb.store.query import load_runtime_documents
-from sldb.store.resolver import find_local_store
+# Módulos hermanos: garantiza carga aislada (tests, CLI desde otro cwd).
+_HERE = Path(__file__).resolve().parent
+if str(_HERE) not in sys.path:
+    sys.path.insert(0, str(_HERE))
+
+import contract as kb_contract
+from sldb_adapter import AdapterError, SldbAdapter
 
 
 IDENTIFIER = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
-TYPE_EXPR = re.compile(r"^[A-Za-z][A-Za-z0-9_]*(?:\[[A-Za-z0-9_, |.]+\])?(?: \| None)?$")
 
 
 class CompileError(ValueError):
@@ -45,8 +51,7 @@ def _identifier(value: Any, label: str) -> str:
 
 
 def _type_expr(value: Any) -> str:
-    value = value or "str"
-    if not isinstance(value, str) or not TYPE_EXPR.fullmatch(value) or "__" in value:
+    if not isinstance(value, str) or not kb_contract.TYPE_EXPR.fullmatch(value) or "__" in value:
         raise CompileError(f"Tipo de campo inválido: {value!r}.")
     return value
 
@@ -94,6 +99,18 @@ def generate_models_module(spec: dict[str, Any], destination: Path) -> list[str]
         if not isinstance(template, str):
             raise CompileError(f"Template inválido para {name}.")
         lines.append(f"    __template__ = {template!r}")
+        # Metadatos de grafo del contrato: referencias y contención declaradas.
+        reference_names = [r.get("field") for r in model.get("references", []) or [] if isinstance(r, dict)]
+        if reference_names:
+            lines.append(f"    __references__ = {reference_names!r}")
+        containment = model.get("containment")
+        if containment:
+            if not isinstance(containment, dict) or not all(
+                isinstance(k, str) and isinstance(v, list) and all(isinstance(t, str) for t in v)
+                for k, v in containment.items()
+            ):
+                raise CompileError(f"containment inválido para {name}: debe ser campo -> [modelos].")
+            lines.append(f"    __containment__ = {containment!r}")
         for raw_field in fields:
             lines.append(_field_source(_ensure_object(raw_field, f"Campo de {name}")))
         lines.append("")
@@ -102,15 +119,6 @@ def generate_models_module(spec: dict[str, Any], destination: Path) -> list[str]
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text("\n".join(lines), encoding="utf-8")
     return generated
-
-
-def _store_exists(path: Path) -> bool:
-    return (path / "core" / "store_index.yaml").exists()
-
-
-def _init_store(path: Path) -> None:
-    from sldb.cli.commands.store_init import _create_store
-    _create_store(path)
 
 
 def _model_ref(model: dict[str, Any], generated_module: str) -> str:
@@ -126,34 +134,132 @@ def _model_ref(model: dict[str, Any], generated_module: str) -> str:
     return f"{generated_module}:{model['name']}"
 
 
-def compile_json(source: str | Path | dict[str, Any], store: str | Path, *, module_path: str | Path | None = None) -> dict[str, Any]:
-    """Compile *source* into *store* and return a machine-readable report."""
+def validate_source(source: str | Path | dict[str, Any]) -> dict[str, Any]:
+    """Modo ``validate``: valida el contrato congelado sin tocar el store."""
     spec = _ensure_object(json.loads(Path(source).read_text(encoding="utf-8")) if isinstance(source, (str, Path)) else source, "El documento raíz")
+    try:
+        kb_contract.validate(spec)
+    except kb_contract.ContractError as exc:
+        return {"ok": False, "errors": [str(exc)]}
+    return {"ok": True, "version": kb_contract.CONTRACT_VERSION,
+            "models": [m.get("name") for m in spec.get("models", [])],
+            "documents": [d.get("id", d.get("name")) for d in spec.get("documents", [])]}
+
+
+def plan_source(source: str | Path | dict[str, Any], store: str | Path) -> dict[str, Any]:
+    """Modo ``dry-run``: calcula altas, cambios, conflictos e impacto sin escribir.
+
+    Un store inexistente es un caso válido de planificación: todo son altas y
+    modelos nuevos, sin conflictos. Cada payload se valida contra SLDB (por
+    ref, sin registrar nada) y los ``updates`` solo incluyen documentos cuyo
+    contenido realmente cambia.
+    """
+    spec = _ensure_object(json.loads(Path(source).read_text(encoding="utf-8")) if isinstance(source, (str, Path)) else source, "El documento raíz")
+    kb_contract.validate(spec)
+    store_path = Path(store).resolve()
+    if (store_path / "core" / "store_index.yaml").exists():
+        adapter = SldbAdapter(store_path)
+        existing = {d.name: d for d in adapter.documents()}
+        registered_models = adapter.model_refs()
+    else:
+        existing, registered_models = {}, {}
+
+    # Resolución de refs: modelos registrados del store o declarados en el spec.
+    # Los modelos inline (fields sin ref) se validan en un módulo temporal.
+    spec_models = {m.get("name"): m for m in spec.get("models", [])}
+    refs = dict(registered_models)
+    generated_names = []
+    temp_dir = None
+    try:
+        for name, model in spec_models.items():
+            if name in refs:
+                continue
+            if model.get("ref"):
+                refs[name] = model["ref"]
+            elif not generated_names:
+                temp_dir = tempfile.mkdtemp(prefix="kb-plan-")
+                # El nombre de módulo se reusa entre dry-runs del mismo proceso:
+                # sin esto, un segundo dry-run con schemas inline distintos
+                # resolvería las clases viejas desde sys.modules.
+                sys.modules.pop("_plan_models", None)
+                generated_names = generate_models_module(spec, Path(temp_dir) / "_plan_models.py")
+                for generated in generated_names:
+                    refs[generated] = f"_plan_models:{generated}"
+
+        creates, updates, unchanged, conflicts, invalid, unknown_models = [], [], [], [], [], []
+        for raw in spec.get("documents", []):
+            doc = _ensure_object(raw, "Cada document")
+            name, model_name = doc.get("id", doc.get("name")), doc.get("model")
+            if model_name not in refs and model_name not in spec_models:
+                unknown_models.append(name)
+                continue
+            payload = dict(doc.get("payload") or {})
+            payload.setdefault("id", name)
+            # Validación real contra SLDB: por ref si ya está resuelta.
+            if model_name in refs:
+                try:
+                    valid, details = SldbAdapter.validate_ref(refs[model_name], payload, str(Path(temp_dir)) if temp_dir else None)
+                except AdapterError as exc:
+                    invalid.append({"id": name, "error": str(exc)})
+                    continue
+                if not valid:
+                    invalid.append({"id": name, "error": f"payload no pasa el round-trip: {details}"})
+                    continue
+            current = existing.get(name)
+            if current is None:
+                creates.append(name)
+            elif current.model_name != model_name:
+                conflicts.append({"id": name, "reason": f"ya existe como {current.model_name}"})
+            elif current.payload != payload:
+                updates.append(name)
+            else:
+                unchanged.append(name)
+        return {"ok": True, "creates": creates, "updates": updates, "unchanged": unchanged,
+                "conflicts": conflicts, "invalid_payloads": invalid,
+                "unknown_models": unknown_models,
+                "new_models": [n for n in spec_models if n not in registered_models]}
+    finally:
+        if temp_dir:
+            sys.modules.pop("_plan_models", None)
+            import shutil
+            shutil.rmtree(temp_dir, ignore_errors=True)
+
+
+def compile_json(source: str | Path | dict[str, Any], store: str | Path, *, module_path: str | Path | None = None) -> dict[str, Any]:
+    """Compile *source* into *store* and return a machine-readable report.
+
+    Aplicación segura: contrato, modelos y TODOS los payloads se validan antes
+    de registrar modelos o escribir documentos. Un error de validación deja el
+    store intacto (ningún modelo registrado a medias).
+    """
+    spec = _ensure_object(json.loads(Path(source).read_text(encoding="utf-8")) if isinstance(source, (str, Path)) else source, "El documento raíz")
+    kb_contract.validate(spec)
     models = spec.get("models", [])
     documents = spec.get("documents", [])
-    if not isinstance(documents, list):
-        raise CompileError("documents debe ser una lista.")
     store_path = Path(store).resolve()
     root = store_path.parent
     module_file = Path(module_path).resolve() if module_path else root / "_sldb_compiled_models.py"
     generated = generate_models_module(spec, module_file)
     pythonpath = str(module_file.parent)
     module_name = module_file.stem
-    if not _store_exists(store_path):
-        _init_store(store_path)
-    # Register generated and referenced classes before validating documents.
+    # El mismo nombre de módulo se reusa entre compilaciones (p.ej. en tests o
+    # sucesivos applies); sin esto resolve_model_ref devolvería la versión vieja.
+    sys.modules.pop(module_name, None)
+
+    # ---- Fase 1: resolver refs y prevalidar TODO sin tocar el store. ----
     registered: dict[str, str] = {}
-    existing_models = {m.name for m in load_store_index(store_path).models}
     for raw in models:
         model = _ensure_object(raw, "Cada model")
         name = _identifier(model.get("name"), "El nombre del modelo")
-        ref = _model_ref(model, module_name)
-        registered[name] = ref
-        if name not in existing_models:
-            ModelCLI().add(SimpleNamespace(model=ref, store=str(store_path), pythonpath=pythonpath, canonical=False))
-            existing_models.add(name)
+        if name in registered:
+            raise CompileError(f"Modelo duplicado: {name}.")
+        registered[name] = _model_ref(model, module_name)
 
-    existing = {d.name: d for d in load_runtime_documents(store_path, __import__("sldb.cli.model_utils", fromlist=["resolve_model_ref"]).resolve_model_ref, pythonpath)}
+    existing = {}
+    store_existed = (store_path / "core" / "store_index.yaml").exists()
+    if store_existed:
+        existing = {d.name: d for d in SldbAdapter(store_path).documents(pythonpath)}
+
     prepared: list[tuple[dict[str, Any], str, str, dict[str, Any]]] = []
     seen: set[str] = set()
     for raw in documents:
@@ -170,9 +276,11 @@ def compile_json(source: str | Path | dict[str, Any], store: str | Path, *, modu
             raise CompileError(f"payload inválido en {name}.")
         payload = dict(payload)
         payload.setdefault("id", name)
-        model, _, _ = registered_model(store_path, model_name, pythonpath)
-        rendered = render_model_markdown(model, payload)
-        valid, details = validate_model_input_roundtrip(model, rendered)
+        # Validación por ref: no requiere que el modelo esté registrado en el store.
+        try:
+            valid, details = SldbAdapter.validate_ref(registered[model_name], payload, pythonpath)
+        except AdapterError as exc:
+            raise CompileError(f"{name}: {exc}") from exc
         if not valid:
             raise CompileError(f"{name}: payload no pasa el round-trip de SLDB: {details}")
         current = existing.get(name)
@@ -180,22 +288,26 @@ def compile_json(source: str | Path | dict[str, Any], store: str | Path, *, modu
             raise CompileError(f"{name} ya existe como {current.model_name}; no se cambia de clase automáticamente.")
         prepared.append((doc, name, model_name, payload))
 
+    # ---- Fase 2: todo validado; registrar modelos y escribir documentos. ----
+    adapter = SldbAdapter(store_path)
+    adapter.init_store()
+    existing_models = adapter.model_names()
+    for name, ref in registered.items():
+        if name not in existing_models:
+            adapter.add_model(ref, pythonpath=pythonpath)
+
     written: list[str] = []
     for doc, name, model_name, payload in prepared:
         if name in existing:
-            DocCLI().update(SimpleNamespace(doc=name, payload=json.dumps(payload), store=str(store_path), pythonpath=pythonpath))
+            adapter.update_document(existing[name], payload, pythonpath)
         else:
             output = root / "desk" / "mindmap" / model_name / f"{name}.md"
-            DocCLI().add(SimpleNamespace(store=str(store_path), pythonpath=pythonpath, model=model_name,
-                payload=json.dumps(payload), output=str(output), name=name))
+            adapter.create_document(name, model_name, payload, output, pythonpath)
         written.append(name)
     view = spec.get("view")
     if view is not None:
-        if not isinstance(view, dict):
-            raise CompileError("view debe ser un objeto.")
-        runtime = store_path / "runtime"
-        runtime.mkdir(parents=True, exist_ok=True)
-        (runtime / "mindmap-view.json").write_text(json.dumps(view, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        kb_contract.validate({"version": 1, "view": view})
+        adapter.write_view(view)
     return {"ok": True, "store": str(store_path), "module": str(module_file), "models": list(registered), "generated_models": generated, "documents": written}
 
 

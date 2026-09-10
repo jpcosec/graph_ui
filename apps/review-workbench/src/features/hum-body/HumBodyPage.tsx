@@ -1,18 +1,19 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { GraphEditor } from '@/features/graph-editor/L2-canvas/GraphEditor';
+import { sldbProvider } from '@/features/graph-editor/lib/sldb-provider';
 import { registry } from '@/schema/registry';
 import { useGraphStore } from '@/stores/graph-store';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-import { buildHumViewGraph, registerHumNodeTypes, summarizeHumSelection } from './lib/adapter';
-import { humBodyModel } from './lib/mock-data';
+import { buildHumModelFromDocuments, buildHumViewGraph, registerHumNodeTypes, summarizeHumSelection } from './lib/adapter';
 import type { HumViewMode } from './lib/types';
 
-const routines = humBodyModel.routines;
-const traces = humBodyModel.traces;
-const STORAGE_KEY = 'hum-body-view-drafts';
+type LoadState =
+  | { status: 'loading' }
+  | { status: 'ready' }
+  | { status: 'error'; message: string };
 
 function modeLabel(mode: HumViewMode): string {
   return {
@@ -22,6 +23,22 @@ function modeLabel(mode: HumViewMode): string {
     trace: 'Trace',
     compare: 'Compare',
   }[mode];
+}
+
+function hasModeData(model: ReturnType<typeof buildHumModelFromDocuments>, mode: HumViewMode): boolean {
+  if (mode === 'structure') {
+    return model.astFiles.length > 0 || model.astForms.length > 0;
+  }
+  if (mode === 'body') {
+    return model.organs.length > 0 || model.capabilities.length > 0 || model.artifacts.length > 0;
+  }
+  if (mode === 'routine') {
+    return model.routines.length > 0;
+  }
+  if (mode === 'trace') {
+    return model.traces.length > 0;
+  }
+  return model.routines.length > 0 && model.traces.length > 0;
 }
 
 const modeCopy: Record<HumViewMode, { eyebrow: string; title: string; description: string; accentClass: string; lens: string; note: string }> = {
@@ -67,149 +84,289 @@ const modeCopy: Record<HumViewMode, { eyebrow: string; title: string; descriptio
   },
 };
 
+const emptyStateDescriptions: Record<HumViewMode, { title: string; description: string }> = {
+  structure: {
+    title: 'No source topology data',
+    description: 'sldb serve returned no file or form documents. Structure view requires AST file and form data to render the Lisp archive.',
+  },
+  body: {
+    title: 'No anatomical data',
+    description: 'sldb serve returned no organ, capability, or artifact documents. Body view needs at least one organ to render the HUM anatomy.',
+  },
+  routine: {
+    title: 'No routine data',
+    description: 'sldb serve returned no routine documents. Routine view requires at least one routine to render the normative flow.',
+  },
+  trace: {
+    title: 'No trace data',
+    description: 'sldb serve returned no trace documents. Trace view requires at least one trace to render the observed execution.',
+  },
+  compare: {
+    title: 'No routine or trace data',
+    description: 'sldb serve returned no routine or trace documents. Compare view needs both a routine and a trace to show divergence.',
+  },
+};
+
+function LoadingState() {
+  return (
+    <div className="flex h-screen items-center justify-center px-6">
+      <div className="glass-panel w-full max-w-xl rounded-[2rem] p-8">
+        <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-primary">HUM Body</p>
+        <h1 className="mt-2 font-headline text-3xl font-bold text-on-surface">Loading HUM body</h1>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Fetching schema and live Hum documents from sldb serve…
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ErrorBanner({ message }: { message: string }) {
+  return (
+    <div className="rounded-2xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-100 shadow-[0_18px_40px_rgba(120,0,0,0.25)]">
+      <div className="font-medium">sldb serve not reachable at /sldb — start it</div>
+      <div className="mt-1 text-red-100/80">{message}</div>
+    </div>
+  );
+}
+
+function EmptyOverlay({ title, description }: { title: string; description: string }) {
+  return (
+    <div data-testid="hum-empty-state" className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-8 text-center">
+      <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-primary">No data</p>
+      <h2 className="mt-2 font-headline text-xl font-bold text-on-surface">{title}</h2>
+      <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">{description}</p>
+    </div>
+  );
+}
+
 export function HumBodyPage() {
   const loadGraph = useGraphStore((state) => state.loadGraph);
-  const markSaved = useGraphStore((state) => state.markSaved);
-  const nodes = useGraphStore((state) => state.nodes);
-  const edges = useGraphStore((state) => state.edges);
+
+  const [loadState, setLoadState] = useState<LoadState>({ status: 'loading' });
+  const [model, setModel] = useState<ReturnType<typeof buildHumModelFromDocuments> | null>(null);
 
   const [mode, setMode] = useState<HumViewMode>('structure');
-  const [routineId, setRoutineId] = useState<string>(routines[0]?.id ?? 'task-execution');
-  const [traceId, setTraceId] = useState<string>(traces[0]?.id ?? 'trace-inspection-loop');
-  const [draftGraphs, setDraftGraphs] = useState<Record<string, { nodes: typeof nodes; edges: typeof edges }>>(() => {
-    if (typeof window === 'undefined') {
-      return {};
+  const [routineId, setRoutineId] = useState<string>('');
+  const [traceId, setTraceId] = useState<string>('');
+  // Load live model on mount
+  useEffect(() => {
+    let cancelled = false;
+
+    const load = async () => {
+      setLoadState({ status: 'loading' });
+
+      try {
+        registerHumNodeTypes(registry);
+        const { documents } = await sldbProvider.getGraph();
+        const built = buildHumModelFromDocuments(documents);
+
+        if (cancelled) {
+          return;
+        }
+
+        setModel(built);
+
+        // Initialise selectors from the live model
+        if (built.routines.length > 0 && !routineId) {
+          setRoutineId(built.routines[0].id);
+        }
+        if (built.traces.length > 0 && !traceId) {
+          setTraceId(built.traces[0].id);
+        }
+
+        setLoadState({ status: 'ready' });
+      } catch (error) {
+        if (cancelled) {
+          return;
+        }
+
+        const message = error instanceof Error ? error.message : String(error);
+        setLoadState({ status: 'error', message });
+      }
+    };
+
+    void load();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const effectiveRoutineId = useMemo(() => {
+    if (!model) {
+      return '';
     }
 
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) as Record<string, { nodes: typeof nodes; edges: typeof edges }> : {};
-    } catch {
-      return {};
+    if (mode === 'trace' || mode === 'compare') {
+      const trace = model.traces.find((t) => t.id === traceId) ?? model.traces[0];
+      return trace?.routineId ?? routineId;
     }
-  });
-  const loadedKeyRef = useRef<string | null>(null);
 
-  useEffect(() => {
-    registerHumNodeTypes(registry);
-  }, []);
+    return routineId;
+  }, [model, mode, routineId, traceId]);
 
-  const selectedTrace = useMemo(
-    () => traces.find((trace) => trace.id === traceId) ?? traces[0],
-    [traceId],
-  );
-  const effectiveRoutineId = (mode === 'trace' || mode === 'compare') && selectedTrace
-    ? selectedTrace.routineId
-    : routineId;
-  const currentKey = `${mode}|${effectiveRoutineId}|${traceId}`;
-
-  const graph = useMemo(
-    () => draftGraphs[currentKey] ?? buildHumViewGraph(mode, effectiveRoutineId, traceId),
-    [currentKey, draftGraphs, effectiveRoutineId, mode, traceId],
-  );
-  const summary = useMemo(
-    () => summarizeHumSelection(mode, effectiveRoutineId, traceId),
-    [effectiveRoutineId, mode, traceId],
-  );
-
-  const availableTraces = useMemo(
-    () => traces.filter((trace) => trace.routineId === effectiveRoutineId),
-    [effectiveRoutineId],
-  );
-
-  useEffect(() => {
-    if (selectedTrace && (mode === 'trace' || mode === 'compare') && selectedTrace.routineId !== routineId) {
-      setRoutineId(selectedTrace.routineId);
+  const graph = useMemo(() => {
+    if (!model || !hasModeData(model, mode)) {
+      return { nodes: [], edges: [] };
     }
-  }, [mode, routineId, selectedTrace]);
 
+    return buildHumViewGraph(mode, effectiveRoutineId, traceId, model);
+  }, [effectiveRoutineId, mode, model, traceId]);
+
+  const summary = useMemo(() => {
+    if (!model) {
+      return null;
+    }
+
+    return summarizeHumSelection(mode, effectiveRoutineId, traceId, model);
+  }, [effectiveRoutineId, mode, traceId, model]);
+
+  const availableTraces = useMemo(() => {
+    if (!model) {
+      return [];
+    }
+
+    return model.traces.filter((trace) => trace.routineId === effectiveRoutineId);
+  }, [effectiveRoutineId, model]);
+
+  // Sync trace picker when mode changes
   useEffect(() => {
-    if (availableTraces.length === 0) {
+    if (!model) {
       return;
     }
 
-    const hasCurrentTrace = availableTraces.some((trace) => trace.id === traceId);
+    const trace = model.traces.find((t) => t.id === traceId);
+    if (trace && (mode === 'trace' || mode === 'compare') && trace.routineId !== routineId) {
+      setRoutineId(trace.routineId);
+    }
+  }, [model, mode, routineId, traceId]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Constrain trace selection to available traces
+  useEffect(() => {
+    if (!model || availableTraces.length === 0) {
+      return;
+    }
+
+    const hasCurrentTrace = availableTraces.some((t) => t.id === traceId);
     if (!hasCurrentTrace) {
       setTraceId(availableTraces[0].id);
     }
-  }, [availableTraces, traceId]);
+  }, [availableTraces, model, traceId]);
 
+  // Keep the canvas as a projection of the current live model and lens.
   useEffect(() => {
-    if (nodes.length === 0 && edges.length === 0) {
-      return;
-    }
-
-    setDraftGraphs((current) => {
-      const nextGraph = { nodes, edges };
-      const existing = current[currentKey];
-      if (existing && JSON.stringify(existing) === JSON.stringify(nextGraph)) {
-        return current;
-      }
-      return {
-        ...current,
-        [currentKey]: nextGraph,
-      };
-    });
-  }, [currentKey, edges, nodes]);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(draftGraphs));
-  }, [draftGraphs]);
-
-  useEffect(() => {
-    if (loadedKeyRef.current === currentKey) {
-      return;
-    }
-
-    loadedKeyRef.current = currentKey;
     loadGraph(graph.nodes, graph.edges);
-  }, [currentKey, graph.edges, graph.nodes, loadGraph]);
+  }, [graph.edges, graph.nodes, loadGraph]);
 
-  const handleSave = () => {
-    const currentGraph = { nodes, edges };
-    setDraftGraphs((current) => ({
-      ...current,
-      [currentKey]: currentGraph,
-    }));
-    markSaved();
-  };
+  if (loadState.status === 'loading') {
+    return <LoadingState />;
+  }
 
-  const showRoutinePicker = mode !== 'structure';
-  const showTracePicker = mode === 'trace' || mode === 'compare';
+  if (loadState.status === 'error') {
+    return (
+      <GraphEditor
+        initialNodes={[]}
+        initialEdges={[]}
+        editable={false}
+        hero={{
+          eyebrow: 'HUM Body',
+          title: 'HUM body observatory',
+          description: 'Live Hum documents from sldb serve',
+        }}
+        workspace={{
+          label: 'Live store',
+          title: 'HUM body',
+          description: 'Schema-driven rendering of live Hum model documents',
+        }}
+        topOverlay={<ErrorBanner message={loadState.message} />}
+        shellVariant="compact"
+        contentTopInset={116}
+        overlayPlacement="canvas"
+      />
+    );
+  }
+
+  // ── Ready state ──
+
+  const showRoutinePicker = mode !== 'structure' && model !== null && model.routines.length > 0;
+  const showTracePicker = (mode === 'trace' || mode === 'compare') && model !== null && model.traces.length > 0;
   const modeMeta = modeCopy[mode];
-  const statTiles = mode === 'structure'
+
+  // Determine if the current view mode has no data
+  const hasNoData = model === null || !hasModeData(model, mode);
+
+  if (hasNoData) {
+    const empty = emptyStateDescriptions[mode];
+    const emptyOverlay = (
+      <div className={`pointer-events-auto hum-overlay-panel ${modeMeta.accentClass} flex w-full flex-col gap-3 rounded-2xl px-4 py-3`}>
+        <Tabs value={mode} onValueChange={(value) => setMode(value as HumViewMode)}>
+          <TabsList className="h-auto flex-wrap justify-start gap-1 rounded-xl bg-white/5 p-1">
+            <TabsTrigger value="structure" data-testid="mode-tab-structure">Structure</TabsTrigger>
+            <TabsTrigger value="body" data-testid="mode-tab-body">Body</TabsTrigger>
+            <TabsTrigger value="routine" data-testid="mode-tab-routine">Routine</TabsTrigger>
+            <TabsTrigger value="trace" data-testid="mode-tab-trace">Trace</TabsTrigger>
+            <TabsTrigger value="compare" data-testid="mode-tab-compare">Compare</TabsTrigger>
+          </TabsList>
+        </Tabs>
+        <EmptyOverlay title={empty.title} description={empty.description} />
+      </div>
+    );
+
+    return (
+      <GraphEditor
+        initialNodes={[]}
+        initialEdges={[]}
+        editable={false}
+        hero={{
+          eyebrow: modeMeta.eyebrow,
+          title: modeMeta.title,
+          description: modeMeta.description,
+        }}
+        workspace={{
+          label: modeMeta.lens,
+          title: 'HUM observatory',
+          description: 'Projection tuned to the active lens',
+        }}
+        topOverlay={emptyOverlay}
+        shellVariant={mode === 'structure' ? 'compact' : 'default'}
+        contentTopInset={mode === 'structure' ? 0 : 154}
+        overlayPlacement={mode === 'structure' ? 'sidebar' : 'canvas'}
+      />
+    );
+  }
+
+  const statTiles = mode === 'structure' && summary
     ? [
         ['Files', summary.astFiles],
         ['Forms', summary.astForms],
         ['Mode', modeLabel(summary.mode)],
       ]
-    : mode === 'body'
+    : mode === 'body' && summary
       ? [
           ['Organs', summary.organs],
           ['Capabilities', summary.capabilities],
           ['Artifacts', summary.artifacts],
         ]
-      : mode === 'routine'
+      : mode === 'routine' && summary
         ? [
             ['Steps', summary.routineSteps],
             ['Organs', summary.organs],
             ['Routine', summary.routineLabel],
           ]
-        : mode === 'trace'
+        : mode === 'trace' && summary
           ? [
               ['Events', summary.traceEvents],
               ['Routine', summary.routineLabel],
               ['Trace', summary.traceLabel],
             ]
-          : [
-              ['Steps', summary.routineSteps],
-              ['Events', summary.traceEvents],
-              ['Trace', summary.traceLabel],
-            ];
+          : summary
+            ? [
+                ['Steps', summary.routineSteps],
+                ['Events', summary.traceEvents],
+                ['Trace', summary.traceLabel],
+              ]
+            : [['', ''], ['', ''], ['', '']];
 
   const overlay = (
     <div className={`pointer-events-auto hum-overlay-panel ${modeMeta.accentClass} flex w-full ${mode === 'structure' ? 'max-w-full' : 'max-w-[920px]'} flex-col gap-2 rounded-2xl px-4 py-3`}>
@@ -238,8 +395,8 @@ export function HumBodyPage() {
         <div className="min-w-[210px] rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-xs text-muted-foreground">
           <div className="grid grid-cols-3 gap-3 text-on-surface">
             {statTiles.map(([label, value]) => (
-              <div key={label}>
-                <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/45">{label}</div>
+              <div key={label as string}>
+                <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/45">{label as string}</div>
                 <div className="mt-1 text-sm font-semibold">{value}</div>
               </div>
             ))}
@@ -255,7 +412,7 @@ export function HumBodyPage() {
               <SelectValue placeholder="Select routine" />
             </SelectTrigger>
             <SelectContent>
-              {routines.map((routine) => (
+              {(model?.routines ?? []).map((routine) => (
                 <SelectItem key={routine.id} value={routine.id}>
                   {routine.label}
                 </SelectItem>
@@ -271,7 +428,7 @@ export function HumBodyPage() {
               <SelectValue placeholder="Select trace" />
             </SelectTrigger>
             <SelectContent>
-              {availableTraces.map((trace) => (
+              {(model?.traces ?? []).filter((trace) => trace.routineId === effectiveRoutineId).map((trace) => (
                 <SelectItem key={trace.id} value={trace.id}>
                   {trace.label}
                 </SelectItem>
@@ -280,11 +437,11 @@ export function HumBodyPage() {
           </Select>
         </div> : null}
 
-        <div className="min-w-[220px] flex-[1.2] text-xs text-muted-foreground">
+        {summary ? <div className="min-w-[220px] flex-[1.2] text-xs text-muted-foreground">
           {mode !== 'structure' ? <p>{modeMeta.note}</p> : null}
           {showRoutinePicker ? <p><span className="font-mono uppercase tracking-[0.12em] text-white/55">Routine:</span> {summary.routineLabel}</p> : null}
           {showTracePicker ? <p className="mt-1"><span className="font-mono uppercase tracking-[0.12em] text-white/55">Trace:</span> {summary.traceLabel}</p> : null}
-        </div>
+        </div> : null}
       </div>
     </div>
   );
@@ -293,7 +450,7 @@ export function HumBodyPage() {
     <GraphEditor
       initialNodes={graph.nodes}
       initialEdges={graph.edges}
-      onSave={handleSave}
+      editable={false}
       hero={{
         eyebrow: modeMeta.eyebrow,
         title: modeMeta.title,

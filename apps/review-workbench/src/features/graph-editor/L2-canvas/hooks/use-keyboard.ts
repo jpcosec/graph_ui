@@ -63,7 +63,7 @@ export function resolveKeyboardCommand(
   return null;
 }
 
-export function useKeyboard() {
+export function useKeyboard(enabled = true) {
   const editorState = useUIStore((state) => state.editorState);
   const focusedNodeId = useUIStore((state) => state.focusedNodeId);
   const setEditorState = useUIStore((state) => state.setEditorState);
@@ -75,6 +75,9 @@ export function useKeyboard() {
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
+      if (!enabled) {
+        return;
+      }
       if (isEditableTarget(event.target)) {
         return;
       }
@@ -111,5 +114,5 @@ export function useKeyboard() {
 
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [editorState, focusedNodeId, redo, setEditorState, setFocusedEdge, setFocusedNode, undo]);
+  }, [enabled, editorState, focusedNodeId, redo, setEditorState, setFocusedEdge, setFocusedNode, undo]);
 }

@@ -63,6 +63,67 @@ function buildFlow(graph) {
   return { nodes, edges };
 }
 
+// Project only the mepu atoms (scope:teva-mepu) into the flow shape,
+// grouped by knowledge_type. Group container nodes hold their atom members
+// as edges (relation grouped_in) so the editor shows one mepu cluster.
+function buildMepuFlow(graph) {
+  const docs = (graph && graph.documents) || [];
+  const tagVal = (tags, prefix) => {
+    const t = (tags || []).find((x) => typeof x === 'string' && x.startsWith(prefix));
+    return t ? t.slice(prefix.length) : '';
+  };
+  // The mepu store is entirely mepu atoms; group by 5WH1+ facet.
+  const atoms = docs.filter((d) => d.model_name === 'AtomDoc');
+
+  const nodes = [];
+  const edges = [];
+  const groups = new Set();
+
+  for (const a of atoms) {
+    const p = a.payload || {};
+    const tags = p.tags || [];
+    const kt = p.five_wh_one_plus || 'other';
+    const layer = tagVal(tags, 'layer:') || tagVal(tags, 'service:') || '';
+    const groupId = `group:${kt}`;
+    groups.add(kt);
+    nodes.push({
+      id: a.id,
+      step_tag: null,
+      title: (p.title || a.id).replace(/^MEPU:\s*/, ''),
+      kind: kt,
+      instructions: p.answer || '',
+      required_slots: layer ? [layer] : [],
+      handout_target: '',
+      tool_ref: '',
+      allowed_transitions: [],
+      grounding_atoms: [],
+      completion_condition: '',
+      domain_ref: p.provenance || null,
+    });
+    edges.push({ source: groupId, target: a.id, relation: 'grouped_in' });
+  }
+
+  for (const kt of groups) {
+    const count = atoms.filter((a) => (a.payload.five_wh_one_plus || 'other') === kt).length;
+    nodes.push({
+      id: `group:${kt}`,
+      step_tag: null,
+      title: `${kt} (${count})`,
+      kind: 'group',
+      instructions: '',
+      required_slots: [],
+      handout_target: '',
+      tool_ref: '',
+      allowed_transitions: [],
+      grounding_atoms: [],
+      completion_condition: '',
+      domain_ref: null,
+    });
+  }
+
+  return { nodes, edges };
+}
+
 async function fetchGraph(sldbBase) {
   const res = await fetch(`${sldbBase}/graph`);
   if (!res.ok) throw new Error(`sldb /graph ${res.status}`);
@@ -82,7 +143,10 @@ export function flowEditorPlugin(options = {}) {
         if (url === '/api/flow') {
           try {
             const graph = await fetchGraph(sldbBase);
-            const flow = buildFlow(graph);
+            const scope = new URLSearchParams((req.url || '').split('?')[1] || '').get('scope');
+            let flow = scope === 'mepu' ? buildMepuFlow(graph) : buildFlow(graph);
+            // Default to the mepu projection when there are no ConversationStep docs.
+            if (!flow.nodes.length && scope !== 'mepu') flow = buildMepuFlow(graph);
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(flow));
           } catch (e) {

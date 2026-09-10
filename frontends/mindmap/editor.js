@@ -2,7 +2,7 @@ import React,{useState,useEffect,useMemo,useRef,useCallback} from 'react';
 import {createRoot} from 'react-dom/client';
 import {ReactFlow,ReactFlowProvider,Controls,MiniMap,Handle,Position,NodeToolbar,useReactFlow,applyNodeChanges} from '@xyflow/react';
 import htm from 'htm';
-import {classStyle,readingViewport,titleOf,project,childOptions,appendChild,removeDocument,changesBetween,hierarchy,REFERENCE_FIELDS} from './model.mjs';
+import {classStyle,readingViewport,titleOf,project,childOptions,appendChild,removeDocument,changesBetween,graphMaps,defaultsFor,quickPayload,slugify,searchDocuments,referenceFieldsOf} from './model.mjs';
 const html=htm.bind(React.createElement);
 
 function DocumentNode({data,selected}) {
@@ -28,8 +28,20 @@ function DocumentNode({data,selected}) {
 const nodeTypes={document:DocumentNode};
 const labelFor=field=>({title:'Título',name:'Nombre',body:'Contenido',status:'Estado',goal:'Objetivo',scope:'Alcance',purpose:'Propósito',implementation_path:'Ruta de implementación',done_when:'Criterio de término',entrypoint:'Nodo de entrada',source:'Origen',target:'Destino',subject:'Sujeto',predicate:'Condición',answer:'Respuesta',summary:'Resumen'}[field]||field.replaceAll('_',' '));
 const isList=field=>['stringlist','enumlist','list'].includes(field.kind);
-const slugify=value=>String(value||'nuevo-documento').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,100)||'nuevo-documento';
-const defaultsFor=model=>Object.fromEntries((model?.fields||[]).map(f=>[f.name,f.name==='id'?`nuevo-${crypto.randomUUID().slice(0,8)}`:f.name==='status'?'active':f.kind==='stringlist'||f.kind==='list'||f.kind==='enumlist'?[]:f.kind==='boolean'?false:f.kind==='object'?{}:'']));
+function ReferenceField({field,value,documents,onChange}) {
+  // Referencias: búsqueda de documentos reales, nunca IDs inventados.
+  const multi=['stringlist','list','enumlist'].includes(field.kind);
+  const list=Array.isArray(value)?value:(value?[value]:[]);
+  const [query,setQuery]=useState('');
+  const matches=searchDocuments(documents.filter(d=>!list.includes(d.id)),query,8);
+  const add=id=>{if(!id)return;onChange(multi?[...list,id]:id);setQuery('');};
+  const remove=id=>onChange(multi?list.filter(x=>x!==id):'');
+  return html`<div className="form-field reference-field" data-field=${field.name}><span>${labelFor(field.name)} ${field.required?html`<b aria-label="obligatorio">*</b>`:''}</span>
+    <div className="reference-chips">${list.map(id=>{const doc=documents.find(d=>d.id===id)||{id,model_name:'?'};return html`<span key=${id} className="reference-chip" title=${doc.id}>${classStyle(doc.model_name).icon} ${titleOf(doc)}<button type="button" aria-label=${'Quitar '+id} onClick=${()=>remove(id)}>×</button></span>`})}${multi||!list.length?html`<input list="ref-docs-${field.name}" value=${query} placeholder="Buscar documento…" onInput=${e=>setQuery(e.target.value)} onKeyDown=${e=>{if(e.key==='Enter'){e.preventDefault();add(matches[0]?.id);}}}/>`:html`<button type="button" className="reference-swap" onClick=${()=>remove(list[0])}>Cambiar…</button>`}</div>
+    ${matches.length?html`<div className="reference-matches" role="listbox" aria-label="Documentos encontrados">${matches.map(m=>html`<button type="button" key=${m.id} role="option" aria-selected="false" onClick=${()=>add(m.id)}><span>${classStyle(m.model_name).icon}</span><span className="reference-match-title">${m.title}</span><code>${m.id}</code></button>`)}</div>`:query?html`<small>Sin coincidencias para «${query}»</small>`:''}
+    <small>Se guarda el ID del documento en ${labelFor(field.name)}.</small>
+  </div>`;
+}
 function Field({field,value,onChange,isNew}) {
   const id='field-'+field.name;
   const common={id,required:field.required&&!isNew,'data-field':field.name};
@@ -49,6 +61,7 @@ function DocumentDialog({spec,models,documents,onClose,onApply}) {
   const [values,setValues]=useState(existing?.payload||defaultsFor(models.find(m=>m.id===existing?.model_name||m.id===spec.model)||models[0])),[error,setError]=useState('');
   const ref=useRef(null),newId=useRef('mm-'+crypto.randomUUID()),isNew=!existing;
   const descriptor=models.find(m=>m.id===model),style=classStyle(model);
+  const refFields=referenceFieldsOf(descriptor);
   const selectedOption=spec.options?.find(o=>o.model===model);
   const parent=documents.find(d=>d.id===spec.parentId);
   useEffect(()=>{const d=ref.current;d.showModal();return()=>d.close();},[]);
@@ -67,9 +80,14 @@ function DocumentDialog({spec,models,documents,onClose,onApply}) {
         if(f.name==='id'){payload.id=existing?.payload.id||newId.current;continue;}
         if(payload[f.name]===undefined)continue;
         if(['object','list','enumlist'].includes(f.kind)&&typeof payload[f.name]==='string')payload[f.name]=payload[f.name].trim()?JSON.parse(payload[f.name]):(f.kind==='object'?{}:[]);
-        if(f.kind==='stringlist')payload[f.name]=payload[f.name].map(v=>v.trim()).filter(Boolean);
+        if(f.kind==='stringlist'&&!refFields.has(f.name))payload[f.name]=payload[f.name].map(v=>v.trim()).filter(Boolean);
         if(['integer','number'].includes(f.kind))payload[f.name]=Number(payload[f.name]);
       }
+      // Validación client-side contra el schema real: requeridos y enums.
+      const missing=descriptor.fields.filter(f=>f.required&&(['stringlist','list','enumlist'].includes(f.kind)?!payload[f.name]?.length:(payload[f.name]===''||payload[f.name]==null))&&f.name!=='id');
+      if(missing.length)return setError('Faltan campos obligatorios: '+missing.map(f=>labelFor(f.name)).join(', ')+'.');
+      const badEnum=descriptor.fields.find(f=>f.enum&&payload[f.name]!==''&&payload[f.name]!=null&&!f.enum.includes(payload[f.name]));
+      if(badEnum)return setError(labelFor(badEnum.name)+` debe ser uno de: ${badEnum.enum.join(', ')}.`);
       const doc={...(existing||{}),id:existing?.id||newId.current,model_name:model,payload};
       onApply(doc,selectedOption?.field||spec.field);
     } catch(e){setError('Revisa los campos JSON: '+e.message);}
@@ -80,18 +98,56 @@ function DocumentDialog({spec,models,documents,onClose,onApply}) {
       ${parent?html`<div className="parent-note">Dentro de <strong>${titleOf(parent)}</strong> · <code>${selectedOption?.field||spec.field}</code></div>`:''}
       <div className="form-field"><span>Clase de documento</span><div className="class-picker">${models.filter(m=>!spec.options||spec.options.some(o=>o.model===m.id)).map(m=>{const s=classStyle(m.id);return html`<button type="button" key=${m.id} className=${'class-choice'+(model===m.id?' selected':'')} style=${{'--class-color':s.color}} disabled=${!isNew} onClick=${()=>changeModel(m.id)}><span>${s.icon}</span>${s.name}</button>`})}</div></div>
       <div className="quick-create-note">${isNew?'Alta rápida: solo necesitas el título. Los demás campos parten vacíos y puedes completarlos después desde Editar.':'Los campos esenciales aparecen primero. El resto está en «Más campos».'}</div>
-      ${primary.map(f=>html`<${Field} key=${model+f.name} field=${f} value=${values[f.name]} onChange=${v=>change(f.name,v)} isNew=${isNew}/>`)}
-      ${secondary.length?html`<details><summary>Más campos (${secondary.length})</summary>${secondary.map(f=>html`<${Field} key=${model+f.name} field=${f} value=${values[f.name]} onChange=${v=>change(f.name,v)} isNew=${isNew}/>` )}</details>`:''}
+      ${primary.map(f=>refFields.has(f.name)?html`<${ReferenceField} key=${model+f.name} field=${f} value=${values[f.name]} documents=${documents} onChange=${v=>change(f.name,v)}/>`:html`<${Field} key=${model+f.name} field=${f} value=${values[f.name]} onChange=${v=>change(f.name,v)} isNew=${isNew}/>`) }
+      ${secondary.length?html`<details><summary>Más campos (${secondary.length})</summary>${secondary.map(f=>refFields.has(f.name)?html`<${ReferenceField} key=${model+f.name} field=${f} value=${values[f.name]} documents=${documents} onChange=${v=>change(f.name,v)}/>`:html`<${Field} key=${model+f.name} field=${f} value=${values[f.name]} onChange=${v=>change(f.name,v)} isNew=${isNew}/>`)}</details>`:''}
       <div className="doc-meta"><span>ID</span><code>${existing?.id||newId.current}</code>${existing?.path?html`<span>Archivo</span><code>${existing.path}</code>`:''}</div>
       ${error?html`<p className="form-error" role="alert">${error}</p>`:''}
     </div><footer className="dialog-footer"><span>* Campos obligatorios del modelo</span><button type="button" onClick=${onClose}>Cancelar</button><button className="primary" type="submit">${existing?'Aplicar cambios':'Añadir documento'}</button></footer>
   </form></dialog>`;
 }
 
+function QuickCreateDialog({spec,models,documents,onClose,onApply}) {
+  const parent=documents.find(d=>d.id===spec.parentId);
+  const choices=models.filter(m=>!spec.options||spec.options.some(o=>o.model===m.id));
+  const [model,setModel]=useState(spec.model&&choices.some(m=>m.id===spec.model)?spec.model:choices[0]?.id);
+  const [title,setTitle]=useState('');
+  const [error,setError]=useState('');
+  const inputRef=useRef(null),ref=useRef(null);
+  const descriptor=models.find(m=>m.id===model),style=classStyle(model);
+  const option=spec.options?.find(o=>o.model===model);
+  useEffect(()=>{const d=ref.current;d.showModal();inputRef.current?.focus();return()=>d.close();},[]);
+  const create=()=>{
+    if(!descriptor)return setError('No hay clases disponibles.');
+    const id=slugify(title)||'nuevo-'+crypto.randomUUID().slice(0,8);
+    if(documents.some(d=>d.id===id))return setError(`Ya existe el documento ${id}; cambia el título.`);
+    onApply({id,model_name:model,payload:quickPayload(descriptor,title,id)},option?.field||spec.field);
+  };
+  return html`<dialog ref=${ref} className="document-dialog quick-create" aria-labelledby="quick-title" onCancel=${onClose} onClick=${e=>{if(e.target===ref.current)onClose();}}><form onSubmit=${e=>{e.preventDefault();create();}}>
+    <header className="dialog-header"><span className="dialog-icon" style=${{'--class-color':style.color}}>${style.icon}</span><div><span className="eyebrow">Captura rápida</span><h2 id="quick-title">${parent?'Dentro de '+titleOf(parent):spec.sibling?'Nuevo hermano':'Nuevo documento'}</h2></div><button type="button" className="icon-button" aria-label="Cerrar captura" onClick=${onClose}>×</button></header>
+    <div className="dialog-body">
+      ${parent?html`<div className="parent-note">${titleOf(parent)} · <code>${option?.field||spec.field}</code></div>`:''}
+      <div className="form-field"><span>Clase</span><div className="class-picker">${choices.map(m=>{const s=classStyle(m.id);return html`<button type="button" key=${m.id} className=${'class-choice'+(model===m.id?' selected':'')} style=${{'--class-color':s.color}} onClick=${()=>setModel(m.id)}><span>${s.icon}</span>${s.name}</button>`})}</div></div>
+      <label className="form-field" htmlFor="quick-title-input"><span>Título</span><input id="quick-title-input" ref=${inputRef} value=${title} placeholder="Escribe el título y pulsa Enter…" onInput=${e=>{setTitle(e.target.value);setError('');}} required/></label>
+      ${error?html`<p className="form-error" role="alert">${error}</p>`:''}
+      <p className="quick-create-note">Los demás campos parten con defaults válidos; complétalos después con ✎ Editar.</p>
+    </div><footer className="dialog-footer"><span>Enter crea · Escape cancela</span><button type="button" onClick=${onClose}>Cancelar</button><button className="primary" type="submit">Añadir</button></footer>
+  </form></dialog>`;
+}
+
+function ConflictDialog({conflicts,documents,onClose,onReload}) {
+  const local=new Map(documents.map(d=>[d.id,d]));
+  return html`<dialog open className="document-dialog conflict-dialog" aria-labelledby="conflict-title"><form onSubmit=${e=>{e.preventDefault();onClose();}}>
+    <header className="dialog-header"><span className="dialog-icon" style=${{'--class-color':'#e11d48'}}>⚠</span><div><span className="eyebrow">Conflicto de guardado</span><h2 id="conflict-title">Otra sesión modificó estos documentos</h2></div><button type="button" className="icon-button" aria-label="Cerrar" onClick=${onClose}>×</button></header>
+    <div className="dialog-body"><p className="quick-create-note">El guardado fue rechazado para no pisar el trabajo de otra sesión. El resto del lote quedó sin aplicar. Tus cambios siguen en el mapa; recargar los descarta.</p>
+      ${conflicts.map(c=>html`<div key=${c.id} className="conflict-row"><code>${c.id}</code><div><span className="eyebrow">Tu versión</span><strong>${titleOf(local.get(c.id)||{payload:{},id:c.id})||'(eliminado)'}</strong></div><div><span className="eyebrow">Versión actual en SLDB</span><strong>${c.current?titleOf(c.current):'(ya no existe)'}</strong></div></div>`)}
+    </div><footer className="dialog-footer"><span>Elige cómo continuar</span><button type="button" onClick=${onReload}>Descartar mis cambios y recargar</button><button className="primary" type="submit">Mantener mis cambios</button></footer>
+  </form></dialog>`;
+}
+
 function ConnectDialog({spec,models,documents,onClose,onApply}) {
   const source=documents.find(d=>d.id===spec.sourceId),target=documents.find(d=>d.id===spec.targetId);
   const descriptor=models.find(m=>m.id===source?.model_name);
-  const relationFields=(descriptor?.fields||[]).filter(f=>REFERENCE_FIELDS.has(f.name)&&['string','stringlist','list','enumlist'].includes(f.kind));
+  const relationFields=(descriptor?.fields||[]).filter(f=>(descriptor.references||[]).includes(f.name)&&['string','stringlist','list','enumlist'].includes(f.kind));
   const [field,setField]=useState(spec.field||relationFields[0]?.name||'references');
   const ref=useRef(null);
   useEffect(()=>{const d=ref.current;d.showModal();return()=>d.close();},[]);
@@ -116,11 +172,12 @@ function App() {
   const [selected,setSelected]=useState(null),[modal,setModal]=useState(null),[status,setStatus]=useState('loading'),[connecting,setConnecting]=useState(null);
   const [notice,setNotice]=useState(''),[error,setError]=useState(''),[query,setQuery]=useState(''),[activeClass,setActiveClass]=useState(null);
   const [showRelations,setShowRelations]=useState(false),[sidebarOpen,setSidebarOpen]=useState(false),[focusId,setFocusId]=useState(null);
+  const [conflicts,setConflicts]=useState(null);
   const [history,setHistory]=useState([]),[future,setFuture]=useState([]),[zoom,setZoom]=useState(1),[flowNodes,setFlowNodes]=useState([]);
   const {fitView,setCenter,setViewport,getNodes}=useReactFlow();
   const dirty=JSON.stringify(documents)!==JSON.stringify(baseline)||JSON.stringify(view)!==JSON.stringify(baselineView);
   const saving=status==='saving',ready=status==='ready'||saving;
-  const projection=useMemo(()=>project(documents,view),[documents,view]);
+  const projection=useMemo(()=>project(documents,view,graphMaps(models)),[documents,view,models]);
   const focusIds=useMemo(()=>{
     if(!focusId)return null;
     const ids=new Set([focusId]),walk=id=>(projection.children[id]||[]).forEach(child=>{ids.add(child);walk(child);});
@@ -132,7 +189,7 @@ function App() {
     setViewport(readingViewport(getNodes(),canvas.clientWidth,canvas.clientHeight),{duration:250});
   }),[getNodes,setViewport]);
   const overview=()=>fitView({padding:.12,maxZoom:1,duration:250});
-  const visibleProjection=useMemo(()=>activeClass?project(focusDocuments.filter(d=>d.model_name===activeClass),{...view,positions:{}}):focusId?project(focusDocuments,view):projection,[activeClass,focusDocuments,focusId,documents,view,projection]);
+  const visibleProjection=useMemo(()=>activeClass?project(focusDocuments.filter(d=>d.model_name===activeClass),{...view,positions:{}},graphMaps(models)):focusId?project(focusDocuments,view,graphMaps(models)):projection,[activeClass,focusDocuments,focusId,documents,view,projection,models]);
   useEffect(()=>{if(ready)setTimeout(fit,80);},[activeClass,focusId,fit,ready]);
   useEffect(()=>{setFlowNodes(visibleProjection.nodes);},[visibleProjection]);
   const load=useCallback(async()=>{
@@ -152,19 +209,29 @@ function App() {
   const save=async()=>{
     if(saving||!dirty)return;
     setStatus('saving');setError('');setNotice('Guardando documentos en SLDB…');
+    const changes=changesBetween(baseline,documents);
     try {
-      const changes=changesBetween(baseline,documents);
       const result=await request('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({changes,view,viewRevision:revision})});
       setDocuments(result.documents);setBaseline(result.documents);setView(result.view);setBaselineView(result.view);setRevision(result.revision);setHistory([]);setFuture([]);
       setNotice(`${result.saved.length} documento${result.saved.length===1?'':'s'} guardado${result.saved.length===1?'':'s'} en SLDB · Vista guardada`);
-    } catch(e){setError(e.message);setNotice('No se completó el guardado. Tus cambios siguen aquí.');
-      if(e.body?.completed?.length){setBaseline(e.body.documents);setRevision(e.body.revision);}
+    } catch(e){
+      // Conflicto de revisión: el servidor devuelve el grafo actualizado.
+      // Mostramos la versión vigente de cada documento en conflicto.
+      if(e.body?.documents){
+        setBaseline(e.body.documents);setRevision(e.body.revision);
+        const server=new Map(e.body.documents.map(d=>[d.id,d]));
+        const conflicted=changes.filter(c=>['update','delete'].includes(c.action))
+          .filter(c=>{const cur=server.get(c.id);return !cur||JSON.stringify(cur.payload)!==JSON.stringify(c.expected)})
+          .map(c=>({id:c.id,action:c.action,current:server.get(c.id)}));
+        if(conflicted.length)setConflicts(conflicted);
+      }
+      setError(e.message);setNotice('No se completó el guardado. Tus cambios siguen aquí.');
     } finally{setStatus('ready');}
   };
-  const addChild=id=>{const parent=documents.find(d=>d.id===id),options=childOptions(parent,models);if(!options.length)return;setModal({parentId:id,options,model:options[0].model});};
+  const addChild=id=>{const parent=documents.find(d=>d.id===id),options=childOptions(parent,models);if(!options.length)return;setModal({quick:true,parentId:id,options,model:options[0].model});};
   const addSibling=id=>{const doc=documents.find(d=>d.id===id),parent=projection.parents[id];
-    if(parent){const owner=documents.find(d=>d.id===parent.source),options=childOptions(owner,models).filter(o=>o.field===parent.field);setModal({parentId:parent.source,field:parent.field,options,model:doc.model_name});}
-    else setModal({model:doc.model_name});
+    if(parent){const owner=documents.find(d=>d.id===parent.source),options=childOptions(owner,models).filter(o=>o.field===parent.field);setModal({quick:true,parentId:parent.source,field:parent.field,options,model:doc.model_name});}
+    else setModal({quick:true,sibling:true,model:doc.model_name});
   };
   const remove=id=>{checkpoint();setDocuments(removeDocument(documents,id));setSelected(null);setNotice('Se quitará de SLDB al guardar; el archivo Markdown se conserva.');};
   const toggle=id=>{checkpoint();setView(v=>({...v,collapsed:(v.collapsed||[]).includes(id)?v.collapsed.filter(x=>x!==id):[...(v.collapsed||[]),id]}));setTimeout(fit,80);};
@@ -218,7 +285,7 @@ function App() {
       ${ready&&!documents.length?html`<div className="state"><h2>Tu KB está vacía</h2><button onClick=${()=>setModal({})}>＋ Crear documento</button></div>`:''}
       <div className="canvas-hint">${activeClass?classStyle(activeClass).name+' · '+visibleProjection.nodes.length+' visibles':focusId?'Doble clic en un contenedor para entrar más profundo':'Doble clic en un contenedor para entrar · Ver todo muestra la KB completa'}</div>
     </section></div><footer className="statusbar"><span>${documents.length} documentos · ${Object.keys(projection.parents).length} contenidos</span><span role="status">${notice||'Doble clic para editar · Arrastra para mover'}</span><span>${Math.round(zoom*100)}%</span></footer>
-    ${modal?.connection?html`<${ConnectDialog} key=${modal.sourceId+'-'+modal.targetId} spec=${modal} documents=${documents} models=${models} onClose=${()=>setModal(null)} onApply=${applyConnection}/>`:modal?html`<${DocumentDialog} key=${modal.id||modal.parentId||'new'} spec=${modal} documents=${documents} models=${models} onClose=${()=>setModal(null)} onApply=${applyDocument}/>`:''}
+    ${conflicts?html`<${ConflictDialog} conflicts=${conflicts} documents=${documents} onClose=${()=>setConflicts(null)} onReload=${()=>{setConflicts(null);load();}}/>`:modal?.connection?html`<${ConnectDialog} key=${modal.sourceId+'-'+modal.targetId} spec=${modal} documents=${documents} models=${models} onClose=${()=>setModal(null)} onApply=${applyConnection}/>`:modal?.quick?html`<${QuickCreateDialog} key=${'quick-'+(modal.parentId||'root')} spec=${modal} documents=${documents} models=${models} onClose=${()=>setModal(null)} onApply=${applyDocument}/>`:modal?html`<${DocumentDialog} key=${modal.id||modal.parentId||'new'} spec=${modal} documents=${documents} models=${models} onClose=${()=>setModal(null)} onApply=${applyDocument}/>`:''}
   </main>`;
 }
 createRoot(document.getElementById('root')).render(html`<${ReactFlowProvider}><${App}/></${ReactFlowProvider}>`);

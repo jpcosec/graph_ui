@@ -4,7 +4,8 @@ TypeScript reconstruction of the reusable graph editor described in `graph_ui/sp
 
 ## Current Focus
 
-This copy is now wired to a dedicated `HumBodyPage` that visualizes:
+This copy is wired to a dedicated `HumBodyPage` that reads the live document
+set from `sldb serve` and visualizes the HUM model types present in that store:
 
 1. `Structure` — the HUM Lisp tree as collapsible files and forms
 2. `Body` — HUM as an embodied shell
@@ -26,16 +27,14 @@ This copy is now wired to a dedicated `HumBodyPage` that visualizes:
 
 - `src/App.tsx` — mounts the HUM body view
 - `src/features/hum-body/HumBodyPage.tsx` — HUM-specific L1 page
-- `scripts/generate-hum-ast.mjs` — extracts the HUM Lisp tree into generated AST fixtures
 - `scripts/run-user-flow.mjs` — Playwright-based operator-flow acceptance runner
-- `src/features/hum-body/lib/generated-hum-ast.ts` — generated structure data from real `hum/*.lisp`
-- `src/features/hum-body/lib/mock-data.ts` — higher-level body/routine/trace overlays layered on top
-- `src/features/hum-body/lib/adapter.ts` — HUM -> AST projection
-- `user_flows/*.json` — business/operator flows for structure, overlays, editing, and smoke regression
+- `src/features/graph-editor/lib/sldb-provider.ts` — live `/sldb/schema`, `/sldb/graph`, and `/sldb/save` client
+- `src/features/hum-body/lib/adapter.ts` — SLDB HUM documents -> AST projection
+- `user_flows/*.json` — business/operator flows for projections and smoke regression
 - `src/features/graph-editor/L2-canvas/GraphEditor.tsx` — reusable canvas shell
 
 ## Next Work
 
-1. Derive the body/organ/capability projection from the generated Lisp AST instead of the current curated overlay
-2. Replace mock traces with parsers for `hum/journal.lisp` and autopoiesis sessions
-3. Add persistence semantics for saved HUM projections if this becomes an operator authoring tool
+The page renders an honest empty state for every lens whose corresponding HUM
+document models are absent from the selected store. Authoring those source
+documents remains a responsibility of their owning repository.

@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "models": [
+    {
+      "name": "BoardDoc",
+      "containment": {"tasks": ["TaskDoc"]},
+      "fields": [
+        {"name": "id", "type": "str", "description": "Identifier"},
+        {"name": "title", "type": "str", "description": "Title"},
+        {"name": "tasks", "type": "list[str]", "description": "Contained tasks", "default": []},
+        {"name": "owner", "type": "str | None", "description": "Single reference", "default": null}
+      ]
+    },
+    {
+      "name": "TaskDoc",
+      "fields": [
+        {"name": "id", "type": "str", "description": "Identifier"},
+        {"name": "title", "type": "str", "description": "Title"},
+        {"name": "status", "type": "str", "description": "State", "default": "open"},
+        {"name": "blocks", "type": "list[str]", "description": "Related tasks", "default": []}
+      ],
+      "references": [
+        {"field": "blocks", "kind": "list", "target_model": "TaskDoc"}
+      ]
+    }
+  ],
+  "documents": [
+    {
+      "id": "main-board",
+      "model": "BoardDoc",
+      "payload": {"title": "Main board", "tasks": ["task-onboarding", "task-review"]}
+    },
+    {
+      "id": "task-onboarding",
+      "model": "TaskDoc",
+      "payload": {"title": "Onboarding", "status": "open", "blocks": ["task-review"]}
+    },
+    {
+      "id": "task-review",
+      "model": "TaskDoc",
+      "payload": {"title": "Review plan", "status": "done"}
+    }
+  ],
+  "view": {
+    "positions": {
+      "main-board": {"x": 40, "y": 60},
+      "task-onboarding": {"x": 320, "y": 180},
+      "task-review": {"x": 320, "y": 320}
+    },
+    "collapsed": ["main-board"]
+  }
+}

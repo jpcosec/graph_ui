@@ -44,8 +44,7 @@ class ProxyHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         route = urlparse(self.path).path
         if route == '/api/schema':
-            from sldb.cli.serve.schema import schema_models
-            self.json_response({'models': schema_models(self.editor_store.store, self.editor_store.pythonpath)})
+            self.json_response(self.editor_store.schema())
         elif route == '/api/graph':
             try:
                 self.json_response(self.editor_store.graph())

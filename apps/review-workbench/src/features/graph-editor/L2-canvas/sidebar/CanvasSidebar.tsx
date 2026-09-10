@@ -20,7 +20,8 @@ import { ViewSection } from './ViewSection';
 const accordionClassName = 'px-4 font-mono text-[10px] uppercase tracking-[0.24em]';
 
 interface CanvasSidebarProps {
-  onSave: () => void;
+  onSave?: () => void;
+  editable?: boolean;
   variant?: 'default' | 'compact';
   topPanel?: ReactNode;
 }
@@ -42,7 +43,7 @@ function AccordionPanel({
   );
 }
 
-export function CanvasSidebar({ onSave, variant = 'default', topPanel }: CanvasSidebarProps) {
+export function CanvasSidebar({ onSave, editable = true, variant = 'default', topPanel }: CanvasSidebarProps) {
   const sidebarOpen = useUIStore((state) => state.sidebarOpen);
   const toggleSidebar = useUIStore((state) => state.toggleSidebar);
 
@@ -74,7 +75,9 @@ export function CanvasSidebar({ onSave, variant = 'default', topPanel }: CanvasS
                 <span className="font-mono text-[10px] uppercase tracking-[0.24em]">Editor Deck</span>
               </div>
               <h2 className={`font-headline font-bold text-on-surface ${variant === 'compact' ? 'mt-2 text-[1.35rem]' : 'mt-3 text-2xl'}`}>Control surface</h2>
-              <p className={`text-muted-foreground ${variant === 'compact' ? 'mt-1 text-[12px] leading-relaxed' : 'mt-1 text-sm'}`}>Build, filter, and save without overpowering the graph.</p>
+              <p className={`text-muted-foreground ${variant === 'compact' ? 'mt-1 text-[12px] leading-relaxed' : 'mt-1 text-sm'}`}>
+                {editable ? 'Build, filter, and save without overpowering the graph.' : 'Inspect and filter the live projection.'}
+              </p>
             </div>
 
             <Button
@@ -107,18 +110,18 @@ export function CanvasSidebar({ onSave, variant = 'default', topPanel }: CanvasS
             </div>
           </div>
 
-          <Accordion type="multiple" defaultValue={variant === 'compact' ? ['actions', 'creation', 'view', 'encoding', 'views'] : ['actions', 'filters', 'creation', 'view', 'encoding', 'views']} className="space-y-3 px-1 pb-4">
-            <AccordionPanel value="actions" title="Actions">
+          <Accordion type="multiple" defaultValue={editable ? (variant === 'compact' ? ['actions', 'creation', 'view', 'encoding', 'views'] : ['actions', 'filters', 'creation', 'view', 'encoding', 'views']) : ['filters', 'view', 'encoding', 'views']} className="space-y-3 px-1 pb-4">
+            {editable && onSave ? <AccordionPanel value="actions" title="Actions">
               <ActionsSection onSave={onSave} />
-            </AccordionPanel>
+            </AccordionPanel> : null}
 
             <AccordionPanel value="filters" title="Filters">
               <FiltersSection />
             </AccordionPanel>
 
-            <AccordionPanel value="creation" title="Creation">
+            {editable ? <AccordionPanel value="creation" title="Creation">
               <CreationSection />
-            </AccordionPanel>
+            </AccordionPanel> : null}
 
             <AccordionPanel value="view" title="View">
               <ViewSection />

@@ -23,20 +23,32 @@ python3 frontends/mindmap/serve.py 8090
 
 ## Capas
 
-`serve.py` sirve los archivos estáticos, expone `/api/schema` y `/api/graph`, y
-recibe `POST /api/save`. Las rutas `/sldb/*` siguen disponibles como proxy de
-solo lectura/escritura hacia el servidor SLDB configurado en `SLDB_URL`.
+`sldb_adapter.py` es el único módulo que habla con SLDB: schema, documentos,
+validación round-trip (por nombre o por ref), create/update/delete, alta de
+modelos y vista (posiciones y plegado) con revisión SHA-256. Ningún otro
+archivo de este frontend importa internos de SLDB directamente; esa regla la
+vigila `tests/test_mindmap_adapter.py`. El schema expone además los metadatos
+de grafo declarados por los modelos (`__containment__` y `__references__` en
+`StructuredNLDoc`): el mapa no usa listas hardcodeadas cuando el schema
+declara esta información.
 
-`persistence.py` es el puente de escritura. Prevalida todos los cambios de un
-lote, usa los modelos y validadores nativos de SLDB, crea o actualiza Markdown,
-actualiza índices y guarda la vista (posiciones y plegado) en
-`.sldb/runtime/mindmap-view.json`. Rechaza conflictos de contenido mediante el
-payload esperado y conflictos de vista mediante una revisión SHA-256.
+`contract.py` define el contrato de intercambio JSON congelado (versión 1):
+identidad, título, contención/relaciones como referencias del payload y vista
+como metadatos. El fixture canónico vive en `fixtures/kb-small.json`.
+
+`serve.py` sirve los archivos estáticos, expone `/api/schema` y `/api/graph` mediante el adaptador, y recibe `POST /api/save`. Las rutas `/sldb/*` siguen disponibles como proxy de solo lectura/escritura hacia el servidor SLDB configurado en `SLDB_URL`.
+
+`persistence.py` es la lógica de lote: prevalida todos los cambios de un lote con el adaptador, crea o actualiza Markdown, actualiza índices y guarda la vista en `.sldb/runtime/mindmap-view.json`. Rechaza conflictos de contenido mediante el payload esperado y conflictos de vista mediante la revisión SHA-256. Todas las operaciones de store se delegan al adaptador.
+
+`compiler.py` compila el JSON declarativo al store SLDB a través del adaptador y ofrece `validate_source` (contrato), `plan_source` (dry-run con validación real de payloads y detección de cambios) y `compile_json` (apply en dos fases: prevalida todo antes de escribir).
 
 `model.mjs` contiene la proyección de presentación. Define iconos y colores por
 clase, resuelve aliases de documentos, distingue relaciones de contención,
-calcula jerarquías y genera nodos React Flow. La proyección nunca cambia el
-payload por sí sola.
+calcula jerarquías y genera nodos React Flow. La contención y los campos de
+referencia provienen de `graphMaps(schema)`; las constantes `CONTAINMENT` y
+`REFERENCE_FIELDS` son solo fallback de compatibilidad para stores cuyos
+modelos aún no declaran metadatos. La proyección nunca cambia el payload por
+sí sola.
 
 `editor.js` contiene el estado de la interacción: selección, modo foco,
 modal de ficha, creación rápida, conexión, undo/redo, búsqueda, filtros y
@@ -80,7 +92,8 @@ completo. El modo foco no modifica documentos ni vista persistida.
 
 ```sh
 node --test tests/mindmap-model.test.mjs
-python3 -m pytest tests/test_mindmap_persistence.py -q
+python3 -m pytest tests/test_mindmap_contract.py tests/test_mindmap_adapter.py tests/test_mindmap_persistence.py -q
+python3 -m pytest tests/test_mindmap_compiler.py -q
 ```
 
 Las pruebas de persistencia crean stores temporales y prueban creación,

@@ -18,7 +18,8 @@ import { toast } from 'sonner';
 interface GraphEditorProps {
   initialNodes: ASTNode[];
   initialEdges: ASTEdge[];
-  onSave: () => void;
+  onSave?: () => void;
+  editable?: boolean;
   hero?: {
     eyebrow: string;
     title: string;
@@ -35,8 +36,8 @@ interface GraphEditorProps {
   overlayPlacement?: 'canvas' | 'sidebar';
 }
 
-export function GraphEditor({ initialNodes, initialEdges, onSave, hero, workspace, topOverlay, shellVariant = 'default', contentTopInset = 0, overlayPlacement = 'canvas' }: GraphEditorProps) {
-  useKeyboard();
+export function GraphEditor({ initialNodes, initialEdges, onSave, editable = true, hero, workspace, topOverlay, shellVariant = 'default', contentTopInset = 0, overlayPlacement = 'canvas' }: GraphEditorProps) {
+  useKeyboard(editable);
 
   void initialNodes;
   void initialEdges;
@@ -86,23 +87,24 @@ export function GraphEditor({ initialNodes, initialEdges, onSave, hero, workspac
 
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,165,116,0.08),transparent_26%),radial-gradient(circle_at_bottom_left,rgba(230,168,92,0.08),transparent_24%)]" />
         <div className="relative h-full" style={{ paddingTop: contentTopInset ? `${contentTopInset}px` : undefined }}>
-          <GraphCanvas />
+          <GraphCanvas editable={editable} />
         </div>
       </div>
       <CanvasSidebar
         onSave={onSave}
+        editable={editable}
         variant={shellVariant === 'compact' ? 'compact' : 'default'}
         topPanel={topOverlay && overlayPlacement === 'sidebar' ? topOverlay : undefined}
       />
-      <NodeInspector />
-      <EdgeInspector />
-      <DeleteConfirm
+      {editable ? <NodeInspector /> : null}
+      {editable ? <EdgeInspector /> : null}
+      {editable ? <DeleteConfirm
         open={deleteConfirmOpen}
         onOpenChange={(open) => !open && closeDeleteConfirm()}
         target={deleteTarget}
         onConfirm={handleConfirm}
-      />
-      <CommandMenu open={commandDialogOpen} onOpenChange={closeCommandDialog} onSave={onSave} />
+      /> : null}
+      {editable && onSave ? <CommandMenu open={commandDialogOpen} onOpenChange={closeCommandDialog} onSave={onSave} /> : null}
       <Toaster />
     </div>
   );

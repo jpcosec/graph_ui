@@ -77,7 +77,7 @@ describe('buildAntoniaGraphFromDocuments', () => {
 
     const graph = await buildAntoniaGraphFromDocuments([...content, ...relations]);
     expect(graph.nodes).toHaveLength(3);
-    expect(graph.edges.map((e) => [e.source, e.target, e.data.relationType])).toEqual([
+    expect(graph.edges.map((e) => [e.source, e.target, e.data?.relationType])).toEqual([
       ['step-1', 'step-2', 'flows_to'],
       ['step-2', 'step-3', 'flows_to'],
     ]);

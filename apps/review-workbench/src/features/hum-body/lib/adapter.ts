@@ -1,15 +1,249 @@
 import { z } from 'zod';
 
+import type { SldbDocument } from '@/features/graph-editor/lib/data-provider';
 import type { NodeTypeRegistry } from '@/schema/registry';
 import type { NodeTypeDefinition } from '@/schema/registry.types';
 import type { ASTEdge, ASTNode } from '@/stores/types';
 
 import { HumCard, HumDot, HumLabel } from '../renderers';
-import { humBodyModel } from './mock-data';
-import type { HumAstFile, HumBodyModel, HumRoutine, HumTrace, HumViewMode } from './types';
+import type {
+  HumArtifact,
+  HumAstFile,
+  HumAstForm,
+  HumBodyModel,
+  HumCapability,
+  HumOrgan,
+  HumRoutine,
+  HumRoutineStep,
+  HumTrace,
+  HumTraceEvent,
+  HumViewMode,
+} from './types';
 
-const humNodeKinds = ['hum-body', 'hum-organ', 'hum-capability', 'hum-artifact', 'hum-routine-step', 'hum-trace-event', 'hum-ast-file', 'hum-ast-form'] as const;
+const humNodeKinds = ['hum-organ', 'hum-capability', 'hum-artifact', 'hum-routine-step', 'hum-trace-event', 'hum-ast-file', 'hum-ast-form'] as const;
 let humNodeTypesRegistered = false;
+
+// ── Document type predicates ─────────────────────────────────────────────
+
+function normalizedModelName(doc: SldbDocument): string {
+  return doc.model_name.toLowerCase().replace(/doc$/, '').replace(/^hum/, '');
+}
+
+function isOrganDoc(doc: SldbDocument): boolean {
+  return normalizedModelName(doc) === 'organ';
+}
+
+function isCapabilityDoc(doc: SldbDocument): boolean {
+  return normalizedModelName(doc) === 'capability';
+}
+
+function isArtifactDoc(doc: SldbDocument): boolean {
+  return normalizedModelName(doc) === 'artifact';
+}
+
+function isRoutineDoc(doc: SldbDocument): boolean {
+  return normalizedModelName(doc) === 'routine';
+}
+
+function isTraceDoc(doc: SldbDocument): boolean {
+  return normalizedModelName(doc) === 'trace';
+}
+
+function isFileDoc(doc: SldbDocument): boolean {
+  return ['file', 'astfile'].includes(normalizedModelName(doc).replace(/[-_]/g, ''));
+}
+
+function isFormDoc(doc: SldbDocument): boolean {
+  return ['form', 'astform'].includes(normalizedModelName(doc).replace(/[-_]/g, ''));
+}
+
+// ── Document → model parsers ─────────────────────────────────────────
+
+function asRecord(value: unknown): Record<string, unknown> {
+  if (value && typeof value === 'object') {
+    return value as Record<string, unknown>;
+  }
+  return {};
+}
+
+function safeString(payload: Record<string, unknown>, key: string, fallback = ''): string {
+  const value = payload[key];
+  return typeof value === 'string' ? value : fallback;
+}
+
+function firstString(payload: Record<string, unknown>, keys: string[], fallback = ''): string {
+  for (const key of keys) {
+    const value = payload[key];
+    if (typeof value === 'string' && value.length > 0) {
+      return value;
+    }
+  }
+  return fallback;
+}
+
+function safeNumber(payload: Record<string, unknown>, key: string, fallback = 0): number {
+  const value = payload[key];
+  return typeof value === 'number' ? value : fallback;
+}
+
+function safePosition(payload: Record<string, unknown>, fallbackX = 0, fallbackY = 0): { x: number; y: number } {
+  const pos = payload.position;
+  if (pos && typeof pos === 'object') {
+    const p = pos as Record<string, unknown>;
+    return {
+      x: typeof p.x === 'number' ? p.x : fallbackX,
+      y: typeof p.y === 'number' ? p.y : fallbackY,
+    };
+  }
+  return { x: fallbackX, y: fallbackY };
+}
+
+function parseOrgan(doc: SldbDocument, index: number): HumOrgan {
+  const payload = asRecord(doc.payload);
+  return {
+    id: doc.id,
+    label: firstString(payload, ['label', 'title'], doc.id),
+    packageName: firstString(payload, ['packageName', 'package_name']),
+    filePath: firstString(payload, ['filePath', 'file_path']),
+    description: safeString(payload, 'description'),
+    position: safePosition(payload, 220 + (index % 4) * 280, 120 + Math.floor(index / 4) * 380),
+    colorToken: firstString(payload, ['colorToken', 'color_token'], 'token-hum-core'),
+  };
+}
+
+function parseCapability(doc: SldbDocument, index: number): HumCapability {
+  const payload = asRecord(doc.payload);
+  return {
+    id: doc.id,
+    organId: firstString(payload, ['organId', 'organ_id']),
+    label: firstString(payload, ['label', 'title'], doc.id),
+    functionName: firstString(payload, ['functionName', 'function_name']),
+    filePath: firstString(payload, ['filePath', 'file_path']),
+    description: safeString(payload, 'description'),
+    position: safePosition(payload, 180 + (index % 5) * 240, 260 + Math.floor(index / 5) * 150),
+    role: safeString(payload, 'role', 'execution'),
+    kind: safeString(payload, 'kind') === 'tool' ? 'tool' : undefined,
+  };
+}
+
+function parseArtifact(doc: SldbDocument, index: number): HumArtifact {
+  const payload = asRecord(doc.payload);
+  return {
+    id: doc.id,
+    ownerId: firstString(payload, ['ownerId', 'owner_id']),
+    label: firstString(payload, ['label', 'title'], doc.id),
+    artifactPath: firstString(payload, ['artifactPath', 'artifact_path']),
+    description: safeString(payload, 'description'),
+    position: safePosition(payload, 180 + (index % 5) * 240, 720 + Math.floor(index / 5) * 120),
+  };
+}
+
+function parseRoutineStep(value: unknown, stepIndex: number): HumRoutineStep | null {
+  if (typeof value === 'string') {
+    return { id: value, label: value, targetId: value, description: '' };
+  }
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    return null;
+  }
+  const payload = value as Record<string, unknown>;
+  return {
+    id: safeString(payload, 'id', `step-${stepIndex}`),
+    label: safeString(payload, 'label', `Step ${stepIndex + 1}`),
+    targetId: firstString(payload, ['targetId', 'target_id']),
+    description: safeString(payload, 'description'),
+    status: (safeString(payload, 'status') as HumRoutineStep['status']) || 'expected',
+  };
+}
+
+function parseRoutine(doc: SldbDocument): HumRoutine {
+  const payload = asRecord(doc.payload);
+  const rawSteps = Array.isArray(payload.steps)
+    ? payload.steps
+    : Array.isArray(payload.decomposition)
+      ? payload.decomposition
+      : [];
+  return {
+    id: doc.id,
+    label: firstString(payload, ['label', 'title'], doc.id),
+    description: firstString(payload, ['description', 'summary']),
+    steps: rawSteps.map(parseRoutineStep).filter((step): step is HumRoutineStep => step !== null),
+  };
+}
+
+function parseTraceEvent(value: unknown, eventIndex: number): HumTraceEvent | null {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    return null;
+  }
+  const payload = value as Record<string, unknown>;
+  return {
+    id: safeString(payload, 'id', `event-${eventIndex}`),
+    label: safeString(payload, 'label', `Event ${eventIndex + 1}`),
+    targetId: firstString(payload, ['targetId', 'target_id']),
+    description: safeString(payload, 'description'),
+    outcome: (safeString(payload, 'outcome', 'done') as HumTraceEvent['outcome']),
+    notes: safeString(payload, 'notes') || undefined,
+    mirrorsStepId: firstString(payload, ['mirrorsStepId', 'mirrors_step_id']) || undefined,
+    energyDelta: safeNumber(payload, 'energyDelta', safeNumber(payload, 'energy_delta')) || undefined,
+  };
+}
+
+function parseTrace(doc: SldbDocument): HumTrace {
+  const payload = asRecord(doc.payload);
+  const rawEvents = Array.isArray(payload.events) ? payload.events : [];
+  return {
+    id: doc.id,
+    label: firstString(payload, ['label', 'title'], doc.id),
+    description: firstString(payload, ['description', 'summary']),
+    routineId: firstString(payload, ['routineId', 'routine_id']),
+    events: rawEvents.map(parseTraceEvent).filter((event): event is HumTraceEvent => event !== null),
+  };
+}
+
+function parseAstFile(doc: SldbDocument): HumAstFile {
+  const payload = asRecord(doc.payload);
+  const size = payload.size && typeof payload.size === 'object'
+    ? (payload.size as Record<string, unknown>)
+    : {};
+  return {
+    id: doc.id,
+    label: firstString(payload, ['label', 'title'], doc.id),
+    filePath: firstString(payload, ['filePath', 'file_path', 'path'], doc.path),
+    description: safeString(payload, 'description'),
+    position: safePosition(payload, 72, 250),
+    size: {
+      width: typeof size.width === 'number' ? size.width : 372,
+      height: typeof size.height === 'number' ? size.height : 636,
+    },
+  };
+}
+
+function parseAstForm(doc: SldbDocument): HumAstForm {
+  const payload = asRecord(doc.payload);
+  return {
+    id: doc.id,
+    fileId: firstString(payload, ['fileId', 'file_id']),
+    label: firstString(payload, ['label', 'title'], doc.id),
+    formType: firstString(payload, ['formType', 'form_type'], 'form'),
+    description: safeString(payload, 'description'),
+    position: safePosition(payload, 18, 74),
+  };
+}
+
+// ── Build HumBodyModel from SldbDocuments ────────────────────────────
+
+export function buildHumModelFromDocuments(documents: SldbDocument[]): HumBodyModel {
+  return {
+    astFiles: documents.filter(isFileDoc).map(parseAstFile),
+    astForms: documents.filter(isFormDoc).map(parseAstForm),
+    organs: documents.filter(isOrganDoc).map(parseOrgan),
+    capabilities: documents.filter(isCapabilityDoc).map(parseCapability),
+    artifacts: documents.filter(isArtifactDoc).map(parseArtifact),
+    routines: documents.filter(isRoutineDoc).map(parseRoutine),
+    traces: documents.filter(isTraceDoc).map(parseTrace),
+  };
+}
+
+// ── Graph building (unchanged logic, no mock data dependency) ────────
 
 function propertyRecord(entries: Array<[string, string | number | undefined]>): Record<string, string> {
   return Object.fromEntries(entries.filter(([, value]) => value !== undefined).map(([key, value]) => [key, String(value)]));
@@ -126,17 +360,6 @@ export function registerHumNodeTypes(targetRegistry: Pick<NodeTypeRegistry, 'reg
 
   const definitions: NodeTypeDefinition[] = [
     {
-      typeId: 'hum-body',
-      label: 'HUM Body',
-      icon: 'bot',
-      category: 'body',
-      colorToken: 'token-hum-body',
-      payloadSchema: baseSchema,
-      renderers: { dot: HumDot, label: HumLabel, detail: HumCard },
-      defaultSize: { width: 260, height: 86 },
-      allowedConnections: ['hum-organ', 'hum-routine-step', 'hum-trace-event'],
-    },
-    {
       typeId: 'hum-organ',
       label: 'Organ',
       icon: 'brain',
@@ -220,22 +443,7 @@ export function registerHumNodeTypes(targetRegistry: Pick<NodeTypeRegistry, 'reg
 }
 
 function anatomyNodes(model: HumBodyModel): ASTNode[] {
-  const nodes: ASTNode[] = [
-    makeNode(
-      'hum-body',
-      'hum-body',
-      'HUM',
-      { x: 670, y: 0 },
-      'token-hum-body',
-      propertyRecord([
-        ['view', 'Embodied shell'],
-        ['scope', 'Packages, tools, routines, traces'],
-      ]),
-      {
-        description: 'Hum visualized as a body whose packages are organs and whose routines/traces are motion through that body.',
-      },
-    ),
-  ];
+  const nodes: ASTNode[] = [];
 
   for (const organ of model.organs) {
     nodes.push(
@@ -260,11 +468,10 @@ function anatomyNodes(model: HumBodyModel): ASTNode[] {
   }
 
   for (const capability of model.capabilities) {
-    const typeId = capability.kind === 'tool' ? 'hum-capability' : 'hum-capability';
     nodes.push(
       makeNode(
         capability.id,
-        typeId,
+        'hum-capability',
         capability.label,
         capability.position,
         organVisualToken(capability.organId),
@@ -375,74 +582,44 @@ function structureNodes(model: HumBodyModel): ASTNode[] {
 
   for (const form of model.astForms) {
     const parent = model.astFiles.find((candidate) => candidate.id === form.fileId);
-    nodes.push({
-      ...makeNode(
-        form.id,
-        'hum-ast-form',
-        form.label,
-        form.position,
-        'token-hum-memory',
-        propertyRecord([
-          ['form', form.formType],
-          ['file', parent?.label],
-        ]),
-        {
-          filePath: parent?.filePath,
-          description: form.description,
-          badges: ['form', form.formType],
-        },
-      ),
-      parentId: form.fileId,
+    const node = makeNode(
+      form.id,
+      'hum-ast-form',
+      form.label,
+      form.position,
+      'token-hum-memory',
+      propertyRecord([
+        ['form', form.formType],
+        ['file', parent?.label],
+      ]),
+      {
+        filePath: parent?.filePath,
+        description: form.description,
+        badges: ['form', form.formType],
+      },
+    );
+    nodes.push(parent ? {
+      ...node,
+      parentId: parent.id,
       extent: 'parent',
       // Children hidden initially because their parent group is collapsed.
       hidden: true,
-    });
+    } : node);
   }
 
   return nodes;
 }
 
 function structureEdges(model: HumBodyModel): ASTEdge[] {
-  const edges: ASTEdge[] = [];
-
-  const findFormId = (matcher: (label: string) => boolean) => model.astForms.find((form) => matcher(form.label))?.id;
-
-  for (const organ of model.organs) {
-    const pkgFormId = findFormId((label) => label.includes(organ.packageName));
-    if (pkgFormId) {
-      edges.push(edge(`ast-package-${pkgFormId}-${organ.id}`, pkgFormId, organ.id, 'declares'));
-    }
-  }
-
-  const callMap: Array<[string | undefined, string | undefined, string]> = [
-    [findFormId((label) => label.includes('consulta-llm')), findFormId((label) => label.includes('run-system-command')), 'calls'],
-    [findFormId((label) => label.includes('consulta-llm')), findFormId((label) => label.includes('calculate-systemic-energy')), 'reads'],
-    [findFormId((label) => label.includes('ejecutar-accion')), findFormId((label) => label.includes('call-tool')), 'calls'],
-    [findFormId((label) => label.includes('agente')), findFormId((label) => label.includes('save-context')), 'writes'],
-    [findFormId((label) => label.includes('agente')), findFormId((label) => label.includes('save-thoughts')), 'writes'],
-    [findFormId((label) => label.includes('agente')), findFormId((label) => label.includes('save-stats')), 'writes'],
-    [findFormId((label) => label.includes('agente')), findFormId((label) => label.includes('dump-raw-log')), 'writes'],
-    [findFormId((label) => label.includes('loop-autopoyetico')), findFormId((label) => label.includes('commit-state')), 'commits'],
-    [findFormId((label) => label.includes('inspeccionar-self')), findFormId((label) => label.includes('run-system-command')), 'calls'],
-    [findFormId((label) => label.includes('ejecuta-shell')), findFormId((label) => label.includes('run-system-command')), 'calls'],
-  ];
-
-  for (const [source, target, relation] of callMap) {
-    if (!source || !target) {
-      continue;
-    }
-    edges.push(edge(`ast-${source}-${target}`, source, target, relation));
-  }
-
-  return edges;
+  // File/form containment is represented by React Flow's parentId relationship.
+  // Cross-document relations require authored source data and are not inferred
+  // from labels here.
+  void model;
+  return [];
 }
 
 function anatomyEdges(model: HumBodyModel): ASTEdge[] {
   const edges: ASTEdge[] = [];
-
-  for (const organ of model.organs) {
-    edges.push(edge(`contains-${organ.id}`, 'hum-body', organ.id, 'contains'));
-  }
 
   for (const capability of model.capabilities) {
     edges.push(edge(`contains-${capability.organId}-${capability.id}`, capability.organId, capability.id, 'contains'));
@@ -452,17 +629,12 @@ function anatomyEdges(model: HumBodyModel): ASTEdge[] {
     edges.push(edge(`writes-${artifact.ownerId}-${artifact.id}`, artifact.ownerId, artifact.id, 'writes'));
   }
 
-  edges.push(edge('calls-core-system', 'cap-consulta-llm', 'cap-run-system-command', 'calls'));
-  edges.push(edge('calls-core-confirm', 'cap-consulta-llm', 'cap-pedir-confirmacion', 'flows-to'));
-  edges.push(edge('calls-confirm-execute', 'cap-pedir-confirmacion', 'cap-ejecutar-accion', 'flows-to'));
-  edges.push(edge('calls-execute-tools', 'cap-ejecutar-accion', 'tool-ejecuta-shell', 'calls'));
-  edges.push(edge('calls-execute-self', 'cap-ejecutar-accion', 'tool-inspeccionar-self', 'calls'));
-  edges.push(edge('calls-core-energy', 'cap-consulta-llm', 'cap-calculate-energy', 'reads'));
-  edges.push(edge('calls-close-commit', 'cap-loop-autopoietico', 'cap-commit-state', 'commits'));
-  edges.push(edge('reads-env', 'cap-consulta-llm', 'artifact-env', 'reads'));
-  edges.push(edge('writes-journal', 'cap-dump-raw-log', 'artifact-session-log', 'writes'));
-
   return edges;
+}
+
+function keepConnectedEdges(nodes: ASTNode[], edges: ASTEdge[]): ASTEdge[] {
+  const nodeIds = new Set(nodes.map((node) => node.id));
+  return edges.filter((candidate) => nodeIds.has(candidate.source) && nodeIds.has(candidate.target));
 }
 
 function routineOverlay(routine: HumRoutine): { nodes: ASTNode[]; edges: ASTEdge[] } {
@@ -554,16 +726,19 @@ function traceOverlay(trace: HumTrace, includeRoutineLinks: boolean): { nodes: A
   return { nodes, edges };
 }
 
+// ── Public view builder ──────────────────────────────────────────────
+
 export function buildHumViewGraph(
   mode: HumViewMode,
   routineId: string,
   traceId: string,
-  model: HumBodyModel = humBodyModel,
+  model: HumBodyModel,
 ): { nodes: ASTNode[]; edges: ASTEdge[] } {
   if (mode === 'structure') {
+    const nodes = structureNodes(model);
     return {
-      nodes: structureNodes(model),
-      edges: structureEdges(model),
+      nodes,
+      edges: keepConnectedEdges(nodes, structureEdges(model)),
     };
   }
 
@@ -573,29 +748,30 @@ export function buildHumViewGraph(
   const routine = model.routines.find((candidate) => candidate.id === routineId) ?? model.routines[0];
   const trace = model.traces.find((candidate) => candidate.id === traceId) ?? model.traces[0];
 
-  if (!routine || !trace) {
-    return { nodes, edges };
-  }
-
   const includeRoutineOverlay = mode === 'routine' || mode === 'compare';
   const includeTraceOverlay = mode === 'trace' || mode === 'compare';
 
-  if (includeRoutineOverlay) {
+  if (includeRoutineOverlay && routine) {
     const overlay = routineOverlay(routine);
     nodes.push(...overlay.nodes);
     edges.push(...overlay.edges);
   }
 
-  if (includeTraceOverlay) {
-    const overlay = traceOverlay(trace, includeRoutineOverlay && trace.routineId === routine.id);
+  if (includeTraceOverlay && trace) {
+    const overlay = traceOverlay(trace, Boolean(includeRoutineOverlay && routine && trace.routineId === routine.id));
     nodes.push(...overlay.nodes);
     edges.push(...overlay.edges);
   }
 
-  return { nodes, edges };
+  return { nodes, edges: keepConnectedEdges(nodes, edges) };
 }
 
-export function summarizeHumSelection(mode: HumViewMode, routineId: string, traceId: string, model: HumBodyModel = humBodyModel) {
+export function summarizeHumSelection(
+  mode: HumViewMode,
+  routineId: string,
+  traceId: string,
+  model: HumBodyModel,
+) {
   const routine = model.routines.find((candidate) => candidate.id === routineId) ?? model.routines[0];
   const trace = model.traces.find((candidate) => candidate.id === traceId) ?? model.traces[0];
 
