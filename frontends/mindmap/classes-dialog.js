@@ -23,6 +23,8 @@ export function ClassDialog({models,request,onClose,onRefresh}) {
   };
   const run=async(action,...args)=>{
     setBusy(true);setFailed(false);setMessage('');
+    if(action==='promote'&&!validated){setFailed(true);return setMessage('Primero debes validar el draft antes de promover.');}
+    if(action==='promote'&&!confirm(`¿Promover el draft de ${classStyle(model).name}? Esta operación actualizará el modelo activo y los hashes de documentos.`)){setBusy(false);return;}
     try{
       let body;
       if(action==='template-edit')body={model,content:templateText};
@@ -34,11 +36,7 @@ export function ClassDialog({models,request,onClose,onRefresh}) {
         setValidated(result.ok!==false);
         setDraft(result.draft||false);
       }
-      if(action==='promote'){
-        if(!validated){setFailed(true);return setMessage('Primero debes validar el draft antes de promover.');}
-        const ok=confirm(`¿Promover el draft de ${classStyle(model).name}? Esta operación actualizará el modelo activo y los hashes de documentos.`);
-        if(!ok){setBusy(false);return;}
-      }
+      if(action!=='validate'&&action!=='promote')setValidated(false); // el draft cambió: hay que revalidar
       if(result.ok===false||result.error){setFailed(true);setMessage(result.error||'Operación fallida.');setDetail(result);}
       else{setMessage('Operación completada.');setDetail(result);setNewField('');setNewFieldDesc('');if(action==='promote')await onRefresh();}
     }catch(e){setFailed(true);setDetail(e.body||{ok:false,error:e.message});setMessage(e.message);}
@@ -67,15 +65,15 @@ export function ClassDialog({models,request,onClose,onRefresh}) {
               <td style=${{padding:'6px 8px'}}><small>${f.description||f.name}</small></td>
               <td style=${{padding:'6px 8px'}}><button type="button" className=${'icon-button'+(draftActive?'':' hidden')} disabled=${busy} onClick=${()=>run('fields-remove',f.name)} title="Quitar campo del draft">×</button></td>
             </tr>`)}
-            <tr style=${{borderTop:'1px solid #e2e8f0',background:'#fffbeb'}}><td style=${{padding:'6px 8px'}}><input value=${newFieldName} placeholder="name" style=${{width:'80px'}} onInput=${e=>setNewField(e.target.value)}/></td>
+            <tr style=${{borderTop:'1px solid #e2e8f0',background:'#fffbeb'}}><td style=${{padding:'6px 8px'}}><input value=${newFieldName} placeholder="name" style=${{width:'80px'}} onInput=${e=>{setNewField(e.target.value);setValidated(false);}}/></td>
             <td style=${{padding:'6px 8px'}}><select value=${newFieldType} onChange=${e=>setNewFieldType(e.target.value)}>
               ${['string','integer','number','boolean','json','list','enum'].map(t=>html`<option key=${t} value=${t}>${t}</option>`)}
             </select></td><td style=${{padding:'6px 8px'}}></td><td style=${{padding:'6px 8px'}}></td>
-            <td style=${{padding:'6px 8px'}}><input value=${newFieldDesc} placeholder="description" style=${{width:'100px'}} onInput=${e=>setNewFieldDesc(e.target.value)}/></td>
+            <td style=${{padding:'6px 8px'}}><input value=${newFieldDesc} placeholder="description" style=${{width:'100px'}} onInput=${e=>{setNewFieldDesc(e.target.value);setValidated(false);}}/></td>
             <td style=${{padding:'6px 8px'}}><button type="button" disabled=${busy||!newFieldName} onClick=${()=>run('fields-add')}>+</button></td></tr>
           </table><p style=${{fontSize:'10px',color:'#8490a3',margin:'6px 0 10px'}}>El draft debe tener contenido; usar Validar draft para revisarlo. — Los campos sin draft no se pueden quitar.</p>`:''}
           <details style=${{marginTop:'10px'}}><summary style=${{fontSize:'12px',cursor:'pointer'}}>Template</summary>
-            <textarea rows="4" style=${{width:'100%',marginTop:'8px'}} value=${templateText} placeholder="Markdown del template…" onInput=${e=>setTemplate(e.target.value)}/>
+            <textarea rows="4" style=${{width:'100%',marginTop:'8px'}} value=${templateText} placeholder="Markdown del template…" onInput=${e=>{setTemplate(e.target.value);setValidated(false);}}/>
             <button type="button" disabled=${busy||!templateText} onClick=${()=>run('template-edit')}>Editar template</button>
           </details>
           <div style=${{marginTop:'12px',display:'flex',gap:'7px',flexWrap:'wrap'}}>

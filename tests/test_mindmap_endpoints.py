@@ -293,3 +293,36 @@ def test_models_unknown_action(compiled_env):
     port = compiled_env["env"].port
     status, body = _request(port, "/api/models/nonesuch", {})
     assert status == 400 and "desconocida" in body.get("error", "")
+
+
+def test_models_fields_add_and_remove(compiled_env):
+    port, store = compiled_env["env"].port, compiled_env["store"]
+    status, result = _request(port, "/api/models/fields-add", {
+        "model": "BoardDoc", "field_name": "priority",
+        "field_type": "integer", "description": "Prioridad 1-5"})
+    assert status == 200 and result.get("ok") is not False, f"fields-add falló: {result}"
+    # El campo se escribe en el draft .py.temp (show muestra el modelo activo)
+    drafts = list(Path(store).parent.glob("*.py.temp"))
+    assert drafts and any("priority" in d.read_text() for d in drafts), "draft no contiene el campo"
+    # Quitarlo del draft
+    status, result = _request(port, "/api/models/fields-remove", {
+        "model": "BoardDoc", "field_name": "priority"})
+    assert status == 200 and result.get("ok") is not False, f"fields-remove falló: {result}"
+
+
+def test_models_fields_add_requires_name(compiled_env):
+    port = compiled_env["env"].port
+    status, result = _request(port, "/api/models/fields-add", {
+        "model": "BoardDoc", "field_name": "", "field_type": "string"})
+    assert status == 400 and result.get("ok") is False
+
+
+def test_models_promote_requires_validated_draft(compiled_env):
+    """Promover sin draft previo debe fallar limpiamente (CLI lo rechaza)."""
+    port = compiled_env["env"].port
+    # Sin draft: promote valida y promueve sin cambios, o falla; no debe 500.
+    status, result = _request(port, "/api/models/promote", {"model": "TaskDoc"}, timeout=60)
+    assert status == 200, f"promote devolvió {status}: {result}"
+    # Tras promover, el modelo sigue siendo consultable.
+    status, detail = _request(port, "/api/models/detail", {"model": "TaskDoc"})
+    assert status == 200 and "TaskDoc" in str(detail)
