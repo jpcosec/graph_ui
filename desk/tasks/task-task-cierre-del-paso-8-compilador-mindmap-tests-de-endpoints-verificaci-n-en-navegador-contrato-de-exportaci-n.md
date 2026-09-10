@@ -1,4 +1,46 @@
+---
+id: task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n
+status: active
+summary: ''
+tags:
+- workspace:desk
+- artifact:task
+- source:drawer
+routine: routine-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n
+current_node: checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-execution-ready
+history: []
+references:
+- desk/drawer/tasks/task-mindmap-compiler-closeout.md
+depends_on: []
+pills: []
+files: []
+checklists:
+- checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-execution-ready
+- checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-testing-ready
+- checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-closeout-ready
+task_type: ''
+inherits_from: []
+inherit_acceptance_context: false
+atoms: []
+---
+
 # Task: Cierre del paso 8 — compilador mindmap (tests de endpoints, verificación en navegador, contrato de exportación)
+
+## Rationale
+
+_Explain why this task exists or the business driver behind it._
+
+Not provided.
+
+## Goal
+
+_Describe the concrete result this task must produce._
+
+Promote deferred work from task-mindmap-compiler-closeout.md.
+
+## Scope
+
+_State what is in scope and what is out of scope._
 
 ## Contexto
 
@@ -118,3 +160,21 @@ Esta tarea cierra exactamente ese hueco. NO reimplementar la superficie.
 3. Round-trip export → plan demuestra conservación de documentos y layout.
 4. E2E Playwright del diálogo del compilador pasa sin intervención manual.
 5. `docs/mindmap-finalization-plan.md` refleja el estado real del paso 8.
+
+## Implementation Path
+
+_Outline the expected implementation route or affected surface._
+
+Promoted from desk/drawer/tasks/task-mindmap-compiler-closeout.md.
+
+## Validation
+
+_List the checks required before this task can close._
+
+- pytest
+
+## Done When
+
+_Name the observable condition that makes the task complete._
+
+Promoted work is completed, validated, and closed with a commit.

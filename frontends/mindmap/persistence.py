@@ -16,6 +16,9 @@ SaveError = AdapterError
 class EditorStore:
     def __init__(self, store):
         self.adapter = SldbAdapter(store)
+        # Una KB recién creada (sin core/store_index.yaml) se inicializa vacía:
+        # la UI la muestra como 'Tu KB está vacía' y permite importar un mapa.
+        self.adapter.init_store()
         self.view_path = self.adapter.view_path
         self.store = self.adapter.store
         self.root = self.adapter.root

@@ -2,6 +2,7 @@
 import hashlib
 import json
 import threading
+from pathlib import Path
 
 from compiler import CompileError, compile_json, plan_source, validate_source
 from contract import validate
@@ -15,8 +16,13 @@ class CompilationService:
         self.adapter = adapter
 
     def _token(self, source):
-        snapshot = {'source': source, 'graph': self.adapter.graph(),
-                    'models': self.adapter.export_models()}
+        # Un store sin inicializar es un caso válido de planificación: se
+        # tokeniza como KB vacía (mismo criterio que plan_source).
+        if (Path(self.adapter.store) / 'core' / 'store_index.yaml').exists():
+            snapshot = {'source': source, 'graph': self.adapter.graph(),
+                        'models': self.adapter.export_models()}
+        else:
+            snapshot = {'source': source, 'graph': {'documents': [], 'view': {}}, 'models': []}
         return hashlib.sha256(json.dumps(snapshot, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
     def run(self, action, request):

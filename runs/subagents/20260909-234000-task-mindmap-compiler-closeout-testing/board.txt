@@ -1,0 +1,1 @@
+fdb8a2e desk(drawer): draft task — mindmap compiler closeout (endpoint tests, round-trip, E2E)

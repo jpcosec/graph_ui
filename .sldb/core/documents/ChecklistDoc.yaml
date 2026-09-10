@@ -23,3 +23,27 @@ documents:
   - primitive:checklist
   - type.workflow.checklist
   - workspace.desk.primitives
+- name: checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-execution-ready
+  path: desk/primitives/checklists/checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-execution-ready.md
+  hash_c: 1f9e9492ab78313e40a8176201d4260178018825471f20acc1a6f5279eb852b4
+  hash_d: a573928fb69cde50429ea0586d04a87a48c0d75d071771e0224e23fa05c3fce5
+  semantic_tags:
+  - primitive:checklist
+  - type.workflow.checklist
+  - workspace.desk.primitives
+- name: checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-testing-ready
+  path: desk/primitives/checklists/checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-testing-ready.md
+  hash_c: 2b04a4fbee1423eccd6b263b056193055b138e487268720ff33636a66d0d747d
+  hash_d: 743044db6a1fc7636cba26edd23bcd286e125eb7cd1591834125af2cd657446c
+  semantic_tags:
+  - primitive:checklist
+  - type.workflow.checklist
+  - workspace.desk.primitives
+- name: checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-closeout-ready
+  path: desk/primitives/checklists/checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-closeout-ready.md
+  hash_c: 4ee42326f92855803dadc301fed5a10cbc08e78b1be2c6658fba4429d09b728c
+  hash_d: 948a52aaff3f7fa9430f1ca024ec95b600beaa513beee99aa5b22a11e2ad42b1
+  semantic_tags:
+  - primitive:checklist
+  - type.workflow.checklist
+  - workspace.desk.primitives

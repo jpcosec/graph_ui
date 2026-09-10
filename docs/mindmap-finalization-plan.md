@@ -412,14 +412,18 @@ Avance del plan:
   adaptador; el test de imports no cubre imports dinámicos. El uso de
   DocCLI/ModelCLI como fachada persiste. Para el ciclo de modelos nuevo se debe
   usar la CLI pública mediante un gateway, no importar esas clases internas.
-- **Paso 8 (integración del compilador): en curso.** El working tree contiene
-  un primer cableado de `validate/plan/compile/export` y un diálogo para mostrar
-  reportes. Antes de considerarlo listo faltan pruebas específicas de endpoints,
-  verificación en navegador y revisión del contrato de exportación/recuperación;
-  no se debe volver a implementar esa misma superficie desde cero.
+- **Paso 8 (integración del compilador): listo.** Los endpoints
+  `POST /api/validate|plan|compile|export` tienen cobertura HTTP real
+  (`tests/test_mindmap_endpoints.py`: servidor real + 413/403/400/409/422), el
+  round-trip export → plan contra store vacío demuestra conservación de
+  documentos, altas y layout, y el E2E Playwright
+  (`tests/e2e_mindmap_compiler.py`) importa el fixture desde el
+  `CompilerDialog` (Validar → plan → Aplicar) y captura el export del
+  navegador. Se corrigió de paso el caso de store sin inicializar: la UI ahora
+  muestra 'Tu KB está vacía' en vez de un error y el token del plan lo trata
+  como KB vacía.
 
-Lo pendiente de mayor prioridad es integrar el compilador, construir Brainstorm
-y luego implementar la primera entrega acotada de edición de clases sobre la CLI
+Lo pendiente de mayor prioridad es construir Brainstorm (paso 4) y luego implementar la primera entrega acotada de edición de clases sobre la CLI
 pública ya verificada. Las migraciones de modelos se retoman únicamente cuando
 el motor vigente exponga contratos para impacto completo y transformación de
 payloads. Hasta completar eso, el editor debe considerarse una base funcional y

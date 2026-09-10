@@ -90,7 +90,15 @@ class SldbAdapter:
 
     def graph(self) -> dict[str, Any]:
         with self.lock:
+            if not self._initialized:
+                return {"documents": [], **self.view()}
             return {"documents": [self.serialize(d) for d in self.documents()], **self.view()}
+
+    @property
+    def _initialized(self) -> bool:
+        """Un store sin ``core/store_index.yaml`` todavía no tiene KB: es el
+        estado inicial válido que muestra la UI como 'Tu KB está vacía'."""
+        return (Path(self.store) / "core" / "store_index.yaml").exists()
 
     @staticmethod
     def serialize(doc: Any) -> dict[str, Any]:

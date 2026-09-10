@@ -39,3 +39,43 @@ documents:
   - primitive:condition
   - type.workflow.condition
   - workspace.desk.primitives
+- name: condition-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-has-implementation-path
+  path: desk/primitives/conditions/condition-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-has-implementation-path.md
+  hash_c: 56912c37a296bc57c50dde78ca3f0988993d2f5e5f5944a770fcfe4c0cce99dd
+  hash_d: 3e40df3d09c53453220154dff07d4e6dcf97906d6e16e6772f226c04a7b1b488
+  semantic_tags:
+  - primitive:condition
+  - type.workflow.condition
+  - workspace.desk.primitives
+- name: condition-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-has-validation
+  path: desk/primitives/conditions/condition-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-has-validation.md
+  hash_c: ea73f3d42b84eca6f86b3b5e7900987e9b15abd4dbe66fea8a4637789eedf4d2
+  hash_d: 82e1714138c266e1d8577e465e2905179e315c15fef0b9b833ef79363af0d425
+  semantic_tags:
+  - primitive:condition
+  - type.workflow.condition
+  - workspace.desk.primitives
+- name: condition-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-has-closeout-evidence
+  path: desk/primitives/conditions/condition-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-has-closeout-evidence.md
+  hash_c: c4632e2693c2ac6def52a88bf2f4096e3bacd09f207144d20141973b2b4e8369
+  hash_d: 28874a1c13beeacd82e9e908b624507ccbf583290704f799ebae19976be4d5b8
+  semantic_tags:
+  - primitive:condition
+  - type.workflow.condition
+  - workspace.desk.primitives
+- name: condition-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-pill-knowledge-graduated
+  path: desk/primitives/conditions/condition-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-pill-knowledge-graduated.md
+  hash_c: e0f111afe4c22d5e27c15bcb53c401cc2677fb0ee34e1ea2231ce8bf5e6e5c9d
+  hash_d: 477dd077360b52f43b03f8f04acd64f05030ef6157d9fadce2d95613424b0cc8
+  semantic_tags:
+  - primitive:condition
+  - type.workflow.condition
+  - workspace.desk.primitives
+- name: condition-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-ready-for-closeout
+  path: desk/primitives/conditions/condition-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-ready-for-closeout.md
+  hash_c: 0f4b190082063c7f4d7c79950b1fcccc303707e78f72b4840536578d259f4935
+  hash_d: 8642dfd4fbe1f0fcfa7b3022f4f39a2e4314859fd6cb463a3eb56bb84193a00c
+  semantic_tags:
+  - primitive:condition
+  - type.workflow.condition
+  - workspace.desk.primitives
