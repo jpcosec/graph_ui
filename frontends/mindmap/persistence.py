@@ -23,6 +23,9 @@ class EditorStore:
         self.store = self.adapter.store
         self.root = self.adapter.root
         self.pythonpath = self.adapter.pythonpath
+        # Expuesto solo para el editor de clases (serve.py); el resto de este
+        # módulo sigue pasando por self.adapter.
+        self.pron_store = self.adapter.pron
 
     def schema(self):
         return {'models': self.adapter.schema()}

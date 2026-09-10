@@ -12,9 +12,6 @@ adapter_mod = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(adapter_mod)
 SldbAdapter = adapter_mod.SldbAdapter
 
-from sldb.store.query import load_runtime_documents  # noqa: E402
-from sldb.cli.model_utils import resolve_model_ref  # noqa: E402
-
 FIXTURE = json.loads((MINDMAP / "fixtures" / "kb-small.json").read_text(encoding="utf-8"))
 
 
@@ -90,12 +87,15 @@ def test_adapter_view_revision_changes_on_write(tmp_path):
 
 
 def test_no_duplicate_sldb_imports_outside_adapter():
-    """Regla del plan: solo el adaptador importa internos de SLDB."""
-    allowed = ("sldb_adapter.py",)
-    for name in ("serve.py", "persistence.py", "compiler.py", "contract.py"):
-        text = (MINDMAP / name).read_text(encoding="utf-8")
-        for line in text.splitlines():
+    """Regla del plan: solo el adaptador importa internos de SLDB (el resto,
+    incluido el editor de clases, pasa por pron.Store). Recorre todo
+    frontends/mindmap/*.py en vez de una lista fija, para no dejar huecos
+    cuando se agregue un módulo nuevo."""
+    allowed = "sldb_adapter.py"
+    checked = [p for p in MINDMAP.glob("*.py") if p.name != allowed]
+    assert checked, "no se encontraron módulos para revisar"
+    for path in checked:
+        for line in path.read_text(encoding="utf-8").splitlines():
             if line.startswith(("import sldb", "from sldb.")) or line == "from sldb import":
-                raise AssertionError(f"{name} importa sldb directamente: {line.strip()}")
-    # smoke: allowed file existe
-    assert (MINDMAP / allowed[0]).exists()
+                raise AssertionError(f"{path.name} importa sldb directamente: {line.strip()}")
+    assert (MINDMAP / allowed).exists()

@@ -80,7 +80,7 @@ class ProxyHandler(SimpleHTTPRequestHandler):
                     return
                 if route.startswith('/api/models/'):
                     action = route.rsplit('/', 1)[-1]
-                    store = self.editor_store.store
+                    store = self.editor_store.pron_store
                     if action == 'detail':
                         self.json_response(_detail(store, request['model']))
                     elif action == 'list':
