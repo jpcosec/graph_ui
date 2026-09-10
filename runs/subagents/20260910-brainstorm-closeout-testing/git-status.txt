@@ -1,0 +1,8 @@
+M  docs/mindmap-finalization-plan.md
+A  frontends/mindmap/brainstorm.js
+M  frontends/mindmap/editor.css
+M  frontends/mindmap/editor.js
+M  frontends/mindmap/model.mjs
+A  tests/e2e_mindmap_brainstorm.py
+M  tests/mindmap-model.test.mjs
+?? runs/subagents/20260910-brainstorm-closeout-testing/

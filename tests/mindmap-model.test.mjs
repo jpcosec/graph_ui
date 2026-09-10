@@ -1,5 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
+import {brainstormToSource,brainstormIssues} from '../frontends/mindmap/model.mjs';
 import {appendChild,project,removeDocument,changesBetween,hierarchy,relationships,defaultsFor,quickPayload,graphMaps,searchDocuments,referenceFieldsOf} from '../frontends/mindmap/model.mjs';
 const board={id:'board',model_name:'BoardDoc',payload:{title:'Board',tasks:[]}};
 const child={id:'task',model_name:'TaskDoc',path:'desk/tasks/task.md',payload:{title:'Task'}};
@@ -135,4 +136,26 @@ test('searchDocuments matches title, id and path; referenceFieldsOf merges refer
   const descriptor={references:['blocks'],containment:{tasks:['TaskDoc']},fields:[]};
   assert.deepEqual([...referenceFieldsOf(descriptor)].sort(),['blocks','tasks']);
   assert.equal(referenceFieldsOf(null).size,0);
+});
+
+test('brainstormToSource builds a contract-v1 spec with containment on the parent payload',()=>{
+  
+  const models=[
+    {id:'BoardDoc',model_ref:'x.models:BoardDoc',fields:[{name:'id',kind:'string'},{name:'title',kind:'string',default:''},{name:'tasks',kind:'stringlist'}],containment:{tasks:['TaskDoc']}},
+    {id:'TaskDoc',model_ref:'x.models:TaskDoc',fields:[{name:'id',kind:'string'},{name:'title',kind:'string'},{name:'status',kind:'enum',enum:['open']}]}];
+  const ideas=[
+    {id:'a',parentId:null,title:'Main board',className:'BoardDoc'},
+    {id:'b',parentId:'a',title:'First task',className:'TaskDoc'},
+    {id:'c',parentId:null,title:'   ',className:null},
+    {id:'d',parentId:null,title:'Ghost',className:'GhostDoc'}];
+  const {source,docIds}=brainstormToSource(ideas,models);
+  assert.equal(source.version,1);
+  assert.deepEqual(source.models,[{name:'BoardDoc',ref:'x.models:BoardDoc'},{name:'TaskDoc',ref:'x.models:TaskDoc'}]);
+  const board=source.documents.find(d=>d.id==='main-board');
+  assert.equal(board.payload.tasks.includes('first-task'),true,'la contención va en el payload del padre');
+  assert.deepEqual(docIds,{a:'main-board',b:'first-task'});
+  // Las ideas inválidas se reportan y no entran al spec.
+  const issues=brainstormIssues(ideas,models);
+  assert.deepEqual(issues.map(i=>i.id).sort(),['c','d']);
+  assert.ok(!source.documents.some(d=>d.id==='ghost'));
 });

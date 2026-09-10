@@ -228,3 +228,53 @@ export function project(documents, view={}, maps=null) {
     style:{stroke:'#94a3b8',strokeWidth:1.5,strokeDasharray:'5 4'},markerEnd:{type:'arrowclosed',width:16,height:16,color:'#94a3b8'},labelStyle:{fontSize:10,fill:'#64748b',backgroundColor:'#f8fafc'},labelBgPadding:{x:2,y:2},data:e}));
   return {nodes,edges,parents,children};
 }
+
+// ---------------------------------------------------------------- Brainstorm
+// Ideas transitorias de captura rápida: {id, parentId, title, emoji, color,
+// className}. Nunca son documentos SLDB hasta que la conversión explícita las
+// valida y aplica vía /api/plan + /api/compile.
+export const IDEA_EMOJIS = ['💡', '📌', '🔍', '🧠', '🌱', '⚡', '🎯', '❓'];
+export const IDEA_COLORS = ['#2563eb', '#d97706', '#059669', '#7c3aed', '#e11d48', '#0891b2'];
+export function newIdea(ideas, parentId, className) {
+  return {id: 'idea-' + crypto.randomUUID(), parentId: parentId || null,
+    title: '', emoji: IDEA_EMOJIS[ideas.length % IDEA_EMOJIS.length],
+    color: IDEA_COLORS[ideas.length % IDEA_COLORS.length],
+    className: className || null, convertedDocId: null};
+}
+// Convierte el árbol de ideas en un spec de intercambio (contrato v1).
+// - Solo ideas con clase elegida y título; el resto se reporta como pendientes.
+// - Contención: primer campo de childOptions(padre) que acepte la clase hija.
+// Devuelve {source, docIds} donde docIds mapea idea.id -> document.id para
+// marcar las ideas convertidas.
+export function brainstormIssues(ideas, models) {
+  const byId=new Map(ideas.map(i=>[i.id,i])),issues=[];
+  for(const idea of ideas){
+    if(!idea.title?.trim())issues.push({id:idea.id,reason:'sin título'});
+    else if(!idea.className)issues.push({id:idea.id,reason:'sin clase'});
+    else if(!models.some(m=>m.id===idea.className))issues.push({id:idea.id,reason:'clase inexistente'});
+  }
+  return issues;
+}
+export function brainstormToSource(ideas, models) {
+  const byId=new Map(ideas.map(i=>[i.id,i])),docIds=new Map();
+  const valid=ideas.filter(i=>i.title?.trim()&&i.className&&models.some(m=>m.id===i.className));
+  for(const idea of valid)docIds.set(idea.id,slugify(idea.title));
+  const documents=valid.map(idea=>({id:docIds.get(idea.id),model:idea.className,
+    payload:quickPayload(models.find(m=>m.id===idea.className),idea.title,docIds.get(idea.id))}));
+  const byDocId=new Map(documents.map(d=>[d.id,d]));
+  for(const idea of valid){
+    const parent=idea.parentId?byId.get(idea.parentId):null;
+    if(!parent||!docIds.has(parent.id)||!docIds.has(idea.id))continue;
+    // La contención vive en el payload del PADRE (mismo criterio que appendChild).
+    const option=childOptions({model_name:parent.className},models).find(o=>o.model===idea.className);
+    if(option){const parentDoc=byDocId.get(docIds.get(parent.id));
+      parentDoc.payload[option.field]=[...new Set([...(parentDoc.payload[option.field]||[]),docIds.get(idea.id)])];}
+  }
+  const classNames=[...new Set(valid.map(i=>i.className))];
+  const modelsDecl=classNames.map(name=>{
+    const schema=models.find(m=>m.id===name);
+    return schema?.model_ref?{name,ref:schema.model_ref}:{name};
+  }).filter(Boolean);
+  return {source:{version:1,models:modelsDecl,documents,view:{positions:{},collapsed:[]}},
+    docIds:Object.fromEntries(valid.map(i=>[i.id,docIds.get(i.id)]))};
+}

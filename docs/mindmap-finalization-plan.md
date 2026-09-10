@@ -423,8 +423,18 @@ Avance del plan:
   muestra 'Tu KB está vacía' en vez de un error y el token del plan lo trata
   como KB vacía.
 
-Lo pendiente de mayor prioridad es construir Brainstorm (paso 4) y luego implementar la primera entrega acotada de edición de clases sobre la CLI
-pública ya verificada. Las migraciones de modelos se retoman únicamente cuando
-el motor vigente exponga contratos para impacto completo y transformación de
-payloads. Hasta completar eso, el editor debe considerarse una base funcional y
-no el producto final.
+- **Paso 4 (Brainstorm): listo.** `frontends/mindmap/brainstorm.js` con
+  vista de captura rápida (Enter=hermano, Tab=hijo, doble clic renombra),
+  persistencia en localStorage, conversión explícita a SLDB vía
+  `brainstormToSource` + `/api/plan` + `/api/compile`, advertencia
+  `beforeunload` para ideas sin convertir, y selector de clase en cada nodo.
+  Tests: conversión unitaria en `test_mindmap_model` (11→12 tests,
+  10 ideas con teclado, recarga, conversión y round-trip vía HTTP).
+  E2E: `tests/e2e_mindmap_brainstorm.py` (3 ideas con teclado, recarga,
+  clase BoardDoc/TaskDoc, conversión, verificación por HTTP).
+
+Lo pendiente ahora es implementar la primera entrega acotada de edición de
+clases sobre la CLI pública ya verificada. Las migraciones de modelos se
+retoman únicamente cuando el motor vigente exponga contratos para impacto
+completo y transformación de payloads. Hasta completar eso, el editor debe
+considerarse una base funcional y no el producto final.

@@ -12,3 +12,25 @@
 .compiler-report { white-space: pre-wrap; overflow-wrap: anywhere; background: #f3f5f8; border: 1px solid #dce2eb; border-radius: 8px; padding: 12px; max-height: 300px; overflow: auto; }
 .compiler-dialog .dialog-footer { flex-wrap: wrap; }
 .compiler-message { color: #166534; }
+/* Brainstorm: captura rápida transitoria (plan paso 4). */
+.mode-switch{display:flex;gap:2px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;padding:2px;margin-left:14px}.mode-switch button{border:0;background:transparent;border-radius:6px;min-height:30px;font-size:12px;padding:4px 12px;color:#64748b}.mode-switch button.active{background:#fff;color:#1d4ed8;font-weight:600;box-shadow:0 1px 3px #172b4d14}
+.editor[data-mode=brainstorm] .toolbar,.editor[data-mode=brainstorm] .save-state,.editor[data-mode=brainstorm] .toolbar~.workspace aside{display:none}
+.brainstorm{flex:1;min-width:0;display:flex;flex-direction:column;background:#fdfbf7;overflow:auto;padding:18px 26px}
+.brainstorm-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 14px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;position:sticky;top:0;z-index:5}
+.brainstorm-hint{font-size:11px;color:#8490a3}.brainstorm-count{font-size:12px;color:#64748b;font-weight:600}.brainstorm-count.pending{color:#b45309}
+.brainstorm-canvas{position:relative;padding:22px 4px 40px}
+.idea-branch{margin:0}
+.idea-children{display:flex;flex-direction:column;gap:10px;margin:10px 0 0 34px;padding-left:14px;border-left:2px dashed color-mix(in srgb,var(--idea-color,#2563eb) 35%,white)}
+.idea-node{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1.6px solid var(--idea-color,#2563eb);border-radius:14px;padding:9px 12px;min-height:44px;box-shadow:0 2px 4px #172b4d0a;cursor:pointer;max-width:520px}
+.idea-node:hover{box-shadow:0 3px 10px color-mix(in srgb,var(--idea-color,#2563eb) 20%,transparent)}
+.idea-node.selected{box-shadow:0 0 0 4px color-mix(in srgb,var(--idea-color,#2563eb) 22%,transparent)}
+.idea-node.converted{opacity:.75;background:#f0fdf4;border-style:dashed}
+.idea-cycle{border:0;background:transparent;font-size:19px;min-height:30px;padding:2px 4px}
+.idea-title{font-size:14px;font-weight:550;overflow-wrap:anywhere;white-space:normal}
+.idea-input{border:1px solid #93b4ff;border-radius:6px;padding:5px 8px;font-size:13px;min-width:180px}
+.idea-class{font-size:11px;min-height:30px;max-width:150px;color:#475569}
+.idea-badge{color:#059669;font-weight:700}
+.idea-delete{border:0;background:transparent;color:#94a3b8;font-size:16px;min-height:26px;padding:0 4px}.idea-delete:hover{color:#be123c}
+.add-idea{margin:16px 0 0 4px;font-size:13px;color:#2563eb;border-style:dashed}
+.brainstorm .form-error{margin:6px 14px}
+.brainstorm .compiler-report{margin:10px 0 0}
