@@ -14,8 +14,10 @@ from pathlib import Path
 from typing import Any
 
 
-def _cli(store: str | Path, *args: str, with_json: bool = False) -> dict[str, Any]:
+def _cli(store: str | Path, *args: str, with_json: bool = False, pythonpath: str | None = None) -> dict[str, Any]:
     cmd = [sys.executable, "-m", "sldb", "models", *args, "--store", str(store)]
+    if pythonpath:
+        cmd.extend(["--pythonpath", pythonpath])
     if with_json:
         cmd.extend(["--format", "json"])
     result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
@@ -28,7 +30,8 @@ def _cli(store: str | Path, *args: str, with_json: bool = False) -> dict[str, An
 
 
 def detail(store: str | Path, model: str) -> dict[str, Any]:
-    return _cli(store, "show", model)
+    """Detalle de un modelo registrado. Incluye --pythonpath para modelos compilados."""
+    return _cli(store, "show", model, pythonpath=str(Path(store).parent))
 
 
 def list_models(store: str | Path) -> list[dict[str, Any]]:

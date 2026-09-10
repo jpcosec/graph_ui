@@ -1,38 +1,46 @@
 import React,{useState,useEffect,useRef} from 'react';
 import htm from 'htm';
-import {classStyle,titleOf} from './model.mjs';
+import {classStyle} from './model.mjs';
 const html=htm.bind(React.createElement);
 
 export function ClassDialog({models,request,onClose,onRefresh}) {
   const [model,setModel]=useState(null);
   const [detail,setDetail]=useState(null);
+  const [draftActive,setDraft]=useState(false);
   const [templateText,setTemplate]=useState('');
   const [message,setMessage]=useState('');const [failed,setFailed]=useState(false);const [busy,setBusy]=useState(false);
+  const [validated,setValidated]=useState(false);
+  // State for add/remove field UI
+  const [newFieldName,setNewField]=useState('');const [newFieldType,setNewFieldType]=useState('string');const [newFieldDesc,setNewFieldDesc]=useState('');
   const ref=useRef(null);
   useEffect(()=>{const d=ref.current;d.showModal();return()=>d.close();},[]);
   const describe=async id=>{
-    setModel(id);setTemplate('');setMessage('');setFailed(false);
+    setModel(id);setTemplate('');setMessage('');setFailed(false);setValidated(false);setDraft(false);setNewField('');
     try{
       const d=await request('/api/models/detail',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:id})});
-      setDetail(d);
-    }catch(e){setDetail(null);setFailed(true);setMessage(e.message);}
+      setDetail(d);setFailed(!d.ok);
+    }catch(e){setDetail({ok:false,error:e.message});setFailed(true);setMessage(e.message);}
   };
-  const run=async(action)=>{
-    setBusy(true);setFailed(false);setMessage('');setDetail(null);
+  const run=async(action,...args)=>{
+    setBusy(true);setFailed(false);setMessage('');
     try{
-      let result;
-      if(action==='template-edit')
-        result=await request('/api/models/template-edit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model,content:templateText})});
-      else if(action==='validate')
-        result=await request('/api/models/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model})});
-      else if(action==='promote')
-        result=await request('/api/models/promote',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model})});
-      else if(action==='fields-add'||action==='fields-remove')
-        result=await request('/api/models/'+action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model,field_name:'',field_type:'',description:'',default:''})});
-      setDetail(result);
-      if(result.ok!==false&&action==='promote'){setMessage('Modelo promovido. Recargando…');await onRefresh();}
-      else if(result.ok!==false)setMessage((result.valid?'Válido. ':'')+(result.promoted?'Promovido.':'')+(result.saved?'Guardado.':''));
-      else setFailed(true);
+      let body;
+      if(action==='template-edit')body={model,content:templateText};
+      else if(action==='fields-add')body={model,field_name:newFieldName,field_type:newFieldType,description:newFieldDesc};
+      else if(action==='fields-remove')body={model,field_name:args[0]};
+      else body={model};
+      const result=await request('/api/models/'+action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      if(action==='validate'){
+        setValidated(result.ok!==false);
+        setDraft(result.draft||false);
+      }
+      if(action==='promote'){
+        if(!validated){setFailed(true);return setMessage('Primero debes validar el draft antes de promover.');}
+        const ok=confirm(`¿Promover el draft de ${classStyle(model).name}? Esta operación actualizará el modelo activo y los hashes de documentos.`);
+        if(!ok){setBusy(false);return;}
+      }
+      if(result.ok===false||result.error){setFailed(true);setMessage(result.error||'Operación fallida.');setDetail(result);}
+      else{setMessage('Operación completada.');setDetail(result);setNewField('');setNewFieldDesc('');if(action==='promote')await onRefresh();}
     }catch(e){setFailed(true);setDetail(e.body||{ok:false,error:e.message});setMessage(e.message);}
     finally{setBusy(false);}
   };
@@ -40,7 +48,7 @@ export function ClassDialog({models,request,onClose,onRefresh}) {
   return html`<dialog ref=${ref} className="document-dialog class-dialog" aria-labelledby="class-title" onCancel=${onClose} onClick=${e=>{if(e.target===ref.current)onClose();}}><form onSubmit=${e=>{e.preventDefault();onClose();}}>
     <header className="dialog-header"><span className="dialog-icon" style=${{'--class-color':style.color}}>${style.icon}</span><div><span className="eyebrow">SLDB</span><h2 id="class-title">Editar clases</h2></div><button type="button" className="icon-button" aria-label="Cerrar" onClick=${onClose}>×</button></header>
     <div className="dialog-body" style=${{display:'flex',gap:'16px',maxHeight:'calc(100vh-180px)'}}>
-      <div className="class-sidebar-mini" style=${{width:'200px',overflow:'auto',flexShrink:0}}>
+      <div style=${{width:'200px',overflow:'auto',flexShrink:0}}>
         <span className="eyebrow">Clases registradas</span>
         ${models.map(m=>html`<button key=${m.id} type="button" className=${'class-item'+(model===m.id?' active':'')}
           style=${{'--class-color':classStyle(m.id).color}} onClick=${()=>describe(m.id)}>
@@ -49,31 +57,35 @@ export function ClassDialog({models,request,onClose,onRefresh}) {
         </button>`)}
       </div>
       <div style=${{flex:1,overflow:'auto'}}>
-        ${!model?html`<p className="quick-create-note">Selecciona una clase para ver sus campos, editar template y gestionar fields.</p>`:
+        ${!model?html`<p className="quick-create-note">Selecciona una clase para ver sus campos y gestionar drafts.</p>`:
           html`<h3 style=${{margin:'0 0 10px'}}>${classStyle(model).icon} ${classStyle(model).name}</h3>
-          ${sel?html`<table className="class-fields" style=${{width:'100%',fontSize:'12px',borderCollapse:'collapse'}}>
-            <thead><tr><th>Campo</th><th>Tipo</th><th>Req.</th><th>Default</th><th>Descripción</th></tr></thead>
-            <tbody>${(sel.fields||[]).map(f=>html`<tr key=${f.name}>
-              <td><code>${f.name}</code></td><td>${f.kind}</td><td>${f.required?'✓':''}</td>
-              <td><small>${f.default!==undefined?JSON.stringify(f.default):'-'}</small></td>
-              <td><small>${f.name}</small></td>
-            </tr>`)}</tbody>
-          </table>`:''}
-          <div style=${{marginTop:'14px',display:'flex',gap:'7px',flexWrap:'wrap'}}>
-            <label style=${{fontSize:'12px',flex:1,minWidth:'200px'}}>
-              <span>Template (preview)</span>
-              <textarea rows="4" style=${{width:'100%'}} value=${templateText} placeholder="Markdown del template…" onInput=${e=>setTemplate(e.target.value)}/>
-            </label>
+          ${sel?html`<table style=${{width:'100%',fontSize:'12px',borderCollapse:'collapse',border:'1px solid #e2e8f0'}}>
+            <thead><tr style=${{background:'#f8fafc'}}><th style=${{padding:'6px 8px',textAlign:'left'}}>Campo</th><th style=${{padding:'6px 8px'}}>Tipo</th><th style=${{padding:'6px 8px'}}>Req.</th><th style=${{padding:'6px 8px'}}>Default</th><th style=${{padding:'6px 8px',textAlign:'left'}}>Descripción</th><th style=${{padding:'6px 8px'}}></th></tr></thead>
+            <tbody>${(sel.fields||[]).map(f=>html`<tr key=${f.name} style=${{borderTop:'1px solid #e2e8f0'}}>
+              <td style=${{padding:'6px 8px'}}><code>${f.name}</code></td><td style=${{padding:'6px 8px'}}>${f.kind}</td><td style=${{padding:'6px 8px'}}>${f.required?'✓':''}</td>
+              <td style=${{padding:'6px 8px'}}><small>${f.default!==undefined?JSON.stringify(f.default):'-'}</small></td>
+              <td style=${{padding:'6px 8px'}}><small>${f.description||f.name}</small></td>
+              <td style=${{padding:'6px 8px'}}><button type="button" className=${'icon-button'+(draftActive?'':' hidden')} disabled=${busy} onClick=${()=>run('fields-remove',f.name)} title="Quitar campo del draft">×</button></td>
+            </tr>`)}
+            <tr style=${{borderTop:'1px solid #e2e8f0',background:'#fffbeb'}}><td style=${{padding:'6px 8px'}}><input value=${newFieldName} placeholder="name" style=${{width:'80px'}} onInput=${e=>setNewField(e.target.value)}/></td>
+            <td style=${{padding:'6px 8px'}}><select value=${newFieldType} onChange=${e=>setNewFieldType(e.target.value)}>
+              ${['string','integer','number','boolean','json','list','enum'].map(t=>html`<option key=${t} value=${t}>${t}</option>`)}
+            </select></td><td style=${{padding:'6px 8px'}}></td><td style=${{padding:'6px 8px'}}></td>
+            <td style=${{padding:'6px 8px'}}><input value=${newFieldDesc} placeholder="description" style=${{width:'100px'}} onInput=${e=>setNewFieldDesc(e.target.value)}/></td>
+            <td style=${{padding:'6px 8px'}}><button type="button" disabled=${busy||!newFieldName} onClick=${()=>run('fields-add')}>+</button></td></tr>
+          </table><p style=${{fontSize:'10px',color:'#8490a3',margin:'6px 0 10px'}}>El draft debe tener contenido; usar Validar draft para revisarlo. — Los campos sin draft no se pueden quitar.</p>`:''}
+          <details style=${{marginTop:'10px'}}><summary style=${{fontSize:'12px',cursor:'pointer'}}>Template</summary>
+            <textarea rows="4" style=${{width:'100%',marginTop:'8px'}} value=${templateText} placeholder="Markdown del template…" onInput=${e=>setTemplate(e.target.value)}/>
             <button type="button" disabled=${busy||!templateText} onClick=${()=>run('template-edit')}>Editar template</button>
-          </div>
-          <div style=${{marginTop:'10px',display:'flex',gap:'7px'}}>
+          </details>
+          <div style=${{marginTop:'12px',display:'flex',gap:'7px',flexWrap:'wrap'}}>
             <button type="button" disabled=${busy} onClick=${()=>run('validate')}>Validar draft</button>
-            <button type="button" className="primary" disabled=${busy} onClick=${()=>run('promote')}>Validar y promover</button>
+            <button type="button" className="primary" disabled=${busy||!validated} onClick=${()=>run('promote')}>${validated?'Promover draft':'Primero valida'}</button>
           </div>
           ${message?html`<p role="alert" className=${failed?'form-error':'compiler-message'}>${message}</p>`:''}
           ${detail&&!failed?html`<pre className="compiler-report">${JSON.stringify(detail,null,2)}</pre>`:''}
-          ${detail?.documents?html`<div><strong>Documentos afectados:</strong><ul>${
-            detail.documents.map(d=>html`<li key=${d.name}>${d.name} — ${d.valid?'✅':'❌'}</li>`)
+          ${detail?.documents?html`<div style=${{marginTop:'8px'}}><strong>Documentos afectados:</strong><ul>${
+            detail.documents.map(d=>html`<li key=${d.name} style=${{fontSize:'12px'}}>${d.name} — ${d.valid?'✅':'❌'}</li>`)
           }</ul></div>`:''}
         `}
       </div>

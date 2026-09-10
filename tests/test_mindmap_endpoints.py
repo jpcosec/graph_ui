@@ -254,3 +254,42 @@ def test_get_schema_and_graph_against_compiled_store(compiled_env):
     with urllib.request.urlopen(f"http://127.0.0.1:{port}/api/graph", timeout=10) as res:
         graph = json.loads(res.read())
     assert graph["documents"] and {d["id"] for d in graph["documents"]} >= {"main-board"}
+
+
+# -------------------------------------------------------- modelos (paso 7)
+
+def test_models_list(compiled_env):
+    port = compiled_env["env"].port
+    status, result = _request(port, "/api/models/list", {})
+    assert status == 200 and "models" in result
+    models = {m["name"] for m in result["models"]}
+    assert "BoardDoc" in models and "TaskDoc" in models
+
+
+def test_models_detail(compiled_env):
+    port = compiled_env["env"].port
+    status, result = _request(port, "/api/models/detail", {"model": "BoardDoc"})
+    assert status == 200
+    # "show" de SLDB no soporta --format json; aceptamos texto o dict.
+    assert "BoardDoc" in str(result), f"detalle inesperado: {result}"
+
+def test_models_validate(compiled_env):
+    port = compiled_env["env"].port
+    status, result = _request(port, "/api/models/validate", {"model": "BoardDoc"})
+    assert status == 200
+    assert result.get("valid") is True or result.get("valid") in ("true", True)
+
+
+def test_models_template_edit(compiled_env):
+    port, store = compiled_env["env"].port, compiled_env["store"]
+    status, result = _request(port, "/api/models/template-edit", {"model": "BoardDoc", "content": "# Draft template\n\nNew content."})
+    assert status == 200 and result.get("ok") is not False
+    # El archivo .py.temp se escribe al lado del .py compilado (store.parent)
+    drafts = list(Path(store).parent.glob("*.py.temp"))
+    assert drafts, f"no se creó archivo .py.temp en {store.parent}"
+
+
+def test_models_unknown_action(compiled_env):
+    port = compiled_env["env"].port
+    status, body = _request(port, "/api/models/nonesuch", {})
+    assert status == 400 and "desconocida" in body.get("error", "")

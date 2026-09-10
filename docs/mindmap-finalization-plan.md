@@ -432,6 +432,13 @@ Avance del plan:
   10 ideas con teclado, recarga, conversión y round-trip vía HTTP).
   E2E: `tests/e2e_mindmap_brainstorm.py` (3 ideas con teclado, recarga,
   clase BoardDoc/TaskDoc, conversión, verificación por HTTP).
+- **Paso 7 (edición de clases): listo (primera entrega acotada).**
+  Gateway CLI en `models_service.py` (7 operaciones), diálogo en
+  `classes-dialog.js` con edición de template, alta/baja de campos,
+  validación y promoción con confirmación. Tests: `test_mindmap_endpoints.py`
+  añade cobertura HTTP real para `/api/models/*`. Editar tipo, descripción,
+  default de campos existentes y migraciones quedan diferidos (SLDB no expone
+  esos contratos).
 
 Lo pendiente ahora es implementar la primera entrega acotada de edición de
 clases sobre la CLI pública ya verificada. Las migraciones de modelos se
