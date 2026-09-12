@@ -188,6 +188,21 @@ class SldbAdapter:
         except StoreError as exc:
             raise AdapterError(str(exc)) from exc
 
+    def default_document_path(self, model_name: str, name: str, pythonpath: str | None = None) -> Path:
+        """Dónde debe vivir un documento nuevo de esta clase.
+
+        Cada store decide su propio layout, no esta UI (somos el editor de
+        cualquier store pron, no solo de los que compilamos nosotros mismos):
+        se reutiliza el directorio de un documento existente de la misma
+        clase si ya hay uno. Una clase sin documentos todavía cae en
+        ``<root>/<Clase>/``.
+        """
+        existing = None
+        if self._initialized:
+            existing = next((d for d in self.documents(pythonpath) if d.model_name == model_name), None)
+        directory = self.root / Path(existing.path).parent if existing is not None else self.root / model_name
+        return directory / f"{name}.md"
+
     def add_model(self, model_ref: str, pythonpath: str | None = None) -> None:
         if not self._pron_for(pythonpath).register_model(model_ref):
             raise AdapterError(f"No se pudo registrar el modelo {model_ref!r}.")

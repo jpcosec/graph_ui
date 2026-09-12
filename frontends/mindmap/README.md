@@ -33,7 +33,9 @@ permite seleccionar otra. React, React Flow y htm se cargan vía CDN.
 «Guardar en SLDB» / Ctrl+S usa `POST /api/save`. El servidor pre-valida todo
 el lote con los modelos y el round trip de SLDB, crea/actualiza documentos
 Markdown y actualiza los índices mediante las operaciones nativas de SLDB.
-Los documentos nuevos se crean en `desk/mindmap/<Clase>/<ID>.md`.
+Los documentos nuevos se crean junto a los documentos existentes de la misma
+clase en ese store (el store decide su propio layout, no este editor); si es
+el primero de su clase, cae en `<raíz del store>/<Clase>/<ID>.md`.
 
 Quitar retira el documento del índice y limpia las referencias del mapa;
 conserva el archivo Markdown en disco. Quitar un contenedor conserva sus hijos.

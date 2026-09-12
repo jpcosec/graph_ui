@@ -164,8 +164,8 @@ def plan_source(source: str | Path | dict[str, Any], store: str | Path) -> dict[
     spec = _ensure_object(json.loads(Path(source).read_text(encoding="utf-8")) if isinstance(source, (str, Path)) else source, "El documento raíz")
     kb_contract.validate(spec)
     store_path = Path(store).resolve()
+    adapter = SldbAdapter(store_path)
     if (store_path / "core" / "store_index.yaml").exists():
-        adapter = SldbAdapter(store_path)
         existing = {d.name: d for d in adapter.documents()}
         registered_models = adapter.model_refs()
         declarations = {m['name']: m for m in adapter.export_models()}
@@ -238,7 +238,10 @@ def plan_source(source: str | Path | dict[str, Any], store: str | Path) -> dict[
                     continue
             current = existing.get(name)
             if current is None:
-                output = store_path.parent / 'desk' / 'mindmap' / model_name / f'{name}.md'
+                # Mismo pythonpath (por defecto) con el que se cargó `existing` arriba:
+                # los modelos nuevos del temp_dir nunca tienen documentos previos, así
+                # que no necesitan resolverse para este chequeo.
+                output = adapter.default_document_path(model_name, name)
                 if output.exists():
                     conflicts.append({'id': name, 'reason': 'El archivo destino ya existe sin estar registrado.'})
                 else:
@@ -347,7 +350,7 @@ def compile_json(source: str | Path | dict[str, Any], store: str | Path, *, modu
             if name in existing:
                 adapter.update_document(existing[name], payload, pythonpath)
             else:
-                output = root / "desk" / "mindmap" / model_name / f"{name}.md"
+                output = adapter.default_document_path(model_name, name, pythonpath)
                 adapter.create_document(name, model_name, payload, output, pythonpath)
             written.append(name)
         view = spec.get("view")

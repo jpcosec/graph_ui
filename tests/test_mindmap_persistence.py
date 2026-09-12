@@ -48,7 +48,7 @@ def test_invalid_batch_writes_nothing(store):
                      create('invalid', 'BoardDoc', title='Missing scope and purpose')])
     assert error.value.status == 422
     assert store.graph()['documents'] == []
-    assert not (store.root / 'desk/mindmap/ConditionDoc/valid.md').exists()
+    assert not (store.root / 'ConditionDoc/valid.md').exists()
 
 
 def test_conflict_and_untrack_preserves_file(store):

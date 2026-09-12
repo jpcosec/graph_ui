@@ -86,7 +86,7 @@ class EditorStore:
                             raise ValueError(str(details))
                     except (Exception, SystemExit) as exc:
                         raise SaveError(f'{name}: {exc}', 422) from exc
-                    path = adapter.root / 'desk' / 'mindmap' / model_name / f'{name}.md'
+                    path = adapter.default_document_path(model_name, name)
                     if action == 'create' and path.exists():
                         raise SaveError(f'El archivo de {name} ya existe; elige otro ID.', 409)
                 else:
