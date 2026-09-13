@@ -98,4 +98,4 @@ function DiagramView(props) {
   return html`<${ReactFlowProvider}><${SchemaCanvas} ...${props}/></${ReactFlowProvider}>`;
 }
 
-export const diagramView={id:'diagram', facet:'models', label:'📐 Schema', component:DiagramView, shell:{primary:false}};
+export const diagramView={id:'diagram', facet:'models', label:'📐 Schema', component:DiagramView, shell:{primary:false}, styles:['/views/models/diagram/diagram.css']};

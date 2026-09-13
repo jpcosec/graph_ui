@@ -7,6 +7,7 @@ golpea con ``urllib``: nada de llamar a ``CompilationService`` directamente
 """
 import importlib.util
 import json
+import re
 import shutil
 import sys
 import tempfile
@@ -305,6 +306,33 @@ def test_get_unknown_api_route_is_404_json(compiled_env):
         assert exc.code == 404
         body = json.loads(exc.read())
         assert body["ok"] is False
+
+
+# ---------------------------------------------------- vistas como plugins
+
+def _declared_view_styles():
+    """Extrae los `styles: [...]` de cada descriptor de vista real
+    (map-view.js, flow-view.js, tree-view.js, diagram-view.js), no un glob de
+    disco: eso solo prueba que el archivo existe, no que el descriptor
+    registrado en shell/registry.js lo declara — es el enlace
+    descriptor -> archivo lo que este test verifica."""
+    urls = []
+    for path in (MINDMAP / "views").rglob("*-view.js"):
+        text = path.read_text(encoding="utf-8")
+        for match in re.finditer(r"styles\s*:\s*\[([^\]]*)\]", text):
+            urls.extend(re.findall(r"['\"](/[^'\"]+\.css)['\"]", match.group(1)))
+    return urls
+
+
+def test_every_declared_view_style_resolves(compiled_env):
+    port = compiled_env["env"].port
+    urls = _declared_view_styles()
+    assert len(urls) >= 4, f"se esperaban al menos 4 hojas de vista declaradas: {urls}"
+    assert len(urls) == len(set(urls)), f"hrefs de vista duplicados: {urls}"
+    for url in urls:
+        with urllib.request.urlopen(f"http://127.0.0.1:{port}{url}", timeout=10) as res:
+            assert res.status == 200, f"{url} no resolvió 200"
+            assert "text/css" in res.headers.get("Content-Type", ""), f"{url} no es text/css"
 
 
 # -------------------------------------------------------- modelos (paso 7)

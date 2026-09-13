@@ -143,4 +143,4 @@ function MapView(props) {
   return html`<${ReactFlowProvider}><${MapCanvas} ...${props}/></${ReactFlowProvider}>`;
 }
 
-export const mapView={id:'map', facet:'documents', label:'🗺 KB', component:MapView, shell:{primary:true}};
+export const mapView={id:'map', facet:'documents', label:'🗺 KB', component:MapView, shell:{primary:true}, styles:['/views/documents/map/map.css']};

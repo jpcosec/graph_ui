@@ -1,0 +1,41 @@
+
+/* ---- Vista Flujo: documentos como grafo dirigido (contención + referencias) ---- */
+.flow{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--surface-app)}
+
+.flow-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 18px;background:var(--surface-panel);border-bottom:1px solid var(--border);font-size:12px}
+
+.flow-bar strong{font-size:13px}
+.flow-count{color:var(--text-muted)}
+
+.flow-filter{border:1px solid var(--border-control);background:var(--surface-app);border-radius:7px;padding:6px 10px;width:220px;margin-left:auto}
+.flow-class{border:1px solid var(--border-control);background:var(--surface-app);border-radius:7px;padding:6px 10px}
+
+.flow-body{position:relative;flex:1;min-height:0;display:flex}
+.flow-canvas{position:relative;flex:1;min-height:0;min-width:0}
+
+.flow-node{display:flex;align-items:center;gap:8px;width:100%;height:100%;padding:0 12px;border:2px solid var(--class-color);border-radius:20px;background:color-mix(in srgb,var(--class-color) 9%,var(--surface-panel));box-shadow:var(--shadow-node);color:var(--text);transition:opacity .15s,box-shadow .15s}
+
+.flow-node.selected{box-shadow:0 0 0 4px color-mix(in srgb,var(--class-color) 22%,transparent)}
+.flow-node.dim{opacity:.2}
+
+.flow-node-icon{font-size:16px;line-height:1;flex-shrink:0}
+.flow-node-title{font-size:12px;font-weight:550;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.flow-node .react-flow__handle{opacity:0;pointer-events:none}
+
+.flow-inspector{width:270px;min-width:270px;overflow-y:auto;background:var(--surface-panel);border-left:1px solid var(--border);padding:16px}
+
+.flow-inspector header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.flow-inspector-icon{font-size:18px}
+.flow-inspector header strong{flex:1;min-width:0;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.flow-inspector header button{border:0;background:transparent;font-size:16px;min-height:24px;padding:0 4px;color:var(--text-muted)}
+
+.flow-inspector h4{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--text-faint);margin:16px 0 6px}
+
+.flow-inspector dl{margin:0;display:flex;flex-direction:column;gap:6px}
+.flow-inspector dl>div{display:flex;justify-content:space-between;gap:10px;font-size:11px;border-bottom:1px solid var(--border-subtle);padding-bottom:4px}
+.flow-inspector dt{color:var(--text-muted);flex-shrink:0}
+.flow-inspector dd{margin:0;text-align:right;overflow-wrap:anywhere}
+
+@media(max-width:900px){.flow-filter{width:150px}.flow-inspector{width:210px;min-width:210px}}
+@media(max-width:750px){.flow-inspector{position:absolute;right:0;top:0;bottom:0;z-index:5;box-shadow:var(--shadow-drawer)}}

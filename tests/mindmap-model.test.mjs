@@ -220,6 +220,55 @@ test('schemaMatches filtra por clase, campo, tipo y clase destino',()=>{
   assert.ok(!schemaMatches(board,'pill'));
 });
 
+// ---------------------------------------------------------------- Flujo
+import {flowGraph,flowMatches,flowClasses} from '../frontends/mindmap/views/documents/flow/projection.mjs';
+
+test('flowGraph draws containment and reference as edges, never nesting',()=>{
+  const board={id:'board',model_name:'BoardDoc',payload:{title:'B',tasks:['t1']}};
+  const task={id:'t1',model_name:'TaskDoc',payload:{title:'T1',routine:'r1'}};
+  const ritual={id:'r1',model_name:'RitualDoc',payload:{title:'R'}};
+  const {nodes,edges}=flowGraph([board,task,ritual]);
+  assert.equal(nodes.length,3);
+  assert.deepEqual(nodes.map(n=>n.id).sort(),['board','r1','t1']);
+  assert(!nodes.some(n=>n.parentId),'flowGraph nunca anida: cada relación es una arista');
+  assert.equal(edges.length,2);
+  const contain=edges.find(e=>e.source==='board'&&e.target==='t1');
+  assert.ok(contain,'la contención declarada también se dibuja como arista aquí');
+  assert.equal(contain.field,'tasks');
+  assert.equal(contain.contains,true);
+  const ref=edges.find(e=>e.source==='t1'&&e.target==='r1');
+  assert.ok(ref);
+  assert.equal(ref.field,'routine');
+  assert.equal(ref.contains,false);
+});
+
+test('flowGraph respects declared schema metadata over the legacy fallback',()=>{
+  const board={id:'board',model_name:'BoardDoc',payload:{title:'B',tasks:['t1']}};
+  const task={id:'t1',model_name:'TaskDoc',payload:{title:'T1',blocks:['t1-other']}};
+  const other={id:'t1-other',model_name:'TaskDoc',payload:{title:'Other'}};
+  const models=[
+    {id:'BoardDoc',fields:[{name:'tasks',kind:'stringlist'}],containment:{tasks:['TaskDoc']},references:[]},
+    {id:'TaskDoc',fields:[{name:'blocks',kind:'stringlist'}],containment:{},references:['blocks']},
+  ];
+  const {nodes,edges}=flowGraph([board,task,other],models);
+  assert.equal(nodes.length,3);
+  assert.equal(edges.length,2);
+  assert.ok(edges.find(e=>e.source==='board'&&e.target==='t1'&&e.contains===true));
+  assert.ok(edges.find(e=>e.source==='t1'&&e.target==='t1-other'&&e.field==='blocks'&&e.contains===false));
+});
+
+test('flowMatches filters by title, id and class; flowClasses lists present classes only',()=>{
+  const node={id:'t1',doc:{id:'t1',model_name:'TaskDoc',payload:{title:'Onboarding'}}};
+  assert.ok(flowMatches(node,''));
+  assert.ok(flowMatches(node,'onboard'));
+  assert.ok(flowMatches(node,'taskdoc'));
+  assert.ok(flowMatches(node,'t1'));
+  assert.ok(!flowMatches(node,'nope'));
+  assert.ok(!flowMatches(null,'anything'));
+  const nodes=[node,{id:'b1',doc:{id:'b1',model_name:'BoardDoc',payload:{}}},{id:'t2',doc:{id:'t2',model_name:'TaskDoc',payload:{}}}];
+  assert.deepEqual(flowClasses(nodes),['BoardDoc','TaskDoc']);
+});
+
 // ---------------------------------------------------------------- Skins/slots
 import {classStyle as slotClassStyle,classVar,FALLBACK_SLOTS} from '../frontends/mindmap/shared/classes.mjs';
 

@@ -30,6 +30,12 @@ las clases, que es la misma en ambos temas.
   anidada, referencias, ficha modal, guardado. Es la única vista con
   `shell.primary`: el botón «Guardar en SLDB» / `Ctrl+S` del shell solo
   existe aquí.
+- **⇢ Flujo** (`/documents/flow`) — los mismos documentos como grafo
+  dirigido, sin anidar: contención y referencia son ambas aristas (trazo
+  sólido con el color de la clase de origen para contención, punteado para
+  referencia), dagre `rankdir: LR`. Filtro de texto, `<select>` por clase e
+  inspector de solo lectura del documento seleccionado. Recupera la lectura
+  que tenía el editor `flow_editor` retirado, sobre documentos SLDB reales.
 - **💡 Brainstorm** (`/draft/tree`) — lienzo libre de ideas (`Enter` hermano,
   `Tab` hijo); vive en `localStorage` hasta convertir. `Convertir a SLDB`
   valida y escribe las ideas con clase y título asignados usando el mismo
@@ -144,7 +150,7 @@ python3 -m pytest tests/test_mindmap_skin.py -q
 python3 -m pytest tests/e2e_mindmap_brainstorm.py tests/e2e_mindmap_classes.py \
   tests/e2e_mindmap_compiler.py tests/e2e_mindmap_doc_edit.py \
   tests/e2e_mindmap_quick_capture.py tests/e2e_mindmap_schema.py \
-  tests/e2e_mindmap_routes.py -q   # Playwright, requiere navegador
+  tests/e2e_mindmap_flow.py tests/e2e_mindmap_routes.py -q   # Playwright, requiere navegador
 ```
 
 Las pruebas Python crean stores y servidores reales en directorios

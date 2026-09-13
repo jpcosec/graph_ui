@@ -45,6 +45,7 @@ views/{faceta}/{vista}/   # 2. Vistas: un directorio por par (faceta, vista)
   documents/map/     map-view.js, document-node.js, sidebar.js, toolbar.js,
                       statusbar.js, document-dialog.js, quick-create-dialog.js,
                       connect-dialog.js, projection.mjs
+  documents/flow/     flow-view.js, projection.mjs (grafo dirigido, solo lectura)
   models/diagram/     diagram-view.js, projection.mjs
   draft/tree/         tree-view.js
 shell/           # 3. Shell + tema
@@ -84,11 +85,19 @@ sobre los puros `source/draft.mjs`. `dirtyAny` es `documents.dirty` o
 ### Contrato de una vista
 
 Cada vista se registra en `shell/registry.js` (`VIEWS`) con un descriptor
-`{id, facet, label, component, shell:{primary}}`; la ruta que le corresponde
-es `/${facet}/${id}` (`shell/router.js`, `routeFor`). El registro es una
-lista explícita de pares faceta/vista, no una matriz combinatoria. Solo la
-vista con `shell.primary:true` (hoy, KB) recibe del shell el botón «Guardar
-en SLDB» y el `.save-state`; las demás no tienen ese chrome. Cada vista que
+`{id, facet, label, component, shell:{primary}, styles}`; la ruta que le
+corresponde es `/${facet}/${id}` (`shell/router.js`, `routeFor`). El registro
+es una lista explícita de pares faceta/vista, no una matriz combinatoria, y
+el orden de `VIEWS` es a la vez el orden de las pestañas del topbar y el
+orden en que se enlazan las hojas de estilo. `styles` es un array de URLs
+absolutas a la(s) hoja(s) propias de la vista (normalmente una:
+`views/{faceta}/{vista}/{vista}.css`); `app.js` las inyecta como `<link>` al
+arrancar, en orden de `VIEWS`, deduplicadas y después de los `<link>` que ya
+trae `index.html` (skins → base → shell), así que la cascada sigue siendo
+skins → base → shell → vistas sin que `index.html` sepa qué vistas existen.
+Solo la vista con `shell.primary:true` (hoy, KB) recibe del shell el botón
+«Guardar en SLDB» y el `.save-state`; las demás no tienen ese chrome. Cada
+vista que
 usa React Flow monta su propio `<ReactFlowProvider>` (no uno compartido en el
 shell): así cada una tiene su propio `useReactFlow()`/viewport. El teclado
 sigue el mismo patrón: cada vista instala su propio listener mientras está
@@ -139,12 +148,14 @@ Flow, que no acepta `var(...)` directamente); está memoizado por
 ### Añadir una vista o un tema nuevos
 
 Una vista nueva es: un directorio `views/{faceta}/{vista}/` con su
-componente, una entrada en `VIEWS` (`shell/registry.js`) con su descriptor, y
-un `<link>` a su hoja de estilos propia en `index.html`
-(`views/{faceta}/{vista}/{vista}.css`) — no hace falta tocar el router ni el
-shell. Un tema nuevo es: un archivo `skins/{nombre}.css` con los mismos
-tokens que `light.css`/`dark.css`, una entrada en `SKINS` (`shell/skin.js`) y
-un `<link>` en `index.html`.
+componente y su descriptor (incluyendo `styles: ['/views/{faceta}/{vista}/{vista}.css']`),
+y una entrada en `VIEWS` (`shell/registry.js`) que la importe en el orden en
+que debe aparecer su pestaña — nada más: no hace falta tocar `index.html`
+(el shell inyecta su hoja de estilos), ni el router ni el shell. Un tema
+nuevo es: un archivo `skins/{nombre}.css` con los mismos tokens que
+`light.css`/`dark.css`, una entrada en `SKINS` (`shell/skin.js`) y un
+`<link>` en `index.html` (los temas siguen siendo enlaces fijos: a
+diferencia de las vistas, no varían de un store a otro).
 
 ### Estilos compartidos
 
@@ -294,6 +305,26 @@ el JSON del contrato con `brainstormToSource` (`source/draft.mjs`) y reusa
 exactamente el pipeline de `compiler.py` (`/api/plan` → `/api/compile`): las
 ideas convertidas no se eliminan del lienzo, quedan marcadas con
 `convertedDocId` y una insignia ✓.
+
+## Vista Flujo (documents/flow)
+
+`views/documents/flow/flow-view.js` (`⇢ Flujo`, `/documents/flow`) es la
+lectura que tenía el editor `flow_editor` retirado — documentos como grafo
+dirigido con dagre `rankdir: LR` — recuperada como una vista más sobre la
+faceta `documents`, genérica para cualquier store y cualquier clase: nunca
+inventa semántica propia, lee `useSource().documents.working.documents` y
+`.models` igual que el mapa KB (así ve ediciones sin guardar), y no muta
+nada. A diferencia del mapa KB, que anida la contención como cajas dentro de
+cajas, aquí **toda** relación —contención y referencia por igual— es una
+arista dibujada (`views/documents/flow/projection.mjs`, `flowGraph`, sobre
+`relationships()`/`graphMaps()` de `source/graph.mjs`): un nodo compacto por
+documento, la contención con color de la clase de origen y trazo sólido, la
+referencia punteada con `var(--edge)`. Seleccionar un nodo atenúa las
+aristas ajenas y abre `aside.flow-inspector` (clase, título, id, ruta y sus
+campos de contención/referencia con valor, de solo lectura); un filtro de
+texto (`.flow-filter`) atenúa en vez de quitar; un `<select>` de clase
+(`.flow-class`) restringe a una clase y solo conserva las aristas entre los
+nodos que quedan visibles.
 
 ## Class editor
 

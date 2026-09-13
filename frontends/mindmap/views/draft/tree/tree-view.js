@@ -89,4 +89,4 @@ function TreeView({navigate}) {
   </div>`;
 }
 
-export const treeView={id:'tree', facet:'draft', label:'💡 Brainstorm', component:TreeView, shell:{primary:false}};
+export const treeView={id:'tree', facet:'draft', label:'💡 Brainstorm', component:TreeView, shell:{primary:false}, styles:['/views/draft/tree/tree.css']};
