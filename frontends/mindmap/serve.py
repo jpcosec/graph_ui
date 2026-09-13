@@ -52,10 +52,17 @@ class ProxyHandler(SimpleHTTPRequestHandler):
                 self.json_response(self.editor_store.graph())
             except Exception as exc:
                 self.json_response({'ok': False, 'error': str(exc)}, 500)
+        elif route.startswith('/api/'):
+            self.json_response({'ok': False, 'error': 'Ruta desconocida.'}, 404)
         elif route.startswith('/sldb/'):
             self._proxy_request('GET')
         else:
-            if route in ('/flow', '/mindmap'):
+            # SPA fallback: a client-side route (/documents/map, /draft/tree,
+            # /models/diagram, ...) has no file on disk and its last segment
+            # has no extension, so serve the app shell and let router.js
+            # resolve it from location.pathname.
+            static_path = Path(self.translate_path(route))
+            if route != '/' and not static_path.exists() and '.' not in static_path.name:
                 self.path = '/index.html'
             super().do_GET()
 

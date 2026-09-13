@@ -105,14 +105,14 @@ def test_brainstorm_capture_and_conversion():
             try:
                 page.wait_for_selector(".idea-node", timeout=5000)
             except Exception as exc:
-                mode_now = page.evaluate("localStorage.getItem('kb-editor-mode')")
+                mode_now = page.evaluate("localStorage.getItem('kb-editor-route')")
                 draft_now = page.evaluate("(JSON.parse(localStorage.getItem('kb-brainstorm-draft-v1')||'{}').ideas||[]).length")
                 html_state = page.evaluate("document.querySelector('.kb-shell')?.className||'no-shell'")
                 print(f"POST-RELOAD mode={mode_now} draft={draft_now} shell={html_state}")
                 print("JS ERRORS:", errors)
                 print("BRAINstorm present:", page.locator('.brainstorm').count())
                 raise
-            mode_now = page.evaluate("localStorage.getItem('kb-editor-mode')")
+            mode_now = page.evaluate("localStorage.getItem('kb-editor-route')")
             draft_now = page.evaluate("JSON.parse(localStorage.getItem('kb-brainstorm-draft-v1')||'{}').ideas?.length")
             print(f"POST-RELOAD mode={mode_now} draft={draft_now} nodes={page.locator('.idea-node').count()}")
 

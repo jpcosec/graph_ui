@@ -256,6 +256,57 @@ def test_get_schema_and_graph_against_compiled_store(compiled_env):
     assert graph["documents"] and {d["id"] for d in graph["documents"]} >= {"main-board"}
 
 
+# ------------------------------------------------------------- ruteo (fase D)
+
+@pytest.mark.parametrize("route", ["/documents/map", "/models/diagram", "/draft/tree"])
+def test_route_serves_app_shell(compiled_env, route):
+    port = compiled_env["env"].port
+    with urllib.request.urlopen(f"http://127.0.0.1:{port}{route}", timeout=10) as res:
+        body = res.read().decode()
+        assert res.status == 200
+        assert "text/html" in res.headers.get("Content-Type", "")
+    assert 'id="root"' in body
+
+
+def test_get_root_serves_app_shell(compiled_env):
+    port = compiled_env["env"].port
+    with urllib.request.urlopen(f"http://127.0.0.1:{port}/", timeout=10) as res:
+        body = res.read().decode()
+        assert res.status == 200
+        assert "text/html" in res.headers.get("Content-Type", "")
+    assert 'id="root"' in body
+
+
+def test_get_real_static_files_are_served_directly(compiled_env):
+    port = compiled_env["env"].port
+    with urllib.request.urlopen(f"http://127.0.0.1:{port}/app.js", timeout=10) as res:
+        assert res.status == 200
+        assert "javascript" in res.headers.get("Content-Type", "")
+    with urllib.request.urlopen(f"http://127.0.0.1:{port}/skins/light.css", timeout=10) as res:
+        assert res.status == 200
+        assert "text/css" in res.headers.get("Content-Type", "")
+
+
+def test_get_missing_static_file_with_extension_is_404(compiled_env):
+    port = compiled_env["env"].port
+    try:
+        urllib.request.urlopen(f"http://127.0.0.1:{port}/nope.js", timeout=10)
+        raise AssertionError("se esperaba 404")
+    except urllib.error.HTTPError as exc:
+        assert exc.code == 404
+
+
+def test_get_unknown_api_route_is_404_json(compiled_env):
+    port = compiled_env["env"].port
+    try:
+        urllib.request.urlopen(f"http://127.0.0.1:{port}/api/nope", timeout=10)
+        raise AssertionError("se esperaba 404")
+    except urllib.error.HTTPError as exc:
+        assert exc.code == 404
+        body = json.loads(exc.read())
+        assert body["ok"] is False
+
+
 # -------------------------------------------------------- modelos (paso 7)
 
 def test_models_list(compiled_env):

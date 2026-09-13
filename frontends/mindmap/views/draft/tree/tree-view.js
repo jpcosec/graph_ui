@@ -40,7 +40,7 @@ function TreeView({navigate}) {
     if(!result.ok&&result.report.applicable===false){setReport(result.report);setFailed(true);setMessage('SLDB rechazó el plan: revisa el reporte. Nada se escribió.');return;}
     if(!result.ok){setFailed(true);setReport(result.report);setMessage(result.error||'No se completó la conversión.');return;}
     setReport(result.report);setMessage(`Conversión completa: ${Object.keys(result.docIds).length} documento(s) creados en SLDB. Recargando la KB…`);
-    navigate('map');
+    navigate('/documents/map');
   };
   const discard=()=>{if(confirm('¿Descartar el borrador de Brainstorm? Se perderán las ideas sin convertir.')){discardDraft();setSelected(null);setEditingId(null);setMessage('Borrador descartado.');setReport(null);}};
   const renderTree=(parentId,depth)=>childrenOf[parentId||'root'].map(id=>{

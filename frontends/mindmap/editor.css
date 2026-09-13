@@ -13,7 +13,7 @@
 .compiler-dialog .dialog-footer { flex-wrap: wrap; }
 .compiler-message { color: var(--success-strong); }
 /* Brainstorm: captura rápida transitoria (plan paso 4). */
-.mode-switch{display:flex;gap:2px;background:var(--surface-muted);border:1px solid var(--border);border-radius:8px;padding:2px;margin-left:14px}.mode-switch button{border:0;background:transparent;border-radius:6px;min-height:30px;font-size:12px;padding:4px 12px;color:var(--text-muted)}.mode-switch button.active{background:var(--surface-panel);color:var(--primary-strong);font-weight:600;box-shadow:var(--shadow-tab)}
+.mode-switch{display:flex;gap:2px;background:var(--surface-muted);border:1px solid var(--border);border-radius:8px;padding:2px;margin-left:14px}.mode-switch [role=tab]{border:0;background:transparent;border-radius:6px;min-height:30px;font-size:12px;padding:4px 12px;color:var(--text-muted);text-decoration:none;display:inline-flex;align-items:center}.mode-switch [role=tab].active{background:var(--surface-panel);color:var(--primary-strong);font-weight:600;box-shadow:var(--shadow-tab)}
 .skin-toggle{margin-left:8px;min-width:34px;font-size:18px;padding:0 8px}
 .view-outlet{display:flex;flex-direction:column;flex:1;min-height:0}
 .brainstorm{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--surface-warm);overflow:auto;padding:18px 26px}
