@@ -12,7 +12,22 @@ export const CONTAINMENT = {
   ChecklistDoc:{condition_refs:['ConditionDoc']},
   RitualDoc:{steps:['StepDoc']},
 };
-export const REFERENCE_FIELDS = new Set(['routine','current_node','entrypoint','source','target','condition_ref','condition_refs','allowed_transitions','decomposition','edges','tasks','pills','steps','depends_on','references','conditions','operators','checklists','grounding_atoms','atoms','rituals','terminal_nodes']);
+export const REFERENCE_FIELDS = new Set(['routine','current_node','entrypoint','source','target','source_id','target_id','condition_ref','condition_refs','allowed_transitions','decomposition','edges','tasks','pills','steps','depends_on','references','conditions','operators','checklists','grounding_atoms','atoms','rituals','terminal_nodes']);
+// A document IS an edge, structurally: kgdb's RelationDoc convention (and any
+// model that follows it) declares string source_id/target_id in its payload.
+// Deliberately not keyed by model_name/class — deskops' EdgeDoc uses
+// source/target instead and is a node with reference fields, not this.
+export function isRelationDocument(doc) {
+  return typeof doc?.payload?.source_id==='string' && typeof doc?.payload?.target_id==='string';
+}
+// Export-id alias, kgdb/pron convention (see pron's ids.py split_id/join_id):
+// 'Model:doc' -> 'doc', 'Store:Model:doc' -> 'doc' (last ':'-segment); a bare
+// local id or path passes through unchanged.
+export function localIdOf(value) {
+  if (typeof value !== 'string') return value;
+  const parts = value.split(':');
+  return parts.length > 1 ? parts[parts.length - 1] : value;
+}
 // Grafo declarativo desde el schema SLDB: model -> {field -> [targets]} (contención)
 // y model -> Set(fields) (referencias). Es la única fuente cuando el schema
 // declara metadatos; si no, se cae al legacy.
@@ -53,7 +68,7 @@ export function relationships(documents,maps) {
     if(!isReferenceField(d.model_name,field,maps))return;
     (Array.isArray(raw)?raw:[raw]).forEach(value=>{
       if(typeof value!=='string')return;
-      const target=aliases.get(value)||aliases.get(value.split('/').pop()?.replace(/\.md$/,''));
+      const target=aliases.get(value)||aliases.get(value.split('/').pop()?.replace(/\.md$/,''))||aliases.get(localIdOf(value));
       const containsField=Boolean(containmentOf(d,maps)?.[field]);
       if(target&&target!==d.id)result.push({source:d.id,target,field,contains:containsField});
     });
@@ -87,7 +102,7 @@ export function appendChild(documents,parentId,child,field) {
 }
 export function removeDocument(documents,id) {
   const removed=documents.find(d=>d.id===id),aliases=new Set([id,removed?.path,removed?.payload.id].filter(Boolean));
-  const matchesRemoved=v=>typeof v==='string'&&(aliases.has(v)||v.split('/').pop()?.replace(/\.md$/,'')===id);
+  const matchesRemoved=v=>typeof v==='string'&&(aliases.has(v)||v.split('/').pop()?.replace(/\.md$/,'')===id||localIdOf(v)===id);
   const removedIds=new Set([id]);
   documents.filter(d=>d.model_name==='EdgeDoc'&&(matchesRemoved(d.payload.source)||matchesRemoved(d.payload.target))).forEach(d=>{
     removedIds.add(d.id);[d.id,d.path,d.payload.id].filter(Boolean).forEach(a=>aliases.add(a));
@@ -95,7 +110,7 @@ export function removeDocument(documents,id) {
   // Remove dangling references, but retain child documents when removing a container.
   return documents.filter(d=>!removedIds.has(d.id)).map(d=>({...d,payload:Object.fromEntries(Object.entries(d.payload).map(([key,value])=>{
     if(!REFERENCE_FIELDS.has(key))return [key,value];
-    const matches=v=>typeof v==='string'&&(aliases.has(v)||v.split('/').pop()?.replace(/\.md$/,'')===id);
+    const matches=v=>typeof v==='string'&&(aliases.has(v)||v.split('/').pop()?.replace(/\.md$/,'')===id||localIdOf(v)===id);
     return [key,Array.isArray(value)?value.filter(v=>!matches(v)):matches(value)?'':value];
   }))}));
 }

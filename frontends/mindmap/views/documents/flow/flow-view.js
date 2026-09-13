@@ -43,7 +43,8 @@ function FlowCanvas({skin}) {
   const [query,setQuery]=useState('');
   const [activeClass,setActiveClass]=useState('');
   const [selected,setSelected]=useState(null);
-  const graph=useMemo(()=>flowGraph(documents,models),[documents,models]);
+  const [relationsAsNodes,setRelationsAsNodes]=useState(false);
+  const graph=useMemo(()=>flowGraph(documents,models,{relationsAsNodes}),[documents,models,relationsAsNodes]);
   const byId=useMemo(()=>Object.fromEntries(graph.nodes.map(n=>[n.id,n])),[graph]);
   const classOptions=useMemo(()=>flowClasses(graph.nodes),[graph]);
   const visibleGraph=useMemo(()=>{
@@ -84,6 +85,7 @@ function FlowCanvas({skin}) {
         <option value="">Todas las clases</option>
         ${classOptions.map(id=>html`<option key=${id} value=${id}>${classStyle(id).name}</option>`)}
       </select>
+      <label className="flow-relations-toggle"><input type="checkbox" className="flow-relations-as-nodes" checked=${relationsAsNodes} onChange=${e=>{setRelationsAsNodes(e.target.checked);setSelected(null);}}/> Relaciones como nodos</label>
       <button type="button" onClick=${()=>fitView({padding:.12,duration:200})}>⛶ Ver todo</button>
     </div>
     <div className="flow-body">

@@ -31,12 +31,51 @@ except ImportError:  # pragma: no cover
 PORT = 8155
 
 
-def _compile(store):
+def _load_compiler():
     spec = importlib.util.spec_from_file_location("mc", MINDMAP / "compiler.py")
     compiler = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(compiler)
-    compiler.compile_json(
+    return compiler
+
+
+def _compile(store):
+    _load_compiler().compile_json(
         json.loads((MINDMAP / "fixtures/kb-small.json").read_text(encoding="utf-8")), store)
+
+
+# Un modelo inline sin containment/references declarados, a propósito: la
+# convención kgdb RelationDoc (source_id/target_id string en el payload) se
+# reconoce estructuralmente (isRelationDocument en source/graph.mjs), nunca
+# por metadatos de schema ni por nombre de clase.
+LINK_SOURCE = {
+    "version": 1,
+    "models": [{
+        "name": "LinkDoc",
+        "fields": [
+            {"name": "id", "type": "str", "description": "Identifier"},
+            {"name": "title", "type": "str", "description": "Title"},
+            {"name": "source_id", "type": "str", "description": "Origin document"},
+            {"name": "target_id", "type": "str", "description": "Target document"},
+            {"name": "relation_type", "type": "str", "description": "Relation kind"},
+        ],
+    }],
+    "documents": [{
+        "id": "link-1",
+        "model": "LinkDoc",
+        "payload": {
+            "title": "task-onboarding depends on task-review",
+            "source_id": "TaskDoc:task-onboarding",
+            "target_id": "TaskDoc:task-review",
+            "relation_type": "depends",
+        },
+    }],
+}
+
+
+def _compile_link(store):
+    # compile_json es idempotente: agrega LinkDoc y link-1 al store del
+    # fixture sin tocar los documentos ya compilados.
+    _load_compiler().compile_json(LINK_SOURCE, store)
 
 
 def _start_server(store):
@@ -116,6 +155,50 @@ def test_flow_view_draws_documents_as_a_directed_graph():
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def test_flow_view_collapses_relation_documents_into_edges():
+    """kgdb's RelationDoc convention (source_id/target_id string payload, no
+    __containment__/__references__ declared) collapses into one labeled edge
+    between its endpoints by default; `.flow-relations-as-nodes` opts back
+    into drawing it as its own node (see source/graph.mjs isRelationDocument
+    and views/documents/flow/projection.mjs flowGraph)."""
+    if sync_playwright is None:
+        import pytest
+        pytest.skip("playwright no está instalado")
+    tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-flow-link-"))
+    store = tmp / ".sldb"
+    _compile(store)
+    _compile_link(store)
+    server = _start_server(store)
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1400, "height": 900})
+            errors = []
+            page.on("pageerror", lambda e: errors.append(str(e)))
+            page.goto(f"http://127.0.0.1:{PORT}/documents/flow")
+            page.wait_for_selector(".flow-node", timeout=10000)
+
+            # link-1 (LinkDoc) es una relación, no un participante: no dibuja
+            # nodo propio por defecto, solo una arista entre sus dos extremos.
+            expect(page.locator(".flow-node")).to_have_count(3)
+            expect(page.locator(".flow-count")).to_contain_text("3 documentos")
+            expect(page.locator(".react-flow__edge", has_text="depends")).to_have_count(1)
+
+            # Con "Relaciones como nodos" activado, link-1 vuelve a ser un nodo.
+            page.locator(".flow-relations-as-nodes").check()
+            expect(page.locator(".flow-node")).to_have_count(4)
+            page.locator(".flow-relations-as-nodes").uncheck()
+            expect(page.locator(".flow-node")).to_have_count(3)
+
+            assert not errors, f"errores JS: {errors}"
+            browser.close()
+    finally:
+        server.terminate()
+        server.wait(timeout=5)
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 if __name__ == "__main__":
     test_flow_view_draws_documents_as_a_directed_graph()
+    test_flow_view_collapses_relation_documents_into_edges()
     print("OK")

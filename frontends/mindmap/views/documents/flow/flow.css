@@ -9,6 +9,7 @@
 
 .flow-filter{border:1px solid var(--border-control);background:var(--surface-app);border-radius:7px;padding:6px 10px;width:220px;margin-left:auto}
 .flow-class{border:1px solid var(--border-control);background:var(--surface-app);border-radius:7px;padding:6px 10px}
+.flow-relations-toggle{display:flex;gap:5px;align-items:center;white-space:nowrap}
 
 .flow-body{position:relative;flex:1;min-height:0;display:flex}
 .flow-canvas{position:relative;flex:1;min-height:0;min-width:0}

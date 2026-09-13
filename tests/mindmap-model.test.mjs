@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {brainstormToSource,brainstormIssues} from '../frontends/mindmap/source/draft.mjs';
-import {appendChild,removeDocument,hierarchy,relationships,graphMaps} from '../frontends/mindmap/source/graph.mjs';
+import {appendChild,removeDocument,hierarchy,relationships,graphMaps,localIdOf,isRelationDocument} from '../frontends/mindmap/source/graph.mjs';
 import {changesBetween,conflictsBetween} from '../frontends/mindmap/source/batch.mjs';
 import {defaultsFor,quickPayload,searchDocuments,referenceFieldsOf} from '../frontends/mindmap/shared/documents.mjs';
 import {project} from '../frontends/mindmap/views/documents/map/projection.mjs';
@@ -126,6 +126,27 @@ test('mixed stores keep per-model legacy fallback',()=>{
   assert.ok(links.some(l=>l.source==='t1'&&l.target==='r1'&&l.field==='references')); // legacy global por campo
   // Sin declaración de ningún modelo: null y fallback completo.
   assert.equal(graphMaps([{id:'XDoc',fields:[]}]),null);
+});
+
+test('localIdOf strips an export-id prefix (kgdb/pron Model:doc, Store:Model:doc convention)',()=>{
+  assert.equal(localIdOf('SurfaceDoc:x'),'x');
+  assert.equal(localIdOf('A:SurfaceDoc:x'),'x');
+  assert.equal(localIdOf('x'),'x');
+});
+
+test('isRelationDocument: a document IS an edge when its payload has string source_id/target_id',()=>{
+  assert.ok(isRelationDocument({payload:{source_id:'A:a',target_id:'B:b'}}));
+  assert.ok(!isRelationDocument({payload:{source:'a',target:'b'}}),'EdgeDoc source/target no cuenta: la regla es estructural, no por nombre de campo');
+  assert.ok(!isRelationDocument({payload:{source_id:'a'}}),'falta target_id');
+  assert.ok(!isRelationDocument({payload:{}}));
+  assert.ok(!isRelationDocument(null));
+});
+
+test('relationships() resolves kgdb export ids (Model:doc) to the plain document id in legacy mode',()=>{
+  const surface={id:'surface-a',model_name:'SurfaceDoc',payload:{title:'Surface A'}};
+  const relation={id:'rel-1',model_name:'RelationDoc',payload:{title:'implements--SurfaceDoc:surface-a--SpecDoc:spec-1',source_id:'SurfaceDoc:surface-a',target_id:'SpecDoc:spec-1',relation_type:'implements'}};
+  const links=relationships([surface,relation]);
+  assert.ok(links.some(l=>l.source==='rel-1'&&l.target==='surface-a'&&l.field==='source_id'),'source_id con prefijo de export id debe resolver al documento local');
 });
 
 test('searchDocuments matches title, id and path; referenceFieldsOf merges references and containment',()=>{
@@ -255,6 +276,32 @@ test('flowGraph respects declared schema metadata over the legacy fallback',()=>
   assert.equal(edges.length,2);
   assert.ok(edges.find(e=>e.source==='board'&&e.target==='t1'&&e.contains===true));
   assert.ok(edges.find(e=>e.source==='t1'&&e.target==='t1-other'&&e.field==='blocks'&&e.contains===false));
+});
+
+test('flowGraph collapses a kgdb RelationDoc into one labeled edge and drops its node',()=>{
+  const source={id:'surface-pron-world',model_name:'SurfaceDoc',payload:{title:'World'}};
+  const target={id:'spec-01',model_name:'SpecDoc',payload:{title:'Spec 01'}};
+  const relation={id:'rel-1',model_name:'RelationDoc',payload:{title:'implements--SurfaceDoc:surface-pron-world--SpecDoc:spec-01',source_id:'SurfaceDoc:surface-pron-world',target_id:'SpecDoc:spec-01',relation_type:'implements'}};
+  const {nodes,edges}=flowGraph([source,target,relation]);
+  assert.deepEqual(nodes.map(n=>n.id).sort(),['spec-01','surface-pron-world'],'el RelationDoc no es un nodo por defecto');
+  assert.equal(edges.length,1);
+  const edge=edges[0];
+  assert.equal(edge.source,'surface-pron-world');
+  assert.equal(edge.target,'spec-01');
+  assert.equal(edge.field,'implements');
+  assert.equal(edge.contains,false);
+  assert.equal(edge.relationDoc,'rel-1');
+});
+
+test('flowGraph keeps a RelationDoc as a small node when relationsAsNodes is on',()=>{
+  const source={id:'surface-pron-world',model_name:'SurfaceDoc',payload:{title:'World'}};
+  const target={id:'spec-01',model_name:'SpecDoc',payload:{title:'Spec 01'}};
+  const relation={id:'rel-1',model_name:'RelationDoc',payload:{title:'implements--SurfaceDoc:surface-pron-world--SpecDoc:spec-01',source_id:'SurfaceDoc:surface-pron-world',target_id:'SpecDoc:spec-01',relation_type:'implements'}};
+  const {nodes,edges}=flowGraph([source,target,relation],undefined,{relationsAsNodes:true});
+  assert.deepEqual(nodes.map(n=>n.id).sort(),['rel-1','spec-01','surface-pron-world']);
+  // source_id/target_id ya están en REFERENCE_FIELDS: el RelationDoc-como-nodo dibuja dos referencias ordinarias.
+  assert.ok(edges.some(e=>e.source==='rel-1'&&e.target==='surface-pron-world'&&e.field==='source_id'));
+  assert.ok(edges.some(e=>e.source==='rel-1'&&e.target==='spec-01'&&e.field==='target_id'));
 });
 
 test('flowMatches filters by title, id and class; flowClasses lists present classes only',()=>{
