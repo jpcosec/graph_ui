@@ -3,6 +3,7 @@
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 from urllib.parse import urlparse
+import errno
 import json
 import os
 import sys
@@ -133,6 +134,13 @@ def make_server(port=8088, store=None):
 
 if __name__ == '__main__':
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8088
-    server = make_server(port)
-    print(f'KB Mindmap: http://127.0.0.1:{port}/', flush=True)
+    try:
+        server = make_server(port)
+    except OSError as exc:
+        if exc.errno != errno.EADDRINUSE:
+            raise
+        print(f'El puerto {port} ya está en uso (¿otro serve.py corriendo?). '
+              f'Elige otro: python3 frontends/mindmap/serve.py {port + 1}', file=sys.stderr)
+        raise SystemExit(2)
+    print(f'KB Mindmap: http://127.0.0.1:{port}/ · store: {server.RequestHandlerClass.editor_store.store}', flush=True)
     server.serve_forever()
