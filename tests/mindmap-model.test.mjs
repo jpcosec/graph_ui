@@ -1,7 +1,11 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {brainstormToSource,brainstormIssues} from '../frontends/mindmap/model.mjs';
-import {appendChild,project,removeDocument,changesBetween,hierarchy,relationships,defaultsFor,quickPayload,graphMaps,searchDocuments,referenceFieldsOf} from '../frontends/mindmap/model.mjs';
+import {brainstormToSource,brainstormIssues} from '../frontends/mindmap/source/draft.mjs';
+import {appendChild,removeDocument,hierarchy,relationships,graphMaps} from '../frontends/mindmap/source/graph.mjs';
+import {changesBetween,conflictsBetween} from '../frontends/mindmap/source/batch.mjs';
+import {defaultsFor,quickPayload,searchDocuments,referenceFieldsOf} from '../frontends/mindmap/shared/documents.mjs';
+import {project} from '../frontends/mindmap/views/documents/map/projection.mjs';
+import * as history from '../frontends/mindmap/source/history.mjs';
 const board={id:'board',model_name:'BoardDoc',payload:{title:'Board',tasks:[]}};
 const child={id:'task',model_name:'TaskDoc',path:'desk/tasks/task.md',payload:{title:'Task'}};
 
@@ -175,7 +179,7 @@ test('brainstormToSource gives collisions unique IDs without replacing existing 
 });
 
 // ---------------------------------------------------------------- Schema
-import {schemaGraph,schemaMatches} from '../frontends/mindmap/model.mjs';
+import {schemaGraph,schemaMatches} from '../frontends/mindmap/views/models/diagram/projection.mjs';
 
 test('schemaGraph: la contención declarada da aristas tipadas; las referencias solo se anotan',()=>{
   const models=[
@@ -227,4 +231,115 @@ test('class colors are slots resolved by the active skin, not hardcoded hexes',(
   assert.equal(slotClassStyle('SomethingWeirdDoc').slot,unknown.slot,'el hash del fallback debe ser estable entre llamadas');
   assert.equal(classVar(3),'var(--class-color-3)');
   assert.equal(slotClassStyle('SomethingDoc').name,'Something');
+});
+
+// ---------------------------------------------------------------- source/batch.mjs
+// NOTA: conflictsBetween reproduce EXACTAMENTE la lógica extraída de
+// App.save (editor.js). Dos particularidades de esa lógica, no de este test:
+// (1) un 'create' nunca se marca como conflicto — el filtro inicial solo
+//     considera 'update'/'delete', así que un id ya existente en el servidor
+//     al hacer create no aparece aquí (lo rechaza el propio /api/save, pero
+//     no como fila de ConflictDialog).
+// (2) un 'delete' cuyo documento YA NO EXISTE en el servidor igual se marca
+//     como conflicto (la condición es `!cur || payload difiere`): el código
+//     no distingue "ya lo borraron también" de "cambió de verdad".
+test('conflictsBetween flags update/delete changes the server no longer matches',()=>{
+  const changes=[
+    {action:'update',id:'a',expected:{title:'old-a'}},
+    {action:'update',id:'b',expected:{title:'old-b'}},
+    {action:'delete',id:'c',expected:{title:'old-c'}},
+    {action:'delete',id:'e',expected:{title:'old-e'}},
+    {action:'create',id:'d',payload:{title:'new-d'}},
+  ];
+  // 'a' fue modificado por otra sesión: conflicto.
+  // 'b' sigue igual en el servidor: no es conflicto.
+  // 'c' ya no existe en el servidor: la lógica actual igual lo marca (ver nota (2) arriba).
+  // 'e' sigue igual en el servidor (nadie lo tocó): no es conflicto, puede borrarse.
+  // 'd' es un create y el servidor ya tiene ese id: nunca se marca como conflicto (ver nota (1)).
+  const server=[{id:'a',payload:{title:'changed-elsewhere'}},{id:'b',payload:{title:'old-b'}},
+    {id:'e',payload:{title:'old-e'}},{id:'d',payload:{title:'ya existía'}}];
+  const conflicts=conflictsBetween(changes,server);
+  assert.deepEqual(conflicts.map(c=>c.id).sort(),['a','c']);
+  assert.equal(conflicts.find(c=>c.id==='a').current.payload.title,'changed-elsewhere');
+  assert.equal(conflicts.find(c=>c.id==='c').current,undefined,'delete de un doc ya ausente: current es undefined');
+  assert.ok(!conflicts.some(c=>c.id==='d'),"un create nunca se marca como conflicto con la lógica actual de App.save");
+});
+
+test('changesBetween + conflictsBetween round trip: unchanged documents never conflict',()=>{
+  const baseline=[{id:'a',model_name:'TaskDoc',payload:{title:'A'}},{id:'b',model_name:'TaskDoc',payload:{title:'B'}}];
+  const local=[{id:'a',model_name:'TaskDoc',payload:{title:'A edited locally'}},{id:'b',model_name:'TaskDoc',payload:{title:'B'}}];
+  const changes=changesBetween(baseline,local);
+  assert.deepEqual(changes.map(c=>c.action),['update']);
+  // El servidor no cambió nada: ningún conflicto.
+  assert.deepEqual(conflictsBetween(changes,baseline),[]);
+  // El servidor cambió 'a' también: conflicto.
+  const serverChanged=[{id:'a',model_name:'TaskDoc',payload:{title:'A changed on server'}},{id:'b',model_name:'TaskDoc',payload:{title:'B'}}];
+  assert.deepEqual(conflictsBetween(changes,serverChanged).map(c=>c.id),['a']);
+});
+
+// ---------------------------------------------------------------- source/history.mjs
+test('history: edit pushes one entry onto history and clears future',()=>{
+  let state=history.initial({documents:['d0'],view:{}});
+  state=history.edit(state,w=>({...w,documents:['d1']}));
+  assert.deepEqual(state.working.documents,['d1']);
+  assert.equal(state.history.length,1);
+  assert.deepEqual(state.history[0].documents,['d0']);
+  assert.deepEqual(state.future,[]);
+});
+
+test('history: undo/redo round trip restores the exact working copy',()=>{
+  let state=history.initial({documents:['d0'],view:{}});
+  state=history.edit(state,w=>({...w,documents:['d1']}));
+  state=history.edit(state,w=>({...w,documents:['d2']}));
+  state=history.undo(state);
+  assert.deepEqual(state.working.documents,['d1']);
+  state=history.undo(state);
+  assert.deepEqual(state.working.documents,['d0']);
+  assert.equal(state.history.length,0);
+  state=history.redo(state);
+  assert.deepEqual(state.working.documents,['d1']);
+  state=history.redo(state);
+  assert.deepEqual(state.working.documents,['d2']);
+  assert.equal(state.future.length,0);
+  // undo/redo con las pilas vacías no rompe: devuelve el mismo estado.
+  assert.deepEqual(history.redo(state),state);
+});
+
+test('history: a new edit after undo clears the redo stack (future)',()=>{
+  let state=history.initial({documents:['d0'],view:{}});
+  state=history.edit(state,w=>({...w,documents:['d1']}));
+  state=history.undo(state);
+  assert.equal(state.future.length,1);
+  state=history.edit(state,w=>({...w,documents:['d1-b']}));
+  assert.equal(state.future.length,0,'un edit nuevo invalida el redo pendiente');
+});
+
+test('history: checkpoint + apply creates exactly one history entry (drag start/stop)',()=>{
+  let state=history.initial({documents:[],view:{positions:{}}});
+  state=history.checkpoint(state); // drag start
+  assert.equal(state.history.length,1);
+  state=history.apply(state,w=>({...w,view:{...w.view,positions:{n1:{x:10,y:20}}}})); // drag stop
+  assert.equal(state.history.length,1,'apply no debe empujar una segunda entrada de historial');
+  assert.deepEqual(state.working.view.positions,{n1:{x:10,y:20}});
+  // El undo restaura el estado previo al drag, en un solo paso.
+  state=history.undo(state);
+  assert.deepEqual(state.working.view.positions,{});
+});
+
+test('history: caps at 40 entries',()=>{
+  let state=history.initial({documents:[],view:{}});
+  for(let i=0;i<45;i++)state=history.edit(state,w=>({...w,documents:[i]}));
+  assert.equal(state.history.length,40);
+  assert.deepEqual(state.history[0].documents,[4]); // las 5 primeras ediciones se descartaron
+});
+
+test('history: reset clears history/future and rebases working on the new baseline',()=>{
+  let state=history.initial({documents:['d0'],view:{}});
+  state=history.edit(state,w=>({...w,documents:['d1']}));
+  state=history.undo(state);
+  assert.ok(state.history.length||state.future.length);
+  state=history.reset(state,{documents:['server-d'],view:{fromServer:true}});
+  assert.deepEqual(state.working,{documents:['server-d'],view:{fromServer:true}});
+  assert.deepEqual(state.history,[]);
+  assert.deepEqual(state.future,[]);
 });

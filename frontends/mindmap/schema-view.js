@@ -1,11 +1,10 @@
-import React,{useState,useEffect,useMemo} from 'react';
+import {useState,useEffect,useMemo} from 'react';
 import {ReactFlow,ReactFlowProvider,Controls,MiniMap,Handle,Position,useReactFlow,applyNodeChanges} from '@xyflow/react';
-import htm from 'htm';
 import dagre from 'dagre';
-import {schemaGraph,schemaMatches} from './model.mjs';
+import {html} from './shared/html.js';
+import {schemaGraph,schemaMatches} from './views/models/diagram/projection.mjs';
 import {classStyle,classVar} from './shared/classes.mjs';
 import {resolveToken} from './shell/skin.js';
-const html=htm.bind(React.createElement);
 
 // Diagrama de CLASES: una card por modelo registrado con TODOS sus campos;
 // cada arista de contención sale del puerto de su propio campo (handle con

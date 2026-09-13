@@ -1,17 +1,13 @@
-import React,{useState,useEffect,useRef} from 'react';
-import htm from 'htm';
-const html=htm.bind(React.createElement);
+import {useState,useEffect,useRef} from 'react';
+import {html} from './shared/html.js';
+import {useBeforeUnload} from './shell/use-before-unload.js';
 
 export function CompilerDialog({request,onClose,onRefresh}) {
   const ref=useRef(null);
   const [source,setSource]=useState(''),[report,setReport]=useState(null),[plan,setPlan]=useState(null);
   const [busy,setBusy]=useState(false),[message,setMessage]=useState(''),[failed,setFailed]=useState(false);
   useEffect(()=>{const dialog=ref.current;dialog.showModal();return()=>dialog.close();},[]);
-  useEffect(()=>{
-    const warn=e=>{if(busy){e.preventDefault();e.returnValue='';}};
-    window.addEventListener('beforeunload',warn);
-    return()=>window.removeEventListener('beforeunload',warn);
-  },[busy]);
+  useBeforeUnload(busy);
   const change=value=>{setSource(value);setPlan(null);setReport(null);setMessage('');setFailed(false);};
   const readFile=async e=>{
     const file=e.target.files[0];if(!file)return;

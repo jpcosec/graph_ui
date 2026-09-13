@@ -1,15 +1,19 @@
-import React,{useState,useEffect,useMemo,useRef,useCallback} from 'react';
+import {useState,useEffect,useMemo,useRef,useCallback} from 'react';
 import {createRoot} from 'react-dom/client';
 import {ReactFlow,ReactFlowProvider,Controls,MiniMap,Handle,Position,NodeToolbar,useReactFlow,applyNodeChanges} from '@xyflow/react';
-import htm from 'htm';
+import {html} from './shared/html.js';
 import {CompilerDialog} from './compiler-dialog.js';
 import {BrainstormView} from './brainstorm.js';
 import {SchemaView} from './schema-view.js';
 import {ClassDialog} from './classes-dialog.js';
-import {readingViewport,titleOf,project,childOptions,appendChild,removeDocument,changesBetween,graphMaps,defaultsFor,quickPayload,slugify,searchDocuments,referenceFieldsOf} from './model.mjs';
+import {readingViewport,project} from './views/documents/map/projection.mjs';
+import {childOptions,appendChild,removeDocument,graphMaps} from './source/graph.mjs';
+import {titleOf,defaultsFor,quickPayload,slugify,searchDocuments,referenceFieldsOf,labelFor,isList} from './shared/documents.mjs';
 import {classStyle,classVar} from './shared/classes.mjs';
 import {SKINS,getSkin,setSkin,resolveToken} from './shell/skin.js';
-const html=htm.bind(React.createElement);
+import {request} from './shell/api.js';
+import {useBeforeUnload} from './shell/use-before-unload.js';
+import {SourceProvider,useSource} from './source/source.js';
 
 function DocumentNode({data,selected}) {
   const style=classStyle(data.doc.model_name);
@@ -32,8 +36,6 @@ function DocumentNode({data,selected}) {
   </div>`;
 }
 const nodeTypes={document:DocumentNode};
-const labelFor=field=>({title:'Título',name:'Nombre',body:'Contenido',status:'Estado',goal:'Objetivo',scope:'Alcance',purpose:'Propósito',implementation_path:'Ruta de implementación',done_when:'Criterio de término',entrypoint:'Nodo de entrada',source:'Origen',target:'Destino',subject:'Sujeto',predicate:'Condición',answer:'Respuesta',summary:'Resumen'}[field]||field.replaceAll('_',' '));
-const isList=field=>['stringlist','enumlist','list'].includes(field.kind);
 function ReferenceField({field,value,documents,onChange}) {
   // Referencias: búsqueda de documentos reales, nunca IDs inventados.
   const multi=['stringlist','list','enumlist'].includes(field.kind);
@@ -165,27 +167,24 @@ function ConnectDialog({spec,models,documents,onClose,onApply}) {
   </form></dialog>`;
 }
 
-async function request(path,init) {
-  const response=await fetch(path,{...init,signal:AbortSignal.timeout(60000)});
-  const body=await response.json();
-  if(!response.ok||body.ok===false){const error=new Error(body.error||'No se pudo completar la operación');error.body=body;throw error;}
-  return body;
-}
 function App() {
+  const kb=useSource();
+  const documentsSource=kb.documents;
+  const documents=documentsSource.working.documents,view=documentsSource.working.view;
+  const models=kb.models.models,counts=kb.models.counts;
+  const status=documentsSource.status,dirty=documentsSource.dirty,notice=documentsSource.notice,error=documentsSource.error,conflicts=documentsSource.conflicts;
+  const {checkpoint,edit,apply,undo,redo,canUndo,canRedo,save,exportMap,resolveConflicts}=documentsSource;
+  const reload=kb.reload;
   const pendingFocus=useRef(null);
-  const [documents,setDocuments]=useState([]),[baseline,setBaseline]=useState([]),[models,setModels]=useState([]);
-  const [view,setView]=useState({}),[baselineView,setBaselineView]=useState({}),[revision,setRevision]=useState('');
-  const [selected,setSelected]=useState(null),[modal,setModal]=useState(null),[status,setStatus]=useState('loading'),[connecting,setConnecting]=useState(null);
-  const [notice,setNotice]=useState(''),[error,setError]=useState(''),[query,setQuery]=useState(''),[activeClass,setActiveClass]=useState(null);
+  const [selected,setSelected]=useState(null),[modal,setModal]=useState(null),[connecting,setConnecting]=useState(null);
+  const [query,setQuery]=useState(''),[activeClass,setActiveClass]=useState(null);
   const [showRelations,setShowRelations]=useState(false),[sidebarOpen,setSidebarOpen]=useState(false),[focusId,setFocusId]=useState(null);
-  const [conflicts,setConflicts]=useState(null);
-  const [history,setHistory]=useState([]),[future,setFuture]=useState([]),[zoom,setZoom]=useState(1),[flowNodes,setFlowNodes]=useState([]);
+  const [zoom,setZoom]=useState(1),[flowNodes,setFlowNodes]=useState([]);
   const [mode,setMode]=useState(()=>{try{return localStorage.getItem('kb-editor-mode')||'map';}catch{return 'map';}});
   const switchMode=next=>{setMode(next);try{localStorage.setItem('kb-editor-mode',next);}catch{}};
   const [skin,setSkinState]=useState(()=>getSkin());
   const cycleSkin=()=>setSkinState(setSkin(SKINS[(SKINS.indexOf(skin)+1)%SKINS.length]));
   const {fitView,setCenter,setViewport,getNodes}=useReactFlow();
-  const dirty=JSON.stringify(documents)!==JSON.stringify(baseline)||JSON.stringify(view)!==JSON.stringify(baselineView);
   const saving=status==='saving',ready=status==='ready'||saving;
   const projection=useMemo(()=>project(documents,view,graphMaps(models)),[documents,view,models]);
   const focusIds=useMemo(()=>{
@@ -202,54 +201,29 @@ function App() {
   const visibleProjection=useMemo(()=>activeClass?project(focusDocuments.filter(d=>d.model_name===activeClass),{...view,positions:{}},graphMaps(models)):focusId?project(focusDocuments,view,graphMaps(models)):projection,[activeClass,focusDocuments,focusId,documents,view,projection,models]);
   useEffect(()=>{if(ready)setTimeout(fit,80);},[activeClass,focusId,fit,ready]);
   useEffect(()=>{setFlowNodes(visibleProjection.nodes);},[visibleProjection]);
-  const load=useCallback(async()=>{
-    setStatus('loading');setError('');
-    try {
-      const [graph,schema]=await Promise.all([request('/api/graph'),request('/api/schema')]);
-      setDocuments(graph.documents);setBaseline(graph.documents);setModels(schema.models);setView(graph.view);setBaselineView(graph.view);setRevision(graph.revision);
-      setHistory([]);setFuture([]);setSelected(null);setActiveClass(null);setFocusId(null);setStatus('ready');setNotice('');setTimeout(fit,200);
-    } catch(e){setStatus('error');setError(e.message);}
-  },[fit]);
-  useEffect(()=>{load();},[load]);
+  // Cada baseline nueva (carga inicial, recarga manual o guardado exitoso)
+  // limpia el estado de interacción de la KB y reencuadra la vista. El
+  // facet de documentos ya se resetea a sí mismo (historial) en su propio
+  // reload()/save(); esto solo cubre el estado que vive en App.
+  // Solo tras una recarga (no tras guardar): un guardado exitoso conserva la selección.
+  useEffect(()=>{setSelected(null);setActiveClass(null);setFocusId(null);setTimeout(fit,200);},[documentsSource.loadCount,fit]);
+  useBeforeUnload(kb.dirtyAny);
   useEffect(()=>{if(!ready||mode!=='map')return;let timer;const canvas=document.querySelector('.canvas');if(!canvas)return;const observer=new ResizeObserver(()=>{clearTimeout(timer);timer=setTimeout(fit,150);});observer.observe(canvas);return()=>{observer.disconnect();clearTimeout(timer);};},[ready,fit,mode]);
-  useEffect(()=>{if(!dirty)return;const callback=e=>{e.preventDefault();e.returnValue='';};window.addEventListener('beforeunload',callback);return()=>window.removeEventListener('beforeunload',callback);},[dirty]);
-  const checkpoint=()=>{setHistory(h=>[...h.slice(-39),{documents,view}]);setFuture([]);setNotice('');};
-  const restore=(from,setFrom,setTo)=>{if(!from.length)return;setTo(h=>[...h,{documents,view}]);const prev=from.at(-1);setDocuments(prev.documents);setView(prev.view);setFrom(h=>h.slice(0,-1));setSelected(null);};
-  const undo=()=>restore(history,setHistory,setFuture),redo=()=>restore(future,setFuture,setHistory);
-  const save=async()=>{
-    if(saving||!dirty)return;
-    setStatus('saving');setError('');setNotice('Guardando documentos en SLDB…');
-    const changes=changesBetween(baseline,documents);
-    try {
-      const result=await request('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({changes,view,viewRevision:revision})});
-      setDocuments(result.documents);setBaseline(result.documents);setView(result.view);setBaselineView(result.view);setRevision(result.revision);setHistory([]);setFuture([]);
-      setNotice(`${result.saved.length} documento${result.saved.length===1?'':'s'} guardado${result.saved.length===1?'':'s'} en SLDB · Vista guardada`);
-    } catch(e){
-      // Conflicto de revisión: el servidor devuelve el grafo actualizado.
-      // Mostramos la versión vigente de cada documento en conflicto.
-      if(e.body?.documents){
-        setBaseline(e.body.documents);setRevision(e.body.revision);
-        const server=new Map(e.body.documents.map(d=>[d.id,d]));
-        const conflicted=changes.filter(c=>['update','delete'].includes(c.action))
-          .filter(c=>{const cur=server.get(c.id);return !cur||JSON.stringify(cur.payload)!==JSON.stringify(c.expected)})
-          .map(c=>({id:c.id,action:c.action,current:server.get(c.id)}));
-        if(conflicted.length)setConflicts(conflicted);
-      }
-      setError(e.message);setNotice('No se completó el guardado. Tus cambios siguen aquí.');
-    } finally{setStatus('ready');}
-  };
   const addChild=id=>{const parent=documents.find(d=>d.id===id),options=childOptions(parent,models);if(!options.length)return;setModal({quick:true,parentId:id,options,model:options[0].model});};
   const addSibling=id=>{const doc=documents.find(d=>d.id===id),parent=projection.parents[id];
     if(parent){const owner=documents.find(d=>d.id===parent.source),options=childOptions(owner,models).filter(o=>o.field===parent.field);setModal({quick:true,parentId:parent.source,field:parent.field,options,model:doc.model_name});}
     else setModal({quick:true,sibling:true,model:doc.model_name});
   };
-  const remove=id=>{checkpoint();setDocuments(removeDocument(documents,id));setSelected(null);setNotice('Se quitará de SLDB al guardar; el archivo Markdown se conserva.');};
-  const toggle=id=>{checkpoint();setView(v=>({...v,collapsed:(v.collapsed||[]).includes(id)?v.collapsed.filter(x=>x!==id):[...(v.collapsed||[]),id]}));setTimeout(fit,80);};
-  const enterFocus=id=>{if(!projection.children[id]?.length)return;setActiveClass(null);setFocusId(id);setSelected(id);setNotice('Modo foco: mostrando este contenedor y su contenido.');};
-  const exitFocus=()=>{setFocusId(null);setSelected(null);setNotice('Mapa completo restaurado.');};
-  const connect=id=>{if(!selected||selected===id){setConnecting(id);setSelected(id);setNotice('Selecciona el documento destino para conectar.');return;}setModal({connection:true,sourceId:connecting||selected,targetId:id});setConnecting(null);};
-  const connectFrom=id=>{setConnecting(id);setSelected(id);setNotice('Selecciona el documento destino para conectar.');};
-  const applyConnection=(source,target,field)=>{checkpoint();setDocuments(ds=>ds.map(d=>{if(d.id!==source.id)return d;const current=d.payload[field];const value=Array.isArray(current)?[...new Set([...current,target.id])]:target.id;return {...d,payload:{...d.payload,[field]:value}};}));setShowRelations(true);setModal(null);setNotice(`Relación preparada: ${titleOf(source)} → ${titleOf(target)}`);};
+  const remove=id=>{edit(w=>({...w,documents:removeDocument(w.documents,id)}));setSelected(null);documentsSource.setNotice('Se quitará de SLDB al guardar; el archivo Markdown se conserva.');};
+  const toggle=id=>{edit(w=>({...w,view:{...w.view,collapsed:(w.view.collapsed||[]).includes(id)?w.view.collapsed.filter(x=>x!==id):[...(w.view.collapsed||[]),id]}}));setTimeout(fit,80);};
+  const enterFocus=id=>{if(!projection.children[id]?.length)return;setActiveClass(null);setFocusId(id);setSelected(id);documentsSource.setNotice('Modo foco: mostrando este contenedor y su contenido.');};
+  const exitFocus=()=>{setFocusId(null);setSelected(null);documentsSource.setNotice('Mapa completo restaurado.');};
+  const connect=id=>{if(!selected||selected===id){setConnecting(id);setSelected(id);documentsSource.setNotice('Selecciona el documento destino para conectar.');return;}setModal({connection:true,sourceId:connecting||selected,targetId:id});setConnecting(null);};
+  const connectFrom=id=>{setConnecting(id);setSelected(id);documentsSource.setNotice('Selecciona el documento destino para conectar.');};
+  const applyConnection=(source,target,field)=>{
+    edit(w=>({...w,documents:w.documents.map(d=>{if(d.id!==source.id)return d;const current=d.payload[field];const value=Array.isArray(current)?[...new Set([...current,target.id])]:target.id;return {...d,payload:{...d.payload,[field]:value}};})}));
+    setShowRelations(true);setModal(null);documentsSource.setNotice(`Relación preparada: ${titleOf(source)} → ${titleOf(target)}`);
+  };
   const actions={addChild,addSibling,remove,toggle,edit:id=>setModal({id}),connect:connectFrom,connecting:Boolean(connecting),focus:enterFocus};
   useEffect(()=>{const key=e=>{
     if(saving||modal)return;
@@ -264,46 +238,38 @@ function App() {
     if(e.key==='Delete'||e.key==='Backspace'){e.preventDefault();remove(selected);}
   };window.addEventListener('keydown',key);return()=>window.removeEventListener('keydown',key);});
   const applyDocument=(doc,field)=>{
-    checkpoint();
-    if(modal.id)setDocuments(ds=>ds.map(d=>d.id===doc.id?doc:d));
-    else if(modal.parentId){setDocuments(ds=>appendChild(ds,modal.parentId,doc,field));setView(v=>({...v,collapsed:(v.collapsed||[]).filter(id=>id!==modal.parentId)}));}
-    else setDocuments(ds=>[...ds,doc]);
+    edit(w=>{
+      if(modal.id)return {...w,documents:w.documents.map(d=>d.id===doc.id?doc:d)};
+      if(modal.parentId)return {documents:appendChild(w.documents,modal.parentId,doc,field),view:{...w.view,collapsed:(w.view.collapsed||[]).filter(id=>id!==modal.parentId)}};
+      return {...w,documents:[...w.documents,doc]};
+    });
     setSelected(doc.id);setModal(null);setTimeout(fit,100);
   };
   const focusDocument=id=>{
     if(activeClass&&documents.find(d=>d.id===id)?.model_name!==activeClass){setActiveClass(null);setSelected(id);pendingFocus.current=id;return;}
     if(focusId&&!focusIds?.has(id)){setFocusId(null);pendingFocus.current=id;return;}
     let current=id,ancestors=[];while(projection.parents[current]){current=projection.parents[current].source;ancestors.push(current);}
-    if(ancestors.some(a=>(view.collapsed||[]).includes(a))){setView(v=>({...v,collapsed:(v.collapsed||[]).filter(x=>!ancestors.includes(x))}));setTimeout(fit,100);}
+    if(ancestors.some(a=>(view.collapsed||[]).includes(a))){apply(w=>({...w,view:{...w.view,collapsed:(w.view.collapsed||[]).filter(x=>!ancestors.includes(x))}}));setTimeout(fit,100);}
     else {const node=flowNodes.find(n=>n.id===id);if(node){let x=node.position.x,y=node.position.y,p=node.parentId;while(p){const parent=flowNodes.find(n=>n.id===p);x+=parent.position.x;y+=parent.position.y;p=parent.parentId;}setCenter(x+node.style.width/2,y+node.style.height/2,{zoom:.95,duration:250});}}
     setSelected(id);
   };
   useEffect(()=>{if(pendingFocus.current&&!activeClass){const id=pendingFocus.current;pendingFocus.current=null;const t=setTimeout(()=>focusDocument(id),180);return()=>clearTimeout(t);}},[activeClass,flowNodes]);
-  const counts=Object.fromEntries(models.map(m=>[m.id,documents.filter(d=>d.model_name===m.id).length]));
   const displayed=flowNodes.map(n=>({...n,selected:n.id===selected,style:n.style,data:{...n.data,actions,canChild:childOptions(n.data.doc,models).length>0}}));
-  const exportMap=async()=>{
-    try {
-      const source=await request('/api/export',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({documents,view})});
-      const url=URL.createObjectURL(new Blob([JSON.stringify(source,null,2)],{type:'application/json'}));
-      const a=document.createElement('a');a.href=url;a.download='kb-mindmap.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
-      setNotice('Mapa completo exportado, incluidos los cambios pendientes.');
-    } catch(e){setError(e.message);}
-  };
   return html`<main className="editor" data-saving=${saving} data-mode=${mode}>
     <header className="topbar"><button className="mobile-menu icon-button" aria-label="Mostrar clases" onClick=${()=>setSidebarOpen(!sidebarOpen)}>☰</button><a href="/" className="brand"><span>◈</span> KB <strong>Mindmap</strong></a><span className="document-name">Explorar · organizar · editar</span><div className="mode-switch" role="tablist" aria-label="Vistas"><button role="tab" aria-selected=${mode==='map'} className=${mode==='map'?'active':''} onClick=${()=>switchMode('map')}>🗺 KB</button><button role="tab" aria-selected=${mode==='brainstorm'?'true':'false'} className=${mode==='brainstorm'?'active':''} onClick=${()=>switchMode('brainstorm')}>💡 Brainstorm</button><button role="tab" aria-selected=${mode==='schema'?'true':'false'} className=${mode==='schema'?'active':''} onClick=${()=>switchMode('schema')}>📐 Schema</button></div><button type="button" className="skin-toggle icon-button" title="Cambiar tema" aria-label="Cambiar tema" onClick=${cycleSkin}>◐</button>${focusId?html`<div className="focus-breadcrumb"><button onClick=${exitFocus}>Mapa completo</button><span>›</span><strong>${titleOf(documents.find(d=>d.id===focusId))}</strong><button className="focus-exit" onClick=${exitFocus}>Salir del foco</button></div>`:''}<span className=${'save-state'+(dirty?' unsaved':'')}>${saving?'Guardando…':dirty?'● Cambios sin guardar':'✓ Sin cambios pendientes'}</span><button className="primary" onClick=${save} disabled=${!dirty||saving||!ready}>${saving?'Guardando…':'Guardar en SLDB'}</button></header>
-    <div className="toolbar" role="toolbar" aria-label="Herramientas del mapa"><button className="add-button" disabled=${!ready||saving} onClick=${()=>setModal({})}>＋ Documento</button><span className="separator"></span><button onClick=${undo} disabled=${!history.length||saving} aria-label="Deshacer" title="Deshacer (Ctrl+Z)">↶</button><button onClick=${redo} disabled=${!future.length||saving} aria-label="Rehacer">↷</button><span className="separator"></span><button onClick=${fit} disabled=${!ready}>⛶ Lectura</button><button onClick=${overview} disabled=${!ready}>Ver todo</button><button onClick=${()=>{checkpoint();setView(v=>({...v,positions:{}}));setTimeout(fit,80);}} disabled=${!ready||saving}>Ordenar</button><label className="relations-toggle"><input type="checkbox" checked=${showRelations} onChange=${e=>setShowRelations(e.target.checked)}/> Referencias</label><button onClick=${exportMap} disabled=${!ready||saving}>Exportar</button><button onClick=${()=>setModal({compiler:true})} disabled=${!ready||saving||dirty} title=${dirty?'Guarda los cambios pendientes antes de importar':'Importar un mapa JSON'}>Importar JSON</button><form className="search" onSubmit=${e=>{e.preventDefault();const found=documents.find(d=>titleOf(d).toLowerCase().includes(query.toLowerCase()));if(found&&query)focusDocument(found.id);else setNotice('No hay coincidencias');}}><input aria-label="Buscar documento" placeholder="Buscar documento…" value=${query} onInput=${e=>setQuery(e.target.value)}/><button aria-label="Buscar" type="submit">⌕</button></form></div>
-    ${error?html`<div className="error-banner" role="alert"><span>${error}</span><button onClick=${()=>{if(!dirty||confirm('Descartar los cambios sin guardar y recargar SLDB?'))load();}}>Recargar SLDB</button><button aria-label="Cerrar error" onClick=${()=>setError('')}>×</button></div>`:''}
-    <div className="workspace">${mode==='brainstorm'?html`<${BrainstormView} models=${models} documents=${documents} request=${request} onExit=${()=>setMode('map')} onImported=${async()=>{await load();switchMode('map');}}/>`:mode==='schema'?html`<${SchemaView} models=${models} documents=${documents} skin=${skin} onEditClass=${id=>setModal({classes:true,model:id||null})}/>`:html`<aside className=${'class-sidebar'+(sidebarOpen?' open':'')} aria-label="Leyenda de clases SLDB"><div className="sidebar-heading"><div><span className="eyebrow">SLDB</span><h2>Clases de documento</h2></div><span className="total-count">${models.length}</span></div><p className="sidebar-help">Elige una clase para explorar sus documentos.</p><button className=${'legend-all'+(!activeClass?' active':'')} onClick=${()=>setActiveClass(null)}>Todas las clases <span>${documents.length}</span></button>
+    <div className="toolbar" role="toolbar" aria-label="Herramientas del mapa"><button className="add-button" disabled=${!ready||saving} onClick=${()=>setModal({})}>＋ Documento</button><span className="separator"></span><button onClick=${undo} disabled=${!canUndo||saving} aria-label="Deshacer" title="Deshacer (Ctrl+Z)">↶</button><button onClick=${redo} disabled=${!canRedo||saving} aria-label="Rehacer">↷</button><span className="separator"></span><button onClick=${fit} disabled=${!ready}>⛶ Lectura</button><button onClick=${overview} disabled=${!ready}>Ver todo</button><button onClick=${()=>{edit(w=>({...w,view:{...w.view,positions:{}}}));setTimeout(fit,80);}} disabled=${!ready||saving}>Ordenar</button><label className="relations-toggle"><input type="checkbox" checked=${showRelations} onChange=${e=>setShowRelations(e.target.checked)}/> Referencias</label><button onClick=${exportMap} disabled=${!ready||saving}>Exportar</button><button onClick=${()=>setModal({compiler:true})} disabled=${!ready||saving||dirty} title=${dirty?'Guarda los cambios pendientes antes de importar':'Importar un mapa JSON'}>Importar JSON</button><form className="search" onSubmit=${e=>{e.preventDefault();const found=documents.find(d=>titleOf(d).toLowerCase().includes(query.toLowerCase()));if(found&&query)focusDocument(found.id);else documentsSource.setNotice('No hay coincidencias');}}><input aria-label="Buscar documento" placeholder="Buscar documento…" value=${query} onInput=${e=>setQuery(e.target.value)}/><button aria-label="Buscar" type="submit">⌕</button></form></div>
+    ${error?html`<div className="error-banner" role="alert"><span>${error}</span><button onClick=${()=>{if(!dirty||confirm('Descartar los cambios sin guardar y recargar SLDB?'))reload();}}>Recargar SLDB</button><button aria-label="Cerrar error" onClick=${()=>documentsSource.setError('')}>×</button></div>`:''}
+    <div className="workspace">${mode==='brainstorm'?html`<${BrainstormView} draft=${kb.draft} models=${kb.models} documents=${documentsSource} onExit=${()=>setMode('map')} onImported=${()=>switchMode('map')}/>`:mode==='schema'?html`<${SchemaView} models=${models} documents=${documents} skin=${skin} onEditClass=${id=>setModal({classes:true,model:id||null})}/>`:html`<aside className=${'class-sidebar'+(sidebarOpen?' open':'')} aria-label="Leyenda de clases SLDB"><div className="sidebar-heading"><div><span className="eyebrow">SLDB</span><h2>Clases de documento</h2></div><span className="total-count">${models.length}</span></div><p className="sidebar-help">Elige una clase para explorar sus documentos.</p><button className=${'legend-all'+(!activeClass?' active':'')} onClick=${()=>setActiveClass(null)}>Todas las clases <span>${documents.length}</span></button>
       <div className="class-list">${models.map(m=>{const style=classStyle(m.id);return html`<button key=${m.id} className=${'class-item'+(activeClass===m.id?' active':'')} style=${{'--class-color':classVar(style.slot)}} onClick=${()=>setActiveClass(activeClass===m.id?null:m.id)} aria-pressed=${activeClass===m.id}><span className="class-icon">${style.icon}</span><span className="class-name">${style.name}</span><span className="class-count">${counts[m.id]}</span></button>`;})}</div>
       <div className="hierarchy-legend"><strong>Contención</strong><div className="containment-example"><span>🗂️ Contenedor</span><div>🎯 Documento hijo</div></div><p>Las cajas agrupan sus documentos. Usa ▾ para plegar y ▸ para expandir.</p></div><div className="sidebar-shortcuts"><span><kbd>Tab</kbd> Añadir hijo</span><span><kbd>Enter</kbd> Añadir hermano</span><span><kbd>Ctrl S</kbd> Guardar en SLDB</span></div><button className="class-sidebar-manage" style=${{width:'100%',marginTop:'9px'}} onClick=${()=>setModal({classes:true})}>📐 Editar clases</button>
     </aside><section className="canvas" aria-label="Mapa de documentos">
-      ${ready?html`<${ReactFlow} nodes=${displayed} edges=${showRelations?visibleProjection.edges:[]} nodeTypes=${nodeTypes} onNodesChange=${changes=>setFlowNodes(ns=>applyNodeChanges(changes,ns))} onNodeClick=${(_,n)=>{if(connecting&&connecting!==n.id)connect(n.id);else setSelected(n.id)}} onNodeDoubleClick=${(_,n)=>n.data.group?enterFocus(n.id):setModal({id:n.id})} onPaneClick=${()=>{setSelected(null);setConnecting(null);setSidebarOpen(false);}} onNodeDragStart=${checkpoint} onNodeDragStop=${(_,n)=>setView(v=>({...v,positions:{...v.positions,[n.id]:{...n.position,parentId:n.parentId||null}}}))}
-      nodesDraggable=${!saving&&!activeClass} nodesConnectable=${false} onMove=${(_,v)=>setZoom(v.zoom)} minZoom=${.01} maxZoom=${2} deleteKeyCode=${null} colorMode=${skin}><${Controls} showInteractive=${false}/><${MiniMap} pannable zoomable nodeColor=${n=>resolveToken('--class-color-'+classStyle(n.data.doc.model_name).slot)} ariaLabel="Vista general del mapa"/></${ReactFlow}>`:html`<div className="state"><h2>${status==='loading'?'Cargando tu KB…':'No se pudo abrir SLDB'}</h2>${status==='error'?html`<button onClick=${load}>Reintentar</button>`:''}</div>`}
+      ${ready?html`<${ReactFlow} nodes=${displayed} edges=${showRelations?visibleProjection.edges:[]} nodeTypes=${nodeTypes} onNodesChange=${changes=>setFlowNodes(ns=>applyNodeChanges(changes,ns))} onNodeClick=${(_,n)=>{if(connecting&&connecting!==n.id)connect(n.id);else setSelected(n.id)}} onNodeDoubleClick=${(_,n)=>n.data.group?enterFocus(n.id):setModal({id:n.id})} onPaneClick=${()=>{setSelected(null);setConnecting(null);setSidebarOpen(false);}} onNodeDragStart=${checkpoint} onNodeDragStop=${(_,n)=>apply(w=>({...w,view:{...w.view,positions:{...w.view.positions,[n.id]:{...n.position,parentId:n.parentId||null}}}}))}
+      nodesDraggable=${!saving&&!activeClass} nodesConnectable=${false} onMove=${(_,v)=>setZoom(v.zoom)} minZoom=${.01} maxZoom=${2} deleteKeyCode=${null} colorMode=${skin}><${Controls} showInteractive=${false}/><${MiniMap} pannable zoomable nodeColor=${n=>resolveToken('--class-color-'+classStyle(n.data.doc.model_name).slot)} ariaLabel="Vista general del mapa"/></${ReactFlow}>`:html`<div className="state"><h2>${status==='loading'?'Cargando tu KB…':'No se pudo abrir SLDB'}</h2>${status==='error'?html`<button onClick=${reload}>Reintentar</button>`:''}</div>`}
       ${ready&&!documents.length?html`<div className="state"><h2>Tu KB está vacía</h2><button onClick=${()=>setModal({})}>＋ Crear documento</button></div>`:''}
       <div className="canvas-hint">${activeClass?classStyle(activeClass).name+' · '+visibleProjection.nodes.length+' visibles':focusId?'Doble clic en un contenedor para entrar más profundo':'Doble clic en un contenedor para entrar · Ver todo muestra la KB completa'}</div>
     </section>`}
     </div><footer className="statusbar"><span>${documents.length} documentos · ${Object.keys(projection.parents).length} contenidos</span><span role="status">${notice||'Doble clic para editar · Arrastra para mover'}</span><span>${Math.round(zoom*100)}%</span></footer>
-    ${conflicts?html`<${ConflictDialog} conflicts=${conflicts} documents=${documents} onClose=${()=>setConflicts(null)} onReload=${()=>{setConflicts(null);load();}}/>`:modal?.compiler?html`<${CompilerDialog} request=${request} onClose=${()=>setModal(null)} onRefresh=${load}/>`:modal?.connection?html`<${ConnectDialog} key=${modal.sourceId+'-'+modal.targetId} spec=${modal} documents=${documents} models=${models} onClose=${()=>setModal(null)} onApply=${applyConnection}/>`:modal?.quick?html`<${QuickCreateDialog} key=${'quick-'+(modal.parentId||'root')} spec=${modal} documents=${documents} models=${models} onClose=${()=>setModal(null)} onApply=${applyDocument}/>`:modal?.classes?html`<${ClassDialog} models=${models} request=${request} initialModel=${modal.model} onClose=${()=>setModal(null)} onRefresh=${load}/>`:modal?html`<${DocumentDialog} key=${modal.id||modal.parentId||'new'} spec=${modal} documents=${documents} models=${models} onClose=${()=>setModal(null)} onApply=${applyDocument}/>`:''}
+    ${conflicts?html`<${ConflictDialog} conflicts=${conflicts} documents=${documents} onClose=${()=>resolveConflicts('keep')} onReload=${()=>resolveConflicts('reload')}/>`:modal?.compiler?html`<${CompilerDialog} request=${request} onClose=${()=>setModal(null)} onRefresh=${reload}/>`:modal?.connection?html`<${ConnectDialog} key=${modal.sourceId+'-'+modal.targetId} spec=${modal} documents=${documents} models=${models} onClose=${()=>setModal(null)} onApply=${applyConnection}/>`:modal?.quick?html`<${QuickCreateDialog} key=${'quick-'+(modal.parentId||'root')} spec=${modal} documents=${documents} models=${models} onClose=${()=>setModal(null)} onApply=${applyDocument}/>`:modal?.classes?html`<${ClassDialog} models=${models} request=${request} initialModel=${modal.model} onClose=${()=>setModal(null)} onRefresh=${reload}/>`:modal?html`<${DocumentDialog} key=${modal.id||modal.parentId||'new'} spec=${modal} documents=${documents} models=${models} onClose=${()=>setModal(null)} onApply=${applyDocument}/>`:''}
   </main>`;
 }
-createRoot(document.getElementById('root')).render(html`<${ReactFlowProvider}><${App}/></${ReactFlowProvider}>`);
+createRoot(document.getElementById('root')).render(html`<${SourceProvider} request=${request}><${ReactFlowProvider}><${App}/></${ReactFlowProvider}></${SourceProvider}>`);
