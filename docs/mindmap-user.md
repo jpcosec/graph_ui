@@ -4,9 +4,19 @@ KB Mindmap permite explorar y editar documentos de un store SLDB/pron como un
 mapa. La barra superior alterna entre tres vistas: **🗺 KB** (esta guía la
 cubre primero), **💡 Brainstorm** (ideación libre antes de escribir nada en
 el store) y **📐 Schema** (diagrama de las clases del store) — las dos
-últimas se describen más abajo. El botón **📐 Editar clases** (barra lateral
-de KB, o desde cualquier card del Schema) abre el editor del contrato de las
-clases mismas, no de sus documentos.
+últimas se describen más abajo. Cada vista es también una URL
+(`/documents/map`, `/draft/tree`, `/models/diagram`) que puedes guardar como
+favorito o compartir; entrar por `/` abre la última vista que visitaste. El
+botón **📐 Editar clases** (barra lateral de KB, o desde cualquier card del
+Schema) abre el editor del contrato de las clases mismas, no de sus
+documentos.
+
+## Tema
+
+El botón **◐** de la barra superior alterna entre tema claro y oscuro; la
+elección se recuerda entre sesiones. Los colores de cada clase de documento
+son los mismos en ambos temas — solo cambia el fondo, no la identidad visual
+de las clases.
 
 En modo KB, cada caja representa un documento. El emoji, el color y el borde
 indican la clase del documento; la leyenda de la izquierda muestra todas las
@@ -86,7 +96,10 @@ en qué contenedor estás; pulsa `Salir del foco` para volver a la KB completa.
 ## Guardar
 
 `Guardar en SLDB` o `Ctrl+S` escribe los documentos Markdown y actualiza los
-índices de la KB. El estado superior indica si hay cambios pendientes.
+índices de la KB. El estado superior indica si hay cambios pendientes. Este
+botón y el atajo solo existen en la vista **🗺 KB**: Brainstorm y Schema no
+lo muestran (Brainstorm escribe al store con `Convertir a SLDB`; Schema es
+de solo lectura).
 
 Si otra sesión modificó el mismo documento, el guardado se rechaza para no
 pisar su trabajo y aparece un diálogo de conflicto que compara tu versión con

@@ -15,10 +15,13 @@ VAR_USE_RE = re.compile(r'var\(\s*(--[a-zA-Z0-9-]+)')
 
 def _source_files():
     files = []
-    for pattern in ("*.css", "*.js", "*.mjs"):
+    for pattern in ("*.js", "*.mjs"):
         files.extend(MINDMAP.glob(pattern))
         files.extend((MINDMAP / "shell").glob(pattern))
         files.extend((MINDMAP / "shared").glob(pattern))
+    # CSS now lives split across styles/ and views/**/*.css (Phase E), not
+    # just the top-level file — scan the whole mindmap tree for it.
+    files.extend(MINDMAP.rglob("*.css"))
     return files
 
 

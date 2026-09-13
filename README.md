@@ -22,33 +22,40 @@ instalado, agrega su carpeta a `PYTHONPATH`. Las dependencias del navegador
 
 ## Vistas
 
-- **🗺 KB** — el store como mapa: documentos reales, contención anidada,
-  referencias, ficha modal, guardado real. Vista por defecto.
-- **💡 Brainstorm** — lienzo libre para pensar en ideas antes de que existan
-  como documentos; convertir escribe en el store real.
-- **📐 Schema** — diagrama de clases: una card por modelo registrado con
-  todos sus campos y tipos; cada contención declarada es una flecha que sale
-  del puerto de su propio campo hacia la clase destino; referencias
-  anotadas; filtro por texto. Layout automático (dagre) desde
-  `/api/schema`, nunca coordenadas fijas.
+Cada vista es también una ruta (`/{faceta}/{vista}`), marcable como
+favorito; el tab de la barra superior solo navega entre ellas.
+
+- **🗺 KB** (`/documents/map`) — el store como mapa: documentos reales,
+  contención anidada, referencias, ficha modal, guardado real. Vista por
+  defecto.
+- **💡 Brainstorm** (`/draft/tree`) — lienzo libre para pensar en ideas antes
+  de que existan como documentos; convertir escribe en el store real.
+- **📐 Schema** (`/models/diagram`) — diagrama de clases: una card por
+  modelo registrado con todos sus campos y tipos; cada contención declarada
+  es una flecha que sale del puerto de su propio campo hacia la clase
+  destino; referencias anotadas; filtro por texto. Layout automático
+  (dagre) desde `/api/schema`, nunca coordenadas fijas.
 - **📐 Editar clases** — diálogo (desde la barra lateral de KB o desde
   cualquier card del Schema) para editar el contrato de una clase:
   plantilla, altas/bajas de campos, validar el draft y promoverlo.
 - **Importar JSON** — diálogo para traer un mapa declarativo (validar →
   calcular plan → aplicar) sin tocar el store hasta confirmar.
 
+El botón ◐ de la barra superior alterna el tema claro/oscuro; la elección se
+recuerda entre sesiones.
+
 Guía completa de uso: [`docs/mindmap-user.md`](docs/mindmap-user.md).
 
 ## Bajo el capó
 
-`sldb_adapter.py` es el único módulo de este frontend que delega en sldb, y
-lo hace a través de `pron.Store` — "la única puerta a sldb" según su propio
-spec — tanto para el CRUD de documentos como para el editor de clases
-(`models_service.py`). `graph_ui` no reimplementa validación, hashes ni
-reindexado: todo eso vive en `pron`/`sldb`. Detalle de capas y flujo:
-[`docs/mindmap-developer.md`](docs/mindmap-developer.md). Intención de
-producto (qué debería hacer cada modo, criterios de aceptación):
-[`docs/mindmap-spec.md`](docs/mindmap-spec.md).
+El frontend está orthogonalizado en tres niveles: la **fuente** (`source/`,
+las tres facetas documents/models/draft y las mutaciones reales contra el
+store), las **vistas** (`views/{faceta}/{vista}/`, registradas en
+`shell/registry.js`, que solo emiten intenciones) y el **shell** (`app.js`,
+`shell/`, enrutado por `shell/router.js` y con el tema en `skins/`). Detalle
+de capas y flujo: [`docs/mindmap-developer.md`](docs/mindmap-developer.md).
+Intención de producto (qué debería hacer cada modo, criterios de
+aceptación): [`docs/mindmap-spec.md`](docs/mindmap-spec.md).
 
 ## Documentación
 

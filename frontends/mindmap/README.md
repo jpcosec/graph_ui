@@ -20,22 +20,27 @@ htm se cargan vía CDN.
 
 ## Vistas y diálogos
 
-El switch de la barra superior alterna entre tres modos (persistido en
-`localStorage`):
+Cada vista es una ruta (`/{faceta}/{vista}`): el switch de la barra superior
+navega entre ellas (`role=tab`), no es un simple estado local. `/` abre la
+última ruta visitada, recordada en `localStorage`. El botón ◐ alterna el
+tema claro/oscuro (también persistido); no cambia la identidad de color de
+las clases, que es la misma en ambos temas.
 
-- **🗺 KB** — mapa del store real: documentos, contención anidada,
-  referencias, ficha modal, guardado.
-- **💡 Brainstorm** — lienzo libre de ideas (`Enter` hermano, `Tab` hijo);
-  vive en `localStorage` hasta convertir. `Convertir a SLDB` valida y escribe
-  las ideas con clase y título asignados usando el mismo compilador que
-  "Importar JSON" (`plan` → `compile`).
-- **📐 Schema** — diagrama de clases del store: una card por modelo con
-  todos sus campos (tipo, `*` obligatorio), filas ◆ de contención con la
-  clase destino y filas ⇢ de referencia. Cada contención declarada es una
-  arista que sale del puerto de su propio campo (a la altura de la fila) y
-  entra por la cabecera de la clase destino, etiquetada con el campo. Filtro
-  por texto; doble clic o ✎ abre «Editar clases» en esa clase. Solo lectura:
-  el contrato se edita en el diálogo.
+- **🗺 KB** (`/documents/map`) — mapa del store real: documentos, contención
+  anidada, referencias, ficha modal, guardado. Es la única vista con
+  `shell.primary`: el botón «Guardar en SLDB» / `Ctrl+S` del shell solo
+  existe aquí.
+- **💡 Brainstorm** (`/draft/tree`) — lienzo libre de ideas (`Enter` hermano,
+  `Tab` hijo); vive en `localStorage` hasta convertir. `Convertir a SLDB`
+  valida y escribe las ideas con clase y título asignados usando el mismo
+  compilador que "Importar JSON" (`plan` → `compile`).
+- **📐 Schema** (`/models/diagram`) — diagrama de clases del store: una card
+  por modelo con todos sus campos (tipo, `*` obligatorio), filas ◆ de
+  contención con la clase destino y filas ⇢ de referencia. Cada contención
+  declarada es una arista que sale del puerto de su propio campo (a la
+  altura de la fila) y entra por la cabecera de la clase destino, etiquetada
+  con el campo. Filtro por texto; doble clic o ✎ abre «Editar clases» en esa
+  clase. Solo lectura: el contrato se edita en el diálogo.
 
 Tres diálogos:
 
@@ -135,9 +140,11 @@ node --test tests/mindmap-model.test.mjs
 python3 -m pytest tests/test_mindmap_contract.py tests/test_mindmap_adapter.py \
   tests/test_mindmap_persistence.py tests/test_mindmap_compiler.py \
   tests/test_mindmap_endpoints.py tests/test_mindmap_quick_capture.py -q
+python3 -m pytest tests/test_mindmap_skin.py -q
 python3 -m pytest tests/e2e_mindmap_brainstorm.py tests/e2e_mindmap_classes.py \
   tests/e2e_mindmap_compiler.py tests/e2e_mindmap_doc_edit.py \
-  tests/e2e_mindmap_quick_capture.py tests/e2e_mindmap_schema.py -q   # Playwright, requiere navegador
+  tests/e2e_mindmap_quick_capture.py tests/e2e_mindmap_schema.py \
+  tests/e2e_mindmap_routes.py -q   # Playwright, requiere navegador
 ```
 
 Las pruebas Python crean stores y servidores reales en directorios

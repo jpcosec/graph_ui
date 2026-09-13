@@ -7,19 +7,25 @@ de clases/documentos. Contrástalo contra el código, no lo asumas vigente:
 este documento describe la intención de producto y puede ir por delante o
 por detrás de `frontends/mindmap/` (regla general del repo, ver `CLAUDE.md`).
 
-Estado real por modo, verificado contra `editor.js`/`brainstorm.js`/
-`classes-dialog.js` a fecha de este documento:
+Estado real por modo, verificado contra `views/draft/tree/tree-view.js`/
+`views/documents/map/map-view.js`/`dialogs/class-dialog.js` a fecha de este
+documento:
 
 | Modo de esta spec | Implementado como | Divergencia |
 |---|---|---|
-| Brainstorm | Vista `💡 Brainstorm` (`brainstorm.js`), tab de la barra superior | Ninguna relevante: título/clase por idea, Enter/Tab, conversión vía `plan`+`compile`, todo como se describe abajo |
-| KB | Vista `🗺 KB` (`editor.js`), vista por defecto | Ninguna relevante |
-| Schema / Documentos | Su mitad de "estructura de clases" existe en dos piezas: la vista **📐 Schema** (`schema-view.js`, tab de la barra superior: diagrama de clases con campos, contención como aristas y referencias anotadas, solo lectura) y el diálogo **📐 Editar clases** (`classes-dialog.js`, sobre `models_service.py`→`pron.Store`) para modificar el contrato, abierto desde KB o desde una card del Schema | Su mitad de "documentos de una clase con ficha completa" no tiene UI dedicada; hoy se cubre parcialmente filtrando la leyenda de KB por clase y abriendo la ficha modal de cada documento — no hay una lista dedicada por clase con ficha en el mismo lugar |
+| Brainstorm | Vista `views/draft/tree` (`/draft/tree`), tab de la barra superior | Ninguna relevante: título/clase por idea, Enter/Tab, conversión vía `plan`+`compile`, todo como se describe abajo |
+| KB | Vista `views/documents/map` (`/documents/map`), vista por defecto | Ninguna relevante |
+| Schema / Documentos | Su mitad de "estructura de clases" existe en dos piezas: la vista **📐 Schema** (`views/models/diagram`, `/models/diagram`, tab de la barra superior: diagrama de clases con campos, contención como aristas y referencias anotadas, solo lectura) y el diálogo **📐 Editar clases** (`dialogs/class-dialog.js`, sobre `models_service.py`→`pron.Store`) para modificar el contrato, abierto desde KB o desde una card del Schema | Su mitad de "documentos de una clase con ficha completa" no tiene UI dedicada; hoy se cubre parcialmente filtrando la leyenda de KB por clase y abriendo la ficha modal de cada documento — no hay una lista dedicada por clase con ficha en el mismo lugar |
 
 Todo lo que este documento describe como escritura contra "SLDB" ocurre hoy
 a través de `pron.Store` (`pron` es la única puerta a `sldb`/`kgdb` desde
 este editor) — es un detalle de implementación, no cambia las invariantes de
 producto de este documento.
+
+El producto es direccionable como `/{faceta}/{vista}` (una URL por cada fila
+de la tabla anterior), con el tema (claro/oscuro) como preferencia aparte,
+no como parte de la ruta; los tres niveles — fuente, vistas y shell — están
+documentados en [`mindmap-developer.md`](mindmap-developer.md).
 
 ## Objetivo
 

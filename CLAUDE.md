@@ -35,8 +35,13 @@ seguir.
 
 Editor visual de una KB SLDB. El desarrollo activo es
 `frontends/mindmap/`: servidor Python stdlib (`serve.py`, sin build), UI
-React/htm cargada por CDN (`editor.js`, `model.mjs`, sin bundler). Lee y
-escribe contra un store SLDB real (`.sldb/`), nunca contra un mock.
+React/htm cargada por CDN (sin bundler). El frontend está ortogonalizado en
+tres niveles, direccionables como `/{faceta}/{vista}`: `app.js` + `shell/`
+(topbar, router, diálogos de shell, tema), `source/` (facetas
+documents/models/draft y las mutaciones reales) y `views/{faceta}/{vista}/`
+(una vista por par, registrada en `shell/registry.js`). El tema vive en
+`skins/` (solo tokens; `styles/` y el CSS de cada vista no pueden tener hex).
+Lee y escribe contra un store SLDB real (`.sldb/`), nunca contra un mock.
 
 ```sh
 python3 frontends/mindmap/serve.py 8088

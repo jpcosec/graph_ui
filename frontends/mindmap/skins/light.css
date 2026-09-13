@@ -1,6 +1,7 @@
 /* Skin: light. Values are today's exact hexes — the light rendering must stay
-   byte-identical to the pre-skin editor.css. Do not "improve" these values
-   without also regenerating the pixel baseline in /tmp/kbshots/base. */
+   byte-identical to the pre-skin baseline (before tokens were extracted).
+   Do not "improve" these values without also regenerating the pixel
+   baseline in /tmp/kbshots/base. */
 :root[data-skin=light]{
   color-scheme:light;
 
