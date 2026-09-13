@@ -215,3 +215,16 @@ test('schemaMatches filtra por clase, campo, tipo y clase destino',()=>{
   assert.ok(schemaMatches(board,'stringlist'));
   assert.ok(!schemaMatches(board,'pill'));
 });
+
+// ---------------------------------------------------------------- Skins/slots
+import {classStyle as slotClassStyle,classVar,FALLBACK_SLOTS} from '../frontends/mindmap/shared/classes.mjs';
+
+test('class colors are slots resolved by the active skin, not hardcoded hexes',()=>{
+  assert.equal(slotClassStyle('BoardDoc').slot,1);
+  assert.equal(slotClassStyle('TaskDoc').slot,2);
+  const unknown=slotClassStyle('SomethingWeirdDoc');
+  assert.ok(FALLBACK_SLOTS.includes(unknown.slot));
+  assert.equal(slotClassStyle('SomethingWeirdDoc').slot,unknown.slot,'el hash del fallback debe ser estable entre llamadas');
+  assert.equal(classVar(3),'var(--class-color-3)');
+  assert.equal(slotClassStyle('SomethingDoc').name,'Something');
+});

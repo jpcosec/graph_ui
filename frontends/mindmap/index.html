@@ -6,7 +6,10 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='16' fill='%237552b8'/%3E%3C/svg%3E">
 <script type="importmap">{"imports":{"react":"https://esm.sh/react@18.3.1","react/":"https://esm.sh/react@18.3.1/","react-dom":"https://esm.sh/react-dom@18.3.1?deps=react@18.3.1","react-dom/client":"https://esm.sh/react-dom@18.3.1/client?deps=react@18.3.1","@xyflow/react":"https://esm.sh/@xyflow/react@12.11.5?deps=react@18.3.1,react-dom@18.3.1&external=react,react-dom","htm":"https://esm.sh/htm@3.1.1","dagre":"https://esm.sh/dagre@0.8.5"}}</script>
 <link rel="stylesheet" href="https://esm.sh/@xyflow/react@12.11.5/dist/style.css">
+<link rel="stylesheet" href="/skins/light.css">
+<link rel="stylesheet" href="/skins/dark.css">
 <link rel="stylesheet" href="/editor.css">
+<script>document.documentElement.dataset.skin=(function(){try{return localStorage.getItem('kb-skin')||'light'}catch(e){return 'light'}})()</script>
 </head><body>
 <div id="root"></div>
 <script type="module" src="/editor.js"></script>

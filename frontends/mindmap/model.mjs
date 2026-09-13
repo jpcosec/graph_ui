@@ -1,49 +1,7 @@
 // Presentation adapters. Document classes and payloads remain SLDB-owned.
-export const CLASSES = {
-  BoardDoc: {icon:'🗂️',color:'#2563eb',name:'Board'},
-  TaskDoc: {icon:'🎯',color:'#d97706',name:'Task'},
-  RoutineDoc: {icon:'🔁',color:'#7c3aed',name:'Routine'},
-  ChecklistDoc: {icon:'☑️',color:'#0891b2',name:'Checklist'},
-  ConditionDoc: {icon:'🔎',color:'#059669',name:'Condition'},
-  EdgeDoc: {icon:'🔗',color:'#e11d48',name:'Edge'},
-  OperatorDoc: {icon:'⚙️',color:'#c026d3',name:'Operator'},
-  AtomDoc: {icon:'⚛️',color:'#65a30d',name:'Atom'},
-  PillDoc: {icon:'💊',color:'#ea580c',name:'Pill'},
-  RitualDoc: {icon:'🪄',color:'#4f46e5',name:'Ritual'},
-  FAQDoc: {icon:'❓',color:'#0284c7',name:'FAQ'},
-  HookDoc: {icon:'🪝',color:'#be123c',name:'Hook'},
-  InboxNoteDoc: {icon:'📥',color:'#a16207',name:'Inbox Note'},
-  MaterializationContractDoc: {icon:'📐',color:'#475569',name:'Materialization Contract'},
-  RoleDoc: {icon:'👤',color:'#0f766e',name:'Role'},
-  PrimitiveDoc: {icon:'🧩',color:'#9333ea',name:'Primitive'},
-  StepDoc: {icon:'👣',color:'#b45309',name:'Step'},
-};
-Object.assign(CLASSES, {
-  DomainAtom:{icon:'🌐',color:'#2563eb',name:'Domain Atom'},
-  RuleAtom:{icon:'📏',color:'#d97706',name:'Rule Atom'},
-  ToolAtom:{icon:'🛠️',color:'#059669',name:'Tool Atom'},
-  TraitAtom:{icon:'🧬',color:'#c026d3',name:'Trait Atom'},
-  ConversationStep:{icon:'💬',color:'#0891b2',name:'Conversation Step'},
-  SelfDeclaration:{icon:'🪪',color:'#7c3aed',name:'Self Declaration'},
-  StyleGuide:{icon:'🎨',color:'#db2777',name:'Style Guide'},
-  CapabilityBoundary:{icon:'🛡️',color:'#0f766e',name:'Capability Boundary'},
-  StrategyRule:{icon:'♟️',color:'#4f46e5',name:'Strategy Rule'},
-  FallbackRule:{icon:'🛟',color:'#ea580c',name:'Fallback Rule'},
-  GateCriterion:{icon:'🚦',color:'#65a30d',name:'Gate Criterion'},
-  AgentFraming:{icon:'🤖',color:'#9333ea',name:'Agent Framing'},
-  RelationTypeDoc:{icon:'🧭',color:'#475569',name:'Relation Type'},
-  RelationDoc:{icon:'🔗',color:'#e11d48',name:'Relation'},
-  RepositoryDoc:{icon:'🗃️',color:'#0369a1',name:'Repository'},
-  CompositionDoc:{icon:'🧱',color:'#a16207',name:'Composition'},
-});
-const FALLBACK_ICONS=['🔷','🔶','🟢','🟣','🔺','⭐','💠','✳️'];
-const FALLBACK_COLORS=['#2563eb','#c2410c','#047857','#7c3aed','#be123c','#a16207','#0e7490','#4d7c0f'];
-export function classStyle(name) {
-  if(CLASSES[name])return CLASSES[name];
-  let hash=2166136261;
-  for(const character of name||'Documento')hash=Math.imul(hash^character.charCodeAt(0),16777619)>>>0;
-  return {icon:FALLBACK_ICONS[(hash>>>8)%FALLBACK_ICONS.length],color:FALLBACK_COLORS[hash%FALLBACK_COLORS.length],name:(name||'Documento').replace(/Doc$/,'').replace(/([a-z])([A-Z])/g,'$1 $2')};
-}
+// Class icon/name/slot now live in ./shared/classes.mjs (slot-based colors,
+// resolved against the active skin via --class-color-N).
+import {classStyle} from './shared/classes.mjs';
 // Fit small maps completely; large maps open at a readable scale near their origin.
 export function readingViewport(nodes,width,height) {
   if(!nodes.length||!width||!height)return {x:24,y:40,zoom:1};
@@ -225,7 +183,7 @@ export function project(documents, view={}, maps=null) {
   const visible=new Set(nodes.map(n=>n.id));
   const edges=links.filter(e=>visible.has(e.source)&&visible.has(e.target)&&(!e.contains||parents[e.target]?.source!==e.source)).map((e,i)=>({id:'ref-'+i,source:e.source,target:e.target,type:'smoothstep',label:e.field,
     // Referencias: línea punteada y de bajo peso visual; la contención es el grupo, nunca una línea.
-    style:{stroke:'#94a3b8',strokeWidth:1.5,strokeDasharray:'5 4'},markerEnd:{type:'arrowclosed',width:16,height:16,color:'#94a3b8'},labelStyle:{fontSize:10,fill:'#64748b',backgroundColor:'#f8fafc'},labelBgPadding:{x:2,y:2},data:e}));
+    style:{stroke:'var(--edge)',strokeWidth:1.5,strokeDasharray:'5 4'},markerEnd:{type:'arrowclosed',width:16,height:16,color:'var(--edge)'},labelStyle:{fontSize:10,fill:'var(--text-muted)',backgroundColor:'var(--surface-app)'},labelBgPadding:{x:2,y:2},data:e}));
   return {nodes,edges,parents,children};
 }
 
@@ -234,11 +192,13 @@ export function project(documents, view={}, maps=null) {
 // className}. Nunca son documentos SLDB hasta que la conversión explícita las
 // valida y aplica vía /api/plan + /api/compile.
 export const IDEA_EMOJIS = ['💡', '📌', '🔍', '🧠', '🌱', '⚡', '🎯', '❓'];
-export const IDEA_COLORS = ['#2563eb', '#d97706', '#059669', '#7c3aed', '#e11d48', '#0891b2'];
+// Mismo orden de matiz que el antiguo IDEA_COLORS (azul, ámbar, verde,
+// violeta, rojo, cian), ahora como slots de clase resueltos contra la skin activa.
+export const IDEA_SLOTS = [1, 2, 5, 3, 6, 4];
 export function newIdea(ideas, parentId, className) {
   return {id: 'idea-' + crypto.randomUUID(), parentId: parentId || null,
     title: '', emoji: IDEA_EMOJIS[ideas.length % IDEA_EMOJIS.length],
-    color: IDEA_COLORS[ideas.length % IDEA_COLORS.length],
+    slot: IDEA_SLOTS[ideas.length % IDEA_SLOTS.length],
     className: className || null, convertedDocId: null};
 }
 // Convierte el árbol de ideas en un spec de intercambio (contrato v1).

@@ -1,0 +1,97 @@
+/* Skin: light. Values are today's exact hexes — the light rendering must stay
+   byte-identical to the pre-skin editor.css. Do not "improve" these values
+   without also regenerating the pixel baseline in /tmp/kbshots/base. */
+:root[data-skin=light]{
+  color-scheme:light;
+
+  /* Surfaces */
+  --surface-app:#f8fafc;
+  --surface-panel:#fff;
+  --surface-muted:#f1f5f9;
+  --surface-sunken:#f3f5f8;
+  --surface-warm:#fdfbf7;
+  --surface-app-veil:#f8fafcdd;
+  --surface-panel-veil:#fffd;
+
+  /* Text */
+  --ink:#172b4d;
+  --text:#253248;
+  --text-secondary:#475569;
+  --text-secondary-strong:#334155;
+  --text-muted:#64748b;
+  --text-faint:#8490a3;
+  --text-on-primary:white;
+
+  /* Borders */
+  --border:#e2e8f0;
+  --border-control:#dce2ea;
+  --border-control-alt:#dce2eb;
+  --border-control-hover:#a8b6c9;
+  --border-input:#cbd5e1;
+  --border-subtle:#eef2f6;
+  --edge:#94a3b8;
+
+  /* Primary */
+  --primary:#2563eb;
+  --primary-strong:#1d4ed8;
+  --primary-soft:#eff6ff;
+  --primary-soft-alt:#eef3fb;
+  --primary-border:#bfdbfe;
+  --primary-border-alt:#c6d9fa;
+  --primary-border-strong:#93b4f2;
+  --focus-ring:#93b4ff;
+
+  /* Status */
+  --danger:#e11d48;
+  --danger-strong:#be123c;
+  --danger-text:#9f1239;
+  --danger-soft:#fff1f2;
+  --danger-border:#fecdd3;
+  --warning:#b45309;
+  --warning-strong:#92400e;
+  --warning-soft:#fef3c7;
+  --warning-border:#f59e0b;
+  --warning-tint:#fff7ed;
+  --warning-tint-alt:#fffbeb;
+  --warning-outline:#d97706;
+  --success:#059669;
+  --success-strong:#166534;
+  --success-soft:#f0fdf4;
+  --accent:#0f766e;
+
+  /* Shadows */
+  --shadow-node:0 2px 3px #172b4d05;
+  --shadow-card:0 2px 3px #172b4d08;
+  --shadow-controls:0 2px 8px #172b4d08;
+  --shadow-toolbar:0 6px 18px #172b4d14;
+  --shadow-tab:0 1px 3px #172b4d14;
+  --shadow-drawer:5px 0 20px #172b4d12;
+  --shadow-idea:0 2px 4px #172b4d0a;
+  --shadow-dialog:0 24px 80px #172b4d25;
+  --backdrop:#172b4d55;
+
+  /* Class identity slots (stable per class, not part of the skin's "mood") */
+  --class-color-1:#2563eb;
+  --class-color-2:#d97706;
+  --class-color-3:#7c3aed;
+  --class-color-4:#0891b2;
+  --class-color-5:#059669;
+  --class-color-6:#e11d48;
+  --class-color-7:#c026d3;
+  --class-color-8:#65a30d;
+  --class-color-9:#ea580c;
+  --class-color-10:#4f46e5;
+  --class-color-11:#0284c7;
+  --class-color-12:#be123c;
+  --class-color-13:#a16207;
+  --class-color-14:#475569;
+  --class-color-15:#0f766e;
+  --class-color-16:#9333ea;
+  --class-color-17:#b45309;
+  --class-color-18:#db2777;
+  --class-color-19:#0369a1;
+  --class-color-20:#c2410c;
+  --class-color-21:#047857;
+  --class-color-22:#0e7490;
+  --class-color-23:#4d7c0f;
+}

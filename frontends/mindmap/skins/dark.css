@@ -1,0 +1,98 @@
+/* Skin: dark. Same custom-property names as light.css — only the values
+   change. Class-identity slots are recolored (lighter/more saturated) so
+   each hue still reads on a dark surface; the slot -> class mapping itself
+   lives in shared/classes.mjs, not here. */
+:root[data-skin=dark]{
+  color-scheme:dark;
+
+  /* Surfaces */
+  --surface-app:#0f172a;
+  --surface-panel:#1a2233;
+  --surface-muted:#1e293b;
+  --surface-sunken:#202b40;
+  --surface-warm:#2a2118;
+  --surface-app-veil:#0f172add;
+  --surface-panel-veil:#1a2233dd;
+
+  /* Text */
+  --ink:#f8fafc;
+  --text:#e2e8f0;
+  --text-secondary:#b9c4d4;
+  --text-secondary-strong:#d8e0ea;
+  --text-muted:#94a3b8;
+  --text-faint:#8493ab;
+  --text-on-primary:#0b1220;
+
+  /* Borders */
+  --border:#2f3b4f;
+  --border-control:#3b4a61;
+  --border-control-alt:#3a4a63;
+  --border-control-hover:#52698a;
+  --border-input:#3d4c63;
+  --border-subtle:#263247;
+  --edge:#5b6b85;
+
+  /* Primary */
+  --primary:#60a5fa;
+  --primary-strong:#93c5fd;
+  --primary-soft:#17233a;
+  --primary-soft-alt:#1a2740;
+  --primary-border:#2c4a72;
+  --primary-border-alt:#2e4f7d;
+  --primary-border-strong:#3e6aa0;
+  --focus-ring:#60a5fa;
+
+  /* Status */
+  --danger:#fb7185;
+  --danger-strong:#fda4af;
+  --danger-text:#ffb4c0;
+  --danger-soft:#3a1620;
+  --danger-border:#7a2331;
+  --warning:#fbbf24;
+  --warning-strong:#fde68a;
+  --warning-soft:#3a2f12;
+  --warning-border:#f59e0b;
+  --warning-tint:#2c2013;
+  --warning-tint-alt:#2a2114;
+  --warning-outline:#f59e0b;
+  --success:#34d399;
+  --success-strong:#86efac;
+  --success-soft:#123524;
+  --accent:#2dd4bf;
+
+  /* Shadows */
+  --shadow-node:0 2px 3px #00000040;
+  --shadow-card:0 2px 3px #00000055;
+  --shadow-controls:0 2px 8px #00000055;
+  --shadow-toolbar:0 6px 18px #00000070;
+  --shadow-tab:0 1px 3px #00000060;
+  --shadow-drawer:5px 0 20px #00000080;
+  --shadow-idea:0 2px 4px #00000045;
+  --shadow-dialog:0 24px 80px #000000a0;
+  --backdrop:#000000a0;
+
+  /* Class identity slots */
+  --class-color-1:#60a5fa;
+  --class-color-2:#fbbf24;
+  --class-color-3:#a78bfa;
+  --class-color-4:#22d3ee;
+  --class-color-5:#34d399;
+  --class-color-6:#fb7185;
+  --class-color-7:#e879f9;
+  --class-color-8:#a3e635;
+  --class-color-9:#fb923c;
+  --class-color-10:#818cf8;
+  --class-color-11:#38bdf8;
+  --class-color-12:#f43f5e;
+  --class-color-13:#fcd34d;
+  --class-color-14:#94a3b8;
+  --class-color-15:#2dd4bf;
+  --class-color-16:#c084fc;
+  --class-color-17:#f59e0b;
+  --class-color-18:#f472b6;
+  --class-color-19:#7dd3fc;
+  --class-color-20:#f97316;
+  --class-color-21:#10b981;
+  --class-color-22:#67e8f9;
+  --class-color-23:#bef264;
+}

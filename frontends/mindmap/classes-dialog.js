@@ -1,6 +1,6 @@
 import React,{useState,useEffect,useRef} from 'react';
 import htm from 'htm';
-import {classStyle} from './model.mjs';
+import {classStyle,classVar} from './shared/classes.mjs';
 const html=htm.bind(React.createElement);
 
 export function ClassDialog({models,request,onClose,onRefresh,initialModel=null}) {
@@ -44,14 +44,14 @@ export function ClassDialog({models,request,onClose,onRefresh,initialModel=null}
     }catch(e){setFailed(true);setDetail(e.body||{ok:false,error:e.message});setMessage(e.message);}
     finally{setBusy(false);}
   };
-  const sel=models.find(m=>m.id===model),style=sel?classStyle(sel.id):{icon:'📐',color:'#475569',name:'Clases'};
+  const sel=models.find(m=>m.id===model),style=sel?classStyle(sel.id):{icon:'📐',slot:14,name:'Clases'};
   return html`<dialog ref=${ref} className="document-dialog class-dialog" aria-labelledby="class-title" onCancel=${onClose} onClick=${e=>{if(e.target===ref.current)onClose();}}><form onSubmit=${e=>{e.preventDefault();onClose();}}>
-    <header className="dialog-header"><span className="dialog-icon" style=${{'--class-color':style.color}}>${style.icon}</span><div><span className="eyebrow">SLDB</span><h2 id="class-title">Editar clases</h2></div><button type="button" className="icon-button" aria-label="Cerrar" onClick=${onClose}>×</button></header>
+    <header className="dialog-header"><span className="dialog-icon" style=${{'--class-color':classVar(style.slot)}}>${style.icon}</span><div><span className="eyebrow">SLDB</span><h2 id="class-title">Editar clases</h2></div><button type="button" className="icon-button" aria-label="Cerrar" onClick=${onClose}>×</button></header>
     <div className="dialog-body" style=${{display:'flex',gap:'16px',maxHeight:'calc(100vh-180px)'}}>
       <div style=${{width:'200px',overflow:'auto',flexShrink:0}}>
         <span className="eyebrow">Clases registradas</span>
         ${models.map(m=>html`<button key=${m.id} type="button" className=${'class-item'+(model===m.id?' active':'')}
-          style=${{'--class-color':classStyle(m.id).color}} onClick=${()=>describe(m.id)}>
+          style=${{'--class-color':classVar(classStyle(m.id).slot)}} onClick=${()=>describe(m.id)}>
           <span className="class-icon">${classStyle(m.id).icon}</span>
           <span className="class-name">${classStyle(m.id).name}</span>
         </button>`)}
@@ -59,21 +59,21 @@ export function ClassDialog({models,request,onClose,onRefresh,initialModel=null}
       <div style=${{flex:1,overflow:'auto'}}>
         ${!model?html`<p className="quick-create-note">Selecciona una clase para ver sus campos y gestionar drafts.</p>`:
           html`<h3 style=${{margin:'0 0 10px'}}>${classStyle(model).icon} ${classStyle(model).name}</h3>
-          ${sel?html`<table style=${{width:'100%',fontSize:'12px',borderCollapse:'collapse',border:'1px solid #e2e8f0'}}>
-            <thead><tr style=${{background:'#f8fafc'}}><th style=${{padding:'6px 8px',textAlign:'left'}}>Campo</th><th style=${{padding:'6px 8px'}}>Tipo</th><th style=${{padding:'6px 8px'}}>Req.</th><th style=${{padding:'6px 8px'}}>Default</th><th style=${{padding:'6px 8px',textAlign:'left'}}>Descripción</th><th style=${{padding:'6px 8px'}}></th></tr></thead>
-            <tbody>${(sel.fields||[]).map(f=>html`<tr key=${f.name} style=${{borderTop:'1px solid #e2e8f0'}}>
+          ${sel?html`<table style=${{width:'100%',fontSize:'12px',borderCollapse:'collapse',border:'1px solid var(--border)'}}>
+            <thead><tr style=${{background:'var(--surface-app)'}}><th style=${{padding:'6px 8px',textAlign:'left'}}>Campo</th><th style=${{padding:'6px 8px'}}>Tipo</th><th style=${{padding:'6px 8px'}}>Req.</th><th style=${{padding:'6px 8px'}}>Default</th><th style=${{padding:'6px 8px',textAlign:'left'}}>Descripción</th><th style=${{padding:'6px 8px'}}></th></tr></thead>
+            <tbody>${(sel.fields||[]).map(f=>html`<tr key=${f.name} style=${{borderTop:'1px solid var(--border)'}}>
               <td style=${{padding:'6px 8px'}}><code>${f.name}</code></td><td style=${{padding:'6px 8px'}}>${f.kind}</td><td style=${{padding:'6px 8px'}}>${f.required?'✓':''}</td>
               <td style=${{padding:'6px 8px'}}><small>${f.default!==undefined?JSON.stringify(f.default):'-'}</small></td>
               <td style=${{padding:'6px 8px'}}><small>${f.description||f.name}</small></td>
               <td style=${{padding:'6px 8px'}}><button type="button" className=${'icon-button'+(draftActive?'':' hidden')} disabled=${busy} onClick=${()=>run('fields-remove',f.name)} title="Quitar campo del draft">×</button></td>
             </tr>`)}
-            <tr style=${{borderTop:'1px solid #e2e8f0',background:'#fffbeb'}}><td style=${{padding:'6px 8px'}}><input value=${newFieldName} placeholder="name" style=${{width:'80px'}} onInput=${e=>{setNewField(e.target.value);setValidated(false);}}/></td>
+            <tr style=${{borderTop:'1px solid var(--border)',background:'var(--warning-tint-alt)'}}><td style=${{padding:'6px 8px'}}><input value=${newFieldName} placeholder="name" style=${{width:'80px'}} onInput=${e=>{setNewField(e.target.value);setValidated(false);}}/></td>
             <td style=${{padding:'6px 8px'}}><select value=${newFieldType} onChange=${e=>setNewFieldType(e.target.value)}>
               ${['str','int','float','bool','list[str]','dict'].map(t=>html`<option key=${t} value=${t}>${t}</option>`)}
             </select></td><td style=${{padding:'6px 8px'}}></td><td style=${{padding:'6px 8px'}}><input value=${newFieldDefault} placeholder="default" style=${{width:'70px'}} onInput=${e=>{setNewFieldDefault(e.target.value);setValidated(false);}}/></td>
             <td style=${{padding:'6px 8px'}}><input value=${newFieldDesc} placeholder="description" style=${{width:'100px'}} onInput=${e=>{setNewFieldDesc(e.target.value);setValidated(false);}}/></td>
             <td style=${{padding:'6px 8px'}}><button type="button" disabled=${busy||!newFieldName} onClick=${()=>run('fields-add')}>+</button></td></tr>
-          </tbody></table><p style=${{fontSize:'10px',color:'#8490a3',margin:'6px 0 10px'}}>El draft debe tener contenido; usar Validar draft para revisarlo. — Los campos sin draft no se pueden quitar. Un campo sin default es obligatorio: si la clase ya tiene documentos, la validación fallará.</p>`:''}
+          </tbody></table><p style=${{fontSize:'10px',color:'var(--text-faint)',margin:'6px 0 10px'}}>El draft debe tener contenido; usar Validar draft para revisarlo. — Los campos sin draft no se pueden quitar. Un campo sin default es obligatorio: si la clase ya tiene documentos, la validación fallará.</p>`:''}
           <details style=${{marginTop:'10px'}}><summary style=${{fontSize:'12px',cursor:'pointer'}}>Template</summary>
             <textarea rows="4" style=${{width:'100%',marginTop:'8px'}} value=${templateText} placeholder="Markdown del template…" onInput=${e=>{setTemplate(e.target.value);setValidated(false);}}/>
             <button type="button" disabled=${busy||!templateText} onClick=${()=>run('template-edit')}>Editar template</button>

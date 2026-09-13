@@ -2,7 +2,9 @@ import React,{useState,useEffect,useMemo} from 'react';
 import {ReactFlow,ReactFlowProvider,Controls,MiniMap,Handle,Position,useReactFlow,applyNodeChanges} from '@xyflow/react';
 import htm from 'htm';
 import dagre from 'dagre';
-import {classStyle,schemaGraph,schemaMatches} from './model.mjs';
+import {schemaGraph,schemaMatches} from './model.mjs';
+import {classStyle,classVar} from './shared/classes.mjs';
+import {resolveToken} from './shell/skin.js';
 const html=htm.bind(React.createElement);
 
 // Diagrama de CLASES: una card por modelo registrado con TODOS sus campos;
@@ -24,7 +26,7 @@ function layout(graph){
 
 function ClassNode({data,selected}) {
   const {node,dim,onEdit}=data,style=classStyle(node.id);
-  return html`<div className=${'class-node'+(selected?' selected':'')+(dim?' dim':'')} style=${{'--class-color':style.color}} data-class=${node.id}>
+  return html`<div className=${'class-node'+(selected?' selected':'')+(dim?' dim':'')} style=${{'--class-color':classVar(style.slot)}} data-class=${node.id}>
     <header className="class-node-head"><${Handle} type="target" position=${Position.Left}/>
       <span className="class-node-icon">${style.icon}</span>
       <div><strong>${style.name}</strong><small title=${node.model.model_ref||node.id}>${node.id}</small></div>
@@ -43,7 +45,7 @@ function ClassNode({data,selected}) {
 }
 const nodeTypes={class:ClassNode};
 
-function SchemaCanvas({models,documents,onEditClass}) {
+function SchemaCanvas({models,documents,onEditClass,skin}) {
   const {fitView}=useReactFlow();
   const [query,setQuery]=useState('');
   const graph=useMemo(()=>schemaGraph(models,documents),[models,documents]);
@@ -57,12 +59,12 @@ function SchemaCanvas({models,documents,onEditClass}) {
   const matches=id=>schemaMatches(byId[id],query);
   const displayed=flowNodes.map(n=>({...n,data:{...n.data,dim:!matches(n.id),onEdit:onEditClass}}));
   const edges=graph.edges.map(e=>{
-    const color=classStyle(e.source).color,active=selected&&(e.source===selected||e.target===selected);
+    const colorVar=classVar(classStyle(e.source).slot),active=selected&&(e.source===selected||e.target===selected);
     const dim=(query&&!(matches(e.source)&&matches(e.target)))||(selected&&!active);
     return {id:e.id,source:e.source,sourceHandle:e.field,target:e.target,type:'smoothstep',label:e.field,
-      style:{stroke:color,strokeWidth:active?2.6:1.6,opacity:dim?.18:1},
-      markerEnd:{type:'arrowclosed',width:14,height:14,color},
-      labelStyle:{fontSize:10,fill:active?'#172b4d':'#475569',fontWeight:active?600:400},labelBgStyle:{fill:'#f8fafc'},labelBgPadding:[4,2]};});
+      style:{stroke:colorVar,strokeWidth:active?2.6:1.6,opacity:dim?.18:1},
+      markerEnd:{type:'arrowclosed',width:14,height:14,color:colorVar},
+      labelStyle:{fontSize:10,fill:active?'var(--ink)':'var(--text-secondary)',fontWeight:active?600:400},labelBgStyle:{fill:'var(--surface-app)'},labelBgPadding:[4,2]};});
   const totalFields=graph.nodes.reduce((s,n)=>s+n.fields.length,0);
   return html`<div className="schema" aria-label="Diagrama de clases">
     <div className="schema-bar" role="toolbar" aria-label="Herramientas del diagrama">
@@ -74,10 +76,10 @@ function SchemaCanvas({models,documents,onEditClass}) {
     </div>
     <div className="schema-canvas">
       <${ReactFlow} nodes=${displayed} edges=${edges} nodeTypes=${nodeTypes} onNodesChange=${changes=>setFlowNodes(ns=>applyNodeChanges(changes,ns))}
-        minZoom=${.08} maxZoom=${2} nodesConnectable=${false} deleteKeyCode=${null} colorMode="light"
+        minZoom=${.08} maxZoom=${2} nodesConnectable=${false} deleteKeyCode=${null} colorMode=${skin||'light'}
         onNodeDoubleClick=${(_,n)=>onEditClass(n.id)}>
         <${Controls} showInteractive=${false}/>
-        <${MiniMap} pannable zoomable nodeColor=${n=>classStyle(n.id).color} ariaLabel="Vista general del diagrama"/>
+        <${MiniMap} pannable zoomable nodeColor=${n=>resolveToken('--class-color-'+classStyle(n.id).slot)} ariaLabel="Vista general del diagrama"/>
       </${ReactFlow}>
       <div className="schema-legend"><span><i className="legend-contain"></i>◆ Contención: la flecha sale del campo que guarda los IDs de la clase destino</span>
         <span><i className="legend-ref"></i>⇢ Referencia: campo con IDs, sin clase destino declarada</span>

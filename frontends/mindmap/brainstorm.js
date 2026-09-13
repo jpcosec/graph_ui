@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useMemo,useRef} from 'react';
 import htm from 'htm';
-import {newIdea,brainstormToSource,brainstormIssues,IDEA_EMOJIS,classStyle} from './model.mjs';
+import {newIdea,brainstormToSource,brainstormIssues,IDEA_EMOJIS} from './model.mjs';
+import {classStyle,classVar} from './shared/classes.mjs';
 const html=htm.bind(React.createElement);
 
 const DRAFT_KEY='kb-brainstorm-draft-v1';
@@ -65,7 +66,7 @@ export function BrainstormView({models,documents=[],request,onExit,onImported}) 
     const idea=byId.get(id);
     return html`<div key=${id} className="idea-branch" style=${{'--depth':depth}}>
       <div className=${'idea-node'+(selected===id?' selected':'')+(idea.convertedDocId?' converted':'')}
-        style=${{'--idea-color':idea.color||'#2563eb'}} data-idea=${id}
+        style=${idea.slot?{'--idea-color':classVar(idea.slot)}:{}} data-idea=${id}
         onClick=${e=>{e.stopPropagation();setSelected(id);}}
         onDoubleClick=${()=>{setEditingId(id);setSelected(id);}}>
         <button className="idea-cycle nodrag" title="Cambiar emoji" onClick=${e=>{e.stopPropagation();
