@@ -1,5 +1,5 @@
 
-.brainstorm{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--surface-warm);overflow:auto;padding:18px 26px}
+.brainstorm{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--surface-app);overflow:auto;padding:18px 26px}
 
 .brainstorm-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 14px;background:var(--surface-panel);border:1px solid var(--border);border-radius:10px;position:sticky;top:0;z-index:5}
 
