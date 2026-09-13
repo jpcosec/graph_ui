@@ -15,14 +15,28 @@ import {useSource} from '../../../source/source.js';
 // pero sobre documentos SLDB reales en vez de pasos de flujo hardcodeados.
 // Solo lectura: no muta el store, no tiene shell.primary.
 const WIDTH=190,HEIGHT=46;
+// Solo los documentos con alguna relación pasan por dagre; en un store donde
+// la mayoría está suelta (p. ej. pron: 68 documentos, 37 relaciones entre
+// pocos) dagre apilaba todo en una columna ilegible. Los sueltos van en una
+// cuadrícula compacta debajo del grafo.
 function layout(graph){
-  const g=new dagre.graphlib.Graph();
-  g.setGraph({rankdir:'LR',nodesep:24,ranksep:90,marginx:24,marginy:24});
-  g.setDefaultEdgeLabel(()=>({}));
-  graph.nodes.forEach(n=>g.setNode(n.id,{width:WIDTH,height:HEIGHT}));
-  graph.edges.forEach(e=>g.setEdge(e.source,e.target));
-  dagre.layout(g);
-  return graph.nodes.map(n=>{const p=g.node(n.id);return {id:n.id,type:'flow',position:{x:p.x-p.width/2,y:p.y-p.height/2},style:{width:p.width},data:{node:n}};});
+  const linked=new Set();graph.edges.forEach(e=>{linked.add(e.source);linked.add(e.target);});
+  const connected=graph.nodes.filter(n=>linked.has(n.id)),loose=graph.nodes.filter(n=>!linked.has(n.id));
+  const flowNode=(n,x,y)=>({id:n.id,type:'flow',position:{x,y},style:{width:WIDTH},data:{node:n}});
+  const out=[];let bottom=0;
+  if(connected.length){
+    const g=new dagre.graphlib.Graph();
+    g.setGraph({rankdir:'LR',nodesep:24,ranksep:90,marginx:24,marginy:24});
+    g.setDefaultEdgeLabel(()=>({}));
+    connected.forEach(n=>g.setNode(n.id,{width:WIDTH,height:HEIGHT}));
+    graph.edges.forEach(e=>g.setEdge(e.source,e.target));
+    dagre.layout(g);
+    connected.forEach(n=>{const p=g.node(n.id);out.push(flowNode(n,p.x-p.width/2,p.y-p.height/2));bottom=Math.max(bottom,p.y+p.height/2);});
+  }
+  const cols=Math.max(1,Math.min(8,Math.ceil(Math.sqrt(loose.length))));
+  const top=bottom?bottom+72:24;
+  loose.forEach((n,i)=>out.push(flowNode(n,24+(i%cols)*(WIDTH+20),top+Math.floor(i/cols)*(HEIGHT+14))));
+  return out;
 }
 
 function FlowNode({data,selected}) {
