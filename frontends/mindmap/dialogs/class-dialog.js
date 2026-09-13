@@ -1,6 +1,6 @@
-import {useState,useEffect,useRef} from 'react';
-import {html} from './shared/html.js';
-import {classStyle,classVar} from './shared/classes.mjs';
+import {useState, useEffect, useRef} from 'react';
+import {html} from '../shared/html.js';
+import {classStyle, classVar} from '../shared/classes.mjs';
 
 export function ClassDialog({models,request,onClose,onRefresh,initialModel=null}) {
   const [model,setModel]=useState(null);

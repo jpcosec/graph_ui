@@ -235,7 +235,7 @@ test('class colors are slots resolved by the active skin, not hardcoded hexes',(
 
 // ---------------------------------------------------------------- source/batch.mjs
 // NOTA: conflictsBetween reproduce EXACTAMENTE la lógica extraída de
-// App.save (editor.js). Dos particularidades de esa lógica, no de este test:
+// the documents facet's save(). Dos particularidades de esa lógica, no de este test:
 // (1) un 'create' nunca se marca como conflicto — el filtro inicial solo
 //     considera 'update'/'delete', así que un id ya existente en el servidor
 //     al hacer create no aparece aquí (lo rechaza el propio /api/save, pero

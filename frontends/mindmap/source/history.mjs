@@ -17,7 +17,7 @@ export function checkpoint(state) {
 }
 
 // fn(working) must return the next working copy (spread the parts that do
-// not change; see call sites in editor.js).
+// not change; see call sites in the documents facet and the map view).
 export function edit(state, fn) {
   return {working: fn(state.working), history: [...state.history.slice(-(CAP - 1)), state.working], future: []};
 }

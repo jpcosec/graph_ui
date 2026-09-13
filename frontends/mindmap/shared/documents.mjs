@@ -34,7 +34,7 @@ export function referenceFieldsOf(descriptor) {
   const containment=Object.keys(descriptor.containment||{});
   return new Set([...(descriptor.references||[]),...containment]);
 }
-// Human label for a field name; moved from editor.js so both the document
-// dialogs and any future view can share it.
+// Human label for a field name, shared by the document dialogs and any
+// other view that needs it.
 export const labelFor=field=>({title:'Título',name:'Nombre',body:'Contenido',status:'Estado',goal:'Objetivo',scope:'Alcance',purpose:'Propósito',implementation_path:'Ruta de implementación',done_when:'Criterio de término',entrypoint:'Nodo de entrada',source:'Origen',target:'Destino',subject:'Sujeto',predicate:'Condición',answer:'Respuesta',summary:'Resumen'}[field]||field.replaceAll('_',' '));
 export const isList=field=>['stringlist','enumlist','list'].includes(field.kind);

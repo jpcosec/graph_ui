@@ -6,8 +6,9 @@ const EMPTY_BASELINE = {documents: [], view: {}, revision: ''};
 
 // Owns the documents/view working copy, its baseline (last known-good SLDB
 // state), undo/redo history and the save/export/reload mutations. Moved
-// verbatim from editor.js's App (load/save/exportMap/checkpoint/undo/redo),
-// on top of the pure source/history.mjs reducer.
+// verbatim out of the shell's former root component
+// (load/save/exportMap/checkpoint/undo/redo), on top of the pure
+// source/history.mjs reducer.
 export function useDocumentsFacet(request) {
   const [status, setStatus] = useState('loading');
   const [error, setError] = useState('');

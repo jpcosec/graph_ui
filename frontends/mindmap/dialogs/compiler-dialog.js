@@ -1,6 +1,6 @@
-import {useState,useEffect,useRef} from 'react';
-import {html} from './shared/html.js';
-import {useBeforeUnload} from './shell/use-before-unload.js';
+import {useState, useEffect, useRef} from 'react';
+import {html} from '../shared/html.js';
+import {useBeforeUnload} from '../shell/use-before-unload.js';
 
 export function CompilerDialog({request,onClose,onRefresh}) {
   const ref=useRef(null);

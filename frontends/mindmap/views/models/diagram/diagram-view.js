@@ -1,10 +1,12 @@
-import {useState,useEffect,useMemo} from 'react';
-import {ReactFlow,ReactFlowProvider,Controls,MiniMap,Handle,Position,useReactFlow,applyNodeChanges} from '@xyflow/react';
+import {useState, useEffect, useMemo} from 'react';
+import {ReactFlow, ReactFlowProvider, Controls, MiniMap, Handle, Position, useReactFlow, applyNodeChanges} from '@xyflow/react';
 import dagre from 'dagre';
-import {html} from './shared/html.js';
-import {schemaGraph,schemaMatches} from './views/models/diagram/projection.mjs';
-import {classStyle,classVar} from './shared/classes.mjs';
-import {resolveToken} from './shell/skin.js';
+import {html} from '../../../shared/html.js';
+import {schemaGraph, schemaMatches} from './projection.mjs';
+import {classStyle, classVar} from '../../../shared/classes.mjs';
+import {resolveToken} from '../../../shell/skin.js';
+import {useSource} from '../../../source/source.js';
+import {useShellDialogs} from '../../../shell/dialogs.js';
 
 // Diagrama de CLASES: una card por modelo registrado con TODOS sus campos;
 // cada arista de contención sale del puerto de su propio campo (handle con
@@ -44,7 +46,11 @@ function ClassNode({data,selected}) {
 }
 const nodeTypes={class:ClassNode};
 
-function SchemaCanvas({models,documents,onEditClass,skin}) {
+function SchemaCanvas({skin}) {
+  const kb=useSource();
+  const dialogs=useShellDialogs();
+  const models=kb.models.models,documents=kb.documents.working.documents;
+  const onEditClass=id=>dialogs.open({kind:'classes',model:id||null});
   const {fitView}=useReactFlow();
   const [query,setQuery]=useState('');
   const graph=useMemo(()=>schemaGraph(models,documents),[models,documents]);
@@ -88,6 +94,8 @@ function SchemaCanvas({models,documents,onEditClass,skin}) {
   </div>`;
 }
 
-export function SchemaView(props) {
+function DiagramView(props) {
   return html`<${ReactFlowProvider}><${SchemaCanvas} ...${props}/></${ReactFlowProvider}>`;
 }
+
+export const diagramView={id:'diagram', facet:'models', label:'📐 Schema', component:DiagramView, shell:{primary:false}};

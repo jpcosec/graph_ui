@@ -2,9 +2,9 @@ import {useState, useEffect} from 'react';
 import {readDraft, writeDraft, brainstormIssues, brainstormToSource} from './draft.mjs';
 
 // Brainstorm draft facet: owns the localStorage-backed idea tree and the
-// plan+compile conversion into real SLDB documents. Moved from
-// brainstorm.js's BrainstormView (state + convert()); messages/texts stay in
-// the view, this only returns structured results.
+// plan+compile conversion into real SLDB documents. Moved out of the
+// Brainstorm tree view's own state (state + convert()); messages/texts stay
+// in the view, this only returns structured results.
 export function useDraftFacet(request, models, documents) {
   const [ideas, setIdeas] = useState(() => readDraft() || []);
   useEffect(() => { writeDraft(ideas); }, [ideas]);

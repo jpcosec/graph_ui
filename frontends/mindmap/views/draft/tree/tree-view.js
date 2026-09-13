@@ -1,9 +1,12 @@
-import {useState,useEffect,useMemo} from 'react';
-import {html} from './shared/html.js';
-import {newIdea,IDEA_EMOJIS} from './source/draft.mjs';
-import {classStyle,classVar} from './shared/classes.mjs';
+import {useState, useEffect, useMemo} from 'react';
+import {html} from '../../../shared/html.js';
+import {newIdea, IDEA_EMOJIS} from '../../../source/draft.mjs';
+import {classStyle, classVar} from '../../../shared/classes.mjs';
+import {useSource} from '../../../source/source.js';
 
-export function BrainstormView({draft,models,documents,onExit,onImported}) {
+function TreeView({navigate}) {
+  const kb=useSource();
+  const draft=kb.draft,models=kb.models;
   const {ideas,update,pending,issues,convert,discard:discardDraft}=draft;
   const modelsList=models.models;
   const [selected,setSelected]=useState(null),[editingId,setEditingId]=useState(null),[busy,setBusy]=useState(false);
@@ -37,7 +40,7 @@ export function BrainstormView({draft,models,documents,onExit,onImported}) {
     if(!result.ok&&result.report.applicable===false){setReport(result.report);setFailed(true);setMessage('SLDB rechazó el plan: revisa el reporte. Nada se escribió.');return;}
     if(!result.ok){setFailed(true);setReport(result.report);setMessage(result.error||'No se completó la conversión.');return;}
     setReport(result.report);setMessage(`Conversión completa: ${Object.keys(result.docIds).length} documento(s) creados en SLDB. Recargando la KB…`);
-    onImported();
+    navigate('map');
   };
   const discard=()=>{if(confirm('¿Descartar el borrador de Brainstorm? Se perderán las ideas sin convertir.')){discardDraft();setSelected(null);setEditingId(null);setMessage('Borrador descartado.');setReport(null);}};
   const renderTree=(parentId,depth)=>childrenOf[parentId||'root'].map(id=>{
@@ -85,3 +88,5 @@ export function BrainstormView({draft,models,documents,onExit,onImported}) {
     </div>
   </div>`;
 }
+
+export const treeView={id:'tree', facet:'draft', label:'💡 Brainstorm', component:TreeView, shell:{primary:false}};

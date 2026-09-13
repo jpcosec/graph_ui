@@ -15,7 +15,7 @@
 /* Brainstorm: captura rápida transitoria (plan paso 4). */
 .mode-switch{display:flex;gap:2px;background:var(--surface-muted);border:1px solid var(--border);border-radius:8px;padding:2px;margin-left:14px}.mode-switch button{border:0;background:transparent;border-radius:6px;min-height:30px;font-size:12px;padding:4px 12px;color:var(--text-muted)}.mode-switch button.active{background:var(--surface-panel);color:var(--primary-strong);font-weight:600;box-shadow:var(--shadow-tab)}
 .skin-toggle{margin-left:8px;min-width:34px;font-size:18px;padding:0 8px}
-.editor[data-mode=brainstorm] .toolbar,.editor[data-mode=brainstorm] .save-state,.editor[data-mode=brainstorm] .toolbar~.workspace aside{display:none}
+.view-outlet{display:flex;flex-direction:column;flex:1;min-height:0}
 .brainstorm{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--surface-warm);overflow:auto;padding:18px 26px}
 .brainstorm-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 14px;background:var(--surface-panel);border:1px solid var(--border);border-radius:10px;position:sticky;top:0;z-index:5}
 .brainstorm-hint{font-size:11px;color:var(--text-faint)}.brainstorm-count{font-size:12px;color:var(--text-muted);font-weight:600}.brainstorm-count.pending{color:var(--warning)}
@@ -36,7 +36,6 @@
 .brainstorm .form-error{margin:6px 14px}
 .brainstorm .compiler-report{margin:10px 0 0}
 /* ---- Modo Schema: diagrama de clases (misma paleta que el mapa KB) ---- */
-.editor[data-mode=schema] .toolbar,.editor[data-mode=schema] .save-state,.editor[data-mode=schema] .statusbar{display:none}
 .schema{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--surface-app)}
 .schema-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 18px;background:var(--surface-panel);border-bottom:1px solid var(--border);font-size:12px}
 .schema-bar strong{font-size:13px}.schema-count{color:var(--text-muted)}.schema-density{margin-left:0}
