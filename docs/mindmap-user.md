@@ -1,9 +1,16 @@
 # KB Mindmap: guía de uso
 
-KB Mindmap permite explorar y editar documentos de una KB SLDB como un mapa.
-Cada caja representa un documento. El emoji, el color y el borde indican la
-clase del documento; la leyenda de la izquierda muestra todas las clases y sus
-recuentos.
+KB Mindmap permite explorar y editar documentos de un store SLDB/pron como un
+mapa. La barra superior alterna entre tres vistas: **🗺 KB** (esta guía la
+cubre primero), **💡 Brainstorm** (ideación libre antes de escribir nada en
+el store) y **📐 Schema** (diagrama de las clases del store) — las dos
+últimas se describen más abajo. El botón **📐 Editar clases** (barra lateral
+de KB, o desde cualquier card del Schema) abre el editor del contrato de las
+clases mismas, no de sus documentos.
+
+En modo KB, cada caja representa un documento. El emoji, el color y el borde
+indican la clase del documento; la leyenda de la izquierda muestra todas las
+clases y sus recuentos.
 
 ## Moverse por el mapa
 
@@ -90,3 +97,72 @@ antes de guardar.
 
 Quitar una caja la elimina del índice al guardar y limpia sus referencias;
 el archivo Markdown original se conserva en disco.
+
+## Brainstorm
+
+Pulsa **💡 Brainstorm** en la barra superior para pensar en ideas sueltas
+antes de decidir su clase. No toca el store hasta que conviertes: el
+borrador vive solo en tu navegador (`localStorage`), así que cerrar o
+recargar no pierde nada — pero el navegador te avisa si quedan ideas sin
+convertir antes de dejar la página.
+
+- `＋ Idea raíz` o `＋ Primera idea` crean el primer nodo.
+- `Enter` con una idea seleccionada crea un hermano; `Tab` crea un hijo. La
+  jerarquía visual es la contención que se propondrá al convertir.
+- Doble clic renombra. El icono a la izquierda de cada idea cambia de emoji
+  con un clic.
+- El selector `Clase…` de cada idea es opcional mientras piensas, pero
+  obligatorio (junto con el título) para que esa idea se pueda convertir.
+- `×` descarta una idea individual (y a sus hijos). `Descartar borrador`
+  (con confirmación) vacía todo el lienzo.
+- `Convertir a SLDB` valida las ideas con título y clase, calcula un plan
+  contra el store real y, si no hay conflictos, escribe los documentos. Las
+  ideas convertidas quedan marcadas con ✓ en el propio lienzo — no
+  desaparecen — y la vista KB se recarga con los documentos nuevos.
+- Ideas sin título o sin clase se listan como pendientes y no se convierten;
+  el resto del lote sí se convierte.
+
+## Schema
+
+Pulsa **📐 Schema** en la barra superior para ver las clases del store como
+un diagrama, en vez de sus documentos. Cada card es una clase registrada:
+
+- Cabecera con icono, nombre, identificador del modelo y cuántos documentos
+  de esa clase hay en el store.
+- Una fila por campo con su tipo; `*` marca los obligatorios. Pasa el cursor
+  sobre una fila para leer la descripción del campo.
+- Las filas **◆** son campos de contención: guardan IDs de documentos de las
+  clases que muestran a la derecha. Cada una tiene un puerto en su borde
+  derecho del que sale la flecha hacia esas clases, etiquetada con el nombre
+  del campo — así se ve qué campo concreto sostiene cada relación.
+- Las filas **⇢** son campos de referencia: guardan IDs de documentos, pero
+  el modelo no declara de qué clase, así que no se dibuja flecha.
+- Escribe en `Filtrar clase, campo o tipo…` para atenuar todo lo que no
+  coincida (busca en nombres de clase, campos, tipos y clases destino).
+- Clic en una card resalta sus flechas; doble clic o `✎ Editar` abre
+  **Editar clases** ya posicionado en esa clase. `⛶ Ver todo` reencuadra.
+
+La disposición se calcula sola a partir del esquema; arrastrar cards solo
+reordena la sesión actual, no se guarda.
+
+## Editar clases
+
+El botón **📐 Editar clases** de la barra lateral (modo KB), o el doble
+clic / `✎ Editar` sobre una card del Schema, abre el editor del contrato de
+una clase — no de sus documentos. Selecciona una clase de la lista para ver
+sus campos, tipo, obligatoriedad, default y descripción.
+
+- Cada fila tiene un botón `×` para quitar ese campo de un draft en curso.
+  La fila inferior de la tabla agrega un campo nuevo (`name`, tipo, default,
+  descripción) al draft.
+- `Template` (desplegable) permite reemplazar el Markdown de plantilla de la
+  clase directamente.
+- Cualquier cambio queda como **draft** — no afecta documentos existentes
+  todavía. `Validar draft` corre esos documentos contra el draft sin
+  escribir nada; el resultado lista qué documentos pasarían y cuáles no.
+- `Promover draft` solo se habilita después de una validación exitosa (pide
+  confirmación: "actualizará el modelo activo y los hashes de documentos").
+  Promover aplica el draft como la versión activa de la clase al instante —
+  sin reiniciar el servidor — y sube su número de versión.
+- Un campo sin default es obligatorio: si la clase ya tiene documentos, la
+  validación fallará hasta que le pongas uno o lo quites.

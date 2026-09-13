@@ -2,8 +2,24 @@
 
 ## Estado
 
-Propuesta implementable para `graph_ui`. Define la separación entre el mapa de
-ideas, la KB persistente y el esquema de clases/documentos.
+Define la separación entre el mapa de ideas, la KB persistente y el esquema
+de clases/documentos. Contrástalo contra el código, no lo asumas vigente:
+este documento describe la intención de producto y puede ir por delante o
+por detrás de `frontends/mindmap/` (regla general del repo, ver `CLAUDE.md`).
+
+Estado real por modo, verificado contra `editor.js`/`brainstorm.js`/
+`classes-dialog.js` a fecha de este documento:
+
+| Modo de esta spec | Implementado como | Divergencia |
+|---|---|---|
+| Brainstorm | Vista `💡 Brainstorm` (`brainstorm.js`), tab de la barra superior | Ninguna relevante: título/clase por idea, Enter/Tab, conversión vía `plan`+`compile`, todo como se describe abajo |
+| KB | Vista `🗺 KB` (`editor.js`), vista por defecto | Ninguna relevante |
+| Schema / Documentos | Su mitad de "estructura de clases" existe en dos piezas: la vista **📐 Schema** (`schema-view.js`, tab de la barra superior: diagrama de clases con campos, contención como aristas y referencias anotadas, solo lectura) y el diálogo **📐 Editar clases** (`classes-dialog.js`, sobre `models_service.py`→`pron.Store`) para modificar el contrato, abierto desde KB o desde una card del Schema | Su mitad de "documentos de una clase con ficha completa" no tiene UI dedicada; hoy se cubre parcialmente filtrando la leyenda de KB por clase y abriendo la ficha modal de cada documento — no hay una lista dedicada por clase con ficha en el mismo lugar |
+
+Todo lo que este documento describe como escritura contra "SLDB" ocurre hoy
+a través de `pron.Store` (`pron` es la única puerta a `sldb`/`kgdb` desde
+este editor) — es un detalle de implementación, no cambia las invariantes de
+producto de este documento.
 
 ## Objetivo
 
@@ -126,27 +142,40 @@ modelo; nunca queda solo como una línea local después de guardar.
 
 ## Modo Schema / Documentos
 
+Ver tabla de estado al inicio: la mitad de estructura existe (vista Schema +
+diálogo Editar clases); la mitad de documentos por clase, no.
+
 ### Estructura de clases
 
-Debe mostrar nombre, emoji/color, modelo registrado, campos y tipos,
-obligatoriedad, enums, clases permitidas como hijos, campos de referencia y
-cardinalidades cuando estén declaradas. La información proviene de `/api/schema`
-y no se duplica a mano en la UI.
+Implementado en dos piezas. La vista **📐 Schema** muestra, por clase:
+nombre, emoji/color, modelo registrado, campos y tipos, obligatoriedad,
+clases permitidas como hijos (filas ◆ de contención, que además son las
+aristas del diagrama) y campos de referencia (filas ⇢), todo desde
+`/api/schema`, sin duplicarlo a mano. El diálogo **📐 Editar clases**
+muestra además default y descripción por campo (`/api/models/detail`, es
+decir lo que `pron.Store` calcula sobre el modelo real) y es donde se
+modifica el contrato. Pendiente de esta lista original: enums visibles como
+tales y cardinalidades — el schema no las declara hoy, así que la UI no las
+puede mostrar sin inventarlas; y la clase destino de las referencias, que
+`__references__` no lleva.
 
 ### Documentos
 
-Debe mostrar los documentos de una clase y abrir la ficha completa de cada
-instancia. La edición usa los validadores nativos de SLDB. El nodo del mapa y
-el documento de esta vista deben referenciar la misma instancia.
+Pendiente: no hay una vista dedicada a "documentos de esta clase" con ficha
+completa. Hoy se aproxima filtrando la leyenda de KB por clase (ver
+`Modo KB`) y abriendo la ficha modal de cada documento desde ahí — el nodo
+del mapa y la ficha ya referencian la misma instancia, pero no existe un
+listado por clase independiente del mapa.
 
 ## Persistencia
 
 Brainstorm puede persistirse como borrador independiente antes de existir una
 KB. Debe conservar ideas, posiciones, colores, emoji y jerarquía.
 
-KB y Schema/Documentos escriben mediante SLDB: crean/actualizan Markdown,
-actualizan índices, validan contra el modelo y guardan posiciones/plegado como
-estado de vista separado.
+KB y el editor de clases escriben mediante `pron.Store` (que por debajo usa
+`sldb`, nunca reimplementado aquí): crean/actualizan Markdown, actualizan
+índices, validan contra el modelo y guardan posiciones/plegado como estado
+de vista separado.
 
 El guardado usa control de concurrencia. Si el documento o la vista cambiaron
 desde la lectura, se rechaza el lote y se pide recargar; no se sobrescribe
