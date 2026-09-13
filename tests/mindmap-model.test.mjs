@@ -173,3 +173,45 @@ test('brainstormToSource gives collisions unique IDs without replacing existing 
   assert.deepEqual(source.documents.map(d=>d.id),['misma-idea-2','misma-idea-3','misma-idea-4']);
   assert.deepEqual(docIds,{one:'misma-idea-2',two:'misma-idea-3',three:'misma-idea-4'});
 });
+
+// ---------------------------------------------------------------- Schema
+import {schemaGraph,schemaMatches} from '../frontends/mindmap/model.mjs';
+
+test('schemaGraph: la contención declarada da aristas tipadas; las referencias solo se anotan',()=>{
+  const models=[
+    {id:'BoardDoc',model_ref:'m:BoardDoc',containment:{tasks:['TaskDoc'],ghosts:['GhostDoc']},references:[],
+      fields:[{name:'id',kind:'string',required:true},{name:'tasks',kind:'stringlist'},{name:'ghosts',kind:'stringlist'}]},
+    {id:'TaskDoc',model_ref:'m:TaskDoc',containment:{},references:['blocks'],
+      fields:[{name:'id',kind:'string',required:true},{name:'blocks',kind:'stringlist'},{name:'status',kind:'string'}]},
+  ];
+  const docs=[{id:'t1',model_name:'TaskDoc',payload:{}},{id:'t2',model_name:'TaskDoc',payload:{}}];
+  const g=schemaGraph(models,docs);
+  // GhostDoc no está registrado: se anota en la card pero nunca se inventa una arista.
+  assert.deepEqual(g.edges,[{id:'BoardDoc.tasks>TaskDoc',source:'BoardDoc',target:'TaskDoc',field:'tasks'}]);
+  const board=g.nodes.find(n=>n.id==='BoardDoc'),task=g.nodes.find(n=>n.id==='TaskDoc');
+  assert.deepEqual(board.fields.find(f=>f.name==='tasks').contains,['TaskDoc']);
+  assert.deepEqual(board.fields.find(f=>f.name==='ghosts').contains,[]);
+  assert.equal(task.fields.find(f=>f.name==='blocks').reference,true);
+  assert.equal(task.fields.find(f=>f.name==='status').reference,false);
+  assert.equal(task.docCount,2);assert.equal(board.docCount,0);
+  assert.equal(task.relational,1);assert.equal(board.relational,2);
+});
+
+test('schemaGraph sin metadatos declarados cae a las tablas legacy por clase',()=>{
+  const g=schemaGraph([{id:'BoardDoc',fields:[{name:'tasks',kind:'stringlist'}]},
+    {id:'TaskDoc',fields:[{name:'checklists',kind:'stringlist'},{name:'routine',kind:'string'}]}]);
+  assert.deepEqual(g.edges.map(e=>e.id),['BoardDoc.tasks>TaskDoc']); // ChecklistDoc no registrado: sin arista
+  const task=g.nodes.find(n=>n.id==='TaskDoc');
+  assert.deepEqual(task.fields.find(f=>f.name==='checklists').contains,[]);
+  assert.equal(task.fields.find(f=>f.name==='routine').reference,true);
+});
+
+test('schemaMatches filtra por clase, campo, tipo y clase destino',()=>{
+  const [board]=schemaGraph([{id:'BoardDoc',containment:{tasks:['TaskDoc']},references:[],
+    fields:[{name:'tasks',kind:'stringlist',annotation:'list'}]},{id:'TaskDoc',containment:{},references:[],fields:[]}]).nodes;
+  assert.ok(schemaMatches(board,''));
+  assert.ok(schemaMatches(board,'board'));
+  assert.ok(schemaMatches(board,'TASKDOC'));
+  assert.ok(schemaMatches(board,'stringlist'));
+  assert.ok(!schemaMatches(board,'pill'));
+});

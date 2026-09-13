@@ -3,7 +3,7 @@ import htm from 'htm';
 import {classStyle} from './model.mjs';
 const html=htm.bind(React.createElement);
 
-export function ClassDialog({models,request,onClose,onRefresh}) {
+export function ClassDialog({models,request,onClose,onRefresh,initialModel=null}) {
   const [model,setModel]=useState(null);
   const [detail,setDetail]=useState(null);
   const [draftActive,setDraft]=useState(false);
@@ -21,6 +21,7 @@ export function ClassDialog({models,request,onClose,onRefresh}) {
       setDetail(d);setFailed(!d.ok);
     }catch(e){setDetail({ok:false,error:e.message});setFailed(true);setMessage(e.message);}
   };
+  useEffect(()=>{if(initialModel&&models.some(m=>m.id===initialModel))describe(initialModel);},[]);
   const run=async(action,...args)=>{
     if(action==='promote'&&!validated){setFailed(true);return setMessage('Primero debes validar el draft antes de promover.');}
     if(action==='promote'&&!confirm(`¿Promover el draft de ${classStyle(model).name}? Esta operación actualizará el modelo activo y los hashes de documentos.`))return;
