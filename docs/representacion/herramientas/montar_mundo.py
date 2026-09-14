@@ -19,7 +19,7 @@ Formato del YAML:
     documentos:        # payloads de documentos de los modelos declarados
       - {model, name, payload}
     relaciones:        # RelationDoc: source/target como Modelo:nombre
-      - {type, source, target, condition?}
+      - {type, source, target, condition?, notes?}
     relaciones_invalidas:  # control negativo: se crean después de un mundo sano y se vuelve a
       - {type, source, target, porque}   # correr refresh + check para ver si kgdb/pron las rechazan
     pron_extra:        # subcomandos de pron a correr sobre el mundo sano, p. ej. [lexicon]
@@ -95,7 +95,7 @@ def montar(spec_path: Path, conservar: bool) -> int:
     for rel in spec.get("relaciones", []):
         name = f"{rel['type']}--{rel['source']}--{rel['target']}"
         payload = {"title": name, "source_id": rel["source"], "target_id": rel["target"],
-                   "relation_type": rel["type"], "condition": rel.get("condition", ""), "notes": ""}
+                   "relation_type": rel["type"], "condition": rel.get("condition", ""), "notes": rel.get("notes", "")}
         create("RelationDoc", name, payload, "relations")
 
     fallos += bool(run(["pron", "refresh", "--world", str(world), "--pythonpath", py]).returncode)

@@ -1,0 +1,19 @@
+@startuml
+!include <C4/C4_Container>
+title Container diagram for graph_ui
+
+Person(usuario, "Usuario", "Explora y edita un mundo pron")
+System_Ext(pron, "pron", "Kernel del mundo: store, verbos, léxico")
+
+System_Boundary(graph_ui, "graph_ui") {
+  Container(front, "Frontend mindmap", "React + htm, sin build", "Vistas, shell y fuente de datos del navegador")
+  Container(serve, "serve.py", "Python stdlib", "Sirve estáticos y la API JSON")
+  ContainerDb(store, "Store del mundo", ".sldb + Markdown", "Documentos, modelos e índices")
+}
+
+Rel(usuario, front, "Explora y edita diagramas en", "navegador")
+Rel(front, serve, "Pide grafo y esquema; envía cambios a", "JSON/HTTP")
+Rel(serve, pron, "Abre el mundo con", "pron.Store (Python)")
+Rel(pron, store, "Lee y escribe", "archivos")
+SHOW_LEGEND()
+@enduml

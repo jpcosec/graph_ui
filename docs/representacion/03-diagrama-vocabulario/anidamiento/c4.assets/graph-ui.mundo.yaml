@@ -1,0 +1,235 @@
+# C4 como dominio de un mundo pron (opción B): un modelo por abstracción (Person, SoftwareSystem, Container,
+# Component), pertenencia part_of (many_to_one) y relaciones uses. Etiqueta y tecnología de cada relación
+# van en notes porque RelationDoc no tiene campos para ellas.
+modelos:
+- name: Person
+  family: c4
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+
+    ## Description
+
+
+    ⸢rev•description⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre del elemento.
+  - name: description
+    type: str
+    default: ''
+    description: Responsabilidades, a simple vista.
+- name: SoftwareSystem
+  family: c4
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    external: ⸢rev•external⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+
+    ## Description
+
+
+    ⸢rev•description⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre del elemento.
+  - name: description
+    type: str
+    default: ''
+    description: Responsabilidades, a simple vista.
+  - name: external
+    type: bool
+    default: false
+    description: Sistema externo al alcance.
+- name: Container
+  family: c4
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    technology: ⸢rev•technology⸥
+
+    datastore: ⸢rev•datastore⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+
+    ## Description
+
+
+    ⸢rev•description⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre del elemento.
+  - name: description
+    type: str
+    default: ''
+    description: Responsabilidades, a simple vista.
+  - &id001
+    name: technology
+    type: str
+    default: ''
+    description: Tecnología (C4 pide declararla en contenedores y componentes).
+  - name: datastore
+    type: bool
+    default: false
+    description: Si es un almacén de datos.
+- name: Component
+  family: c4
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    technology: ⸢rev•technology⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+
+    ## Description
+
+
+    ⸢rev•description⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre del elemento.
+  - name: description
+    type: str
+    default: ''
+    description: Responsabilidades, a simple vista.
+  - *id001
+tipos_de_relacion:
+- name: part_of
+  cardinality: many_to_one
+  axis: WHERE
+  source_types:
+  - Container
+  - Component
+  target_types:
+  - SoftwareSystem
+  - Container
+  description: Un contenedor es parte de un sistema de software; un componente, de un contenedor.
+- name: uses
+  cardinality: many_to_many
+  source_types:
+  - Person
+  - SoftwareSystem
+  - Container
+  - Component
+  target_types:
+  - SoftwareSystem
+  - Container
+  - Component
+  description: Relación unidireccional etiquetada (C4); la etiqueta y la tecnología van en notes.
+documentos:
+- model: Person
+  name: usuario
+  payload:
+    name: Usuario
+    description: Explora y edita un mundo pron
+- model: SoftwareSystem
+  name: graph-ui
+  payload:
+    name: graph_ui
+    description: Editor visual de mundos pron/sldb
+- model: SoftwareSystem
+  name: pron
+  payload:
+    name: pron
+    description: 'Kernel del mundo: store, verbos, léxico'
+    external: true
+- model: Container
+  name: front
+  payload:
+    name: Frontend mindmap
+    technology: React + htm, sin build
+    description: Vistas, shell y fuente de datos del navegador
+- model: Container
+  name: serve
+  payload:
+    name: serve.py
+    technology: Python stdlib
+    description: Sirve estáticos y la API JSON
+- model: Container
+  name: store
+  payload:
+    name: Store del mundo
+    technology: .sldb + Markdown
+    description: Documentos, modelos e índices
+    datastore: true
+- model: Component
+  name: vista-schema
+  payload:
+    name: Vista Schema
+    technology: React Flow
+    description: Diagrama de clases del mundo
+- model: Component
+  name: exportador
+  payload:
+    name: Exportador JSON
+    technology: Python
+    description: Exporta el mundo a JSON (componente todavía sin contenedor)
+relaciones:
+- type: part_of
+  source: Container:front
+  target: SoftwareSystem:graph-ui
+- type: part_of
+  source: Container:serve
+  target: SoftwareSystem:graph-ui
+- type: part_of
+  source: Container:store
+  target: SoftwareSystem:graph-ui
+- type: part_of
+  source: Component:vista-schema
+  target: Container:front
+- type: uses
+  source: Person:usuario
+  target: Container:front
+  notes: Explora y edita diagramas en | navegador
+- type: uses
+  source: Container:front
+  target: Container:serve
+  notes: Pide grafo y esquema; envía cambios a | JSON/HTTP
+- type: uses
+  source: Container:serve
+  target: SoftwareSystem:pron
+  notes: Abre el mundo con | pron.Store (Python)
+- type: uses
+  source: SoftwareSystem:pron
+  target: Container:store
+  notes: Lee y escribe | archivos
+relaciones_invalidas:
+- type: part_of
+  source: Component:exportador
+  target: SoftwareSystem:graph-ui
+  porque: en C4 un componente es parte de un contenedor, no de un sistema; el par cae dentro de source_types × target_types

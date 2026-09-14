@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+title System Context diagram for graph_ui
+
+Person(usuario, "Usuario", "Explora y edita un mundo pron")
+System(graph_ui, "graph_ui", "Editor visual de mundos pron/sldb")
+System_Ext(pron, "pron", "Kernel del mundo: store, verbos, léxico")
+
+Rel(usuario, graph_ui, "Explora y edita diagramas en")
+Rel(graph_ui, pron, "Lee y escribe el mundo a través de")
+SHOW_LEGEND()
+@enduml
