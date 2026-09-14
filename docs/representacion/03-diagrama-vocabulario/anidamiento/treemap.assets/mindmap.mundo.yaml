@@ -1,0 +1,461 @@
+# Árbol de frontends/mindmap de graph_ui (commit 653f9ea) como mundo pron: carpetas y archivos con sus líneas.
+# El tamaño de una carpeta NO se guarda: es la suma de sus archivos y lo calcula la vista.
+modelos:
+- name: Folder
+  family: codigo
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre de la carpeta.
+- name: SourceFile
+  family: codigo
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    lines: ⸢rev•lines⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre del archivo.
+  - name: lines
+    type: int
+    description: Líneas del archivo (wc -l).
+tipos_de_relacion:
+- name: in_folder
+  cardinality: many_to_one
+  axis: WHERE
+  source_types:
+  - Folder
+  - SourceFile
+  target_types:
+  - Folder
+  description: El archivo o carpeta está dentro de esa carpeta.
+documentos:
+- model: Folder
+  name: mindmap
+  payload:
+    name: frontends/mindmap
+- model: Folder
+  name: views
+  payload:
+    name: views
+- model: Folder
+  name: views-documents
+  payload:
+    name: documents
+- model: Folder
+  name: views-models
+  payload:
+    name: models
+- model: Folder
+  name: views-draft
+  payload:
+    name: draft
+- model: Folder
+  name: shell
+  payload:
+    name: shell
+- model: Folder
+  name: source
+  payload:
+    name: source
+- model: Folder
+  name: shared
+  payload:
+    name: shared
+- model: Folder
+  name: dialogs
+  payload:
+    name: dialogs
+- model: Folder
+  name: views-documents-map
+  payload:
+    name: map
+- model: Folder
+  name: views-documents-flow
+  payload:
+    name: flow
+- model: Folder
+  name: views-models-diagram
+  payload:
+    name: diagram
+- model: Folder
+  name: views-draft-tree
+  payload:
+    name: tree
+- model: SourceFile
+  name: app-js
+  payload:
+    name: app.js
+    lines: 28
+- model: SourceFile
+  name: shell-api-js
+  payload:
+    name: api.js
+    lines: 13
+- model: SourceFile
+  name: shell-dialogs-js
+  payload:
+    name: dialogs.js
+    lines: 17
+- model: SourceFile
+  name: shell-registry-js
+  payload:
+    name: registry.js
+    lines: 17
+- model: SourceFile
+  name: shell-router-js
+  payload:
+    name: router.js
+    lines: 70
+- model: SourceFile
+  name: shell-shell-js
+  payload:
+    name: shell.js
+    lines: 54
+- model: SourceFile
+  name: shell-skin-js
+  payload:
+    name: skin.js
+    lines: 32
+- model: SourceFile
+  name: shell-use-before-unload-js
+  payload:
+    name: use-before-unload.js
+    lines: 13
+- model: SourceFile
+  name: source-batch-mjs
+  payload:
+    name: batch.mjs
+    lines: 20
+- model: SourceFile
+  name: source-documents-js
+  payload:
+    name: documents.js
+    lines: 106
+- model: SourceFile
+  name: source-draft-js
+  payload:
+    name: draft.js
+    lines: 39
+- model: SourceFile
+  name: source-draft-mjs
+  payload:
+    name: draft.mjs
+    lines: 73
+- model: SourceFile
+  name: source-graph-mjs
+  payload:
+    name: graph.mjs
+    lines: 136
+- model: SourceFile
+  name: source-history-mjs
+  payload:
+    name: history.mjs
+    lines: 41
+- model: SourceFile
+  name: source-models-js
+  payload:
+    name: models.js
+    lines: 40
+- model: SourceFile
+  name: source-projections-js
+  payload:
+    name: projections.js
+    lines: 29
+- model: SourceFile
+  name: source-projections-mjs
+  payload:
+    name: projections.mjs
+    lines: 59
+- model: SourceFile
+  name: source-source-js
+  payload:
+    name: source.js
+    lines: 28
+- model: SourceFile
+  name: shared-classes-mjs
+  payload:
+    name: classes.mjs
+    lines: 50
+- model: SourceFile
+  name: shared-documents-mjs
+  payload:
+    name: documents.mjs
+    lines: 40
+- model: SourceFile
+  name: shared-html-js
+  payload:
+    name: html.js
+    lines: 5
+- model: SourceFile
+  name: dialogs-class-dialog-js
+  payload:
+    name: class-dialog.js
+    lines: 94
+- model: SourceFile
+  name: dialogs-compiler-dialog-js
+  payload:
+    name: compiler-dialog.js
+    lines: 56
+- model: SourceFile
+  name: dialogs-conflict-dialog-js
+  payload:
+    name: conflict-dialog.js
+    lines: 12
+- model: SourceFile
+  name: views-documents-map-connect-dialog-js
+  payload:
+    name: connect-dialog.js
+    lines: 19
+- model: SourceFile
+  name: views-documents-map-document-dialog-js
+  payload:
+    name: document-dialog.js
+    lines: 82
+- model: SourceFile
+  name: views-documents-map-document-node-js
+  payload:
+    name: document-node.js
+    lines: 27
+- model: SourceFile
+  name: views-documents-map-map-view-js
+  payload:
+    name: map-view.js
+    lines: 153
+- model: SourceFile
+  name: views-documents-map-projection-mjs
+  payload:
+    name: projection.mjs
+    lines: 50
+- model: SourceFile
+  name: views-documents-map-quick-create-dialog-js
+  payload:
+    name: quick-create-dialog.js
+    lines: 32
+- model: SourceFile
+  name: views-documents-map-sidebar-js
+  payload:
+    name: sidebar.js
+    lines: 11
+- model: SourceFile
+  name: views-documents-map-statusbar-js
+  payload:
+    name: statusbar.js
+    lines: 5
+- model: SourceFile
+  name: views-documents-map-toolbar-js
+  payload:
+    name: toolbar.js
+    lines: 10
+- model: SourceFile
+  name: views-documents-flow-flow-view-js
+  payload:
+    name: flow-view.js
+    lines: 136
+- model: SourceFile
+  name: views-documents-flow-projection-mjs
+  payload:
+    name: projection.mjs
+    lines: 73
+- model: SourceFile
+  name: views-models-diagram-diagram-view-js
+  payload:
+    name: diagram-view.js
+    lines: 149
+- model: SourceFile
+  name: views-models-diagram-projection-editor-js
+  payload:
+    name: projection-editor.js
+    lines: 79
+- model: SourceFile
+  name: views-models-diagram-projection-mjs
+  payload:
+    name: projection.mjs
+    lines: 143
+- model: SourceFile
+  name: views-draft-tree-tree-view-js
+  payload:
+    name: tree-view.js
+    lines: 92
+relaciones:
+- type: in_folder
+  source: Folder:views
+  target: Folder:mindmap
+- type: in_folder
+  source: Folder:views-documents
+  target: Folder:views
+- type: in_folder
+  source: Folder:views-models
+  target: Folder:views
+- type: in_folder
+  source: Folder:views-draft
+  target: Folder:views
+- type: in_folder
+  source: Folder:shell
+  target: Folder:mindmap
+- type: in_folder
+  source: Folder:source
+  target: Folder:mindmap
+- type: in_folder
+  source: Folder:shared
+  target: Folder:mindmap
+- type: in_folder
+  source: Folder:dialogs
+  target: Folder:mindmap
+- type: in_folder
+  source: Folder:views-documents-map
+  target: Folder:views-documents
+- type: in_folder
+  source: Folder:views-documents-flow
+  target: Folder:views-documents
+- type: in_folder
+  source: Folder:views-models-diagram
+  target: Folder:views-models
+- type: in_folder
+  source: Folder:views-draft-tree
+  target: Folder:views-draft
+- type: in_folder
+  source: SourceFile:app-js
+  target: Folder:mindmap
+- type: in_folder
+  source: SourceFile:shell-api-js
+  target: Folder:shell
+- type: in_folder
+  source: SourceFile:shell-dialogs-js
+  target: Folder:shell
+- type: in_folder
+  source: SourceFile:shell-registry-js
+  target: Folder:shell
+- type: in_folder
+  source: SourceFile:shell-router-js
+  target: Folder:shell
+- type: in_folder
+  source: SourceFile:shell-shell-js
+  target: Folder:shell
+- type: in_folder
+  source: SourceFile:shell-skin-js
+  target: Folder:shell
+- type: in_folder
+  source: SourceFile:shell-use-before-unload-js
+  target: Folder:shell
+- type: in_folder
+  source: SourceFile:source-batch-mjs
+  target: Folder:source
+- type: in_folder
+  source: SourceFile:source-documents-js
+  target: Folder:source
+- type: in_folder
+  source: SourceFile:source-draft-js
+  target: Folder:source
+- type: in_folder
+  source: SourceFile:source-draft-mjs
+  target: Folder:source
+- type: in_folder
+  source: SourceFile:source-graph-mjs
+  target: Folder:source
+- type: in_folder
+  source: SourceFile:source-history-mjs
+  target: Folder:source
+- type: in_folder
+  source: SourceFile:source-models-js
+  target: Folder:source
+- type: in_folder
+  source: SourceFile:source-projections-js
+  target: Folder:source
+- type: in_folder
+  source: SourceFile:source-projections-mjs
+  target: Folder:source
+- type: in_folder
+  source: SourceFile:source-source-js
+  target: Folder:source
+- type: in_folder
+  source: SourceFile:shared-classes-mjs
+  target: Folder:shared
+- type: in_folder
+  source: SourceFile:shared-documents-mjs
+  target: Folder:shared
+- type: in_folder
+  source: SourceFile:shared-html-js
+  target: Folder:shared
+- type: in_folder
+  source: SourceFile:dialogs-class-dialog-js
+  target: Folder:dialogs
+- type: in_folder
+  source: SourceFile:dialogs-compiler-dialog-js
+  target: Folder:dialogs
+- type: in_folder
+  source: SourceFile:dialogs-conflict-dialog-js
+  target: Folder:dialogs
+- type: in_folder
+  source: SourceFile:views-documents-map-connect-dialog-js
+  target: Folder:views-documents-map
+- type: in_folder
+  source: SourceFile:views-documents-map-document-dialog-js
+  target: Folder:views-documents-map
+- type: in_folder
+  source: SourceFile:views-documents-map-document-node-js
+  target: Folder:views-documents-map
+- type: in_folder
+  source: SourceFile:views-documents-map-map-view-js
+  target: Folder:views-documents-map
+- type: in_folder
+  source: SourceFile:views-documents-map-projection-mjs
+  target: Folder:views-documents-map
+- type: in_folder
+  source: SourceFile:views-documents-map-quick-create-dialog-js
+  target: Folder:views-documents-map
+- type: in_folder
+  source: SourceFile:views-documents-map-sidebar-js
+  target: Folder:views-documents-map
+- type: in_folder
+  source: SourceFile:views-documents-map-statusbar-js
+  target: Folder:views-documents-map
+- type: in_folder
+  source: SourceFile:views-documents-map-toolbar-js
+  target: Folder:views-documents-map
+- type: in_folder
+  source: SourceFile:views-documents-flow-flow-view-js
+  target: Folder:views-documents-flow
+- type: in_folder
+  source: SourceFile:views-documents-flow-projection-mjs
+  target: Folder:views-documents-flow
+- type: in_folder
+  source: SourceFile:views-models-diagram-diagram-view-js
+  target: Folder:views-models-diagram
+- type: in_folder
+  source: SourceFile:views-models-diagram-projection-editor-js
+  target: Folder:views-models-diagram
+- type: in_folder
+  source: SourceFile:views-models-diagram-projection-mjs
+  target: Folder:views-models-diagram
+- type: in_folder
+  source: SourceFile:views-draft-tree-tree-view-js
+  target: Folder:views-draft-tree
+relaciones_invalidas:
+- type: in_folder
+  source: SourceFile:source-graph-mjs
+  target: Folder:shell
+  porque: un archivo en dos carpetas (cardinality many_to_one)
+- type: in_folder
+  source: Folder:mindmap
+  target: Folder:views-documents-map
+  porque: la raíz dentro de una de sus subcarpetas (ciclo; la raíz no tiene dueño, así que no viola la cardinalidad)

@@ -29,14 +29,27 @@ contexto (un paquete, un sistema, un nodo de ejecución).
 | [uml-paquetes.md](uml-paquetes.md) | UML, diagrama de paquetes | organización de elementos en espacios de nombres y sus dependencias | escrito |
 | [c4.md](c4.md) | C4 (contexto, contenedores, componentes) | arquitectura de software por niveles de zoom | escrito |
 | [uml-despliegue.md](uml-despliegue.md) | UML, diagrama de despliegue | artefactos desplegados en nodos de ejecución | escrito |
-| treemap.md | treemap | jerarquía con tamaño proporcional a una magnitud | pendiente |
+| [treemap.md](treemap.md) | treemap | jerarquía con tamaño proporcional a una magnitud | escrito |
 
 ## Implicancias
 
-- Para `graph_ui`: separar "este campo es contención" (dato) de "esto se dibuja anidado"
-  (vocabulario). Hoy son lo mismo en `views/documents/map/projection.mjs`.
-- Para el `VocabularyDoc`: una relación necesita un `como` (arista, anidamiento, celda, eje), no
-  solo un estilo.
+Lo que dejaron los cuatro ejemplos:
+
+- **La misma relación, dos notaciones.** UML ofrece anidamiento o arista tanto para la pertenencia a
+  paquetes (círculo con cruz) como para el despliegue (`«deploy»`). El `VocabularyDoc` necesita un
+  *cómo* por relación (`anidamiento | arista`), y los gestos de las dos notaciones son la misma
+  operación en el mundo (`move-into`).
+- **Anidar exige un árbol, y el mundo no lo garantiza.** `many_to_one` asegura un padre; nadie impide
+  ciclos ni autocontención (paquetes, treemap). Una relación `many_to_many` (un artefacto en dos nodos)
+  no se puede anidar sin una regla explícita.
+- **Vistas por nivel y relaciones derivadas.** C4 muestra el mismo mundo a distintos niveles y eleva
+  las relaciones por la pertenencia; la derivación encontró una relación que el diagrama hecho a mano
+  omitía. Treemap deriva el tamaño de los contenedores sumando hojas.
+- **El layout depende del vocabulario.** Aristas que cruzan el borde de un contenedor (hasta PlantUML
+  necesitó otro motor) y particiones del espacio (treemap) no son un layout de grafo.
+- **Para `graph_ui`**: separar "este campo es contención" (dato) de "esto se dibuja anidado"
+  (vocabulario); hoy son lo mismo en `views/documents/map/projection.mjs`. Y el foco actual (entrar en
+  un contenedor) debería convertirse en vistas por nivel con relaciones elevadas.
 
 ## Fuentes
 
