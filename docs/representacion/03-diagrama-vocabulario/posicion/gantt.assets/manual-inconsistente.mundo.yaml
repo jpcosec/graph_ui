@@ -1,0 +1,258 @@
+# Variante con dos inconsistencias de plan: t-8424daf termina antes de empezar y t-aed6e95 empieza
+# antes de que termine la tarea de la que depende. Las aristas se escriben sin pasar por pron.
+modelos:
+- name: Phase
+  family: plan
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Fase del trabajo.
+- name: Task
+  family: plan
+  template: '---
+
+    commit: ⸢rev•commit⸥
+
+    start: ⸢rev•start⸥
+
+    end: ⸢rev•end⸥
+
+    ---
+
+
+    # ⸢rev•title⸥
+
+    '
+  fields:
+  - name: title
+    type: str
+    description: Qué se hizo.
+  - name: commit
+    type: str
+    description: Commit que cierra la tarea.
+  - name: start
+    type: str
+    description: Inicio, 'YYYY-MM-DD HH:MM' (el commit anterior).
+  - name: end
+    type: str
+    description: Fin, 'YYYY-MM-DD HH:MM' (fecha del commit).
+tipos_de_relacion:
+- name: part_of
+  cardinality: many_to_one
+  axis: WHERE
+  source_types:
+  - Task
+  target_types:
+  - Phase
+  description: La tarea pertenece a la fase.
+- name: depends_on
+  cardinality: many_to_many
+  axis: WHEN
+  source_types:
+  - Task
+  target_types:
+  - Task
+  description: 'La tarea origen no empieza antes de que termine la destino (condition: el fin de la destino <= el inicio del origen).'
+  condition: end <= "{start}"
+documentos:
+- model: Phase
+  name: andamiaje
+  payload:
+    name: Andamiaje
+- model: Phase
+  name: eje-1
+  payload:
+    name: Eje 1 · fundamentos
+- model: Phase
+  name: eje-2
+  payload:
+    name: Eje 2 · prior art
+- model: Phase
+  name: eje-3-nodo-arista
+  payload:
+    name: Eje 3 · nodo-arista tipado
+- model: Phase
+  name: eje-3-anidamiento
+  payload:
+    name: Eje 3 · anidamiento
+- model: Phase
+  name: eje-3-posicion
+  payload:
+    name: Eje 3 · posición
+- model: Task
+  name: t-e69261f
+  payload:
+    title: andamiaje del manual de representación semántica
+    commit: e69261f
+    start: 2026-09-14 04:56
+    end: 2026-09-14 04:56
+- model: Task
+  name: t-832925f
+  payload:
+    title: eje 1, fundamentos con ejemplos verificados
+    commit: 832925f
+    start: 2026-09-14 04:56
+    end: 2026-09-14 05:12
+- model: Task
+  name: t-2f7d43a
+  payload:
+    title: eje 2, prior art con código de fuentes oficiales
+    commit: 2f7d43a
+    start: 2026-09-14 05:12
+    end: 2026-09-14 05:24
+- model: Task
+  name: t-c1d54b9
+  payload:
+    title: eje 3, UML de clases con mundo pron y controles negativos
+    commit: c1d54b9
+    start: 2026-09-14 05:24
+    end: 2026-09-14 05:34
+- model: Task
+  name: t-8424daf
+  payload:
+    title: eje 3, entidad-relación (Chen y crow's foot)
+    commit: 8424daf
+    start: 2026-09-14 05:34
+    end: 2026-09-14 05:30
+- model: Task
+  name: t-aed6e95
+  payload:
+    title: eje 3, ArchiMate con la gramática de Archi como oráculo
+    commit: aed6e95
+    start: 2026-09-14 05:20
+    end: 2026-09-14 05:44
+- model: Task
+  name: t-282eca7
+  payload:
+    title: eje 3, mapa conceptual y VOWL; cierra nodo-arista tipado
+    commit: 282eca7
+    start: 2026-09-14 05:44
+    end: 2026-09-14 05:51
+- model: Task
+  name: t-62c4751
+  payload:
+    title: eje 3, paquetes UML (primer documento de anidamiento)
+    commit: 62c4751
+    start: 2026-09-14 05:51
+    end: 2026-09-14 05:55
+- model: Task
+  name: t-3fd446a
+  payload:
+    title: eje 3, modelo C4 con relaciones implícitas derivadas
+    commit: 3fd446a
+    start: 2026-09-14 05:55
+    end: 2026-09-14 05:59
+- model: Task
+  name: t-653f9ea
+  payload:
+    title: eje 3, despliegue UML (anidamiento vs «deploy»)
+    commit: 653f9ea
+    start: 2026-09-14 05:59
+    end: 2026-09-14 06:01
+- model: Task
+  name: t-c97d21c
+  payload:
+    title: eje 3, treemap; cierra la carpeta de anidamiento
+    commit: c97d21c
+    start: 2026-09-14 06:01
+    end: 2026-09-14 06:06
+- model: Task
+  name: t-9a696dd
+  payload:
+    title: eje 3, diagrama de secuencia (el orden como posición)
+    commit: 9a696dd
+    start: 2026-09-14 06:06
+    end: 2026-09-14 06:09
+- model: Task
+  name: t-26efd02
+  payload:
+    title: eje 3, carriles (particiones UML y lanes BPMN)
+    commit: 26efd02
+    start: 2026-09-14 06:09
+    end: 2026-09-14 06:12
+relaciones:
+- type: part_of
+  source: Task:t-e69261f
+  target: Phase:andamiaje
+- type: part_of
+  source: Task:t-832925f
+  target: Phase:eje-1
+- type: depends_on
+  source: Task:t-832925f
+  target: Task:t-e69261f
+- type: part_of
+  source: Task:t-2f7d43a
+  target: Phase:eje-2
+- type: depends_on
+  source: Task:t-2f7d43a
+  target: Task:t-832925f
+- type: part_of
+  source: Task:t-c1d54b9
+  target: Phase:eje-3-nodo-arista
+- type: depends_on
+  source: Task:t-c1d54b9
+  target: Task:t-2f7d43a
+- type: part_of
+  source: Task:t-8424daf
+  target: Phase:eje-3-nodo-arista
+- type: depends_on
+  source: Task:t-8424daf
+  target: Task:t-c1d54b9
+- type: part_of
+  source: Task:t-aed6e95
+  target: Phase:eje-3-nodo-arista
+- type: depends_on
+  source: Task:t-aed6e95
+  target: Task:t-8424daf
+- type: part_of
+  source: Task:t-282eca7
+  target: Phase:eje-3-nodo-arista
+- type: depends_on
+  source: Task:t-282eca7
+  target: Task:t-aed6e95
+- type: part_of
+  source: Task:t-62c4751
+  target: Phase:eje-3-anidamiento
+- type: depends_on
+  source: Task:t-62c4751
+  target: Task:t-282eca7
+- type: part_of
+  source: Task:t-3fd446a
+  target: Phase:eje-3-anidamiento
+- type: depends_on
+  source: Task:t-3fd446a
+  target: Task:t-62c4751
+- type: part_of
+  source: Task:t-653f9ea
+  target: Phase:eje-3-anidamiento
+- type: depends_on
+  source: Task:t-653f9ea
+  target: Task:t-3fd446a
+- type: part_of
+  source: Task:t-c97d21c
+  target: Phase:eje-3-anidamiento
+- type: depends_on
+  source: Task:t-c97d21c
+  target: Task:t-653f9ea
+- type: part_of
+  source: Task:t-9a696dd
+  target: Phase:eje-3-posicion
+- type: depends_on
+  source: Task:t-9a696dd
+  target: Task:t-c97d21c
+- type: part_of
+  source: Task:t-26efd02
+  target: Phase:eje-3-posicion
+- type: depends_on
+  source: Task:t-26efd02
+  target: Task:t-9a696dd

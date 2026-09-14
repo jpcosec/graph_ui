@@ -26,7 +26,7 @@ Es la forma que más choca con `graph_ui` actual: ahí la posición es un dato d
 |---|---|---|---|
 | [uml-secuencia.md](uml-secuencia.md) | UML, diagrama de secuencia | intercambio de mensajes entre participantes en el tiempo | escrito |
 | [swimlanes.md](swimlanes.md) | carriles (BPMN pools/lanes, actividad UML) | responsabilidad de cada actor sobre los pasos de un proceso | escrito |
-| gantt.md | Gantt | tareas en el tiempo, duración y dependencias | pendiente |
+| [gantt.md](gantt.md) | Gantt | tareas en el tiempo, duración y dependencias | escrito |
 | wardley.md | mapa de Wardley | cadena de valor por visibilidad (eje y) y evolución (eje x) | pendiente |
 
 ## Implicancias
