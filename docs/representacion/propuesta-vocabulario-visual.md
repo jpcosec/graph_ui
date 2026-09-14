@@ -129,13 +129,15 @@ ref: confirm
 
 Tres cosas aparecieron al probar, y las tres son extensiones del sustrato, no del front.
 
-**4.1 Formas: el lenguaje estructurado de `pron`.** `pron` solo aceptaba oraciones (`session.turn`), y un gesto con
-extremos conocidos no cabía: `associate Client with Table` → `'associate' has no antecedent of class UmlClass`.
-La decisión es que `pron` tenga debajo un lenguaje de s-expressions y que el lenguaje natural sea una envoltura
-sobre él. Está implementado en la rama `sexp-core` de `pron` (worktree `~/proyectos/pron-sexp`, sin mezclar a
-`master`): capítulo 13 del spec, `session.eval`, `pron eval`, operación `eval` del socket. Toda oración se
-resuelve a formas y lo que se ejecuta son las formas; las formas que registra la conversación del spec 09,
-evaluadas en otra copia del mundo, dejan las mismas escrituras y la misma respuesta (127 tests en verde).
+**4.1 Formas: el lenguaje de `pron`.** `pron` solo aceptaba oraciones (`session.turn`), y un gesto con extremos
+conocidos no cabía: `associate Client with Table` → `'associate' has no antecedent of class UmlClass`. La
+decisión es que **todo pase por s-expressions**: las palabras del léxico nombran formas, los alias se escriben
+como formas (`confirm → (change (it "it" Reservation) status "confirmed")`,
+`book → (move (create Reservation) (assert booked_by (created) (it "her" Client)) (assert assigned_to (created) (a Table)))`),
+la superficie solo convierte una oración en formas con los sustantivos sin resolver, y evaluar formas hace todo
+lo demás: resolver, preguntar, verificar, escribir y registrar. Está en la rama `sexp-core` de `pron` (worktree
+`~/proyectos/pron-sexp`, sin mezclar a `master`) con el capítulo 13 del spec, y en `kgdb` `846f331` para que los
+alias escritos como formas sigan nombrando lo mismo en el grafo.
 
 Los gestos de UML, como formas sobre el mismo mundo:
 
