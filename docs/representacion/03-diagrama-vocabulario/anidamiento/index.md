@@ -28,7 +28,7 @@ contexto (un paquete, un sistema, un nodo de ejecución).
 |---|---|---|---|
 | [uml-paquetes.md](uml-paquetes.md) | UML, diagrama de paquetes | organización de elementos en espacios de nombres y sus dependencias | escrito |
 | [c4.md](c4.md) | C4 (contexto, contenedores, componentes) | arquitectura de software por niveles de zoom | escrito |
-| uml-despliegue.md | UML, diagrama de despliegue | artefactos desplegados en nodos de ejecución | pendiente |
+| [uml-despliegue.md](uml-despliegue.md) | UML, diagrama de despliegue | artefactos desplegados en nodos de ejecución | escrito |
 | treemap.md | treemap | jerarquía con tamaño proporcional a una magnitud | pendiente |
 
 ## Implicancias

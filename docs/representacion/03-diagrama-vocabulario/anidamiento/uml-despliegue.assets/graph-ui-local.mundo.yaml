@@ -1,0 +1,60 @@
+# Despliegue UML como dominio de un mundo pron (opción B, nivel de instancias).
+# Nodos anidados (nested_in, many_to_one), artefactos desplegados (deployed_on) y caminos de comunicación
+# (communicates_with, direction: undirected: kgdb materializa las dos direcciones).
+modelos:
+  - name: DeployNode
+    family: uml
+    template: |
+      ---
+      name: ⸢rev•name⸥
+      kind: ⸢rev•kind⸥
+      ---
+
+      # ⸢render•name⸥
+    fields:
+      - {name: name, type: str, description: "Nombre del nodo."}
+      - {name: kind, type: str, default: node, description: "node, device o executionEnvironment."}
+  - name: Artifact
+    family: uml
+    template: |
+      ---
+      name: ⸢rev•name⸥
+      ---
+
+      # ⸢render•name⸥
+    fields:
+      - {name: name, type: str, description: "Nombre del artefacto (archivo, paquete, bundle)."}
+
+tipos_de_relacion:
+  - {name: nested_in, cardinality: many_to_one, axis: WHERE, source_types: [DeployNode], target_types: [DeployNode],
+     description: "El nodo origen es parte de la estructura interna del nodo destino (UML: la estructura interna de un Node solo contiene Nodes)."}
+  - {name: deployed_on, cardinality: many_to_many, axis: WHERE, source_types: [Artifact], target_types: [DeployNode],
+     description: "El artefacto está desplegado en el nodo (UML Deployment)."}
+  - {name: communicates_with, cardinality: many_to_many, direction: undirected, source_types: [DeployNode], target_types: [DeployNode],
+     description: "Camino de comunicación entre dos nodos (UML CommunicationPath). Protocolo en notes."}
+
+documentos:
+  - {model: DeployNode, name: portatil, payload: {name: portátil de desarrollo, kind: device}}
+  - {model: DeployNode, name: python, payload: {name: Python 3.13, kind: executionEnvironment}}
+  - {model: DeployNode, name: navegador, payload: {name: navegador, kind: executionEnvironment}}
+  - {model: DeployNode, name: cdn, payload: {name: CDN esm.sh, kind: device}}
+  - {model: Artifact, name: serve-py, payload: {name: serve.py}}
+  - {model: Artifact, name: frontend-js, payload: {name: frontends/mindmap/*.js}}
+  - {model: Artifact, name: sldb-store, payload: {name: .sldb/ (store del mundo)}}
+  - {model: Artifact, name: libs, payload: {name: "react, @xyflow/react, dagre"}}
+
+relaciones:
+  - {type: nested_in, source: "DeployNode:python", target: "DeployNode:portatil"}
+  - {type: nested_in, source: "DeployNode:navegador", target: "DeployNode:portatil"}
+  - {type: deployed_on, source: "Artifact:serve-py", target: "DeployNode:python"}
+  - {type: deployed_on, source: "Artifact:frontend-js", target: "DeployNode:navegador"}
+  - {type: deployed_on, source: "Artifact:sldb-store", target: "DeployNode:portatil"}
+  - {type: deployed_on, source: "Artifact:libs", target: "DeployNode:cdn"}
+  - {type: communicates_with, source: "DeployNode:python", target: "DeployNode:navegador", notes: "HTTP localhost:8088"}
+  - {type: communicates_with, source: "DeployNode:navegador", target: "DeployNode:cdn", notes: "HTTPS"}
+
+relaciones_invalidas:
+  - {type: nested_in, source: "Artifact:serve-py", target: "DeployNode:python",
+     porque: "un artefacto no es estructura interna de un nodo: se despliega (deployed_on)"}
+  - {type: communicates_with, source: "DeployNode:navegador", target: "DeployNode:python",
+     porque: "duplicado en dirección inversa de un camino no dirigido que ya existe"}

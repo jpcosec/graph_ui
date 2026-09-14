@@ -1,0 +1,21 @@
+@startuml
+!pragma layout smetana
+title Despliegue local de graph_ui
+
+node "portátil de desarrollo" <<device>> {
+  node "Python 3.13" <<executionEnvironment>> as py {
+    artifact "serve.py" as serve
+  }
+  node "navegador" <<executionEnvironment>> as nav {
+    artifact "frontends/mindmap/*.js" as front
+  }
+  artifact ".sldb/ (store del mundo)" as store
+}
+node "CDN esm.sh" <<device>> as cdn {
+  artifact "react, @xyflow/react, dagre" as libs
+}
+
+py -- nav : HTTP localhost:8088
+nav -- cdn : HTTPS
+serve ..> store : lee y escribe
+@enduml
