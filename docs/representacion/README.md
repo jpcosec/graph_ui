@@ -48,9 +48,9 @@ vocabulario visual de `graph_ui` sobre el vocabulario de `pron`.
    fijo, oraciones `compose`), recortado por un `ProjectionDoc`. `graph_ui` no tiene vocabulario
    propio (spec 10 §3): su **vocabulario visual** dice cómo se dibujan esas palabras y qué gesto dice
    cada una. `pron`, `kgdb` y `sldb` no deberían saber que UML existe como notación.
-2. **El vocabulario visual son documentos del mundo, en paralelo a los de `pron`** (como `AnchorDoc`
-   y `ProjectionDoc`), no una lista en código. Lo que falte para representar un vocabulario se agrega
-   **extendiendo `pron`** (palabras, reglas, contrato de runtime), no reimplementándolo en el front.
+2. **Se parte con dos visualizaciones concretas distintas a la vez**, para que nada del diseño quede
+   hecho a la medida de una sola. Lo que falte para representarlas se agrega **extendiendo `pron`**
+   (palabras, reglas, contrato de runtime), no reimplementándolo en el front.
 3. **Se escribe por `pron` y de inmediato.** Cada gesto es un movimiento de `pron`, con su `MoveDoc`,
    sus verificaciones y `undo`; no hay borrador ni botón de guardar. Las versiones las lleva git.
 4. **Las reglas generales van al sustrato y bloquean** (participación mínima, unicidad…), en `kgdb`

@@ -63,9 +63,11 @@ Could not do that: a RelationDoc named 'realizes--UmlClass:table--UmlClass:booka
 Por lo tanto salen del vocabulario visual, respecto de la primera versión: `operation[]`, `rules[]`,
 `applies_when` y el `where` de los símbolos.
 
-## 3. El vocabulario visual como familia de documentos
+## 3. Una forma posible del vocabulario visual
 
-En paralelo a `AnchorDoc` y `ProjectionDoc`, y con la misma gramática de `ref` que `AnchorDoc` (spec 05):
+Una forma de trabajo, a validar con **dos visualizaciones concretas distintas en paralelo** (decisión 2 del
+README): documentos con la misma gramática de `ref` que `AnchorDoc` (spec 05). Si conviene un documento o
+varios lo van a decidir esas dos implementaciones, no esta tabla.
 
 | Documento | Campos | Dice |
 |---|---|---|
