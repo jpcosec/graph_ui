@@ -1,0 +1,30 @@
+digraph actividad {
+  node [fontname="Helvetica", fontsize=11]; edge [fontname="Helvetica", fontsize=10];
+  "inicio" [shape=circle, style=filled, fillcolor=black, width=0.25, label=""];
+  "tomar-pedido" [shape=box, style=rounded, label="Tomar pedido"];
+  "pedido" [shape=box, label="Pedido"];
+  "bifurca-cocina" [shape=box, style=filled, fillcolor=black, width=1.6, height=0.06, label=""];
+  "cocinar-plato" [shape=box, style=rounded, label="Cocinar plato"];
+  "preparar-bebida" [shape=box, style=rounded, label="Preparar bebida"];
+  "junta-cocina" [shape=box, style=filled, fillcolor=black, width=1.6, height=0.06, label=""];
+  "servir" [shape=box, style=rounded, label="Servir"];
+  "quiere-postre" [shape=diamond, width=0.35, height=0.35, label="", xlabel="¿quiere postre?"];
+  "servir-postre" [shape=box, style=rounded, label="Servir postre"];
+  "une-postre" [shape=diamond, width=0.35, height=0.35, label=""];
+  "cobrar" [shape=box, style=rounded, label="Cobrar"];
+  "fin" [shape=doublecircle, style=filled, fillcolor=black, width=0.2, label=""];
+  "inicio" -> "tomar-pedido";
+  "tomar-pedido" -> "pedido";
+  "pedido" -> "bifurca-cocina";
+  "bifurca-cocina" -> "cocinar-plato";
+  "bifurca-cocina" -> "preparar-bebida";
+  "cocinar-plato" -> "junta-cocina";
+  "preparar-bebida" -> "junta-cocina";
+  "junta-cocina" -> "servir";
+  "servir" -> "quiere-postre";
+  "quiere-postre" -> "servir-postre" [label="[sí]"];
+  "quiere-postre" -> "une-postre" [label="[no]"];
+  "servir-postre" -> "une-postre";
+  "une-postre" -> "cobrar";
+  "cobrar" -> "fin";
+}

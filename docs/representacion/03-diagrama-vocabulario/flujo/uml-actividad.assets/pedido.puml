@@ -1,0 +1,18 @@
+@startuml
+title Atender un pedido (actividad UML)
+start
+:Tomar pedido;
+:Pedido; <<object>>
+fork
+  :Cocinar plato;
+fork again
+  :Preparar bebida;
+end fork
+:Servir;
+if (¿quiere postre?) then ([sí])
+  :Servir postre;
+else ([no])
+endif
+:Cobrar;
+stop
+@enduml

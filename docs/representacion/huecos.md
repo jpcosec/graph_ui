@@ -34,6 +34,8 @@ resolver en `graph_ui` o en el `VocabularyDoc`.
 | **Escribe aristas sin validarlas**: el guardado usa `pron.Store.create`, no `Verbs.assert_edge`. Una `RelationDoc` que viola la `condition` de su tipo (una realización hacia algo que no es interfaz) se guarda sin error y nada la detecta después; tipos y cardinalidad solo fallan en el próximo `pron refresh`. | confirmado | [`03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md`](03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md) |
 | **Guarda campos gobernados por una máquina de estados sin validarlos**: `update_document` usa `pron.Store.replace`, que acepta `cancelled → seated` aunque no exista la transición; la máquina solo se hace cumplir en `Kernel.change` (oraciones). | confirmado | [`03-diagrama-vocabulario/estado-bipartito/statecharts.md`](03-diagrama-vocabulario/estado-bipartito/statecharts.md) |
 | No distingue **editar la máquina** (estados, transiciones) de **ejecutarla** (disparar un evento sobre una instancia y resaltar su estado actual). | decisión de diseño | [`03-diagrama-vocabulario/estado-bipartito/statecharts.md`](03-diagrama-vocabulario/estado-bipartito/statecharts.md) |
+| **Vista Flujo sin vocabulario**: sobre un mundo que sí es una actividad dibuja el orden bien, pero todos los nodos de control son la misma píldora (el símbolo depende de `kind`, un campo), las guardas no aparecen (el rótulo es el token del verbo), los `RelationTypeDoc` salen como nodos sueltos y se ofrece sobre cualquier mundo. | confirmado | [`03-diagrama-vocabulario/flujo/uml-actividad.md`](03-diagrama-vocabulario/flujo/uml-actividad.md) |
+| Insertar o borrar un paso de un flujo son **operaciones compuestas** (crear el paso, borrar una arista, crear dos) sin unidad atómica ni deshacer conjunto. | decisión de diseño | [`03-diagrama-vocabulario/flujo/uml-actividad.md`](03-diagrama-vocabulario/flujo/uml-actividad.md) |
 
 ## kgdb
 
@@ -54,6 +56,7 @@ resolver en `graph_ui` o en el `VocabularyDoc`.
 | **Valores fuera de la máquina**: una reserva con `status: "banana"` monta sano; nada relaciona el campo con los `State` de su máquina fuera de `Kernel.change`. | confirmado | [`03-diagrama-vocabulario/estado-bipartito/statecharts.md`](03-diagrama-vocabulario/estado-bipartito/statecharts.md) |
 | **Aristas paralelas se pisan en silencio**: dos `RelationDoc` con los mismos extremos y tipo (un arco de peso 2 como dos arcos) quedan como una en `.pron/graph.nx.json`, porque el multigrafo usa `key = relation_type`; `pron refresh` cuenta ambas (`114 edges`, 113 enlaces guardados) y `pron check` → `ok`. | confirmado | [`03-diagrama-vocabulario/estado-bipartito/petri.md`](03-diagrama-vocabulario/estado-bipartito/petri.md) |
 | `notes` de una `RelationDoc` no llega a la arista materializada (solo `origin`, `relation_doc`, `condition`, `axis`): quien lea el grafo no ve un dato guardado en la arista, como el peso de un arco. | confirmado | [`03-diagrama-vocabulario/estado-bipartito/petri.md`](03-diagrama-vocabulario/estado-bipartito/petri.md) |
+| **Cardinalidad según la clase o el `kind` del extremo**: un fork admite una sola entrada y un join una sola salida, pero `cardinality` es por verbo; un fork con dos entradas monta sano. | confirmado | [`03-diagrama-vocabulario/flujo/uml-actividad.md`](03-diagrama-vocabulario/flujo/uml-actividad.md) |
 
 ## pron
 

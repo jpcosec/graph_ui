@@ -26,7 +26,7 @@ solo existe si el mundo declara pasos y una relación de secuencia entre ellos.
 
 | Documento | Vocabulario | Qué representa | Estado |
 |---|---|---|---|
-| uml-actividad.md | UML, diagrama de actividad | el flujo de control y de objetos de un comportamiento | pendiente |
+| [uml-actividad.md](uml-actividad.md) | UML, diagrama de actividad | el flujo de control y de objetos de un comportamiento | escrito |
 | bpmn.md | BPMN 2.0 | procesos de negocio: eventos, actividades, compuertas, carriles | pendiente |
 | dfd.md | diagrama de flujo de datos | cómo circulan los datos entre procesos, almacenes y entidades externas | pendiente |
 

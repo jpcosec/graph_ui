@@ -1,0 +1,187 @@
+# Variante con dos errores clásicos de actividad: la decisión se cierra con un join (une-postre.kind = join)
+# y el fork recibe dos flujos (tomar-pedido -> bifurca-cocina además de pedido -> bifurca-cocina).
+modelos:
+- name: Action
+  family: actividad
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Qué se hace.
+- name: ObjectNode
+  family: actividad
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Qué objeto fluye (el tipo del token).
+- name: ControlNode
+  family: actividad
+  template: '---
+
+    kind: ⸢rev•kind⸥
+
+    label: ⸢rev•label⸥
+
+    ---
+
+
+    # ⸢render•kind⸥
+
+    '
+  fields:
+  - name: kind
+    type: str
+    description: initial, activity_final, flow_final, fork, join, decision o merge (UML 15.3).
+  - name: label
+    type: str
+    default: ''
+    description: Rótulo opcional (la pregunta de una decisión).
+tipos_de_relacion:
+- name: control_flow
+  cardinality: many_to_many
+  axis: WHEN
+  source_types:
+  - Action
+  - ControlNode
+  target_types:
+  - Action
+  - ControlNode
+  description: 'Flujo de control: un token de control pasa del origen al destino. La guarda va en notes.'
+- name: object_flow
+  cardinality: many_to_many
+  axis: WHEN
+  source_types:
+  - Action
+  - ObjectNode
+  - ControlNode
+  target_types:
+  - Action
+  - ObjectNode
+  - ControlNode
+  description: 'Flujo de objetos: un token con valor pasa del origen al destino.'
+documentos:
+- model: ControlNode
+  name: inicio
+  payload:
+    kind: initial
+    label: ''
+- model: Action
+  name: tomar-pedido
+  payload:
+    name: Tomar pedido
+- model: ObjectNode
+  name: pedido
+  payload:
+    name: Pedido
+- model: ControlNode
+  name: bifurca-cocina
+  payload:
+    kind: fork
+    label: ''
+- model: Action
+  name: cocinar-plato
+  payload:
+    name: Cocinar plato
+- model: Action
+  name: preparar-bebida
+  payload:
+    name: Preparar bebida
+- model: ControlNode
+  name: junta-cocina
+  payload:
+    kind: join
+    label: ''
+- model: Action
+  name: servir
+  payload:
+    name: Servir
+- model: ControlNode
+  name: quiere-postre
+  payload:
+    kind: decision
+    label: ¿quiere postre?
+- model: Action
+  name: servir-postre
+  payload:
+    name: Servir postre
+- model: ControlNode
+  name: une-postre
+  payload:
+    kind: join
+    label: ''
+- model: Action
+  name: cobrar
+  payload:
+    name: Cobrar
+- model: ControlNode
+  name: fin
+  payload:
+    kind: activity_final
+    label: ''
+relaciones:
+- type: control_flow
+  source: ControlNode:inicio
+  target: Action:tomar-pedido
+- type: object_flow
+  source: Action:tomar-pedido
+  target: ObjectNode:pedido
+- type: object_flow
+  source: ObjectNode:pedido
+  target: ControlNode:bifurca-cocina
+- type: object_flow
+  source: ControlNode:bifurca-cocina
+  target: Action:cocinar-plato
+- type: object_flow
+  source: ControlNode:bifurca-cocina
+  target: Action:preparar-bebida
+- type: control_flow
+  source: Action:cocinar-plato
+  target: ControlNode:junta-cocina
+- type: control_flow
+  source: Action:preparar-bebida
+  target: ControlNode:junta-cocina
+- type: control_flow
+  source: ControlNode:junta-cocina
+  target: Action:servir
+- type: control_flow
+  source: Action:servir
+  target: ControlNode:quiere-postre
+- type: control_flow
+  source: ControlNode:quiere-postre
+  target: Action:servir-postre
+  notes: '[sí]'
+- type: control_flow
+  source: ControlNode:quiere-postre
+  target: ControlNode:une-postre
+  notes: '[no]'
+- type: control_flow
+  source: Action:servir-postre
+  target: ControlNode:une-postre
+- type: control_flow
+  source: ControlNode:une-postre
+  target: Action:cobrar
+- type: control_flow
+  source: Action:cobrar
+  target: ControlNode:fin
+- type: control_flow
+  source: Action:tomar-pedido
+  target: ControlNode:bifurca-cocina
