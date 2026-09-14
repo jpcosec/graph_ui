@@ -40,6 +40,7 @@ resolver en `graph_ui` o en el `VocabularyDoc`.
 | `RelationDoc` es binaria (`source_id`, `target_id`): no hay relaciones de más de dos extremos. | por verificar | [`03-diagrama-vocabulario/n-aria/`](03-diagrama-vocabulario/n-aria/index.md) |
 | No hay **roles con nombre** en los extremos de una relación (el "todo" y la "parte", el nombre del extremo en una asociación). | confirmado | [`03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md`](03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md) |
 | `RelationDoc` no tiene **atributos por arista** (solo `source_id`, `target_id`, `relation_type`, `condition`, `notes`): multiplicidades por asociación o tipo de agregación obligan a reificar la relación en un documento más dos aristas (tres escrituras por asociación UML). | confirmado | [`03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md`](03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md) |
+| **Sin restricciones sobre campos** (unicidad, continuidad): un orden guardado como campo (`Message.order`) admite repetidos sin que `sldb`, `kgdb` ni `pron check` lo detecten. Y `kgdb` no tiene aristas ordenadas: el orden obliga a reificar. | confirmado | [`03-diagrama-vocabulario/posicion/uml-secuencia.md`](03-diagrama-vocabulario/posicion/uml-secuencia.md) |
 | **Sin valores derivados**: no hay forma de declarar un valor calculado desde otros documentos (el tamaño de una carpeta como suma de sus archivos, una relación implícita de C4); lo tiene que calcular la vista. | confirmado | [`03-diagrama-vocabulario/anidamiento/treemap.md`](03-diagrama-vocabulario/anidamiento/treemap.md) |
 | **Relaciones no dirigidas duplicables**: con `direction: undirected`, `kgdb` materializa ambos sentidos de cada `RelationDoc`, pero acepta un segundo documento para el mismo par en sentido opuesto (el grafo suma 2 aristas duplicadas). | confirmado | [`03-diagrama-vocabulario/anidamiento/uml-despliegue.md`](03-diagrama-vocabulario/anidamiento/uml-despliegue.md) |
 | **Sin acyclicidad**: `kgdb` acepta ciclos en una relación de pertenencia (`hum-ecosystem owned_by source` cuando `source` ya está dentro) y autocontención (`pron owned_by pron`). Anidamiento y árboles necesitan la garantía. | confirmado | [`03-diagrama-vocabulario/anidamiento/uml-paquetes.md`](03-diagrama-vocabulario/anidamiento/uml-paquetes.md) |
@@ -60,6 +61,14 @@ Un mundo cuyo dominio es UML (opción B) se monta completo con CLI y pasa `pron 
 | `pron check` responde `ok` mientras `pron refresh` falla por aristas que `kgdb` rechaza (tipos, cardinalidad); el fallo de `refresh` es un traceback de `TypedIngestError`. `check` sí detecta extremos inexistentes: es desparejo. | confirmado | [`03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md`](03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md) |
 | No hay comando CLI para **afirmar una arista validada** (`Verbs.assert_edge`): por CLI solo se puede escribir la `RelationDoc` directo (sin validar) o pasar por `pron say` (lenguaje natural, requiere anclas). | confirmado | [`03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md`](03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md) |
 | El id de una `RelationDoc` sigue la convención de nombres del mundo (en el restaurante, `ProjectionDoc.naming`: `{relation_type}--{source_id}--{target_id}`): mover un extremo no puede ser un `update`, es borrar + crear. Decisión pendiente: qué se conserva (`notes`, `condition`) al reasignar. | decisión de diseño | [`01-fundamentos/lentes-bidireccionales.md`](01-fundamentos/lentes-bidireccionales.md) |
+
+## spec2viz
+
+No es parte del sustrato, pero es el oráculo de varios ejemplos y el germen de la capa intermedia.
+
+| Hueco | Estado | Encontrado en |
+|---|---|---|
+| Backend PlantUML de secuencias: los mensajes `return` se dibujan **en sentido inverso** (`"return": "<--"` con `from` a la izquierda) y los rótulos con `--` salen tachados porque no se escapa el formato de PlantUML. El backend Mermaid los dibuja bien. | confirmado | [`03-diagrama-vocabulario/posicion/uml-secuencia.md`](03-diagrama-vocabulario/posicion/uml-secuencia.md) |
 
 ## sldb
 

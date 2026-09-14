@@ -1,0 +1,14 @@
+sequenceDiagram
+    actor Usuario
+    participant Front
+    participant ServePy
+    participant PronVerbs
+    participant SldbStore
+    Usuario->>Front: arrastra Table hacia Bookable con Realización
+    Front->>ServePy: POST operación connect(realizes, table, bookable)
+    ServePy->>PronVerbs: assert_edge(realizes, table, bookable)
+    PronVerbs->>SldbStore: find UmlClass donde kind = interface
+    SldbStore-->>PronVerbs: bookable
+    PronVerbs->>SldbStore: create RelationDoc
+    PronVerbs-->>ServePy: realizes--UmlClass:table--UmlClass:bookable
+    ServePy-->>Front: grafo regenerado

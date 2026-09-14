@@ -1,0 +1,20 @@
+id: secuencia-conectar-validado
+title: Conectar dos clases con una operación validada por pron
+type: sequence
+version: "0.1"
+data:
+  participants:
+    - {id: Usuario, kind: actor}
+    - {id: Front, kind: component}
+    - {id: ServePy, kind: component}
+    - {id: PronVerbs, kind: component}
+    - {id: SldbStore, kind: boundary}
+  messages:
+    - {from: Usuario, to: Front, message: "arrastra Table hacia Bookable con Realización"}
+    - {from: Front, to: ServePy, message: "POST operación connect(realizes, table, bookable)"}
+    - {from: ServePy, to: PronVerbs, message: "assert_edge(realizes, table, bookable)"}
+    - {from: PronVerbs, to: SldbStore, message: "find UmlClass donde kind = interface"}
+    - {from: SldbStore, to: PronVerbs, message: "bookable", kind: return}
+    - {from: PronVerbs, to: SldbStore, message: "create RelationDoc"}
+    - {from: PronVerbs, to: ServePy, message: "realizes--UmlClass:table--UmlClass:bookable", kind: return}
+    - {from: ServePy, to: Front, message: "grafo regenerado", kind: return}

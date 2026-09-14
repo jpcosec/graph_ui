@@ -1,0 +1,264 @@
+# Variante: m6 con order 5, el mismo que m5. ¿Alguien lo detecta?
+modelos:
+- name: Interaction
+  family: uml
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre de la interacción.
+- name: Lifeline
+  family: uml
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    kind: ⸢rev•kind⸥
+
+    position: ⸢rev•position⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Participante.
+  - name: kind
+    type: str
+    default: component
+    description: actor, component, boundary.
+  - name: position
+    type: int
+    description: Orden de izquierda a derecha.
+- name: Message
+  family: uml
+  template: '---
+
+    order: ⸢rev•order⸥
+
+    sort: ⸢rev•sort⸥
+
+    ---
+
+
+    # ⸢rev•text⸥
+
+    '
+  fields:
+  - name: text
+    type: str
+    description: Rótulo del mensaje.
+  - name: order
+    type: int
+    description: Posición en la secuencia (tiempo hacia abajo).
+  - name: sort
+    type: str
+    default: synchCall
+    description: synchCall, asynchCall o reply (UML messageSort).
+tipos_de_relacion:
+- name: in_interaction
+  cardinality: many_to_one
+  source_types:
+  - Lifeline
+  - Message
+  target_types:
+  - Interaction
+  description: El participante o mensaje pertenece a la interacción.
+- name: sends
+  cardinality: many_to_one
+  source_types:
+  - Message
+  target_types:
+  - Lifeline
+  description: Línea de vida que envía el mensaje.
+- name: receives
+  cardinality: many_to_one
+  source_types:
+  - Message
+  target_types:
+  - Lifeline
+  description: Línea de vida que recibe el mensaje.
+documentos:
+- model: Interaction
+  name: conectar
+  payload:
+    name: Conectar dos clases con una operación validada por pron
+- model: Lifeline
+  name: usuario
+  payload:
+    name: Usuario
+    kind: actor
+    position: 1
+- model: Lifeline
+  name: front
+  payload:
+    name: Front
+    kind: component
+    position: 2
+- model: Lifeline
+  name: servepy
+  payload:
+    name: ServePy
+    kind: component
+    position: 3
+- model: Lifeline
+  name: pronverbs
+  payload:
+    name: PronVerbs
+    kind: component
+    position: 4
+- model: Lifeline
+  name: sldbstore
+  payload:
+    name: SldbStore
+    kind: boundary
+    position: 5
+- model: Message
+  name: m1
+  payload:
+    text: arrastra Table hacia Bookable con Realización
+    order: 1
+    sort: synchCall
+- model: Message
+  name: m2
+  payload:
+    text: POST operación connect(realizes, table, bookable)
+    order: 2
+    sort: synchCall
+- model: Message
+  name: m3
+  payload:
+    text: assert_edge(realizes, table, bookable)
+    order: 3
+    sort: synchCall
+- model: Message
+  name: m4
+  payload:
+    text: find UmlClass donde kind = interface
+    order: 4
+    sort: synchCall
+- model: Message
+  name: m5
+  payload:
+    text: bookable
+    order: 5
+    sort: reply
+- model: Message
+  name: m6
+  payload:
+    text: create RelationDoc
+    order: 5
+    sort: synchCall
+- model: Message
+  name: m7
+  payload:
+    text: realizes--UmlClass:table--UmlClass:bookable
+    order: 7
+    sort: reply
+- model: Message
+  name: m8
+  payload:
+    text: grafo regenerado
+    order: 8
+    sort: reply
+relaciones:
+- type: in_interaction
+  source: Lifeline:usuario
+  target: Interaction:conectar
+- type: in_interaction
+  source: Lifeline:front
+  target: Interaction:conectar
+- type: in_interaction
+  source: Lifeline:servepy
+  target: Interaction:conectar
+- type: in_interaction
+  source: Lifeline:pronverbs
+  target: Interaction:conectar
+- type: in_interaction
+  source: Lifeline:sldbstore
+  target: Interaction:conectar
+- type: in_interaction
+  source: Message:m1
+  target: Interaction:conectar
+- type: sends
+  source: Message:m1
+  target: Lifeline:usuario
+- type: receives
+  source: Message:m1
+  target: Lifeline:front
+- type: in_interaction
+  source: Message:m2
+  target: Interaction:conectar
+- type: sends
+  source: Message:m2
+  target: Lifeline:front
+- type: receives
+  source: Message:m2
+  target: Lifeline:servepy
+- type: in_interaction
+  source: Message:m3
+  target: Interaction:conectar
+- type: sends
+  source: Message:m3
+  target: Lifeline:servepy
+- type: receives
+  source: Message:m3
+  target: Lifeline:pronverbs
+- type: in_interaction
+  source: Message:m4
+  target: Interaction:conectar
+- type: sends
+  source: Message:m4
+  target: Lifeline:pronverbs
+- type: receives
+  source: Message:m4
+  target: Lifeline:sldbstore
+- type: in_interaction
+  source: Message:m5
+  target: Interaction:conectar
+- type: sends
+  source: Message:m5
+  target: Lifeline:sldbstore
+- type: receives
+  source: Message:m5
+  target: Lifeline:pronverbs
+- type: in_interaction
+  source: Message:m6
+  target: Interaction:conectar
+- type: sends
+  source: Message:m6
+  target: Lifeline:pronverbs
+- type: receives
+  source: Message:m6
+  target: Lifeline:sldbstore
+- type: in_interaction
+  source: Message:m7
+  target: Interaction:conectar
+- type: sends
+  source: Message:m7
+  target: Lifeline:pronverbs
+- type: receives
+  source: Message:m7
+  target: Lifeline:servepy
+- type: in_interaction
+  source: Message:m8
+  target: Interaction:conectar
+- type: sends
+  source: Message:m8
+  target: Lifeline:servepy
+- type: receives
+  source: Message:m8
+  target: Lifeline:front
