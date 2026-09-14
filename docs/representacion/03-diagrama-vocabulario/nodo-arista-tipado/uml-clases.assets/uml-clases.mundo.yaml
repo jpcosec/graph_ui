@@ -1,0 +1,89 @@
+# UML de clases como dominio de un mundo pron (opción B de 01-fundamentos/metamodelado-mof.md).
+# Clases: documentos UmlClass. Generalización, realización y dependencia: RelationDoc.
+# Asociaciones (con roles, multiplicidades y agregación): documento UmlAssociation reificado
+# con dos aristas end_a / end_b, porque RelationDoc no tiene dónde guardar esos datos.
+modelos:
+  - name: UmlClass
+    family: uml
+    template: |
+      ---
+      name: ⸢rev•name⸥
+      kind: ⸢rev•kind⸥
+      attributes: ⸢rev,list•attributes⸥
+      operations: ⸢rev,list•operations⸥
+      ---
+
+      # ⸢render•name⸥
+    fields:
+      - {name: name, type: str, description: "Nombre de la clase."}
+      - {name: kind, type: str, default: class, description: "class, abstract, interface o enum."}
+      - {name: attributes, type: "list[str]", default: [], description: "Atributos, 'nombre: tipo'."}
+      - {name: operations, type: "list[str]", default: [], description: "Operaciones, 'firma: retorno'."}
+  - name: UmlAssociation
+    family: uml
+    template: |
+      ---
+      name: ⸢rev•name⸥
+      aggregation: ⸢rev•aggregation⸥
+      a_role: ⸢rev•a_role⸥
+      a_multiplicity: ⸢rev•a_multiplicity⸥
+      b_role: ⸢rev•b_role⸥
+      b_multiplicity: ⸢rev•b_multiplicity⸥
+      ---
+
+      # ⸢render•name⸥
+    fields:
+      - {name: name, type: str, default: "", description: "Nombre de la asociación (opcional en UML)."}
+      - {name: aggregation, type: str, default: none, description: "none, shared o composite: el extremo A agrega al B (rombo en A)."}
+      - {name: a_role, type: str, default: "", description: "Nombre del rol del extremo A."}
+      - {name: a_multiplicity, type: str, default: "", description: "Multiplicidad del extremo A: 1, 0..1, *, 1..*."}
+      - {name: b_role, type: str, default: "", description: "Nombre del rol del extremo B."}
+      - {name: b_multiplicity, type: str, default: "", description: "Multiplicidad del extremo B."}
+
+tipos_de_relacion:
+  - {name: generalizes, cardinality: many_to_many, source_types: [UmlClass], target_types: [UmlClass],
+     description: "El origen es un subtipo del destino (UML Generalization)."}
+  - {name: realizes, cardinality: many_to_many, source_types: [UmlClass], target_types: [UmlClass],
+     condition: 'kind = "interface"',
+     description: "El origen implementa el contrato del destino, que debe ser una interfaz (UML InterfaceRealization)."}
+  - {name: depends_on, cardinality: many_to_many, source_types: [UmlClass], target_types: [UmlClass],
+     description: "El origen (cliente) depende del destino (proveedor) (UML Dependency)."}
+  - {name: end_a, cardinality: many_to_one, source_types: [UmlAssociation], target_types: [UmlClass],
+     description: "Clase del extremo A de una asociación."}
+  - {name: end_b, cardinality: many_to_one, source_types: [UmlAssociation], target_types: [UmlClass],
+     description: "Clase del extremo B de una asociación."}
+
+documentos:
+  - {model: UmlClass, name: person, payload: {name: Person, kind: abstract, attributes: ["name: str"]}}
+  - {model: UmlClass, name: client, payload: {name: Client, kind: class, attributes: ["phone: str"]}}
+  - {model: UmlClass, name: bookable, payload: {name: Bookable, kind: interface, operations: ["isFree(at: DateTime): bool"]}}
+  - {model: UmlClass, name: restaurant, payload: {name: Restaurant, kind: class, attributes: ["name: str"]}}
+  - {model: UmlClass, name: table, payload: {name: Table, kind: class, attributes: ["number: int", "capacity: int"]}}
+  - {model: UmlClass, name: waiter, payload: {name: Waiter, kind: class, attributes: ["shift: str"]}}
+  - {model: UmlClass, name: reservation, payload: {name: Reservation, kind: class, attributes: ["date: Date", "party_size: int"]}}
+  - {model: UmlClass, name: booking-service, payload: {name: BookingService, kind: class, operations: ["book(client: Client, at: DateTime): Reservation"]}}
+  - {model: UmlAssociation, name: restaurant-tables, payload: {aggregation: composite, a_multiplicity: "1", b_role: tables, b_multiplicity: "1..*"}}
+  - {model: UmlAssociation, name: waiter-tables, payload: {aggregation: shared, a_multiplicity: "0..1", b_multiplicity: "*"}}
+  - {model: UmlAssociation, name: booked-by, payload: {name: booked_by, a_multiplicity: "*", b_role: client, b_multiplicity: "1"}}
+  - {model: UmlAssociation, name: assigned-to, payload: {name: assigned_to, a_multiplicity: "*", b_role: table, b_multiplicity: "0..1"}}
+
+relaciones:
+  - {type: generalizes, source: "UmlClass:client", target: "UmlClass:person"}
+  - {type: realizes, source: "UmlClass:table", target: "UmlClass:bookable"}
+  - {type: depends_on, source: "UmlClass:booking-service", target: "UmlClass:reservation"}
+  - {type: end_a, source: "UmlAssociation:restaurant-tables", target: "UmlClass:restaurant"}
+  - {type: end_b, source: "UmlAssociation:restaurant-tables", target: "UmlClass:table"}
+  - {type: end_a, source: "UmlAssociation:waiter-tables", target: "UmlClass:waiter"}
+  - {type: end_b, source: "UmlAssociation:waiter-tables", target: "UmlClass:table"}
+  - {type: end_a, source: "UmlAssociation:booked-by", target: "UmlClass:reservation"}
+  - {type: end_b, source: "UmlAssociation:booked-by", target: "UmlClass:client"}
+  - {type: end_a, source: "UmlAssociation:assigned-to", target: "UmlClass:reservation"}
+  - {type: end_b, source: "UmlAssociation:assigned-to", target: "UmlClass:table"}
+
+relaciones_invalidas:
+  - {type: realizes, source: "UmlClass:reservation", target: "UmlClass:client",
+     porque: "el destino no es una interfaz: viola condition kind = \"interface\""}
+  - {type: generalizes, source: "UmlAssociation:booked-by", target: "UmlClass:person",
+     porque: "el origen no es UmlClass: viola source_types"}
+  - {type: end_a, source: "UmlAssociation:booked-by", target: "UmlClass:waiter",
+     porque: "segundo end_a de la misma asociación: viola cardinality many_to_one"}

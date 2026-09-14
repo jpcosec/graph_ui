@@ -1,0 +1,50 @@
+id: uml-clases-restaurante
+title: Restaurante (UML de clases)
+type: class
+version: "0.1"
+data:
+  direction: TB
+  classes:
+    Person:
+      kind: abstract
+      attributes:
+        - {name: name, type: str}
+    Client:
+      attributes:
+        - {name: phone, type: str}
+    Bookable:
+      kind: interface
+      methods:
+        - name: isFree
+          parameters:
+            - {name: at, type: DateTime}
+          returns: bool
+    Restaurant:
+      attributes:
+        - {name: name, type: str}
+    Table:
+      attributes:
+        - {name: number, type: int}
+        - {name: capacity, type: int}
+    Waiter:
+      attributes:
+        - {name: shift, type: str}
+    Reservation:
+      attributes:
+        - {name: date, type: Date}
+        - {name: party_size, type: int}
+    BookingService:
+      methods:
+        - name: book
+          parameters:
+            - {name: client, type: Client}
+            - {name: at, type: DateTime}
+          returns: Reservation
+  relations:
+    - {from: Client, to: Person, relation: inheritance}
+    - {from: Table, to: Bookable, relation: realization}
+    - {from: Restaurant, to: Table, relation: composition, from_multiplicity: "1", to_multiplicity: "1..*"}
+    - {from: Waiter, to: Table, relation: aggregation, from_multiplicity: "0..1", to_multiplicity: "*"}
+    - {from: Reservation, to: Client, relation: association, label: booked_by, from_multiplicity: "*", to_multiplicity: "1"}
+    - {from: Reservation, to: Table, relation: association, label: assigned_to, from_multiplicity: "*", to_multiplicity: "0..1"}
+    - {from: BookingService, to: Reservation, relation: dependency}

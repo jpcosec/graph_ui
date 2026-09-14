@@ -29,7 +29,7 @@ todas las líneas se ven iguales.
 
 | Documento | Vocabulario | Qué representa | Estado |
 |---|---|---|---|
-| uml-clases.md | UML, diagrama de clases | estructura de tipos: clases, interfaces, herencia, composición, asociaciones | pendiente |
+| [uml-clases.md](uml-clases.md) | UML, diagrama de clases | estructura de tipos: clases, interfaces, herencia, composición, asociaciones | escrito |
 | entidad-relacion.md | ER (Chen / crow's foot) | datos persistentes: entidades, atributos, relaciones con cardinalidad | pendiente |
 | archimate.md | ArchiMate | arquitectura empresarial por capas (negocio, aplicación, tecnología) | pendiente |
 | mapa-conceptual.md | mapa conceptual | conceptos unidos por proposiciones etiquetadas | pendiente |

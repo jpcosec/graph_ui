@@ -1,0 +1,36 @@
+@startuml
+skinparam classAttributeIconSize 0
+abstract class "Person" as Person {
+    +name: str
+}
+class "Client" as Client {
+    +phone: str
+}
+interface "Bookable" as Bookable {
+    +isFree(at: DateTime): bool
+}
+class "Restaurant" as Restaurant {
+    +name: str
+}
+class "Table" as Table {
+    +number: int
+    +capacity: int
+}
+class "Waiter" as Waiter {
+    +shift: str
+}
+class "Reservation" as Reservation {
+    +date: Date
+    +party_size: int
+}
+class "BookingService" as BookingService {
+    +book(client: Client, at: DateTime): Reservation
+}
+Client --|> Person
+Table ..|> Bookable
+Restaurant "1" *-- "1..*" Table
+Waiter "0..1" o-- "*" Table
+Reservation "*" --> "1" Client : booked_by
+Reservation "*" --> "0..1" Table : assigned_to
+BookingService ..> Reservation
+@enduml

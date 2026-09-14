@@ -26,13 +26,17 @@ resolver en `graph_ui` o en el `VocabularyDoc`.
 | No muestra `cardinality` ni `condition` de un tipo de relación, que están en la sintaxis abstracta del mundo. | confirmado | [`01-fundamentos/sintaxis-abstracta-y-concreta.md`](01-fundamentos/sintaxis-abstracta-y-concreta.md) |
 | No distingue a qué **nivel** aplica una vista: Schema lee tipos, KB y Flujo leen instancias, sin declararlo. | confirmado | [`01-fundamentos/metamodelado-mof.md`](01-fundamentos/metamodelado-mof.md) |
 | El guardado es un **diff de estados** alineado por id (`source/batch.mjs`): con un vocabulario de por medio, un gesto puede ser varias escrituras y el diff no conoce la intención. Hace falta gesto → operación. | confirmado | [`01-fundamentos/lentes-bidireccionales.md`](01-fundamentos/lentes-bidireccionales.md) |
+| **Escribe aristas sin validarlas**: el guardado usa `pron.Store.create`, no `Verbs.assert_edge`. Una `RelationDoc` que viola la `condition` de su tipo (una realización hacia algo que no es interfaz) se guarda sin error y nada la detecta después; tipos y cardinalidad solo fallan en el próximo `pron refresh`. | confirmado | [`03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md`](03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md) |
 
 ## kgdb
 
 | Hueco | Estado | Encontrado en |
 |---|---|---|
 | `RelationDoc` es binaria (`source_id`, `target_id`): no hay relaciones de más de dos extremos. | por verificar | [`03-diagrama-vocabulario/n-aria/`](03-diagrama-vocabulario/n-aria/index.md) |
-| No hay **roles con nombre** en los extremos de una relación (el "todo" y la "parte", el nombre del extremo en una asociación). | por verificar | [`03-diagrama-vocabulario/n-aria/`](03-diagrama-vocabulario/n-aria/index.md) |
+| No hay **roles con nombre** en los extremos de una relación (el "todo" y la "parte", el nombre del extremo en una asociación). | confirmado | [`03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md`](03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md) |
+| `RelationDoc` no tiene **atributos por arista** (solo `source_id`, `target_id`, `relation_type`, `condition`, `notes`): multiplicidades por asociación o tipo de agregación obligan a reificar la relación en un documento más dos aristas (tres escrituras por asociación UML). | confirmado | [`03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md`](03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md) |
+| `cardinality` de `RelationTypeDoc` es por tipo y tiene cuatro valores (`one_to_one`…`many_to_many`): no expresa `0..1` ni `1..*`. | confirmado | [`03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md`](03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md) |
+| La `condition` de un `RelationTypeDoc` no se evalúa al ensamblar (`pron refresh`), solo al afirmar por `pron`: un mundo puede contener aristas que violan su condición si se escribieron por fuera. Es el diseño documentado (*"the world prevents at authoring time, kgdb detects at assembly time"*), pero deja a las UIs sin red. | decisión de diseño | [`03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md`](03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md) |
 
 ## pron
 
@@ -41,6 +45,8 @@ Un mundo cuyo dominio es UML (opción B) se monta completo con CLI y pasa `pron 
 
 | Hueco | Estado | Encontrado en |
 |---|---|---|
+| `pron check` responde `ok` mientras `pron refresh` falla por aristas que `kgdb` rechaza (tipos, cardinalidad); el fallo de `refresh` es un traceback de `TypedIngestError`. | confirmado | [`03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md`](03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md) |
+| No hay comando CLI para **afirmar una arista validada** (`Verbs.assert_edge`): por CLI solo se puede escribir la `RelationDoc` directo (sin validar) o pasar por `pron say` (lenguaje natural, requiere anclas). | confirmado | [`03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md`](03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md) |
 | El id de una `RelationDoc` sigue la convención de nombres del mundo (en el restaurante, `ProjectionDoc.naming`: `{relation_type}--{source_id}--{target_id}`): mover un extremo no puede ser un `update`, es borrar + crear. Decisión pendiente: qué se conserva (`notes`, `condition`) al reasignar. | decisión de diseño | [`01-fundamentos/lentes-bidireccionales.md`](01-fundamentos/lentes-bidireccionales.md) |
 
 ## sldb

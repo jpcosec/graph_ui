@@ -20,6 +20,8 @@ Formato del YAML:
       - {model, name, payload}
     relaciones:        # RelationDoc: source/target como Modelo:nombre
       - {type, source, target, condition?}
+    relaciones_invalidas:  # control negativo: se crean después de un mundo sano y se vuelve a
+      - {type, source, target, porque}   # correr refresh + check para ver si kgdb/pron las rechazan
 """
 from __future__ import annotations
 
@@ -96,7 +98,25 @@ def montar(spec_path: Path, conservar: bool) -> int:
 
     fallos += bool(run(["pron", "refresh", "--world", str(world), "--pythonpath", py]).returncode)
     fallos += bool(run(["pron", "check", "--world", str(world), "--pythonpath", py]).returncode)
-    print(f"\nmundo: {world}  ·  comandos con error: {fallos}")
+    print(f"\nmundo sano: {world}  ·  comandos con error: {fallos}")
+
+    for rel in spec.get("relaciones_invalidas", []):
+        print(f"\n== control negativo: {rel['type']} {rel['source']} -> {rel['target']} ({rel['porque']})")
+        name = f"{rel['type']}--{rel['source']}--{rel['target']}"
+        payload = {"title": name, "source_id": rel["source"], "target_id": rel["target"],
+                   "relation_type": rel["type"], "condition": rel.get("condition", ""), "notes": ""}
+        out = world / "relations" / f"{slug(name)}.md"
+        creado = run([sys.executable, "-m", "sldb", "docs", "create", "--model", "RelationDoc", "-o", str(out),
+                      "--name", name, "--store", store, "--pythonpath", py,
+                      json.dumps(payload, ensure_ascii=False)])
+        refresh = run(["pron", "refresh", "--world", str(world), "--pythonpath", py])
+        check = run(["pron", "check", "--world", str(world), "--pythonpath", py])
+        rechazada = bool(creado.returncode or refresh.returncode or check.returncode)
+        print(f"  => {'rechazada' if rechazada else 'ACEPTADA (no se detectó)'}")
+        if not creado.returncode:
+            run([sys.executable, "-m", "sldb", "docs", "untrack", name, "--store", store, "--pythonpath", py])
+            out.unlink(missing_ok=True)
+            run(["pron", "refresh", "--world", str(world), "--pythonpath", py])
     if not conservar:
         shutil.rmtree(base, ignore_errors=True)
     return 1 if fallos else 0
