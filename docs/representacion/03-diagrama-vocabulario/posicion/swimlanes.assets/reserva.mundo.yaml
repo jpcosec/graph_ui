@@ -1,0 +1,230 @@
+# Proceso por carriles como mundo pron: el carril es un verbo (performed_by, many_to_one) y el orden
+# horizontal de los carriles es un campo (Participant.position). El flujo es el verbo next.
+modelos:
+- name: Participant
+  family: proceso
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    position: ⸢rev•position⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Rol, sistema o área responsable.
+  - name: position
+    type: int
+    description: Orden del carril de izquierda a derecha.
+- name: Action
+  family: proceso
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Qué se hace.
+- name: ControlNode
+  family: proceso
+  template: '---
+
+    kind: ⸢rev•kind⸥
+
+    ---
+
+
+    # ⸢render•kind⸥
+
+    '
+  fields:
+  - name: kind
+    type: str
+    description: initial, final, decision o merge.
+tipos_de_relacion:
+- name: performed_by
+  cardinality: many_to_one
+  axis: WHO
+  source_types:
+  - Action
+  - ControlNode
+  target_types:
+  - Participant
+  description: El paso está en el carril de ese participante (UML ActivityPartition, BPMN Lane).
+- name: next
+  cardinality: many_to_many
+  axis: WHEN
+  source_types:
+  - Action
+  - ControlNode
+  target_types:
+  - Action
+  - ControlNode
+  description: 'Flujo de control: después de este paso viene ese. La guarda de una decisión va en notes.'
+documentos:
+- model: Participant
+  name: cliente
+  payload:
+    name: Cliente
+    position: 1
+- model: Participant
+  name: pron
+  payload:
+    name: pron
+    position: 2
+- model: Participant
+  name: personal
+  payload:
+    name: Personal del restaurante
+    position: 3
+- model: ControlNode
+  name: inicio
+  payload:
+    kind: initial
+- model: Action
+  name: pide
+  payload:
+    name: Pide mesa para 4 el viernes a las 20:00
+- model: Action
+  name: interpreta
+  payload:
+    name: Interpreta el pedido
+- model: Action
+  name: busca
+  payload:
+    name: Busca mesas con capacidad >= 4
+- model: ControlNode
+  name: hay-mesa
+  payload:
+    kind: decision
+- model: Action
+  name: propone
+  payload:
+    name: Propone mesa 12
+- model: Action
+  name: acepta
+  payload:
+    name: Acepta la propuesta
+- model: Action
+  name: confirma
+  payload:
+    name: Confirma la reserva
+- model: Action
+  name: asserta
+  payload:
+    name: Asserta assigned_to y booked_by
+- model: Action
+  name: ofrece
+  payload:
+    name: Ofrece otro horario
+- model: ControlNode
+  name: une
+  payload:
+    kind: merge
+- model: Action
+  name: recibe
+  payload:
+    name: Recibe la respuesta
+- model: ControlNode
+  name: fin
+  payload:
+    kind: final
+relaciones:
+- type: performed_by
+  source: ControlNode:inicio
+  target: Participant:cliente
+- type: performed_by
+  source: Action:pide
+  target: Participant:cliente
+- type: performed_by
+  source: Action:interpreta
+  target: Participant:pron
+- type: performed_by
+  source: Action:busca
+  target: Participant:pron
+- type: performed_by
+  source: ControlNode:hay-mesa
+  target: Participant:pron
+- type: performed_by
+  source: Action:propone
+  target: Participant:pron
+- type: performed_by
+  source: Action:acepta
+  target: Participant:cliente
+- type: performed_by
+  source: Action:confirma
+  target: Participant:personal
+- type: performed_by
+  source: Action:asserta
+  target: Participant:pron
+- type: performed_by
+  source: Action:ofrece
+  target: Participant:pron
+- type: performed_by
+  source: ControlNode:une
+  target: Participant:pron
+- type: performed_by
+  source: Action:recibe
+  target: Participant:cliente
+- type: performed_by
+  source: ControlNode:fin
+  target: Participant:cliente
+- type: next
+  source: ControlNode:inicio
+  target: Action:pide
+- type: next
+  source: Action:pide
+  target: Action:interpreta
+- type: next
+  source: Action:interpreta
+  target: Action:busca
+- type: next
+  source: Action:busca
+  target: ControlNode:hay-mesa
+- type: next
+  source: ControlNode:hay-mesa
+  target: Action:propone
+  notes: sí
+- type: next
+  source: ControlNode:hay-mesa
+  target: Action:ofrece
+  notes: 'no'
+- type: next
+  source: Action:propone
+  target: Action:acepta
+- type: next
+  source: Action:acepta
+  target: Action:confirma
+- type: next
+  source: Action:confirma
+  target: Action:asserta
+- type: next
+  source: Action:asserta
+  target: ControlNode:une
+- type: next
+  source: Action:ofrece
+  target: ControlNode:une
+- type: next
+  source: ControlNode:une
+  target: Action:recibe
+- type: next
+  source: Action:recibe
+  target: ControlNode:fin
+relaciones_invalidas:
+- type: performed_by
+  source: Action:confirma
+  target: Participant:pron
+  porque: un paso en dos carriles a la vez (cardinality many_to_one)

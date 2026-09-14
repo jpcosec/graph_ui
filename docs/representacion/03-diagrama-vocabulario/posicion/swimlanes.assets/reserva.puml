@@ -1,0 +1,23 @@
+@startuml
+title Reserva de mesa por carriles (actividad UML con particiones)
+|Cliente|
+start
+:Pide mesa para 4 el viernes a las 20:00;
+|pron|
+:Interpreta el pedido;
+:Busca mesas con capacidad >= 4;
+if (¿hay mesa libre?) then (sí)
+  :Propone mesa 12;
+  |Cliente|
+  :Acepta la propuesta;
+  |Personal del restaurante|
+  :Confirma la reserva;
+  |pron|
+  :Asserta assigned_to y booked_by;
+else (no)
+  :Ofrece otro horario;
+endif
+|Cliente|
+:Recibe la respuesta;
+stop
+@enduml
