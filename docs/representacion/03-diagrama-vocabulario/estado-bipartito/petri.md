@@ -181,7 +181,7 @@ de un `compose` hacen `self.kernel.change(tgt, step["field"], step["value"])` co
 (`src/pron/session.py`): no hay aritmética sobre el valor actual. El disparo no se puede declarar como
 acción del mundo.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

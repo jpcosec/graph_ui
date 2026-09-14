@@ -79,7 +79,7 @@ declara qué significa.
 - **La vista es también controlador.** Cada elemento que `graph_ui` dibuje desde un vocabulario
   debería declarar qué se puede editar ahí (como la *property cell*).
 - **El significado de un gesto depende del concept**, y se declara (action maps). Refuerza la
-  necesidad de gesto → operación por kind en el `VocabularyDoc`.
+  necesidad de gesto → operación por kind en el vocabulario visual.
 - **Varias notaciones sobre el mismo modelo, elegibles por el usuario**: un mundo con varios
   vocabularios aplicables.
 - **Los tipos son nodos del mismo árbol** (`ConceptDeclaration`): valida la forma en que `kgdb`
@@ -90,7 +90,7 @@ declara qué significa.
 - El AST como forma de almacenamiento y la edición carácter a carácter: nuestro dato son documentos
   Markdown con plantillas, y la edición gráfica opera sobre documentos y relaciones, no sobre
   celdas de texto.
-- La complejidad de definir un editor completo por concept: un `VocabularyDoc` debería declarar
+- La complejidad de definir un editor completo por concept: un vocabulario visual debería declarar
   kinds, canales y gestos, no un modelo de celdas.
 
 ## Fuentes

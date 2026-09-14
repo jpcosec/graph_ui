@@ -137,10 +137,10 @@ optionalDataSourceToProcessorEdgeDescription.get().getTargetDescriptions().add(o
 
 **Tomamos**
 
-- **La definición de vista es un modelo del mismo sistema**, editable ahí: el `VocabularyDoc` es un
+- **La definición de vista es un modelo del mismo sistema**, editable ahí: el vocabulario visual es un
   documento del mundo.
 - **Mapping = candidatos + tipo + precondición + estilo + tools.** Es una estructura probada para
-  cada entrada de un `VocabularyDoc`.
+  cada entrada de un vocabulario visual.
 - **Relation-based vs element-based edge**: distinción que ya existe en nuestro sustrato (campos de
   referencia vs `RelationDoc`) y que `graph_ui` hoy resuelve por inferencia.
 - **Source/Target mappings** como gramática de conexión declarada.

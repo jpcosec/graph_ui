@@ -124,7 +124,7 @@ TUPLA REPETIDA: ab-5 repite ab-1 (s-feria / i-tomate / l-providencia)
 
 Y un `Supply` sin alguno de sus roles pasaría también: `many_to_one` acota el máximo, no el mínimo.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

@@ -141,7 +141,7 @@ Tres cosas se ven en cascada: el módulo generado no importa (hereda de una clas
 documento que no existe**. Esta vez `pron check` sí lo detecta: revisa que los extremos existan,
 aunque no los tipos ni la cardinalidad.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar** (nivel de tipos)
 

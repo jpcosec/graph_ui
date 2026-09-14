@@ -105,7 +105,7 @@ La primera regla la expresa bien `source_types`. La segunda no: como el id de un
 origen y destino, el mismo camino no dirigido puede existir como dos documentos, y `kgdb` materializa
 las dos direcciones de cada uno.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

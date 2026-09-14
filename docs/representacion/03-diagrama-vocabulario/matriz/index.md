@@ -38,7 +38,7 @@ Lo que dejaron los dos ejemplos:
   `spec2viz` (que funde celdas contiguas en barras de etapas) dibujan pares. Los dos ejemplos se renderizaron
   con Vega-Lite desde el mundo.
 - **El orden es significado y suele ser derivado**: el particionamiento de la DSM mostró un ciclo entre
-  `shell`, `dialogs` y las vistas de `graph_ui` que el grafo no dejaba ver. El `VocabularyDoc` tiene que
+  `shell`, `dialogs` y las vistas de `graph_ui` que el grafo no dejaba ver. El vocabulario visual tiene que
   poder pedir un orden calculado (componentes fuertemente conexos, clustering) o un campo.
 - **La celda puede ser una familia de verbos**: RACI son cuatro verbos sobre el mismo par; declararlos por
   separado permite que `kgdb` haga cumplir el A único. El vocabulario los agrupa y les asigna letras (y el

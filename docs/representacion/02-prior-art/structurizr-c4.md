@@ -129,7 +129,7 @@ workspace {
 **Tomamos**
 
 - **Modelo y vistas separados**, varias vistas consistentes sobre un solo modelo: un mundo `pron`
-  con varios `VocabularyDoc`.
+  con varios vocabulario visual.
 - **Tags semánticos → estilos**: el estilo cuelga de una clasificación del dato, no del elemento
   suelto. En `pron`, la clasificación ya existe (`__family__`, `__semantics__`, el modelo, el
   `relation_type`).

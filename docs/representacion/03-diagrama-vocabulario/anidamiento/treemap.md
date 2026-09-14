@@ -100,7 +100,7 @@ Montaje: `graph: 234 nodes, 277 edges, 12 relation types`; `pron check` → `ok`
 El control del ciclo usa la raíz porque no tiene dueño: la primera versión ponía `views` dentro de un
 descendiente, y la rechazaba la cardinalidad (ya tenía padre), no la regla de ciclos.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

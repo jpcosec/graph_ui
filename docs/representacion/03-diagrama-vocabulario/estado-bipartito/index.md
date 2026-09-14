@@ -46,7 +46,7 @@ Lo que dejaron los dos ejemplos:
   el verbo de un arrastre por la clase del origen.
 - **Estos vocabularios se ejecutan**, y el oráculo tiene que ser de comportamiento, no solo un dibujo:
   XState y SNAKES dieron la secuencia de estados y el grafo de alcanzabilidad contra los que se comparó el
-  mundo. El `VocabularyDoc` tiene que distinguir **editar el modelo** (estados, arcos) de **ejecutarlo**
+  mundo. El vocabulario visual tiene que distinguir **editar el modelo** (estados, arcos) de **ejecutarlo**
   (disparar, simular), y decir si la ejecución escribe al mundo o vive en la vista.
 - **La arista necesita campos**: evento, guarda y efecto en una transición; peso en un arco. `condition`
   cubre la guarda; el resto no tiene lugar, y dos aristas iguales se pisan en silencio en el grafo de

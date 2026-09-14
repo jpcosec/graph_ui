@@ -126,7 +126,7 @@ Control negativo (un mensaje con dos emisores): rechazado por cardinalidad.
 con `m6.order = 5`, igual que `m5`: `graph: 127 nodes, 150 edges`, `pron check` → `ok`, `comandos con
 error: 0`. Ninguna capa valida que el orden sea único ni continuo: es un campo como cualquier otro.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

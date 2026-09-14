@@ -39,7 +39,7 @@ separación con `ProjectionDoc`.
 | Decisión | Quién la respalda |
 |---|---|
 | El vocabulario es un documento del mundo, editable en la misma herramienta | Sirius Web, MetaEdit+ |
-| Separar qué se nombra (`ProjectionDoc`) de cómo se dibuja (`VocabularyDoc`) | Fresnel (lens/format), Structurizr (modelo/vistas) |
+| Separar qué se nombra (`ProjectionDoc`) de cómo se dibuja (vocabulario visual) | Fresnel (lens/format), Structurizr (modelo/vistas) |
 | La edición vuelve como operación tipada, no como diff de grafo | GLSP (operations), Sirius (tools), MPS (action maps) |
 | El sustrato no conoce el vocabulario | MOF (capas), MPS (AST independiente de la notación), VOWL (notación sobre OWL) |
 | `kind` semántico separado de estilo | spec2viz, VOWL (colores por función), Structurizr (tags → styles) |

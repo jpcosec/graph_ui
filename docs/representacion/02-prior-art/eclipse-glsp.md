@@ -170,7 +170,7 @@ const workflowDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
 - El servidor aparte con JSON-RPC: `graph_ui` ya tiene `serve.py` y un front; alcanza con un
   endpoint de operaciones.
 - Que el mapeo sea código en una `GModelFactory`: nosotros queremos que el mapeo esté en un
-  documento (`VocabularyDoc`) y que la fábrica sea genérica.
+  documento (vocabulario visual) y que la fábrica sea genérica.
 
 ## Fuentes
 

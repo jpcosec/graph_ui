@@ -114,7 +114,7 @@ En términos de Harel y Rumpe: `source_types`, `target_types`, `cardinality` y `
 *context conditions* (restringen qué expresiones son válidas) y `description` es un mapeo
 semántico informal. Lo que **no** dice el mundo es cómo se representa `implements` en un
 vocabulario dado: si es una realización de UML, una dependencia, una arista de un mapa conceptual.
-Eso es lo que falta y lo que va a declarar el `VocabularyDoc`, sin tocar el mundo.
+Eso es lo que falta y lo que va a declarar el vocabulario visual, sin tocar el mundo.
 
 ## Aplicación a `pron` y `graph_ui`
 

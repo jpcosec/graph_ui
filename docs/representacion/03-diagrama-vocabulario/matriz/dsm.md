@@ -129,7 +129,7 @@ El tipo de `spec2viz` modela **etapas de una vista** (qué componente participa 
 **pares**: una barra que cruza columnas tiene sentido de intervalo. Es otra matriz, y confirma que "matriz"
 no es un vocabulario sino una forma con varios significados posibles para la celda.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Aplicabilidad**: un verbo cuyos `source_types` y `target_types` son el mismo conjunto.
 

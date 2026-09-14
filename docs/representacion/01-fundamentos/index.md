@@ -1,7 +1,7 @@
 # Eje 1 — Fundamentos
 
 Los conceptos que sostienen el resto del manual. Cada uno responde una pregunta que vamos a
-necesitar contestar al diseñar el `VocabularyDoc` y la capa de representación de `graph_ui`.
+necesitar contestar al diseñar el vocabulario visual y la capa de representación de `graph_ui`.
 
 | Documento | Pregunta que responde | Estado |
 |---|---|---|

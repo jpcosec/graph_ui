@@ -199,7 +199,7 @@ roots(State, transitions_to): ['...State:state-reservation-active', '...State:st
 
 los estados **sin salidas** (los finales, y el compuesto): lo contrario de los de entrada.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

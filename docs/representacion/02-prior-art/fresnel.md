@@ -8,7 +8,7 @@ browser-independent vocabulary for specifying how to display an RDF model and ho
 existing style languages such as CSS."* Nació para no reinventar en cada aplicación la forma de
 presentar RDF.
 
-Es el antecedente directo de la separación que tomamos entre `ProjectionDoc` y `VocabularyDoc`, y
+Es el antecedente directo de la separación que tomamos entre `ProjectionDoc` y vocabulario visual, y
 además se parece mucho a lo que `pron` ya hace con `display`.
 
 ## Arquitectura: lenses y formats
@@ -99,13 +99,13 @@ Y la selección de instancias por condición con FSL (sección 1.3.2):
 | lens con `classLensDomain` + `showProperties` | `ProjectionDoc.models` (qué modelos entran) |
 | `fresnel:labelLens` | `ProjectionDoc.display[Modelo]`, p. ej. `"{title}"` |
 | `fresnel:sublens` sobre una propiedad | plantilla `{relación.campo}` de `display` (sigue una arista y lee un campo del destino) |
-| format (cómo se ve un valor) | nada: es lo que falta, el `VocabularyDoc` |
+| format (cómo se ve un valor) | nada: es lo que falta, el vocabulario visual |
 
 ## Qué tomamos y qué no
 
 **Tomamos**
 
-- **La separación lens / format** como justificación de `ProjectionDoc` / `VocabularyDoc`.
+- **La separación lens / format** como justificación de `ProjectionDoc` / vocabulario visual.
 - **Dominio por clase o por instancia** en cada declaración.
 - **El paradigma visual es de la aplicación**: el vocabulario declara significado y formato; el
   renderer decide cómo aplicarlo a nodo-arista, anidamiento, etc.
@@ -114,7 +114,7 @@ Y la selección de instancias por condición con FSL (sección 1.3.2):
 
 **No tomamos**
 
-- RDF/Turtle como formato ni los selectores FSL/SPARQL: el `VocabularyDoc` es un documento de
+- RDF/Turtle como formato ni los selectores FSL/SPARQL: el vocabulario visual es un documento de
   `sldb`, y las selecciones se apoyan en modelos, `RelationTypeDoc` y predicados de `sldb`.
 - Que sea solo lectura: nuestro vocabulario tiene que declarar también la edición.
 

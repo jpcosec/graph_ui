@@ -152,10 +152,10 @@ types`; `pron check` → `ok`. Control negativo (premisa directa de I-node a I-n
 ([`aif-desde-mundo.py`](argument-maps-ibis.assets/aif-desde-mundo.py))
 
 El mismo contenido, dos vocabularios: IBIS dibuja 4 flechas `supports`/`objects_to`; AIF dibuja 4 nodos de
-esquema y 8 flechas, y a cambio puede atacar una flecha. Un `VocabularyDoc` para IBIS podría incluso
+esquema y 8 flechas, y a cambio puede atacar una flecha. Un vocabulario visual para IBIS podría incluso
 **dibujar** un mundo AIF colapsando los RA y CA en flechas, salvo los que son atacados.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

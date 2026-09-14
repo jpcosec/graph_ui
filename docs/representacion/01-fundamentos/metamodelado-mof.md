@@ -33,7 +33,7 @@ MOF" e indistinguibles para la herramienta.
 
 ## Por qué importa aquí
 
-Porque el ecosistema ya hace las dos cosas, y un `VocabularyDoc` va a tener que decir **en qué
+Porque el ecosistema ya hace las dos cosas, y un vocabulario visual va a tener que decir **en qué
 nivel** aplica un vocabulario.
 
 | Relación | En el ecosistema |
@@ -49,7 +49,7 @@ que Atkinson y Kühne recomiendan y lo que MOF no permite expresar.
 ## Dos maneras de que UML viva en un mundo `pron`
 
 La distinción deja ver que "implementar UML sobre `pron`" puede significar dos cosas distintas, y
-el `VocabularyDoc` tiene que soportar ambas o elegir.
+el vocabulario visual tiene que soportar ambas o elegir.
 
 **Opción A — UML como lectura del esquema del mundo.** Los modelos y verbos del mundo *son* las
 clases y asociaciones del diagrama. El mundo del restaurante, sin cambiar nada, se dibuja como un
@@ -144,7 +144,7 @@ en el esquema del mundo) más que a la opción B, donde "clase" y "generalizaci�
 
 ## Aplicación a `pron` y `graph_ui`
 
-- El `VocabularyDoc` necesita un campo que diga a qué nivel aplica cada mapeo: **tipos** (modelos,
+- El vocabulario visual necesita un campo que diga a qué nivel aplica cada mapeo: **tipos** (modelos,
   `RelationTypeDoc`) o **instancias** (documentos, `RelationDoc`). Un mismo vocabulario (diagrama de
   clases) sirve para las dos opciones.
 - La vista Schema de `graph_ui` es la opción A sin decirlo; KB y Flujo trabajan en el nivel de

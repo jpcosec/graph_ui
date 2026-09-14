@@ -134,7 +134,7 @@ class ReflectionNode(BaseModel):
 **No tomamos**
 
 - Que el usuario escriba el primer mapeo a mano en YAML: en `graph_ui` ese mapeo lo declara el
-  `VocabularyDoc` sobre los documentos del mundo.
+  vocabulario visual sobre los documentos del mundo.
 
 ## Fuentes
 

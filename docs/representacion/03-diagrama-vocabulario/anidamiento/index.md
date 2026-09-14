@@ -36,7 +36,7 @@ contexto (un paquete, un sistema, un nodo de ejecución).
 Lo que dejaron los cuatro ejemplos:
 
 - **La misma relación, dos notaciones.** UML ofrece anidamiento o arista tanto para la pertenencia a
-  paquetes (círculo con cruz) como para el despliegue (`«deploy»`). El `VocabularyDoc` necesita un
+  paquetes (círculo con cruz) como para el despliegue (`«deploy»`). El vocabulario visual necesita un
   *cómo* por relación (`anidamiento | arista`), y los gestos de las dos notaciones son la misma
   operación en el mundo (`move-into`).
 - **Anidar exige un árbol, y el mundo no lo garantiza.** `many_to_one` asegura un padre; nadie impide

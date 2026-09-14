@@ -45,7 +45,7 @@ Lo que dejaron los tres ejemplos:
   `many_to_one` por rol monta, y los máximos por rol se hacen cumplir. Lo que falta es declararla: nada une
   los verbos-rol en "una relación", ni exige que estén todos, ni que la tupla sea única.
 - **El dibujo tiene que re-colapsar**: una clase de asociación es una línea con una caja, una relación
-  ternaria de Chen es un rombo, un RA de AIF no atacado es una flecha. El `VocabularyDoc` necesita un
+  ternaria de Chen es un rombo, un RA de AIF no atacado es una flecha. El vocabulario visual necesita un
   constructo "relación reificada" que diga qué modelo, qué verbos son sus roles y cómo se dibuja colapsada.
 - **La inferencia no basta**: la heurística "dos o más verbos `many_to_one`" acierta con `Reservation` y
   `UmlAssociation` y se equivoca con `Message`; y la misma `Reservation` es entidad en un vocabulario (ER)

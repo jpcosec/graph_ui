@@ -45,9 +45,9 @@ Lo que dejaron los tres ejemplos:
 - **La vista Flujo no es inútil por dibujar un grafo dirigido**: sobre un mundo que sí es una actividad
   dibuja el orden bien (captura en [actividad UML](uml-actividad.md)). Lo que le falta es saber qué es un
   paso, qué es control, qué rótulo lleva una arista y cuándo ofrecerse. Es la sección de **aplicabilidad**
-  del `VocabularyDoc` más un mapeo de símbolos por campo (`kind`, `position`, `trigger`).
+  del vocabulario visual más un mapeo de símbolos por campo (`kind`, `position`, `trigger`).
 - **Un editor serio elige el verbo del gesto**: bpmn-js decide secuencia o mensaje según el contexto y
-  prohíbe lo que no cabe; en DFD y Petri el verbo depende de la clase del origen. El `VocabularyDoc` tiene
+  prohíbe lo que no cabe; en DFD y Petri el verbo depende de la clase del origen. El vocabulario visual tiene
   que declarar esa elección y `graph_ui` consultarla **antes** de escribir, con `pron` como validador final.
 - **Varios verbos, un constructo; un verbo, varios símbolos**: `feeds` + `produces` son "el flujo" del
   DFD; un `ControlNode` son seis símbolos según `kind`. El mapeo no es uno a uno en ninguna dirección.

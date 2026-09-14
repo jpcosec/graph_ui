@@ -128,7 +128,7 @@ Y el generador del mapa mental, que recorre de la raíz a las hojas, **dibuja el
 plan+compile conversion into real SLDB documents."* Las ideas (`parentId`, `className`) viven en `localStorage` y
 se **convierten** a documentos. Es un segundo lugar para los datos, no un mapa mental del mundo.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Aplicabilidad**: al menos un verbo de jerarquía `many_to_one`, y que su unión forme un árbol.
 

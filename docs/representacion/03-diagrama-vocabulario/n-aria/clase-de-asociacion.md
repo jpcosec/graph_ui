@@ -152,7 +152,7 @@ mundo de las dos maneras: sin declarar (izquierda) y con `--asociacion Reservati
 |---|---|
 | ![Reservation como clase con dos asociaciones](clase-de-asociacion.assets/reserva.desde-mundo.svg) | ![Reservation como clase de asociación](clase-de-asociacion.assets/reserva.desde-mundo-declarada.svg) |
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

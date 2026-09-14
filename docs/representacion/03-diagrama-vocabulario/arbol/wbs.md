@@ -104,7 +104,7 @@ El código tiene el mismo problema en otra forma: es **la posición escrita como
 bajo `1.6`, el código tiene que pasar a `1.6.2` y los hermanos que quedan pueden necesitar renumerarse (el
 reordenamiento con enteros de [secuencia UML](../posicion/uml-secuencia.md)).
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

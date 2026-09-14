@@ -16,7 +16,7 @@ rectángulo).
 
 ## Los nueve principios
 
-| Principio | Qué pide | Pregunta de chequeo para un `VocabularyDoc` |
+| Principio | Qué pide | Pregunta de chequeo para un vocabulario visual |
 |---|---|---|
 | **Claridad semiótica** | correspondencia 1:1 entre constructos semánticos y símbolos | ¿hay dos constructos con el mismo símbolo, o uno con varios? |
 | **Discriminabilidad perceptual** | símbolos distintos fáciles de distinguir; depende de la *distancia visual* (en cuántas variables difieren y cuánto); la forma es la variable principal | ¿dos kinds distintos difieren solo en un punteado? |
@@ -43,7 +43,7 @@ discriminabilidad.
 
 ## Por qué importa aquí
 
-Un `VocabularyDoc` es, entre otras cosas, una tabla constructo → símbolo. Los principios de Moody
+Un vocabulario visual es, entre otras cosas, una tabla constructo → símbolo. Los principios de Moody
 dan una forma de **evaluar esa tabla automáticamente** antes de dibujar nada, y de detectar
 defectos en las vistas actuales de `graph_ui`. Ajuste cognitivo, además, respalda una de las
 decisiones del manual: no toda vista representa lo mismo para todo dato, y un mismo mundo puede
@@ -136,7 +136,7 @@ Lectura:
 
 ## Aplicación a `pron` y `graph_ui`
 
-- Esta auditoría puede ser un lint del `VocabularyDoc`: correrla sobre su tabla de símbolos al
+- Esta auditoría puede ser un lint del vocabulario visual: correrla sobre su tabla de símbolos al
   guardarlo, como `pron check` corre sobre un mundo.
 - Hueco inmediato en `graph_ui`: la sobrecarga declarado/observado en Schema
   ([`../huecos.md`](../huecos.md)).

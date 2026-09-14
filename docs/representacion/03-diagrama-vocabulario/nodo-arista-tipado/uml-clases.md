@@ -93,7 +93,7 @@ Reservation "*" --> "0..1" Table : assigned_to
 BookingService ..> Reservation
 ```
 
-**Resultado esperado** (lo que `graph_ui` + `VocabularyDoc` debería poder dibujar desde el mundo de
+**Resultado esperado** (lo que `graph_ui` + vocabulario visual debería poder dibujar desde el mundo de
 la sección 6):
 
 ![UML de clases del restaurante](uml-clases.assets/uml-clases.spec2viz.svg)
@@ -170,7 +170,7 @@ Nota de sintaxis aprendida en el camino: en la condición, un literal de texto v
 (`kind = "interface"`). Sin comillas, `sldb` no encuentra nada y `pron` rechaza también la arista
 válida.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

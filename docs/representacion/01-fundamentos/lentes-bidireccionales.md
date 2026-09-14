@@ -119,7 +119,7 @@ diff de estados no sabe cuál fue la intención.
 
 ## Aplicación a `pron` y `graph_ui`
 
-- Un `VocabularyDoc` debería declarar **gestos → operaciones** (qué escritura concreta produce cada
+- Un vocabulario visual debería declarar **gestos → operaciones** (qué escritura concreta produce cada
   gesto), no confiar en un diff posterior. Es lo que hace GLSP con sus *operations* tipadas
   ([`../02-prior-art/`](../02-prior-art/index.md)).
 - GetPut y PutGet son tests naturales para cada mapeo de un vocabulario, contra un store real:

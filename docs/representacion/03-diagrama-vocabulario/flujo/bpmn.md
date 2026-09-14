@@ -174,7 +174,7 @@ pool = "{pool}" and position != "start"  Event:quiere-cenar -> Task:pedir-mesa  
 - Sobre el **origen** no se puede: interpolado, el valor del origen queda como literal a la izquierda y
   `sldb` evalúa `"start" != "end"` como falso.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

@@ -163,7 +163,7 @@ Pasa. `cardinality` acota el **máximo** de cada lado; no hay mínimo. "Exactame
 son indistinguibles en el mundo: la diferencia entre `||` y `|o` en crow's foot, o entre
 participación total y parcial en Chen, solo vive en la prosa de `description`.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 Este vocabulario aplica al **nivel de tipos**.
 

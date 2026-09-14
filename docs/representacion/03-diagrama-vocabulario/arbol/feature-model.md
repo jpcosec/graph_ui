@@ -151,7 +151,7 @@ Su mundo ([`graph-ui-muerta.mundo.yaml`](feature-model.assets/graph-ui-muerta.mu
 ['Claro']`). Una feature muerta no es un error de tipos ni de cardinalidad: es una consecuencia lógica del
 conjunto, que ningún chequeo por arista puede ver.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

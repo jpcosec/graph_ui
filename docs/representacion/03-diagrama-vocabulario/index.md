@@ -3,7 +3,7 @@
 No todos los vocabularios son "cajas unidas por flechas". Lo que cambia de uno a otro es **dónde
 vive el significado** en el diagrama: en la forma de un nodo, en estar dentro de otro, en la
 posición sobre un eje, en alternar dos clases de nodo… Esa diferencia decide qué tiene que poder
-declarar un `VocabularyDoc`, qué layout necesita `graph_ui` y qué gestos de edición tienen
+declarar un vocabulario visual, qué layout necesita `graph_ui` y qué gestos de edición tienen
 sentido.
 
 Este eje tiene dos niveles. **Nivel 1**: una carpeta por lugar donde vive el significado.
@@ -11,7 +11,7 @@ Este eje tiene dos niveles. **Nivel 1**: una carpeta por lugar donde vive el sig
 
 ## Nivel 1 — dónde vive el significado
 
-| Carpeta | El significado vive en… | Ejemplos (nivel 2) | Qué exige al `VocabularyDoc` |
+| Carpeta | El significado vive en… | Ejemplos (nivel 2) | Qué exige al vocabulario visual |
 |---|---|---|---|
 | [`nodo-arista-tipado/`](nodo-arista-tipado/index.md) | la forma del nodo y el trazo/terminales de la arista | UML de clases, entidad-relación, ArchiMate, mapa conceptual, VOWL | kind de modelo → símbolo; kind de relación → trazo, marcadores de extremo, roles, multiplicidad |
 | [`anidamiento/`](anidamiento/index.md) | estar dentro de otro | UML de paquetes, C4, UML de despliegue, treemap | declarar que una relación se dibuja como contención y no como arista |
@@ -41,4 +41,4 @@ mismo: **tipos de los extremos, cardinalidad máxima por verbo y `condition` al 
 demás —participación mínima, exclusión entre verbos, unicidad, rangos, árboles, totales, orden, reglas de
 contenedor, fórmulas— lo verificó un script del vocabulario. El detalle está en el
 [resumen de huecos](../huecos.md), y la forma de declararlo, en la
-[propuesta de `VocabularyDoc`](../propuesta-vocabularydoc.md).
+[propuesta de vocabulario visual](../propuesta-vocabulario-visual.md).

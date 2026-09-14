@@ -121,7 +121,7 @@ las formas de los `AnchorDoc` como alias.
 
 No hay control negativo: el vocabulario no tiene gramática que violar.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

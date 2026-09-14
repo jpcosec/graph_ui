@@ -118,7 +118,7 @@ que elegir el verbo según la clase del origen, como en [Petri](../estado-bipart
 
 Es el caso más directo de **una sintaxis abstracta con dos sintaxis concretas** (ver
 [sintaxis abstracta y concreta](../../01-fundamentos/sintaxis-abstracta-y-concreta.md)): mismo mundo, dos
-vocabularios de dibujo, y un `VocabularyDoc` por notación o uno con variantes.
+vocabularios de dibujo, y un vocabulario visual por notación o uno con variantes.
 
 ### Qué regla hace cumplir quién
 
@@ -142,7 +142,7 @@ AGUJERO NEGRO: el proceso p5 no produce nada
 Es la participación mínima que falta en `kgdb` (ver [entidad-relación](../nodo-arista-tipado/entidad-relacion.md)),
 ahora por clase: "todo `Process` origen de al menos un `produces`".
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Aplicabilidad**: el mundo tiene procesos y verbos de flujo de datos. Una vista DFD sobre un mundo sin
 eso no se ofrece.

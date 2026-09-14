@@ -162,7 +162,7 @@ sigue las aristas). Lo que no puede dibujar:
 Es decir: la vista Flujo no es inútil por dibujar un grafo dirigido, sino por **no saber qué es un paso,
 qué es control y qué es una guarda**, y por ofrecerse sobre cualquier mundo.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Aplicabilidad**: el mundo tiene un verbo de secuencia (`control_flow`) entre modelos de paso. Sin eso la
 vista no se ofrece.

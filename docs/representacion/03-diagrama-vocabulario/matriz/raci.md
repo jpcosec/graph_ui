@@ -101,7 +101,7 @@ CELDA CON consulted/informed: t-buscar × r-gerente
 La tercera es pariente de "exactamente uno de varios verbos" de [IBIS](../n-aria/argument-maps-ibis.md): aquí
 la exclusión es **por par** (tarea, rol), no por origen.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Aplicabilidad**: un conjunto de verbos con los mismos `source_types` y `target_types` (la celda es
 "cuál de ellos existe").

@@ -105,13 +105,13 @@ La hora (ordenada) va a posición x; la mesa (categórica, viene del verbo `assi
 y; el estado (categórico) a color; el tamaño del grupo (cuantitativo) a tamaño. Es una
 representación de *posición* del eje 3, declarada en seis líneas.
 
-Lo que Vega-Lite **no** tiene y un `VocabularyDoc` sí necesita: marcas de conexión y contención
+Lo que Vega-Lite **no** tiene y un vocabulario visual sí necesita: marcas de conexión y contención
 (no dibuja grafos), kinds con símbolos propios, y el camino de vuelta (arrastrar un punto no edita
 `start`).
 
 ## Aplicación a `pron` y `graph_ui`
 
-- Un `VocabularyDoc` debería declarar, por constructo, **el canal y el tipo del dato** —como la
+- Un vocabulario visual debería declarar, por constructo, **el canal y el tipo del dato** —como la
   `encoding` de Vega-Lite—, no un estilo suelto.
 - `graph_ui` ya usa bien un canal de identidad: la clase de un documento se codifica con tono por
   *slot* (`shared/classes.mjs`). Los tipos de arista, en cambio, se distinguen solo por patrón de

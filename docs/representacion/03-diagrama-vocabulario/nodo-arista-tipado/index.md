@@ -41,7 +41,7 @@ Lo que dejaron los cinco ejemplos:
 
 - **Dos niveles.** UML de clases y mapa conceptual se montaron sobre **instancias** (opción B); ER y
   OWL/VOWL, sobre el **esquema** del mundo (opción A); ArchiMate, sobre instancias con un modelo por
-  tipo de elemento. El `VocabularyDoc` tiene que poder declarar ambos niveles.
+  tipo de elemento. El vocabulario visual tiene que poder declarar ambos niveles.
 - **La arista basada en elemento es la regla, no la excepción.** Asociación UML con roles y
   multiplicidades, atributo de relación en ER: en cuanto la relación lleva datos, se reifica en un
   documento con dos aristas. La vista necesita dibujar "un documento con dos extremos" como **una**

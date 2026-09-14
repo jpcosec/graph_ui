@@ -182,7 +182,7 @@ CICLO EN LA CADENA: ValueComponent:cup-of-tea -> ValueComponent:hot-water -> Val
 10 elementos, 3 problema(s)
 ```
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

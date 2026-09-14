@@ -193,7 +193,7 @@ Dato de proceso: el primer control negativo elegido para este ejemplo (`Node` si
 `BusinessActor`) resultó estar **permitido** por ArchiMate. Solo contrastar con la matriz real lo
 mostró.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 
@@ -207,7 +207,7 @@ El vocabulario necesita clasificar cada modelo en **dos dimensiones** (capa y as
 símbolo de la combinación: menos símbolos declarados, más combinaciones (economía gráfica).
 
 **Gramática de conexión**: la matriz (origen, destino) → relaciones permitidas debería vivir **en el
-`VocabularyDoc`**, como en Archi, no en el sustrato. Con ella la vista puede ofrecer, al soltar una
+vocabulario visual**, como en Archi, no en el sustrato. Con ella la vista puede ofrecer, al soltar una
 arista, solo las relaciones válidas para ese par.
 
 **Para editar**

@@ -127,7 +127,7 @@ EMPIEZA ANTES QUE SU DEPENDENCIA: Task:t-aed6e95 empieza 2026-09-14 05:20, Task:
 La regla 1 (fin ≥ inicio dentro del **mismo** documento) no tiene dónde declararse en el sustrato: una
 `condition` compara el destino de una arista con el origen, no dos campos de un documento.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

@@ -150,7 +150,7 @@ Controles negativos sobre las reglas de la sección 4:
 
 `cardinality: many_to_one` garantiza un dueño; nada garantiza que la pertenencia sea un árbol.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 

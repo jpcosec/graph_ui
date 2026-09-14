@@ -23,7 +23,7 @@ hueco que aparece en un documento se consolida en [`huecos.md`](huecos.md).
 
 La separación de fondo tiene nombre en la literatura: **sintaxis abstracta** (qué hay y qué
 significa: lo que declara el mundo pron) y **sintaxis concreta** (cómo se ve y cómo se manipula:
-lo que declarará un `VocabularyDoc`). Ver [`01-fundamentos/`](01-fundamentos/index.md).
+lo que declarará un vocabulario visual, sobre las palabras del vocabulario de `pron`). Ver [`01-fundamentos/`](01-fundamentos/index.md).
 
 ## Las tres preguntas que ordenan el manual
 
@@ -37,23 +37,31 @@ Cada carpeta tiene un `index.md` que la resume y enlaza un documento por tipo. E
 niveles: primero *dónde vive el significado* en el diagrama (forma de los nodos, anidamiento,
 posición, …) y dentro de cada uno, *un documento por notación de ejemplo*.
 
-Al final, con todo lo anterior, [`propuesta-vocabularydoc.md`](propuesta-vocabularydoc.md) propone el
-documento que declara un vocabulario, validado contra tres mundos del manual.
+Al final, con todo lo anterior, [`propuesta-vocabulario-visual.md`](propuesta-vocabulario-visual.md) propone el
+vocabulario visual de `graph_ui` sobre el vocabulario de `pron`.
 
 ## Decisiones ya tomadas
 
-1. **`pron` es el sustrato genérico; los vocabularios son del front.** Un mundo declara documentos
-   tipados (modelos `StructuredNLDoc`), verbos (`RelationTypeDoc` de `kgdb`) y aristas
-   (`RelationDoc`). `pron`, `kgdb` y `sldb` no deberían saber que UML existe.
-2. **La semántica de dibujo va en un documento propio (`VocabularyDoc`)**, separado de
-   `ProjectionDoc`. `ProjectionDoc` dice *qué puede nombrar una sesión* (spec 01/05 de `pron`);
-   `VocabularyDoc` dirá *cómo se representa y se edita*. Es la misma separación que Fresnel hace
-   entre *lenses* y *formats* (ver [`02-prior-art/`](02-prior-art/index.md)).
-3. **UML es el primer vocabulario de prueba.** Si el diseño es bueno, implementarlo no toca
-   código de `pron`/`kgdb`/`sldb`: basta declarar modelos y relaciones en un mundo y describir el
-   vocabulario.
-4. **No toda vista aplica a todo dato.** Un vocabulario declara qué necesita de un mundo; una vista
-   se ofrece solo cuando el mundo lo tiene.
+1. **El vocabulario es de `pron`; el vocabulario visual es de `graph_ui`.** En `pron` el vocabulario de
+   un mundo es su léxico (spec 05): modelos, campos y valores, verbos (`RelationTypeDoc`), verbos de
+   acción del kernel, y alias (`AnchorDoc`: sustantivos, adjetivos `predicate:`, acciones con valor
+   fijo, oraciones `compose`), recortado por un `ProjectionDoc`. `graph_ui` no tiene vocabulario
+   propio (spec 10 §3): su **vocabulario visual** dice cómo se dibujan esas palabras y qué gesto dice
+   cada una. `pron`, `kgdb` y `sldb` no deberían saber que UML existe como notación.
+2. **El vocabulario visual son documentos del mundo, en paralelo a los de `pron`** (como `AnchorDoc`
+   y `ProjectionDoc`), no una lista en código. Lo que falte para representar un vocabulario se agrega
+   **extendiendo `pron`** (palabras, reglas, contrato de runtime), no reimplementándolo en el front.
+3. **Se escribe por `pron` y de inmediato.** Cada gesto es un movimiento de `pron`, con su `MoveDoc`,
+   sus verificaciones y `undo`; no hay borrador ni botón de guardar. Las versiones las lleva git.
+4. **Las reglas generales van al sustrato y bloquean** (participación mínima, unicidad…), en `kgdb`
+   o `pron`, no como verificadores del front.
+5. **UML es el primer vocabulario de prueba.** Si el diseño es bueno, implementarlo no toca código:
+   basta declarar modelos, verbos y alias en un mundo y su vocabulario visual.
+6. **No toda vista aplica a todo dato.** Una vista se ofrece solo cuando el mundo tiene las palabras que
+   su vocabulario visual dibuja.
+
+La [propuesta](propuesta-vocabulario-visual.md) explica qué cambió respecto de la primera versión,
+que mezclaba en un solo documento el vocabulario de `pron` y el visual.
 
 ## Cómo leer cada documento
 
@@ -72,7 +80,8 @@ más adelante, modelar como documentos de un store.
   5. ejemplo en su notación estándar, renderizado con la herramienta que ya existe (resultado
      esperado);
   6. el mismo ejemplo como mundo `pron`, montado de verdad;
-  7. qué tendría que declarar un `VocabularyDoc` para dibujarlo y editarlo;
+  7. qué tendría que declarar el vocabulario visual para dibujarlo y editarlo (las columnas de
+     escritura de esas tablas son palabras de `pron`: verbos, acciones y alias `compose`);
   8. huecos;
   9. fuentes.
 
@@ -83,7 +92,7 @@ tanto, cada ejemplo del eje 3 se renderiza con la herramienta que ya lo hace (`p
 `dot`, `spec2viz`, bpmn-js, Vega) y la imagen queda en `<documento>.assets/`. Cuando la notación no
 tiene renderer instalado (Wardley, Petri, DFD, IBIS), el documento lo dice y dibuja desde el mundo con
 las convenciones de la notación. Esa imagen es el **resultado
-esperado**: el día que `graph_ui` + `VocabularyDoc` funcione, desde el mundo `pron` del mismo
+esperado**: el día que `graph_ui` + vocabulario visual funcione, desde el mundo `pron` del mismo
 documento tiene que producir algo semánticamente equivalente. Renderizar también atrapa ejemplos
 mal escritos, que de otro modo pasarían inadvertidos en un manual.
 
@@ -96,7 +105,7 @@ su especificación exige.
 El mundo `pron` equivalente se monta de verdad en un directorio temporal y se pasa por
 `pron check`. Si algo del ejemplo no se puede expresar, no se esconde: es un hueco y se anota. Las
 reglas que el mundo acepta y la notación no (el "monta sano" de cada control negativo) las verifica un
-script del vocabulario, que es lo que un `VocabularyDoc` tendría que poder declarar.
+script; esas reglas son las que el sustrato tendría que poder declarar (decisión 4).
 
 Los fragmentos de código de herramientas y notaciones externas se copian de su documentación
 oficial con el enlace exacto.
@@ -113,8 +122,9 @@ y `pron`.
 | Sintaxis abstracta | Los constructos de un lenguaje y sus relaciones, sin notación. En nuestro caso, lo que el mundo declara. |
 | Sintaxis concreta | La forma perceptible de esos constructos (símbolos, trazos, posición) y los gestos para manipularlos. |
 | Metamodelo | Modelo que define un lenguaje de modelado. UML está definido por un metamodelo. |
-| Vocabulario | Un lenguaje de representación concreto (UML de clases, ER, BPMN…): qué kinds de nodo y relación tiene y cómo se ven. |
-| `VocabularyDoc` | Documento (por diseñar) que declara un vocabulario sobre un mundo. |
+| Vocabulario | El léxico de un mundo `pron` (spec 05): modelos, campos, valores, verbos, verbos de acción y alias. Es de `pron`. |
+| Notación | Un lenguaje de representación concreto (UML de clases, ER, BPMN…): qué constructos tiene y cómo se ven. |
+| Vocabulario visual | Documentos del mundo, interpretados por `graph_ui`, que dicen cómo se dibujan las palabras de un vocabulario en una notación y qué gesto dice cada palabra. |
 | `ProjectionDoc` | Documento de `pron` que declara qué puede nombrar una sesión (modelos, relaciones, plantillas de nombre). |
 | Proyectar | Mostrar datos infiriendo su forma visual de la forma del payload. |
 | Representar | Mostrar datos según un significado declarado, con acciones que significan algo en lo representado. |
@@ -130,4 +140,4 @@ y `pron`.
 | [`02-prior-art/`](02-prior-art/index.md) | escrito |
 | [`03-diagrama-vocabulario/`](03-diagrama-vocabulario/index.md) | escrito |
 | [`huecos.md`](huecos.md) | consolidado, con resumen por tema |
-| [`propuesta-vocabularydoc.md`](propuesta-vocabularydoc.md) | propuesta para discutir |
+| [`propuesta-vocabulario-visual.md`](propuesta-vocabulario-visual.md) | propuesta para discutir |

@@ -103,7 +103,7 @@ cardinality is many_to_one`.
 rol) serían dos verbos, cada uno `many_to_one`, y la celda la intersección: el vocabulario tiene que
 saber que son **dimensiones** del mismo diagrama.
 
-## 7. Qué tendría que declarar un `VocabularyDoc`
+## 7. Qué tendría que declarar el vocabulario visual
 
 **Para dibujar**
 
