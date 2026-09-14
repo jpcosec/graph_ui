@@ -91,6 +91,10 @@ El mundo `pron` equivalente se monta de verdad en un directorio temporal y se pa
 Los fragmentos de código de herramientas y notaciones externas se copian de su documentación
 oficial con el enlace exacto.
 
+Los mundos de ejemplo se montan con [`herramientas/montar_mundo.py`](herramientas/montar_mundo.py),
+que lee un YAML (modelos, tipos de relación, documentos, relaciones) y solo invoca los CLI de `sldb`
+y `pron`.
+
 ## Glosario mínimo
 
 | Término | Significado en este manual |
@@ -112,7 +116,7 @@ oficial con el enlace exacto.
 
 | Documento | Estado |
 |---|---|
-| [`01-fundamentos/`](01-fundamentos/index.md) | en curso |
+| [`01-fundamentos/`](01-fundamentos/index.md) | escrito |
 | [`02-prior-art/`](02-prior-art/index.md) | en curso |
 | [`03-diagrama-vocabulario/`](03-diagrama-vocabulario/index.md) | en curso |
 | [`huecos.md`](huecos.md) | se alimenta de los ejes |

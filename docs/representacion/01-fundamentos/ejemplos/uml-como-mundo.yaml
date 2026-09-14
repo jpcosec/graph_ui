@@ -1,0 +1,38 @@
+# UML como dominio de un mundo pron (opción B de metamodelado-mof.md):
+# las metaclases de UML son modelos del mundo y cada clase del sistema diseñado es un documento.
+modelos:
+  - name: UmlClass
+    family: uml
+    template: |
+      ---
+      name: ⸢rev•name⸥
+      kind: ⸢rev•kind⸥
+      attributes: ⸢rev,list•attributes⸥
+      ---
+
+      # ⸢render•name⸥
+    fields:
+      - {name: name, type: str, description: "Nombre de la clase."}
+      - {name: kind, type: str, default: class, description: "class, interface, abstract, enum."}
+      - {name: attributes, type: "list[str]", default: [], description: "Atributos como 'nombre: tipo'."}
+
+tipos_de_relacion:
+  - name: generalizes
+    cardinality: many_to_many
+    source_types: [UmlClass]
+    target_types: [UmlClass]
+    description: "El origen es un subtipo del destino (generalización UML)."
+  - name: associates
+    cardinality: many_to_many
+    source_types: [UmlClass]
+    target_types: [UmlClass]
+    description: "Asociación UML entre dos clases."
+
+documentos:
+  - {model: UmlClass, name: person, payload: {name: Person, kind: abstract, attributes: ["name: str"]}}
+  - {model: UmlClass, name: client, payload: {name: Client, kind: class, attributes: ["phone: str"]}}
+  - {model: UmlClass, name: reservation, payload: {name: Reservation, kind: class, attributes: ["date: str", "party_size: int"]}}
+
+relaciones:
+  - {type: generalizes, source: "UmlClass:client", target: "UmlClass:person"}
+  - {type: associates, source: "UmlClass:reservation", target: "UmlClass:client"}

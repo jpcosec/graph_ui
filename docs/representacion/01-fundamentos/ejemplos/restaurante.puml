@@ -1,0 +1,20 @@
+@startuml
+left to right direction
+class Client {
+  name : str
+  phone : str
+}
+class Table {
+  number : int
+  capacity : int
+  zone : terrace | indoor
+}
+class Reservation {
+  date : str
+  time : str
+  party_size : int
+  status : pending | confirmed | seated | cancelled
+}
+Reservation "*" --> "1" Client : booked_by
+Reservation "*" --> "1" Table : assigned_to
+@enduml

@@ -1,0 +1,25 @@
+id: restaurante-reservas
+title: Reservas del restaurante (pron, spec 09a)
+type: class
+version: "0.1"
+data:
+  direction: LR
+  classes:
+    Client:
+      attributes:
+        - {name: name, type: str}
+        - {name: phone, type: str}
+    Table:
+      attributes:
+        - {name: number, type: int}
+        - {name: capacity, type: int}
+        - {name: zone, type: "terrace | indoor"}
+    Reservation:
+      attributes:
+        - {name: date, type: str}
+        - {name: time, type: str}
+        - {name: party_size, type: int}
+        - {name: status, type: "pending | confirmed | seated | cancelled"}
+  relations:
+    - {from: Reservation, to: Client, relation: association, label: booked_by, from_multiplicity: "*", to_multiplicity: "1"}
+    - {from: Reservation, to: Table, relation: association, label: assigned_to, from_multiplicity: "*", to_multiplicity: "1"}

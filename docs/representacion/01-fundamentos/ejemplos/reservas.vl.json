@@ -1,0 +1,19 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Reservas del restaurante (pron, spec 09a): cada campo del mundo va a un canal visual con su tipo de dato.",
+  "data": {
+    "values": [
+      {"reservation": "r-1", "start": "2026-09-11T20:00", "table": "3", "status": "pending", "party_size": 4},
+      {"reservation": "r-2", "start": "2026-09-11T21:00", "table": "12", "status": "confirmed", "party_size": 6},
+      {"reservation": "r-3", "start": "2026-09-11T20:30", "table": "14", "status": "seated", "party_size": 8}
+    ]
+  },
+  "mark": "point",
+  "encoding": {
+    "x": {"field": "start", "type": "temporal", "title": "hora"},
+    "y": {"field": "table", "type": "nominal", "title": "mesa (assigned_to)"},
+    "color": {"field": "status", "type": "nominal"},
+    "size": {"field": "party_size", "type": "quantitative"},
+    "tooltip": {"field": "reservation", "type": "nominal"}
+  }
+}
