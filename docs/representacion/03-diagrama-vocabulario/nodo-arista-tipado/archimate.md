@@ -230,10 +230,18 @@ arista, solo las relaciones válidas para ese par.
 - **Relaciones como extremo de otras relaciones**: `Relationship` es uno de los 62 conceptos de la
   matriz (en ArchiMate una asociación puede apuntar a una relación). En `kgdb` una `RelationDoc` no es
   un nodo del grafo (*"the RelationDoc itself is not a node"*, `ingest/typed.py`), así que no puede
-  ser extremo de otra. Se verifica en [`../n-aria/`](../n-aria/index.md).
-- **Clasificación multidimensional** (capa × aspecto) no tiene lugar en el modelo: `__family__` y
-  `__semantics__` existen pero no hay forma estándar de decir "esta clase es de la capa Negocio y del
-  aspecto Comportamiento" que un vocabulario pueda leer.
+  ser extremo de otra. Verificado en [clase de asociación](../n-aria/clase-de-asociacion.md): falla al
+  ensamblar.
+- **Clasificación multidimensional** (capa × aspecto): **se puede declarar**. Mundo
+  [`clasificacion.mundo.yaml`](archimate.assets/clasificacion.mundo.yaml): `sldb models create` con
+  `semantics: {layer: [business], aspect: [active_structure]}` genera `__semantics__ = {'aspect':
+  ['active_structure'], 'layer': ['business']}`, y el índice semántico del store lo guarda como etiquetas
+  `layer.business`, `aspect.active_structure`. Dos problemas:
+  - **Los nombres de dimensión son globales**: en el mismo índice, `layer.topology` es la capa que `kgdb`
+    le pone a sus `RelationTypeDoc`. La "capa" de ArchiMate y la de `kgdb` se mezclan; hace falta un
+    espacio de nombres (`archimate.layer`) o una convención.
+  - **`graph_ui` no las lee**: el esquema que entrega la vista (`SldbAdapter.schema`) trae `id`,
+    `model_ref`, `fields`, `containment` y `references`; ni `family` ni `semantics`.
 
 ## 9. Fuentes
 

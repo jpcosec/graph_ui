@@ -1,0 +1,19 @@
+# Clasificación de dos conceptos de ArchiMate en dos dimensiones (capa, aspecto) con __semantics__ declarado por CLI.
+modelos:
+- name: BusinessActor
+  family: archimate
+  semantics: {layer: [business], aspect: [active_structure]}
+  template: "---\nname: ⸢rev•name⸥\n---\n\n# ⸢render•name⸥\n"
+  fields:
+  - {name: name, type: str, description: Nombre.}
+- name: ApplicationService
+  family: archimate
+  semantics: {layer: [application], aspect: [behavior]}
+  template: "---\nname: ⸢rev•name⸥\n---\n\n# ⸢render•name⸥\n"
+  fields:
+  - {name: name, type: str, description: Nombre.}
+tipos_de_relacion: []
+documentos:
+- {model: BusinessActor, name: cliente, payload: {name: Cliente}}
+- {model: ApplicationService, name: reservas, payload: {name: Servicio de reservas}}
+relaciones: []
