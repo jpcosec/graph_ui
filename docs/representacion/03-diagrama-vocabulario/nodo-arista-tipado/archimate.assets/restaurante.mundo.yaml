@@ -1,0 +1,274 @@
+# ArchiMate como dominio de un mundo pron (opción B): un modelo por tipo de elemento ArchiMate usado
+# en el ejemplo, un RelationTypeDoc por tipo de relación. source_types × target_types es un producto;
+# la gramática de ArchiMate no lo es (ver validar-contra-archi.py).
+modelos:
+- name: BusinessActor
+  family: archimate
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+
+    ## Documentation
+
+
+    ⸢rev•documentation⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre del elemento.
+  - name: documentation
+    type: str
+    default: ''
+    description: Entidad de negocio capaz de realizar comportamiento.
+- name: BusinessRole
+  family: archimate
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+
+    ## Documentation
+
+
+    ⸢rev•documentation⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre del elemento.
+  - name: documentation
+    type: str
+    default: ''
+    description: Responsabilidad para realizar comportamiento, asignable a actores.
+- name: BusinessProcess
+  family: archimate
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+
+    ## Documentation
+
+
+    ⸢rev•documentation⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre del elemento.
+  - name: documentation
+    type: str
+    default: ''
+    description: Secuencia de comportamiento de negocio que produce un resultado.
+- name: BusinessService
+  family: archimate
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+
+    ## Documentation
+
+
+    ⸢rev•documentation⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre del elemento.
+  - name: documentation
+    type: str
+    default: ''
+    description: Comportamiento de negocio expuesto a su entorno.
+- name: ApplicationComponent
+  family: archimate
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+
+    ## Documentation
+
+
+    ⸢rev•documentation⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre del elemento.
+  - name: documentation
+    type: str
+    default: ''
+    description: Parte encapsulada de un sistema de software.
+- name: ApplicationService
+  family: archimate
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+
+    ## Documentation
+
+
+    ⸢rev•documentation⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre del elemento.
+  - name: documentation
+    type: str
+    default: ''
+    description: Comportamiento de aplicación expuesto a su entorno.
+- name: Node
+  family: archimate
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+
+    ## Documentation
+
+
+    ⸢rev•documentation⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre del elemento.
+  - name: documentation
+    type: str
+    default: ''
+    description: Recurso computacional o físico que aloja o ejecuta.
+tipos_de_relacion:
+- name: assignment
+  cardinality: many_to_many
+  source_types:
+  - BusinessActor
+  - BusinessRole
+  - ApplicationComponent
+  target_types:
+  - BusinessRole
+  - BusinessProcess
+  - ApplicationService
+  description: 'Asignación: quién o qué realiza un comportamiento o cumple un rol.'
+- name: realization
+  cardinality: many_to_many
+  source_types:
+  - BusinessProcess
+  - ApplicationComponent
+  target_types:
+  - BusinessService
+  - ApplicationService
+  description: 'Realización: un elemento concreto realiza uno más abstracto (un proceso realiza un servicio).'
+- name: serving
+  cardinality: many_to_many
+  source_types:
+  - BusinessService
+  - ApplicationService
+  - Node
+  target_types:
+  - BusinessActor
+  - BusinessProcess
+  - ApplicationComponent
+  description: 'Servicio: un elemento provee su funcionalidad a otro.'
+documentos:
+- model: BusinessActor
+  name: cliente
+  payload:
+    name: Cliente
+- model: BusinessRole
+  name: comensal
+  payload:
+    name: Comensal
+- model: BusinessProcess
+  name: reservar
+  payload:
+    name: Reservar mesa
+- model: BusinessService
+  name: servicio-reservas
+  payload:
+    name: Servicio de reservas
+- model: ApplicationComponent
+  name: pron
+  payload:
+    name: pron
+- model: ApplicationService
+  name: interpretar-pedido
+  payload:
+    name: Interpretar pedido (pron say)
+- model: Node
+  name: servidor
+  payload:
+    name: Servidor
+relaciones:
+- type: assignment
+  source: BusinessActor:cliente
+  target: BusinessRole:comensal
+- type: assignment
+  source: BusinessRole:comensal
+  target: BusinessProcess:reservar
+- type: realization
+  source: BusinessProcess:reservar
+  target: BusinessService:servicio-reservas
+- type: serving
+  source: BusinessService:servicio-reservas
+  target: BusinessActor:cliente
+- type: serving
+  source: ApplicationService:interpretar-pedido
+  target: BusinessProcess:reservar
+- type: realization
+  source: ApplicationComponent:pron
+  target: ApplicationService:interpretar-pedido
+- type: serving
+  source: Node:servidor
+  target: ApplicationComponent:pron
+relaciones_invalidas:
+- type: assignment
+  source: BusinessRole:comensal
+  target: BusinessRole:comensal
+  porque: ArchiMate no permite asignación de un rol a un rol; está dentro de source_types × target_types

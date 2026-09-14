@@ -1,0 +1,20 @@
+@startuml
+!include <archimate/Archimate>
+title Reservas del restaurante (ArchiMate)
+
+Business_Actor(cliente, "Cliente")
+Business_Role(comensal, "Comensal")
+Business_Process(reservar, "Reservar mesa")
+Business_Service(serv_reservas, "Servicio de reservas")
+Application_Component(pron, "pron")
+Application_Service(say, "Interpretar pedido (pron say)")
+Technology_Node(servidor, "Servidor")
+
+Rel_Assignment(cliente, comensal, "")
+Rel_Assignment(comensal, reservar, "")
+Rel_Realization(reservar, serv_reservas, "")
+Rel_Serving(serv_reservas, cliente, "")
+Rel_Serving(say, reservar, "")
+Rel_Realization(pron, say, "")
+Rel_Serving(servidor, pron, "")
+@enduml

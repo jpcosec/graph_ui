@@ -31,7 +31,7 @@ todas las líneas se ven iguales.
 |---|---|---|---|
 | [uml-clases.md](uml-clases.md) | UML, diagrama de clases | estructura de tipos: clases, interfaces, herencia, composición, asociaciones | escrito |
 | [entidad-relacion.md](entidad-relacion.md) | ER (Chen / crow's foot) | datos persistentes: entidades, atributos, relaciones con cardinalidad | escrito |
-| archimate.md | ArchiMate | arquitectura empresarial por capas (negocio, aplicación, tecnología) | pendiente |
+| [archimate.md](archimate.md) | ArchiMate | arquitectura empresarial por capas (negocio, aplicación, tecnología) | escrito |
 | mapa-conceptual.md | mapa conceptual | conceptos unidos por proposiciones etiquetadas | pendiente |
 | vowl-owl.md | VOWL | clases y propiedades de una ontología OWL | pendiente |
 
