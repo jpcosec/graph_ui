@@ -1,0 +1,25 @@
+digraph mesas {
+  rankdir=LR; node [fontname="Helvetica"]; edge [fontname="Helvetica"];
+  "mesas-libres" [shape=circle, width=1.55, fixedsize=true, fontsize=11, label="mesas libres\n●●"];
+  "pareja-espera" [shape=circle, width=1.55, fixedsize=true, fontsize=11, label="parejas esperando\n●●"];
+  "grupo-espera" [shape=circle, width=1.55, fixedsize=true, fontsize=11, label="grupos esperando\n●"];
+  "pareja-come" [shape=circle, width=1.55, fixedsize=true, fontsize=11, label="parejas comiendo\n"];
+  "grupo-come" [shape=circle, width=1.55, fixedsize=true, fontsize=11, label="grupos comiendo\n"];
+  "atendidos" [shape=circle, width=1.55, fixedsize=true, fontsize=11, label="atendidos\n"];
+  "sentar-pareja" [shape=box, style=filled, fillcolor=black, fontcolor=white, fontsize=11, label="sentar pareja"];
+  "sentar-grupo" [shape=box, style=filled, fillcolor=black, fontcolor=white, fontsize=11, label="sentar grupo (junta dos mesas)"];
+  "sale-pareja" [shape=box, style=filled, fillcolor=black, fontcolor=white, fontsize=11, label="sale pareja"];
+  "sale-grupo" [shape=box, style=filled, fillcolor=black, fontcolor=white, fontsize=11, label="sale grupo"];
+  "pareja-espera" -> "sentar-pareja";
+  "mesas-libres" -> "sentar-pareja";
+  "sentar-pareja" -> "pareja-come";
+  "grupo-espera" -> "sentar-grupo";
+  "mesas-libres" -> "sentar-grupo" [label="2"];
+  "sentar-grupo" -> "grupo-come";
+  "pareja-come" -> "sale-pareja";
+  "sale-pareja" -> "mesas-libres";
+  "sale-pareja" -> "atendidos";
+  "grupo-come" -> "sale-grupo";
+  "sale-grupo" -> "mesas-libres" [label="2"];
+  "sale-grupo" -> "atendidos";
+}

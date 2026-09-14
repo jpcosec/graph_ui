@@ -1,0 +1,152 @@
+# Red de Petri de las mesas (mesas.pnml) como mundo pron, generada desde el PNML.
+# Lugar y transición son modelos; los arcos son dos verbos cuyos tipos imponen la bipartición.
+# El peso de un arco no tiene campo en RelationDoc: va en notes como peso=N.
+modelos:
+- name: Place
+  family: petri
+  template: '---
+
+    label: ⸢rev•label⸥
+
+    tokens: ⸢rev•tokens⸥
+
+    ---
+
+
+    # ⸢render•label⸥
+
+    '
+  fields:
+  - name: label
+    type: str
+    description: Nombre del lugar.
+  - name: tokens
+    type: int
+    default: 0
+    description: 'Marcado inicial: cuántas marcas tiene el lugar.'
+- name: Transition
+  family: petri
+  template: '---
+
+    label: ⸢rev•label⸥
+
+    ---
+
+
+    # ⸢render•label⸥
+
+    '
+  fields:
+  - name: label
+    type: str
+    description: Nombre de la transición.
+tipos_de_relacion:
+- name: input_of
+  cardinality: many_to_many
+  source_types:
+  - Place
+  target_types:
+  - Transition
+  description: 'Arco de entrada: el lugar origen entrega marcas a la transición destino al dispararse.'
+- name: output_to
+  cardinality: many_to_many
+  source_types:
+  - Transition
+  target_types:
+  - Place
+  description: 'Arco de salida: la transición origen deposita marcas en el lugar destino al dispararse.'
+documentos:
+- model: Place
+  name: mesas-libres
+  payload:
+    label: mesas libres
+    tokens: 2
+- model: Place
+  name: pareja-espera
+  payload:
+    label: parejas esperando
+    tokens: 2
+- model: Place
+  name: grupo-espera
+  payload:
+    label: grupos esperando
+    tokens: 1
+- model: Place
+  name: pareja-come
+  payload:
+    label: parejas comiendo
+    tokens: 0
+- model: Place
+  name: grupo-come
+  payload:
+    label: grupos comiendo
+    tokens: 0
+- model: Place
+  name: atendidos
+  payload:
+    label: atendidos
+    tokens: 0
+- model: Transition
+  name: sentar-pareja
+  payload:
+    label: sentar pareja
+- model: Transition
+  name: sentar-grupo
+  payload:
+    label: sentar grupo (junta dos mesas)
+- model: Transition
+  name: sale-pareja
+  payload:
+    label: sale pareja
+- model: Transition
+  name: sale-grupo
+  payload:
+    label: sale grupo
+relaciones:
+- type: input_of
+  source: Place:pareja-espera
+  target: Transition:sentar-pareja
+- type: input_of
+  source: Place:mesas-libres
+  target: Transition:sentar-pareja
+- type: output_to
+  source: Transition:sentar-pareja
+  target: Place:pareja-come
+- type: input_of
+  source: Place:grupo-espera
+  target: Transition:sentar-grupo
+- type: input_of
+  source: Place:mesas-libres
+  target: Transition:sentar-grupo
+  notes: peso=2
+- type: output_to
+  source: Transition:sentar-grupo
+  target: Place:grupo-come
+- type: input_of
+  source: Place:pareja-come
+  target: Transition:sale-pareja
+- type: output_to
+  source: Transition:sale-pareja
+  target: Place:mesas-libres
+- type: output_to
+  source: Transition:sale-pareja
+  target: Place:atendidos
+- type: input_of
+  source: Place:grupo-come
+  target: Transition:sale-grupo
+- type: output_to
+  source: Transition:sale-grupo
+  target: Place:mesas-libres
+  notes: peso=2
+- type: output_to
+  source: Transition:sale-grupo
+  target: Place:atendidos
+relaciones_invalidas:
+- type: input_of
+  source: Place:pareja-espera
+  target: Place:mesas-libres
+  porque: un arco no une dos lugares (grafo bipartito)
+- type: output_to
+  source: Transition:sentar-pareja
+  target: Transition:sale-pareja
+  porque: un arco no une dos transiciones

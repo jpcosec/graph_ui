@@ -29,15 +29,32 @@ para estos ejemplos.
 | Documento | Vocabulario | Qué representa | Estado |
 |---|---|---|---|
 | [statecharts.md](statecharts.md) | statecharts (Harel) / máquina de estados UML | estados de una entidad y sus transiciones por eventos | escrito |
-| petri.md | redes de Petri | concurrencia y recursos: lugares, transiciones, tokens | pendiente |
+| [petri.md](petri.md) | redes de Petri | concurrencia y recursos: lugares, transiciones, tokens | escrito |
 
 ## Implicancias
 
-- Para `graph_ui`: validar conexiones en el front a partir de la gramática declarada, antes de
-  escribir.
-- Para el `VocabularyDoc`: reglas de conexión por pares de kinds y aristas con campos
-  estructurados. `kgdb` ya valida `source_types`/`target_types` y `condition` al ingerir: la
-  gramática del vocabulario puede apoyarse en eso.
+Lo que dejaron los dos ejemplos:
+
+| | Gramática de conexión | Semántica de ejecución | Dónde se hace cumplir hoy |
+|---|---|---|---|
+| [statecharts](statecharts.md) | `State → State` | un valor por campo; evento → transición con guarda | `Kernel.change` (oraciones de `pron`); **no** en `Store.replace`, la puerta de `graph_ui` |
+| [Petri](petri.md) | `Place → Transition → Place` | marcado; disparo consume y produce | la bipartición, en la ingesta tipada de `kgdb`; el disparo, en ninguna parte |
+
+- **La gramática por pares se expresa bien cuando hay un verbo por par**: `input_of` y `output_to`
+  rechazan lugar → lugar y transición → transición, mejor que la propia gramática PNML. Para `graph_ui`
+  esto significa que puede **validar antes de escribir** leyendo `source_types`/`target_types`, y elegir
+  el verbo de un arrastre por la clase del origen.
+- **Estos vocabularios se ejecutan**, y el oráculo tiene que ser de comportamiento, no solo un dibujo:
+  XState y SNAKES dieron la secuencia de estados y el grafo de alcanzabilidad contra los que se comparó el
+  mundo. El `VocabularyDoc` tiene que distinguir **editar el modelo** (estados, arcos) de **ejecutarlo**
+  (disparar, simular), y decir si la ejecución escribe al mundo o vive en la vista.
+- **La arista necesita campos**: evento, guarda y efecto en una transición; peso en un arco. `condition`
+  cubre la guarda; el resto no tiene lugar, y dos aristas iguales se pisan en silencio en el grafo de
+  `pron`.
+- **Pseudonodos y derivados**: estado inicial, historia, habilitación de una transición. Unos faltan en el
+  mundo (inicial), otros se calculan (habilitación): el vocabulario tiene que poder declarar ambos.
+- **Corrección a la versión anterior de este índice**: decía que `kgdb` valida `condition` al ingerir. No
+  lo hace; la evalúa `pron` al afirmar o al cambiar un campo (ver [huecos](../../huecos.md)).
 
 ## Fuentes
 

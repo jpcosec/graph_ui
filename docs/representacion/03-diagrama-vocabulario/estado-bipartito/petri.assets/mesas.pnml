@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mesas de un restaurante como red lugar/transición en PNML (ISO/IEC 15909-2), gramática ptnet 2009. -->
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="mesas" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <name><text>Mesas del restaurante</text></name>
+    <page id="p1">
+      <place id="mesas-libres"><name><text>mesas libres</text></name><initialMarking><text>2</text></initialMarking></place>
+      <place id="pareja-espera"><name><text>parejas esperando</text></name><initialMarking><text>2</text></initialMarking></place>
+      <place id="grupo-espera"><name><text>grupos esperando</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="pareja-come"><name><text>parejas comiendo</text></name></place>
+      <place id="grupo-come"><name><text>grupos comiendo</text></name></place>
+      <place id="atendidos"><name><text>atendidos</text></name></place>
+
+      <transition id="sentar-pareja"><name><text>sentar pareja</text></name></transition>
+      <transition id="sentar-grupo"><name><text>sentar grupo (junta dos mesas)</text></name></transition>
+      <transition id="sale-pareja"><name><text>sale pareja</text></name></transition>
+      <transition id="sale-grupo"><name><text>sale grupo</text></name></transition>
+
+      <arc id="a1" source="pareja-espera" target="sentar-pareja"/>
+      <arc id="a2" source="mesas-libres" target="sentar-pareja"/>
+      <arc id="a3" source="sentar-pareja" target="pareja-come"/>
+      <arc id="a4" source="grupo-espera" target="sentar-grupo"/>
+      <arc id="a5" source="mesas-libres" target="sentar-grupo"><inscription><text>2</text></inscription></arc>
+      <arc id="a6" source="sentar-grupo" target="grupo-come"/>
+      <arc id="a7" source="pareja-come" target="sale-pareja"/>
+      <arc id="a8" source="sale-pareja" target="mesas-libres"/>
+      <arc id="a9" source="sale-pareja" target="atendidos"/>
+      <arc id="a10" source="grupo-come" target="sale-grupo"/>
+      <arc id="a11" source="sale-grupo" target="mesas-libres"><inscription><text>2</text></inscription></arc>
+      <arc id="a12" source="sale-grupo" target="atendidos"/>
+    </page>
+  </net>
+</pnml>
