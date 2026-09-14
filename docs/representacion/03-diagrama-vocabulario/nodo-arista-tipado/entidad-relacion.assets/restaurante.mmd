@@ -1,0 +1,19 @@
+erDiagram
+    CLIENT ||--o{ RESERVATION : "booked_by"
+    TABLE |o--o{ RESERVATION : "assigned_to"
+    CLIENT {
+        string name PK
+        string phone
+        string notes
+    }
+    TABLE {
+        int number PK
+        int capacity
+        string zone
+    }
+    RESERVATION {
+        string date
+        string time
+        int party_size
+        string status
+    }

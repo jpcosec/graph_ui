@@ -1,0 +1,75 @@
+# ER del restaurante como ESQUEMA de un mundo pron (opción A de 01-fundamentos/metamodelado-mof.md):
+# entidades = modelos, atributos = campos, relaciones = RelationTypeDoc con cardinality.
+# Las instancias existen para que el mundo sea sano, pero el diagrama ER es del nivel de tipos.
+modelos:
+  - name: Client
+    family: restaurante
+    template: |
+      ---
+      name: ⸢rev•name⸥
+      phone: ⸢rev•phone⸥
+      ---
+
+      # ⸢render•name⸥
+
+      ## Notes
+
+      ⸢rev•notes⸥
+    fields:
+      - {name: name, type: str, description: "Nombre completo; identifica al cliente."}
+      - {name: phone, type: str, description: "Teléfono de contacto."}
+      - {name: notes, type: str, default: "", description: "Observaciones libres."}
+  - name: Table
+    family: restaurante
+    template: |
+      ---
+      number: ⸢rev•number⸥
+      capacity: ⸢rev•capacity⸥
+      zone: ⸢rev•zone⸥
+      ---
+
+      # Table ⸢render•number⸥
+    fields:
+      - {name: number, type: int, description: "Número de mesa; la identifica."}
+      - {name: capacity, type: int, description: "Personas que caben."}
+      - {name: zone, type: str, description: "terrace o indoor (str: sldb models create no genera Literal)."}
+  - name: Reservation
+    family: restaurante
+    template: |
+      ---
+      date: ⸢rev•date⸥
+      time: ⸢rev•time⸥
+      party_size: ⸢rev•party_size⸥
+      status: ⸢rev•status⸥
+      ---
+
+      # Reservation ⸢render•date⸥ ⸢render•time⸥
+    fields:
+      - {name: date, type: str, description: "Fecha ISO."}
+      - {name: time, type: str, description: "Hora HH:MM."}
+      - {name: party_size, type: int, description: "Personas."}
+      - {name: status, type: str, default: pending, description: "pending, confirmed, seated, cancelled."}
+
+tipos_de_relacion:
+  - {name: booked_by, cardinality: many_to_one, axis: WHAT, source_types: [Reservation], target_types: [Client],
+     description: "Quién hizo la reserva. Toda reserva tiene exactamente un cliente."}
+  - {name: assigned_to, cardinality: many_to_one, axis: WHERE, source_types: [Reservation], target_types: [Table],
+     condition: "capacity >= {party_size}",
+     description: "Qué mesa recibe la reserva; puede no tener mesa todavía. La mesa debe alcanzar para todos."}
+
+documentos:
+  - {model: Client, name: client-luis-soto, payload: {name: Luis Soto, phone: "9 2222 0000"}}
+  - {model: Table, name: table-12, payload: {number: 12, capacity: 6, zone: terrace}}
+  - {model: Reservation, name: reservation-2026-09-11-luis-soto, payload: {date: "2026-09-11", time: "20:00", party_size: 4}}
+  - {model: ProjectionDoc, name: projection-all, payload: {name: all, models: [Client, Table, Reservation],
+      relations: [{name: booked_by, mode: read and assert}, {name: assigned_to, mode: read and assert}],
+      key: {Table: number, Client: name}, display: {Client: "{name}", Table: "table {number}"},
+      description: "Proyección con la clave de identificación por valor de cada entidad."}}
+
+relaciones:
+  - {type: booked_by, source: "Reservation:reservation-2026-09-11-luis-soto", target: "Client:client-luis-soto"}
+  - {type: assigned_to, source: "Reservation:reservation-2026-09-11-luis-soto", target: "Table:table-12"}
+
+relaciones_invalidas:
+  - {type: booked_by, source: "Client:client-luis-soto", target: "Reservation:reservation-2026-09-11-luis-soto",
+     porque: "dirección invertida: el origen debe ser Reservation"}

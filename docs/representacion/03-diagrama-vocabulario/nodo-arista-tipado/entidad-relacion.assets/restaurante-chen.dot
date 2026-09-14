@@ -1,0 +1,17 @@
+// Notación de Chen: entidades en rectángulos, relaciones en rombos, atributos en elipses,
+// atributo clave subrayado, cardinalidad (1, N) en las líneas que unen entidad y relación.
+graph restaurante {
+  layout=neato; overlap=false; splines=true; node [fontname="Helvetica"]; edge [fontname="Helvetica"];
+  CLIENT [shape=box]; TABLE [shape=box]; RESERVATION [shape=box];
+  booked_by [shape=diamond]; assigned_to [shape=diamond];
+  c_name [shape=ellipse, label=<<u>name</u>>]; c_phone [shape=ellipse, label="phone"]; c_notes [shape=ellipse, label="notes"];
+  t_number [shape=ellipse, label=<<u>number</u>>]; t_capacity [shape=ellipse, label="capacity"]; t_zone [shape=ellipse, label="zone"];
+  r_date [shape=ellipse, label="date"]; r_time [shape=ellipse, label="time"]; r_party [shape=ellipse, label="party_size"]; r_status [shape=ellipse, label="status"];
+  a_note [shape=ellipse, label="seating_note"];
+  CLIENT -- c_name; CLIENT -- c_phone; CLIENT -- c_notes;
+  TABLE -- t_number; TABLE -- t_capacity; TABLE -- t_zone;
+  RESERVATION -- r_date; RESERVATION -- r_time; RESERVATION -- r_party; RESERVATION -- r_status;
+  RESERVATION -- booked_by [label="N"]; booked_by -- CLIENT [label="1"];
+  RESERVATION -- assigned_to [label="N"]; assigned_to -- TABLE [label="1"];
+  assigned_to -- a_note;
+}
