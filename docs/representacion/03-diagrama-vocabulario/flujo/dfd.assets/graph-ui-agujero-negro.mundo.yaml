@@ -1,0 +1,276 @@
+# Variante de graph-ui.mundo.yaml sin el flujo p5 -> usuario: Exportar recibe datos y no entrega nada.
+modelos:
+- name: ExternalEntity
+  family: dfd
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Quién está fuera del sistema.
+- name: Process
+  family: dfd
+  template: '---
+
+    number: ⸢rev•number⸥
+
+    name: ⸢rev•name⸥
+
+    implemented_by: ⸢rev•implemented_by⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: number
+    type: str
+    description: Número del proceso (se mantiene entre niveles).
+  - name: name
+    type: str
+    description: Qué transforma.
+  - name: implemented_by
+    type: str
+    default: ''
+    description: Dónde está en el código de graph_ui.
+- name: DataStore
+  family: dfd
+  template: '---
+
+    number: ⸢rev•number⸥
+
+    name: ⸢rev•name⸥
+
+    implemented_by: ⸢rev•implemented_by⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: number
+    type: str
+    description: D1, D2…
+  - name: name
+    type: str
+    description: Qué guarda (sustantivo).
+  - name: implemented_by
+    type: str
+    default: ''
+    description: Dónde vive en disco.
+tipos_de_relacion:
+- name: feeds
+  cardinality: many_to_many
+  axis: HOW
+  source_types:
+  - ExternalEntity
+  - DataStore
+  target_types:
+  - Process
+  description: Flujo de datos hacia un proceso, desde fuera o desde un almacén. El dato que fluye va en notes.
+- name: produces
+  cardinality: many_to_many
+  axis: HOW
+  source_types:
+  - Process
+  target_types:
+  - Process
+  - DataStore
+  - ExternalEntity
+  description: Flujo de datos que sale de un proceso. El dato que fluye va en notes.
+documentos:
+- model: ExternalEntity
+  name: usuario
+  payload:
+    name: Usuario (navegador)
+- model: ExternalEntity
+  name: sldb-externo
+  payload:
+    name: Servidor SLDB (SLDB_URL)
+- model: Process
+  name: p1
+  payload:
+    number: '1'
+    name: Leer grafo
+    implemented_by: GET /api/graph, /api/schema
+- model: Process
+  name: p2
+  payload:
+    number: '2'
+    name: Guardar cambios
+    implemented_by: POST /api/save
+- model: Process
+  name: p3
+  payload:
+    number: '3'
+    name: Importar mapa
+    implemented_by: POST /api/plan, /api/compile
+- model: Process
+  name: p4
+  payload:
+    number: '4'
+    name: Editar clases
+    implemented_by: POST /api/models/*
+- model: Process
+  name: p5
+  payload:
+    number: '5'
+    name: Exportar
+    implemented_by: POST /api/export
+- model: Process
+  name: p6
+  payload:
+    number: '6'
+    name: Reenviar a SLDB
+    implemented_by: GET|POST /sldb/*
+- model: DataStore
+  name: d1
+  payload:
+    number: D1
+    name: Documentos
+    implemented_by: Markdown + .sldb/
+- model: DataStore
+  name: d2
+  payload:
+    number: D2
+    name: Vista
+    implemented_by: .sldb/runtime/mindmap-view.json
+- model: DataStore
+  name: d3
+  payload:
+    number: D3
+    name: Modelos
+    implemented_by: módulos .py y borradores .py.temp
+relaciones:
+- type: feeds
+  source: ExternalEntity:usuario
+  target: Process:p1
+  notes: pedido de grafo
+- type: feeds
+  source: DataStore:d1
+  target: Process:p1
+  notes: documentos
+- type: feeds
+  source: DataStore:d2
+  target: Process:p1
+  notes: vista y revisión
+- type: feeds
+  source: DataStore:d3
+  target: Process:p1
+  notes: esquema
+- type: produces
+  source: Process:p1
+  target: ExternalEntity:usuario
+  notes: grafo
+- type: feeds
+  source: ExternalEntity:usuario
+  target: Process:p2
+  notes: cambios, vista, revisión
+- type: feeds
+  source: DataStore:d1
+  target: Process:p2
+  notes: documentos actuales
+- type: feeds
+  source: DataStore:d3
+  target: Process:p2
+  notes: clases para validar
+- type: produces
+  source: Process:p2
+  target: DataStore:d1
+  notes: documentos escritos
+- type: produces
+  source: Process:p2
+  target: DataStore:d2
+  notes: vista
+- type: produces
+  source: Process:p2
+  target: ExternalEntity:usuario
+  notes: grafo refrescado o error
+- type: feeds
+  source: ExternalEntity:usuario
+  target: Process:p3
+  notes: JSON de intercambio
+- type: feeds
+  source: DataStore:d1
+  target: Process:p3
+  notes: documentos existentes
+- type: feeds
+  source: DataStore:d3
+  target: Process:p3
+  notes: modelos existentes
+- type: produces
+  source: Process:p3
+  target: DataStore:d3
+  notes: modelos compilados
+- type: produces
+  source: Process:p3
+  target: DataStore:d1
+  notes: documentos importados
+- type: produces
+  source: Process:p3
+  target: DataStore:d2
+  notes: vista importada
+- type: produces
+  source: Process:p3
+  target: ExternalEntity:usuario
+  notes: plan o reporte
+- type: feeds
+  source: ExternalEntity:usuario
+  target: Process:p4
+  notes: cambios de clase
+- type: feeds
+  source: DataStore:d3
+  target: Process:p4
+  notes: clase actual
+- type: produces
+  source: Process:p4
+  target: DataStore:d3
+  notes: borrador o modelo promovido
+- type: produces
+  source: Process:p4
+  target: ExternalEntity:usuario
+  notes: detalle de clase
+- type: feeds
+  source: ExternalEntity:usuario
+  target: Process:p5
+  notes: pedido de exportación
+- type: feeds
+  source: DataStore:d1
+  target: Process:p5
+  notes: documentos
+- type: feeds
+  source: DataStore:d2
+  target: Process:p5
+  notes: vista
+- type: feeds
+  source: DataStore:d3
+  target: Process:p5
+  notes: modelos
+- type: feeds
+  source: ExternalEntity:usuario
+  target: Process:p6
+  notes: consulta
+- type: produces
+  source: Process:p6
+  target: ExternalEntity:sldb-externo
+  notes: consulta
+- type: feeds
+  source: ExternalEntity:sldb-externo
+  target: Process:p6
+  notes: respuesta
+- type: produces
+  source: Process:p6
+  target: ExternalEntity:usuario
+  notes: respuesta

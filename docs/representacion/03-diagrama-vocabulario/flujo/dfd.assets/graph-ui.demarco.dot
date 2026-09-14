@@ -1,0 +1,49 @@
+digraph dfd_graph_ui {
+  rankdir=LR; node [fontname="Liberation Sans", fontsize=11]; edge [fontname="Liberation Sans", fontsize=9];
+  // terminadores
+  "usuario" [shape=box, label="Usuario (navegador)"];
+  "sldb-externo" [shape=box, label="Servidor SLDB (SLDB_URL)"];
+  // procesos: burbujas
+  "p1" [shape=circle, width=1.2, fixedsize=true, label="1\nLeer grafo"];
+  "p2" [shape=circle, width=1.2, fixedsize=true, label="2\nGuardar cambios"];
+  "p3" [shape=circle, width=1.2, fixedsize=true, label="3\nImportar mapa"];
+  "p4" [shape=circle, width=1.2, fixedsize=true, label="4\nEditar clases"];
+  "p5" [shape=circle, width=1.2, fixedsize=true, label="5\nExportar"];
+  "p6" [shape=circle, width=1.2, fixedsize=true, label="6\nReenviar a SLDB"];
+  // almacenes: dos líneas horizontales
+  "d1" [shape=plaintext, label=<<table border="1" sides="TB" cellborder="0" cellpadding="4"><tr><td>D1 Documentos</td></tr></table>>];
+  "d2" [shape=plaintext, label=<<table border="1" sides="TB" cellborder="0" cellpadding="4"><tr><td>D2 Vista</td></tr></table>>];
+  "d3" [shape=plaintext, label=<<table border="1" sides="TB" cellborder="0" cellpadding="4"><tr><td>D3 Modelos</td></tr></table>>];
+  // flujos de datos
+  "usuario" -> "p1" [label="pedido de grafo"];
+  "d1" -> "p1" [label="documentos"];
+  "d2" -> "p1" [label="vista y revisión"];
+  "d3" -> "p1" [label="esquema"];
+  "p1" -> "usuario" [label="grafo"];
+  "usuario" -> "p2" [label="cambios, vista, revisión"];
+  "d1" -> "p2" [label="documentos actuales"];
+  "d3" -> "p2" [label="clases para validar"];
+  "p2" -> "d1" [label="documentos escritos"];
+  "p2" -> "d2" [label="vista"];
+  "p2" -> "usuario" [label="grafo refrescado o error"];
+  "usuario" -> "p3" [label="JSON de intercambio"];
+  "d1" -> "p3" [label="documentos existentes"];
+  "d3" -> "p3" [label="modelos existentes"];
+  "p3" -> "d3" [label="modelos compilados"];
+  "p3" -> "d1" [label="documentos importados"];
+  "p3" -> "d2" [label="vista importada"];
+  "p3" -> "usuario" [label="plan o reporte"];
+  "usuario" -> "p4" [label="cambios de clase"];
+  "d3" -> "p4" [label="clase actual"];
+  "p4" -> "d3" [label="borrador o modelo promovido"];
+  "p4" -> "usuario" [label="detalle de clase"];
+  "usuario" -> "p5" [label="pedido de exportación"];
+  "d1" -> "p5" [label="documentos"];
+  "d2" -> "p5" [label="vista"];
+  "d3" -> "p5" [label="modelos"];
+  "p5" -> "usuario" [label="JSON de intercambio"];
+  "usuario" -> "p6" [label="consulta"];
+  "p6" -> "sldb-externo" [label="consulta"];
+  "sldb-externo" -> "p6" [label="respuesta"];
+  "p6" -> "usuario" [label="respuesta"];
+}
