@@ -1,0 +1,186 @@
+# Mapa de Wardley 'Tea Shop' (ejemplo de OnlineWardleyMaps, constants/defaults.ts, commit 71f2aad) como mundo pron.
+# La posición es dato: visibility (y) y maturity (x) son campos de cada documento.
+titulo: Tea Shop
+modelos:
+- name: UserNeed
+  family: wardley
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    visibility: ⸢rev•visibility⸥
+
+    maturity: ⸢rev•maturity⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre.
+  - name: visibility
+    type: float
+    description: 'Eje y: visibilidad para el usuario (1 arriba, 0 abajo).'
+  - name: maturity
+    type: float
+    description: 'Eje x: evolución (0 génesis, 1 commodity).'
+- name: ValueComponent
+  family: wardley
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    visibility: ⸢rev•visibility⸥
+
+    maturity: ⸢rev•maturity⸥
+
+    evolving_to: ⸢rev•evolving_to⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre.
+  - name: visibility
+    type: float
+    description: 'Eje y: visibilidad para el usuario (1 arriba, 0 abajo).'
+  - name: maturity
+    type: float
+    description: 'Eje x: evolución (0 génesis, 1 commodity).'
+  - name: evolving_to
+    type: float | None
+    default: null
+    description: Evolución hacia la que se mueve (null si no se marca).
+tipos_de_relacion:
+- name: needs
+  cardinality: many_to_many
+  source_types:
+  - UserNeed
+  - ValueComponent
+  target_types:
+  - ValueComponent
+  description: El origen necesita al destino (cadena de valor).
+- name: evolves_to
+  cardinality: one_to_one
+  axis: WHEN
+  source_types:
+  - ValueComponent
+  target_types:
+  - ValueComponent
+  description: El componente origen evoluciona a otro componente (evolve A->B de OnlineWardleyMaps).
+documentos:
+- model: UserNeed
+  name: business
+  payload:
+    name: Business
+    visibility: 0.95
+    maturity: 0.63
+- model: UserNeed
+  name: public
+  payload:
+    name: Public
+    visibility: 0.95
+    maturity: 0.78
+- model: ValueComponent
+  name: cup-of-tea
+  payload:
+    name: Cup of Tea
+    visibility: 0.79
+    maturity: 0.61
+    evolving_to: null
+- model: ValueComponent
+  name: cup
+  payload:
+    name: Cup
+    visibility: 0.73
+    maturity: 0.78
+    evolving_to: null
+- model: ValueComponent
+  name: tea
+  payload:
+    name: Tea
+    visibility: 0.63
+    maturity: 0.81
+    evolving_to: null
+- model: ValueComponent
+  name: hot-water
+  payload:
+    name: Hot Water
+    visibility: 0.52
+    maturity: 0.8
+    evolving_to: null
+- model: ValueComponent
+  name: water
+  payload:
+    name: Water
+    visibility: 0.38
+    maturity: 0.82
+    evolving_to: null
+- model: ValueComponent
+  name: kettle
+  payload:
+    name: Kettle
+    visibility: 0.43
+    maturity: 0.35
+    evolving_to: null
+- model: ValueComponent
+  name: power
+  payload:
+    name: Power
+    visibility: 0.1
+    maturity: 0.7
+    evolving_to: 0.89
+- model: ValueComponent
+  name: electric-kettle
+  payload:
+    name: Electric Kettle
+    visibility: 0.43
+    maturity: 0.62
+    evolving_to: null
+relaciones:
+- type: evolves_to
+  source: ValueComponent:kettle
+  target: ValueComponent:electric-kettle
+- type: needs
+  source: UserNeed:business
+  target: ValueComponent:cup-of-tea
+- type: needs
+  source: UserNeed:public
+  target: ValueComponent:cup-of-tea
+- type: needs
+  source: ValueComponent:cup-of-tea
+  target: ValueComponent:cup
+- type: needs
+  source: ValueComponent:cup-of-tea
+  target: ValueComponent:tea
+- type: needs
+  source: ValueComponent:cup-of-tea
+  target: ValueComponent:hot-water
+- type: needs
+  source: ValueComponent:hot-water
+  target: ValueComponent:water
+- type: needs
+  source: ValueComponent:hot-water
+  target: ValueComponent:kettle
+  notes: limited by
+- type: needs
+  source: ValueComponent:kettle
+  target: ValueComponent:power
+relaciones_invalidas:
+- type: evolves_to
+  source: ValueComponent:kettle
+  target: ValueComponent:power
+  porque: 'evolves_to es one_to_one: Kettle ya evoluciona a Electric Kettle'
+- type: needs
+  source: ValueComponent:power
+  target: UserNeed:business
+  porque: una necesidad de usuario (anchor) no es destino de needs
