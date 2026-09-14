@@ -80,13 +80,23 @@ más adelante, modelar como documentos de un store.
 
 Hoy `graph_ui` no puede dibujar UML, BPMN ni statecharts; eso es lo que vamos a diseñar. Mientras
 tanto, cada ejemplo del eje 3 se renderiza con la herramienta que ya lo hace (`plantuml`, `mmdc`,
-`d2`, `dot`, `spec2viz`) y la imagen queda en `<documento>.assets/`. Esa imagen es el **resultado
+`dot`, `spec2viz`, bpmn-js, Vega) y la imagen queda en `<documento>.assets/`. Cuando la notación no
+tiene renderer instalado (Wardley, Petri, DFD, IBIS), el documento lo dice y dibuja desde el mundo con
+las convenciones de la notación. Esa imagen es el **resultado
 esperado**: el día que `graph_ui` + `VocabularyDoc` funcione, desde el mundo `pron` del mismo
 documento tiene que producir algo semánticamente equivalente. Renderizar también atrapa ejemplos
 mal escritos, que de otro modo pasarían inadvertidos en un manual.
 
+Los vocabularios que **se ejecutan** tienen además un oráculo de comportamiento: XState para el
+statechart, SNAKES para la red de Petri, flamapy para el feature model. Y los que tienen editores
+maduros, un oráculo de reglas: `bpmnRules.canConnect` de bpmn-js, la matriz de relaciones de Archi,
+los esquemas oficiales (SCXML, PNML, BPMN) — que en dos casos resultaron no validar la gramática que
+su especificación exige.
+
 El mundo `pron` equivalente se monta de verdad en un directorio temporal y se pasa por
-`pron check`. Si algo del ejemplo no se puede expresar, no se esconde: es un hueco y se anota.
+`pron check`. Si algo del ejemplo no se puede expresar, no se esconde: es un hueco y se anota. Las
+reglas que el mundo acepta y la notación no (el "monta sano" de cada control negativo) las verifica un
+script del vocabulario, que es lo que un `VocabularyDoc` tendría que poder declarar.
 
 Los fragmentos de código de herramientas y notaciones externas se copian de su documentación
 oficial con el enlace exacto.
@@ -118,6 +128,6 @@ y `pron`.
 |---|---|
 | [`01-fundamentos/`](01-fundamentos/index.md) | escrito |
 | [`02-prior-art/`](02-prior-art/index.md) | escrito |
-| [`03-diagrama-vocabulario/`](03-diagrama-vocabulario/index.md) | en curso |
+| [`03-diagrama-vocabulario/`](03-diagrama-vocabulario/index.md) | escrito |
 | [`huecos.md`](huecos.md) | se alimenta de los ejes |
 | `propuesta-vocabularydoc.md` | pendiente: se escribe al final |

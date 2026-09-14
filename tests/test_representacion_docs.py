@@ -35,3 +35,34 @@ def test_every_index_links_its_documents():
         missing += [f"{index.relative_to(ROOT)} no enlaza {p.relative_to(ROOT)}"
                     for p in expected if p.resolve() not in linked]
     assert not missing, "\n".join(missing)
+
+
+def test_tables_keep_their_column_count():
+    """A stray `|` inside a cell silently shifts columns; every row must match its header."""
+    broken = []
+    for md in ROOT.rglob("*.md"):
+        header = None
+        in_code = False
+        for number, line in enumerate(md.read_text(encoding="utf-8").splitlines(), 1):
+            if line.startswith("```"):
+                in_code = not in_code
+            if in_code or not line.startswith("|"):
+                header = None if not line.startswith("|") else header
+                continue
+            cells = len(re.split(r"(?<![\\`])\|", line.strip())) - 2
+            if header is None:
+                header = cells
+            elif cells != header:
+                broken.append(f"{md.relative_to(ROOT)}:{number} tiene {cells} celdas y el encabezado {header}")
+    assert not broken, "\n".join(broken)
+
+
+def test_huecos_states_are_known():
+    states = {"confirmado", "por verificar", "decisión de diseño", "resuelto"}
+    unknown = []
+    for number, line in enumerate((ROOT / "huecos.md").read_text(encoding="utf-8").splitlines(), 1):
+        if line.startswith("| ") and not line.startswith("| Hueco"):
+            cells = [c.strip() for c in re.split(r"(?<!\\)\|", line.strip())[1:-1]]
+            if len(cells) == 3 and cells[1] not in states:
+                unknown.append(f"huecos.md:{number}: {cells[1]!r}")
+    assert not unknown, "\n".join(unknown)
