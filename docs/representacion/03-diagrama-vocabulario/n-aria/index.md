@@ -25,7 +25,7 @@ colapsa una `RelationDoc` en una arista (vista Flujo) o la muestra como nodo sue
 
 | Documento | Vocabulario | Qué representa | Estado |
 |---|---|---|---|
-| clase-de-asociacion.md | UML, clase de asociación | una asociación que tiene atributos propios | pendiente |
+| [clase-de-asociacion.md](clase-de-asociacion.md) | UML, clase de asociación | una asociación que tiene atributos propios | escrito |
 | er-n-aria.md | ER, relación n-aria | una relación entre tres o más entidades | pendiente |
 | argument-maps-ibis.md | IBIS / mapas de argumentos | discusiones: preguntas, posiciones y argumentos a favor y en contra | pendiente |
 

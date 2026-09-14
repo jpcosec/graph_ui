@@ -1,0 +1,55 @@
+# La reserva del restaurante de pron (source/spec/09a) leída como clase de asociación entre Client y Table.
+# El sustrato no tiene aristas con campos: la asociación se reifica en un modelo (Reservation) y dos verbos.
+modelos:
+- name: Client
+  family: restaurante
+  template: "---\nname: ⸢rev•name⸥\nphone: ⸢rev•phone⸥\n---\n\n# ⸢render•name⸥\n"
+  fields:
+  - {name: name, type: str, description: Nombre del cliente.}
+  - {name: phone, type: str, default: '', description: Teléfono.}
+- name: Table
+  family: restaurante
+  template: "---\nnumber: ⸢rev•number⸥\ncapacity: ⸢rev•capacity⸥\nzone: ⸢rev•zone⸥\n---\n\n# Mesa ⸢render•number⸥\n"
+  fields:
+  - {name: number, type: int, description: Número de mesa.}
+  - {name: capacity, type: int, description: Cuántas personas caben.}
+  - {name: zone, type: str, description: 'terrace o indoor.'}
+- name: Reservation
+  family: restaurante
+  template: "---\ndate: ⸢rev•date⸥\ntime: ⸢rev•time⸥\nparty_size: ⸢rev•party_size⸥\nstatus: ⸢rev•status⸥\n---\n\n# Reserva ⸢render•date⸥ ⸢render•time⸥\n"
+  fields:
+  - {name: date, type: str, description: Fecha ISO.}
+  - {name: time, type: str, description: 'HH:MM.'}
+  - {name: party_size, type: int, description: Cuántas personas.}
+  - {name: status, type: str, default: pending, description: Estado.}
+tipos_de_relacion:
+- name: booked_by
+  cardinality: many_to_one
+  axis: WHO
+  source_types: [Reservation]
+  target_types: [Client]
+  description: 'Extremo "cliente" de la asociación: a nombre de quién está la reserva.'
+- name: assigned_to
+  cardinality: many_to_one
+  axis: WHERE
+  source_types: [Reservation]
+  target_types: [Table]
+  description: 'Extremo "mesa" de la asociación: la mesa tiene que alcanzar para todos.'
+  condition: capacity >= {party_size}
+documentos:
+- {model: Client, name: client-ana, payload: {name: Ana Rojas, phone: 9 5555 1234}}
+- {model: Client, name: client-bruno, payload: {name: Bruno Díaz}}
+- {model: Table, name: table-12, payload: {number: 12, capacity: 6, zone: terrace}}
+- {model: Table, name: table-3, payload: {number: 3, capacity: 2, zone: indoor}}
+- {model: Reservation, name: res-ana-viernes, payload: {date: '2026-09-18', time: '21:00', party_size: 6}}
+- {model: Reservation, name: res-ana-sabado, payload: {date: '2026-09-19', time: '20:00', party_size: 4}}
+- {model: Reservation, name: res-bruno-viernes, payload: {date: '2026-09-18', time: '20:30', party_size: 2}}
+relaciones:
+- {type: booked_by, source: 'Reservation:res-ana-viernes', target: 'Client:client-ana'}
+- {type: assigned_to, source: 'Reservation:res-ana-viernes', target: 'Table:table-12'}
+- {type: booked_by, source: 'Reservation:res-ana-sabado', target: 'Client:client-ana'}
+- {type: assigned_to, source: 'Reservation:res-ana-sabado', target: 'Table:table-12'}
+- {type: booked_by, source: 'Reservation:res-bruno-viernes', target: 'Client:client-bruno'}
+- {type: assigned_to, source: 'Reservation:res-bruno-viernes', target: 'Table:table-3'}
+relaciones_invalidas:
+- {type: assigned_to, source: 'Reservation:res-ana-viernes', target: 'Table:table-3', porque: 'un segundo extremo "mesa" para la misma reserva (many_to_one)'}

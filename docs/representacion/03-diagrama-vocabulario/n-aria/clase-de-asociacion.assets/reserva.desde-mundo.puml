@@ -1,0 +1,20 @@
+@startuml
+hide empty methods
+class Client {
+  name : String
+  phone : String
+}
+class Table {
+  number : Integer
+  capacity : Integer
+  zone : String
+}
+class Reservation {
+  date : String
+  time : String
+  party_size : Integer
+  status : String
+}
+Reservation "0..*" --> "1" Client : booked_by
+Reservation "0..*" --> "1" Table : assigned_to
+@enduml

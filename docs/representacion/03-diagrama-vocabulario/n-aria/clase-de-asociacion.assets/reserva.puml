@@ -1,0 +1,21 @@
+@startuml
+title La reserva como clase de asociación (UML)
+hide empty methods
+class Client {
+  name : String
+  phone : String
+}
+class Table {
+  number : Integer
+  capacity : Integer
+  zone : String
+}
+class Reservation {
+  date : Date
+  time : String
+  party_size : Integer
+  status : String
+}
+Client "0..*" -- "0..*" Table : reserva
+(Client, Table) .. Reservation
+@enduml
