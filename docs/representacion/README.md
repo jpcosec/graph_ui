@@ -37,8 +37,8 @@ Cada carpeta tiene un `index.md` que la resume y enlaza un documento por tipo. E
 niveles: primero *dónde vive el significado* en el diagrama (forma de los nodos, anidamiento,
 posición, …) y dentro de cada uno, *un documento por notación de ejemplo*.
 
-Al final, con todo lo anterior, `propuesta-vocabularydoc.md` (pendiente) propone el documento
-que declara un vocabulario.
+Al final, con todo lo anterior, [`propuesta-vocabularydoc.md`](propuesta-vocabularydoc.md) propone el
+documento que declara un vocabulario, validado contra tres mundos del manual.
 
 ## Decisiones ya tomadas
 
@@ -129,5 +129,5 @@ y `pron`.
 | [`01-fundamentos/`](01-fundamentos/index.md) | escrito |
 | [`02-prior-art/`](02-prior-art/index.md) | escrito |
 | [`03-diagrama-vocabulario/`](03-diagrama-vocabulario/index.md) | escrito |
-| [`huecos.md`](huecos.md) | se alimenta de los ejes |
-| `propuesta-vocabularydoc.md` | pendiente: se escribe al final |
+| [`huecos.md`](huecos.md) | consolidado, con resumen por tema |
+| [`propuesta-vocabularydoc.md`](propuesta-vocabularydoc.md) | propuesta para discutir |

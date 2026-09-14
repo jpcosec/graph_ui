@@ -32,3 +32,13 @@ Este eje tiene dos niveles. **Nivel 1**: una carpeta por lugar donde vive el sig
   **nodo-arista** (flecha con rombo) o **árbol**. El dato no cambia; cambia el vocabulario.
 - La base teórica de "dónde vive el significado" son las variables visuales de Bertin
   ([`../01-fundamentos/`](../01-fundamentos/index.md)).
+
+## Lo que dejó el eje
+
+Las 26 notaciones se montaron como mundos `pron` y se contrastaron con un oráculo (un renderer existente y,
+cuando la notación se ejecuta, uno de comportamiento). Lo que el sustrato hizo cumplir fue siempre lo
+mismo: **tipos de los extremos, cardinalidad máxima por verbo y `condition` al afirmar por `pron`**. Todo lo
+demás —participación mínima, exclusión entre verbos, unicidad, rangos, árboles, totales, orden, reglas de
+contenedor, fórmulas— lo verificó un script del vocabulario. El detalle está en el
+[resumen de huecos](../huecos.md), y la forma de declararlo, en la
+[propuesta de `VocabularyDoc`](../propuesta-vocabularydoc.md).

@@ -1,0 +1,72 @@
+# VocabularyDoc de statecharts sobre el mundo de 03-diagrama-vocabulario/estado-bipartito/statecharts.
+name: statechart
+description: Máquina de estados de un campo, con estados compuestos y el estado actual de una instancia.
+level: both
+projection: all
+parameters:
+  machine: Reservation.status
+applies_when:
+  models: [State]
+  relations: [transitions_to]
+scope: {model: State, where: 'machine = "{machine}"'}
+layout: {kind: graph, direction: LR}
+symbols:
+  - id: estado-compuesto
+    model: State
+    where: kind = "composite"
+    shape: rounded-container
+    label: "{name}"
+    function: state
+  - id: estado-final
+    model: State
+    where: kind = "final"
+    shape: bullseye
+    label: "{name}"
+    function: terminal
+  - id: estado
+    model: State
+    shape: rounded-box
+    label: "{name}"
+    compartments: [entry]
+    function: state
+pseudo:
+  - id: inicial
+    shape: filled-circle
+    points_to: {model: State, field: initial, equals: true}
+containers:
+  - {relation: substate_of, draw: nest}
+connectors:
+  - id: transicion
+    relations: [transitions_to]
+    line: solid
+    target_end: open-arrow
+    label: "{notes} [{condition}]"
+derived:
+  - id: estado-actual
+    kind: instance_marker
+    instance_field: "{machine}"
+    matches: name
+rules:
+  - {at_most_one: {model: State, relation: substate_of}}
+  - {no_outgoing: {model: State, where: kind = "final", relation: transitions_to}}
+tools:
+  - id: transicion
+    gesture: connect
+    from: State
+    to: State
+    operation:
+      - {assert: transitions_to, source: $from, target: $to}
+  - id: anidar
+    gesture: drop-into
+    from: State
+    to: {model: State, where: kind = "composite"}
+    atomic: true
+    operation:
+      - {retract: substate_of, source: $from}
+      - {assert: substate_of, source: $from, target: $to}
+  - id: disparar
+    gesture: click
+    over: transicion
+    context: instance
+    operation:
+      - {change: "{machine}", of: $instance, value: $target.name, via: kernel}

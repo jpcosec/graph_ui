@@ -1,0 +1,94 @@
+# Variante con un error: la herramienta asociar afirma end_a desde la clase hacia la asociación (al revés).
+# VocabularyDoc de UML de clases sobre el mundo de 03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.
+name: uml-clases
+description: Diagrama de clases UML sobre un mundo cuyos documentos son clases (opción A, nivel de tipos del dominio).
+level: types
+projection: all
+applies_when:
+  models: [UmlClass]
+  relations: [generalizes, realizes]
+layout: {kind: graph, direction: TB}
+symbols:
+  - id: interfaz
+    model: UmlClass
+    where: kind = "interface"
+    shape: class-box
+    keyword: «interface»
+    label: "{name}"
+    compartments: [attributes, operations]
+    function: interface
+  - id: clase-abstracta
+    model: UmlClass
+    where: kind = "abstract"
+    shape: class-box
+    label: "{name}"
+    label_style: italic
+    compartments: [attributes, operations]
+    function: class
+  - id: clase
+    model: UmlClass
+    shape: class-box
+    label: "{name}"
+    compartments: [attributes, operations]
+    function: class
+connectors:
+  - id: generalizacion
+    relations: [generalizes]
+    line: solid
+    target_end: hollow-triangle
+  - id: realizacion
+    relations: [realizes]
+    line: dashed
+    target_end: hollow-triangle
+  - id: dependencia
+    relations: [depends_on]
+    line: dashed
+    target_end: open-arrow
+  - id: asociacion
+    reified:
+      model: UmlAssociation
+      roles: {a: end_a, b: end_b}
+      draw: line
+    line: solid
+    label: "{name}"
+    ends:
+      a:
+        label: "{a_role} {a_multiplicity}"
+        terminal: {field: aggregation, map: {shared: hollow-diamond, composite: filled-diamond, none: none}}
+      b:
+        label: "{b_role} {b_multiplicity}"
+rules:
+  - {exactly_one: {model: UmlAssociation, relation: end_a}}
+  - {exactly_one: {model: UmlAssociation, relation: end_b}}
+  - {acyclic: [generalizes]}
+tools:
+  - id: nueva-clase
+    gesture: palette
+    operation:
+      - {create: UmlClass, defaults: {kind: class}}
+  - id: generalizar
+    gesture: connect
+    from: UmlClass
+    to: UmlClass
+    operation:
+      - {assert: generalizes, source: $from, target: $to}
+  - id: realizar
+    gesture: connect
+    from: UmlClass
+    to: {model: UmlClass, where: kind = "interface"}
+    operation:
+      - {assert: realizes, source: $from, target: $to}
+  - id: asociar
+    gesture: connect
+    from: UmlClass
+    to: UmlClass
+    atomic: true
+    operation:
+      - {create: UmlAssociation, as: $asoc}
+      - {assert: end_a, source: $from, target: $asoc}
+      - {assert: end_b, source: $asoc, target: $to}
+  - id: multiplicidad
+    gesture: edit-label
+    over: asociacion.ends.b
+    operation:
+      - {change: b_multiplicity, of: $element, value: $text}

@@ -1,0 +1,62 @@
+# VocabularyDoc de diagramas de secuencia sobre el mundo de 03-diagrama-vocabulario/posicion/uml-secuencia.
+name: uml-secuencia
+description: Una interacción por diagrama; líneas de vida en x y mensajes en y, ambos ejes ordinales.
+level: instances
+projection: all
+applies_when:
+  models: [Interaction, Lifeline, Message]
+  relations: [sends, receives, in_interaction]
+scope: {model: Interaction, relation: in_interaction}
+layout:
+  kind: axes
+  x: {model: Lifeline, field: position, measure: ordinal}
+  y: {model: Message, field: order, measure: ordinal}
+symbols:
+  - id: actor
+    model: Lifeline
+    where: kind = "actor"
+    shape: lifeline-actor
+    label: "{name}"
+    function: actor
+  - id: linea-de-vida
+    model: Lifeline
+    shape: lifeline
+    label: "{name}"
+    function: component
+connectors:
+  - id: mensaje
+    element: {model: Message, source: sends, target: receives}
+    axis: y
+    label: "{text}"
+    line: {field: sort, map: {synchCall: solid, asynchCall: solid, reply: dashed}}
+    target_end: {field: sort, map: {synchCall: filled-arrow, asynchCall: open-arrow, reply: open-arrow}}
+rules:
+  - {exactly_one: {model: Message, relation: sends}}
+  - {exactly_one: {model: Message, relation: receives}}
+  - {unique: {model: Message, field: order, per: in_interaction}}
+  - {unique: {model: Lifeline, field: position, per: in_interaction}}
+tools:
+  - id: nuevo-mensaje
+    gesture: connect
+    from: Lifeline
+    to: Lifeline
+    atomic: true
+    operation:
+      - {create: Message, as: $msg, defaults: {sort: synchCall}, set: {order: $axis.y}}
+      - {assert: sends, source: $msg, target: $from}
+      - {assert: receives, source: $msg, target: $to}
+      - {assert: in_interaction, source: $msg, target: $scope}
+  - id: mover-mensaje
+    gesture: drag-axis
+    over: mensaje
+    axis: y
+    operation:
+      - {reorder: order, of: $element, per: in_interaction, strategy: renumber}
+  - id: reconectar-receptor
+    gesture: drag-end
+    over: mensaje.target
+    to: Lifeline
+    atomic: true
+    operation:
+      - {retract: receives, source: $element}
+      - {assert: receives, source: $element, target: $to}

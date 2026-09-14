@@ -1,0 +1,114 @@
+$ python3 validar-vocabulario.py uml-clases.vocabulario.yaml uml-clases.mundo.yaml
+vocabulario uml-clases sobre uml-clases.mundo.yaml
+referencias: ok
+aplicable: sí
+  símbolo clase-abstracta: 1
+  símbolo clase: 6
+  símbolo interfaz: 1
+  conector generalizacion: 1
+  conector realizacion: 1
+  conector dependencia: 1
+  conector asociacion (colapsado desde UmlAssociation): 4
+reglas: se cumplen
+herramientas:
+  nueva-clase (palette): compatible
+  generalizar (connect): compatible
+  realizar (connect): compatible
+  asociar (connect): compatible
+  multiplicidad (edit-label): compatible
+
+$ python3 validar-vocabulario.py uml-clases-herramienta-al-reves.vocabulario.yaml uml-clases.mundo.yaml
+vocabulario uml-clases sobre uml-clases.mundo.yaml
+referencias: ok
+aplicable: sí
+  símbolo clase-abstracta: 1
+  símbolo clase: 6
+  símbolo interfaz: 1
+  conector generalizacion: 1
+  conector realizacion: 1
+  conector dependencia: 1
+  conector asociacion (colapsado desde UmlAssociation): 4
+reglas: se cumplen
+herramientas:
+  nueva-clase (palette): compatible
+  generalizar (connect): compatible
+  realizar (connect): compatible
+  asociar (connect): INCOMPATIBLE: end_a no admite UmlClass como origen; end_a no admite UmlAssociation como destino
+  multiplicidad (edit-label): compatible
+
+$ python3 validar-vocabulario.py uml-clases.vocabulario.yaml manual.mundo.yaml
+vocabulario uml-clases sobre manual.mundo.yaml
+referencias: 12 error(es)
+  ERROR symbols.interfaz: el modelo UmlClass no existe en el mundo
+  ERROR symbols.clase-abstracta: el modelo UmlClass no existe en el mundo
+  ERROR symbols.clase: el modelo UmlClass no existe en el mundo
+  ERROR connectors.generalizacion: el verbo generalizes no existe en el mundo
+  ERROR connectors.realizacion: el verbo realizes no existe en el mundo
+  ERROR connectors.asociacion: el modelo UmlAssociation no existe en el mundo
+  ERROR tools.nueva-clase: el modelo UmlClass no existe en el mundo
+  ERROR tools.generalizar: el verbo generalizes no existe en el mundo
+  ERROR tools.realizar: el verbo realizes no existe en el mundo
+  ERROR tools.asociar: el modelo UmlAssociation no existe en el mundo
+  ERROR tools.asociar: el verbo end_a no existe en el mundo
+  ERROR tools.asociar: el verbo end_b no existe en el mundo
+aplicable: no (faltan UmlClass, generalizes, realizes)
+herramientas: no se evalúan (el vocabulario no aplica)
+
+$ python3 validar-vocabulario.py statechart.vocabulario.yaml reserva.mundo.yaml
+vocabulario statechart sobre reserva.mundo.yaml
+referencias: 1 error(es)
+  ERROR pseudo.inicial: State no tiene el campo initial
+aplicable: sí
+  símbolo estado-compuesto: 1
+  símbolo estado: 2
+  símbolo estado-final: 2
+  conector transicion: 4
+  contención substate_of: 2
+reglas: se cumplen
+herramientas:
+  transicion (connect): compatible
+  anidar (drop-into): compatible
+  disparar (click): compatible
+
+$ python3 validar-vocabulario.py statechart.vocabulario.yaml reserva-con-inicial.mundo.yaml
+vocabulario statechart sobre reserva-con-inicial.mundo.yaml
+referencias: ok
+aplicable: sí
+  símbolo estado-compuesto: 1
+  símbolo estado: 2
+  símbolo estado-final: 2
+  conector transicion: 4
+  contención substate_of: 2
+reglas: se cumplen
+herramientas:
+  transicion (connect): compatible
+  anidar (drop-into): compatible
+  disparar (click): compatible
+
+$ python3 validar-vocabulario.py uml-secuencia.vocabulario.yaml conectar.mundo.yaml
+vocabulario uml-secuencia sobre conectar.mundo.yaml
+referencias: ok
+aplicable: sí
+  símbolo actor: 1
+  símbolo linea-de-vida: 4
+  conector mensaje (colapsado desde Message): 8
+reglas: se cumplen
+herramientas:
+  nuevo-mensaje (connect): compatible
+  mover-mensaje (drag-axis): compatible
+  reconectar-receptor (drag-end): compatible
+
+$ python3 validar-vocabulario.py uml-secuencia.vocabulario.yaml conectar-orden-repetido.mundo.yaml
+vocabulario uml-secuencia sobre conectar-orden-repetido.mundo.yaml
+referencias: ok
+aplicable: sí
+  símbolo actor: 1
+  símbolo linea-de-vida: 4
+  conector mensaje (colapsado desde Message): 8
+reglas: 1 violación(es)
+  VIOLA unique order: Message:m6 repite 5 de Message:m5
+herramientas:
+  nuevo-mensaje (connect): compatible
+  mover-mensaje (drag-axis): compatible
+  reconectar-receptor (drag-end): compatible
+
