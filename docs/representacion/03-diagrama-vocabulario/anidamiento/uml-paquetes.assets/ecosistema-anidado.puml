@@ -1,0 +1,22 @@
+@startuml
+!pragma layout smetana
+title Paquetes del ecosistema (miembros dentro del paquete)
+package "hum-ecosystem" {
+  package "tools" {
+    package "sldb"
+    package "kgdb"
+    package "graph_ui" {
+      package "source"
+      package "views"
+      package "shell"
+    }
+  }
+}
+package "pron"
+kgdb ..> sldb : «import»
+pron ..> kgdb : «import»
+pron ..> sldb : «import»
+graph_ui ..> pron : «import»
+views ..> source : «import»
+shell ..> views : «import»
+@enduml

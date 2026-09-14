@@ -1,0 +1,53 @@
+# Paquetes UML como dominio de un mundo pron (opción B). La pertenencia (packagedElement) es un verbo
+# owned_by del miembro al paquete, many_to_one: un elemento pertenece a lo sumo a un paquete.
+modelos:
+  - name: UmlPackage
+    family: uml
+    template: |
+      ---
+      name: ⸢rev•name⸥
+      ---
+
+      # ⸢render•name⸥
+    fields:
+      - {name: name, type: str, description: "Nombre del paquete."}
+
+tipos_de_relacion:
+  - {name: owned_by, cardinality: many_to_one, axis: WHERE, source_types: [UmlPackage], target_types: [UmlPackage],
+     description: "El origen es miembro (packagedElement) del paquete destino."}
+  - {name: imports, cardinality: many_to_many, source_types: [UmlPackage], target_types: [UmlPackage],
+     description: "El paquete origen importa los elementos públicos del destino (UML PackageImport)."}
+
+documentos:
+  - {model: UmlPackage, name: hum-ecosystem, payload: {name: hum-ecosystem}}
+  - {model: UmlPackage, name: tools, payload: {name: tools}}
+  - {model: UmlPackage, name: sldb, payload: {name: sldb}}
+  - {model: UmlPackage, name: kgdb, payload: {name: kgdb}}
+  - {model: UmlPackage, name: graph-ui, payload: {name: graph_ui}}
+  - {model: UmlPackage, name: source, payload: {name: source}}
+  - {model: UmlPackage, name: views, payload: {name: views}}
+  - {model: UmlPackage, name: shell, payload: {name: shell}}
+  - {model: UmlPackage, name: pron, payload: {name: pron}}
+
+relaciones:
+  - {type: owned_by, source: "UmlPackage:tools", target: "UmlPackage:hum-ecosystem"}
+  - {type: owned_by, source: "UmlPackage:sldb", target: "UmlPackage:tools"}
+  - {type: owned_by, source: "UmlPackage:kgdb", target: "UmlPackage:tools"}
+  - {type: owned_by, source: "UmlPackage:graph-ui", target: "UmlPackage:tools"}
+  - {type: owned_by, source: "UmlPackage:source", target: "UmlPackage:graph-ui"}
+  - {type: owned_by, source: "UmlPackage:views", target: "UmlPackage:graph-ui"}
+  - {type: owned_by, source: "UmlPackage:shell", target: "UmlPackage:graph-ui"}
+  - {type: imports, source: "UmlPackage:kgdb", target: "UmlPackage:sldb"}
+  - {type: imports, source: "UmlPackage:pron", target: "UmlPackage:kgdb"}
+  - {type: imports, source: "UmlPackage:pron", target: "UmlPackage:sldb"}
+  - {type: imports, source: "UmlPackage:graph-ui", target: "UmlPackage:pron"}
+  - {type: imports, source: "UmlPackage:views", target: "UmlPackage:source"}
+  - {type: imports, source: "UmlPackage:shell", target: "UmlPackage:views"}
+
+relaciones_invalidas:
+  - {type: owned_by, source: "UmlPackage:hum-ecosystem", target: "UmlPackage:source",
+     porque: "ciclo de pertenencia: hum-ecosystem > tools > graph_ui > source > hum-ecosystem"}
+  - {type: owned_by, source: "UmlPackage:views", target: "UmlPackage:tools",
+     porque: "segundo dueño: views ya pertenece a graph_ui (cardinality many_to_one)"}
+  - {type: owned_by, source: "UmlPackage:pron", target: "UmlPackage:pron",
+     porque: "un paquete dueño de sí mismo"}

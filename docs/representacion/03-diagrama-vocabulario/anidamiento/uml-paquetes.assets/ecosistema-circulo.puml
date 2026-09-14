@@ -1,0 +1,25 @@
+@startuml
+title Los mismos paquetes (miembros con la notación del círculo con cruz)
+package "hum-ecosystem" as eco
+package "tools"
+package "sldb"
+package "kgdb"
+package "graph_ui"
+package "source"
+package "views"
+package "shell"
+package "pron"
+eco +-- tools
+tools +-- sldb
+tools +-- kgdb
+tools +-- graph_ui
+graph_ui +-- source
+graph_ui +-- views
+graph_ui +-- shell
+kgdb ..> sldb : «import»
+pron ..> kgdb : «import»
+pron ..> sldb : «import»
+graph_ui ..> pron : «import»
+views ..> source : «import»
+shell ..> views : «import»
+@enduml
