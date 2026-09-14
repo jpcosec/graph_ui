@@ -1,0 +1,177 @@
+# La misma discusión en el Argument Interchange Format (AIF): apoyos y objeciones reificados como nodos de esquema
+# (RA, CA), lo que permite atacar una inferencia (ca-3 socava ra-2). Solo la parte de ProjectionDoc vs VocabularyDoc.
+modelos:
+- name: INode
+  family: aif
+  template: '---
+
+    text: ⸢rev•text⸥
+
+    ---
+
+
+    # ⸢render•text⸥
+
+    '
+  fields:
+  - name: text
+    type: str
+    description: 'Información: una afirmación, una premisa, una conclusión.'
+- name: RANode
+  family: aif
+  template: '---
+
+    scheme: ⸢rev•scheme⸥
+
+    ---
+
+
+    # ⸢render•scheme⸥
+
+    '
+  fields:
+  - name: scheme
+    type: str
+    description: Qué esquema de inferencia se aplica.
+- name: CANode
+  family: aif
+  template: '---
+
+    scheme: ⸢rev•scheme⸥
+
+    ---
+
+
+    # ⸢render•scheme⸥
+
+    '
+  fields:
+  - name: scheme
+    type: str
+    description: Qué esquema de conflicto se aplica.
+tipos_de_relacion:
+- name: premise
+  cardinality: many_to_many
+  axis: WHY
+  source_types:
+  - INode
+  - RANode
+  - CANode
+  target_types:
+  - RANode
+  description: El origen es premisa de la inferencia.
+- name: conclusion
+  cardinality: many_to_one
+  axis: WHY
+  source_types:
+  - RANode
+  target_types:
+  - INode
+  - RANode
+  - CANode
+  description: 'La inferencia concluye el destino (AIF: exactamente uno).'
+- name: conflicting
+  cardinality: one_to_many
+  axis: WHY
+  source_types:
+  - INode
+  - RANode
+  - CANode
+  target_types:
+  - CANode
+  description: 'El origen es el elemento que entra en conflicto (AIF: uno por CA-node).'
+- name: conflicted
+  cardinality: many_to_one
+  axis: WHY
+  source_types:
+  - CANode
+  target_types:
+  - INode
+  - RANode
+  - CANode
+  description: El destino es el elemento atacado (una afirmación o una inferencia).
+documentos:
+- model: INode
+  name: p-extender
+  payload:
+    text: Extender ProjectionDoc con símbolos, layout y gestos
+- model: INode
+  name: p-nuevo
+  payload:
+    text: Un documento nuevo, VocabularyDoc, separado de ProjectionDoc
+- model: INode
+  name: a-ya-existe
+  payload:
+    text: ProjectionDoc ya existe y graph_ui ya lo lee
+- model: INode
+  name: a-preguntas-distintas
+  payload:
+    text: Proyectar filtra y rotula; representar decide símbolos, layout y gestos
+- model: INode
+  name: a-dos-notaciones
+  payload:
+    text: Un mismo mundo se dibuja con dos vocabularios (DFD en DeMarco y en Gane & Sarson)
+- model: INode
+  name: a-sincronizar
+  payload:
+    text: Es un documento más que mantener al día con el mundo
+- model: INode
+  name: a-dos-proyecciones
+  payload:
+    text: Dos notaciones también podrían ser dos ProjectionDoc con distinto display
+- model: RANode
+  name: ra-1
+  payload:
+    scheme: apoyo
+- model: CANode
+  name: ca-1
+  payload:
+    scheme: objeción
+- model: RANode
+  name: ra-2
+  payload:
+    scheme: apoyo
+- model: CANode
+  name: ca-2
+  payload:
+    scheme: objeción
+- model: CANode
+  name: ca-3
+  payload:
+    scheme: socavamiento
+relaciones:
+- type: premise
+  source: INode:a-ya-existe
+  target: RANode:ra-1
+- type: conclusion
+  source: RANode:ra-1
+  target: INode:p-extender
+- type: conflicting
+  source: INode:a-preguntas-distintas
+  target: CANode:ca-1
+- type: conflicted
+  source: CANode:ca-1
+  target: INode:p-extender
+- type: premise
+  source: INode:a-dos-notaciones
+  target: RANode:ra-2
+- type: conclusion
+  source: RANode:ra-2
+  target: INode:p-nuevo
+- type: conflicting
+  source: INode:a-sincronizar
+  target: CANode:ca-2
+- type: conflicted
+  source: CANode:ca-2
+  target: INode:p-nuevo
+- type: conflicting
+  source: INode:a-dos-proyecciones
+  target: CANode:ca-3
+- type: conflicted
+  source: CANode:ca-3
+  target: RANode:ra-2
+relaciones_invalidas:
+- type: premise
+  source: INode:a-ya-existe
+  target: INode:p-extender
+  porque: 'AIF, condición 2: dos I-nodes solo se unen a través de un S-node'

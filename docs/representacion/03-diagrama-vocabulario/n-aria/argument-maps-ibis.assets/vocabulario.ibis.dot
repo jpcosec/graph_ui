@@ -1,0 +1,24 @@
+digraph ibis {
+  rankdir=RL; node [fontname="Liberation Sans", fontsize=10, shape=plaintext]; edge [fontname="Liberation Sans", fontsize=9];
+  "i-donde" [label=<<table border="1" cellborder="0" cellpadding="4"><tr><td bgcolor="#f5d76e"><b>?</b></td><td align="left">¿Dónde se declara cómo se dibuja y<br/>se edita un mundo?</td></tr></table>>];
+  "i-reificacion" [label=<<table border="1" cellborder="0" cellpadding="4"><tr><td bgcolor="#f5d76e"><b>?</b></td><td align="left">¿Cómo sabe la vista que un modelo<br/>es una relación reificada?</td></tr></table>>];
+  "i-hogar" [label=<<table border="1" cellborder="0" cellpadding="4"><tr><td bgcolor="#f5d76e"><b>?</b></td><td align="left">¿El VocabularyDoc vive en pron o<br/>en graph_ui?</td></tr></table>>];
+  "p-extender" [label=<<table border="1" cellborder="0" cellpadding="4"><tr><td bgcolor="#9fd3f5"><b>!</b></td><td align="left">Extender ProjectionDoc con<br/>símbolos, layout y gestos<br/><i>descartada</i></td></tr></table>>];
+  "p-nuevo" [label=<<table border="1" cellborder="0" cellpadding="4"><tr><td bgcolor="#9fd3f5"><b>!</b></td><td align="left">Un documento nuevo, VocabularyDoc,<br/>separado de ProjectionDoc<br/><i>elegida</i></td></tr></table>>];
+  "p-declarar" [label=<<table border="1" cellborder="0" cellpadding="4"><tr><td bgcolor="#9fd3f5"><b>!</b></td><td align="left">Declararla en el VocabularyDoc, no<br/>inferirla<br/><i>abierta</i></td></tr></table>>];
+  "a-ya-existe" [label=<<table border="1" cellborder="0" cellpadding="4"><tr><td bgcolor="#dddddd"><b>+</b></td><td align="left">ProjectionDoc ya existe y graph_ui<br/>ya lo lee (paso 2, proyecciones)</td></tr></table>>];
+  "a-preguntas-distintas" [label=<<table border="1" cellborder="0" cellpadding="4"><tr><td bgcolor="#dddddd"><b>−</b></td><td align="left">Proyectar filtra y rotula<br/>documentos; representar decide<br/>símbolos, layout y gestos: son<br/>preguntas distintas</td></tr></table>>];
+  "a-dos-notaciones" [label=<<table border="1" cellborder="0" cellpadding="4"><tr><td bgcolor="#dddddd"><b>+</b></td><td align="left">Un mismo mundo se dibuja con dos<br/>vocabularios (DFD en DeMarco y en<br/>Gane &amp; Sarson)</td></tr></table>>];
+  "a-sincronizar" [label=<<table border="1" cellborder="0" cellpadding="4"><tr><td bgcolor="#dddddd"><b>−</b></td><td align="left">Es un documento más que mantener<br/>al día con los modelos y verbos<br/>del mundo</td></tr></table>>];
+  "a-heuristica" [label=<<table border="1" cellborder="0" cellpadding="4"><tr><td bgcolor="#dddddd"><b>+</b></td><td align="left">La heurística de dos verbos<br/>many_to_one confunde Message con<br/>una relación</td></tr></table>>];
+  "p-extender" -> "i-donde" [label="responds_to"];
+  "p-nuevo" -> "i-donde" [label="responds_to"];
+  "a-ya-existe" -> "p-extender" [label="supports"];
+  "a-preguntas-distintas" -> "p-extender" [label="objects_to", style=dashed];
+  "a-dos-notaciones" -> "p-nuevo" [label="supports"];
+  "a-sincronizar" -> "p-nuevo" [label="objects_to", style=dashed];
+  "i-hogar" -> "p-nuevo" [label="questions"];
+  "i-reificacion" -> "i-donde" [label="specializes"];
+  "p-declarar" -> "i-reificacion" [label="responds_to"];
+  "a-heuristica" -> "p-declarar" [label="supports"];
+}

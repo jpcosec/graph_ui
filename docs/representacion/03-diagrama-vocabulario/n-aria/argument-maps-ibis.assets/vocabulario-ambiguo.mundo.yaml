@@ -1,0 +1,203 @@
+# Variante: a-dos-notaciones apoya y objeta la misma posición, y a-sincronizar objeta p-nuevo y apoya p-extender.
+# Cada verbo respeta su many_to_one; lo que se rompe es "un argumento, una posición, un sentido".
+modelos:
+- name: Issue
+  family: ibis
+  template: '---
+
+    question: ⸢rev•question⸥
+
+    ---
+
+
+    # ⸢render•question⸥
+
+    '
+  fields:
+  - name: question
+    type: str
+    description: La pregunta que hay que resolver.
+- name: Position
+  family: ibis
+  template: '---
+
+    statement: ⸢rev•statement⸥
+
+    status: ⸢rev•status⸥
+
+    ---
+
+
+    # ⸢render•statement⸥
+
+    '
+  fields:
+  - name: statement
+    type: str
+    description: Una respuesta posible.
+  - name: status
+    type: str
+    default: abierta
+    description: 'abierta, elegida o descartada (extensión: IBIS no registra resoluciones).'
+- name: Argument
+  family: ibis
+  template: '---
+
+    claim: ⸢rev•claim⸥
+
+    ---
+
+
+    # ⸢render•claim⸥
+
+    '
+  fields:
+  - name: claim
+    type: str
+    description: Una razón a favor o en contra de una posición.
+tipos_de_relacion:
+- name: responds_to
+  cardinality: many_to_one
+  axis: WHY
+  source_types:
+  - Position
+  target_types:
+  - Issue
+  description: 'La posición responde a la pregunta (gIBIS: el único uso de Responds-to).'
+- name: supports
+  cardinality: many_to_one
+  axis: WHY
+  source_types:
+  - Argument
+  target_types:
+  - Position
+  description: El argumento apoya la posición (pro).
+- name: objects_to
+  cardinality: many_to_one
+  axis: WHY
+  source_types:
+  - Argument
+  target_types:
+  - Position
+  description: El argumento objeta la posición (contra).
+- name: generalizes
+  cardinality: many_to_many
+  axis: WHAT
+  source_types:
+  - Issue
+  target_types:
+  - Issue
+  description: La pregunta origen generaliza a la destino.
+- name: specializes
+  cardinality: many_to_many
+  axis: WHAT
+  source_types:
+  - Issue
+  target_types:
+  - Issue
+  description: La pregunta origen especializa a la destino.
+- name: questions
+  cardinality: many_to_many
+  axis: WHY
+  source_types:
+  - Issue
+  target_types:
+  - Issue
+  - Position
+  - Argument
+  description: La pregunta cuestiona otro nodo.
+- name: suggested_by
+  cardinality: many_to_many
+  axis: WHY
+  source_types:
+  - Issue
+  target_types:
+  - Issue
+  - Position
+  - Argument
+  description: La pregunta surgió de otro nodo.
+documentos:
+- model: Issue
+  name: i-donde
+  payload:
+    question: ¿Dónde se declara cómo se dibuja y se edita un mundo?
+- model: Issue
+  name: i-reificacion
+  payload:
+    question: ¿Cómo sabe la vista que un modelo es una relación reificada?
+- model: Issue
+  name: i-hogar
+  payload:
+    question: ¿El VocabularyDoc vive en pron o en graph_ui?
+- model: Position
+  name: p-extender
+  payload:
+    statement: Extender ProjectionDoc con símbolos, layout y gestos
+    status: descartada
+- model: Position
+  name: p-nuevo
+  payload:
+    statement: Un documento nuevo, VocabularyDoc, separado de ProjectionDoc
+    status: elegida
+- model: Position
+  name: p-declarar
+  payload:
+    statement: Declararla en el VocabularyDoc, no inferirla
+    status: abierta
+- model: Argument
+  name: a-ya-existe
+  payload:
+    claim: ProjectionDoc ya existe y graph_ui ya lo lee (paso 2, proyecciones)
+- model: Argument
+  name: a-preguntas-distintas
+  payload:
+    claim: 'Proyectar filtra y rotula documentos; representar decide símbolos, layout y gestos: son preguntas distintas'
+- model: Argument
+  name: a-dos-notaciones
+  payload:
+    claim: Un mismo mundo se dibuja con dos vocabularios (DFD en DeMarco y en Gane & Sarson)
+- model: Argument
+  name: a-sincronizar
+  payload:
+    claim: Es un documento más que mantener al día con los modelos y verbos del mundo
+- model: Argument
+  name: a-heuristica
+  payload:
+    claim: La heurística de dos verbos many_to_one confunde Message con una relación
+relaciones:
+- type: responds_to
+  source: Position:p-extender
+  target: Issue:i-donde
+- type: responds_to
+  source: Position:p-nuevo
+  target: Issue:i-donde
+- type: supports
+  source: Argument:a-ya-existe
+  target: Position:p-extender
+- type: objects_to
+  source: Argument:a-preguntas-distintas
+  target: Position:p-extender
+- type: supports
+  source: Argument:a-dos-notaciones
+  target: Position:p-nuevo
+- type: objects_to
+  source: Argument:a-sincronizar
+  target: Position:p-nuevo
+- type: questions
+  source: Issue:i-hogar
+  target: Position:p-nuevo
+- type: specializes
+  source: Issue:i-reificacion
+  target: Issue:i-donde
+- type: responds_to
+  source: Position:p-declarar
+  target: Issue:i-reificacion
+- type: supports
+  source: Argument:a-heuristica
+  target: Position:p-declarar
+- type: objects_to
+  source: Argument:a-dos-notaciones
+  target: Position:p-nuevo
+- type: supports
+  source: Argument:a-sincronizar
+  target: Position:p-extender

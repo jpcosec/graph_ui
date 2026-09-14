@@ -39,6 +39,8 @@ resolver en `graph_ui` o en el `VocabularyDoc`.
 | No hay **conexión guiada por la gramática**: bpmn-js elige secuencia o mensaje según el pool de cada extremo y prohíbe lo que no cabe (`bpmnRules.canConnect`); `graph_ui` no consulta `source_types`, `target_types` ni `condition` antes de ofrecer un gesto. | confirmado | [`03-diagrama-vocabulario/flujo/bpmn.md`](03-diagrama-vocabulario/flujo/bpmn.md) |
 | Un gesto legal puede dejar **aristas existentes ilegales** (mover una tarea a otro pool vuelve ilegales sus flujos de secuencia); `pron` tiene `broken_conditions` para avisarlo, la vista no lo usa. | decisión de diseño | [`03-diagrama-vocabulario/flujo/bpmn.md`](03-diagrama-vocabulario/flujo/bpmn.md) |
 | El mapeo entre mundo y diagrama **no es uno a uno**: dos verbos (`feeds`, `produces`) son un solo constructo del DFD; un modelo (`ControlNode`) son seis símbolos según un campo. La vista hoy mapea modelo → estilo y verbo → arista. | decisión de diseño | [`03-diagrama-vocabulario/flujo/dfd.md`](03-diagrama-vocabulario/flujo/dfd.md) |
+| Los gestos de creación necesitan **dirección de la jugada** (qué extremo es el nodo nuevo) y **qué clases pueden existir sueltas**; la gramática de verbos da las combinaciones legales pero no eso (el menú derivado ofrece jugadas gramaticales que gIBIS no ofrece). | decisión de diseño | [`03-diagrama-vocabulario/n-aria/argument-maps-ibis.md`](03-diagrama-vocabulario/n-aria/argument-maps-ibis.md) |
+| El **símbolo de un nodo puede depender de sus aristas** (`+`/`−` de un argumento según qué verbo sale); la vista hoy estiliza por modelo. | decisión de diseño | [`03-diagrama-vocabulario/n-aria/argument-maps-ibis.md`](03-diagrama-vocabulario/n-aria/argument-maps-ibis.md) |
 
 ## kgdb
 
@@ -65,6 +67,7 @@ resolver en `graph_ui` o en el `VocabularyDoc`.
 | **Una `RelationDoc` no es nodo**: una relación cuyo extremo es otra `RelationDoc` falla al ensamblar con `source ... is not a tracked document` (el documento sí está trackeado; el mensaje confunde) y `pron check` → `ok`. Toda relación con datos o con relaciones propias tiene que reificarse en un modelo. | confirmado | [`03-diagrama-vocabulario/n-aria/clase-de-asociacion.md`](03-diagrama-vocabulario/n-aria/clase-de-asociacion.md) |
 | **La reificación no se declara**: nada dice que dos verbos `many_to_one` son los extremos de una misma asociación; inferirlo confunde relaciones reificadas (`Reservation`, `UmlAssociation`) con elementos que tienen extremos (`Message`). | confirmado | [`03-diagrama-vocabulario/n-aria/clase-de-asociacion.md`](03-diagrama-vocabulario/n-aria/clase-de-asociacion.md) |
 | **Sin unicidad sobre un conjunto de aristas ni dependencias funcionales entre roles**: dos `Supply` con la misma tupla montan sanos, y `(ingrediente, local) → proveedor` (la cardinalidad n-aria de Chen y UML) no se puede declarar. | confirmado | [`03-diagrama-vocabulario/n-aria/er-n-aria.md`](03-diagrama-vocabulario/n-aria/er-n-aria.md) |
+| **"Exactamente uno de varios verbos"**: un argumento IBIS apoya u objeta (no ambas ni ninguna); cada verbo con su `many_to_one` deja pasar las dos. | confirmado | [`03-diagrama-vocabulario/n-aria/argument-maps-ibis.md`](03-diagrama-vocabulario/n-aria/argument-maps-ibis.md) |
 
 ## pron
 

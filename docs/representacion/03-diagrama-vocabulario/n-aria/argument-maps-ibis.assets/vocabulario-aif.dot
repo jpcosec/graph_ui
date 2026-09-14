@@ -1,0 +1,25 @@
+digraph aif {
+  rankdir=BT; node [fontname="Liberation Sans", fontsize=10]; edge [fontname="Liberation Sans", fontsize=9];
+  "p-extender" [shape=box, label=<Extender ProjectionDoc con<br/>símbolos, layout y gestos>];
+  "p-nuevo" [shape=box, label=<Un documento nuevo,<br/>VocabularyDoc, separado de<br/>ProjectionDoc>];
+  "a-ya-existe" [shape=box, label=<ProjectionDoc ya existe y<br/>graph_ui ya lo lee>];
+  "a-preguntas-distintas" [shape=box, label=<Proyectar filtra y rotula;<br/>representar decide símbolos,<br/>layout y gestos>];
+  "a-dos-notaciones" [shape=box, label=<Un mismo mundo se dibuja con<br/>dos vocabularios (DFD en<br/>DeMarco y en Gane &amp; Sarson)>];
+  "a-sincronizar" [shape=box, label=<Es un documento más que<br/>mantener al día con el mundo>];
+  "a-dos-proyecciones" [shape=box, label=<Dos notaciones también podrían<br/>ser dos ProjectionDoc con<br/>distinto display>];
+  "ra-1" [shape=ellipse, style=filled, fillcolor="#b7e4b0", label="RA\napoyo"];
+  "ca-1" [shape=ellipse, style=filled, fillcolor="#f4b6b6", label="CA\nobjeción"];
+  "ra-2" [shape=ellipse, style=filled, fillcolor="#b7e4b0", label="RA\napoyo"];
+  "ca-2" [shape=ellipse, style=filled, fillcolor="#f4b6b6", label="CA\nobjeción"];
+  "ca-3" [shape=ellipse, style=filled, fillcolor="#f4b6b6", label="CA\nsocavamiento"];
+  "a-ya-existe" -> "ra-1" [label="premise"];
+  "ra-1" -> "p-extender" [label="conclusion"];
+  "a-preguntas-distintas" -> "ca-1" [label="conflicting"];
+  "ca-1" -> "p-extender" [label="conflicted"];
+  "a-dos-notaciones" -> "ra-2" [label="premise"];
+  "ra-2" -> "p-nuevo" [label="conclusion"];
+  "a-sincronizar" -> "ca-2" [label="conflicting"];
+  "ca-2" -> "p-nuevo" [label="conflicted"];
+  "a-dos-proyecciones" -> "ca-3" [label="conflicting"];
+  "ca-3" -> "ra-2" [label="conflicted"];
+}
