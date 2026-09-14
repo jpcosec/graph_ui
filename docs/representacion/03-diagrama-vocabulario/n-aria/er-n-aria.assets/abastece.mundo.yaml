@@ -1,0 +1,166 @@
+# Relación ternaria ABASTECE (proveedor, ingrediente, local) con atributo kg_semanales, reificada en Supply
+# con un verbo many_to_one por rol. Los datos están elegidos para mostrar la trampa de conexión.
+modelos:
+- name: Supplier
+  family: abastecimiento
+  template: '---
+
+    rut: ⸢rev•rut⸥
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: rut
+    type: str
+    description: Identificador tributario.
+  - name: name
+    type: str
+    description: Razón social.
+- name: Ingredient
+  family: abastecimiento
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Ingrediente.
+- name: Branch
+  family: abastecimiento
+  template: '---
+
+    comuna: ⸢rev•comuna⸥
+
+    ---
+
+
+    # ⸢render•comuna⸥
+
+    '
+  fields:
+  - name: comuna
+    type: str
+    description: Comuna del local.
+- name: Supply
+  family: abastecimiento
+  template: '---
+
+    kg_per_week: ⸢rev•kg_per_week⸥
+
+    ---
+
+
+    # Abastecimiento
+
+    '
+  fields:
+  - name: kg_per_week
+    type: float
+    description: 'Atributo de la relación: kilos por semana.'
+tipos_de_relacion:
+- name: supplier
+  cardinality: many_to_one
+  axis: WHO
+  source_types:
+  - Supply
+  target_types:
+  - Supplier
+  description: Rol proveedor de la relación ternaria ABASTECE.
+- name: ingredient
+  cardinality: many_to_one
+  axis: WHAT
+  source_types:
+  - Supply
+  target_types:
+  - Ingredient
+  description: Rol ingrediente de la relación ternaria ABASTECE.
+- name: branch
+  cardinality: many_to_one
+  axis: WHERE
+  source_types:
+  - Supply
+  target_types:
+  - Branch
+  description: Rol local de la relación ternaria ABASTECE.
+documentos:
+- model: Supplier
+  name: s-feria
+  payload:
+    rut: 76.100.000-1
+    name: Feria Lo Valledor
+- model: Supplier
+  name: s-central
+  payload:
+    rut: 76.200.000-2
+    name: Distribuidora Central
+- model: Ingredient
+  name: i-tomate
+  payload:
+    name: tomate
+- model: Ingredient
+  name: i-queso
+  payload:
+    name: queso
+- model: Branch
+  name: l-providencia
+  payload:
+    comuna: Providencia
+- model: Branch
+  name: l-nunoa
+  payload:
+    comuna: Ñuñoa
+- model: Supply
+  name: ab-1
+  payload:
+    kg_per_week: 40.0
+- model: Supply
+  name: ab-2
+  payload:
+    kg_per_week: 25.0
+- model: Supply
+  name: ab-3
+  payload:
+    kg_per_week: 8.0
+relaciones:
+- type: supplier
+  source: Supply:ab-1
+  target: Supplier:s-feria
+- type: ingredient
+  source: Supply:ab-1
+  target: Ingredient:i-tomate
+- type: branch
+  source: Supply:ab-1
+  target: Branch:l-providencia
+- type: supplier
+  source: Supply:ab-2
+  target: Supplier:s-central
+- type: ingredient
+  source: Supply:ab-2
+  target: Ingredient:i-tomate
+- type: branch
+  source: Supply:ab-2
+  target: Branch:l-nunoa
+- type: supplier
+  source: Supply:ab-3
+  target: Supplier:s-feria
+- type: ingredient
+  source: Supply:ab-3
+  target: Ingredient:i-queso
+- type: branch
+  source: Supply:ab-3
+  target: Branch:l-nunoa
+relaciones_invalidas:
+- {type: supplier, source: 'Supply:ab-1', target: 'Supplier:s-central', porque: 'una tupla de ABASTECE tiene un solo proveedor'}

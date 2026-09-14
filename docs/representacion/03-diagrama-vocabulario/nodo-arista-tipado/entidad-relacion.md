@@ -200,7 +200,7 @@ mecanismos de escritura con costos y garantías distintos.
   [UML de clases](uml-clases.md).
 - **Sin entidades débiles**: no hay forma de declarar que un modelo no se identifica sin otro.
 - **Relaciones de más de dos entidades** (Chen lo permite desde la definición): ver
-  [`../n-aria/`](../n-aria/index.md).
+  [ER n-aria](../n-aria/er-n-aria.md).
 - **La clave está en `ProjectionDoc`, no en el esquema**: identifica por valor dentro de una
   proyección de `pron` pero no es una restricción de unicidad.
 - **Edición asimétrica** entre relaciones (documentos) y entidades/atributos (modelos con drafts), y

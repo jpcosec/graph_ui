@@ -1,0 +1,22 @@
+%% Mermaid erDiagram solo tiene relaciones binaria (<first-entity> <relationship> <second-entity>):
+%% la relación ternaria se dibuja como entidad asociativa con tres relaciones binarias.
+erDiagram
+    PROVEEDOR ||--o{ ABASTECIMIENTO : "provee en"
+    INGREDIENTE ||--o{ ABASTECIMIENTO : "es abastecido en"
+    LOCAL ||--o{ ABASTECIMIENTO : "recibe en"
+    PROVEEDOR {
+        string rut PK
+        string nombre
+    }
+    INGREDIENTE {
+        string nombre PK
+    }
+    LOCAL {
+        string comuna PK
+    }
+    ABASTECIMIENTO {
+        string rut FK
+        string ingrediente FK
+        string comuna FK
+        float kg_semanales
+    }

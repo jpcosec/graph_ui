@@ -1,0 +1,16 @@
+// Notación de Chen: una relación ternaria es un rombo con una línea por entidad participante.
+// El rol va en cada línea; la cardinalidad se lee "mirando a través": el 1 de proveedor dice que, fijados
+// un ingrediente y un local, hay a lo más un proveedor. El atributo de la
+// relación cuelga del rombo.
+graph abastece {
+  layout=neato; overlap=false; splines=true; node [fontname="Liberation Sans"]; edge [fontname="Liberation Sans", fontsize=10];
+  PROVEEDOR [shape=box, pos="-0.5,2.6!"]; INGREDIENTE [shape=box, pos="4.5,2.6!"]; LOCAL [shape=box, pos="2,-0.5!"];
+  ABASTECE [shape=diamond, pos="2,1.2!"];
+  kg [shape=ellipse, label="kg_semanales", pos="3.6,0.4!"];
+  p_rut [shape=ellipse, label=<<u>rut</u>>, pos="-1,3.6!"]; i_nombre [shape=ellipse, label=<<u>nombre</u>>, pos="5,3.6!"]; l_comuna [shape=ellipse, label=<<u>comuna</u>>, pos="2,-1.5!"];
+  PROVEEDOR -- p_rut; INGREDIENTE -- i_nombre; LOCAL -- l_comuna;
+  PROVEEDOR -- ABASTECE [label="proveedor\n1"];
+  INGREDIENTE -- ABASTECE [label="ingrediente\nN"];
+  LOCAL -- ABASTECE [label="local\nN"];
+  ABASTECE -- kg;
+}
