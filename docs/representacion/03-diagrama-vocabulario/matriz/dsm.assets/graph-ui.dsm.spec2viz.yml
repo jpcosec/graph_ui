@@ -1,0 +1,97 @@
+id: matrix.graph-ui-dsm
+title: DSM de graph_ui con spec2viz (component_view_matrix)
+type: component_view_matrix
+version: '0.1'
+data:
+  views:
+  - id: depende
+    label: depende de
+    stages:
+    - id: shared
+      label: shared
+    - id: source
+      label: source
+    - id: views-draft-tree
+      label: views/draft/tree
+    - id: dialogs
+      label: dialogs
+    - id: shell
+      label: shell
+    - id: views-documents-flow
+      label: views/documents/flow
+    - id: views-documents-map
+      label: views/documents/map
+    - id: views-models-diagram
+      label: views/models/diagram
+    - id: app
+      label: app
+  components:
+  - name: shared
+    label: shared
+    kind: core
+    stages:
+      depende: []
+  - name: source
+    label: source
+    kind: core
+    stages:
+      depende:
+      - shared
+  - name: views-draft-tree
+    label: views/draft/tree
+    kind: core
+    stages:
+      depende:
+      - shared
+      - source
+  - name: dialogs
+    label: dialogs
+    kind: core
+    stages:
+      depende:
+      - shared
+      - shell
+  - name: shell
+    label: shell
+    kind: core
+    stages:
+      depende:
+      - shared
+      - source
+      - views-draft-tree
+      - dialogs
+      - views-documents-flow
+      - views-documents-map
+      - views-models-diagram
+  - name: views-documents-flow
+    label: views/documents/flow
+    kind: core
+    stages:
+      depende:
+      - shared
+      - source
+      - shell
+  - name: views-documents-map
+    label: views/documents/map
+    kind: core
+    stages:
+      depende:
+      - shared
+      - source
+      - shell
+  - name: views-models-diagram
+    label: views/models/diagram
+    kind: core
+    stages:
+      depende:
+      - shared
+      - source
+      - shell
+  - name: app
+    label: app
+    kind: core
+    stages:
+      depende:
+      - shared
+      - source
+      - shell

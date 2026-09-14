@@ -1,0 +1,588 @@
+{
+ "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+ "title": "DSM de componentes de graph_ui (la fila depende de la columna; imports)",
+ "width": 460,
+ "height": 460,
+ "config": {
+  "font": "Liberation Sans",
+  "view": {
+   "stroke": null
+  }
+ },
+ "data": {
+  "values": [
+   {
+    "fila": "shared",
+    "columna": "shared",
+    "imports": "",
+    "clase": "diagonal"
+   },
+   {
+    "fila": "shared",
+    "columna": "source",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "shared",
+    "columna": "views/draft/tree",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "shared",
+    "columna": "dialogs",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "shared",
+    "columna": "shell",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "shared",
+    "columna": "views/documents/flow",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "shared",
+    "columna": "views/documents/map",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "shared",
+    "columna": "views/models/diagram",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "shared",
+    "columna": "app",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "source",
+    "columna": "shared",
+    "imports": 2,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "source",
+    "columna": "source",
+    "imports": "",
+    "clase": "diagonal"
+   },
+   {
+    "fila": "source",
+    "columna": "views/draft/tree",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "source",
+    "columna": "dialogs",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "source",
+    "columna": "shell",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "source",
+    "columna": "views/documents/flow",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "source",
+    "columna": "views/documents/map",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "source",
+    "columna": "views/models/diagram",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "source",
+    "columna": "app",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "views/draft/tree",
+    "columna": "shared",
+    "imports": 2,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "views/draft/tree",
+    "columna": "source",
+    "imports": 2,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "views/draft/tree",
+    "columna": "views/draft/tree",
+    "imports": "",
+    "clase": "diagonal"
+   },
+   {
+    "fila": "views/draft/tree",
+    "columna": "dialogs",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "views/draft/tree",
+    "columna": "shell",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "views/draft/tree",
+    "columna": "views/documents/flow",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "views/draft/tree",
+    "columna": "views/documents/map",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "views/draft/tree",
+    "columna": "views/models/diagram",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "views/draft/tree",
+    "columna": "app",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "dialogs",
+    "columna": "shared",
+    "imports": 5,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "dialogs",
+    "columna": "source",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "dialogs",
+    "columna": "views/draft/tree",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "dialogs",
+    "columna": "dialogs",
+    "imports": "",
+    "clase": "diagonal"
+   },
+   {
+    "fila": "dialogs",
+    "columna": "shell",
+    "imports": 1,
+    "clase": "bloque (ciclo)"
+   },
+   {
+    "fila": "dialogs",
+    "columna": "views/documents/flow",
+    "imports": "",
+    "clase": "bloque, sin marca"
+   },
+   {
+    "fila": "dialogs",
+    "columna": "views/documents/map",
+    "imports": "",
+    "clase": "bloque, sin marca"
+   },
+   {
+    "fila": "dialogs",
+    "columna": "views/models/diagram",
+    "imports": "",
+    "clase": "bloque, sin marca"
+   },
+   {
+    "fila": "dialogs",
+    "columna": "app",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "shell",
+    "columna": "shared",
+    "imports": 1,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "shell",
+    "columna": "source",
+    "imports": 1,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "shell",
+    "columna": "views/draft/tree",
+    "imports": 1,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "shell",
+    "columna": "dialogs",
+    "imports": 3,
+    "clase": "bloque (ciclo)"
+   },
+   {
+    "fila": "shell",
+    "columna": "shell",
+    "imports": "",
+    "clase": "diagonal"
+   },
+   {
+    "fila": "shell",
+    "columna": "views/documents/flow",
+    "imports": 1,
+    "clase": "bloque (ciclo)"
+   },
+   {
+    "fila": "shell",
+    "columna": "views/documents/map",
+    "imports": 1,
+    "clase": "bloque (ciclo)"
+   },
+   {
+    "fila": "shell",
+    "columna": "views/models/diagram",
+    "imports": 1,
+    "clase": "bloque (ciclo)"
+   },
+   {
+    "fila": "shell",
+    "columna": "app",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "views/documents/flow",
+    "columna": "shared",
+    "imports": 5,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "views/documents/flow",
+    "columna": "source",
+    "imports": 2,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "views/documents/flow",
+    "columna": "views/draft/tree",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "views/documents/flow",
+    "columna": "dialogs",
+    "imports": "",
+    "clase": "bloque, sin marca"
+   },
+   {
+    "fila": "views/documents/flow",
+    "columna": "shell",
+    "imports": 1,
+    "clase": "bloque (ciclo)"
+   },
+   {
+    "fila": "views/documents/flow",
+    "columna": "views/documents/flow",
+    "imports": "",
+    "clase": "diagonal"
+   },
+   {
+    "fila": "views/documents/flow",
+    "columna": "views/documents/map",
+    "imports": "",
+    "clase": "bloque, sin marca"
+   },
+   {
+    "fila": "views/documents/flow",
+    "columna": "views/models/diagram",
+    "imports": "",
+    "clase": "bloque, sin marca"
+   },
+   {
+    "fila": "views/documents/flow",
+    "columna": "app",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "views/documents/map",
+    "columna": "shared",
+    "imports": 17,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "views/documents/map",
+    "columna": "source",
+    "imports": 4,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "views/documents/map",
+    "columna": "views/draft/tree",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "views/documents/map",
+    "columna": "dialogs",
+    "imports": "",
+    "clase": "bloque, sin marca"
+   },
+   {
+    "fila": "views/documents/map",
+    "columna": "shell",
+    "imports": 3,
+    "clase": "bloque (ciclo)"
+   },
+   {
+    "fila": "views/documents/map",
+    "columna": "views/documents/flow",
+    "imports": "",
+    "clase": "bloque, sin marca"
+   },
+   {
+    "fila": "views/documents/map",
+    "columna": "views/documents/map",
+    "imports": "",
+    "clase": "diagonal"
+   },
+   {
+    "fila": "views/documents/map",
+    "columna": "views/models/diagram",
+    "imports": "",
+    "clase": "bloque, sin marca"
+   },
+   {
+    "fila": "views/documents/map",
+    "columna": "app",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "views/models/diagram",
+    "columna": "shared",
+    "imports": 5,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "views/models/diagram",
+    "columna": "source",
+    "imports": 2,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "views/models/diagram",
+    "columna": "views/draft/tree",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "views/models/diagram",
+    "columna": "dialogs",
+    "imports": "",
+    "clase": "bloque, sin marca"
+   },
+   {
+    "fila": "views/models/diagram",
+    "columna": "shell",
+    "imports": 2,
+    "clase": "bloque (ciclo)"
+   },
+   {
+    "fila": "views/models/diagram",
+    "columna": "views/documents/flow",
+    "imports": "",
+    "clase": "bloque, sin marca"
+   },
+   {
+    "fila": "views/models/diagram",
+    "columna": "views/documents/map",
+    "imports": "",
+    "clase": "bloque, sin marca"
+   },
+   {
+    "fila": "views/models/diagram",
+    "columna": "views/models/diagram",
+    "imports": "",
+    "clase": "diagonal"
+   },
+   {
+    "fila": "views/models/diagram",
+    "columna": "app",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "app",
+    "columna": "shared",
+    "imports": 1,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "app",
+    "columna": "source",
+    "imports": 1,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "app",
+    "columna": "views/draft/tree",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "app",
+    "columna": "dialogs",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "app",
+    "columna": "shell",
+    "imports": 4,
+    "clase": "dependencia"
+   },
+   {
+    "fila": "app",
+    "columna": "views/documents/flow",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "app",
+    "columna": "views/documents/map",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "app",
+    "columna": "views/models/diagram",
+    "imports": "",
+    "clase": "sin dependencia"
+   },
+   {
+    "fila": "app",
+    "columna": "app",
+    "imports": "",
+    "clase": "diagonal"
+   }
+  ]
+ },
+ "encoding": {
+  "x": {
+   "field": "columna",
+   "type": "nominal",
+   "sort": [
+    "shared",
+    "source",
+    "views/draft/tree",
+    "dialogs",
+    "shell",
+    "views/documents/flow",
+    "views/documents/map",
+    "views/models/diagram",
+    "app"
+   ],
+   "axis": {
+    "labelAngle": -45,
+    "title": null,
+    "orient": "top"
+   }
+  },
+  "y": {
+   "field": "fila",
+   "type": "nominal",
+   "sort": [
+    "shared",
+    "source",
+    "views/draft/tree",
+    "dialogs",
+    "shell",
+    "views/documents/flow",
+    "views/documents/map",
+    "views/models/diagram",
+    "app"
+   ],
+   "axis": {
+    "title": null
+   }
+  }
+ },
+ "layer": [
+  {
+   "mark": {
+    "type": "rect",
+    "stroke": "#ffffff",
+    "strokeWidth": 1
+   },
+   "encoding": {
+    "color": {
+     "field": "clase",
+     "type": "nominal",
+     "scale": {
+      "domain": [
+       "diagonal",
+       "dependencia",
+       "bloque (ciclo)",
+       "bloque, sin marca",
+       "sin dependencia"
+      ],
+      "range": [
+       "#555555",
+       "#6baed6",
+       "#d62728",
+       "#f7c6c6",
+       "#f2f2f2"
+      ]
+     },
+     "legend": {
+      "title": null,
+      "orient": "bottom"
+     }
+    }
+   }
+  },
+  {
+   "mark": {
+    "type": "text",
+    "fontSize": 12
+   },
+   "encoding": {
+    "text": {
+     "field": "imports"
+    }
+   }
+  }
+ ]
+}

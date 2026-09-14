@@ -21,7 +21,7 @@ ciclos, huecos) que en un grafo se pierden.
 
 | Documento | Vocabulario | Qué representa | Estado |
 |---|---|---|---|
-| dsm.md | Design Structure Matrix | dependencias entre elementos de un mismo sistema | pendiente |
+| [dsm.md](dsm.md) | Design Structure Matrix | dependencias entre elementos de un mismo sistema | escrito |
 | raci.md | matriz RACI | responsabilidad de cada rol en cada actividad | pendiente |
 
 ## Implicancias

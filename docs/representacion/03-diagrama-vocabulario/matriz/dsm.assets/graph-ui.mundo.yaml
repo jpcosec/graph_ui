@@ -1,0 +1,175 @@
+# DSM de componentes de graph_ui (frontends/mindmap), generada por mundo-desde-imports.py desde los imports relativos.
+modelos:
+- name: Component
+  family: dsm
+  template: '---
+
+    path: ⸢rev•path⸥
+
+    modules: ⸢rev•modules⸥
+
+    ---
+
+
+    # ⸢render•path⸥
+
+    '
+  fields:
+  - name: path
+    type: str
+    description: Carpeta dentro de frontends/mindmap (app = raíz).
+  - name: modules
+    type: int
+    description: Cantidad de módulos .js/.mjs.
+tipos_de_relacion:
+- name: depends_on
+  cardinality: many_to_many
+  axis: HOW
+  source_types:
+  - Component
+  target_types:
+  - Component
+  description: Algún módulo del origen importa uno del destino. La cantidad de imports va en notes.
+documentos:
+- model: Component
+  name: app
+  payload:
+    path: app
+    modules: 1
+- model: Component
+  name: dialogs
+  payload:
+    path: dialogs
+    modules: 3
+- model: Component
+  name: shared
+  payload:
+    path: shared
+    modules: 3
+- model: Component
+  name: shell
+  payload:
+    path: shell
+    modules: 7
+- model: Component
+  name: source
+  payload:
+    path: source
+    modules: 10
+- model: Component
+  name: views-documents-flow
+  payload:
+    path: views/documents/flow
+    modules: 2
+- model: Component
+  name: views-documents-map
+  payload:
+    path: views/documents/map
+    modules: 9
+- model: Component
+  name: views-draft-tree
+  payload:
+    path: views/draft/tree
+    modules: 1
+- model: Component
+  name: views-models-diagram
+  payload:
+    path: views/models/diagram
+    modules: 3
+relaciones:
+- type: depends_on
+  source: Component:app
+  target: Component:shared
+  notes: imports=1
+- type: depends_on
+  source: Component:app
+  target: Component:shell
+  notes: imports=4
+- type: depends_on
+  source: Component:app
+  target: Component:source
+  notes: imports=1
+- type: depends_on
+  source: Component:dialogs
+  target: Component:shared
+  notes: imports=5
+- type: depends_on
+  source: Component:dialogs
+  target: Component:shell
+  notes: imports=1
+- type: depends_on
+  source: Component:shell
+  target: Component:dialogs
+  notes: imports=3
+- type: depends_on
+  source: Component:shell
+  target: Component:shared
+  notes: imports=1
+- type: depends_on
+  source: Component:shell
+  target: Component:source
+  notes: imports=1
+- type: depends_on
+  source: Component:shell
+  target: Component:views-documents-flow
+  notes: imports=1
+- type: depends_on
+  source: Component:shell
+  target: Component:views-documents-map
+  notes: imports=1
+- type: depends_on
+  source: Component:shell
+  target: Component:views-draft-tree
+  notes: imports=1
+- type: depends_on
+  source: Component:shell
+  target: Component:views-models-diagram
+  notes: imports=1
+- type: depends_on
+  source: Component:source
+  target: Component:shared
+  notes: imports=2
+- type: depends_on
+  source: Component:views-documents-flow
+  target: Component:shared
+  notes: imports=5
+- type: depends_on
+  source: Component:views-documents-flow
+  target: Component:shell
+  notes: imports=1
+- type: depends_on
+  source: Component:views-documents-flow
+  target: Component:source
+  notes: imports=2
+- type: depends_on
+  source: Component:views-documents-map
+  target: Component:shared
+  notes: imports=17
+- type: depends_on
+  source: Component:views-documents-map
+  target: Component:shell
+  notes: imports=3
+- type: depends_on
+  source: Component:views-documents-map
+  target: Component:source
+  notes: imports=4
+- type: depends_on
+  source: Component:views-draft-tree
+  target: Component:shared
+  notes: imports=2
+- type: depends_on
+  source: Component:views-draft-tree
+  target: Component:source
+  notes: imports=2
+- type: depends_on
+  source: Component:views-models-diagram
+  target: Component:shared
+  notes: imports=5
+- type: depends_on
+  source: Component:views-models-diagram
+  target: Component:shell
+  notes: imports=2
+- type: depends_on
+  source: Component:views-models-diagram
+  target: Component:source
+  notes: imports=2
