@@ -1,0 +1,219 @@
+# Modelo de variabilidad de graph-ui.uvl como mundo pron (generado por mundo-desde-uvl.py).
+modelos:
+- name: Feature
+  family: variabilidad
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    variability: ⸢rev•variability⸥
+
+    group: ⸢rev•group⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Nombre de la feature.
+  - name: variability
+    type: str
+    description: mandatory u optional respecto de su padre (en grupos or y alternative, optional).
+  - name: group
+    type: str
+    default: and
+    description: 'Cómo se eligen sus hijas: and (cada una por su variability), or (al menos una), alternative (exactamente una).'
+- name: Constraint
+  family: variabilidad
+  template: '---
+
+    formula: ⸢rev•formula⸥
+
+    ---
+
+
+    # Restricción
+
+    '
+  fields:
+  - name: formula
+    type: str
+    description: Fórmula proposicional sobre nombres de features, en sintaxis UVL.
+tipos_de_relacion:
+- name: subfeature_of
+  cardinality: many_to_one
+  axis: WHAT
+  source_types:
+  - Feature
+  target_types:
+  - Feature
+  description: La feature origen refina a la destino.
+- name: mentions
+  cardinality: many_to_many
+  axis: WHAT
+  source_types:
+  - Constraint
+  target_types:
+  - Feature
+  description: La restricción nombra a la feature (la fórmula queda en el campo).
+documentos:
+- model: Feature
+  name: f-graph-ui
+  payload:
+    name: graph_ui
+    variability: mandatory
+    group: and
+- model: Feature
+  name: f-source
+  payload:
+    name: Source
+    variability: mandatory
+    group: and
+- model: Feature
+  name: f-documentos
+  payload:
+    name: Documentos
+    variability: mandatory
+    group: and
+- model: Feature
+  name: f-modelos
+  payload:
+    name: Modelos
+    variability: mandatory
+    group: and
+- model: Feature
+  name: f-borrador
+  payload:
+    name: Borrador
+    variability: optional
+    group: and
+- model: Feature
+  name: f-vistas
+  payload:
+    name: Vistas
+    variability: mandatory
+    group: or
+- model: Feature
+  name: f-kb
+  payload:
+    name: KB
+    variability: optional
+    group: and
+- model: Feature
+  name: f-flujo
+  payload:
+    name: Flujo
+    variability: optional
+    group: and
+- model: Feature
+  name: f-brainstorm
+  payload:
+    name: Brainstorm
+    variability: optional
+    group: and
+- model: Feature
+  name: f-schema
+  payload:
+    name: Schema
+    variability: optional
+    group: and
+- model: Feature
+  name: f-tema
+  payload:
+    name: Tema
+    variability: mandatory
+    group: alternative
+- model: Feature
+  name: f-claro
+  payload:
+    name: Claro
+    variability: optional
+    group: and
+- model: Feature
+  name: f-oscuro
+  payload:
+    name: Oscuro
+    variability: optional
+    group: and
+- model: Feature
+  name: f-proyecciones
+  payload:
+    name: Proyecciones
+    variability: optional
+    group: and
+- model: Feature
+  name: f-proxy-sldb
+  payload:
+    name: Proxy SLDB
+    variability: optional
+    group: and
+- model: Constraint
+  name: c-1
+  payload:
+    formula: Brainstorm => Borrador
+- model: Constraint
+  name: c-2
+  payload:
+    formula: Proyecciones => KB | Flujo
+relaciones:
+- type: subfeature_of
+  source: Feature:f-source
+  target: Feature:f-graph-ui
+- type: subfeature_of
+  source: Feature:f-documentos
+  target: Feature:f-source
+- type: subfeature_of
+  source: Feature:f-modelos
+  target: Feature:f-source
+- type: subfeature_of
+  source: Feature:f-borrador
+  target: Feature:f-source
+- type: subfeature_of
+  source: Feature:f-vistas
+  target: Feature:f-graph-ui
+- type: subfeature_of
+  source: Feature:f-kb
+  target: Feature:f-vistas
+- type: subfeature_of
+  source: Feature:f-flujo
+  target: Feature:f-vistas
+- type: subfeature_of
+  source: Feature:f-brainstorm
+  target: Feature:f-vistas
+- type: subfeature_of
+  source: Feature:f-schema
+  target: Feature:f-vistas
+- type: subfeature_of
+  source: Feature:f-tema
+  target: Feature:f-graph-ui
+- type: subfeature_of
+  source: Feature:f-claro
+  target: Feature:f-tema
+- type: subfeature_of
+  source: Feature:f-oscuro
+  target: Feature:f-tema
+- type: subfeature_of
+  source: Feature:f-proyecciones
+  target: Feature:f-graph-ui
+- type: subfeature_of
+  source: Feature:f-proxy-sldb
+  target: Feature:f-graph-ui
+- type: mentions
+  source: Constraint:c-1
+  target: Feature:f-borrador
+- type: mentions
+  source: Constraint:c-1
+  target: Feature:f-brainstorm
+- type: mentions
+  source: Constraint:c-2
+  target: Feature:f-kb
+- type: mentions
+  source: Constraint:c-2
+  target: Feature:f-flujo
+- type: mentions
+  source: Constraint:c-2
+  target: Feature:f-proyecciones

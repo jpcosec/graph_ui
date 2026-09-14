@@ -22,7 +22,7 @@ nada del mundo hasta convertirse. Un árbol con significado declara qué relaci�
 | Documento | Vocabulario | Qué representa | Estado |
 |---|---|---|---|
 | [mind-map.md](mind-map.md) | mapa mental | ideas alrededor de un tema central | escrito |
-| feature-model.md | feature model (FODA) | variabilidad de una línea de productos: features y sus restricciones | pendiente |
+| [feature-model.md](feature-model.md) | feature model (FODA) | variabilidad de una línea de productos: features y sus restricciones | escrito |
 | wbs.md | Work Breakdown Structure | descomposición del trabajo de un proyecto en entregables | pendiente |
 
 ## Implicancias

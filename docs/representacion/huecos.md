@@ -44,6 +44,7 @@ resolver en `graph_ui` o en el `VocabularyDoc`.
 | **Solo hay renderers de grafo** (React Flow): una matriz es otro renderer, con orden y bloques derivados (componentes fuertemente conexos), y a veces de solo lectura porque el mundo se genera de otra fuente. | confirmado | [`03-diagrama-vocabulario/matriz/dsm.md`](03-diagrama-vocabulario/matriz/dsm.md) |
 | **Brainstorm guarda un borrador aparte** (`localStorage`, `source/draft.js`) y lo convierte a documentos, en vez de proyectar el mundo como árbol sin tipo. Crear con Tab en un mundo tipado necesita un **hijo por defecto por clase de padre** que hoy no tiene dónde declararse (en el manual: ambiguo para `Axis`). | confirmado | [`03-diagrama-vocabulario/arbol/mind-map.md`](03-diagrama-vocabulario/arbol/mind-map.md) |
 | Dibujar un árbol sobre una unión de verbos que no forma árbol **duplica nodos en silencio**. | confirmado | [`03-diagrama-vocabulario/arbol/mind-map.md`](03-diagrama-vocabulario/arbol/mind-map.md) |
+| **Símbolos sobre conjuntos de aristas** (el arco de grupo de un feature model) y marcas derivadas de un análisis (features muertas, núcleo): la vista dibuja nodo por nodo y arista por arista. | decisión de diseño | [`03-diagrama-vocabulario/arbol/feature-model.md`](03-diagrama-vocabulario/arbol/feature-model.md) |
 
 ## kgdb
 
@@ -71,6 +72,7 @@ resolver en `graph_ui` o en el `VocabularyDoc`.
 | **La reificación no se declara**: nada dice que dos verbos `many_to_one` son los extremos de una misma asociación; inferirlo confunde relaciones reificadas (`Reservation`, `UmlAssociation`) con elementos que tienen extremos (`Message`). | confirmado | [`03-diagrama-vocabulario/n-aria/clase-de-asociacion.md`](03-diagrama-vocabulario/n-aria/clase-de-asociacion.md) |
 | **Sin unicidad sobre un conjunto de aristas ni dependencias funcionales entre roles**: dos `Supply` con la misma tupla montan sanos, y `(ingrediente, local) → proveedor` (la cardinalidad n-aria de Chen y UML) no se puede declarar. | confirmado | [`03-diagrama-vocabulario/n-aria/er-n-aria.md`](03-diagrama-vocabulario/n-aria/er-n-aria.md) |
 | **"Exactamente uno de varios verbos"**: un argumento IBIS apoya u objeta (no ambas ni ninguna); cada verbo con su `many_to_one` deja pasar las dos. Variante por par: una letra por celda en RACI (`consulted` e `informed` sobre la misma tarea y rol). | confirmado | [`03-diagrama-vocabulario/n-aria/argument-maps-ibis.md`](03-diagrama-vocabulario/n-aria/argument-maps-ibis.md), [`03-diagrama-vocabulario/matriz/raci.md`](03-diagrama-vocabulario/matriz/raci.md) |
+| **Sin restricciones proposicionales ni semántica global**: una restricción de feature model (`Proyecciones => KB \| Flujo`) solo cabe como texto; una feature muerta (consecuencia lógica del conjunto) monta sana. Lo verifica un solucionador fuera del sustrato. | confirmado | [`03-diagrama-vocabulario/arbol/feature-model.md`](03-diagrama-vocabulario/arbol/feature-model.md) |
 
 ## pron
 

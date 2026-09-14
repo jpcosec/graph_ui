@@ -1,0 +1,28 @@
+// Variante de graph-ui.uvl con una restricción que contradice el grupo alternative de Tema: Claro queda muerta.
+features
+    graph_ui
+        mandatory
+            Source
+                mandatory
+                    Documentos
+                    Modelos
+                optional
+                    Borrador
+            Vistas
+                or
+                    KB
+                    Flujo
+                    Brainstorm
+                    Schema
+            Tema
+                alternative
+                    Claro
+                    Oscuro
+        optional
+            Proyecciones
+            "Proxy SLDB"
+
+constraints
+    Brainstorm => Borrador
+    Proyecciones => KB | Flujo
+    Claro => Oscuro

@@ -1,0 +1,27 @@
+// Modelo de variabilidad hipotético de graph_ui (frontends/mindmap) en UVL: las piezas existen, la configurabilidad no.
+features
+    graph_ui
+        mandatory
+            Source
+                mandatory
+                    Documentos
+                    Modelos
+                optional
+                    Borrador
+            Vistas
+                or
+                    KB
+                    Flujo
+                    Brainstorm
+                    Schema
+            Tema
+                alternative
+                    Claro
+                    Oscuro
+        optional
+            Proyecciones
+            "Proxy SLDB"
+
+constraints
+    Brainstorm => Borrador
+    Proyecciones => KB | Flujo

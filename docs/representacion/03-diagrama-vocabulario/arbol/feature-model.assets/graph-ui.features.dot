@@ -1,0 +1,33 @@
+digraph features {
+  rankdir=TB; node [fontname="Liberation Sans", fontsize=11, shape=box]; edge [arrowsize=1.2];
+  "f-graph-ui" [label="graph_ui"];
+  "f-source" [label="Source"];
+  "f-documentos" [label="Documentos"];
+  "f-modelos" [label="Modelos"];
+  "f-borrador" [label="Borrador"];
+  "f-vistas" [label="Vistas\n(or)"];
+  "f-kb" [label="KB"];
+  "f-flujo" [label="Flujo"];
+  "f-brainstorm" [label="Brainstorm"];
+  "f-schema" [label="Schema"];
+  "f-tema" [label="Tema\n(alternative)"];
+  "f-claro" [label="Claro"];
+  "f-oscuro" [label="Oscuro"];
+  "f-proyecciones" [label="Proyecciones"];
+  "f-proxy-sldb" [label="Proxy SLDB"];
+  "f-graph-ui" -> "f-source" [arrowhead=dot];
+  "f-source" -> "f-documentos" [arrowhead=dot];
+  "f-source" -> "f-modelos" [arrowhead=dot];
+  "f-source" -> "f-borrador" [arrowhead=odot];
+  "f-graph-ui" -> "f-vistas" [arrowhead=dot];
+  "f-vistas" -> "f-kb" [arrowhead=none];
+  "f-vistas" -> "f-flujo" [arrowhead=none];
+  "f-vistas" -> "f-brainstorm" [arrowhead=none];
+  "f-vistas" -> "f-schema" [arrowhead=none];
+  "f-graph-ui" -> "f-tema" [arrowhead=dot];
+  "f-tema" -> "f-claro" [arrowhead=none];
+  "f-tema" -> "f-oscuro" [arrowhead=none];
+  "f-graph-ui" -> "f-proyecciones" [arrowhead=odot];
+  "f-graph-ui" -> "f-proxy-sldb" [arrowhead=odot];
+  restricciones [shape=plaintext, label=<<table border="1" cellborder="0"><tr><td><b>restricciones</b></td></tr><tr><td align='left'>Brainstorm =&gt; Borrador</td></tr><tr><td align='left'>Proyecciones =&gt; KB &#124; Flujo</td></tr></table>>];
+}
