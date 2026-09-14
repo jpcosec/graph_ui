@@ -1,0 +1,240 @@
+# Mapa conceptual como dominio de un mundo pron: conceptos = documentos Concept; cada palabra de enlace
+# es un verbo (RelationTypeDoc) y sus formas de superficie van en un AnchorDoc (el léxico del mundo).
+modelos:
+- name: Concept
+  family: mapa
+  template: '---
+
+    label: ⸢rev•label⸥
+
+    ---
+
+
+    # ⸢render•label⸥
+
+
+    ## Definition
+
+
+    ⸢rev•definition⸥
+
+    '
+  fields:
+  - name: label
+    type: str
+    description: Etiqueta del concepto.
+  - name: definition
+    type: str
+    default: ''
+    description: Regularidad percibida que el concepto nombra.
+tipos_de_relacion:
+- name: declara
+  cardinality: many_to_many
+  source_types:
+  - Concept
+  target_types:
+  - Concept
+  description: 'Proposición: <concepto> declara <concepto>.'
+- name: describe
+  cardinality: many_to_many
+  source_types:
+  - Concept
+  target_types:
+  - Concept
+  description: 'Proposición: <concepto> describe <concepto>.'
+- name: se_dibuja_con
+  cardinality: many_to_many
+  source_types:
+  - Concept
+  target_types:
+  - Concept
+  description: 'Proposición: <concepto> se dibuja con <concepto>.'
+- name: usa
+  cardinality: many_to_many
+  source_types:
+  - Concept
+  target_types:
+  - Concept
+  description: 'Proposición: <concepto> usa <concepto>.'
+- name: se_aplica_a
+  cardinality: many_to_many
+  source_types:
+  - Concept
+  target_types:
+  - Concept
+  description: 'Proposición: <concepto> se aplica a <concepto>.'
+- name: selecciona
+  cardinality: many_to_many
+  source_types:
+  - Concept
+  target_types:
+  - Concept
+  description: 'Proposición: <concepto> selecciona qué entra de <concepto>.'
+- name: define
+  cardinality: many_to_many
+  source_types:
+  - Concept
+  target_types:
+  - Concept
+  description: 'Proposición: <concepto> define <concepto>.'
+- name: se_traduce_en
+  cardinality: many_to_many
+  source_types:
+  - Concept
+  target_types:
+  - Concept
+  description: 'Proposición: <concepto> se traduce en <concepto>.'
+- name: escribe_en
+  cardinality: many_to_many
+  source_types:
+  - Concept
+  target_types:
+  - Concept
+  description: 'Proposición: <concepto> escribe en <concepto>.'
+documentos:
+- model: Concept
+  name: mundo
+  payload:
+    label: mundo pron
+- model: Concept
+  name: vocabulario
+  payload:
+    label: vocabulario
+- model: Concept
+  name: vocabularydoc
+  payload:
+    label: VocabularyDoc
+- model: Concept
+  name: projectiondoc
+  payload:
+    label: ProjectionDoc
+- model: Concept
+  name: sintaxis-abstracta
+  payload:
+    label: sintaxis abstracta
+- model: Concept
+  name: notacion
+  payload:
+    label: notación
+- model: Concept
+  name: canal-visual
+  payload:
+    label: canal visual
+- model: Concept
+  name: gesto
+  payload:
+    label: gesto
+- model: Concept
+  name: operacion
+  payload:
+    label: operación
+- model: AnchorDoc
+  name: anchor-declara
+  payload:
+    symbol: declara
+    forms:
+    - declara
+    - declaran
+    ref: relation:declara
+    motive: 'Palabra de enlace del mapa conceptual: declara.'
+- model: AnchorDoc
+  name: anchor-describe
+  payload:
+    symbol: describe
+    forms:
+    - describe
+    - describen
+    ref: relation:describe
+    motive: 'Palabra de enlace del mapa conceptual: describe.'
+- model: AnchorDoc
+  name: anchor-se-dibuja-con
+  payload:
+    symbol: se dibuja con
+    forms:
+    - se dibuja con
+    - se dibujan con
+    ref: relation:se_dibuja_con
+    motive: 'Palabra de enlace del mapa conceptual: se dibuja con.'
+- model: AnchorDoc
+  name: anchor-usa
+  payload:
+    symbol: usa
+    forms:
+    - usa
+    - usan
+    ref: relation:usa
+    motive: 'Palabra de enlace del mapa conceptual: usa.'
+- model: AnchorDoc
+  name: anchor-se-aplica-a
+  payload:
+    symbol: se aplica a
+    forms:
+    - se aplica a
+    - se aplican a
+    ref: relation:se_aplica_a
+    motive: 'Palabra de enlace del mapa conceptual: se aplica a.'
+- model: AnchorDoc
+  name: anchor-selecciona
+  payload:
+    symbol: selecciona qué entra de
+    forms:
+    - selecciona qué entra de
+    ref: relation:selecciona
+    motive: 'Palabra de enlace del mapa conceptual: selecciona qué entra de.'
+- model: AnchorDoc
+  name: anchor-define
+  payload:
+    symbol: define
+    forms:
+    - define
+    - definen
+    ref: relation:define
+    motive: 'Palabra de enlace del mapa conceptual: define.'
+- model: AnchorDoc
+  name: anchor-se-traduce-en
+  payload:
+    symbol: se traduce en
+    forms:
+    - se traduce en
+    - se traducen en
+    ref: relation:se_traduce_en
+    motive: 'Palabra de enlace del mapa conceptual: se traduce en.'
+- model: AnchorDoc
+  name: anchor-escribe-en
+  payload:
+    symbol: escribe en
+    forms:
+    - escribe en
+    - escriben en
+    ref: relation:escribe_en
+    motive: 'Palabra de enlace del mapa conceptual: escribe en.'
+relaciones:
+- type: declara
+  source: Concept:mundo
+  target: Concept:sintaxis-abstracta
+- type: describe
+  source: Concept:vocabularydoc
+  target: Concept:vocabulario
+- type: se_dibuja_con
+  source: Concept:vocabulario
+  target: Concept:notacion
+- type: usa
+  source: Concept:notacion
+  target: Concept:canal-visual
+- type: se_aplica_a
+  source: Concept:vocabularydoc
+  target: Concept:mundo
+- type: selecciona
+  source: Concept:projectiondoc
+  target: Concept:mundo
+- type: define
+  source: Concept:vocabulario
+  target: Concept:gesto
+- type: se_traduce_en
+  source: Concept:gesto
+  target: Concept:operacion
+- type: escribe_en
+  source: Concept:operacion
+  target: Concept:mundo
+pron_extra:
+- - lexicon

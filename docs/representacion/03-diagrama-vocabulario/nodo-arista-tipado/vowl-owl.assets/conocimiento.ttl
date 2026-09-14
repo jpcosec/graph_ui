@@ -1,0 +1,21 @@
+@prefix :     <https://hum-ecosystem.example/pron-kb#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# Ontología mínima de la KB de pron: superficies de código que implementan capítulos del spec.
+<https://hum-ecosystem.example/pron-kb> a owl:Ontology ;
+    rdfs:label "KB de pron (ejemplo del manual de representación)" .
+
+:Surface    a owl:Class ; rdfs:label "Surface" ; rdfs:comment "Un módulo de código de pron." .
+:CliCommand a owl:Class ; rdfs:label "CliCommand" ; rdfs:subClassOf :Surface ;
+            rdfs:comment "Un comando del CLI; es una superficie." .
+:Spec       a owl:Class ; rdfs:label "Spec" ; rdfs:comment "Un capítulo de la especificación." .
+
+:implements a owl:ObjectProperty ; rdfs:label "implements" ;
+            rdfs:domain :Surface ; rdfs:range :Spec .
+
+:title       a owl:DatatypeProperty ; rdfs:label "title" ; rdfs:domain :Spec ; rdfs:range xsd:string .
+:surface     a owl:DatatypeProperty ; rdfs:label "surface" ; rdfs:domain :Surface ; rdfs:range xsd:string .
+:commandPath a owl:DatatypeProperty ; rdfs:label "command_path" ; rdfs:domain :CliCommand ; rdfs:range xsd:string .

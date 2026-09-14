@@ -32,16 +32,31 @@ todas las líneas se ven iguales.
 | [uml-clases.md](uml-clases.md) | UML, diagrama de clases | estructura de tipos: clases, interfaces, herencia, composición, asociaciones | escrito |
 | [entidad-relacion.md](entidad-relacion.md) | ER (Chen / crow's foot) | datos persistentes: entidades, atributos, relaciones con cardinalidad | escrito |
 | [archimate.md](archimate.md) | ArchiMate | arquitectura empresarial por capas (negocio, aplicación, tecnología) | escrito |
-| mapa-conceptual.md | mapa conceptual | conceptos unidos por proposiciones etiquetadas | pendiente |
-| vowl-owl.md | VOWL | clases y propiedades de una ontología OWL | pendiente |
+| [mapa-conceptual.md](mapa-conceptual.md) | mapa conceptual | conceptos unidos por proposiciones etiquetadas | escrito |
+| [vowl-owl.md](vowl-owl.md) | VOWL | clases y propiedades de una ontología OWL | escrito |
 
 ## Implicancias
 
-- Para `graph_ui`: la vista Schema actual es un nodo-arista, pero con kinds *inferidos* por
-  estructura (`containment`, `relation`, `reference`) y un solo trazo por kind. Le faltan
-  terminales, roles, multiplicidad y restricciones de conexión declaradas.
-- Para el `VocabularyDoc`: esta forma fija el mínimo — mapeo de modelos a kinds de nodo y de
-  relaciones a kinds de arista, con terminales. Todas las demás formas agregan algo encima.
+Lo que dejaron los cinco ejemplos:
+
+- **Dos niveles.** UML de clases y mapa conceptual se montaron sobre **instancias** (opción B); ER y
+  OWL/VOWL, sobre el **esquema** del mundo (opción A); ArchiMate, sobre instancias con un modelo por
+  tipo de elemento. El `VocabularyDoc` tiene que poder declarar ambos niveles.
+- **La arista basada en elemento es la regla, no la excepción.** Asociación UML con roles y
+  multiplicidades, atributo de relación en ER: en cuanto la relación lleva datos, se reifica en un
+  documento con dos aristas. La vista necesita dibujar "un documento con dos extremos" como **una**
+  línea.
+- **La gramática de conexión es del vocabulario.** `kgdb` valida un producto `source_types ×
+  target_types`, cardinalidad máxima y (al afirmar por `pron`) una condición. ArchiMate necesita una
+  matriz por pares; UML, que el destino de una realización sea interfaz; ER, participación mínima.
+  Nada de eso cabe en el sustrato sin enseñarle el vocabulario.
+- **`graph_ui` hoy escribe por fuera de todas las validaciones** (`pron.Store.create`): el vocabulario
+  debería afirmar aristas por `pron` (`Verbs.assert_edge`) y aplicar su propia gramática antes.
+- **Las palabras ya están en el mundo.** Mapa conceptual: las etiquetas de las aristas deberían salir
+  del léxico (`AnchorDoc`, `pron lexicon`), no del token del tipo.
+- **Para `graph_ui`**: la vista Schema es un nodo-arista con kinds inferidos (`containment`,
+  `relation`, `reference`) y un solo trazo por kind, con una sobrecarga semiótica confirmada. Le
+  faltan terminales, roles, multiplicidad, gramática y el nivel explícito.
 
 ## Fuentes
 

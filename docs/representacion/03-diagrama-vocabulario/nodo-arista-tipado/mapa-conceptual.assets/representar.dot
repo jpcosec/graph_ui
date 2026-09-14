@@ -1,0 +1,19 @@
+// Mapa conceptual (Novak y Cañas): conceptos en cajas, palabras de enlace sobre las líneas,
+// lo más general arriba. Pregunta de enfoque en el título.
+digraph representar {
+  label="¿Qué hace falta para que graph_ui represente un mundo?"; labelloc=t; fontname="Helvetica";
+  rankdir=TB; node [shape=box, style=rounded, fontname="Helvetica"]; edge [fontname="Helvetica", fontsize=11];
+  mundo [label="mundo pron"]; vocab [label="vocabulario"]; vdoc [label="VocabularyDoc"];
+  proy [label="ProjectionDoc"]; sint [label="sintaxis abstracta"]; notac [label="notación"];
+  canal [label="canal visual"]; gesto [label="gesto"]; oper [label="operación"];
+  { rank=same; mundo; vocab; }
+  mundo -> sint [label="declara"];
+  vdoc -> vocab [label="describe"];
+  vocab -> notac [label="se dibuja con"];
+  notac -> canal [label="usa"];
+  vdoc -> mundo [label="se aplica a"];
+  proy -> mundo [label="selecciona qué entra de"];
+  vocab -> gesto [label="define"];
+  gesto -> oper [label="se traduce en"];
+  oper -> mundo [label="escribe en", style=dashed, constraint=false];
+}

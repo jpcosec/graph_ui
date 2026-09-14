@@ -1,0 +1,81 @@
+# Variante: CliCommand declara base: Surface (rdfs:subClassOf) por sldb models create.
+modelos:
+- name: Surface
+  family: kb
+  template: '---
+
+    surface: ⸢rev•surface⸥
+
+    ---
+
+
+    # ⸢render•surface⸥
+
+    '
+  fields:
+  - name: surface
+    type: str
+    description: Módulo de código.
+- name: CliCommand
+  family: kb
+  template: '---
+
+    command_path: ⸢rev•command_path⸥
+
+    ---
+
+
+    # ⸢render•command_path⸥
+
+    '
+  fields:
+  - name: command_path
+    type: str
+    description: Ruta del comando en el CLI.
+  base: Surface
+- name: Spec
+  family: kb
+  template: '---
+
+    title: ⸢rev•title⸥
+
+    ---
+
+
+    # ⸢render•title⸥
+
+    '
+  fields:
+  - name: title
+    type: str
+    description: Título del capítulo.
+tipos_de_relacion:
+- name: implements
+  cardinality: many_to_many
+  axis: HOW
+  source_types:
+  - Surface
+  - CliCommand
+  target_types:
+  - Spec
+  description: Este módulo o comando implementa ese capítulo del spec.
+documentos:
+- model: Surface
+  name: surface-pron-world
+  payload:
+    surface: pron.world
+- model: CliCommand
+  name: cli-pron-refresh
+  payload:
+    command_path: pron refresh
+- model: Spec
+  name: spec-01
+  payload:
+    title: 01 · mundo
+relaciones:
+- type: implements
+  source: Surface:surface-pron-world
+  target: Spec:spec-01
+- type: implements
+  source: CliCommand:cli-pron-refresh
+  target: Spec:spec-01

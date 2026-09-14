@@ -22,6 +22,8 @@ Formato del YAML:
       - {type, source, target, condition?}
     relaciones_invalidas:  # control negativo: se crean después de un mundo sano y se vuelve a
       - {type, source, target, porque}   # correr refresh + check para ver si kgdb/pron las rechazan
+    pron_extra:        # subcomandos de pron a correr sobre el mundo sano, p. ej. [lexicon]
+      - [lexicon]
 """
 from __future__ import annotations
 
@@ -99,6 +101,9 @@ def montar(spec_path: Path, conservar: bool) -> int:
     fallos += bool(run(["pron", "refresh", "--world", str(world), "--pythonpath", py]).returncode)
     fallos += bool(run(["pron", "check", "--world", str(world), "--pythonpath", py]).returncode)
     print(f"\nmundo sano: {world}  ·  comandos con error: {fallos}")
+
+    for extra in spec.get("pron_extra", []):
+        run(["pron", *extra, "--world", str(world), "--pythonpath", py])
 
     for rel in spec.get("relaciones_invalidas", []):
         print(f"\n== control negativo: {rel['type']} {rel['source']} -> {rel['target']} ({rel['porque']})")
