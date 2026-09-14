@@ -1,0 +1,436 @@
+# Variante: el documento de IBIS es además capítulo del eje 1. chapter_of y example_of son many_to_one cada uno;
+# juntos le dan dos padres en el mapa mental.
+modelos:
+- name: Manual
+  family: manual
+  template: '---
+
+    title: ⸢rev•title⸥
+
+    ---
+
+
+    # ⸢render•title⸥
+
+    '
+  fields: &id001
+  - name: title
+    type: str
+    description: Título (el H1 del archivo).
+- name: Axis
+  family: manual
+  template: '---
+
+    title: ⸢rev•title⸥
+
+    ---
+
+
+    # ⸢render•title⸥
+
+    '
+  fields: *id001
+- name: Folder
+  family: manual
+  template: '---
+
+    title: ⸢rev•title⸥
+
+    ---
+
+
+    # ⸢render•title⸥
+
+    '
+  fields: *id001
+- name: Document
+  family: manual
+  template: '---
+
+    title: ⸢rev•title⸥
+
+    ---
+
+
+    # ⸢render•title⸥
+
+    '
+  fields: *id001
+tipos_de_relacion:
+- name: axis_of
+  cardinality: many_to_one
+  axis: WHERE
+  source_types:
+  - Axis
+  target_types:
+  - Manual
+  description: El eje es parte del manual.
+- name: folder_of
+  cardinality: many_to_one
+  axis: WHERE
+  source_types:
+  - Folder
+  target_types:
+  - Axis
+  description: La carpeta (dónde vive el significado) es parte del eje.
+- name: chapter_of
+  cardinality: many_to_one
+  axis: WHERE
+  source_types:
+  - Document
+  target_types:
+  - Axis
+  description: El documento es un capítulo directo del eje.
+- name: example_of
+  cardinality: many_to_one
+  axis: WHERE
+  source_types:
+  - Document
+  target_types:
+  - Folder
+  description: El documento es un ejemplo de la carpeta.
+documentos:
+- model: Manual
+  name: manual
+  payload:
+    title: Representación semántica — manual
+- model: Axis
+  name: 01-fundamentos
+  payload:
+    title: Eje 1 — Fundamentos
+- model: Document
+  name: 01-fundamentos--lentes-bidireccionales
+  payload:
+    title: 'Lentes bidireccionales: editar la vista y actualizar el dato'
+- model: Document
+  name: 01-fundamentos--metamodelado-mof
+  payload:
+    title: 'Metamodelado: capas MOF, instanciación lingüística y ontológica'
+- model: Document
+  name: 01-fundamentos--physics-of-notations
+  payload:
+    title: 'Physics of Notations: cómo evaluar una notación'
+- model: Document
+  name: 01-fundamentos--proyectar-vs-representar
+  payload:
+    title: Proyectar vs representar
+- model: Document
+  name: 01-fundamentos--sintaxis-abstracta-y-concreta
+  payload:
+    title: Sintaxis abstracta, sintaxis concreta y semántica
+- model: Document
+  name: 01-fundamentos--variables-visuales
+  payload:
+    title: 'Variables visuales: con qué se dibuja el significado'
+- model: Axis
+  name: 02-prior-art
+  payload:
+    title: Eje 2 — Prior art
+- model: Document
+  name: 02-prior-art--eclipse-glsp
+  payload:
+    title: Eclipse GLSP (Graphical Language Server Platform)
+- model: Document
+  name: 02-prior-art--fresnel
+  payload:
+    title: 'Fresnel: vocabulario de presentación para RDF (W3C / MIT)'
+- model: Document
+  name: 02-prior-art--jetbrains-mps
+  payload:
+    title: JetBrains MPS (Meta Programming System)
+- model: Document
+  name: 02-prior-art--metaedit-gopprr
+  payload:
+    title: MetaEdit+ y GOPPRR (MetaCase)
+- model: Document
+  name: 02-prior-art--sirius-web
+  payload:
+    title: Sirius y Sirius Web (Obeo / Eclipse)
+- model: Document
+  name: 02-prior-art--spec2viz
+  payload:
+    title: spec2viz (herramienta propia del ecosistema)
+- model: Document
+  name: 02-prior-art--structurizr-c4
+  payload:
+    title: Structurizr y el modelo C4
+- model: Document
+  name: 02-prior-art--vowl
+  payload:
+    title: 'VOWL: notación visual para ontologías OWL'
+- model: Axis
+  name: 03-diagrama-vocabulario
+  payload:
+    title: Eje 3 — Relaciones diagrama ↔ vocabulario
+- model: Folder
+  name: 03-diagrama-vocabulario--anidamiento
+  payload:
+    title: Anidamiento
+- model: Document
+  name: 03-diagrama-vocabulario--anidamiento--c4
+  payload:
+    title: Modelo C4
+- model: Document
+  name: 03-diagrama-vocabulario--anidamiento--treemap
+  payload:
+    title: Treemap
+- model: Document
+  name: 03-diagrama-vocabulario--anidamiento--uml-despliegue
+  payload:
+    title: UML — diagrama de despliegue
+- model: Document
+  name: 03-diagrama-vocabulario--anidamiento--uml-paquetes
+  payload:
+    title: UML — diagrama de paquetes
+- model: Folder
+  name: 03-diagrama-vocabulario--arbol
+  payload:
+    title: Árbol
+- model: Folder
+  name: 03-diagrama-vocabulario--estado-bipartito
+  payload:
+    title: Estado y grafos bipartitos
+- model: Document
+  name: 03-diagrama-vocabulario--estado-bipartito--petri
+  payload:
+    title: Redes de Petri
+- model: Document
+  name: 03-diagrama-vocabulario--estado-bipartito--statecharts
+  payload:
+    title: Statecharts y máquinas de estado UML
+- model: Folder
+  name: 03-diagrama-vocabulario--flujo
+  payload:
+    title: Flujo
+- model: Document
+  name: 03-diagrama-vocabulario--flujo--bpmn
+  payload:
+    title: BPMN 2.0
+- model: Document
+  name: 03-diagrama-vocabulario--flujo--dfd
+  payload:
+    title: Diagrama de flujo de datos (DFD)
+- model: Document
+  name: 03-diagrama-vocabulario--flujo--uml-actividad
+  payload:
+    title: UML — diagrama de actividad
+- model: Folder
+  name: 03-diagrama-vocabulario--matriz
+  payload:
+    title: Matriz
+- model: Document
+  name: 03-diagrama-vocabulario--matriz--dsm
+  payload:
+    title: Design Structure Matrix (DSM)
+- model: Document
+  name: 03-diagrama-vocabulario--matriz--raci
+  payload:
+    title: Matriz RACI
+- model: Folder
+  name: 03-diagrama-vocabulario--n-aria
+  payload:
+    title: Relaciones n-arias y reificadas
+- model: Document
+  name: 03-diagrama-vocabulario--n-aria--argument-maps-ibis
+  payload:
+    title: IBIS y mapas de argumentos
+- model: Document
+  name: 03-diagrama-vocabulario--n-aria--clase-de-asociacion
+  payload:
+    title: UML — clase de asociación
+- model: Document
+  name: 03-diagrama-vocabulario--n-aria--er-n-aria
+  payload:
+    title: Entidad-relación — relación n-aria
+- model: Folder
+  name: 03-diagrama-vocabulario--nodo-arista-tipado
+  payload:
+    title: Nodo-arista tipado
+- model: Document
+  name: 03-diagrama-vocabulario--nodo-arista-tipado--archimate
+  payload:
+    title: ArchiMate
+- model: Document
+  name: 03-diagrama-vocabulario--nodo-arista-tipado--entidad-relacion
+  payload:
+    title: Entidad-relación (Chen y crow's foot)
+- model: Document
+  name: 03-diagrama-vocabulario--nodo-arista-tipado--mapa-conceptual
+  payload:
+    title: Mapa conceptual
+- model: Document
+  name: 03-diagrama-vocabulario--nodo-arista-tipado--uml-clases
+  payload:
+    title: UML — diagrama de clases
+- model: Document
+  name: 03-diagrama-vocabulario--nodo-arista-tipado--vowl-owl
+  payload:
+    title: VOWL (ontologías OWL)
+- model: Folder
+  name: 03-diagrama-vocabulario--posicion
+  payload:
+    title: Posición
+- model: Document
+  name: 03-diagrama-vocabulario--posicion--gantt
+  payload:
+    title: Gantt
+- model: Document
+  name: 03-diagrama-vocabulario--posicion--swimlanes
+  payload:
+    title: Carriles (swimlanes)
+- model: Document
+  name: 03-diagrama-vocabulario--posicion--uml-secuencia
+  payload:
+    title: UML — diagrama de secuencia
+- model: Document
+  name: 03-diagrama-vocabulario--posicion--wardley
+  payload:
+    title: Mapa de Wardley
+relaciones:
+- type: axis_of
+  source: Axis:01-fundamentos
+  target: Manual:manual
+- type: chapter_of
+  source: Document:01-fundamentos--lentes-bidireccionales
+  target: Axis:01-fundamentos
+- type: chapter_of
+  source: Document:01-fundamentos--metamodelado-mof
+  target: Axis:01-fundamentos
+- type: chapter_of
+  source: Document:01-fundamentos--physics-of-notations
+  target: Axis:01-fundamentos
+- type: chapter_of
+  source: Document:01-fundamentos--proyectar-vs-representar
+  target: Axis:01-fundamentos
+- type: chapter_of
+  source: Document:01-fundamentos--sintaxis-abstracta-y-concreta
+  target: Axis:01-fundamentos
+- type: chapter_of
+  source: Document:01-fundamentos--variables-visuales
+  target: Axis:01-fundamentos
+- type: axis_of
+  source: Axis:02-prior-art
+  target: Manual:manual
+- type: chapter_of
+  source: Document:02-prior-art--eclipse-glsp
+  target: Axis:02-prior-art
+- type: chapter_of
+  source: Document:02-prior-art--fresnel
+  target: Axis:02-prior-art
+- type: chapter_of
+  source: Document:02-prior-art--jetbrains-mps
+  target: Axis:02-prior-art
+- type: chapter_of
+  source: Document:02-prior-art--metaedit-gopprr
+  target: Axis:02-prior-art
+- type: chapter_of
+  source: Document:02-prior-art--sirius-web
+  target: Axis:02-prior-art
+- type: chapter_of
+  source: Document:02-prior-art--spec2viz
+  target: Axis:02-prior-art
+- type: chapter_of
+  source: Document:02-prior-art--structurizr-c4
+  target: Axis:02-prior-art
+- type: chapter_of
+  source: Document:02-prior-art--vowl
+  target: Axis:02-prior-art
+- type: axis_of
+  source: Axis:03-diagrama-vocabulario
+  target: Manual:manual
+- type: folder_of
+  source: Folder:03-diagrama-vocabulario--anidamiento
+  target: Axis:03-diagrama-vocabulario
+- type: example_of
+  source: Document:03-diagrama-vocabulario--anidamiento--c4
+  target: Folder:03-diagrama-vocabulario--anidamiento
+- type: example_of
+  source: Document:03-diagrama-vocabulario--anidamiento--treemap
+  target: Folder:03-diagrama-vocabulario--anidamiento
+- type: example_of
+  source: Document:03-diagrama-vocabulario--anidamiento--uml-despliegue
+  target: Folder:03-diagrama-vocabulario--anidamiento
+- type: example_of
+  source: Document:03-diagrama-vocabulario--anidamiento--uml-paquetes
+  target: Folder:03-diagrama-vocabulario--anidamiento
+- type: folder_of
+  source: Folder:03-diagrama-vocabulario--arbol
+  target: Axis:03-diagrama-vocabulario
+- type: folder_of
+  source: Folder:03-diagrama-vocabulario--estado-bipartito
+  target: Axis:03-diagrama-vocabulario
+- type: example_of
+  source: Document:03-diagrama-vocabulario--estado-bipartito--petri
+  target: Folder:03-diagrama-vocabulario--estado-bipartito
+- type: example_of
+  source: Document:03-diagrama-vocabulario--estado-bipartito--statecharts
+  target: Folder:03-diagrama-vocabulario--estado-bipartito
+- type: folder_of
+  source: Folder:03-diagrama-vocabulario--flujo
+  target: Axis:03-diagrama-vocabulario
+- type: example_of
+  source: Document:03-diagrama-vocabulario--flujo--bpmn
+  target: Folder:03-diagrama-vocabulario--flujo
+- type: example_of
+  source: Document:03-diagrama-vocabulario--flujo--dfd
+  target: Folder:03-diagrama-vocabulario--flujo
+- type: example_of
+  source: Document:03-diagrama-vocabulario--flujo--uml-actividad
+  target: Folder:03-diagrama-vocabulario--flujo
+- type: folder_of
+  source: Folder:03-diagrama-vocabulario--matriz
+  target: Axis:03-diagrama-vocabulario
+- type: example_of
+  source: Document:03-diagrama-vocabulario--matriz--dsm
+  target: Folder:03-diagrama-vocabulario--matriz
+- type: example_of
+  source: Document:03-diagrama-vocabulario--matriz--raci
+  target: Folder:03-diagrama-vocabulario--matriz
+- type: folder_of
+  source: Folder:03-diagrama-vocabulario--n-aria
+  target: Axis:03-diagrama-vocabulario
+- type: example_of
+  source: Document:03-diagrama-vocabulario--n-aria--argument-maps-ibis
+  target: Folder:03-diagrama-vocabulario--n-aria
+- type: example_of
+  source: Document:03-diagrama-vocabulario--n-aria--clase-de-asociacion
+  target: Folder:03-diagrama-vocabulario--n-aria
+- type: example_of
+  source: Document:03-diagrama-vocabulario--n-aria--er-n-aria
+  target: Folder:03-diagrama-vocabulario--n-aria
+- type: folder_of
+  source: Folder:03-diagrama-vocabulario--nodo-arista-tipado
+  target: Axis:03-diagrama-vocabulario
+- type: example_of
+  source: Document:03-diagrama-vocabulario--nodo-arista-tipado--archimate
+  target: Folder:03-diagrama-vocabulario--nodo-arista-tipado
+- type: example_of
+  source: Document:03-diagrama-vocabulario--nodo-arista-tipado--entidad-relacion
+  target: Folder:03-diagrama-vocabulario--nodo-arista-tipado
+- type: example_of
+  source: Document:03-diagrama-vocabulario--nodo-arista-tipado--mapa-conceptual
+  target: Folder:03-diagrama-vocabulario--nodo-arista-tipado
+- type: example_of
+  source: Document:03-diagrama-vocabulario--nodo-arista-tipado--uml-clases
+  target: Folder:03-diagrama-vocabulario--nodo-arista-tipado
+- type: example_of
+  source: Document:03-diagrama-vocabulario--nodo-arista-tipado--vowl-owl
+  target: Folder:03-diagrama-vocabulario--nodo-arista-tipado
+- type: folder_of
+  source: Folder:03-diagrama-vocabulario--posicion
+  target: Axis:03-diagrama-vocabulario
+- type: example_of
+  source: Document:03-diagrama-vocabulario--posicion--gantt
+  target: Folder:03-diagrama-vocabulario--posicion
+- type: example_of
+  source: Document:03-diagrama-vocabulario--posicion--swimlanes
+  target: Folder:03-diagrama-vocabulario--posicion
+- type: example_of
+  source: Document:03-diagrama-vocabulario--posicion--uml-secuencia
+  target: Folder:03-diagrama-vocabulario--posicion
+- type: example_of
+  source: Document:03-diagrama-vocabulario--posicion--wardley
+  target: Folder:03-diagrama-vocabulario--posicion
+- type: chapter_of
+  source: Document:03-diagrama-vocabulario--n-aria--argument-maps-ibis
+  target: Axis:01-fundamentos
