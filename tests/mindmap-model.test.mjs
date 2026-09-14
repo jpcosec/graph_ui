@@ -212,7 +212,7 @@ test('schemaGraph: la contención declarada da aristas tipadas; las referencias 
   const docs=[{id:'t1',model_name:'TaskDoc',payload:{}},{id:'t2',model_name:'TaskDoc',payload:{}}];
   const g=schemaGraph(models,docs);
   // GhostDoc no está registrado: se anota en la card pero nunca se inventa una arista.
-  assert.deepEqual(g.edges,[{id:'BoardDoc.tasks>TaskDoc',source:'BoardDoc',target:'TaskDoc',field:'tasks'}]);
+  assert.deepEqual(g.edges,[{id:'BoardDoc.tasks>TaskDoc',source:'BoardDoc',target:'TaskDoc',field:'tasks',kind:'containment'}]);
   const board=g.nodes.find(n=>n.id==='BoardDoc'),task=g.nodes.find(n=>n.id==='TaskDoc');
   assert.deepEqual(board.fields.find(f=>f.name==='tasks').contains,['TaskDoc']);
   assert.deepEqual(board.fields.find(f=>f.name==='ghosts').contains,[]);
@@ -229,6 +229,65 @@ test('schemaGraph sin metadatos declarados cae a las tablas legacy por clase',()
   const task=g.nodes.find(n=>n.id==='TaskDoc');
   assert.deepEqual(task.fields.find(f=>f.name==='checklists').contains,[]);
   assert.equal(task.fields.find(f=>f.name==='routine').reference,true);
+});
+
+test('schemaGraph: relaciones declaradas por un RelationTypeDoc ignoran extremos abstractos; las instancias (RelationDoc) cuentan sobre la declarada o se sostienen solas',()=>{
+  const models=[
+    {id:'SurfaceDoc',model_ref:'m:SurfaceDoc',containment:{},references:[],fields:[{name:'id',kind:'string'}]},
+    {id:'SpecDoc',model_ref:'m:SpecDoc',containment:{},references:[],fields:[{name:'id',kind:'string'}]},
+    {id:'CliCommandDoc',model_ref:'m:CliCommandDoc',containment:{},references:[],fields:[{name:'id',kind:'string'}]},
+  ];
+  const docs=[
+    // sldb_model es un token abstracto de kgdb, no una clase registrada: no genera arista.
+    {id:'rt1',model_name:'RelationTypeDoc',payload:{name:'implements',source_types:['SurfaceDoc','CliCommandDoc','sldb_model'],target_types:['SpecDoc']}},
+    {id:'surface-x',model_name:'SurfaceDoc',payload:{}},
+    {id:'surface-y',model_name:'SurfaceDoc',payload:{}},
+    {id:'cli-1',model_name:'CliCommandDoc',payload:{}},
+    {id:'spec-01',model_name:'SpecDoc',payload:{}},
+    {id:'r1',model_name:'RelationDoc',payload:{source_id:'surface-x',target_id:'spec-01',relation_type:'implements'}},
+    {id:'r2',model_name:'RelationDoc',payload:{source_id:'surface-y',target_id:'spec-01',relation_type:'implements'}},
+    {id:'r3',model_name:'RelationDoc',payload:{source_id:'cli-1',target_id:'spec-01',relation_type:'implements'}},
+    // 'mentions' no lo declara ningún RelationTypeDoc: la instancia sola basta.
+    {id:'r4',model_name:'RelationDoc',payload:{source_id:'surface-x',target_id:'spec-01',relation_type:'mentions'}},
+  ];
+  const g=schemaGraph(models,docs);
+  const rel=id=>g.edges.find(e=>e.id===id);
+  assert.deepEqual(rel('rel:implements:SurfaceDoc>SpecDoc'),{id:'rel:implements:SurfaceDoc>SpecDoc',source:'SurfaceDoc',target:'SpecDoc',type:'implements',declared:true,count:2,kind:'relation'});
+  assert.deepEqual(rel('rel:implements:CliCommandDoc>SpecDoc'),{id:'rel:implements:CliCommandDoc>SpecDoc',source:'CliCommandDoc',target:'SpecDoc',type:'implements',declared:true,count:1,kind:'relation'});
+  assert.deepEqual(rel('rel:mentions:SurfaceDoc>SpecDoc'),{id:'rel:mentions:SurfaceDoc>SpecDoc',source:'SurfaceDoc',target:'SpecDoc',type:'mentions',declared:false,count:1,kind:'relation'});
+  assert.ok(!g.edges.some(e=>e.source==='sldb_model'||e.target==='sldb_model'));
+  assert.equal(g.edges.filter(e=>e.kind==='relation').length,3);
+  const surface=g.nodes.find(n=>n.id==='SurfaceDoc');
+  assert.deepEqual(new Set(surface.relationTypes),new Set(['implements','mentions']));
+});
+
+test('schemaGraph: los campos ⇢ infieren su clase destino de los documentos reales, incluida una auto-relación',()=>{
+  const models=[{id:'TaskDoc',model_ref:'m:TaskDoc',containment:{},references:['blocks'],
+    fields:[{name:'id',kind:'string'},{name:'blocks',kind:'stringlist'}]}];
+  const docs=[
+    {id:'task-a',model_name:'TaskDoc',payload:{blocks:['task-b']}},
+    {id:'task-b',model_name:'TaskDoc',payload:{}},
+  ];
+  const g=schemaGraph(models,docs);
+  assert.deepEqual(g.edges.find(e=>e.kind==='reference'),{id:'ref:TaskDoc.blocks>TaskDoc',source:'TaskDoc',target:'TaskDoc',field:'blocks',count:1,kind:'reference'});
+  const task=g.nodes.find(n=>n.id==='TaskDoc');
+  assert.deepEqual(task.fields.find(f=>f.name==='blocks').inferred,['TaskDoc']);
+});
+
+test('schemaMatches encuentra clases por el tipo de relación en el que participan',()=>{
+  const models=[
+    {id:'SurfaceDoc',model_ref:'m:SurfaceDoc',containment:{},references:[],fields:[{name:'id',kind:'string'}]},
+    {id:'SpecDoc',model_ref:'m:SpecDoc',containment:{},references:[],fields:[{name:'id',kind:'string'}]},
+  ];
+  const docs=[
+    {id:'rt1',model_name:'RelationTypeDoc',payload:{name:'implements',source_types:['SurfaceDoc'],target_types:['SpecDoc']}},
+    {id:'surface-x',model_name:'SurfaceDoc',payload:{}},
+    {id:'spec-01',model_name:'SpecDoc',payload:{}},
+  ];
+  const [surface]=schemaGraph(models,docs).nodes;
+  assert.ok(schemaMatches(surface,'implements'));
+  assert.ok(schemaMatches(surface,'IMPLEMENTS'));
+  assert.ok(!schemaMatches(surface,'depends'));
 });
 
 test('schemaMatches filtra por clase, campo, tipo y clase destino',()=>{

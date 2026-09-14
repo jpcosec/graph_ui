@@ -20,7 +20,9 @@ function layout(graph){
   g.setGraph({rankdir:'LR',nodesep:34,ranksep:110,marginx:24,marginy:24});
   g.setDefaultEdgeLabel(()=>({}));
   graph.nodes.forEach(n=>g.setNode(n.id,{width:WIDTH,height:cardHeight(n)}));
-  graph.edges.forEach(e=>g.setEdge(e.source,e.target));
+  // dagre no admite bucles: una arista de referencia puede ser self (p. ej.
+  // TaskDoc.blocks -> TaskDoc), React Flow la dibuja pero dagre no la layoutea.
+  graph.edges.forEach(e=>{if(e.source!==e.target)g.setEdge(e.source,e.target);});
   dagre.layout(g);
   return graph.nodes.map(n=>{const p=g.node(n.id);return {id:n.id,type:'class',position:{x:p.x-p.width/2,y:p.y-p.height/2},style:{width:p.width},data:{node:n}};});
 }
@@ -29,14 +31,16 @@ function ClassNode({data,selected}) {
   const {node,dim,onEdit}=data,style=classStyle(node.id);
   return html`<div className=${'class-node'+(selected?' selected':'')+(dim?' dim':'')} style=${{'--class-color':classVar(style.slot)}} data-class=${node.id}>
     <header className="class-node-head"><${Handle} type="target" position=${Position.Left}/>
+      <${Handle} type="source" position=${Position.Right} id="__class__" title="relaciones de la clase"/>
       <span className="class-node-icon">${style.icon}</span>
       <div><strong>${style.name}</strong><small title=${node.model.model_ref||node.id}>${node.id}</small></div>
       <span className="class-node-count" title=${node.docCount+' documento(s) de esta clase'}>${node.docCount}</span></header>
     <ul className="class-node-fields">
       ${node.fields.map(f=>html`<li key=${f.name} className=${f.contains?'contains':f.reference?'reference':''} title=${f.description||f.name}>
         <span className="field-name">${f.contains?'◆ ':f.reference?'⇢ ':''}${f.name}${f.required?html`<b aria-label="obligatorio">*</b>`:''}</span>
-        <span className="field-type">${f.contains?(f.contains.join(' | ')||'clase no registrada'):(f.annotation||f.kind||'')}</span>
-        ${f.contains?.length?html`<${Handle} type="source" position=${Position.Right} id=${f.name} title=${f.name+' → '+f.contains.join(', ')}/>`:''}
+        <span className="field-type" title=${!f.contains&&f.inferred?.length?'inferido':undefined}>${f.contains?(f.contains.join(' | ')||'clase no registrada'):f.inferred?.length?f.inferred.join(' | ')+'?':(f.annotation||f.kind||'')}</span>
+        ${f.contains?.length?html`<${Handle} type="source" position=${Position.Right} id=${f.name} title=${f.name+' → '+f.contains.join(', ')}/>`
+          :f.inferred?.length?html`<${Handle} type="source" position=${Position.Right} id=${f.name} title=${f.name+' → '+f.inferred.join(', ')+' (inferido)'}/>`:''}
       </li>`)}
       ${!node.fields.length?html`<li className="more">sin campos</li>`:''}
     </ul>
@@ -64,17 +68,37 @@ function SchemaCanvas({skin}) {
   const matches=id=>schemaMatches(byId[id],query);
   const displayed=flowNodes.map(n=>({...n,data:{...n.data,dim:!matches(n.id),onEdit:onEditClass}}));
   const edges=graph.edges.map(e=>{
-    const colorVar=classVar(classStyle(e.source).slot),active=selected&&(e.source===selected||e.target===selected);
+    const active=selected&&(e.source===selected||e.target===selected);
     const dim=(query&&!(matches(e.source)&&matches(e.target)))||(selected&&!active);
+    const labelStyle={fontSize:10,fill:active?'var(--ink)':'var(--text-secondary)',fontWeight:active?600:400};
+    const labelBgStyle={fill:'var(--surface-app)'},labelBgPadding=[4,2];
+    if(e.kind==='relation') {
+      const declaredUnseen=e.declared&&!e.count;
+      return {id:e.id,source:e.source,sourceHandle:'__class__',target:e.target,type:'smoothstep',
+        label:`${e.type}${e.count?' ×'+e.count:''}`,
+        style:{stroke:'var(--accent)',strokeWidth:active?2:1.4,opacity:dim?.18:1,strokeDasharray:declaredUnseen?'2 3':undefined},
+        markerEnd:{type:'arrowclosed',width:12,height:12,color:'var(--accent)'},labelStyle,labelBgStyle,labelBgPadding};
+    }
+    if(e.kind==='reference') {
+      return {id:e.id,source:e.source,sourceHandle:e.field,target:e.target,type:'smoothstep',
+        label:`${e.field} ×${e.count}`,
+        style:{stroke:'var(--edge)',strokeWidth:active?2.2:1.4,opacity:dim?.18:1,strokeDasharray:'5 4'},
+        markerEnd:{type:'arrowclosed',width:12,height:12,color:'var(--edge)'},labelStyle,labelBgStyle,labelBgPadding};
+    }
+    const colorVar=classVar(classStyle(e.source).slot);
     return {id:e.id,source:e.source,sourceHandle:e.field,target:e.target,type:'smoothstep',label:e.field,
       style:{stroke:colorVar,strokeWidth:active?2.6:1.6,opacity:dim?.18:1},
-      markerEnd:{type:'arrowclosed',width:14,height:14,color:colorVar},
-      labelStyle:{fontSize:10,fill:active?'var(--ink)':'var(--text-secondary)',fontWeight:active?600:400},labelBgStyle:{fill:'var(--surface-app)'},labelBgPadding:[4,2]};});
+      markerEnd:{type:'arrowclosed',width:14,height:14,color:colorVar},labelStyle,labelBgStyle,labelBgPadding};});
   const totalFields=graph.nodes.reduce((s,n)=>s+n.fields.length,0);
+  const byKind=kind=>graph.edges.filter(e=>e.kind===kind).length;
+  const countParts=[`${graph.nodes.length} clases`,`${totalFields} campos`];
+  if(byKind('containment'))countParts.push(`${byKind('containment')} contenciones`);
+  if(byKind('relation'))countParts.push(`${byKind('relation')} relaciones`);
+  if(byKind('reference'))countParts.push(`${byKind('reference')} referencias`);
   return html`<div className="schema" aria-label="Diagrama de clases">
     <div className="schema-bar" role="toolbar" aria-label="Herramientas del diagrama">
       <strong>📐 Diagrama de clases</strong>
-      <span className="schema-count">${graph.nodes.length} clases · ${totalFields} campos · ${graph.edges.length} contenciones</span>
+      <span className="schema-count">${countParts.join(' · ')}</span>
       <input className="schema-filter" aria-label="Filtrar clases" placeholder="Filtrar clase, campo o tipo…" value=${query} onInput=${e=>setQuery(e.target.value)}/>
       <button type="button" onClick=${()=>fitView({padding:.1,duration:200})}>⛶ Ver todo</button>
       <button type="button" className="schema-edit" onClick=${()=>onEditClass(selected)}>📐 Editar clases</button>
@@ -87,8 +111,9 @@ function SchemaCanvas({skin}) {
         <${MiniMap} pannable zoomable nodeColor=${n=>resolveToken('--class-color-'+classStyle(n.id).slot)} ariaLabel="Vista general del diagrama"/>
       </${ReactFlow}>
       <div className="schema-legend"><span><i className="legend-contain"></i>◆ Contención: la flecha sale del campo que guarda los IDs de la clase destino</span>
-        <span><i className="legend-ref"></i>⇢ Referencia: campo con IDs, sin clase destino declarada</span>
-        <span><b>*</b> obligatorio · doble clic o ✎ abre el editor de la clase</span></div>
+        <span><i className="legend-relation"></i>Relación: tipo declarado por un RelationTypeDoc y/u observado en documentos de relación (kgdb), cabecera a cabecera; punteada = declarada pero sin instancias</span>
+        <span><i className="legend-ref"></i>⇢ Referencia: campo con IDs; el destino se infiere de los documentos reales cuando no hay clase declarada</span>
+        <span><b>*</b> obligatorio · <b>?</b> destino inferido, no declarado · doble clic o ✎ abre el editor de la clase</span></div>
       ${!graph.nodes.length?html`<div className="state"><h2>Este store no tiene clases registradas</h2></div>`:''}
     </div>
   </div>`;

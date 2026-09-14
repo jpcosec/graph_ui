@@ -248,21 +248,51 @@ y dagre desde CDN; no hay build step.
 `views/models/diagram/diagram-view.js` es la vista Schema: toma el grafo de
 clases de `schemaGraph(models, documents)` (en
 `views/models/diagram/projection.mjs`: nodos = modelos con sus campos
-anotados como `contains`/`reference`, aristas = solo contención declarada
-con clase destino registrada — `__references__` trae nombres de campo sin
-clase, así que nunca se inventa una arista para ellas) y lo posiciona con
-`dagre` (`rankdir: LR`), con el alto de cada card calculado por su número de
-filas (todos los campos son siempre visibles). Cada fila de contención lleva
-un `Handle` fuente con `id` = nombre del campo, y la arista usa
-`sourceHandle: field`: la flecha sale de la fila concreta, no de la card; la
-clase destino recibe por un único handle en su cabecera. Sigue el mismo
-patrón que el mapa KB: los nodos viven en estado y React Flow aplica
-selección y arrastre por `onNodesChange`; dagre solo los siembra cuando
-cambia el schema. El filtro (`schemaMatches`, en el mismo `projection.mjs`)
-atenúa cards y aristas en vez de quitarlas. Las cards no usan una pila de
-fuentes monospace: en el Chromium headless de esta máquina
-`ui-monospace, …, monospace` no generaba cajas de línea (texto invisible con
-altura cero), así que las filas van en la fuente base del editor.
+anotados como `contains`/`reference`) y lo posiciona con `dagre`
+(`rankdir: LR`), con el alto de cada card calculado por su número de filas
+(todos los campos son siempre visibles). `schemaGraph` deriva tres tipos de
+arista, cada una con su `kind`:
+
+- `containment`: `__containment__` declarado con clase destino registrada,
+  sin cambios respecto al diseño original. Cada fila de contención lleva un
+  `Handle` fuente con `id` = nombre del campo y la arista usa
+  `sourceHandle: field`: la flecha sale de la fila concreta, no de la card.
+- `relation`: relaciones tipadas de kgdb en dos niveles, detectadas
+  estructuralmente (igual que `isRelationDocument`, no por nombre de clase)
+  vía `isRelationTypeDocument`/`isRelationDocument` en `source/graph.mjs`.
+  Un `RelationTypeDoc`-like (`payload.name` + `source_types`/`target_types`)
+  declara el par origen→destino — un extremo que no es una clase registrada
+  (tokens abstractos de kgdb como `sldb_model`) simplemente no genera arista
+  para ese par. Un `RelationDoc`-like (`source_id`/`target_id`/tipo)
+  resuelve sus extremos con la misma regla de alias que `relationships()`
+  (`buildAliases`/`resolveAlias`, compartidas para no duplicar la
+  resolución) y cuenta instancias por (origen, tipo, destino); si coincide
+  con una relación declarada le pone el conteo, si no, la instancia sola
+  basta para dibujarla (`declared:false`). La arista sale de un segundo
+  `Handle` fuente oculto en la cabecera (`id="__class__"`) hacia la
+  cabecera de la clase destino — es una relación entre clases, no entre
+  campos.
+- `reference`: `__references__` trae un nombre de campo sin clase destino,
+  así que se infiere escaneando los documentos reales de esa clase: cada
+  valor del campo se resuelve a un documento (misma regla de alias) y se
+  agrupa por la clase de ese documento, con conteo. Una fila `⇢` con
+  destino inferido gana su propio `Handle` fuente (mismo patrón que
+  contención) y la card le anota `f.inferred = [clases…]`, mostrado con un
+  `?` para distinguirlo de un destino declarado (`◆`). Los self-edges
+  (`source === target`, p. ej. `TaskDoc.blocks -> TaskDoc`) son válidos y se
+  dibujan, pero se excluyen de `dagre` (`rankdir: LR` no admite bucles) sin
+  dejar de pasarlos a React Flow.
+
+La clase destino de contención y de relación recibe por un único handle en
+su cabecera. Sigue el mismo patrón que el mapa KB: los nodos viven en
+estado y React Flow aplica selección y arrastre por `onNodesChange`; dagre
+solo los siembra cuando cambia el schema. El filtro (`schemaMatches`, en el
+mismo `projection.mjs`) atenúa cards y aristas en vez de quitarlas, y
+también busca por tipo de relación en el que participa la clase. Las cards
+no usan una pila de fuentes monospace: en el Chromium headless de esta
+máquina `ui-monospace, …, monospace` no generaba cajas de línea (texto
+invisible con altura cero), así que las filas van en la fuente base del
+editor.
 
 ## Flujo de lectura (modo KB)
 

@@ -149,9 +149,26 @@ un diagrama, en vez de sus documentos. Cada card es una clase registrada:
   derecho del que sale la flecha hacia esas clases, etiquetada con el nombre
   del campo — así se ve qué campo concreto sostiene cada relación.
 - Las filas **⇢** son campos de referencia: guardan IDs de documentos, pero
-  el modelo no declara de qué clase, así que no se dibuja flecha.
+  el modelo no declara de qué clase. Si algún documento real de esa clase
+  tiene valores en ese campo, el destino se infiere escaneándolos: la fila
+  muestra la(s) clase(s) inferida(s) con un `?` (p. ej. `SpecDoc?`) y saca
+  su propio puerto, coloreado distinto al de contención, con una flecha
+  punteada hacia esa clase. Si no hay documentos que lo prueben, la fila se
+  queda solo anotada, sin flecha.
+- Además de la contención, cabecera a cabecera puede haber **flechas de
+  relación** (color de acento): un tipo declarado por un `RelationTypeDoc`
+  de kgdb (origen → destino entre clases) y/u observado en documentos de
+  relación (`RelationDoc`, con `source_id`/`target_id`/tipo) reales del
+  store. La etiqueta lleva el nombre del tipo y cuántas instancias se
+  observaron (`implements ×36`); si el tipo está declarado pero el store no
+  tiene ninguna instancia todavía, la flecha se dibuja punteada con `×0`
+  implícito. Una relación observada sin ningún `RelationTypeDoc` que la
+  declare se dibuja igual — la instancia real es prueba suficiente.
+- La barra superior resume la card: `N clases · M campos` y, solo si hay
+  alguna, `C contenciones · R relaciones · F referencias`.
 - Escribe en `Filtrar clase, campo o tipo…` para atenuar todo lo que no
-  coincida (busca en nombres de clase, campos, tipos y clases destino).
+  coincida (busca en nombres de clase, campos, tipos, clases destino
+  declaradas o inferidas, y tipos de relación).
 - Clic en una card resalta sus flechas; doble clic o `✎ Editar` abre
   **Editar clases** ya posicionado en esa clase. `⛶ Ver todo` reencuadra.
 

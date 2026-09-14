@@ -20,6 +20,15 @@ export const REFERENCE_FIELDS = new Set(['routine','current_node','entrypoint','
 export function isRelationDocument(doc) {
   return typeof doc?.payload?.source_id==='string' && typeof doc?.payload?.target_id==='string';
 }
+// kgdb's RelationTypeDoc convention, structural like isRelationDocument: a
+// document DECLARES a relation type when its payload has a string `name` and
+// array `source_types`/`target_types` — regardless of whether every listed
+// type is itself a registered class (abstract kgdb tokens like `sldb_model`
+// are filtered by the caller, not here).
+export function isRelationTypeDocument(doc) {
+  const p=doc?.payload;
+  return typeof p?.name==='string' && Array.isArray(p?.source_types) && Array.isArray(p?.target_types);
+}
 // Export-id alias, kgdb/pron convention (see pron's ids.py split_id/join_id):
 // 'Model:doc' -> 'doc', 'Store:Model:doc' -> 'doc' (last ':'-segment); a bare
 // local id or path passes through unchanged.
@@ -27,6 +36,19 @@ export function localIdOf(value) {
   if (typeof value !== 'string') return value;
   const parts = value.split(':');
   return parts.length > 1 ? parts[parts.length - 1] : value;
+}
+// id/path/basename aliases for every document, so a reference value in any
+// of those shapes resolves back to the same document id. Shared by
+// `relationships()` here and by the diagram's typed-edge inference
+// (relation instances, reference targets) — same resolution rule everywhere.
+export function buildAliases(documents) {
+  const aliases=new Map();
+  documents.forEach(d=>[d.id,d.path,d.payload.id,d.path?.split('/').pop()?.replace(/\.md$/,'')].filter(Boolean).forEach(a=>aliases.set(a,d.id)));
+  return aliases;
+}
+export function resolveAlias(value, aliases) {
+  if (typeof value!=='string') return undefined;
+  return aliases.get(value)||aliases.get(value.split('/').pop()?.replace(/\.md$/,''))||aliases.get(localIdOf(value));
 }
 // Grafo declarativo desde el schema SLDB: model -> {field -> [targets]} (contención)
 // y model -> Set(fields) (referencias). Es la única fuente cuando el schema
@@ -61,14 +83,12 @@ export function isReferenceField(modelName,field,maps) {
   return declared.has(field)||Boolean(maps.containment[modelName]?.[field]);
 }
 export function relationships(documents,maps) {
-  const aliases = new Map();
-  documents.forEach(d=>[d.id,d.path,d.payload.id,d.path?.split('/').pop()?.replace(/\.md$/,'')].filter(Boolean).forEach(a=>aliases.set(a,d.id)));
+  const aliases = buildAliases(documents);
   const result=[];
   documents.forEach(d=>Object.entries(d.payload).forEach(([field,raw])=>{
     if(!isReferenceField(d.model_name,field,maps))return;
     (Array.isArray(raw)?raw:[raw]).forEach(value=>{
-      if(typeof value!=='string')return;
-      const target=aliases.get(value)||aliases.get(value.split('/').pop()?.replace(/\.md$/,''))||aliases.get(localIdOf(value));
+      const target=resolveAlias(value,aliases);
       const containsField=Boolean(containmentOf(d,maps)?.[field]);
       if(target&&target!==d.id)result.push({source:d.id,target,field,contains:containsField});
     });

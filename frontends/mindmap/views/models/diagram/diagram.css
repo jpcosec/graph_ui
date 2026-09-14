@@ -48,9 +48,11 @@
 
 .class-node .react-flow__handle{pointer-events:none;opacity:0}
 .class-node-fields li .react-flow__handle{opacity:1;width:9px;height:9px;right:-6px;background:var(--class-color);border:2px solid var(--surface-panel);box-shadow:0 0 0 1px var(--class-color)}
+.class-node-fields li.reference .react-flow__handle{background:var(--edge);box-shadow:0 0 0 1px var(--edge)}
 
 .schema-legend{position:absolute;left:14px;bottom:62px;display:flex;flex-direction:column;gap:5px;background:var(--surface-panel-veil);border:1px solid var(--border-control);border-radius:8px;padding:8px 10px;font-size:11px;color:var(--text-secondary);pointer-events:none;z-index:5;max-width:360px}
 
 .schema-legend i{display:inline-block;width:18px;height:0;border-top:2px solid var(--primary);vertical-align:middle;margin-right:6px}
-.schema-legend i.legend-ref{border-top-style:dashed;border-color:var(--accent)}
+.schema-legend i.legend-relation{border-color:var(--accent)}
+.schema-legend i.legend-ref{border-top-style:dashed;border-color:var(--edge)}
 @media(max-width:750px){.schema-filter{width:100%;margin-left:0}.schema-legend{display:none}}
