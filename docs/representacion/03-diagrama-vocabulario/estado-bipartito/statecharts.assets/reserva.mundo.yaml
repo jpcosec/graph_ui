@@ -1,0 +1,58 @@
+# Ciclo de vida de una reserva (el del restaurante de pron, source/spec/09a) como statechart en un mundo pron.
+# Sigue la convención de pron: modelo State con machine = "Modelo.campo" y verbo transitions_to; el
+# evento es un AnchorDoc con ref action:change. Añade lo que el statechart tiene y 09a no: el estado
+# compuesto "active" (verbo substate_of), estados finales (kind) y acción de entrada (entry).
+modelos:
+- name: Reservation
+  family: restaurante
+  template: "---\nguest: ⸢rev•guest⸥\nparty_size: ⸢rev•party_size⸥\nstatus: ⸢rev•status⸥\n---\n\n# Reserva de ⸢render•guest⸥\n"
+  fields:
+  - {name: guest, type: str, description: A nombre de quién.}
+  - {name: party_size, type: int, description: Cuántas personas.}
+  - {name: status, type: str, default: pending, description: Dónde está la reserva; cambia solo por transiciones declaradas.}
+- name: State
+  family: restaurante
+  template: "---\nmachine: ⸢rev•machine⸥\nname: ⸢rev•name⸥\nkind: ⸢rev•kind⸥\nentry: ⸢rev•entry⸥\n---\n\n# ⸢render•machine⸥ · ⸢render•name⸥\n\n⸢rev•description⸥\n"
+  fields:
+  - {name: machine, type: str, description: 'Qué campo de qué modelo gobierna, como Modelo.campo.'}
+  - {name: name, type: str, description: El valor del campo que este documento representa.}
+  - {name: kind, type: str, default: simple, description: 'simple, composite o final (UML isSimple / isComposite, FinalState).'}
+  - {name: entry, type: str, default: '', description: 'Acción de entrada (UML entry, SCXML onentry), como texto.'}
+  - {name: description, type: str, default: '', description: Qué significa estar en este estado.}
+tipos_de_relacion:
+- name: transitions_to
+  cardinality: many_to_many
+  axis: WHEN
+  source_types: [State]
+  target_types: [State]
+  description: Un cambio permitido entre dos estados; la condition se evalúa sobre el objeto que se mueve.
+- name: substate_of
+  cardinality: many_to_one
+  axis: WHERE
+  source_types: [State]
+  target_types: [State]
+  description: El estado origen es subestado directo del estado compuesto destino.
+documentos:
+- {model: State, name: state-reservation-active, payload: {machine: Reservation.status, name: active, kind: composite, description: La reserva sigue viva.}}
+- {model: State, name: state-reservation-pending, payload: {machine: Reservation.status, name: pending, description: Pedida y sin confirmar.}}
+- {model: State, name: state-reservation-confirmed, payload: {machine: Reservation.status, name: confirmed, entry: avisar al cliente, description: Confirmada.}}
+- {model: State, name: state-reservation-seated, payload: {machine: Reservation.status, name: seated, kind: final, description: Llegaron.}}
+- {model: State, name: state-reservation-cancelled, payload: {machine: Reservation.status, name: cancelled, kind: final, description: Cancelada.}}
+- {model: Reservation, name: reserva-ana, payload: {guest: Ana, party_size: 6, status: pending}}
+- {model: Reservation, name: reserva-bruno, payload: {guest: Bruno, party_size: 10, status: pending}}
+- model: AnchorDoc
+  name: anchor-confirm
+  payload: {symbol: confirm, forms: [confirm, confirm it], ref: action:change Reservation.status=confirmed, motive: 'Evento confirm del statechart.'}
+- model: AnchorDoc
+  name: anchor-seat
+  payload: {symbol: seat, forms: [seat, seat them], ref: action:change Reservation.status=seated, motive: 'Evento seat del statechart.'}
+- model: AnchorDoc
+  name: anchor-cancel
+  payload: {symbol: cancel, forms: [cancel, cancel it], ref: action:change Reservation.status=cancelled, motive: 'Evento cancel del statechart (transición de grupo desde active).'}
+relaciones:
+- {type: substate_of, source: 'State:state-reservation-pending', target: 'State:state-reservation-active'}
+- {type: substate_of, source: 'State:state-reservation-confirmed', target: 'State:state-reservation-active'}
+- {type: transitions_to, source: 'State:state-reservation-pending', target: 'State:state-reservation-confirmed', condition: party_size <= 8, notes: 'evento confirm'}
+- {type: transitions_to, source: 'State:state-reservation-confirmed', target: 'State:state-reservation-seated', notes: 'evento seat'}
+- {type: transitions_to, source: 'State:state-reservation-pending', target: 'State:state-reservation-cancelled', notes: 'evento cancel (aplanada desde active)'}
+- {type: transitions_to, source: 'State:state-reservation-confirmed', target: 'State:state-reservation-cancelled', notes: 'evento cancel (aplanada desde active)'}

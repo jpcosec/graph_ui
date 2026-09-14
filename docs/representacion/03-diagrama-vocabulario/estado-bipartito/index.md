@@ -28,7 +28,7 @@ para estos ejemplos.
 
 | Documento | Vocabulario | Qué representa | Estado |
 |---|---|---|---|
-| statecharts.md | statecharts (Harel) / máquina de estados UML | estados de una entidad y sus transiciones por eventos | pendiente |
+| [statecharts.md](statecharts.md) | statecharts (Harel) / máquina de estados UML | estados de una entidad y sus transiciones por eventos | escrito |
 | petri.md | redes de Petri | concurrencia y recursos: lugares, transiciones, tokens | pendiente |
 
 ## Implicancias

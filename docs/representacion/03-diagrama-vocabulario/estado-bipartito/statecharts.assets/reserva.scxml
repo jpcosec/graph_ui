@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ciclo de vida de una reserva como statechart SCXML (W3C, 2015). Valida contra el esquema oficial. -->
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" datamodel="ecmascript" name="Reservation.status" initial="active">
+  <datamodel>
+    <data id="guest" expr="'Ana'"/>
+    <data id="party_size" expr="6"/>
+  </datamodel>
+  <state id="active" initial="pending">
+    <!-- transición de grupo: sale de cualquier subestado de active -->
+    <transition event="cancel" target="cancelled"/>
+    <state id="pending">
+      <transition event="confirm" cond="party_size &lt;= 8" target="confirmed"/>
+    </state>
+    <state id="confirmed">
+      <onentry>
+        <log label="avisar al cliente" expr="guest"/>
+      </onentry>
+      <transition event="seat" target="seated"/>
+    </state>
+  </state>
+  <final id="seated"/>
+  <final id="cancelled"/>
+</scxml>

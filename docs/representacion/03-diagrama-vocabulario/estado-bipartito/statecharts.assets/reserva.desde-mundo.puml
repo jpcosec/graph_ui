@@ -1,0 +1,16 @@
+@startuml
+title Ciclo de vida de una reserva (desde el mundo pron)
+hide empty description
+state active {
+  state pending
+  confirmed : entry / avisar al cliente
+}
+state seated
+state cancelled
+pending --> confirmed : confirm [party_size <= 8]
+confirmed --> seated : seat
+pending --> cancelled : cancel
+confirmed --> cancelled : cancel
+seated --> [*]
+cancelled --> [*]
+@enduml

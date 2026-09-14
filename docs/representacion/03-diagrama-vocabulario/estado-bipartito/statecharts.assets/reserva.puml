@@ -1,0 +1,14 @@
+@startuml
+title Ciclo de vida de una reserva (statechart)
+hide empty description
+[*] --> active
+state active {
+  [*] --> pending
+  pending --> confirmed : confirm [party_size <= 8]
+  confirmed : entry / avisar al cliente
+}
+active --> cancelled : cancel
+confirmed --> seated : seat
+seated --> [*]
+cancelled --> [*]
+@enduml
