@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reserva de mesa como colaboración BPMN 2.0: dos participantes (pools), flujos de secuencia dentro de
+     cada proceso y flujos de mensaje entre ellos. Solo semántica; bpmn-auto-layout agrega el BPMNDiagram. -->
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="reserva" targetNamespace="http://hum-ecosystem/graph_ui/representacion">
+  <message id="msg-pedido" name="pedido de mesa"/>
+  <message id="msg-respuesta" name="respuesta"/>
+  <collaboration id="colaboracion">
+    <participant id="pool-cliente" name="Cliente" processRef="proceso-cliente"/>
+    <participant id="pool-restaurante" name="Restaurante" processRef="proceso-restaurante"/>
+    <messageFlow id="mf-pedido" sourceRef="pedir-mesa" targetRef="pedido-recibido" messageRef="msg-pedido"/>
+    <messageFlow id="mf-confirmacion" sourceRef="confirmacion-enviada" targetRef="respuesta-recibida" messageRef="msg-respuesta"/>
+    <messageFlow id="mf-alternativa" sourceRef="alternativa-enviada" targetRef="respuesta-recibida" messageRef="msg-respuesta"/>
+  </collaboration>
+  <process id="proceso-cliente" isExecutable="false">
+    <startEvent id="quiere-cenar" name="Quiere cenar"><outgoing>sf-c1</outgoing></startEvent>
+    <sendTask id="pedir-mesa" name="Pedir mesa" messageRef="msg-pedido"><incoming>sf-c1</incoming><outgoing>sf-c2</outgoing></sendTask>
+    <intermediateCatchEvent id="respuesta-recibida" name="Respuesta recibida">
+      <incoming>sf-c2</incoming><outgoing>sf-c3</outgoing>
+      <messageEventDefinition messageRef="msg-respuesta"/>
+    </intermediateCatchEvent>
+    <endEvent id="cliente-listo" name="Listo"><incoming>sf-c3</incoming></endEvent>
+    <sequenceFlow id="sf-c1" sourceRef="quiere-cenar" targetRef="pedir-mesa"/>
+    <sequenceFlow id="sf-c2" sourceRef="pedir-mesa" targetRef="respuesta-recibida"/>
+    <sequenceFlow id="sf-c3" sourceRef="respuesta-recibida" targetRef="cliente-listo"/>
+  </process>
+  <process id="proceso-restaurante" isExecutable="false">
+    <startEvent id="pedido-recibido" name="Pedido recibido">
+      <outgoing>sf-r1</outgoing>
+      <messageEventDefinition messageRef="msg-pedido"/>
+    </startEvent>
+    <task id="buscar-mesa" name="Buscar mesa con capacidad"><incoming>sf-r1</incoming><outgoing>sf-r2</outgoing></task>
+    <exclusiveGateway id="hay-mesa" name="¿hay mesa libre?" default="sf-no"><incoming>sf-r2</incoming><outgoing>sf-si</outgoing><outgoing>sf-no</outgoing></exclusiveGateway>
+    <task id="confirmar" name="Confirmar reserva"><incoming>sf-si</incoming><outgoing>sf-r3</outgoing></task>
+    <task id="ofrecer" name="Ofrecer otro horario"><incoming>sf-no</incoming><outgoing>sf-r4</outgoing></task>
+    <endEvent id="confirmacion-enviada" name="Confirmación enviada">
+      <incoming>sf-r3</incoming>
+      <messageEventDefinition messageRef="msg-respuesta"/>
+    </endEvent>
+    <endEvent id="alternativa-enviada" name="Alternativa enviada">
+      <incoming>sf-r4</incoming>
+      <messageEventDefinition messageRef="msg-respuesta"/>
+    </endEvent>
+    <sequenceFlow id="sf-r1" sourceRef="pedido-recibido" targetRef="buscar-mesa"/>
+    <sequenceFlow id="sf-r2" sourceRef="buscar-mesa" targetRef="hay-mesa"/>
+    <sequenceFlow id="sf-si" name="sí" sourceRef="hay-mesa" targetRef="confirmar">
+      <conditionExpression xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="tFormalExpression">capacity &gt;= party_size</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sf-no" name="no" sourceRef="hay-mesa" targetRef="ofrecer"/>
+    <sequenceFlow id="sf-r3" sourceRef="confirmar" targetRef="confirmacion-enviada"/>
+    <sequenceFlow id="sf-r4" sourceRef="ofrecer" targetRef="alternativa-enviada"/>
+  </process>
+</definitions>

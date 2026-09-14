@@ -1,0 +1,298 @@
+# Colaboración BPMN 'reserva de mesa' (reserva.semantica.bpmn) como mundo pron, generada desde el XML.
+# Las reglas de pool se declaran como condition de los verbos de flujo, comparando el campo pool de ambos extremos.
+modelos:
+- name: Participant
+  family: bpmn
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Participante (pool).
+- name: Task
+  family: bpmn
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    kind: ⸢rev•kind⸥
+
+    pool: ⸢rev•pool⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Qué se hace.
+  - name: kind
+    type: str
+    default: task
+    description: task, sendTask, receiveTask, userTask…
+  - name: pool
+    type: str
+    description: Id del participante que lo contiene (copia de in_pool, para que la condition de los flujos lo compare).
+- name: Event
+  family: bpmn
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    position: ⸢rev•position⸥
+
+    trigger: ⸢rev•trigger⸥
+
+    pool: ⸢rev•pool⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Qué pasa.
+  - name: position
+    type: str
+    description: start, intermediate o end.
+  - name: trigger
+    type: str
+    default: none
+    description: none, message, timer…
+  - name: pool
+    type: str
+    description: Id del participante que lo contiene (copia de in_pool, para que la condition de los flujos lo compare).
+- name: Gateway
+  family: bpmn
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    kind: ⸢rev•kind⸥
+
+    pool: ⸢rev•pool⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    default: ''
+    description: La pregunta, si la hay.
+  - name: kind
+    type: str
+    description: exclusive, parallel, inclusive, eventBased.
+  - name: pool
+    type: str
+    description: Id del participante que lo contiene (copia de in_pool, para que la condition de los flujos lo compare).
+tipos_de_relacion:
+- name: in_pool
+  cardinality: many_to_one
+  axis: WHERE
+  source_types:
+  - Task
+  - Event
+  - Gateway
+  target_types:
+  - Participant
+  description: El elemento pertenece al proceso de ese participante.
+- name: sequence_flow
+  cardinality: many_to_many
+  axis: WHEN
+  source_types:
+  - Task
+  - Event
+  - Gateway
+  target_types:
+  - Task
+  - Event
+  - Gateway
+  description: Orden dentro de un proceso. No cruza el borde de un pool (BPMN 2.0, §7.6.2).
+  condition: pool = "{pool}"
+- name: message_flow
+  cardinality: many_to_many
+  axis: WHEN
+  source_types:
+  - Task
+  - Event
+  target_types:
+  - Task
+  - Event
+  description: Mensaje entre participantes. Une dos pools distintos (BPMN 2.0, §9.3).
+  condition: pool != "{pool}"
+documentos:
+- model: Participant
+  name: pool-cliente
+  payload:
+    name: Cliente
+- model: Participant
+  name: pool-restaurante
+  payload:
+    name: Restaurante
+- model: Event
+  name: quiere-cenar
+  payload:
+    name: Quiere cenar
+    position: start
+    trigger: none
+    pool: pool-cliente
+- model: Task
+  name: pedir-mesa
+  payload:
+    name: Pedir mesa
+    kind: sendTask
+    pool: pool-cliente
+- model: Event
+  name: respuesta-recibida
+  payload:
+    name: Respuesta recibida
+    position: intermediate
+    trigger: message
+    pool: pool-cliente
+- model: Event
+  name: cliente-listo
+  payload:
+    name: Listo
+    position: end
+    trigger: none
+    pool: pool-cliente
+- model: Event
+  name: pedido-recibido
+  payload:
+    name: Pedido recibido
+    position: start
+    trigger: message
+    pool: pool-restaurante
+- model: Task
+  name: buscar-mesa
+  payload:
+    name: Buscar mesa con capacidad
+    kind: task
+    pool: pool-restaurante
+- model: Gateway
+  name: hay-mesa
+  payload:
+    name: ¿hay mesa libre?
+    kind: exclusive
+    pool: pool-restaurante
+- model: Task
+  name: confirmar
+  payload:
+    name: Confirmar reserva
+    kind: task
+    pool: pool-restaurante
+- model: Task
+  name: ofrecer
+  payload:
+    name: Ofrecer otro horario
+    kind: task
+    pool: pool-restaurante
+- model: Event
+  name: confirmacion-enviada
+  payload:
+    name: Confirmación enviada
+    position: end
+    trigger: message
+    pool: pool-restaurante
+- model: Event
+  name: alternativa-enviada
+  payload:
+    name: Alternativa enviada
+    position: end
+    trigger: message
+    pool: pool-restaurante
+relaciones:
+- type: in_pool
+  source: Event:quiere-cenar
+  target: Participant:pool-cliente
+- type: in_pool
+  source: Task:pedir-mesa
+  target: Participant:pool-cliente
+- type: in_pool
+  source: Event:respuesta-recibida
+  target: Participant:pool-cliente
+- type: in_pool
+  source: Event:cliente-listo
+  target: Participant:pool-cliente
+- type: in_pool
+  source: Event:pedido-recibido
+  target: Participant:pool-restaurante
+- type: in_pool
+  source: Task:buscar-mesa
+  target: Participant:pool-restaurante
+- type: in_pool
+  source: Gateway:hay-mesa
+  target: Participant:pool-restaurante
+- type: in_pool
+  source: Task:confirmar
+  target: Participant:pool-restaurante
+- type: in_pool
+  source: Task:ofrecer
+  target: Participant:pool-restaurante
+- type: in_pool
+  source: Event:confirmacion-enviada
+  target: Participant:pool-restaurante
+- type: in_pool
+  source: Event:alternativa-enviada
+  target: Participant:pool-restaurante
+- type: sequence_flow
+  source: Event:quiere-cenar
+  target: Task:pedir-mesa
+- type: sequence_flow
+  source: Task:pedir-mesa
+  target: Event:respuesta-recibida
+- type: sequence_flow
+  source: Event:respuesta-recibida
+  target: Event:cliente-listo
+- type: sequence_flow
+  source: Event:pedido-recibido
+  target: Task:buscar-mesa
+- type: sequence_flow
+  source: Task:buscar-mesa
+  target: Gateway:hay-mesa
+- type: sequence_flow
+  source: Gateway:hay-mesa
+  target: Task:confirmar
+  notes: sí
+- type: sequence_flow
+  source: Gateway:hay-mesa
+  target: Task:ofrecer
+  notes: 'no'
+- type: sequence_flow
+  source: Task:confirmar
+  target: Event:confirmacion-enviada
+- type: sequence_flow
+  source: Task:ofrecer
+  target: Event:alternativa-enviada
+- type: message_flow
+  source: Task:pedir-mesa
+  target: Event:pedido-recibido
+- type: message_flow
+  source: Event:confirmacion-enviada
+  target: Event:respuesta-recibida
+- type: message_flow
+  source: Event:alternativa-enviada
+  target: Event:respuesta-recibida
+relaciones_invalidas:
+- type: sequence_flow
+  source: Task:pedir-mesa
+  target: Participant:pool-restaurante
+  porque: un flujo de secuencia no llega a un participante

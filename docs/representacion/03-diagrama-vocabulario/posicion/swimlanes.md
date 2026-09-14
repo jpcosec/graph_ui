@@ -1,7 +1,7 @@
 # Carriles (swimlanes)
 
 Carpeta: [posición](index.md). El flujo de control con compuertas y eventos está en
-[`../flujo/bpmn.md`](../flujo/index.md) y [`../flujo/uml-actividad.md`](../flujo/uml-actividad.md); este
+[`../flujo/bpmn.md`](../flujo/bpmn.md) y [`../flujo/uml-actividad.md`](../flujo/uml-actividad.md); este
 documento se ocupa de la franja como significado.
 
 ## 1. Qué representa

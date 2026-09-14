@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='utf-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="reserva" targetNamespace="http://hum-ecosystem/graph_ui/representacion">
+  <message id="msg-pedido" name="pedido de mesa" />
+  <message id="msg-respuesta" name="respuesta" />
+  <collaboration id="colaboracion">
+    <participant id="pool-cliente" name="Cliente" processRef="proceso-cliente" />
+    <participant id="pool-restaurante" name="Restaurante" processRef="proceso-restaurante" />
+    <messageFlow id="mf-pedido" sourceRef="pedir-mesa" targetRef="pedido-recibido" messageRef="msg-pedido" />
+    <messageFlow id="mf-confirmacion" sourceRef="confirmacion-enviada" targetRef="respuesta-recibida" messageRef="msg-respuesta" />
+    <messageFlow id="mf-alternativa" sourceRef="alternativa-enviada" targetRef="respuesta-recibida" messageRef="msg-respuesta" />
+  </collaboration>
+  <process id="proceso-cliente" isExecutable="false">
+    <startEvent id="quiere-cenar" name="Quiere cenar">
+      <outgoing>sf-c1</outgoing>
+    </startEvent>
+    <sendTask id="pedir-mesa" name="Pedir mesa" messageRef="msg-pedido">
+      <incoming>sf-c1</incoming>
+      <outgoing>sf-c2</outgoing>
+    </sendTask>
+    <intermediateCatchEvent id="respuesta-recibida" name="Respuesta recibida">
+      <incoming>sf-c2</incoming>
+      <outgoing>sf-c3</outgoing>
+      <messageEventDefinition messageRef="msg-respuesta" />
+    </intermediateCatchEvent>
+    <endEvent id="cliente-listo" name="Listo">
+      <incoming>sf-c3</incoming>
+    </endEvent>
+    <sequenceFlow id="sf-c1" sourceRef="quiere-cenar" targetRef="pedir-mesa" />
+    <sequenceFlow id="sf-c2" sourceRef="pedir-mesa" targetRef="respuesta-recibida" />
+    <sequenceFlow id="sf-c3" sourceRef="respuesta-recibida" targetRef="cliente-listo" />
+  </process>
+  <process id="proceso-restaurante" isExecutable="false">
+    <startEvent id="pedido-recibido" name="Pedido recibido">
+      <outgoing>sf-r1</outgoing>
+      <messageEventDefinition messageRef="msg-pedido" />
+    </startEvent>
+    <task id="buscar-mesa" name="Buscar mesa con capacidad">
+      <incoming>sf-r1</incoming>
+      <outgoing>sf-r2</outgoing>
+    </task>
+    <exclusiveGateway id="hay-mesa" name="¿hay mesa libre?" default="sf-no">
+      <incoming>sf-r2</incoming>
+      <outgoing>sf-si</outgoing>
+      <outgoing>sf-no</outgoing>
+    </exclusiveGateway>
+    <task id="confirmar" name="Confirmar reserva">
+      <incoming>sf-si</incoming>
+      <outgoing>sf-r3</outgoing>
+    </task>
+    <task id="ofrecer" name="Ofrecer otro horario">
+      <incoming>sf-no</incoming>
+      <outgoing>sf-r4</outgoing>
+    </task>
+    <endEvent id="confirmacion-enviada" name="Confirmación enviada">
+      <incoming>sf-r3</incoming>
+      <messageEventDefinition messageRef="msg-respuesta" />
+    </endEvent>
+    <endEvent id="alternativa-enviada" name="Alternativa enviada">
+      <incoming>sf-r4</incoming>
+      <messageEventDefinition messageRef="msg-respuesta" />
+    </endEvent>
+    <sequenceFlow id="sf-r1" sourceRef="pedido-recibido" targetRef="buscar-mesa" />
+    <sequenceFlow id="sf-r2" sourceRef="buscar-mesa" targetRef="hay-mesa" />
+    <sequenceFlow id="sf-si" name="sí" sourceRef="hay-mesa" targetRef="confirmar">
+      <conditionExpression xsi:type="tFormalExpression">capacity &gt;= party_size</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sf-no" name="no" sourceRef="hay-mesa" targetRef="ofrecer" />
+    <sequenceFlow id="sf-r3" sourceRef="confirmar" targetRef="confirmacion-enviada" />
+    <sequenceFlow id="sf-r4" sourceRef="ofrecer" targetRef="alternativa-enviada" />
+  </process>
+  <bpmndi:BPMNDiagram id="diagrama">
+    <bpmndi:BPMNPlane id="plano" bpmnElement="colaboracion">
+      <bpmndi:BPMNShape id="di-pool-cliente" bpmnElement="pool-cliente" isHorizontal="true">
+        <dc:Bounds x="0" y="0" width="1100" height="160" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="di-pool-restaurante" bpmnElement="pool-restaurante" isHorizontal="true">
+        <dc:Bounds x="0" y="220" width="1100" height="270" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="di-quiere-cenar" bpmnElement="quiere-cenar">
+        <dc:Bounds x="82" y="62" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="di-pedir-mesa" bpmnElement="pedir-mesa">
+        <dc:Bounds x="170" y="40" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="di-respuesta-recibida" bpmnElement="respuesta-recibida">
+        <dc:Bounds x="862" y="62" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="820" y="28" width="60" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="di-cliente-listo" bpmnElement="cliente-listo">
+        <dc:Bounds x="982" y="62" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="di-pedido-recibido" bpmnElement="pedido-recibido">
+        <dc:Bounds x="202" y="302" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="di-buscar-mesa" bpmnElement="buscar-mesa">
+        <dc:Bounds x="310" y="280" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="di-hay-mesa" bpmnElement="hay-mesa">
+        <dc:Bounds x="475" y="295" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="462" y="272" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="di-confirmar" bpmnElement="confirmar">
+        <dc:Bounds x="590" y="280" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="di-ofrecer" bpmnElement="ofrecer">
+        <dc:Bounds x="590" y="390" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="di-confirmacion-enviada" bpmnElement="confirmacion-enviada">
+        <dc:Bounds x="862" y="302" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="di-alternativa-enviada" bpmnElement="alternativa-enviada">
+        <dc:Bounds x="782" y="412" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="740" y="452" width="120" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="di-sf-c1" bpmnElement="sf-c1">
+        <di:waypoint x="118" y="80" />
+        <di:waypoint x="170" y="80" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="di-sf-c2" bpmnElement="sf-c2">
+        <di:waypoint x="270" y="80" />
+        <di:waypoint x="862" y="80" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="di-sf-c3" bpmnElement="sf-c3">
+        <di:waypoint x="898" y="80" />
+        <di:waypoint x="982" y="80" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="di-sf-r1" bpmnElement="sf-r1">
+        <di:waypoint x="238" y="320" />
+        <di:waypoint x="310" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="di-sf-r2" bpmnElement="sf-r2">
+        <di:waypoint x="410" y="320" />
+        <di:waypoint x="475" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="di-sf-si" bpmnElement="sf-si">
+        <di:waypoint x="525" y="320" />
+        <di:waypoint x="590" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="di-sf-no" bpmnElement="sf-no">
+        <di:waypoint x="500" y="345" />
+        <di:waypoint x="500" y="430" />
+        <di:waypoint x="590" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="di-sf-r3" bpmnElement="sf-r3">
+        <di:waypoint x="690" y="320" />
+        <di:waypoint x="862" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="di-sf-r4" bpmnElement="sf-r4">
+        <di:waypoint x="690" y="430" />
+        <di:waypoint x="782" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="di-mf-pedido" bpmnElement="mf-pedido">
+        <di:waypoint x="220" y="120" />
+        <di:waypoint x="220" y="302" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="di-mf-confirmacion" bpmnElement="mf-confirmacion">
+        <di:waypoint x="880" y="302" />
+        <di:waypoint x="880" y="98" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="di-mf-alternativa" bpmnElement="mf-alternativa">
+        <di:waypoint x="800" y="412" />
+        <di:waypoint x="800" y="190" />
+        <di:waypoint x="872" y="190" />
+        <di:waypoint x="872" y="97" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
