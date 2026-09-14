@@ -1,0 +1,262 @@
+# Variante: el total de 1.4 quedó desactualizado (150) y el segundo paquete de 1.5 repite el código 1.5.1.
+modelos:
+- name: WorkItem
+  family: wbs
+  template: '---
+
+    code: ⸢rev•code⸥
+
+    kind: ⸢rev•kind⸥
+
+    effort: ⸢rev•effort⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+
+    ⸢rev•name⸥
+
+    '
+  fields:
+  - name: code
+    type: str
+    description: 'Código WBS (1.2.3): posición en la jerarquía.'
+  - name: name
+    type: str
+    description: Entregable o paquete de trabajo.
+  - name: kind
+    type: str
+    description: deliverable (tiene hijos) o work_package (hoja).
+  - name: effort
+    type: int
+    description: Líneas agregadas + borradas; en un entregable, la suma de sus hijos.
+tipos_de_relacion:
+- name: part_of
+  cardinality: many_to_one
+  axis: WHAT
+  source_types:
+  - WorkItem
+  target_types:
+  - WorkItem
+  description: El elemento es parte del entregable destino.
+documentos:
+- model: WorkItem
+  name: w-1
+  payload:
+    code: '1'
+    name: 'Paso 2: proyecciones'
+    kind: deliverable
+    effort: 694
+- model: WorkItem
+  name: w-1-1
+  payload:
+    code: '1.1'
+    name: 'Fuente: aplicar la proyección'
+    kind: deliverable
+    effort: 98
+- model: WorkItem
+  name: w-1-1-1
+  payload:
+    code: 1.1.1
+    name: source/projections.js
+    kind: work_package
+    effort: 29
+- model: WorkItem
+  name: w-1-1-2
+  payload:
+    code: 1.1.2
+    name: source/projections.mjs
+    kind: work_package
+    effort: 59
+- model: WorkItem
+  name: w-1-1-3
+  payload:
+    code: 1.1.3
+    name: source/source.js
+    kind: work_package
+    effort: 10
+- model: WorkItem
+  name: w-1-2
+  payload:
+    code: '1.2'
+    name: 'Shell: selector de proyección'
+    kind: deliverable
+    effort: 3
+- model: WorkItem
+  name: w-1-2-1
+  payload:
+    code: 1.2.1
+    name: shell/shell.js
+    kind: work_package
+    effort: 2
+- model: WorkItem
+  name: w-1-2-2
+  payload:
+    code: 1.2.2
+    name: styles/shell.css
+    kind: work_package
+    effort: 1
+- model: WorkItem
+  name: w-1-3
+  payload:
+    code: '1.3'
+    name: Vistas KB y Flujo
+    kind: deliverable
+    effort: 31
+- model: WorkItem
+  name: w-1-3-1
+  payload:
+    code: 1.3.1
+    name: views/documents/flow/flow-view.js
+    kind: work_package
+    effort: 13
+- model: WorkItem
+  name: w-1-3-2
+  payload:
+    code: 1.3.2
+    name: views/documents/map/document-node.js
+    kind: work_package
+    effort: 5
+- model: WorkItem
+  name: w-1-3-3
+  payload:
+    code: 1.3.3
+    name: views/documents/map/map-view.js
+    kind: work_package
+    effort: 13
+- model: WorkItem
+  name: w-1-4
+  payload:
+    code: '1.4'
+    name: 'Schema: resaltar y editar'
+    kind: deliverable
+    effort: 150
+- model: WorkItem
+  name: w-1-4-1
+  payload:
+    code: 1.4.1
+    name: views/models/diagram/diagram-view.js
+    kind: work_package
+    effort: 33
+- model: WorkItem
+  name: w-1-4-2
+  payload:
+    code: 1.4.2
+    name: views/models/diagram/diagram.css
+    kind: work_package
+    effort: 17
+- model: WorkItem
+  name: w-1-4-3
+  payload:
+    code: 1.4.3
+    name: views/models/diagram/projection-editor.js
+    kind: work_package
+    effort: 79
+- model: WorkItem
+  name: w-1-4-4
+  payload:
+    code: 1.4.4
+    name: views/models/diagram/projection.mjs
+    kind: work_package
+    effort: 36
+- model: WorkItem
+  name: w-1-5
+  payload:
+    code: '1.5'
+    name: Pruebas
+    kind: deliverable
+    effort: 324
+- model: WorkItem
+  name: w-1-5-1
+  payload:
+    code: 1.5.1
+    name: tests/e2e_mindmap_projections.py
+    kind: work_package
+    effort: 264
+- model: WorkItem
+  name: w-1-5-2
+  payload:
+    code: 1.5.1
+    name: tests/mindmap-model.test.mjs
+    kind: work_package
+    effort: 60
+- model: WorkItem
+  name: w-1-6
+  payload:
+    code: '1.6'
+    name: Documentación
+    kind: deliverable
+    effort: 73
+- model: WorkItem
+  name: w-1-6-1
+  payload:
+    code: 1.6.1
+    name: docs/mindmap-developer.md
+    kind: work_package
+    effort: 73
+relaciones:
+- type: part_of
+  source: WorkItem:w-1-1
+  target: WorkItem:w-1
+- type: part_of
+  source: WorkItem:w-1-1-1
+  target: WorkItem:w-1-1
+- type: part_of
+  source: WorkItem:w-1-1-2
+  target: WorkItem:w-1-1
+- type: part_of
+  source: WorkItem:w-1-1-3
+  target: WorkItem:w-1-1
+- type: part_of
+  source: WorkItem:w-1-2
+  target: WorkItem:w-1
+- type: part_of
+  source: WorkItem:w-1-2-1
+  target: WorkItem:w-1-2
+- type: part_of
+  source: WorkItem:w-1-2-2
+  target: WorkItem:w-1-2
+- type: part_of
+  source: WorkItem:w-1-3
+  target: WorkItem:w-1
+- type: part_of
+  source: WorkItem:w-1-3-1
+  target: WorkItem:w-1-3
+- type: part_of
+  source: WorkItem:w-1-3-2
+  target: WorkItem:w-1-3
+- type: part_of
+  source: WorkItem:w-1-3-3
+  target: WorkItem:w-1-3
+- type: part_of
+  source: WorkItem:w-1-4
+  target: WorkItem:w-1
+- type: part_of
+  source: WorkItem:w-1-4-1
+  target: WorkItem:w-1-4
+- type: part_of
+  source: WorkItem:w-1-4-2
+  target: WorkItem:w-1-4
+- type: part_of
+  source: WorkItem:w-1-4-3
+  target: WorkItem:w-1-4
+- type: part_of
+  source: WorkItem:w-1-4-4
+  target: WorkItem:w-1-4
+- type: part_of
+  source: WorkItem:w-1-5
+  target: WorkItem:w-1
+- type: part_of
+  source: WorkItem:w-1-5-1
+  target: WorkItem:w-1-5
+- type: part_of
+  source: WorkItem:w-1-5-2
+  target: WorkItem:w-1-5
+- type: part_of
+  source: WorkItem:w-1-6
+  target: WorkItem:w-1
+- type: part_of
+  source: WorkItem:w-1-6-1
+  target: WorkItem:w-1-6

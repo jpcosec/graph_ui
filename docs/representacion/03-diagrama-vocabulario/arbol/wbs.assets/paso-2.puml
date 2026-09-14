@@ -1,0 +1,31 @@
+@startwbs
+<style>
+wbsDiagram {
+  .paquete {
+    BackgroundColor white
+  }
+}
+</style>
+* 1 Paso 2: proyecciones\n694 líneas
+** 1.1 Fuente: aplicar la proyección\n98 líneas
+*** 1.1.1 source/projections.js\n29 líneas <<paquete>>
+*** 1.1.2 source/projections.mjs\n59 líneas <<paquete>>
+*** 1.1.3 source/source.js\n10 líneas <<paquete>>
+** 1.2 Shell: selector de proyección\n3 líneas
+*** 1.2.1 shell/shell.js\n2 líneas <<paquete>>
+*** 1.2.2 styles/shell.css\n1 líneas <<paquete>>
+** 1.3 Vistas KB y Flujo\n31 líneas
+*** 1.3.1 views/documents/flow/flow-view.js\n13 líneas <<paquete>>
+*** 1.3.2 views/documents/map/document-node.js\n5 líneas <<paquete>>
+*** 1.3.3 views/documents/map/map-view.js\n13 líneas <<paquete>>
+** 1.4 Schema: resaltar y editar\n165 líneas
+*** 1.4.1 views/models/diagram/diagram-view.js\n33 líneas <<paquete>>
+*** 1.4.2 views/models/diagram/diagram.css\n17 líneas <<paquete>>
+*** 1.4.3 views/models/diagram/projection-editor.js\n79 líneas <<paquete>>
+*** 1.4.4 views/models/diagram/projection.mjs\n36 líneas <<paquete>>
+** 1.5 Pruebas\n324 líneas
+*** 1.5.1 tests/e2e_mindmap_projections.py\n264 líneas <<paquete>>
+*** 1.5.2 tests/mindmap-model.test.mjs\n60 líneas <<paquete>>
+** 1.6 Documentación\n73 líneas
+*** 1.6.1 docs/mindmap-developer.md\n73 líneas <<paquete>>
+@endwbs
