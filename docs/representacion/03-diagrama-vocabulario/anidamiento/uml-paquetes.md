@@ -88,6 +88,27 @@ Con el motor ELK la arista aparece pero sale de `source` (un hijo), no de `graph
 (`!pragma layout smetana`, el que se usa) sale del paquete correcto. Las aristas que cruzan el borde de
 un contenedor son un problema de layout propio de esta carpeta.
 
+**¿Y `graph_ui`?** [`arista-entre-contenedores-graph-ui.py`](uml-paquetes.assets/arista-entre-contenedores-graph-ui.py)
+compila un store real con dos `BoardDoc` (cada uno contiene una `TaskDoc`) y una referencia `blocks` de la
+tarea del primero a la del segundo, abre la vista KB con «Referencias» activado y cuenta las aristas. Con
+`--control`, las dos tareas quedan en el mismo board.
+
+![Referencia entre tareas de boards distintos en la vista KB](uml-paquetes.assets/arista-entre-contenedores-graph-ui.png)
+
+La vista KB **sí dibuja** la referencia que cruza contenedores (React Flow con `parentId`). Pero doce
+corridas dieron:
+
+```
+      1 cruce 0 []
+      5 cruce 1 ['blocks']
+      2 --control 0 []
+      4 --control 1 ['blocks']
+```
+
+En 3 de 12 la arista no aparece ni después de 10 s, **con o sin cruce**, y sin errores de JavaScript: el
+dibujo de referencias en la vista KB es intermitente. Ninguna prueba E2E del repositorio cubre ese
+interruptor (las de Flujo y Schema, que sí cuentan aristas, pasan).
+
 **Notación B**, [`uml-paquetes.assets/ecosistema-circulo.puml`](uml-paquetes.assets/ecosistema-circulo.puml)
 (la pertenencia como `+--`):
 
@@ -164,7 +185,9 @@ la operación pertenece al vocabulario y el gesto a la notación.
   `__containment__` (campos de lista con ids), pero `sldb models create` no lo genera; por eso el
   mundo usa un verbo. Hay dos formas de declarar lo mismo en el ecosistema.
 - **Aristas que cruzan el borde de un contenedor**: el oráculo mismo tuvo que cambiar de motor de
-  layout para dibujarlas bien. `graph_ui` necesitará un layout de grupos que las soporte.
+  layout para dibujarlas bien. En `graph_ui` la vista KB sí las dibuja (verificado arriba); lo que falla es
+  otra cosa: **las referencias de la vista KB aparecen de forma intermitente** (3 de 12 corridas sin
+  arista, con o sin cruce).
 
 ## 9. Fuentes
 
