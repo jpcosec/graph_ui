@@ -129,21 +129,26 @@ ref: confirm
 
 Tres cosas aparecieron al probar, y las tres son extensiones del sustrato, no del front.
 
-**4.1 Un runtime no puede decir una jugada con direcciones.** El contrato de runtime (spec 12) tiene una
-entrada: `session.turn(sentence)`. Un gesto ya sabe sus extremos exactos, pero tiene que convertirse en una
-oración que el parser vuelva a resolver. Probado en una sesión en proceso:
+**4.1 Formas: el lenguaje estructurado de `pron`.** `pron` solo aceptaba oraciones (`session.turn`), y un gesto con
+extremos conocidos no cabía: `associate Client with Table` → `'associate' has no antecedent of class UmlClass`.
+La decisión es que `pron` tenga debajo un lenguaje de s-expressions y que el lenguaje natural sea una envoltura
+sobre él. Está implementado en la rama `sexp-core` de `pron` (worktree `~/proyectos/pron-sexp`, sin mezclar a
+`master`): capítulo 13 del spec, `session.eval`, `pron eval`, operación `eval` del socket. Toda oración se
+resuelve a formas y lo que se ejecuta son las formas; las formas que registra la conversación del spec 09,
+evaluadas en otra copia del mundo, dejan las mismas escrituras y la misma respuesta (127 tests en verde).
+
+Los gestos de UML, como formas sobre el mismo mundo:
 
 ```
-### associate Client with Table      → 'associate' has no antecedent of class UmlClass.
-### the class Client                 → unico | Client.
-### associate it with the class Table → error | Could not do that: no naming rule for UmlAssociation; say the name
-```
+(assert realizes (doc "UmlClass:client") (doc "UmlClass:bookable"))
+Done: Client realizes Bookable.
 
-El `compose` resuelve `$referent` por el diálogo, no por una dirección dada. El spec 06 ya define la
-**interpretación** (forma, sujeto con direcciones, verbo, objeto, campo, valor): la extensión es aceptarla
-directamente, `session.move(interpretation)`, con las mismas verificaciones, prevalidación, `MoveDoc` y
-`undo` que un turno. Spec 12 §9 dice cómo pedirlo: *"Lo que un runtime necesite y no esté acá se pide como
-cambio de este capítulo, no se toma de adentro."*
+(assert realizes (doc "UmlClass:client") (doc "UmlClass:person"))
+Could not do that: condition 'kind = "interface"' does not hold for UmlClass:client → UmlClass:person
+
+(say associate (slot "$referent:UmlClass" (doc "UmlClass:client")) (slot "$object:UmlClass" (doc "UmlClass:table")) (as "client-prefers-table") (name "prefers"))
+Created umlassociation prefers, end a Client, end b Table.
+```
 
 **4.2 Un documento no puede apuntar a una palabra.** Para que un `LinkDoc` dijera "dibujo `realizes`" como
 arista tipada, se montó la familia con verbos `draws` (hacia `RelationTypeDoc`) y `speaks` (hacia
@@ -196,8 +201,7 @@ Revisar el spec cambió el estado de varios [huecos](huecos.md): algunos son dec
 
 1. **Nombres y modelos.** `NotationDoc`, `GlyphDoc`, `LinkDoc` y `GestureDoc` son nombres de trabajo. ¿Viven
    sus modelos en `graph_ui` y se registran en el mundo como `pron` registra `AnchorDoc`?
-2. **Contrato 4.1.** ¿`session.move(interpretation)` en `pron`, o prefieres que `graph_ui` arme oraciones con las
-   formas de los alias?
+2. **Formas (4.1).** Resuelto: `pron` evalúa s-expressions y el lenguaje natural las produce.
 3. **Extensión 4.2.** ¿La generalizamos en el ingest de `kgdb` (aristas por `ref` para cualquier familia
    marcada) o se valida desde `pron`?
 
