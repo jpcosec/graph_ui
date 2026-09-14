@@ -127,3 +127,17 @@ export function schemaMatches(node,query) {
     ...node.fields.flatMap(f=>[f.name,f.kind||'',f.annotation||'',...(f.contains||[]),...(f.inferred||[])])].join(' ').toLowerCase();
   return haystack.includes(q);
 }
+
+// Distinct relation type names present in the store, from both a
+// RelationTypeDoc's declaration (`name`) and a RelationDoc's own
+// `relation_type` — a type instantiated with no RelationTypeDoc still shows
+// up (same "instances are ground truth" rule as schemaGraph above), for the
+// projection editor's relation checklist.
+export function relationTypesOf(documents) {
+  const names=new Set();
+  (documents||[]).forEach(doc=>{
+    if(isRelationTypeDocument(doc))names.add(doc.payload.name);
+    if(isRelationDocument(doc)&&typeof doc.payload.relation_type==='string')names.add(doc.payload.relation_type);
+  });
+  return [...names].sort();
+}

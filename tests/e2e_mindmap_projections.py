@@ -201,7 +201,64 @@ def test_projection_filters_kb_and_flow_and_highlights_schema():
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def test_projection_editor_stages_edits_live_before_any_save():
+    """El panel dedicado en Schema («🎛 Editar proyección», solo habilitado
+    con una proyección activa) edita el mismo documento ProjectionDoc que la
+    ficha genérica de KB — vía documents.edit(), igual que cualquier otra
+    mutación de la faceta documents (p. ej. applyConnection en map-view.js).
+    El cambio se ve de inmediato en Schema/KB porque ambos leen el mismo
+    working copy, sin necesidad de guardar en SLDB primero."""
+    if sync_playwright is None:
+        import pytest
+        pytest.skip("playwright no está instalado")
+    tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-proj-editor-"))
+    store = tmp / ".sldb"
+    _compile(store)
+    _compile_projection(store)
+    server = _start_server(store)
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1400, "height": 900})
+            errors = []
+            page.on("pageerror", lambda e: errors.append(str(e)))
+            page.goto(f"http://127.0.0.1:{PORT}/")
+            page.wait_for_selector(".document-node", timeout=10000)
+            page.locator(".projection-select").select_option("tasks")
+
+            page.get_by_role("tab", name="Schema").click()
+            page.wait_for_selector(".class-node", timeout=10000)
+            edit_btn = page.locator(".schema-projection-edit")
+            expect(edit_btn).to_be_enabled()
+            board = page.locator(".class-node[data-class=BoardDoc]")
+            expect(board).to_have_class(re.compile(r"\bdim\b"))
+
+            edit_btn.click()
+            page.wait_for_selector(".projection-editor", timeout=5000)
+            # Todas las clases del schema aparecen (BoardDoc, TaskDoc,
+            # ProjectionDoc), no solo las incluidas en la proyección activa.
+            expect(page.locator(".projection-editor-row")).to_have_count(3)
+            # Set a display template on the already-included TaskDoc row.
+            page.locator(".projection-editor-row", has_text="Task").locator(".projection-editor-template").fill("📌 {title}")
+            page.locator(".projection-editor .dialog-footer button.primary").click()
+
+            # Staged, visible in KB before any save.
+            page.get_by_role("tab", name="KB").click()
+            page.wait_for_selector(".document-node", timeout=10000)
+            expect(page.locator(".node-title", has_text="📌")).to_have_count(2)
+            # El cambio quedó pendiente de guardar (dirty), no persistido aún.
+            expect(page.locator(".save-state.unsaved")).to_have_count(1)
+
+            assert not errors, f"errores JS: {errors}"
+            browser.close()
+    finally:
+        server.terminate()
+        server.wait(timeout=5)
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 if __name__ == "__main__":
     test_projection_selector_absent_without_a_projection_doc()
     test_projection_filters_kb_and_flow_and_highlights_schema()
+    test_projection_editor_stages_edits_live_before_any_save()
     print("OK")

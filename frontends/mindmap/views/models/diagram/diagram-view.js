@@ -3,6 +3,7 @@ import {ReactFlow, ReactFlowProvider, Controls, MiniMap, Handle, Position, useRe
 import dagre from 'dagre';
 import {html} from '../../../shared/html.js';
 import {schemaGraph, schemaMatches} from './projection.mjs';
+import {ProjectionEditor} from './projection-editor.js';
 import {classStyle, classVar} from '../../../shared/classes.mjs';
 import {resolveToken} from '../../../shell/skin.js';
 import {useSource} from '../../../source/source.js';
@@ -50,7 +51,7 @@ function ClassNode({data,selected}) {
 }
 const nodeTypes={class:ClassNode};
 
-function SchemaCanvas({skin}) {
+function SchemaCanvas({skin,onModalChange}) {
   const kb=useSource();
   const dialogs=useShellDialogs();
   // Schema always graphs the FULL store — never the active projection's
@@ -61,6 +62,17 @@ function SchemaCanvas({skin}) {
   const onEditClass=id=>dialogs.open({kind:'classes',model:id||null});
   const {fitView}=useReactFlow();
   const [query,setQuery]=useState('');
+  const [editingProjection,setEditingProjection]=useState(false);
+  useEffect(()=>{onModalChange?.(editingProjection);},[editingProjection,onModalChange]);
+  const applyProjectionEdit=nextPayload=>{
+    // Staged like any other document edit (map-view.js's applyConnection is
+    // the same pattern): Schema has no shell.primary chrome of its own, so
+    // the actual save happens from KB, same as every other Schema→documents
+    // mutation would.
+    kb.documents.edit(w=>({...w,documents:w.documents.map(d=>d.id===activeProjection.id?{...d,payload:nextPayload}:d)}));
+    kb.documents.setNotice('Proyección actualizada — confirma con «Guardar en SLDB» desde KB.');
+    setEditingProjection(false);
+  };
   const graph=useMemo(()=>schemaGraph(models,documents,activeProjection),[models,documents,activeProjection]);
   const byId=useMemo(()=>Object.fromEntries(graph.nodes.map(n=>[n.id,n])),[graph]);
   // Mismo patrón que el mapa KB: los nodos viven en estado y React Flow aplica
@@ -109,6 +121,9 @@ function SchemaCanvas({skin}) {
       <input className="schema-filter" aria-label="Filtrar clases" placeholder="Filtrar clase, campo o tipo…" value=${query} onInput=${e=>setQuery(e.target.value)}/>
       <button type="button" onClick=${()=>fitView({padding:.1,duration:200})}>⛶ Ver todo</button>
       <button type="button" className="schema-edit" onClick=${()=>onEditClass(selected)}>📐 Editar clases</button>
+      <button type="button" className="schema-projection-edit" disabled=${!activeProjection}
+        title=${activeProjection?'Editar qué clases, relaciones y plantillas entran en esta proyección':'Selecciona una proyección en la barra superior para editarla'}
+        onClick=${()=>setEditingProjection(true)}>🎛 Editar proyección</button>
     </div>
     <div className="schema-canvas">
       <${ReactFlow} nodes=${displayed} edges=${edges} nodeTypes=${nodeTypes} onNodesChange=${changes=>setFlowNodes(ns=>applyNodeChanges(changes,ns))}
@@ -123,6 +138,7 @@ function SchemaCanvas({skin}) {
         <span><b>*</b> obligatorio · <b>?</b> destino inferido, no declarado · doble clic o ✎ abre el editor de la clase</span></div>
       ${!graph.nodes.length?html`<div className="state"><h2>Este store no tiene clases registradas</h2></div>`:''}
     </div>
+    ${editingProjection&&activeProjection?html`<${ProjectionEditor} projection=${activeProjection} models=${models} documents=${documents} onClose=${()=>setEditingProjection(false)} onApply=${applyProjectionEdit}/>`:''}
   </div>`;
 }
 

@@ -125,6 +125,28 @@ arista de relación — la vista atenúa (`.dim`, mismo mecanismo que el filtro
 de texto) en vez de ocultar, y muestra la plantilla `display` junto a cada
 clase incluida.
 
+Editar una proyección sigue siendo editar ese documento — la ficha genérica
+de KB ya lo permite (`models`/`relations`/`display` como campos JSON/lista) —
+pero Schema trae además un panel dedicado:
+`views/models/diagram/projection-editor.js` (`ProjectionEditor`, botón
+«🎛 Editar proyección» en `.schema-bar`, habilitado solo con una proyección
+activa). Es un checklist: una fila por clase registrada (checkbox +
+plantilla `display` en línea) y una fila por tipo de relación presente en el
+store (`relationTypesOf` en `projection.mjs`, unión de nombres declarados
+por `RelationTypeDoc` y observados en `relation_type` de `RelationDoc`) con
+su `mode` (`read`/`read and assert`). Un toggle «Todas las clases»/«Todos los
+tipos» de cabecera representa el `[]` = "todo entra" de pron; destildar una
+fila mientras ese toggle está activo materializa la lista completa menos esa
+fila (el mismo gesto que vaciar un complemento de conjunto), nunca dos
+representaciones distintas de "todo". Al aplicar, `SchemaCanvas` llama
+`kb.documents.edit(...)` sobre el documento de la proyección — mismo patrón
+que cualquier otra mutación de la faceta `documents` (p. ej.
+`applyConnection` en `map-view.js`) — así que el cambio se ve de inmediato en
+Schema/KB/Flujo (todos leen el mismo working copy) antes de guardar. Schema
+no tiene `shell.primary`, así que no trae su propio botón "Guardar en SLDB":
+el editor deja un aviso (`documents.setNotice`) pidiendo confirmar desde KB,
+igual que cualquier edición sin guardar en este editor.
+
 ### Contrato de una vista
 
 Cada vista se registra en `shell/registry.js` (`VIEWS`) con un descriptor

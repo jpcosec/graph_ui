@@ -201,7 +201,7 @@ test('brainstormToSource gives collisions unique IDs without replacing existing 
 
 // ---------------------------------------------------------------- Schema
 import {isProjectionDocument,projectionsOf,findProjection,applyProjection,renderDisplay,titleFor} from '../frontends/mindmap/source/projections.mjs';
-import {schemaGraph,schemaMatches} from '../frontends/mindmap/views/models/diagram/projection.mjs';
+import {schemaGraph,schemaMatches,relationTypesOf} from '../frontends/mindmap/views/models/diagram/projection.mjs';
 
 test('schemaGraph: la contención declarada da aristas tipadas; las referencias solo se anotan',()=>{
   const models=[
@@ -544,4 +544,9 @@ test('titleFor: uses the active projection\'s display template when declared, el
   assert.equal(titleFor(PROJ_DOCS[3],all,PROJ_DOCS),'Spec 01');
   assert.equal(titleFor(PROJ_DOCS[4],all,PROJ_DOCS),'cli-1','CliCommandDoc has no display template in this projection');
   assert.equal(titleFor(PROJ_DOCS[3],null,PROJ_DOCS),'Spec 01','no active projection: same as titleOf');
+});
+
+test('relationTypesOf: distinct names from RelationTypeDoc declarations and RelationDoc instances, sorted',()=>{
+  assert.deepEqual(relationTypesOf(PROJ_DOCS),['implements','mentions']);
+  assert.deepEqual(relationTypesOf([]),[]);
 });
