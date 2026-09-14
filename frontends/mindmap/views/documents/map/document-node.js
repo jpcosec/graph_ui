@@ -1,10 +1,11 @@
 import {Handle, Position, NodeToolbar} from '@xyflow/react';
 import {html} from '../../../shared/html.js';
-import {titleOf} from '../../../shared/documents.mjs';
 import {classStyle, classVar} from '../../../shared/classes.mjs';
+import {useSource} from '../../../source/source.js';
 
 export function DocumentNode({data,selected}) {
   const style=classStyle(data.doc.model_name);
+  const title=useSource().projections.titleFor(data.doc);
   return html`<div className=${'document-node'+(data.group?' container-node':'')+(selected?' selected':'')} style=${{'--class-color':classVar(style.slot)}}>
     <${NodeToolbar} isVisible=${selected} position=${Position.Top} offset=${12}>
       <div className="node-toolbar" role="toolbar" aria-label="Acciones del nodo">
@@ -17,7 +18,7 @@ export function DocumentNode({data,selected}) {
       </div>
     </${NodeToolbar}>
     <${Handle} type="target" position=${Position.Left}/>
-    <div className="node-heading"><span className="node-icon" title=${data.doc.model_name}>${style.icon}</span><span className="node-title" title=${titleOf(data.doc)}>${titleOf(data.doc)}</span>
+    <div className="node-heading"><span className="node-icon" title=${data.doc.model_name}>${style.icon}</span><span className="node-title" title=${title}>${title}</span>
       ${data.count?html`<button className="collapse nodrag" aria-label=${data.collapsed?'Expandir contenido':'Plegar contenido'} onClick=${e=>{e.stopPropagation();data.actions.toggle(data.doc.id);}}>${data.collapsed?'▸':'▾'} <small>${data.count}</small></button>`:''}
     </div>
     <${Handle} type="source" position=${Position.Right}/>

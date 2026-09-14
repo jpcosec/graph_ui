@@ -200,6 +200,7 @@ test('brainstormToSource gives collisions unique IDs without replacing existing 
 });
 
 // ---------------------------------------------------------------- Schema
+import {isProjectionDocument,projectionsOf,findProjection,applyProjection,renderDisplay,titleFor} from '../frontends/mindmap/source/projections.mjs';
 import {schemaGraph,schemaMatches} from '../frontends/mindmap/views/models/diagram/projection.mjs';
 
 test('schemaGraph: la contención declarada da aristas tipadas; las referencias solo se anotan',()=>{
@@ -252,9 +253,9 @@ test('schemaGraph: relaciones declaradas por un RelationTypeDoc ignoran extremos
   ];
   const g=schemaGraph(models,docs);
   const rel=id=>g.edges.find(e=>e.id===id);
-  assert.deepEqual(rel('rel:implements:SurfaceDoc>SpecDoc'),{id:'rel:implements:SurfaceDoc>SpecDoc',source:'SurfaceDoc',target:'SpecDoc',type:'implements',declared:true,count:2,kind:'relation'});
-  assert.deepEqual(rel('rel:implements:CliCommandDoc>SpecDoc'),{id:'rel:implements:CliCommandDoc>SpecDoc',source:'CliCommandDoc',target:'SpecDoc',type:'implements',declared:true,count:1,kind:'relation'});
-  assert.deepEqual(rel('rel:mentions:SurfaceDoc>SpecDoc'),{id:'rel:mentions:SurfaceDoc>SpecDoc',source:'SurfaceDoc',target:'SpecDoc',type:'mentions',declared:false,count:1,kind:'relation'});
+  assert.deepEqual(rel('rel:implements:SurfaceDoc>SpecDoc'),{id:'rel:implements:SurfaceDoc>SpecDoc',source:'SurfaceDoc',target:'SpecDoc',type:'implements',declared:true,count:2,kind:'relation',included:true});
+  assert.deepEqual(rel('rel:implements:CliCommandDoc>SpecDoc'),{id:'rel:implements:CliCommandDoc>SpecDoc',source:'CliCommandDoc',target:'SpecDoc',type:'implements',declared:true,count:1,kind:'relation',included:true});
+  assert.deepEqual(rel('rel:mentions:SurfaceDoc>SpecDoc'),{id:'rel:mentions:SurfaceDoc>SpecDoc',source:'SurfaceDoc',target:'SpecDoc',type:'mentions',declared:false,count:1,kind:'relation',included:true});
   assert.ok(!g.edges.some(e=>e.source==='sldb_model'||e.target==='sldb_model'));
   assert.equal(g.edges.filter(e=>e.kind==='relation').length,3);
   const surface=g.nodes.find(n=>n.id==='SurfaceDoc');
@@ -497,4 +498,50 @@ test('history: reset clears history/future and rebases working on the new baseli
   assert.deepEqual(state.working,{documents:['server-d'],view:{fromServer:true}});
   assert.deepEqual(state.history,[]);
   assert.deepEqual(state.future,[]);
+});
+
+// pron's own ProjectionDoc, reused as-is (see pron/src/pron/models/projection.py):
+// a projection filters entities by `models` and relation types by `relations`,
+// both empty meaning "everything enters" — never a UI-only concept.
+const PROJ_DOCS=[
+  {id:'projection-all',model_name:'ProjectionDoc',payload:{name:'all',models:['SurfaceDoc','SpecDoc'],relations:[{name:'implements',mode:'read'}],display:{SpecDoc:'{title}',SurfaceDoc:'{surface} ({implements.title})'}}},
+  {id:'projection-open',model_name:'ProjectionDoc',payload:{name:'open',models:[],relations:[],display:{}}},
+  {id:'surface-x',model_name:'SurfaceDoc',payload:{surface:'pron-world'}},
+  {id:'spec-01',model_name:'SpecDoc',payload:{title:'Spec 01'}},
+  {id:'cli-1',model_name:'CliCommandDoc',payload:{command_path:'pron ask'}},
+  {id:'rt1',model_name:'RelationTypeDoc',payload:{name:'implements',source_types:['SurfaceDoc'],target_types:['SpecDoc']}},
+  {id:'r1',model_name:'RelationDoc',payload:{source_id:'surface-x',target_id:'spec-01',relation_type:'implements'}},
+  {id:'r2',model_name:'RelationDoc',payload:{source_id:'surface-x',target_id:'cli-1',relation_type:'mentions'}},
+];
+
+test('projectionsOf/findProjection: ProjectionDoc is matched nominally by model_name',()=>{
+  assert.ok(isProjectionDocument(PROJ_DOCS[0]));
+  assert.ok(!isProjectionDocument(PROJ_DOCS[2]));
+  assert.deepEqual(projectionsOf(PROJ_DOCS).map(d=>d.id),['projection-all','projection-open']);
+  assert.equal(findProjection(PROJ_DOCS,'all').id,'projection-all');
+  assert.equal(findProjection(PROJ_DOCS,'missing'),null);
+});
+
+test('applyProjection: declared models/relations filter entities and relation (type) documents; empty means every one',()=>{
+  const all=findProjection(PROJ_DOCS,'all');
+  const filtered=applyProjection(PROJ_DOCS,all);
+  // CliCommandDoc and both ProjectionDocs are not in `models`, `mentions` is
+  // not in `relations`: all four drop, same as pron's own projection semantics.
+  assert.deepEqual(filtered.map(d=>d.id).sort(),['r1','rt1','spec-01','surface-x']);
+  const open=findProjection(PROJ_DOCS,'open');
+  assert.deepEqual(applyProjection(PROJ_DOCS,open),PROJ_DOCS,'empty models/relations keeps every document, same array reference');
+  assert.equal(applyProjection(PROJ_DOCS,null),PROJ_DOCS,'no active projection is an identity pass-through');
+});
+
+test('renderDisplay: {field} substitutes the payload, {rel.field} follows a RelationDoc edge to its target',()=>{
+  assert.equal(renderDisplay('{surface}',PROJ_DOCS[2],PROJ_DOCS),'pron-world');
+  assert.equal(renderDisplay('{surface} ({implements.title})',PROJ_DOCS[2],PROJ_DOCS),'pron-world (Spec 01)');
+  assert.equal(renderDisplay('{missing.title}',PROJ_DOCS[2],PROJ_DOCS),'','an edge type with no matching RelationDoc renders empty, like pron');
+});
+
+test('titleFor: uses the active projection\'s display template when declared, else falls back to titleOf',()=>{
+  const all=findProjection(PROJ_DOCS,'all');
+  assert.equal(titleFor(PROJ_DOCS[3],all,PROJ_DOCS),'Spec 01');
+  assert.equal(titleFor(PROJ_DOCS[4],all,PROJ_DOCS),'cli-1','CliCommandDoc has no display template in this projection');
+  assert.equal(titleFor(PROJ_DOCS[3],null,PROJ_DOCS),'Spec 01','no active projection: same as titleOf');
 });

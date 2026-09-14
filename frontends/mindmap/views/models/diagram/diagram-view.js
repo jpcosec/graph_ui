@@ -33,7 +33,7 @@ function ClassNode({data,selected}) {
     <header className="class-node-head"><${Handle} type="target" position=${Position.Left}/>
       <${Handle} type="source" position=${Position.Right} id="__class__" title="relaciones de la clase"/>
       <span className="class-node-icon">${style.icon}</span>
-      <div><strong>${style.name}</strong><small title=${node.model.model_ref||node.id}>${node.id}</small></div>
+      <div><strong>${style.name}</strong><small title=${node.model.model_ref||node.id}>${node.id}</small>${node.displayTemplate?html`<small className="class-node-display" title="plantilla de la proyección activa">${node.displayTemplate}</small>`:''}</div>
       <span className="class-node-count" title=${node.docCount+' documento(s) de esta clase'}>${node.docCount}</span></header>
     <ul className="class-node-fields">
       ${node.fields.map(f=>html`<li key=${f.name} className=${f.contains?'contains':f.reference?'reference':''} title=${f.description||f.name}>
@@ -53,11 +53,15 @@ const nodeTypes={class:ClassNode};
 function SchemaCanvas({skin}) {
   const kb=useSource();
   const dialogs=useShellDialogs();
+  // Schema always graphs the FULL store — never the active projection's
+  // subset (unlike KB/Flow, see source/projections.js) — and only asks
+  // schemaGraph to mark what the projection includes, for dimming.
   const models=kb.models.models,documents=kb.documents.working.documents;
+  const activeProjection=kb.projections.active;
   const onEditClass=id=>dialogs.open({kind:'classes',model:id||null});
   const {fitView}=useReactFlow();
   const [query,setQuery]=useState('');
-  const graph=useMemo(()=>schemaGraph(models,documents),[models,documents]);
+  const graph=useMemo(()=>schemaGraph(models,documents,activeProjection),[models,documents,activeProjection]);
   const byId=useMemo(()=>Object.fromEntries(graph.nodes.map(n=>[n.id,n])),[graph]);
   // Mismo patrón que el mapa KB: los nodos viven en estado y React Flow aplica
   // selección/arrastre vía onNodesChange; el layout de dagre solo los siembra.
@@ -65,11 +69,14 @@ function SchemaCanvas({skin}) {
   useEffect(()=>{setFlowNodes(layout(graph));},[graph]);
   useEffect(()=>{const t=setTimeout(()=>fitView({padding:.1,maxZoom:1,duration:200}),60);return()=>clearTimeout(t);},[graph,fitView]);
   const selected=flowNodes.find(n=>n.selected)?.id||null;
-  const matches=id=>schemaMatches(byId[id],query);
+  const matches=id=>schemaMatches(byId[id],query)&&byId[id]?.included!==false;
   const displayed=flowNodes.map(n=>({...n,data:{...n.data,dim:!matches(n.id),onEdit:onEditClass}}));
   const edges=graph.edges.map(e=>{
     const active=selected&&(e.source===selected||e.target===selected);
-    const dim=(query&&!(matches(e.source)&&matches(e.target)))||(selected&&!active);
+    // Not gated behind `query`: with no text filter and no projection active
+    // matches() is always true (schemaMatches('') + included!==false), so
+    // this keeps the old no-op behaviour and adds projection dimming.
+    const dim=!(matches(e.source)&&matches(e.target))||(e.kind==='relation'&&e.included===false)||(selected&&!active);
     const labelStyle={fontSize:10,fill:active?'var(--ink)':'var(--text-secondary)',fontWeight:active?600:400};
     const labelBgStyle={fill:'var(--surface-app)'},labelBgPadding=[4,2];
     if(e.kind==='relation') {

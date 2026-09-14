@@ -23,6 +23,7 @@
 .class-node-head>div{flex:1;min-width:0;display:flex;flex-direction:column}
 .class-node-head strong{font-size:13px;line-height:1.25}
 .class-node-head small{font-size:9.5px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.class-node-display{color:var(--accent);font-style:italic}
 
 .class-node-icon{font-size:20px;line-height:1}
 .class-node-count{font-size:11px;font-weight:600;color:var(--class-color);background:var(--surface-panel);border:1px solid color-mix(in srgb,var(--class-color) 40%,var(--surface-panel));border-radius:10px;padding:1px 7px}

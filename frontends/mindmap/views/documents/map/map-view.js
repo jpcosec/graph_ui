@@ -6,7 +6,6 @@ import {useShellDialogs} from '../../../shell/dialogs.js';
 import {resolveToken} from '../../../shell/skin.js';
 import {readingViewport, project} from './projection.mjs';
 import {childOptions, appendChild, removeDocument, graphMaps} from '../../../source/graph.mjs';
-import {titleOf} from '../../../shared/documents.mjs';
 import {classStyle} from '../../../shared/classes.mjs';
 import {nodeTypes} from './document-node.js';
 import {Sidebar} from './sidebar.js';
@@ -23,7 +22,11 @@ function MapCanvas({skin,onModalChange}) {
   const kb=useSource();
   const dialogs=useShellDialogs();
   const documentsSource=kb.documents;
-  const documents=documentsSource.working.documents,view=documentsSource.working.view;
+  // Rendering, search and focus all read the active projection's subset (a
+  // store with no ProjectionDoc, or "Todo" selected, returns the same array
+  // reference unchanged); mutations below go through edit()/apply() which
+  // operate on documentsSource's own working state, always the full store.
+  const documents=kb.projections.documents,view=documentsSource.working.view;
   const models=kb.models.models,counts=kb.models.counts;
   const status=documentsSource.status,dirty=documentsSource.dirty,notice=documentsSource.notice;
   const {checkpoint,edit,apply,undo,redo,canUndo,canRedo,save,exportMap}=documentsSource;
@@ -76,7 +79,7 @@ function MapCanvas({skin,onModalChange}) {
   const connectFrom=id=>{setConnecting(id);setSelected(id);documentsSource.setNotice('Selecciona el documento destino para conectar.');};
   const applyConnection=(source,target,field)=>{
     edit(w=>({...w,documents:w.documents.map(d=>{if(d.id!==source.id)return d;const current=d.payload[field];const value=Array.isArray(current)?[...new Set([...current,target.id])]:target.id;return {...d,payload:{...d.payload,[field]:value}};})}));
-    setShowRelations(true);setModal(null);documentsSource.setNotice(`Relación preparada: ${titleOf(source)} → ${titleOf(target)}`);
+    setShowRelations(true);setModal(null);documentsSource.setNotice(`Relación preparada: ${kb.projections.titleFor(source)} → ${kb.projections.titleFor(target)}`);
   };
   const actions={addChild,addSibling,remove,toggle,edit:id=>setModal({id}),connect:connectFrom,connecting:Boolean(connecting),focus:enterFocus};
   // Ctrl/Cmd+S vive en el Shell (necesita saber si el modo activo es
@@ -124,8 +127,8 @@ function MapCanvas({skin,onModalChange}) {
       showRelations=${relationsShown} setShowRelations=${setShowRelations}
       onExport=${exportMap} onImport=${()=>dialogs.open({kind:'compiler'})}
       query=${query} setQuery=${setQuery}
-      onSearch=${()=>{const found=documents.find(d=>titleOf(d).toLowerCase().includes(query.toLowerCase()));if(found&&query)focusDocument(found.id);else documentsSource.setNotice('No hay coincidencias');}}
-      focusId=${focusId} focusTitle=${focusId?titleOf(documents.find(d=>d.id===focusId)):''} onExitFocus=${exitFocus}
+      onSearch=${()=>{const found=documents.find(d=>kb.projections.titleFor(d).toLowerCase().includes(query.toLowerCase()));if(found&&query)focusDocument(found.id);else documentsSource.setNotice('No hay coincidencias');}}
+      focusId=${focusId} focusTitle=${focusId?kb.projections.titleFor(documents.find(d=>d.id===focusId)):''} onExitFocus=${exitFocus}
       sidebarOpen=${sidebarOpen} setSidebarOpen=${setSidebarOpen}/>
     <div className="workspace">
       <${Sidebar} models=${models} counts=${counts} totalCount=${documents.length} activeClass=${activeClass} setActiveClass=${setActiveClass} sidebarOpen=${sidebarOpen}/>

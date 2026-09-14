@@ -18,6 +18,7 @@
 .mode-switch [role=tab]{border:0;background:transparent;border-radius:6px;min-height:30px;font-size:12px;padding:4px 12px;color:var(--text-muted);text-decoration:none;display:inline-flex;align-items:center}
 .mode-switch [role=tab].active{background:var(--surface-panel);color:var(--primary-strong);font-weight:600;box-shadow:var(--shadow-tab)}
 
+.projection-select{margin-left:14px;border:1px solid var(--border-control);background:var(--surface-app);color:var(--ink);border-radius:7px;padding:6px 10px;font-size:12px}
 .skin-toggle{margin-left:8px;min-width:34px;font-size:18px;padding:0 8px}
 
 .view-outlet{display:flex;flex-direction:column;flex:1;min-height:0}

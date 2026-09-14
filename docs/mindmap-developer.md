@@ -69,9 +69,10 @@ nunca elige entre stores.
 
 ### Contrato de la fuente
 
-`SourceProvider` (`source/source.js`) compone las tres facetas detrás de un
+`SourceProvider` (`source/source.js`) compone las cuatro facetas detrás de un
 único contexto; `useSource()` devuelve
-`{documents, models, draft, status, error, reload, dirtyAny}`. `documents`
+`{documents, models, draft, projections, status, error, reload, dirtyAny}`.
+`documents`
 (`source/documents.js`) trae la copia baseline y la de trabajo, con
 undo/redo sobre el reducer puro `source/history.mjs`, más `save`/
 `exportMap`/`loadCount` y la resolución de conflictos; usa `source/batch.mjs`
@@ -80,7 +81,49 @@ para diffear contra el baseline y detectar conflictos con el servidor.
 `documents` en cada recarga. `draft` (`source/draft.js`) son las ideas de
 Brainstorm en `localStorage` y su `convert()` vía `/api/plan`+`/api/compile`,
 sobre los puros `source/draft.mjs`. `dirtyAny` es `documents.dirty` o
-`draft.pending > 0`.
+`draft.pending > 0`. `projections` (`source/projections.js`, sobre los puros
+`source/projections.mjs`) es la proyección activa — ver "Proyecciones" más
+abajo.
+
+### Proyecciones
+
+Una proyección es pron's own `ProjectionDoc` (spec 01/05: qué puede nombrar
+una sesión), reusada tal cual en vez de inventar un filtro propio de la UI —
+`isProjectionDocument` detecta el modelo de forma nominal (`model_name ===
+'ProjectionDoc'`, a diferencia de las convenciones estructurales de kgdb como
+`isRelationDocument`, porque `ProjectionDoc` es un modelo real y nombrado, no
+una convención). `source/projections.js` (`useProjectionsFacet`) expone
+`{available, activeName, setActiveName, active, documents, titleFor}`: la
+proyección activa se recuerda en `localStorage['kb-projection']`, igual que
+el skin (cada store corre en su propio servidor/puerto, así que una sola
+clave ya queda efectivamente scopeada por store — ver CLAUDE.md). Un store
+sin `ProjectionDoc` tiene `available` vacío: cero cambio de comportamiento.
+
+`applyProjection` (`source/projections.mjs`) filtra: una entidad pasa si
+`projection.models` está vacío o la incluye; un `RelationDoc`/`RelationTypeDoc`
+(convención kgdb) pasa si `projection.relations` está vacío o incluye su
+`relation_type`/`name` — mismos namespaces separados que pron (`models` para
+entidades nombrables, `relations` para tipos de arista), nunca acoplados.
+`projections.documents` es la misma referencia de array que
+`documents.working.documents` cuando no hay proyección activa (pass-through
+por identidad). El mapa KB y Flujo leen `kb.projections.documents` en vez de
+`kb.documents.working.documents` para todo lo que se renderiza/busca/enfoca
+— las mutaciones (`edit`/`apply`) siguen operando sobre el estado completo
+del reducer, nunca sobre el subconjunto filtrado, así que editar/conectar
+documentos fuera de la proyección activa sigue intacto. `titleFor(doc)`
+sustituye `titleOf` cuando la proyección declara una plantilla `display` para
+la clase del documento: `{campo}` interpola el payload, `{tipo.campo}` sigue
+una arista `RelationDoc` de ese tipo hasta su primer destino y lee su campo
+— mismo mecanismo que `Display.render` en `pron/display.py`, sobre los
+mismos documentos de proyección.
+
+Schema (`views/models/diagram/`) es la excepción: nunca filtra
+`kb.documents.working.documents` (siempre grafica el diseño completo), solo
+le pasa la proyección activa a `schemaGraph(models, documents, projection)`
+para que anote `included`/`displayTemplate` por clase e `included` por
+arista de relación — la vista atenúa (`.dim`, mismo mecanismo que el filtro
+de texto) en vez de ocultar, y muestra la plantilla `display` junto a cada
+clase incluida.
 
 ### Contrato de una vista
 
@@ -388,7 +431,7 @@ python3 -m pytest tests/test_mindmap_skin.py -q
 python3 -m pytest tests/e2e_mindmap_brainstorm.py tests/e2e_mindmap_classes.py \
   tests/e2e_mindmap_compiler.py tests/e2e_mindmap_doc_edit.py \
   tests/e2e_mindmap_quick_capture.py tests/e2e_mindmap_schema.py \
-  tests/e2e_mindmap_routes.py -q
+  tests/e2e_mindmap_routes.py tests/e2e_mindmap_projections.py -q
 ```
 
 Las pruebas de persistencia crean stores temporales y prueban creación,

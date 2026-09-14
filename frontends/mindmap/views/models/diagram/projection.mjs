@@ -15,12 +15,22 @@
 import {graphMaps, CONTAINMENT, REFERENCE_FIELDS, isRelationDocument, isRelationTypeDocument, buildAliases, resolveAlias} from '../../../source/graph.mjs';
 import {classStyle} from '../../../shared/classes.mjs';
 
-export function schemaGraph(models, documents=[]) {
+// `projection` (a ProjectionDoc, or null) never hides a class/relation here
+// — Schema always shows the full design (see docs/mindmap-developer.md). It
+// only marks `included`/`displayTemplate` per node and `included` per
+// relation edge, for the view to dim what the projection leaves out.
+// `models`/`relations` empty on the projection means "every one included",
+// same semantics as source/projections.mjs applyProjection.
+export function schemaGraph(models, documents=[], projection=null) {
   const maps=graphMaps(models);
   const counts={};documents.forEach(d=>{counts[d.model_name]=(counts[d.model_name]||0)+1;});
   const known=new Set((models||[]).map(m=>m.id));
   const byId=Object.fromEntries(documents.map(d=>[d.id,d]));
   const aliases=buildAliases(documents);
+  const projModels=new Set(projection?.payload?.models||[]);
+  const projModelsDeclared=projModels.size>0;
+  const projRelations=new Set((projection?.payload?.relations||[]).map(r=>r.name));
+  const projRelationsDeclared=projRelations.size>0;
 
   const nodes=(models||[]).map(m=>{
     const containment=maps?maps.containment[m.id]||{}:(CONTAINMENT[m.id]||{});
@@ -30,7 +40,9 @@ export function schemaGraph(models, documents=[]) {
       contains:containment[f.name]?containment[f.name].filter(t=>known.has(t)):null,
       reference:!containment[f.name]&&isRef(f.name)}));
     return {id:m.id,model:m,fields,docCount:counts[m.id]||0,relationTypes:new Set(),
-      relational:fields.filter(f=>f.contains||f.reference).length};
+      relational:fields.filter(f=>f.contains||f.reference).length,
+      included:!projection||!projModelsDeclared||projModels.has(m.id),
+      displayTemplate:projection?.payload?.display?.[m.id]||null};
   });
   const nodeById=Object.fromEntries(nodes.map(n=>[n.id,n]));
 
@@ -49,7 +61,8 @@ export function schemaGraph(models, documents=[]) {
     source_types.forEach(S=>target_types.forEach(T=>{
       if(!known.has(S)||!known.has(T))return;
       const id=`rel:${type}:${S}>${T}`;
-      if(!relationEdges.has(id))relationEdges.set(id,{id,source:S,target:T,type,declared:true,count:0,kind:'relation'});
+      const included=!projection||!projRelationsDeclared||projRelations.has(type);
+      if(!relationEdges.has(id))relationEdges.set(id,{id,source:S,target:T,type,declared:true,count:0,kind:'relation',included});
     }));
   });
   // Relaciones observadas (RelationDoc): cuentan sobre la declarada si existe
@@ -70,7 +83,8 @@ export function schemaGraph(models, documents=[]) {
   observed.forEach((info,id)=>{
     const declared=relationEdges.get(id);
     if(declared)declared.count=info.count;
-    else relationEdges.set(id,{id,source:info.source,target:info.target,type:info.type,declared:false,count:info.count,kind:'relation'});
+    else relationEdges.set(id,{id,source:info.source,target:info.target,type:info.type,declared:false,count:info.count,kind:'relation',
+      included:!projection||!projRelationsDeclared||projRelations.has(info.type)});
   });
   relationEdges.forEach(e=>{
     nodeById[e.source]?.relationTypes.add(e.type);

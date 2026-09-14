@@ -4,7 +4,7 @@ import dagre from 'dagre';
 import {html} from '../../../shared/html.js';
 import {flowGraph, flowMatches, flowClasses} from './projection.mjs';
 import {classStyle, classVar} from '../../../shared/classes.mjs';
-import {titleOf, referenceFieldsOf} from '../../../shared/documents.mjs';
+import {referenceFieldsOf} from '../../../shared/documents.mjs';
 import {resolveToken} from '../../../shell/skin.js';
 import {useSource} from '../../../source/source.js';
 
@@ -41,10 +41,11 @@ function layout(graph){
 
 function FlowNode({data,selected}) {
   const {node,dim}=data,style=classStyle(node.doc.model_name);
-  return html`<div className=${'flow-node'+(selected?' selected':'')+(dim?' dim':'')} style=${{'--class-color':classVar(style.slot)}} data-doc=${node.id} title=${titleOf(node.doc)+' · '+node.id}>
+  const title=useSource().projections.titleFor(node.doc);
+  return html`<div className=${'flow-node'+(selected?' selected':'')+(dim?' dim':'')} style=${{'--class-color':classVar(style.slot)}} data-doc=${node.id} title=${title+' · '+node.id}>
     <${Handle} type="target" position=${Position.Left}/>
     <span className="flow-node-icon">${style.icon}</span>
-    <span className="flow-node-title">${titleOf(node.doc)}</span>
+    <span className="flow-node-title">${title}</span>
     <${Handle} type="source" position=${Position.Right}/>
   </div>`;
 }
@@ -52,7 +53,9 @@ const nodeTypes={flow:FlowNode};
 
 function FlowCanvas({skin}) {
   const kb=useSource();
-  const documents=kb.documents.working.documents,models=kb.models.models;
+  // Same projected subset as the KB map (source/projections.js): identity
+  // pass-through when no projection is active.
+  const documents=kb.projections.documents,models=kb.models.models;
   const {fitView}=useReactFlow();
   const [query,setQuery]=useState('');
   const [activeClass,setActiveClass]=useState('');
@@ -113,7 +116,7 @@ function FlowCanvas({skin}) {
         </${ReactFlow}>`:html`<div className="state"><h2>Este store no tiene documentos</h2></div>`}
       </div>
       ${selectedDoc?html`<aside className="flow-inspector" aria-label="Inspector de documento">
-        <header><span className="flow-inspector-icon">${classStyle(selectedDoc.model_name).icon}</span><strong>${titleOf(selectedDoc)}</strong>
+        <header><span className="flow-inspector-icon">${classStyle(selectedDoc.model_name).icon}</span><strong>${kb.projections.titleFor(selectedDoc)}</strong>
           <button type="button" aria-label="Cerrar inspector" onClick=${()=>setSelected(null)}>×</button></header>
         <dl className="flow-inspector-identity">
           <div><dt>Clase</dt><dd>${classStyle(selectedDoc.model_name).name}</dd></div>
