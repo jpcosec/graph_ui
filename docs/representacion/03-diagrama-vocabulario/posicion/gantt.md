@@ -157,7 +157,9 @@ o **mueve** a las demás.
 
 - **Restricciones entre campos del mismo documento** (`end >= start`): no declarables.
 - **Fechas y duraciones como tipo**: el ejemplo usa texto ISO y confía en que la comparación
-  lexicográfica coincida con la temporal; `sldb models create` no genera tipos de fecha con validación.
+  lexicográfica coincida con la temporal. Probado aparte: `sldb models create` con `type: datetime`
+  genera un módulo que falla al importarse (`NameError: name 'datetime' is not defined`), igual que con
+  `Literal`.
 - **Valores derivados** (inicio desde dependencias): mismo hueco que el
   [treemap](../anidamiento/treemap.md).
 - **Condición de verbo solo al afirmar**: si `graph_ui` escribe la dependencia por fuera de `pron`, nadie
