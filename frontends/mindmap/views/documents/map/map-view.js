@@ -32,7 +32,10 @@ function MapCanvas({skin,onModalChange}) {
   const canvasRef=useRef(null);
   const [selected,setSelected]=useState(null),[modal,setModal]=useState(null),[connecting,setConnecting]=useState(null);
   const [query,setQuery]=useState(''),[activeClass,setActiveClass]=useState(null);
-  const [showRelations,setShowRelations]=useState(false),[sidebarOpen,setSidebarOpen]=useState(false),[focusId,setFocusId]=useState(null);
+  // null = automático: un store sin contención (p. ej. pron/kgdb, donde las
+  // relaciones son documentos aparte) mostraría un mapa mudo con las
+  // referencias ocultas; el usuario puede fijarlo con la casilla.
+  const [showRelations,setShowRelations]=useState(null),[sidebarOpen,setSidebarOpen]=useState(false),[focusId,setFocusId]=useState(null);
   const [zoom,setZoom]=useState(1),[flowNodes,setFlowNodes]=useState([]);
   const {fitView,setCenter,setViewport,getNodes}=useReactFlow();
   const saving=status==='saving',ready=status==='ready'||saving;
@@ -40,6 +43,7 @@ function MapCanvas({skin,onModalChange}) {
   // window-level Ctrl+S handler exactly like the old App did (see shell.js).
   useEffect(()=>{onModalChange?.(Boolean(modal));},[modal,onModalChange]);
   const projection=useMemo(()=>project(documents,view,graphMaps(models)),[documents,view,models]);
+  const relationsShown=showRelations??Object.keys(projection.parents).length===0;
   const focusIds=useMemo(()=>{
     if(!focusId)return null;
     const ids=new Set([focusId]),walk=id=>(projection.children[id]||[]).forEach(child=>{ids.add(child);walk(child);});
@@ -117,7 +121,7 @@ function MapCanvas({skin,onModalChange}) {
       onAdd=${()=>setModal({})} onUndo=${undo} onRedo=${redo} canUndo=${canUndo} canRedo=${canRedo}
       onFit=${fit} onOverview=${overview}
       onSort=${()=>{edit(w=>({...w,view:{...w.view,positions:{}}}));setTimeout(fit,80);}}
-      showRelations=${showRelations} setShowRelations=${setShowRelations}
+      showRelations=${relationsShown} setShowRelations=${setShowRelations}
       onExport=${exportMap} onImport=${()=>dialogs.open({kind:'compiler'})}
       query=${query} setQuery=${setQuery}
       onSearch=${()=>{const found=documents.find(d=>titleOf(d).toLowerCase().includes(query.toLowerCase()));if(found&&query)focusDocument(found.id);else documentsSource.setNotice('No hay coincidencias');}}
@@ -126,7 +130,7 @@ function MapCanvas({skin,onModalChange}) {
     <div className="workspace">
       <${Sidebar} models=${models} counts=${counts} totalCount=${documents.length} activeClass=${activeClass} setActiveClass=${setActiveClass} sidebarOpen=${sidebarOpen}/>
       <section className="canvas" aria-label="Mapa de documentos" ref=${canvasRef}>
-        ${ready?html`<${ReactFlow} nodes=${displayed} edges=${showRelations?visibleProjection.edges:[]} nodeTypes=${nodeTypes} onNodesChange=${changes=>setFlowNodes(ns=>applyNodeChanges(changes,ns))} onNodeClick=${(_,n)=>{if(connecting&&connecting!==n.id)connect(n.id);else setSelected(n.id)}} onNodeDoubleClick=${(_,n)=>n.data.group?enterFocus(n.id):setModal({id:n.id})} onPaneClick=${()=>{setSelected(null);setConnecting(null);setSidebarOpen(false);}} onNodeDragStart=${checkpoint} onNodeDragStop=${(_,n)=>apply(w=>({...w,view:{...w.view,positions:{...w.view.positions,[n.id]:{...n.position,parentId:n.parentId||null}}}}))}
+        ${ready?html`<${ReactFlow} nodes=${displayed} edges=${relationsShown?visibleProjection.edges:[]} nodeTypes=${nodeTypes} onNodesChange=${changes=>setFlowNodes(ns=>applyNodeChanges(changes,ns))} onNodeClick=${(_,n)=>{if(connecting&&connecting!==n.id)connect(n.id);else setSelected(n.id)}} onNodeDoubleClick=${(_,n)=>n.data.group?enterFocus(n.id):setModal({id:n.id})} onPaneClick=${()=>{setSelected(null);setConnecting(null);setSidebarOpen(false);}} onNodeDragStart=${checkpoint} onNodeDragStop=${(_,n)=>apply(w=>({...w,view:{...w.view,positions:{...w.view.positions,[n.id]:{...n.position,parentId:n.parentId||null}}}}))}
         nodesDraggable=${!saving&&!activeClass} nodesConnectable=${false} onMove=${(_,v)=>setZoom(v.zoom)} minZoom=${.01} maxZoom=${2} deleteKeyCode=${null} colorMode=${skin}><${Controls} showInteractive=${false}/><${MiniMap} pannable zoomable nodeColor=${n=>resolveToken('--class-color-'+classStyle(n.data.doc.model_name).slot)} ariaLabel="Vista general del mapa"/></${ReactFlow}>`:html`<div className="state"><h2>${status==='loading'?'Cargando tu KB…':'No se pudo abrir SLDB'}</h2>${status==='error'?html`<button onClick=${reload}>Reintentar</button>`:''}</div>`}
         ${ready&&!documents.length?html`<div className="state"><h2>Tu KB está vacía</h2><button onClick=${()=>setModal({})}>＋ Crear documento</button></div>`:''}
         <div className="canvas-hint">${activeClass?classStyle(activeClass).name+' · '+visibleProjection.nodes.length+' visibles':focusId?'Doble clic en un contenedor para entrar más profundo':'Doble clic en un contenedor para entrar · Ver todo muestra la KB completa'}</div>
