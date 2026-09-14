@@ -8,7 +8,8 @@ relación: la misma que en un grafo sería una arista, aquí es una marca en la 
 mejor que un grafo cuando hay muchas relaciones densas y hace visibles patrones (bloques,
 ciclos, huecos) que en un grafo se pierden.
 
-`spec2viz` ya tiene un tipo `matrix` (`MatrixIR`: etapas, filas, spans).
+`spec2viz` ya tiene un tipo `component_view_matrix` (`MatrixIR`: etapas, filas, spans), pensado para
+etapas de un flujo y no para pares (ver [DSM](dsm.md)).
 
 ## Qué tiene que poder declarar un vocabulario de esta forma
 
@@ -22,13 +23,30 @@ ciclos, huecos) que en un grafo se pierden.
 | Documento | Vocabulario | Qué representa | Estado |
 |---|---|---|---|
 | [dsm.md](dsm.md) | Design Structure Matrix | dependencias entre elementos de un mismo sistema | escrito |
-| raci.md | matriz RACI | responsabilidad de cada rol en cada actividad | pendiente |
+| [raci.md](raci.md) | matriz RACI | responsabilidad de cada rol en cada actividad | escrito |
 
 ## Implicancias
 
-- Para `graph_ui`: una vista que no es React Flow. Prueba de que el vocabulario decide el renderer,
-  no solo el estilo.
-- Para el `VocabularyDoc`: el "cómo" de una relación incluye "celda de matriz".
+Lo que dejaron los dos ejemplos:
+
+| | Filas × columnas | La celda es | Regla que sí hizo cumplir el sustrato | Qué calculó la vista |
+|---|---|---|---|---|
+| [DSM](dsm.md) | el mismo conjunto | existencia de un verbo + peso (`notes`) | tipos | orden particionado, bloques (ciclos) |
+| [RACI](raci.md) | dos conjuntos | **cuál de cuatro verbos** existe | un solo A (`many_to_one`) | la letra, el color |
+
+- **Una matriz es otro renderer, no otro estilo**: ni React Flow ni el tipo `component_view_matrix` de
+  `spec2viz` (que funde celdas contiguas en barras de etapas) dibujan pares. Los dos ejemplos se renderizaron
+  con Vega-Lite desde el mundo.
+- **El orden es significado y suele ser derivado**: el particionamiento de la DSM mostró un ciclo entre
+  `shell`, `dialogs` y las vistas de `graph_ui` que el grafo no dejaba ver. El `VocabularyDoc` tiene que
+  poder pedir un orden calculado (componentes fuertemente conexos, clustering) o un campo.
+- **La celda puede ser una familia de verbos**: RACI son cuatro verbos sobre el mismo par; declararlos por
+  separado permite que `kgdb` haga cumplir el A único. El vocabulario los agrupa y les asigna letras (y el
+  juego de letras es un parámetro: RASCI, DACI).
+- **Gestos sobre celdas**: marcar, cambiar de letra y vaciar son escrituras de relaciones; reemplazar una
+  letra son dos escrituras que deben ir juntas.
+- **Algunas matrices son de solo lectura**: la DSM de código se genera del código; el vocabulario tiene que
+  poder declarar una vista sin gestos de escritura.
 
 ## Fuentes
 

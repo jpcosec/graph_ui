@@ -1,0 +1,212 @@
+{
+ "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+ "title": "RACI del proceso de reserva",
+ "config": {
+  "font": "Liberation Sans",
+  "view": {
+   "stroke": null
+  }
+ },
+ "width": 360,
+ "height": 250,
+ "data": {
+  "values": [
+   {
+    "tarea": "Interpretar el pedido",
+    "rol": "Cliente",
+    "letras": "C",
+    "principal": "C"
+   },
+   {
+    "tarea": "Interpretar el pedido",
+    "rol": "pron",
+    "letras": "R",
+    "principal": "R"
+   },
+   {
+    "tarea": "Interpretar el pedido",
+    "rol": "Personal",
+    "letras": "A",
+    "principal": "A"
+   },
+   {
+    "tarea": "Interpretar el pedido",
+    "rol": "Gerente",
+    "letras": "",
+    "principal": " "
+   },
+   {
+    "tarea": "Buscar mesa con capacidad",
+    "rol": "Cliente",
+    "letras": "",
+    "principal": " "
+   },
+   {
+    "tarea": "Buscar mesa con capacidad",
+    "rol": "pron",
+    "letras": "R",
+    "principal": "R"
+   },
+   {
+    "tarea": "Buscar mesa con capacidad",
+    "rol": "Personal",
+    "letras": "A",
+    "principal": "A"
+   },
+   {
+    "tarea": "Buscar mesa con capacidad",
+    "rol": "Gerente",
+    "letras": "I",
+    "principal": "I"
+   },
+   {
+    "tarea": "Confirmar grupos de más de 8",
+    "rol": "Cliente",
+    "letras": "C",
+    "principal": "C"
+   },
+   {
+    "tarea": "Confirmar grupos de más de 8",
+    "rol": "pron",
+    "letras": "I",
+    "principal": "I"
+   },
+   {
+    "tarea": "Confirmar grupos de más de 8",
+    "rol": "Personal",
+    "letras": "R",
+    "principal": "R"
+   },
+   {
+    "tarea": "Confirmar grupos de más de 8",
+    "rol": "Gerente",
+    "letras": "A",
+    "principal": "A"
+   },
+   {
+    "tarea": "Registrar la reserva en el mundo",
+    "rol": "Cliente",
+    "letras": "",
+    "principal": " "
+   },
+   {
+    "tarea": "Registrar la reserva en el mundo",
+    "rol": "pron",
+    "letras": "R",
+    "principal": "R"
+   },
+   {
+    "tarea": "Registrar la reserva en el mundo",
+    "rol": "Personal",
+    "letras": "A",
+    "principal": "A"
+   },
+   {
+    "tarea": "Registrar la reserva en el mundo",
+    "rol": "Gerente",
+    "letras": "",
+    "principal": " "
+   },
+   {
+    "tarea": "Avisar al cliente",
+    "rol": "Cliente",
+    "letras": "I",
+    "principal": "I"
+   },
+   {
+    "tarea": "Avisar al cliente",
+    "rol": "pron",
+    "letras": "",
+    "principal": " "
+   },
+   {
+    "tarea": "Avisar al cliente",
+    "rol": "Personal",
+    "letras": "A/R",
+    "principal": "A"
+   },
+   {
+    "tarea": "Avisar al cliente",
+    "rol": "Gerente",
+    "letras": "",
+    "principal": " "
+   }
+  ]
+ },
+ "encoding": {
+  "x": {
+   "field": "rol",
+   "type": "nominal",
+   "sort": [
+    "Cliente",
+    "pron",
+    "Personal",
+    "Gerente"
+   ],
+   "axis": {
+    "orient": "top",
+    "title": null,
+    "labelAngle": 0
+   }
+  },
+  "y": {
+   "field": "tarea",
+   "type": "nominal",
+   "sort": [
+    "Interpretar el pedido",
+    "Buscar mesa con capacidad",
+    "Confirmar grupos de más de 8",
+    "Registrar la reserva en el mundo",
+    "Avisar al cliente"
+   ],
+   "axis": {
+    "title": null,
+    "labelLimit": 260
+   }
+  }
+ },
+ "layer": [
+  {
+   "mark": {
+    "type": "rect",
+    "stroke": "#ffffff"
+   },
+   "encoding": {
+    "color": {
+     "field": "principal",
+     "type": "nominal",
+     "scale": {
+      "domain": [
+       "A",
+       "R",
+       "C",
+       "I",
+       " "
+      ],
+      "range": [
+       "#d62728",
+       "#1f77b4",
+       "#ff7f0e",
+       "#bbbbbb",
+       "#f2f2f2"
+      ]
+     },
+     "legend": null
+    }
+   }
+  },
+  {
+   "mark": {
+    "type": "text",
+    "fontSize": 13,
+    "fontWeight": "bold",
+    "color": "white"
+   },
+   "encoding": {
+    "text": {
+     "field": "letras"
+    }
+   }
+  }
+ ]
+}

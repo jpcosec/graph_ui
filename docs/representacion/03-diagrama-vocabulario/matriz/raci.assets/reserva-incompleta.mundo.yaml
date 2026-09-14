@@ -1,0 +1,160 @@
+# Variante: 'Registrar la reserva' queda sin R, y el Gerente es C e I a la vez en 'Buscar mesa'.
+modelos:
+- name: Activity
+  family: raci
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    position: ⸢rev•position⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Tarea o entregable.
+  - name: position
+    type: int
+    description: Orden de la fila.
+- name: Role
+  family: raci
+  template: '---
+
+    name: ⸢rev•name⸥
+
+    ---
+
+
+    # ⸢render•name⸥
+
+    '
+  fields:
+  - name: name
+    type: str
+    description: Rol o parte interesada.
+tipos_de_relacion:
+- name: responsible
+  cardinality: many_to_many
+  axis: WHO
+  source_types:
+  - Activity
+  target_types:
+  - Role
+  description: 'R: Quien hace la tarea.'
+- name: accountable
+  cardinality: many_to_one
+  axis: WHO
+  source_types:
+  - Activity
+  target_types:
+  - Role
+  description: 'A: Quien responde en última instancia; uno por tarea.'
+- name: consulted
+  cardinality: many_to_many
+  axis: WHO
+  source_types:
+  - Activity
+  target_types:
+  - Role
+  description: 'C: Quien opina antes (comunicación en dos sentidos).'
+- name: informed
+  cardinality: many_to_many
+  axis: WHO
+  source_types:
+  - Activity
+  target_types:
+  - Role
+  description: 'I: Quien se entera (un sentido).'
+documentos:
+- model: Activity
+  name: t-interpretar
+  payload:
+    name: Interpretar el pedido
+    position: 1
+- model: Activity
+  name: t-buscar
+  payload:
+    name: Buscar mesa con capacidad
+    position: 2
+- model: Activity
+  name: t-confirmar-grupo
+  payload:
+    name: Confirmar grupos de más de 8
+    position: 3
+- model: Activity
+  name: t-registrar
+  payload:
+    name: Registrar la reserva en el mundo
+    position: 4
+- model: Activity
+  name: t-avisar
+  payload:
+    name: Avisar al cliente
+    position: 5
+- model: Role
+  name: r-cliente
+  payload:
+    name: Cliente
+- model: Role
+  name: r-pron
+  payload:
+    name: pron
+- model: Role
+  name: r-personal
+  payload:
+    name: Personal
+- model: Role
+  name: r-gerente
+  payload:
+    name: Gerente
+relaciones:
+- type: responsible
+  source: Activity:t-interpretar
+  target: Role:r-pron
+- type: accountable
+  source: Activity:t-interpretar
+  target: Role:r-personal
+- type: consulted
+  source: Activity:t-interpretar
+  target: Role:r-cliente
+- type: responsible
+  source: Activity:t-buscar
+  target: Role:r-pron
+- type: accountable
+  source: Activity:t-buscar
+  target: Role:r-personal
+- type: informed
+  source: Activity:t-buscar
+  target: Role:r-gerente
+- type: consulted
+  source: Activity:t-buscar
+  target: Role:r-gerente
+- type: responsible
+  source: Activity:t-confirmar-grupo
+  target: Role:r-personal
+- type: accountable
+  source: Activity:t-confirmar-grupo
+  target: Role:r-gerente
+- type: consulted
+  source: Activity:t-confirmar-grupo
+  target: Role:r-cliente
+- type: informed
+  source: Activity:t-confirmar-grupo
+  target: Role:r-pron
+- type: accountable
+  source: Activity:t-registrar
+  target: Role:r-personal
+- type: responsible
+  source: Activity:t-avisar
+  target: Role:r-personal
+- type: accountable
+  source: Activity:t-avisar
+  target: Role:r-personal
+- type: informed
+  source: Activity:t-avisar
+  target: Role:r-cliente
