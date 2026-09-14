@@ -117,7 +117,7 @@ y `pron`.
 | Documento | Estado |
 |---|---|
 | [`01-fundamentos/`](01-fundamentos/index.md) | escrito |
-| [`02-prior-art/`](02-prior-art/index.md) | en curso |
+| [`02-prior-art/`](02-prior-art/index.md) | escrito |
 | [`03-diagrama-vocabulario/`](03-diagrama-vocabulario/index.md) | en curso |
 | [`huecos.md`](huecos.md) | se alimenta de los ejes |
 | `propuesta-vocabularydoc.md` | pendiente: se escribe al final |
