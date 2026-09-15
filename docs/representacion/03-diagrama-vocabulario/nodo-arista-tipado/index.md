@@ -50,10 +50,12 @@ Lo que dejaron los cinco ejemplos:
   target_types`, cardinalidad máxima y (al afirmar por `pron`) una condición. ArchiMate necesita una
   matriz por pares; UML, que el destino de una realización sea interfaz; ER, participación mínima.
   Nada de eso cabe en el sustrato sin enseñarle el vocabulario.
-- **`graph_ui` hoy escribe por fuera de todas las validaciones** (`pron.Store.create`): el vocabulario
-  debería afirmar aristas por `pron` (`Verbs.assert_edge`) y aplicar su propia gramática antes.
-- **Las palabras ya están en el mundo.** Mapa conceptual: las etiquetas de las aristas deberían salir
-  del léxico (`AnchorDoc`, `pron lexicon`), no del token del tipo.
+- **`graph_ui` hoy escribe por fuera de todas las validaciones** (`pron.Store.create`): un gesto
+  debería evaluar la forma `(assert R A B)`, que llega a `Verbs.assert_edge` con tipos, cardinalidad y
+  condición, sin pasar por el SHRDLU.
+- **Los rótulos ya están en el mundo.** Mapa conceptual: la etiqueta de una arista es el `title` del
+  `RelationTypeDoc`, no el token del tipo. El léxico (`AnchorDoc`, `pron lexicon`) es cómo lo dice el
+  SHRDLU, otra superficie; la vista no lo necesita.
 - **Para `graph_ui`**: la vista Schema es un nodo-arista con kinds inferidos (`containment`,
   `relation`, `reference`) y un solo trazo por kind, con una sobrecarga semiótica confirmada. Le
   faltan terminales, roles, multiplicidad, gramática y el nivel explícito.

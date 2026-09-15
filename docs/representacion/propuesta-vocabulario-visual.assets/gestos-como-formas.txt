@@ -1,0 +1,40 @@
+### conectar Client → Bookable con realizes
+(assert realizes (doc "UmlClass:client") (doc "UmlClass:bookable"))
+  → unico · 1 escrituras · Done: Client realizes Bookable.
+
+### conectar Client → Person con realizes (Person no es interfaz)
+(assert realizes (doc "UmlClass:client") (doc "UmlClass:person"))
+  → error · 0 escrituras · Could not do that: condition 'kind = "interface"' does not hold for UmlClass:client → UmlClass:person (find 'st.{UmlClass+}' --where 'kind = "interface"')
+
+### soltar una clase nueva en el lienzo
+(create UmlClass (as "zone") (name "Zone"))
+  → unico · 1 escrituras · Created umlclass Zone.
+
+### agregar un atributo en el compartimento
+(add (doc "UmlClass:table") attributes "zone: Zone")
+  → unico · 1 escrituras · Done.
+
+### deshacer
+(undo)
+  → unico · 1 escrituras · Undid move-… (1 write(s)).
+
+### leer lo que realiza Client, para dibujarlo
+(targets realizes (doc "UmlClass:client"))
+  → unico · 0 escrituras · Bookable.
+
+### conectar Client — Table con una asociación: crear el documento y sus dos extremos en un movimiento
+(move (create UmlAssociation (as "client-prefers-table") (name "prefers")) (assert end_a (created) (doc "UmlClass:client")) (assert end_b (created) (doc "UmlClass:table")))
+  → error · 0 escrituras · Could not do that: not a noun: (created …)
+
+### lo mismo nombrando por dirección el documento que se crea en el mismo movimiento
+(move (create UmlAssociation (as "client-prefers-table") (name "prefers")) (assert end_a (doc "UmlAssociation:client-prefers-table") (doc "UmlClass:client")))
+  → missing · 0 escrituras · there is no UmlAssociation:client-prefers-table.
+
+### lo mismo en dos movimientos: crear
+(create UmlAssociation (as "client-prefers-table") (name "prefers"))
+  → unico · 1 escrituras · Created umlassociation prefers.
+
+### y después los dos extremos
+(move (assert end_a (doc "UmlAssociation:client-prefers-table") (doc "UmlClass:client")) (assert end_b (doc "UmlAssociation:client-prefers-table") (doc "UmlClass:table")))
+  → unico · 2 escrituras · Done: prefers end a Client. Done: prefers end b Table.
+

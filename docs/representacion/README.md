@@ -23,7 +23,26 @@ hueco que aparece en un documento se consolida en [`huecos.md`](huecos.md).
 
 La separación de fondo tiene nombre en la literatura: **sintaxis abstracta** (qué hay y qué
 significa: lo que declara el mundo pron) y **sintaxis concreta** (cómo se ve y cómo se manipula:
-lo que declarará un vocabulario visual, sobre las palabras del vocabulario de `pron`). Ver [`01-fundamentos/`](01-fundamentos/index.md).
+lo que declarará un vocabulario visual, sobre las formas de `pron`). Ver [`01-fundamentos/`](01-fundamentos/index.md).
+
+## Dónde está `graph_ui`
+
+`graph_ui` es una **superficie de `pron`, al mismo nivel que el SHRDLU**: el SHRDLU proyecta lenguaje,
+`graph_ui` proyecta visualizaciones. Las dos están sobre las formas de `pron` y ninguna pasa por la otra.
+
+```
+sldb | kgdb        documentos, esquema, grafo tipado
+API de pron        Kernel, Verbs: verificación, MoveDoc, undo
+formas de pron     s-expressions evaluadas de forma determinista (spec 13 de pron)
+superficies        SHRDLU: oración → formas → respuesta en lenguaje
+                   graph_ui: gesto → formas → visualización
+```
+
+Cada superficie tiene su vocabulario, y los dos nombran lo mismo: los modelos, campos, valores y verbos
+(`RelationTypeDoc`) del mundo, recortados por un `ProjectionDoc`. El **léxico** del SHRDLU dice cómo se *dice*
+cada forma (`class`, `interface`, `confirm it`); el **vocabulario visual** de `graph_ui` dice cómo se *dibuja* y
+con qué gesto se *escribe*. `graph_ui` no dibuja palabras ni usa alias del léxico; el SHRDLU no conoce
+notaciones.
 
 ## Las tres preguntas que ordenan el manual
 
@@ -38,30 +57,33 @@ niveles: primero *dónde vive el significado* en el diagrama (forma de los nodos
 posición, …) y dentro de cada uno, *un documento por notación de ejemplo*.
 
 Al final, con todo lo anterior, [`propuesta-vocabulario-visual.md`](propuesta-vocabulario-visual.md) propone el
-vocabulario visual de `graph_ui` sobre el vocabulario de `pron`.
+vocabulario visual de `graph_ui` sobre las formas de `pron`.
 
 ## Decisiones ya tomadas
 
-1. **El vocabulario es de `pron`; el vocabulario visual es de `graph_ui`.** En `pron` el vocabulario de
-   un mundo es su léxico (spec 05): modelos, campos y valores, verbos (`RelationTypeDoc`), verbos de
-   acción del kernel, y alias (`AnchorDoc`: sustantivos, adjetivos `predicate:`, acciones con valor
-   fijo, oraciones `compose`), recortado por un `ProjectionDoc`. `graph_ui` no tiene vocabulario
-   propio (spec 10 §3): su **vocabulario visual** dice cómo se dibujan esas palabras y qué gesto dice
-   cada una. `pron`, `kgdb` y `sldb` no deberían saber que UML existe como notación.
+1. **`graph_ui` y el SHRDLU son superficies hermanas sobre las formas de `pron`.** Uno proyecta lenguaje y el
+   otro visualizaciones; `graph_ui` no pasa por el SHRDLU ni depende de su léxico (alias `AnchorDoc`, formas
+   de decir). Lo que comparten está debajo: los nombres del mundo (modelos, campos, valores, `RelationTypeDoc`,
+   verbos del kernel), el `ProjectionDoc`, las formas y su evaluación. `pron`, `kgdb` y `sldb` no deberían
+   saber que UML existe como notación.
 2. **Se parte con dos visualizaciones concretas distintas a la vez**, para que nada del diseño quede
    hecho a la medida de una sola. Lo que falte para representarlas se agrega **extendiendo `pron`**
-   (palabras, reglas, contrato de runtime), no reimplementándolo en el front.
-3. **Se escribe por `pron` y de inmediato.** Cada gesto es un movimiento de `pron`, con su `MoveDoc`,
-   sus verificaciones y `undo`; no hay borrador ni botón de guardar. Las versiones las lleva git.
+   (formas, reglas, contrato de runtime), no reimplementándolo en el front.
+3. **Se escribe por formas y de inmediato.** Cada gesto evalúa formas de `pron` (spec 13: `session.eval`),
+   con su `MoveDoc`, sus verificaciones y `undo`, sin construir oraciones; no hay borrador ni botón de guardar.
+   Las versiones las lleva git. Por debajo de las formas queda solo lo que no tiene forma: la edición de
+   esquema (spec 12 §4 de `pron`).
 4. **Las reglas generales van al sustrato y bloquean** (participación mínima, unicidad…), en `kgdb`
    o `pron`, no como verificadores del front.
 5. **UML es el primer vocabulario de prueba.** Si el diseño es bueno, implementarlo no toca código:
-   basta declarar modelos, verbos y alias en un mundo y su vocabulario visual.
-6. **No toda vista aplica a todo dato.** Una vista se ofrece solo cuando el mundo tiene las palabras que
-   su vocabulario visual dibuja.
+   basta declarar modelos y verbos en un mundo y su vocabulario visual. Los alias del léxico no hacen falta
+   para dibujar ni para editar.
+6. **No toda vista aplica a todo dato.** Una vista se ofrece solo cuando la proyección de la sesión tiene los
+   modelos y verbos que su vocabulario visual nombra.
 
-La [propuesta](propuesta-vocabulario-visual.md) explica qué cambió respecto de la primera versión,
-que mezclaba en un solo documento el vocabulario de `pron` y el visual.
+La [propuesta](propuesta-vocabulario-visual.md) explica qué cambió respecto de las versiones anteriores: la
+primera mezclaba en un solo documento lo que es de `pron` y lo visual; la segunda ataba el vocabulario visual
+a las palabras del léxico, como si `graph_ui` estuviera encima del SHRDLU.
 
 ## Cómo leer cada documento
 
@@ -80,8 +102,11 @@ más adelante, modelar como documentos de un store.
   5. ejemplo en su notación estándar, renderizado con la herramienta que ya existe (resultado
      esperado);
   6. el mismo ejemplo como mundo `pron`, montado de verdad;
-  7. qué tendría que declarar el vocabulario visual para dibujarlo y editarlo (las columnas de
-     escritura de esas tablas son palabras de `pron`: verbos, acciones y alias `compose`);
+  7. qué tendría que declarar el vocabulario visual para dibujarlo y editarlo (la columna *Operación*
+     nombra la intención del gesto, como `assert(realizes, A, B)` o `reparent(nodo, padre)`; lo que escribe
+     se evalúa como formas de `pron`: `assert`, `change`, `create`, `forget`, `move`. Donde un documento del
+     eje 3 usa `pron say` o un alias del léxico, es porque se verificó hablando con el SHRDLU, no porque
+     `graph_ui` lo necesite);
   8. huecos;
   9. fuentes.
 
@@ -122,10 +147,12 @@ y `pron`.
 | Sintaxis abstracta | Los constructos de un lenguaje y sus relaciones, sin notación. En nuestro caso, lo que el mundo declara. |
 | Sintaxis concreta | La forma perceptible de esos constructos (símbolos, trazos, posición) y los gestos para manipularlos. |
 | Metamodelo | Modelo que define un lenguaje de modelado. UML está definido por un metamodelo. |
-| Vocabulario | El léxico de un mundo `pron` (spec 05): modelos, campos, valores, verbos, verbos de acción y alias. Es de `pron`. |
+| Forma | Una s-expression de `pron` (spec 13): `(assert realizes (doc "UmlClass:table") (doc "UmlClass:bookable"))`. Es el lenguaje que evalúan todas las superficies. |
+| Superficie | Lo que convierte una entrada en formas y proyecta el resultado: el SHRDLU (oraciones, lenguaje) y `graph_ui` (gestos, visualizaciones), al mismo nivel. |
+| Vocabulario (léxico) | Las palabras del SHRDLU (spec 05 de `pron`): cómo se dice cada forma, con alias `AnchorDoc`. Es de `pron`. |
 | Notación | Un lenguaje de representación concreto (UML de clases, ER, BPMN…): qué constructos tiene y cómo se ven. |
-| Vocabulario visual | Documentos del mundo, interpretados por `graph_ui`, que dicen cómo se dibujan las palabras de un vocabulario en una notación y qué gesto dice cada palabra. |
-| `ProjectionDoc` | Documento de `pron` que declara qué puede nombrar una sesión (modelos, relaciones, plantillas de nombre). |
+| Vocabulario visual | Documentos del mundo, interpretados por `graph_ui`, que dicen cómo se dibujan en una notación los modelos, campos y verbos del mundo y qué forma escribe cada gesto. Es de `graph_ui`, hermano del léxico. |
+| `ProjectionDoc` | Documento de `pron` que declara qué puede nombrar una sesión de cualquier superficie (modelos, relaciones, plantillas de nombre). |
 | Proyectar | Mostrar datos infiriendo su forma visual de la forma del payload. |
 | Representar | Mostrar datos según un significado declarado, con acciones que significan algo en lo representado. |
 | Canal visual | Variable perceptible que carga significado: forma, color, trazo, posición, anidamiento (Bertin). |

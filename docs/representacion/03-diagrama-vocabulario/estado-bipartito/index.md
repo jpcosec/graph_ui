@@ -37,7 +37,7 @@ Lo que dejaron los dos ejemplos:
 
 | | Gramática de conexión | Semántica de ejecución | Dónde se hace cumplir hoy |
 |---|---|---|---|
-| [statecharts](statecharts.md) | `State → State` | un valor por campo; evento → transición con guarda | `Kernel.change` (oraciones de `pron`); **no** en `Store.replace`, la puerta de `graph_ui` |
+| [statecharts](statecharts.md) | `State → State` | un valor por campo; evento → transición con guarda | `Kernel.change` (formas de `pron`, de cualquier superficie); **no** en `Store.replace`, la puerta actual de `graph_ui` |
 | [Petri](petri.md) | `Place → Transition → Place` | marcado; disparo consume y produce | la bipartición, en la ingesta tipada de `kgdb`; el disparo, en ninguna parte |
 
 - **La gramática por pares se expresa bien cuando hay un verbo por par**: `input_of` y `output_to`

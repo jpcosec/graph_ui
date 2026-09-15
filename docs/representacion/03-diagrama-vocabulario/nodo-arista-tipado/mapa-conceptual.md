@@ -117,7 +117,9 @@ léxico del mundo (extracto):
 ```
 
 `pron` ya deriva una forma legible del nombre del verbo (`se_dibuja_con` → `se dibuja con`) y suma
-las formas de los `AnchorDoc` como alias.
+las formas de los `AnchorDoc` como alias. Eso es el léxico del SHRDLU, la superficie de lenguaje: le sirve a
+quien dice las proposiciones, no a la vista que las dibuja. Para la vista, la palabra de enlace es un dato del
+mundo, el `title` del `RelationTypeDoc` (que este montaje llena con el nombre del verbo).
 
 No hay control negativo: el vocabulario no tiene gramática que violar.
 
@@ -129,7 +131,7 @@ No hay control negativo: el vocabulario no tiene gramática que violar.
 |---|---|---|
 | concepto | documentos de los modelos que el vocabulario declara como conceptos | caja con `label` (o la plantilla `display` de la proyección) |
 | proposición | `RelationDoc` de cualquier verbo entre conceptos | línea dirigida |
-| palabra de enlace | **el léxico**: `AnchorDoc.symbol` del verbo si existe, si no la forma derivada del nombre | texto sobre la línea |
+| palabra de enlace | el `title` del `RelationTypeDoc` del verbo | texto sobre la línea |
 | jerarquía | un orden de generalidad declarado (hoy no existe; ver huecos) | posición vertical |
 | pregunta de enfoque | un campo de la vista, o la `description` de la `ProjectionDoc` | título |
 | enlace cruzado | derivado del layout (une segmentos distintos) o marcado | trazo punteado |
@@ -138,23 +140,24 @@ No hay control negativo: el vocabulario no tiene gramática que violar.
 
 | Gesto | Operación | Escritura |
 |---|---|---|
-| unir dos conceptos y escribir la palabra de enlace | si la palabra es un alias existente: `assert(verbo, A, B)`; si no: crear el verbo y su ancla, y después afirmar | 1 `RelationDoc`, o 1 `RelationTypeDoc` + 1 `AnchorDoc` + 1 `RelationDoc` |
-| editar la etiqueta de un concepto | `set(Concept.label)` | 1 `update` |
+| unir dos conceptos y elegir la palabra de enlace | si el verbo existe: `(assert verbo A B)`; si no: `(create RelationTypeDoc …)` con su `title`, y después afirmar | 1 `RelationDoc`, o 1 `RelationTypeDoc` + 1 `RelationDoc` |
+| editar la etiqueta de un concepto | `(change A label "…")` | 1 `update` |
 | cambiar la palabra de enlace de una proposición | `retype` | borrar + crear |
 
-El primer gesto es interesante: la vista puede **resolver la palabra escrita contra el léxico** del
-mundo (el mismo `Matcher` que usa `pron say`), en vez de pedir que el usuario elija un tipo de una
-lista.
+El primer gesto es interesante: la vista ofrece los verbos cuyo `title` se parece a lo que se escribe y
+cuyos `source_types` y `target_types` admiten los dos conceptos (`World.relation_types()`). No resuelve la
+palabra contra el léxico con el `Matcher` de `pron say`: eso sería hablarle al SHRDLU desde otra superficie.
+Crear el verbo con `(create RelationTypeDoc …)` necesita además refrescar el mundo antes de afirmarlo.
 
 ## 8. Huecos
 
 - **`graph_ui` etiqueta aristas con el token del tipo** (`relation_type`, p. ej. `se_dibuja_con`) y no
-  con el léxico del mundo (`AnchorDoc`, o la forma que `pron lexicon` ya deriva).
+  con el `title` del `RelationTypeDoc`.
 - **No hay orden de generalidad declarado** entre conceptos: la jerarquía vertical de un mapa
   conceptual no tiene fuente; dagre ordena por dirección de aristas, que no es lo mismo.
 - **Cada palabra de enlace nueva es un tipo de relación nuevo**: en un mapa conceptual las frases de
-  enlace son abundantes y a veces únicas; en `pron` cada una exige un `RelationTypeDoc` (y un ancla
-  para sus formas). Es coherente con el diseño de `pron`, pero pesado para este uso.
+  enlace son abundantes y a veces únicas; en `pron` cada una exige un `RelationTypeDoc`
+  (y un ancla, para que el SHRDLU la diga con sus formas). Es coherente con el diseño de `pron`, pero pesado para este uso.
 - **Proposiciones de más de dos conceptos** (Novak y Cañas: *"two or more concepts"*): ver
   [`../n-aria/`](../n-aria/index.md).
 

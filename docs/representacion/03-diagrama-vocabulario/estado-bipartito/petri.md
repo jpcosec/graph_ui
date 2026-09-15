@@ -173,13 +173,14 @@ Tres intentos, sobre el mundo montado con `--conservar`:
 Y el marcado: `sldb docs update mesas-libres '{"label": "mesas libres", "tokens": -3}'` → `Updated 'mesas-libres'`; `pron check` → `ok`. La
 gramática PNML lo rechaza; el sustrato no.
 
-### Disparar no es una oración
+### Disparar no es un movimiento declarable
 
-En [statecharts](statecharts.md) un evento es un `AnchorDoc` que cambia un campo a un valor fijo.
+En [statecharts](statecharts.md) disparar es una forma `change` que lleva un campo a un valor fijo (y el
+SHRDLU la nombra con un alias de acción).
 Disparar `sentar grupo` necesita **restar 1 y 2 y sumar 1**, en tres documentos, atómicamente. Los pasos
 de un `compose` hacen `self.kernel.change(tgt, step["field"], step["value"])` con un valor literal
-(`src/pron/session.py`): no hay aritmética sobre el valor actual. El disparo no se puede declarar como
-acción del mundo.
+(`src/pron/session.py`): no hay aritmética sobre el valor actual, ni en un alias ni en la
+forma `change`. El disparo no se puede declarar como acción del mundo.
 
 ## 7. Qué tendría que declarar el vocabulario visual
 
@@ -204,7 +205,7 @@ La última fila separa dos cosas que el mundo mezcla: el **marcado inicial** (da
 | arrastrar de transición a lugar | `connect-output` | `output_to` |
 | cambiar el peso | `set-weight(arco, n)` | hoy no hay dónde; `n ≥ 1` |
 | agregar o quitar marcas | `set-tokens(lugar, n)` | `update` de `tokens`; `n ≥ 0` |
-| clic en una transición habilitada | `fire(t)` | en simulación: nada en el mundo; si es real, N `update` atómicos |
+| clic en una transición habilitada | `fire(t)` | en simulación: nada en el mundo; si es real, un `(move (change lugar tokens n) …)` con las marcas que calcula la vista: la regla de disparo queda fuera del mundo |
 
 El gesto de conectar elige el verbo **por la clase del origen**: el mismo arrastre es `input_of` o
 `output_to`. El vocabulario tiene que declarar esa elección.

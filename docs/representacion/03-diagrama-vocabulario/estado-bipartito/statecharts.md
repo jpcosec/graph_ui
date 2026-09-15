@@ -137,7 +137,7 @@ con la guarda en `condition`.
 | estado | documento `State` (`machine`, `name`) |
 | valor actual | campo `Reservation.status` (el `name` de un `State`) |
 | transición + guarda | `transitions_to` con `condition: party_size <= 8`, evaluada sobre la reserva |
-| evento | `AnchorDoc` con `ref: action:change Reservation.status=confirmed` |
+| evento | un alias de acción del SHRDLU (`AnchorDoc` con `ref: action:change Reservation.status=confirmed`); fuera del léxico, nada |
 | estado compuesto | `State` con `kind: composite` + verbo `substate_of` (agregado por el ejemplo) |
 | transición de grupo `cancel` | **aplanada**: `pending → cancelled` y `confirmed → cancelled` |
 | estado final | `kind: final` (texto) |
@@ -177,7 +177,7 @@ Sobre el mismo mundo, `Bruno` ya `cancelled`:
 - `sldb docs create` de una reserva con `status: "banana"` → creada; `pron refresh` y `pron check` →
   `ok`.
 
-La máquina se hace cumplir **solo en `Kernel.change`**, el camino de las oraciones.
+La máquina se hace cumplir **solo en `Kernel.change`**, el camino de las formas (las que dice el SHRDLU y las que evaluaría `graph_ui`).
 
 ### Lo que el mundo no guarda
 
@@ -210,7 +210,7 @@ los estados **sin salidas** (los finales, y el compuesto): lo contrario de los d
 | inicial | *falta en el mundo* (atributo `initial` por región) | círculo lleno con flecha |
 | final | `kind = final` | círculo con círculo lleno |
 | transición | `transitions_to` | flecha; rótulo `evento [condition] / efecto` |
-| evento | el `AnchorDoc` cuyo `ref` cambia `M.f` al destino | parte del rótulo |
+| evento | *falta en el mundo*: hoy solo lo nombra el léxico del SHRDLU, que la vista no usa | parte del rótulo |
 | estado actual de una instancia | `Reservation.status` de la instancia seleccionada | resaltado |
 
 La última fila es la que une el nivel de tipos con el de instancias (ver
@@ -224,8 +224,8 @@ está** una reserva concreta.
 | unir dos estados | `assert(transitions_to, a, b)` | 1 `RelationDoc`; solo `State → State` |
 | rotular la guarda | `set-condition` | `update` de `condition`; ¿se valida como predicado de `sldb`? |
 | meter un estado en otro | `nest(s, compuesto)` | `substate_of` (`many_to_one`) |
-| **disparar un evento** sobre la instancia resaltada | `fire(evento, instancia)` | `Kernel.change` de `M.f`, que evalúa transición y guarda |
-| editar `status` en el inspector | debería ser `fire` | hoy es `Store.replace`, sin validación |
+| **disparar una transición** sobre la instancia resaltada | `(change (doc instancia) status "<name del State destino>")` | `Kernel.change` de `M.f`, que evalúa transición y guarda |
+| editar `status` en el inspector | debería ser la misma forma `change` | hoy es `Store.replace`, sin validación |
 
 La penúltima fila es un gesto que **no edita el diagrama**, sino el mundo que el diagrama gobierna: el
 vocabulario tiene que distinguir editar la máquina de ejecutarla.
@@ -238,9 +238,11 @@ vocabulario tiene que distinguir editar la máquina de ejecutarla.
   compuesto; historia, elección y unión tampoco.
 - **Transiciones de grupo**: `Verbs.transition` busca aristas del estado exacto; la jerarquía hay que
   aplanarla y se pierde la intención.
-- **Evento ↔ transición**: el evento es un `AnchorDoc` que fija el **valor destino**
-  (`action:change M.f=v`). Un mismo evento que lleve a destinos distintos según el estado origen (un
-  `next` genérico) no se puede declarar; y el nombre del evento en la arista vive en `notes`, duplicado.
+- **Evento ↔ transición**: el único evento que el mundo nombra es un alias de acción del SHRDLU
+  (`AnchorDoc`), que fija el **valor destino** (`action:change M.f=v`); para `graph_ui`, que no usa el
+  léxico, el evento no existe y disparar es la forma `change` con el destino. Un mismo evento que lleve a
+  destinos distintos según el estado origen (un `next` genérico) no se puede declarar; y el nombre del
+  evento en la arista vive en `notes`, duplicado.
 - **Acciones**: `entry`, `exit` y el efecto de una transición no existen en el sustrato.
 - **Regiones ortogonales**: un campo tiene un valor; dos regiones activas a la vez serían dos campos y dos
   máquinas sin relación declarada.
