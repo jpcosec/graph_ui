@@ -9,14 +9,13 @@ Verificado el 2026-09-14 contra estos árboles:
 | Repo | Rama / commit | Nota |
 |---|---|---|
 | `tools/sldb` | `b0f196a` | v1, "frozen" desde 2026-09-07 pero recibe arreglos; es el núcleo vivo |
-| `tools/kgdb` | `846f331` | v1 "frozen" (`v1-frozen`), con arreglos posteriores (`aeac2a7`, `846f331`) |
-| `~/proyectos/pron` | `master` `e0ff353` | el que `graph_ui` importa (instalación editable); tiene cambios sin commitear de otra sesión en `HANDOFF.md` y `surface/interpret.py` |
-| `~/proyectos/pron-sexp` | `sexp-core` `72102a9` | `master` + 7 commits: formas, léxico sobre formas, spec de capas; sin mezclar |
+| `tools/kgdb` | `846f331` | v1 "frozen" (`v1-frozen`), con arreglos posteriores (`aeac2a7`, `846f331`); publicado en GitHub el 2026-09-15 |
+| `~/proyectos/pron` | `master` `e0ff353`, hoy `b162f4b` | el que `graph_ui` importa (instalación editable). El 2026-09-15 se mezcló `sexp-core` (`ae2d0a3`: formas, léxico sobre formas, spec de capas) y se publicó en GitHub |
 | `tools/graph_ui` | `master` `42c0375` | `frontends/mindmap/` es el desarrollo activo |
 
-`pron` fija sus dependencias en `constraints.txt`: sldb `9ba886d` y kgdb `1247139`. Los dos ya están por
-delante (sldb un commit, kgdb dos, uno de ellos de esta sesión); la suite de `pron` no se volvió a correr contra
-esos pisos.
+`pron` fija sus dependencias en `constraints.txt`. Desde `b162f4b`: kgdb `846f331` y sldb `b0f196a`. Con el
+árbol de trabajo de sldb pasan 129 pruebas; con sldb `b0f196a` limpio falla una (la promoción de modelos necesita
+un arreglo de `models_validate.py` que otra sesión todavía no commitea en sldb).
 
 ## 1. El mapa
 
@@ -174,7 +173,7 @@ excluye `type.pron.move` por defecto. Es decir, el sustrato conoce el léxico de
 
 `pron` también registra `RelationTypeDoc`/`RelationDoc` de kgdb para poder autorar verbos.
 
-### Los módulos, por capa (rama `sexp-core`)
+### Los módulos, por capa (`master`)
 
 | Capa | Módulo | Qué hace |
 |---|---|---|
@@ -293,14 +292,14 @@ Consecuencia para `graph_ui`: una superficie hermana del SHRDLU hoy depende de p
 
 | Hallazgo | Estado |
 |---|---|
-| `pron` solo aceptaba oraciones; un gesto con extremos conocidos no cabía (`'associate' has no antecedent`) | resuelto en `sexp-core` (capítulo 13, `session.eval`, `pron eval`, socket `eval`) |
-| toda palabra del léxico nombra una forma; los alias se escriben como formas | resuelto en `sexp-core`; kgdb las lee desde `846f331` |
-| la pista de `missing` ofrecía ejemplos del mundo del restaurante (de `patterns.yaml`) en cualquier mundo | resuelto en `sexp-core` `1730b8b` |
+| `pron` solo aceptaba oraciones; un gesto con extremos conocidos no cabía (`'associate' has no antecedent`) | resuelto (capítulo 13, `session.eval`, `pron eval`, socket `eval`; en `master` desde `ae2d0a3`) |
+| toda palabra del léxico nombra una forma; los alias se escriben como formas | resuelto; kgdb las lee desde `846f331` |
+| la pista de `missing` ofrecía ejemplos del mundo del restaurante (de `patterns.yaml`) en cualquier mundo | resuelto en `1730b8b` |
 | `(created)` es sustantivo solo dentro de un alias `compose`; crear y enlazar en un movimiento sin alias da `not a noun: (created …)`, y un `(doc …)` del documento que se crea da `missing` | abierto: dos movimientos sin atomicidad, o depender del léxico |
 | lectura estructurada: por socket `payload` respeta la proyección, en proceso no | abierto |
 | `change` escribe valores literales: no hay aritmética (Petri) ni en formas ni en alias | decisión de `pron` (spec 05) |
 | `undo` deshace el último movimiento con escrituras del hablante, no de la sesión | abierto para vistas simultáneas |
-| `sexp-core` no está en `master`; `graph_ui` no puede usar formas | bloqueado por cambios sin commitear en `master` |
+| `sexp-core` no estaba en `master`; `graph_ui` no podía usar formas | resuelto: mezclado en `ae2d0a3` y publicado |
 
 ### 7.4 Reglas que el sustrato no expresa
 
@@ -346,8 +345,8 @@ spec2viz dibuja los `return` de secuencia al revés en PlantUML y no escapa `--`
 
 No son decisiones tomadas: es el orden en que los hallazgos se apoyan unos en otros.
 
-1. **Mezclar `sexp-core` a `master` de `pron`**, coordinando con los cambios sin commitear, y alinear
-   `constraints.txt` con sldb `b0f196a` y kgdb `846f331`. Sin esto `graph_ui` no tiene formas.
+1. ~~Mezclar `sexp-core` a `master` de `pron` y alinear `constraints.txt`~~: hecho el 2026-09-15 (`ae2d0a3`,
+   `b162f4b`). Queda fijar sldb al commit que traiga el arreglo de promoción de modelos.
 2. **Invertir las dependencias en `pron`** (§7.1): un núcleo (`World`, `Store`, `Graph`, `Verbs`, `Kernel`, `Ledger`)
    que recibe una proyección de permisos y no un `Lexicon`; un evaluador de formas que resuelve direcciones y
    predicados sin tipos de la superficie y devuelve un resultado estructurado (direcciones, aristas, escrituras);

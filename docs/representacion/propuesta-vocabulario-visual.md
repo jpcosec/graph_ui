@@ -1,7 +1,7 @@
 # Propuesta: el vocabulario visual de `graph_ui`, superficie hermana del SHRDLU
 
 **Estado: tercera versión, para discutir.** No hay código nuevo en `graph_ui`. En `pron` hay código nuevo, las
-formas (rama `sexp-core`), que esta propuesta usa.
+formas (mezcladas en `master` de `pron` en `ae2d0a3`), que esta propuesta usa.
 
 - La primera versión proponía un `VocabularyDoc` que mezclaba lo que ya es de `pron` (verbos, operaciones,
   reglas) con lo que es de `graph_ui` (cómo se dibuja). Queda en el [apéndice](#apéndice-la-primera-versión).
@@ -163,7 +163,7 @@ con extremos conocidos no cabía: `associate Client with Table` → `'associate'
 UmlClass`. Ahora **todo pasa por s-expressions**: la superficie de lenguaje solo convierte una oración en formas
 con los sustantivos sin resolver, y evaluar formas hace todo lo demás: resolver, preguntar, verificar, escribir y
 registrar. `graph_ui` evalúa las formas directamente (`session.eval`, `pron eval`, operación `eval` del socket).
-Está en la rama `sexp-core` de `pron` (worktree `~/proyectos/pron-sexp`, sin mezclar a `master`) con el capítulo
+Está en `master` de `pron` desde `ae2d0a3` (mezcla de la rama `sexp-core`) con el capítulo
 13 del spec, y en `kgdb` `846f331` para que los alias escritos como formas sigan nombrando lo mismo en el grafo.
 
 **4.2 Un movimiento compuesto solo se puede escribir con un alias del léxico.** Conectar dos clases con una
@@ -235,7 +235,7 @@ del mundo que modela esa notación: sus verbos y sus condiciones, no del dibujo.
 Revisar el spec cambió el estado de varios [huecos](huecos.md): algunos son decisiones documentadas de `pron`
 (la convención `State`, un solo `RelationDoc` por par y tipo, `compose` sin aritmética), uno estaba mal (sí se
 puede afirmar validando fuera de `graph_ui`, con `pron say` y ahora con `pron eval`) y aparecieron tres nuevos
-(4.1, resuelto en `sexp-core`; 4.2; 4.3).
+(4.1, resuelto en `pron` `ae2d0a3`; 4.2; 4.3).
 
 ## 7. Preguntas que quedan
 
