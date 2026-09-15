@@ -44,6 +44,9 @@ cada forma (`class`, `interface`, `confirm it`); el **vocabulario visual** de `g
 con qué gesto se *escribe*. `graph_ui` no dibuja palabras ni usa alias del léxico; el SHRDLU no conoce
 notaciones.
 
+Qué hace cada capa (sldb, kgdb, `pron`, `graph_ui`), dónde está hoy cada responsabilidad y qué hay que revisar:
+[`capas.md`](capas.md).
+
 ## Las tres preguntas que ordenan el manual
 
 | Eje | Pregunta | Carpeta |
@@ -166,5 +169,6 @@ y `pron`.
 | [`01-fundamentos/`](01-fundamentos/index.md) | escrito |
 | [`02-prior-art/`](02-prior-art/index.md) | escrito |
 | [`03-diagrama-vocabulario/`](03-diagrama-vocabulario/index.md) | escrito |
+| [`capas.md`](capas.md) | verificado contra el código el 2026-09-14 |
 | [`huecos.md`](huecos.md) | consolidado, con resumen por tema |
 | [`propuesta-vocabulario-visual.md`](propuesta-vocabulario-visual.md) | propuesta para discutir |
