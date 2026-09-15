@@ -170,5 +170,6 @@ y `pron`.
 | [`02-prior-art/`](02-prior-art/index.md) | escrito |
 | [`03-diagrama-vocabulario/`](03-diagrama-vocabulario/index.md) | escrito |
 | [`capas.md`](capas.md) | verificado contra el código el 2026-09-14 |
+| [`plan-de-cierre.md`](plan-de-cierre.md) | plan para cerrar lo pendiente, 2026-09-15 |
 | [`huecos.md`](huecos.md) | consolidado, con resumen por tema |
 | [`propuesta-vocabulario-visual.md`](propuesta-vocabulario-visual.md) | propuesta para discutir |
