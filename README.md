@@ -1,5 +1,8 @@
 # graph_ui — editor visual de un store pron/sldb
 
+> ⚠️ **Este repo tiene imports rotos contra pron desde el 2026-09-17.** Ver [AVISO-imports-rotos.md](AVISO-imports-rotos.md).
+
+
 El desarrollo activo está en `frontends/mindmap/`: un editor visual para
 cualquier store [`pron`](https://github.com/jpcosec/pron) — y por lo tanto de
 cualquier store `sldb`/`kgdb`, que `pron` unifica. No es una KB fija: apunta
