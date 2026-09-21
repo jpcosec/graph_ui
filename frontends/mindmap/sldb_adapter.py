@@ -137,6 +137,43 @@ class SldbAdapter:
             result.append(declaration or {'name': name, 'ref': ref})
         return result
 
+    def document_ir(self, name: str) -> dict[str, Any]:
+        """Un documento con su IR de lectura, mismo shape que ``GET /document`` de
+        sldb serve: ``{id, model_name, path, payload, semantic_tags, ir}``.
+
+        El IR se construye con el MISMO builder de sldb (``sldb.api.build_document_ir_json``,
+        el de ``sldb sections show`` y del endpoint /document remoto): graph_ui no
+        reimplementa el parsing de markdown. En el IR viven las secciones reales
+        (``structure``), el direccionamiento de campos (``nodes[].field_path``) y
+        los spans de línea (``node.span.line_start/line_end``).
+
+        Errores espejando sldb serve: doc inexistente → 404; IR no construible
+        (modelo no resoluble, roundtrip roto) → 422.
+        """
+        # Local-only (imports diferidos): el modo remote ya sirve /document vía
+        # proxy HTTP y no debe cargar esto.
+        from sldb.api import build_document_ir_json
+        from sldb.cli.graph_ops.resolve import resolve_runtime_doc
+
+        with self.lock:
+            try:
+                runtime_doc = resolve_runtime_doc(str(self.store), name, self.pythonpath)
+            except Exception as exc:  # noqa: BLE001  (ValueError: doc inexistente/ambiguo)
+                raise AdapterError(str(exc), 404) from exc
+            try:
+                markdown = Path(runtime_doc['absolute_path']).read_text(encoding='utf-8')
+                ir = build_document_ir_json(runtime_doc, markdown, runtime_doc.get('template'))
+            except Exception as exc:  # noqa: BLE001  (modelo no resoluble, roundtrip roto)
+                raise AdapterError(str(exc), 422) from exc
+            return {
+                'id': runtime_doc['name'],
+                'model_name': runtime_doc['model'],
+                'path': runtime_doc['path'],
+                'payload': runtime_doc['payload'],
+                'semantic_tags': runtime_doc.get('semantic_tags', []),
+                'ir': ir,
+            }
+
     def model_for(self, model_name: str, pythonpath: str | None = None):
         return self._pron_for(pythonpath).model_type(model_name)
 

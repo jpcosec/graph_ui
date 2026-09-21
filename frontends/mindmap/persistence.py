@@ -50,6 +50,11 @@ class EditorStore:
     def graph(self):
         return self.adapter.graph()
 
+    def document_ir(self, name):
+        """Lectura con IR (secciones, field_path, spans) del store local.
+        Mismo shape que ``GET /document`` de sldb serve (ver sldb_adapter)."""
+        return self.adapter.document_ir(name)
+
     def save(self, request):
         """Prevalidate the entire batch; never acknowledge partial writes as success.
 

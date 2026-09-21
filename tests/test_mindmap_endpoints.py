@@ -257,6 +257,37 @@ def test_get_schema_and_graph_against_compiled_store(compiled_env):
     assert graph["documents"] and {d["id"] for d in graph["documents"]} >= {"main-board"}
 
 
+def test_get_document_with_ir_and_ir_alone(compiled_env):
+    """/api/document sirve el documento con su IR (secciones reales,
+    field_path y spans) usando el MISMO builder que sldb serve; /api/document/ir
+    devuelve solo el IR. Doc inexistente → 404 (igual que sldb /document)."""
+    port = compiled_env["env"].port
+    with urllib.request.urlopen(
+        f"http://127.0.0.1:{port}/api/document?id=task-onboarding", timeout=20) as res:
+        doc = json.loads(res.read())
+        assert res.status == 200
+    assert set(doc) == {"id", "model_name", "path", "payload", "semantic_tags", "ir"}
+    ir = doc["ir"]
+    assert set(ir) == {"context", "structure", "nodes", "surface", "graph", "context_index"}
+    # (a) secciones reales del documento, (b) direccionamiento por field_path,
+    # (c) spans de línea — los tres salen del IR, no del payload plano.
+    assert ir["structure"], "el IR debe traer las secciones reales del documento"
+    field_paths = [n["field_path"] for n in ir["nodes"] if n["kind"] == "field"]
+    assert "title" in field_paths and "status" in field_paths
+    assert all(set(n) >= {"span"} for n in ir["nodes"])
+    assert isinstance(ir["context_index"], list)
+    with urllib.request.urlopen(
+        f"http://127.0.0.1:{port}/api/document/ir?id=task-onboarding", timeout=20) as res:
+        ir_alone = json.loads(res.read())
+    assert ir_alone == ir
+    # Doc inexistente: 404 con mensaje (espeja sldb serve).
+    status, body = _request(port, "/api/document?id=no-existe")
+    assert status == 404 and not body.get("ok", True)
+    # id obligatorio.
+    status, body = _request(port, "/api/document")
+    assert status == 400
+
+
 # ------------------------------------------------------------- ruteo (fase D)
 
 @pytest.mark.parametrize("route", ["/documents/map", "/models/diagram", "/draft/tree"])

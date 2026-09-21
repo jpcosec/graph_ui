@@ -22,7 +22,7 @@ Dos modos, elegidos por GRAPH_UI_BACKEND (default 'local'):
 """
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
-from urllib.parse import quote, urlparse
+from urllib.parse import parse_qs, quote, urlparse
 import errno
 import hashlib
 import json
@@ -254,6 +254,19 @@ class ProxyHandler(SimpleHTTPRequestHandler):
                 self.json_response(self.editor_store.graph())
             except Exception as exc:
                 self.json_response({'ok': False, 'error': str(exc)}, 500)
+        elif route in ('/api/document', '/api/document/ir'):
+            # Lectura con IR: misma forma que GET /document de sldb serve
+            # ({id, model_name, path, payload, semantic_tags, ir}). En modo
+            # remote lo sirve _remote_read; aquí es el equivalente local.
+            name = (parse_qs(urlparse(self.path).query).get('id') or [None])[0]
+            if not name:
+                return self.json_response({'ok': False, 'error': 'id es obligatorio'}, 400)
+            try:
+                doc = self.editor_store.document_ir(name)
+            except self.save_error as exc:
+                return self.json_response({'ok': False, 'error': str(exc)}, exc.status)
+            body = doc['ir'] if route == '/api/document/ir' else doc
+            self.json_response(body)
         elif route.startswith('/api/'):
             self.json_response({'ok': False, 'error': 'Ruta desconocida.'}, 404)
         elif route.startswith('/sldb/'):
