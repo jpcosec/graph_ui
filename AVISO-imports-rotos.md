@@ -1,6 +1,6 @@
 # Aviso — imports contra pron: RESUELTO (2026-09-21)
 
-**Estado al 2026-09-21: la suite colecciona (91 tests) y el modo remote no
+**Estado al 2026-09-21: la suite colecciona (92 tests) y el modo remote no
 toca pron.** El `ModuleNotFoundError: No module named 'pron.store'` del aviso
 original quedó resuelto. Este documento queda como registro del incidente y
 del mapa real de la API de pron HOY.
@@ -60,21 +60,19 @@ en ambos modos:
   `compilation`, `models_service`, `sldb_adapter` también envenenados): sirve
   `/` 200 y proxya `/api/*` a sldb (502 si sldb no corre, como esperado).
 
-## Estado de la suite (2026-09-21)
+## Estado de la suite (2026-09-21, actualizado al cierre de la vuelta 4)
 
-- `python3 -m pytest --collect-only -q` → **91 tests collected** (idéntico
+- `python3 -m pytest --collect-only -q` → **92 tests collected** (idéntico
   con y sin pron en el path).
-- `python3 -m pytest -q` → **90 passed, 1 failed** (run limpio, sin
-  procesos huérfanos en los puertos de los E2E). El único fallo es
-  `e2e_mindmap_doc_edit::test_reference_search_roundtrip_and_conflict` y es
-  determinista, no un flake: la parte 2 (conflicto) nunca dispara el POST
-  porque la edición del modal no marca `dirty` en el frontend — no hay
-  HTTP de por medio y los mecanismos de backend implicados guardan OK
-  (verificado en aislamiento con servidor y logs visibles). Ajeno a los
-  imports; test previo a la reescritura de `source/history.mjs`.
-- `e2e_mindmap_routes` falló una vez en un run completo con otra sesión
-  por timeout de navegación y pasa en aislamiento (flake de entorno
-  puntual, sin relación con imports).
+- `python3 -m pytest -q` → **92 passed, 0 failed** (run limpio, sin
+  procesos huérfanos en los puertos de los E2E).
+- El fallo determinista de `e2e_mindmap_doc_edit` (parte 2, conflicto de
+  sesión concurrente) quedó CORREGIDO de raíz en la vuelta 4: no era del
+  test — el proceso largo cacheaba el store desde el arranque y una
+  escritura de otro proceso nunca refrescaba esa cache, así que el compare
+  contra `expected` aprobaba contra payload viejo y pisoteaba el cambio
+  ajeno sin 409. Fix: `new_operation` (re-sweep de hojas) al entrar en
+  `EditorStore.save` (ver docs/MIGRACION §2.6, commits d2d8905).
 
 ## Lo que NO está roto (sin cambios)
 

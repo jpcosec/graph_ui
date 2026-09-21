@@ -1,17 +1,18 @@
 # Migración de graph_ui hacia `sldb serve` como autoridad HTTP
 
-Estado: 2026-09-21 · vuelta 3 (escrituras con equivalente migradas, con red de
-seguridad). Sin commit.
+Estado: 2026-09-21 · vuelta 4 (EditorStore confinado a local; el documento se
+lee por su IR; sesiones concurrentes detectadas de verdad). Commits d2d8905,
+f739746, 2f4ef31, f9c939f.
 
 `frontends/mindmap/serve.py` funciona en dos modos, elegidos por
 `GRAPH_UI_BACKEND` (default `local`):
 
 ```sh
-# local — intacto, EditorStore en proceso (depende de pron; hoy roto,
-# AVISO-imports-rotos.md)
+# local — EditorStore en proceso (depende de pron; hoy funciona,
+# AVISO-imports-rotos.md RESUELTO)
 python3 frontends/mindmap/serve.py 8088
 
-# remote — lecturas Y escrituras con equivalente se sirven desde un
+# remote — lecturas y escrituras con equivalente se sirven desde un
 # 'sldb serve' externo; la vista (presentación) se persiste local
 SLDB_URL=http://127.0.0.1:8312 GRAPH_UI_BACKEND=remote \
   SLDB_STORE=/ruta/store-local python3 frontends/mindmap/serve.py 8089
@@ -20,7 +21,10 @@ SLDB_URL=http://127.0.0.1:8312 GRAPH_UI_BACKEND=remote \
 En modo remote las escrituras que sldb serve ya cubre (`/api/save` y
 `/api/models/*`) se migran; la **compilación** (`/api/validate`, `/api/plan`,
 `/api/compile`, `/api/export`) no tiene equivalente y **sigue en el proceso
-local**: responde 501 explícito en remote. La vista se escribe LOCAL. Este doc
+local**: responde 501 explícito en remote. La vista se escribe LOCAL. Desde la
+vuelta 4, **EditorStore (persistence.py) es el motor local y está confinado**:
+su `__init__` lanza si `GRAPH_UI_BACKEND=remote`, y en el modo remote no queda
+ningún camino que escriba semántica en el proceso (todo va por HTTP). Este doc
 es el mapa de migración.
 
 ---
@@ -53,7 +57,7 @@ Fuente: `tools/sldb/src/sldb/cli/serve/routes.py` (lectura, working tree
 | `/api/health` | GET | `GET /health` | **EXISTE** `[remote]` | Extensión natural del passthrough. |
 | `/api/kgdb/snapshot` | GET | `GET /kgdb/snapshot` | **EXISTE** `[remote]` | Passthrough; graph_ui no lo consume todavía. |
 | `/sldb/*` | GET/POST | cualquier ruta de sldb | **EXISTE** | Proxy pasante preexistente, ambos modos. |
-| `/api/document` `/api/document/ir` | GET | `GET /document` `GET /document/ir` | **FALTA** | Otro agente las está agregando a sldb (verificado 2026-09-21: aún no existen en el working tree). Cuando estén, el mapeo genérico `/api/* → /*` las sirve sin tocar código. |
+| `/api/document` `/api/document/ir` | GET | `GET /document` `GET /document/ir` | **EXISTE** `[remote]` | Desde vuelta 4: el mapeo genérico `/api/* → /*` las sirve en remote; el branch LOCAL también las sirve con el mismo shape y el mismo builder de IR que sldb (§2.7). |
 
 ### Escrituras
 
@@ -166,6 +170,72 @@ maquinaria de drafts — bug del WIP de sldb, ajeno al proxy (el passthrough
 reenvía exactamente el body/status de sldb, verificado contra la copia y
 contra el 8310 real).
 
+### 2.6 El motor local y la detección de sesiones concurrentes — resuelto (vuelta 4)
+
+El modo remote no construye `EditorStore` (solo `_build_local_handler` lo hace,
+con imports diferidos) y, desde la vuelta 4, `EditorStore.__init__` lanza un
+`RuntimeError` explícito si `GRAPH_UI_BACKEND=remote` — defensa en profundidad:
+no puede quedar un camino que escriba semántica en el proceso bajo remote.
+
+**Bug corregido (vuelta 4): el conflicto por sesión concurrente no se veía.**
+`EditorStore.save` comparaba `expected` contra los documentos runtime del
+store, pero el proceso largo lleva cacheado el store desde el arranque
+(signature/leaf-sweep de sldb, PLAN 15 capa 6): una escritura de OTRO proceso
+(otra sesión, otro `SldbAdapter`, otro server) no refrescaba esa cache y el
+compare aprobaba contra un payload viejo — el guardado pisoteaba el cambio
+ajeno sin 409 (reproducido: `/api/graph` seguía sirviendo el título viejo
+tras una escritura externa verificada en disco).
+
+Fix: `new_operation(self.store)` (la API de sldb para «inicio de operación
+top-level») al entrar en `EditorStore.save`, que fuerza el re-sweep de hojas
+antes del compare. El E2E `e2e_mindmap_doc_edit` (partes 2-3: sesión
+concurrente → 409 → diálogo de conflicto) pasó tras el fix; antes fallaba
+siempre. Nota: `sldb serve` convive con el mismo mecanismo de cache; el fix
+es del lado cliente porque el conflicto se evalúa en el proceso del editor.
+
+**Qué es local y qué no, explícito en el código** (`persistence.py`,
+`sldb_adapter.py`): la semántica (create→update→delete) va al store; la `view`
+vive en `runtime/mindmap-view.json` y se escribe con el marker
+`── presentación → archivo local de vista (nunca al store) ──`. Los métodos
+locales de `sldb_adapter` sin equivalente en sldb serve llevan docstring
+«Local-only»:
+
+| método local | por qué sigue local | equivalente remoto |
+|---|---|---|
+| `create_document` / `update_document` / `delete_document` | escriben vía pron (sldb api) directo al store del proceso | `POST /save` batch (cambios) |
+| `add_model` | registra modelo en el store local | editor de clases → `POST /models/*` |
+| `init_store` | crea el store si no existe (KB vacía) | `sldb serve` administra su store (`/stores*`) |
+| `default_document_path` | decide el layout de cada store (decisión local de pron) | `POST /save` (sldb resuelve el path) |
+
+Compilación (`compilation.py` + `compiler.py` + `contract.py`): sin equivalente
+en sldb serve, responde 501 explícito en remote (§2.3).
+
+### 2.7 `/api/document` y `/api/document/ir` — resuelto (vuelta 4, IR)
+
+sldb serve sirve `GET /document?id=` con `{id, model_name, path, payload,
+semantic_tags, ir}` donde el IR (`builder` común: `sldb.api.build_document_ir_json`,
+el mismo de `sldb sections show`) trae:
+
+- `structure`: secciones reales del markdown (árbol con `children`);
+- `nodes`: nodos planos con `kind` (`section`/`field`/…), `name`, `field_path`
+  (direccionamiento de campos), `owning_section` y `span {line_start,
+  line_end}`;
+- `surface`, `graph`, `context_index` (índice de secciones con `path` y
+  `span`), `context`.
+
+En graph_ui: el mapeo genérico ya servía remote; la vuelta 4 agrega el
+**branch local** (`serve.py` GET `/api/document` y `/api/document/ir`, mismo
+shape, mismos códigos: 400 sin `id`, 404 doc inexistente, 422 IR no
+construible) y `SldbAdapter.document_ir(name)` — que usa el MISMO builder de
+sldb; graph_ui no reimplementa el parsing de markdown.
+
+PENDIENTE (frontend): hoy el editor (`documents.js` + `document-dialog.js`)
+construye grafo y campos desde el `payload` del `/api/graph`; ningún JS
+consume `/api/document` todavía (verificado con grep). Consumir `structure`
+(secciones reales), `nodes[].field_path` (direccionamiento) y `span
+(line_start/line_end)` desde el IR queda anotado como pendiente — NO se
+inventa un consumo que no existe.
+
 ---
 
 ## 3. El concepto de `view` — por qué NO migra al store
@@ -200,10 +270,10 @@ local en `/api/graph` (`view` + `revision` real del archivo) y la persiste en
 2. ✅ Todas las lecturas: `/api/edges*`, `/api/graph/*`, `/api/models`,
    `/api/models/detail`, `/api/lint`, `/api/health`, `/api/kgdb/snapshot` +
    traducción POST de `list`/`detail` (vuelta 2).
-3. ⏭ `/api/document` y `/api/document/ir` ya existen en sldb (verificado
-   2026-09-21): servir el serializado coincide con `serialize_document` del
-   editor; validar la forma del IR cuando el consumidor lo pida. El mapeo
-   genérico ya las cubre sin cambios.
+3. ✅ `/api/document` y `/api/document/ir` servidos con su IR (vuelta 4): en
+   remote por el mapeo genérico y en local con el MISMO builder de sldb
+   (`SldbAdapter.document_ir`); shape y códigos espejados del servidor (§2.7).
+   Consumo del IR por el frontend: pendiente, anotado (§2.7).
 4. ✅ Escritura `POST /api/save` (batch) con vista local y response
    compuesto (vuelta 3, §2.4).
 5. ✅ `POST /api/models/{template-edit, fields-add, fields-remove, validate,
@@ -213,6 +283,8 @@ local en `/api/graph` (`view` + `revision` real del archivo) y la persiste en
    módulos Python e intercambio v1). En remote responden **501 explícito**;
    migrarlas exigiría portar el compilador o un servicio paralelo y depende
    del `planToken` contra el `/graph` remoto.
+7. ✅ Vuelta 4: EditorStore confinado a local (guard explícito) + detección de
+   sesiones concurrentes (`new_operation` en `save`, §2.6).
 
 Regla: lo que no tiene equivalente en sldb sigue en el proceso local y,
 cuando corre bajo remote, responde 501 con mensaje explícito; el modo local
