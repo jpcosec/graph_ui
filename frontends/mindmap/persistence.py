@@ -3,9 +3,15 @@
 All store operations, validation and index updates live in ``sldb_adapter``;
 this module only orchestrates a batch: prevalidates everything, rejects stale
 concurrent edits and writes in create→update→delete order.
+
+ESTE MÓDULO ES EL MOTOR LOCAL. En modo remote (GRAPH_UI_BACKEND=remote) no se
+importa: las escrituras van por HTTP a sldb serve (``serve.py``, ``_remote_save``)
+y no debe quedar ningún camino que escriba semántica en el proceso local.
+La ``view`` (positions/collapsed) sí es local en ambos modos: es presentación.
 """
 from __future__ import annotations
 
+import os
 import re
 
 from sldb_adapter import AdapterError, SldbAdapter
@@ -15,6 +21,11 @@ SaveError = AdapterError
 
 class EditorStore:
     def __init__(self, store):
+        if os.environ.get('GRAPH_UI_BACKEND') == 'remote':
+            raise RuntimeError(
+                'EditorStore es el motor LOCAL; en modo remote las escrituras de '
+                'semántica van por HTTP a sldb serve (POST /save, /models/*). '
+                'Úsalo solo con GRAPH_UI_BACKEND=local.')
         self.adapter = SldbAdapter(store)
         # Una KB recién creada (sin core/store_index.yaml) se inicializa vacía:
         # la UI la muestra como 'Tu KB está vacía' y permite importar un mapa.
@@ -112,6 +123,7 @@ class EditorStore:
                     else:
                         adapter.delete_document(name)
                     completed.append(name)
+                # ── presentación → archivo local de vista (nunca al store) ──
                 adapter.write_view(view)
             except (Exception, SystemExit) as exc:
                 raise SaveError(f'No se completó el guardado: {exc}', 500, completed) from exc

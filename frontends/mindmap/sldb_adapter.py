@@ -177,6 +177,8 @@ class SldbAdapter:
 
     def create_document(self, name: str, model_name: str, payload: dict[str, Any],
                         output: Path, pythonpath: str | None = None) -> None:
+        """Local-only: crea vía pron (sldb api) en el store local. No tiene
+        equivalente en sldb serve (en remote los creates van a ``POST /save``)."""
         # pron migró create() a DocId: `Store.create(doc_id, payload, path)`.
         from pron.world.doc_id import DocId
 
@@ -187,6 +189,8 @@ class SldbAdapter:
 
     def update_document(self, runtime_doc: Any, payload: dict[str, Any],
                         pythonpath: str | None = None) -> None:
+        """Local-only: replace vía pron en el store local. En remote los updates
+        van a ``POST /save`` (batch, con compare contra ``expected``)."""
         # pron migró replace() a DocId: `Store.replace(doc_id, payload)`.
         from pron.world.doc_id import DocId
 
@@ -197,7 +201,8 @@ class SldbAdapter:
             raise AdapterError(str(exc)) from exc
 
     def delete_document(self, name: str, pythonpath: str | None = None) -> None:
-        """Destrackea el documento; el Markdown permanece en disco."""
+        """Local-only: destrackea en el store local (el Markdown queda en disco).
+        En remote los deletes van a ``POST /save``."""
         # pron migró untrack() a DocId (necesita el modelo); se resuelve con el
         # runtime doc, que es la misma fuente que usaba el untrack por nombre.
         from pron.world.doc_id import DocId
@@ -226,12 +231,16 @@ class SldbAdapter:
         return directory / f"{name}.md"
 
     def add_model(self, model_ref: str, pythonpath: str | None = None) -> None:
+        """Local-only: registra un modelo en el store local vía pron. No tiene
+        equivalente en sldb serve; el editor de clases en remote usa
+        ``POST /models/*``."""
         if not self._pron_for(pythonpath).register_model(model_ref):
             raise AdapterError(f"No se pudo registrar el modelo {model_ref!r}.")
 
     def init_store(self) -> None:
-        if not (self.store / "core" / "store_index.yaml").exists():
-            # sldb movió la creación de store: `_create_store` en
+        """Local-only: crea el store si no existe (KB vacía). En remote el store
+        lo administra sldb serve (``/stores*``)."""
+        if not (self.store / "core" / "store_index.yaml").exists():            # sldb movió la creación de store: `_create_store` en
             # `cli.commands.store_init` dejó de existir el 2026-09-20; la puerta
             # es `sldb.api.stores.init_store` (recibe la raíz del proyecto).
             from sldb.api.stores.init_store import init_store
