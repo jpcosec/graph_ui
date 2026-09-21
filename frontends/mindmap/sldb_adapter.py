@@ -237,6 +237,18 @@ class SldbAdapter:
             from sldb.api.stores.init_store import init_store
             init_store(self.root)
 
+    def refresh_for_concurrent_sessions(self) -> None:
+        """Inicio de operación top-level sobre el store local (sldb PLAN 15
+        capa 6): fuerza el re-sweep de hojas de la cache runtime del proceso
+        para que el compare contra ``expected`` vea escrituras de OTROS
+        procesos (sesiones concurrentes). Sin esto, una sesión concurrente
+        no se detecta y el guardado pisa el cambio ajeno (vuelta 4;
+        MIGRACION §2.6). Además del guard-write del store, la signature del
+        adapter se re-sweipea en la próxima lectura.
+        """
+        from sldb.store.runtime_cache_signature import new_operation
+        new_operation(self.store)
+
     # ------------------------------------------------------------------- vista
 
     def view(self) -> dict[str, Any]:

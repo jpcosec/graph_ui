@@ -48,6 +48,13 @@ class EditorStore:
         """
         adapter = self.adapter
         with adapter.lock:
+            # Sesiones concurrentes: el proceso lleva cacheado el store desde el
+            # arranque; una escritura de otro proceso (otra sesión, otro server)
+            # NO se ve hasta que forzamos el re-sweep de hojas (sldb PLAN 15
+            # capa 6, ``new_operation`` — expuesto por el adaptador). Sin esto,
+            # el compare contra ``expected`` compararía contra un payload viejo
+            # y pisotearía el cambio ajeno (ver MIGRACION §2.6).
+            adapter.refresh_for_concurrent_sessions()
             changes = request.get('changes', [])
             if not isinstance(changes, list) or len(changes) > 500:
                 raise SaveError('Lista de cambios inválida.')
@@ -94,7 +101,7 @@ class EditorStore:
                 prepared.append((change, current, path))
             completed = []
             try:
-                # Create endpoints before writing references to them. Untrack last.
+                # ── semántica → store (create → update → delete; untrack al final) ──
                 order = {'create': 0, 'update': 1, 'delete': 2}
                 for change, current, path in sorted(prepared, key=lambda item: order[item[0]['action']]):
                     name, action = change['id'], change['action']
