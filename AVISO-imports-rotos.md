@@ -64,10 +64,17 @@ en ambos modos:
 
 - `python3 -m pytest --collect-only -q` → **91 tests collected** (idéntico
   con y sin pron en el path).
-- `python3 -m pytest -q` → **89 passed, 2 failed**; los 2 fallos son E2E
-  Playwright (`e2e_mindmap_doc_edit`, `e2e_mindmap_schema`) por timeout de
-  navegación en el run completo; ambos pasan en aislamiento (flake de
-  entorno, no de imports).
+- `python3 -m pytest -q` → **90 passed, 1 failed** (run limpio, sin
+  procesos huérfanos en los puertos de los E2E). El único fallo es
+  `e2e_mindmap_doc_edit::test_reference_search_roundtrip_and_conflict` y es
+  determinista, no un flake: la parte 2 (conflicto) nunca dispara el POST
+  porque la edición del modal no marca `dirty` en el frontend — no hay
+  HTTP de por medio y los mecanismos de backend implicados guardan OK
+  (verificado en aislamiento con servidor y logs visibles). Ajeno a los
+  imports; test previo a la reescritura de `source/history.mjs`.
+- `e2e_mindmap_routes` falló una vez en un run completo con otra sesión
+  por timeout de navegación y pasa en aislamiento (flake de entorno
+  puntual, sin relación con imports).
 
 ## Lo que NO está roto (sin cambios)
 
