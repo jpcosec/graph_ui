@@ -1,0 +1,8 @@
+name: edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-testing-to-ready
+path: desk/primitives/edges/edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-testing-to-ready.md
+hash_c: f729cd7efb5d0b6ea08e9578bc5711a9e6518d61e376df058aada676d2a64bfd
+hash_d: d220a9f65277907e54c51e593bd196b9d6cf26976fa2b79debea5bf3175e2bad
+semantic_tags:
+- primitive:edge
+- type.workflow.edge
+- workspace.desk.primitives

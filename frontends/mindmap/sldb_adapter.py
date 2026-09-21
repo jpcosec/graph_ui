@@ -1,15 +1,20 @@
 """Adaptador único para las operaciones de SLDB usadas por el Mindmap.
 
-Por dentro delega en ``pron.Store`` — "la única puerta a sldb" (pron spec 12 §4) — en
-vez de reimplementar el CRUD/schema contra las clases del CLI de SLDB a mano. Se
-mantienen dos excepciones deliberadas, documentadas donde ocurren: ``serialize()``
-(función pura sobre objetos que ``Store.docs()`` ya devolvió, no es acceso a store) y
-``resolve_ref``/``validate_ref`` (resuelven un ref arbitrario con un ``pythonpath``
-arbitrario *antes* de que el modelo esté registrado en ningún store; ``pron.Store`` no
-tiene equivalente porque siempre resuelve a través de un modelo ya registrado).
+Por dentro delega en ``pron.world.store.Store`` — "la única puerta a sldb" (pron
+spec 12 §4) — en vez de reimplementar el CRUD/schema contra las clases del CLI de
+SLDB a mano. Se mantienen dos excepciones deliberadas, documentadas donde ocurren:
+``serialize()`` (función pura sobre objetos que ``Store.docs()`` ya devolvió, no es
+acceso a store) y ``resolve_ref``/``validate_ref`` (resuelven un ref arbitrario con
+un ``pythonpath`` arbitrario *antes* de que el modelo esté registrado en ningún
+store; ``pron.Store`` no tiene equivalente porque siempre resuelve a través de un
+modelo ya registrado).
 
 Regla: ninguna regla de validación, hash, tracking o reindexación se duplica en
 graph_ui; todo pasa por estas funciones.
+
+Los imports de pron son perezosos (dentro de ``__init__``): este módulo solo se usa
+en modo local; el modo remote de ``serve.py`` habla HTTP con sldb serve y no debe
+tocar pron.
 """
 from __future__ import annotations
 
@@ -20,7 +25,6 @@ from enum import Enum
 from pathlib import Path
 from typing import Any
 
-from pron.store import Store, StoreError
 from sldb.cli.model_utils import resolve_model_ref
 from sldb.cli.serve.routes import serialize_document
 from sldb.cli.store_context import get_store_context
@@ -42,6 +46,10 @@ class SldbAdapter:
     """Fachada de solo lectura y escritura sobre un store SLDB concreto."""
 
     def __init__(self, store: str | Path):
+        from pron.world.store import Store
+        from pron.world.store_error import StoreError
+
+        self._store_error = StoreError
         self.store, self.root = get_store_context(str(store))
         self.pythonpath = str(self.root)
         self.view_path = self.store / "runtime" / VIEW_FILENAME
@@ -52,7 +60,7 @@ class SldbAdapter:
         """La mayoría de las llamadas usan el pythonpath del propio store; el
         compilador puede pedir uno distinto (módulos generados en otra carpeta)."""
         if pythonpath and pythonpath != self.pythonpath:
-            return Store(root=self.root, pythonpath=pythonpath)
+            return type(self.pron)(root=self.root, pythonpath=pythonpath)
         return self.pron
 
     # ---------------------------------------------------------------- schema
@@ -169,23 +177,37 @@ class SldbAdapter:
 
     def create_document(self, name: str, model_name: str, payload: dict[str, Any],
                         output: Path, pythonpath: str | None = None) -> None:
+        # pron migró create() a DocId: `Store.create(doc_id, payload, path)`.
+        from pron.world.doc_id import DocId
+
         try:
-            self._pron_for(pythonpath).create(model_name, name, payload, output)
-        except StoreError as exc:
+            self._pron_for(pythonpath).create(DocId.of(model_name, name), payload, output)
+        except self._store_error as exc:
             raise AdapterError(str(exc)) from exc
 
     def update_document(self, runtime_doc: Any, payload: dict[str, Any],
                         pythonpath: str | None = None) -> None:
+        # pron migró replace() a DocId: `Store.replace(doc_id, payload)`.
+        from pron.world.doc_id import DocId
+
         try:
-            self._pron_for(pythonpath).replace(runtime_doc.model_name, runtime_doc.name, payload)
-        except StoreError as exc:
+            self._pron_for(pythonpath).replace(
+                DocId.of(runtime_doc.model_name, runtime_doc.name), payload)
+        except self._store_error as exc:
             raise AdapterError(str(exc)) from exc
 
     def delete_document(self, name: str, pythonpath: str | None = None) -> None:
         """Destrackea el documento; el Markdown permanece en disco."""
+        # pron migró untrack() a DocId (necesita el modelo); se resuelve con el
+        # runtime doc, que es la misma fuente que usaba el untrack por nombre.
+        from pron.world.doc_id import DocId
+
         try:
-            self._pron_for(pythonpath).untrack(name)
-        except StoreError as exc:
+            doc = next((d for d in self.documents(pythonpath) if d.name == name), None)
+            if doc is None:
+                raise self._store_error(f'El documento {name!r} no está trackeado.')
+            self._pron_for(pythonpath).untrack(DocId.of(doc.model_name, doc.name))
+        except self._store_error as exc:
             raise AdapterError(str(exc)) from exc
 
     def default_document_path(self, model_name: str, name: str, pythonpath: str | None = None) -> Path:
@@ -209,8 +231,11 @@ class SldbAdapter:
 
     def init_store(self) -> None:
         if not (self.store / "core" / "store_index.yaml").exists():
-            from sldb.cli.commands.store_init import _create_store
-            _create_store(self.store)
+            # sldb movió la creación de store: `_create_store` en
+            # `cli.commands.store_init` dejó de existir el 2026-09-20; la puerta
+            # es `sldb.api.stores.init_store` (recibe la raíz del proyecto).
+            from sldb.api.stores.init_store import init_store
+            init_store(self.root)
 
     # ------------------------------------------------------------------- vista
 

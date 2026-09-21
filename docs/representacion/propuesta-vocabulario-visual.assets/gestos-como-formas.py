@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 from pron.session import Session
-from pron.world import World
+from pron.world.world import World
 
 world = Path(sys.argv[1])
 s = Session(World(world, str(world.parent)), projection="all", speaker="graph_ui")

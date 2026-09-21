@@ -4,6 +4,7 @@ path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/checklist.py
 documents_index: .sldb/core/documents/ChecklistDoc.yaml
 sections_index: ''
 hash_b: 5ec01feb4cd595da2fbccedebeabc5c5724bbee9a20bd519c986505412663db0
+documents_count: 6
 version: 1
 canonical: false
 family: null

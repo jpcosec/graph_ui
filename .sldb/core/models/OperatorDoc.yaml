@@ -4,6 +4,7 @@ path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/operator.py
 documents_index: .sldb/core/documents/OperatorDoc.yaml
 sections_index: ''
 hash_b: 10f7fb3512bd2b8c6967d53306efe9fd8241effaf898557c91b9d7e55bd7240d
+documents_count: 6
 version: 1
 canonical: false
 family: null

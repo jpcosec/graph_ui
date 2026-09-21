@@ -4,6 +4,7 @@ path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/edge.py
 documents_index: .sldb/core/documents/EdgeDoc.yaml
 sections_index: ''
 hash_b: 852527561eac3d8811d55622d56b3e0ca5f3106d21327eed565ce83891056ed9
+documents_count: 12
 version: 1
 canonical: false
 family: null

@@ -1,0 +1,8 @@
+name: condition-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-has-validation
+path: desk/primitives/conditions/condition-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-has-validation.md
+hash_c: f746c8fb9241b73f201031dd5e7de8f9dd48d2e0602169f299202973cac96d0d
+hash_d: 0c3461077f348a7a523fa036710bfac95de27e6afe41c8a1e2fb1a0ed8efe41a
+semantic_tags:
+- primitive:condition
+- type.workflow.condition
+- workspace.desk.primitives

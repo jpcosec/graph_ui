@@ -1,0 +1,8 @@
+name: condition-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-ready-for-closeout
+path: desk/primitives/conditions/condition-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-ready-for-closeout.md
+hash_c: e9e8a9bf230ffcc2c31fb6e150867eb7d2eda6c92ab6749586dd2250064a0830
+hash_d: f448ea46e7aeca9652d46330c1d41585bd54be8638e819c42143f6d6243c7427
+semantic_tags:
+- primitive:condition
+- type.workflow.condition
+- workspace.desk.primitives

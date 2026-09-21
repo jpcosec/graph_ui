@@ -9,10 +9,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-from pron.lexicon import Lexicon
-from pron.store import StoreError
-from pron.verbs import Verbs
-from pron.world import World
+from pron.world.lexicon import Lexicon
+from pron.world.store_error import StoreError
+from pron.sexpr.resolving.verbs import Verbs
+from pron.world.world import World
 
 world = Path(sys.argv[1])
 PAIRS = [

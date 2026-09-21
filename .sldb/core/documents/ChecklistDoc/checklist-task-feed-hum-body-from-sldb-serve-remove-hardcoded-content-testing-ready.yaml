@@ -1,0 +1,8 @@
+name: checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-testing-ready
+path: desk/primitives/checklists/checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-testing-ready.md
+hash_c: 12e69239b9f1ddf4f982ccf55b2b7dc388e1377bcb13d0c29956a2dc3862e0d2
+hash_d: 6a3ece9bcc1ff1cb0112ddbc699f53970ce04bdfac10dc29341e6db0daba8c00
+semantic_tags:
+- primitive:checklist
+- type.workflow.checklist
+- workspace.desk.primitives

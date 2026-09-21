@@ -1,0 +1,8 @@
+name: operator-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-close
+path: desk/primitives/operators/operator-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-close.md
+hash_c: a64e0984b8f77ab33df667f63e620c35e768ef11064299cb818377801663aedf
+hash_d: f501ff6303b4f065113c83603f65368c8c871ff4c88d59dc9d183a4bdc8f05f8
+semantic_tags:
+- primitive:operator
+- type.workflow.operator
+- workspace.desk.primitives
