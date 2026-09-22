@@ -1,8 +1,8 @@
 # Migración de graph_ui hacia `sldb serve` como autoridad HTTP
 
-Estado: 2026-09-21 · vuelta 4 (EditorStore confinado a local; el documento se
-lee por su IR; sesiones concurrentes detectadas de verdad). Commits d2d8905,
-f739746, 2f4ef31, f9c939f.
+Estado: 2026-09-21 · vuelta 5 (el frontend consume lo que sldb ya sirve:
+ficha del documento por IR; dialog de clases por model_dump). Commits de la
+vuelta 4: d2d8905, f739746, 2f4ef31, f9c939f.
 
 `frontends/mindmap/serve.py` funciona en dos modos, elegidos por
 `GRAPH_UI_BACKEND` (default `local`):
@@ -87,17 +87,24 @@ sldb serve devuelve por modelo `{id, model_ref, fields, containment, references,
 
 La versión local (`SldbAdapter.schema`) añadía esto por introspección; ahora es el servidor el que lo sirve. El consumidor `views/models/diagram/` puede leer `containment`/`references` directamente del schema remoto.
 
-### 2.2 `/api/models/detail` — PARCIAL (shape de response)
+### 2.2 `/api/models/detail` — resuelto (vuelta 5, shape estructurado)
 
-- Local (`models_service.detail` → `pron.Store.model_detail`):
-  `{"ok": true, "text": "<yaml del modelo>"}`.
-- sldb: `{"ok": true, "model": <ModelDescription.model_dump(mode="json")>}`
-  — registro, resumen de campos y documentos trackeados, todo estructurado.
-
-El dialog de clases hoy solo usa `ok` más el reporte de `validate`; el cuerpo
-de `detail` no se pinta. Migrar = o adaptar sldb a emitir `text` (yaml) o
-cambiar el dialog al shape estructurado. Lo segundo es lo correcto: yaml en
-el diálogo es presentación derivada.
+- Local (`models_service.detail`): antes `{"ok": true, "text": "<yaml>"}`;
+  desde vuelta 5 emite `{"ok": true, "model": <ModelDescription>}` — pron
+  (`Store.model_detail`) ya devuelve el dict estructurado (`name, model_ref,
+  path, version, canonical, family, semantics, base_models, fields,
+  documents`); solo se recorta el envoltorio y el yaml salió del contrato
+  (y con él el `import yaml`).
+- sldb (`GET /models/detail?model=…`): el MISMO shape — verificado contra
+  8310 el 2026-09-21 (`model.name=DomainAtom`, `model.fields[0]` =
+  `{name, annotation, description}`, `model.documents` con los docs
+  trackeados).
+- El dialog de clases consume el shape: descripciones y anotaciones de
+  campos desde `model.fields`, detalle (`model_ref`, `path`, `version`,
+  semántica) y documentos trackeados desde `model.documents`. El yaml nunca
+  se pintó; el `<pre>` crudo del response queda solo para reportes de
+  operación (validate/promote), no para el dump de `detail`.
+- El proxy remote (POST → GET) no cambió; el shape remote ya era este.
 
 ### 2.3 `/api/validate`, `/api/plan`, `/api/compile`, `/api/export` — local-only
 
@@ -229,12 +236,41 @@ shape, mismos códigos: 400 sin `id`, 404 doc inexistente, 422 IR no
 construible) y `SldbAdapter.document_ir(name)` — que usa el MISMO builder de
 sldb; graph_ui no reimplementa el parsing de markdown.
 
-PENDIENTE (frontend): hoy el editor (`documents.js` + `document-dialog.js`)
-construye grafo y campos desde el `payload` del `/api/graph`; ningún JS
-consume `/api/document` todavía (verificado con grep). Consumir `structure`
-(secciones reales), `nodes[].field_path` (direccionamiento) y `span
-(line_start/line_end)` desde el IR queda anotado como pendiente — NO se
-inventa un consumo que no existe.
+**Shape OBSERVADO (2026-09-21, curl contra 8310), no inventado** — doc
+`atom-antonia-aplicacion`/`DomainAtom`:
+
+- `/document?id=` → `{id, model_name, path, payload, semantic_tags, version,
+  ir}`; `/document/ir?id=` → solo el `ir`. En LOCAL `/document` NO trae
+  `version` (diferencia anotada, no emparchada: la ficha no la necesita).
+- `ir.structure`: árbol de secciones reales del markdown, cada una con
+  `kind/name/title/model/field_path(->null)/owning_section(->null)`,
+  `span {line_start, line_end}` (¡líneas reales! p. ej. 16–20 y 18–20) y
+  `children[]` + `metadata {level, slug}`.
+- `ir.nodes`: 10 nodos planos, `kind=field` (p. ej. `field:summary`), con
+  `field_path` (`title`, `summary`, `tags`…) y `value`, y `span` con
+  `line_start/line_end` **null** — los campos viven en el front-matter YAML
+  (que `ir.surface[0]` expone como `text`), no en el cuerpo; NO hay span de
+  línea por campo en este shape.
+- `ir.context_index`: secciones con `node_id` `section:<slug>`, `path`,
+  `title`, `breadcrumbs`, `about`. `ir.context`:
+  `{physical:{store, path}, semantic:{model, tags}}`.
+
+**Consumo (vuelta 5): la ficha del mapa KB.** El diálogo de documento del
+mapa (`views/documents/map/document-dialog.js`) ganó un toggle
+«✏️ Campos | 📄 Documento»: la vista Documento (`document-ficha.js`) hace
+`GET /api/document?id=` y renderiza **secciones desde `structure`** (título +
+badge `L{line_start}–{line_end}` cuando el span trae líneas reales) y
+**campos desde `nodes`** (etiqueta `field_path` + valor, resolviendo
+`node.value ?? payload[field_path]`). El markdown crudo (front-matter de
+`surface`) NO se pinta: el IR es el parse oficial de sldb y el cliente no
+parsea nada. Los spans de campo (null en el shape observado) no se
+inventan: la ficha muestra el badge solo en secciones; queda anotado que el
+span por campo existe en el modelo del IR pero el observado los trae null
+(vuelta futura si el builder los emite). Proyección pura en
+`shared/document-ir.mjs` (testeada en `tests/document-ir.test.mjs`, node).
+
+PENDIENTE: otros consumidores (draft, flow inspector) siguen con el
+`payload` del `/api/graph`; migrarlos al IR no entra en esta vuelta.
 
 ---
 
@@ -270,14 +306,17 @@ local en `/api/graph` (`view` + `revision` real del archivo) y la persiste en
 2. ✅ Todas las lecturas: `/api/edges*`, `/api/graph/*`, `/api/models`,
    `/api/models/detail`, `/api/lint`, `/api/health`, `/api/kgdb/snapshot` +
    traducción POST de `list`/`detail` (vuelta 2).
-3. ✅ `/api/document` y `/api/document/ir` servidos con su IR (vuelta 4): en
-   remote por el mapeo genérico y en local con el MISMO builder de sldb
-   (`SldbAdapter.document_ir`); shape y códigos espejados del servidor (§2.7).
-   Consumo del IR por el frontend: pendiente, anotado (§2.7).
+3. ✅ `/api/document` y `/api/document/ir` servidos con su IR (vuelta 4) y
+   **consumidos por el frontend (vuelta 5)**: ficha del mapa KB con toggle
+   «Documento» — secciones desde `structure`, campos desde `nodes` por
+   `field_path`, spans cuando el IR trae líneas reales (§2.7). Local: branch
+   local con el MISMO builder de sldb. Pendiente: draft/flow-inspector
+   siguen con payload (`/api/graph`).
 4. ✅ Escritura `POST /api/save` (batch) con vista local y response
    compuesto (vuelta 3, §2.4).
 5. ✅ `POST /api/models/{template-edit, fields-add, fields-remove, validate,
-   promote}` → passthrough (vuelta 3, §2.5).
+   promote}` → passthrough (vuelta 3, §2.5) y `detail` con shape
+   estructurado local = remote (vuelta 5, §2.2).
 6. ⏭ `POST /api/{validate, plan, compile, export}`: **siguen local-only** —
    sin equivalente en sldb (compilador `compiler.py`/`contract.py`, genera
    módulos Python e intercambio v1). En remote responden **501 explícito**;
