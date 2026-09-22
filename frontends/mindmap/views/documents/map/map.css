@@ -75,3 +75,25 @@
 .reference-matches button:hover{background:var(--surface-muted)}
 .reference-match-title{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .reference-matches code{font-size:10px;color:var(--text-faint)}
+
+/* Ficha de documento desde el IR (vuelta 5): secciones reales + campos con
+   field_path; nunca markdown crudo. Solo tokens, sin hex. */
+.ficha-toggle{display:flex;gap:3px;margin-left:auto;background:var(--surface-muted);border:1px solid var(--border-input);border-radius:7px;padding:2px}
+.ficha-toggle button{border:0;background:transparent;border-radius:5px;padding:4px 9px;font-size:11px;color:var(--text-muted);min-height:26px}
+.ficha-toggle button.active{background:var(--surface-panel);color:var(--ink);box-shadow:var(--shadow-controls)}
+.ficha{display:flex;flex-direction:column;gap:14px;font-size:12px}
+.ficha-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.ficha-icon{font-size:16px}
+.ficha-id,.ficha-path{font-size:10px;color:var(--text-muted)}
+.ficha-heading{margin:0 0 6px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-faint)}
+.ficha-sections{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.ficha-section{display:flex;align-items:center;gap:8px;min-height:26px;border-radius:5px;padding-right:8px}
+.ficha-section:hover{background:var(--surface-muted)}
+.ficha-section-title{font-weight:500;color:var(--ink)}
+.ficha-span{font-size:9px;color:var(--text-faint);background:var(--surface-muted);border:1px solid var(--border);border-radius:4px;padding:1px 5px}
+.ficha-fields{border-collapse:collapse;width:100%}
+.ficha-field-row td{padding:5px 8px;border-top:1px solid var(--border);vertical-align:top}
+.ficha-field-row td:first-child{width:120px}
+.ficha-field-row code{font-size:10px;color:var(--primary)}
+.ficha-field-value{margin:0;white-space:pre-wrap;font-size:11px;color:var(--text-secondary-strong)}
+.ficha-note{color:var(--text-muted);font-size:12px}

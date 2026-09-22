@@ -2,6 +2,7 @@ import {useState, useEffect, useRef} from 'react';
 import {html} from '../../../shared/html.js';
 import {titleOf, defaultsFor, quickPayload, slugify, searchDocuments, referenceFieldsOf, labelFor, isList} from '../../../shared/documents.mjs';
 import {classStyle, classVar} from '../../../shared/classes.mjs';
+import {DocumentFicha} from './document-ficha.js';
 
 export function ReferenceField({field,value,documents,onChange}) {
   // Referencias: búsqueda de documentos reales, nunca IDs inventados.
@@ -34,6 +35,7 @@ export function DocumentDialog({spec,models,documents,onClose,onApply}) {
   const existing=spec.id?documents.find(d=>d.id===spec.id):null;
   const [model,setModel]=useState(existing?.model_name||spec.model||models[0]?.id);
   const [values,setValues]=useState(existing?.payload||defaultsFor(models.find(m=>m.id===existing?.model_name||m.id===spec.model)||models[0])),[error,setError]=useState('');
+  const [ficha,setFicha]=useState(false);
   const ref=useRef(null),newId=useRef('mm-'+crypto.randomUUID()),isNew=!existing;
   const descriptor=models.find(m=>m.id===model),style=classStyle(model);
   const refFields=referenceFieldsOf(descriptor);
@@ -68,8 +70,9 @@ export function DocumentDialog({spec,models,documents,onClose,onApply}) {
     } catch(e){setError('Revisa los campos JSON: '+e.message);}
   };
   return html`<dialog ref=${ref} className="document-dialog" aria-labelledby="dialog-title" onCancel=${onClose} onClick=${e=>{if(e.target===ref.current)onClose();}}><form onSubmit=${submit}>
-    <header className="dialog-header"><span className="dialog-icon" style=${{'--class-color':classVar(style.slot)}}>${style.icon}</span><div><span className="eyebrow">${existing?'Editar documento':spec.parentId?'Nuevo hijo':'Nuevo documento'}</span><h2 id="dialog-title">${existing?titleOf(existing):'Añadir a la KB'}</h2></div><button type="button" className="icon-button" aria-label="Cerrar ficha" onClick=${onClose}>×</button></header>
+    <header className="dialog-header"><span className="dialog-icon" style=${{'--class-color':classVar(style.slot)}}>${style.icon}</span><div><span className="eyebrow">${existing?'Editar documento':spec.parentId?'Nuevo hijo':'Nuevo documento'}</span><h2 id="dialog-title">${existing?titleOf(existing):'Añadir a la KB'}</h2></div>${existing?html`<div className="ficha-toggle" role="tablist" aria-label="Vista de la ficha"><button type="button" role="tab" aria-selected=${!ficha} className=${!ficha?'active':''} onClick=${()=>setFicha(false)}>✏️ Campos</button><button type="button" role="tab" aria-selected=${ficha} className=${ficha?'active':''} onClick=${()=>setFicha(true)}>📄 Documento</button></div>`:''}<button type="button" className="icon-button" aria-label="Cerrar ficha" onClick=${onClose}>×</button></header>
     <div className="dialog-body">
+      ${ficha?html`<${DocumentFicha} doc=${{id:existing.id,model_name:existing.model_name,path:existing.path}} payload=${existing.payload}/>`:html`
       ${parent?html`<div className="parent-note">Dentro de <strong>${titleOf(parent)}</strong> · <code>${selectedOption?.field||spec.field}</code></div>`:''}
       <div className="form-field"><span>Clase de documento</span><div className="class-picker">${models.filter(m=>!spec.options||spec.options.some(o=>o.model===m.id)).map(m=>{const s=classStyle(m.id);return html`<button type="button" key=${m.id} className=${'class-choice'+(model===m.id?' selected':'')} style=${{'--class-color':classVar(s.slot)}} disabled=${!isNew} onClick=${()=>changeModel(m.id)}><span>${s.icon}</span>${s.name}</button>`})}</div></div>
       <div className="quick-create-note">${isNew?'Alta rápida: solo necesitas el título. Los demás campos parten vacíos y puedes completarlos después desde Editar.':'Los campos esenciales aparecen primero. El resto está en «Más campos».'}</div>
@@ -77,6 +80,7 @@ export function DocumentDialog({spec,models,documents,onClose,onApply}) {
       ${secondary.length?html`<details><summary>Más campos (${secondary.length})</summary>${secondary.map(f=>refFields.has(f.name)?html`<${ReferenceField} key=${model+f.name} field=${f} value=${values[f.name]} documents=${documents} onChange=${v=>change(f.name,v)}/>`:html`<${Field} key=${model+f.name} field=${f} value=${values[f.name]} onChange=${v=>change(f.name,v)} isNew=${isNew}/>`)}</details>`:''}
       <div className="doc-meta"><span>ID</span><code>${existing?.id||newId.current}</code>${existing?.path?html`<span>Archivo</span><code>${existing.path}</code>`:''}</div>
       ${error?html`<p className="form-error" role="alert">${error}</p>`:''}
-    </div><footer className="dialog-footer"><span>* Campos obligatorios del modelo</span><button type="button" onClick=${onClose}>Cancelar</button><button className="primary" type="submit">${existing?'Aplicar cambios':'Añadir documento'}</button></footer>
+      `}
+    </div><footer className="dialog-footer"><span>* Campos obligatorios del modelo</span><button type="button" onClick=${onClose}>Cancelar</button>${ficha?html`<button type="button" onClick=${()=>setFicha(false)}>Editar campos</button>`:html`<button className="primary" type="submit">${existing?'Aplicar cambios':'Añadir documento'}</button>`}</footer>
   </form></dialog>`;
 }
