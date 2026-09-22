@@ -46,8 +46,32 @@ export interface GraphStore {
   markSaved: () => void;
 }
 
+/**
+ * Campos que react-flow cambia por su cuenta (seleccion, medicion, arrastre):
+ * no son contenido guardable, asi que no cuentan para el estado "sucio".
+ * Sin esto, seleccionar un nodo —o su medicion tardia al montar— marca el
+ * grafo como modificado y el save nunca queda limpio.
+ */
+const TRANSIENT_NODE_KEYS = new Set(['selected', 'dragging', 'measured', 'resizing']);
+const TRANSIENT_EDGE_KEYS = new Set(['selected']);
+
+function canonical<T extends { id: string }>(item: T, transient: Set<string>): Record<string, unknown> {
+  const content: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(item)) {
+    if (!transient.has(key)) {
+      content[key] = value;
+    }
+  }
+
+  return content;
+}
+
 function snapshot(nodes: ASTNode[], edges: ASTEdge[]): string {
-  return JSON.stringify({ nodes, edges });
+  return JSON.stringify({
+    nodes: nodes.map((node) => canonical(node, TRANSIENT_NODE_KEYS)),
+    edges: edges.map((edge) => canonical(edge, TRANSIENT_EDGE_KEYS)),
+  });
 }
 
 function upsertById<T extends { id: string }>(existing: T[], items: T[]): T[] {
