@@ -37,6 +37,7 @@
 .flow-inspector dl>div{display:flex;justify-content:space-between;gap:10px;font-size:11px;border-bottom:1px solid var(--border-subtle);padding-bottom:4px}
 .flow-inspector dt{color:var(--text-muted);flex-shrink:0}
 .flow-inspector dd{margin:0;text-align:right;overflow-wrap:anywhere}
+.flow-inspector-note{margin:16px 0 0;font-size:11px;color:var(--text-muted)}
 
 @media(max-width:900px){.flow-filter{width:150px}.flow-inspector{width:210px;min-width:210px}}
 @media(max-width:750px){.flow-inspector{position:absolute;right:0;top:0;bottom:0;z-index:5;box-shadow:var(--shadow-drawer)}}

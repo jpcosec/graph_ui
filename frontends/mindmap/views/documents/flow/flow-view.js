@@ -5,7 +5,9 @@ import {html} from '../../../shared/html.js';
 import {flowGraph, flowMatches, flowClasses} from './projection.mjs';
 import {classStyle, classVar} from '../../../shared/classes.mjs';
 import {referenceFieldsOf} from '../../../shared/documents.mjs';
+import {irRefFields} from '../../../shared/document-ir.mjs';
 import {resolveToken} from '../../../shell/skin.js';
+import {request} from '../../../shell/api.js';
 import {useSource} from '../../../source/source.js';
 
 // Vista FLUJO: los documentos del store real como un grafo dirigido — un
@@ -88,11 +90,29 @@ function FlowCanvas({skin}) {
       labelBgStyle:{fill:'var(--surface-app)'},labelBgPadding:[4,2]};
   });
   const selectedDoc=selected?byId[selected]?.doc:null;
+  // Inspector desde el IR (GET /api/document?id=…), mismo source que la ficha
+  // del mapa: valores desde ir.nodes (field_path + value, fallback al payload
+  // del grafo), nunca un parseo propio del markdown.
+  const [fichaIr,setFichaIr]=useState(null);
+  const [fichaStatus,setFichaStatus]=useState('idle');
+  const [fichaError,setFichaError]=useState('');
+  useEffect(()=>{
+    let alive=true;
+    if(!selectedDoc){setFichaIr(null);setFichaStatus('idle');setFichaError('');return;}
+    setFichaStatus('loading');setFichaError('');
+    request('/api/document?id='+encodeURIComponent(selectedDoc.id))
+      .then(d=>{if(!alive)return;setFichaIr(d.ir??{});setFichaStatus('ready');})
+      .catch(e=>{if(!alive)return;setFichaError(e.message);setFichaStatus('error');});
+    return ()=>{alive=false;};
+  },[selectedDoc?.id]);
+  // Mismo criterio que antes (solo campos de contención/referencia), pero
+  // leídos del IR (irRefFields) en vez del payload plano del /api/graph.
   const inspectorFields=useMemo(()=>{
-    if(!selectedDoc)return [];
+    if(!selectedDoc||fichaStatus!=='ready')return [];
     const descriptor=(models||[]).find(m=>m.id===selectedDoc.model_name);
-    return [...referenceFieldsOf(descriptor)].sort().map(field=>({field,value:selectedDoc.payload[field]}));
-  },[selectedDoc,models]);
+    return irRefFields(fichaIr,selectedDoc.payload,referenceFieldsOf(descriptor))
+      .map(f=>({field:f.field_path,value:f.value}));
+  },[selectedDoc,models,fichaIr,fichaStatus]);
   return html`<div className="flow" aria-label="Vista de flujo">
     <div className="flow-bar" role="toolbar" aria-label="Herramientas de flujo">
       <strong>⇢ Flujo</strong>
@@ -123,7 +143,9 @@ function FlowCanvas({skin}) {
           <div><dt>ID</dt><dd>${selectedDoc.id}</dd></div>
           ${selectedDoc.path?html`<div><dt>Ruta</dt><dd>${selectedDoc.path}</dd></div>`:''}
         </dl>
-        ${inspectorFields.length?html`<h4>Contención / referencias</h4><dl className="flow-inspector-fields">${inspectorFields.map(f=>html`<div key=${f.field}><dt>${f.field}</dt><dd>${Array.isArray(f.value)?(f.value.join(', ')||'—'):(f.value||'—')}</dd></div>`)}</dl>`:''}
+        ${inspectorFields.length?html`<h4>Contención / referencias</h4><dl className="flow-inspector-fields">${inspectorFields.map(f=>html`<div key=${f.field}><dt>${f.field}</dt><dd>${Array.isArray(f.value)?(f.value.join(', ')||'—'):(f.value||'—')}</dd></div>`)}</dl>`
+          :fichaStatus==='loading'?html`<p className="flow-inspector-note">Leyendo el IR de SLDB…</p>`
+          :fichaStatus==='error'?html`<p className="form-error" role="alert">No se pudo leer el IR: ${fichaError}</p>`:''}
       </aside>`:''}
     </div>
   </div>`;

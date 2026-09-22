@@ -28,3 +28,9 @@ export const irMeta = (ir, doc) => ({
   model_name: doc.model_name ?? ir?.context?.semantic?.model ?? null,
   path: ir?.context?.physical?.path ?? doc.path ?? null,
 });
+// Campos de referencia/contención (ids de otros documentos) desde el IR, para
+// inspectores de relación (el inspector de la vista Flujo): mismo field_path y
+// value que la ficha (irFields), filtrados a los campos que el descriptor
+// declara como referencias. refs es un Set de nombres de campo.
+export const irRefFields = (ir, payload, refs) =>
+  irFields(ir, payload).filter(f => refs?.has(f.field_path));

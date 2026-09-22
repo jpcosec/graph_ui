@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {irSections, irFields, irSpanOf, irSectionsWithCleanMeta, irMeta} from '../frontends/mindmap/shared/document-ir.mjs';
+import {irSections, irFields, irSpanOf, irSectionsWithCleanMeta, irMeta, irRefFields} from '../frontends/mindmap/shared/document-ir.mjs';
 
 // Shape OBSERVADO en sldb serve (vuelta 5, verificado contra 8310 el
 // 2026-09-21, doc atom-antonia-aplicacion / DomainAtom): structure con
@@ -60,4 +60,14 @@ test('irMeta: modelo y path desde el IR (context) con fallback al doc', () => {
   assert.deepEqual(irMeta(IR, {path: 'ignorado'}), {
     model_name: 'DomainAtom', path: 'domain/tratamiento/atom-antonia-aplicacion.md'});
   assert.equal(irMeta({}, {model_name: 'X', path: 'y.md'}).model_name, 'X');
+});
+test('irRefFields: filtra por campos de referencia/contención, mismo shape que irFields', () => {
+  const refs = new Set(['tags', 'summary']);
+  const fields = irRefFields(IR, PAYLOAD, refs);
+  assert.deepEqual(fields.map(f => f.field_path), ['summary', 'tags']);
+  assert.equal(fields[0].value, 'Resumen del payload');
+  assert.deepEqual(fields[1].value, ['domain:tratamiento', 'system:laboratorio-chile']);
+  // Sin refs o sin IR no inventa nada.
+  assert.deepEqual(irRefFields(null, PAYLOAD, refs), []);
+  assert.deepEqual(irRefFields(IR, PAYLOAD, undefined), []);
 });

@@ -267,6 +267,11 @@ def test_get_document_with_ir_and_ir_alone(compiled_env):
         doc = json.loads(res.read())
         assert res.status == 200
     assert set(doc) == {"id", "model_name", "path", "payload", "semantic_tags", "ir"}
+    # Paridad de shape con sldb serve (verificado contra 8310 el 2026-09-22):
+    # GET /document NO trae `version` (el `_flat` del server lo omite; la
+    # clave `version` solo vive en /graph vía serialize_document). Local y
+    # remote coinciden sin version — no se agrega localmente.
+    assert "version" not in doc
     ir = doc["ir"]
     assert set(ir) == {"context", "structure", "nodes", "surface", "graph", "context_index"}
     # (a) secciones reales del documento, (b) direccionamiento por field_path,
@@ -286,6 +291,21 @@ def test_get_document_with_ir_and_ir_alone(compiled_env):
     # id obligatorio.
     status, body = _request(port, "/api/document")
     assert status == 400
+
+
+def test_document_shape_matches_sldb_serve_no_version(compiled_env):
+    """Paridad de shape /document local ↔ sldb serve: ambos emiten exactamente
+    {id, model_name, path, payload, semantic_tags, ir}. La clave `version` NO
+    pertenece a /document (en sldb vive solo en /graph vía serialize_document,
+    hash_d); verificada contra el 8310 real el 2026-09-22, así que local no la
+    agrega — shapes coinciden sin ella."""
+    port = compiled_env["env"].port
+    with urllib.request.urlopen(
+        f"http://127.0.0.1:{port}/api/document?id=main-board", timeout=20) as res:
+        doc = json.loads(res.read())
+    assert set(doc) == {"id", "model_name", "path", "payload", "semantic_tags", "ir"}
+    assert "version" not in doc
+    assert "ir" in doc and set(doc["ir"]) == {"context", "structure", "nodes", "surface", "graph", "context_index"}
 
 
 # ------------------------------------------------------------- ruteo (fase D)

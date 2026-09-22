@@ -1,8 +1,8 @@
 # Migración de graph_ui hacia `sldb serve` como autoridad HTTP
 
-Estado: 2026-09-21 · vuelta 5 (el frontend consume lo que sldb ya sirve:
-ficha del documento por IR; dialog de clases por model_dump). Commits de la
-vuelta 4: d2d8905, f739746, 2f4ef31, f9c939f.
+Estado: 2026-09-22 · vuelta 6 (flow-inspector consumiendo el IR; paridad de
+shape /document verificada: remote no trae `version`). Vuelta 5: 99504b3.
+Vuelta 4: d2d8905, f739746, 2f4ef31, f9c939f.
 
 `frontends/mindmap/serve.py` funciona en dos modos, elegidos por
 `GRAPH_UI_BACKEND` (default `local`):
@@ -239,9 +239,14 @@ sldb; graph_ui no reimplementa el parsing de markdown.
 **Shape OBSERVADO (2026-09-21, curl contra 8310), no inventado** — doc
 `atom-antonia-aplicacion`/`DomainAtom`:
 
-- `/document?id=` → `{id, model_name, path, payload, semantic_tags, version,
-  ir}`; `/document/ir?id=` → solo el `ir`. En LOCAL `/document` NO trae
-  `version` (diferencia anotada, no emparchada: la ficha no la necesita).
+- `/document?id=` → `{id, model_name, path, payload, semantic_tags, ir}`
+  (SIN `version` — verificado de nuevo el 2026-09-22 contra 8310 y contra
+  `document_routes._flat` de sldb: la clave `version` solo vive en `/graph`
+  via `serialize_document` (hash_d, el token del optimistic lock). Anotación
+  de la vuelta 5 corregida: no había `version` en /document; local tampoco la
+  agrega — **shapes coinciden sin ella**, paridad real, ver test
+  `test_document_shape_matches_sldb_serve_no_version`).`/document/ir?id=` →
+  solo el `ir`.
 - `ir.structure`: árbol de secciones reales del markdown, cada una con
   `kind/name/title/model/field_path(->null)/owning_section(->null)`,
   `span {line_start, line_end}` (¡líneas reales! p. ej. 16–20 y 18–20) y
@@ -269,8 +274,22 @@ span por campo existe en el modelo del IR pero el observado los trae null
 (vuelta futura si el builder los emite). Proyección pura en
 `shared/document-ir.mjs` (testeada en `tests/document-ir.test.mjs`, node).
 
-PENDIENTE: otros consumidores (draft, flow inspector) siguen con el
-`payload` del `/api/graph`; migrarlos al IR no entra en esta vuelta.
+**Consumo (vuelta 6): el inspector de la vista Flujo.**
+`views/documents/flow/flow-view.js`: al seleccionar un nodo hace el MISMO
+`GET /api/document?id=` y pinta los campos de contención/referencias del
+documento desde `ir.nodes` (via `irRefFields`, helper puro de
+`shared/document-ir.mjs` con fallback al payload del grafo), no desde el
+payload plano del `/api/graph`. La identidad (clase/id/ruta) y el grafo de
+aristas siguen leyendo del `/api/graph` — son estructura de la KB completa,
+no contenido de un documento, y el IR es per-documento (no hay endpoint
+bulk). Estados loading/error explícitos en el inspector.
+
+PENDIENTE: el borrador Brainstorm (`/draft/tree`) NO se migra al IR — no
+consume payload de `/api/graph`: usa solo los **ids** de los documentos
+(`documents.working.documents.map(d => d.id)`) para reservar ids sin
+colisión al convertir ideas, y la conversión misma va por `/api/plan` +
+`/api/compile` (local-only por decisión, §2.3, 501 en remote). El IR es
+per-documento y no aporta a la reserva de ids; migrarlo no cambiaría nada.
 
 ---
 
@@ -306,12 +325,16 @@ local en `/api/graph` (`view` + `revision` real del archivo) y la persiste en
 2. ✅ Todas las lecturas: `/api/edges*`, `/api/graph/*`, `/api/models`,
    `/api/models/detail`, `/api/lint`, `/api/health`, `/api/kgdb/snapshot` +
    traducción POST de `list`/`detail` (vuelta 2).
-3. ✅ `/api/document` y `/api/document/ir` servidos con su IR (vuelta 4) y
+3. ✅ `/api/document` y `/api/document/ir` servidos con su IR (vuelta 4),
    **consumidos por el frontend (vuelta 5)**: ficha del mapa KB con toggle
    «Documento» — secciones desde `structure`, campos desde `nodes` por
    `field_path`, spans cuando el IR trae líneas reales (§2.7). Local: branch
-   local con el MISMO builder de sldb. Pendiente: draft/flow-inspector
-   siguen con payload (`/api/graph`).
+   local con el MISMO builder de sldb. **Vuelta 6**: el inspector de la
+   vista Flujo también consume `/api/document` (campos desde `ir.nodes` vía
+   `irRefFields`); paridad de shape /document local = remote verificada
+   (ninguno trae `version`). Pendiente: el borrador Brainstorm sigue con
+   ids del `/api/graph` porque no lee payload — solo reserva de ids y
+   conversión local-only (§2.7).
 4. ✅ Escritura `POST /api/save` (batch) con vista local y response
    compuesto (vuelta 3, §2.4).
 5. ✅ `POST /api/models/{template-edit, fields-add, fields-remove, validate,
