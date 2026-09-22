@@ -40,7 +40,7 @@ function makeCopyNode(node: ASTNode): ASTNode {
 }
 
 interface ActionsSectionProps {
-  onSave: () => void;
+  onSave: () => void | Promise<void>;
 }
 
 export function ActionsSection({ onSave }: ActionsSectionProps) {
@@ -62,8 +62,16 @@ export function ActionsSection({ onSave }: ActionsSectionProps) {
   const selectedNodeIds = nodes.filter((node) => node.selected).map((node) => node.id);
   const selectedEdgeIds = edges.filter((edge) => edge.selected).map((edge) => edge.id);
 
-  const handleSave = () => {
-    onSave();
+  const handleSave = async () => {
+    await onSave();
+
+    // El toast depende de la verdad del store, no de que onSave haya vuelto:
+    // una pagina sin ruta de guardado no puede reportar exito.
+    if (useGraphStore.getState().isDirty()) {
+      toast.warning('Sin ruta de guardado para este lienzo: los cambios no se persistieron');
+      return;
+    }
+
     toast.success('Graph saved successfully');
   };
 

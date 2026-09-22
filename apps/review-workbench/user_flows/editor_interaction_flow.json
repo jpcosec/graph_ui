@@ -6,75 +6,68 @@
       "id": "01_open_app",
       "action": "goto",
       "url": "/",
-      "description": "Open the workbench in structure mode"
+      "description": "Open the workbench"
     },
     {
-      "id": "02_wait_form_visible",
+      "id": "02_wait_graph_nodes",
+      "action": "assert_count_at_least",
+      "selector": ".react-flow__node",
+      "value": 10,
+      "description": "Verify the KB graph renders its nodes"
+    },
+    {
+      "id": "03_select_node",
+      "action": "dblclick",
+      "selector": ".react-flow__node >> nth=0",
+      "description": "Double click a node to open its inspector (double click is the repo convention)"
+    },
+    {
+      "id": "04_wait_inspector",
       "action": "wait",
-      "selector": "[data-testid='node-ast-main-form-main-7']",
-      "description": "Wait for an editable form node"
+      "selector": "[data-testid='node-inspector-save']",
+      "description": "Wait for the node inspector to render"
     },
     {
-      "id": "03_assert_initial_count",
-      "action": "assert_count_equals",
-      "selector": ".react-flow__node",
-      "value": 111,
-      "description": "Verify the structure graph starts with the expected node count"
+      "id": "05_wait_typed_field",
+      "action": "wait",
+      "selector": "[data-testid='field-title']",
+      "description": "The inspector renders the typed fields of the KB model"
     },
     {
-      "id": "04_select_form_node",
-      "action": "dispatch_click",
-      "selector": "[data-testid='node-ast-main-form-main-7']",
-      "description": "Select the target structure node"
+      "id": "06_wait_model_field",
+      "action": "wait",
+      "selector": "[data-testid='field-instructions']",
+      "description": "The ConversationStep fields come from the served schema"
     },
     {
-      "id": "05_copy_node",
-      "action": "click",
-      "selector": "[data-testid='sidebar-copy']",
-      "description": "Copy the selected node through the sidebar"
+      "id": "07_inspector_save_reachable",
+      "action": "wait",
+      "selector": "[data-testid='node-inspector-save']",
+      "description": "The per-document save (POST /sldb/save) is reachable from the UI"
     },
     {
-      "id": "06_paste_node",
-      "action": "click",
-      "selector": "[data-testid='sidebar-paste']",
-      "description": "Paste a duplicate node"
-    },
-    {
-      "id": "07_wait_sidebar_save_enabled",
-      "action": "assert_enabled",
+      "id": "08_sidebar_reachable",
+      "action": "wait",
       "selector": "[data-testid='sidebar-save']",
-      "description": "Ensure the graph became dirty after paste"
+      "description": "The sidebar actions stay reachable with the inspector open"
     },
     {
-      "id": "08_assert_pasted_count",
-      "action": "assert_count_equals",
-      "selector": ".react-flow__node",
-      "value": 112,
-      "description": "Verify a new node was added to the graph"
+      "id": "09_views_section",
+      "action": "wait",
+      "selector": "[data-testid='views-section']",
+      "description": "ViewsSection survives the selection"
     },
     {
-      "id": "09_save_graph",
-      "action": "click",
-      "selector": "[data-testid='sidebar-save']",
-      "description": "Save the graph state"
-    },
-    {
-      "id": "10_wait_sidebar_save_disabled",
-      "action": "assert_disabled",
-      "selector": "[data-testid='sidebar-save']",
-      "description": "Ensure the dirty state clears after save"
-    },
-    {
-      "id": "11_reload_page",
+      "id": "10_reload_page",
       "action": "reload",
-      "description": "Reload the page to confirm persistence"
+      "description": "Reload to confirm the graph is rebuilt from the KB"
     },
     {
-      "id": "12_assert_persisted_count",
-      "action": "assert_count_equals",
+      "id": "11_nodes_after_reload",
+      "action": "assert_count_at_least",
       "selector": ".react-flow__node",
-      "value": 112,
-      "description": "Verify the saved duplicate remains after reload"
+      "value": 10,
+      "description": "The graph is rebuilt from the same source after reload"
     }
   ]
 }

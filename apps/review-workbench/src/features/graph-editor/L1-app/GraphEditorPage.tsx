@@ -180,7 +180,7 @@ export function GraphEditorPage() {
       return;
     }
 
-    saveMutation.mutate();
+    return saveMutation.mutateAsync();
   };
 
   const viewState = getGraphEditorPageViewState({

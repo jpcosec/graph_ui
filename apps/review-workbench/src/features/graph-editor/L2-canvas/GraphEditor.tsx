@@ -49,6 +49,17 @@ export function GraphEditor({ initialNodes, initialEdges, onSave, editable = tru
   const commandDialogOpen = useUIStore((state) => state.commandDialogOpen);
   const closeCommandDialog = useUIStore((state) => state.closeCommandDialog);
   const removeElements = useGraphStore((state) => state.removeElements);
+  const setFocusedNode = useUIStore((state) => state.setFocusedNode);
+
+  /**
+   * El inspector se abre con DOBLE CLICK sobre un nodo (misma convencion que
+   * `pages/global/KnowledgeGraph.tsx`). Antes nadie seteaba `focusedNodeId`, asi
+   * que `NodeInspector` —y con el el unico camino de escritura por documento de
+   * la UI, `sldbProvider.saveDoc` -> POST /sldb/save— era inalcanzable.
+   *
+   * No se abre con la seleccion simple a proposito: el Sheet es modal y tapa el
+   * sidebar (copiar/pegar/guardar), que sigue necesitando clicks.
+   */
 
   const heroCopy = hero ?? {
     eyebrow: 'Graph Studio',
@@ -87,7 +98,7 @@ export function GraphEditor({ initialNodes, initialEdges, onSave, editable = tru
 
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,165,116,0.08),transparent_26%),radial-gradient(circle_at_bottom_left,rgba(230,168,92,0.08),transparent_24%)]" />
         <div className="relative h-full" style={{ paddingTop: contentTopInset ? `${contentTopInset}px` : undefined }}>
-          <GraphCanvas editable={editable} />
+          <GraphCanvas editable={editable} onNodeDoubleClick={setFocusedNode} />
         </div>
       </div>
       <CanvasSidebar
