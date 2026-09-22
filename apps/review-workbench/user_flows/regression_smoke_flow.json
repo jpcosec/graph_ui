@@ -13,50 +13,79 @@
       "action": "assert_count_at_least",
       "selector": ".react-flow__node",
       "value": 10,
-      "description": "Verify nodes are present on first render"
+      "description": "Verify the KB graph renders its nodes on first paint"
     },
     {
-      "id": "03_switch_structure",
-      "action": "click",
-      "selector": "[data-testid='mode-tab-structure']",
-      "description": "Confirm structure mode remains reachable"
-    },
-    {
-      "id": "04_wait_structure_tab",
+      "id": "03_wait_views_section",
       "action": "wait",
-      "selector": "[data-testid='node-ast-main']",
-      "description": "Wait for structure guidance"
+      "selector": "[data-testid='views-section']",
+      "description": "Wait for the ViewsSection to render"
     },
     {
-      "id": "05_switch_body",
-      "action": "click",
-      "selector": "[data-testid='mode-tab-body']",
-      "description": "Switch to body mode"
-    },
-    {
-      "id": "06_wait_body_mode",
+      "id": "04_wait_encoding_section",
       "action": "wait",
-      "selector": "[data-testid='node-organ-core']",
-      "description": "Wait for body nodes"
+      "selector": "[data-testid='encoding-section']",
+      "description": "Wait for the EncodingSection to render"
     },
     {
-      "id": "07_switch_compare",
+      "id": "05_save_disabled_when_clean",
+      "action": "assert_disabled",
+      "selector": "[data-testid='sidebar-save']",
+      "description": "Save is disabled while the graph is clean"
+    },
+    {
+      "id": "06_select_first_node",
+      "action": "dispatch_click",
+      "selector": ".react-flow__node >> nth=0",
+      "description": "Select a node on the canvas"
+    },
+    {
+      "id": "07_copy_node",
       "action": "click",
-      "selector": "[data-testid='mode-tab-compare']",
-      "description": "Switch to compare mode"
+      "selector": "[data-testid='sidebar-copy']",
+      "description": "Copy the selected node through the sidebar"
     },
     {
-      "id": "08_wait_compare_nodes",
-      "action": "wait",
-      "selector": "[data-testid='node-trace-trace-inspection-loop-te-inspect-1']",
-      "description": "Wait for compare overlay"
+      "id": "08_paste_node",
+      "action": "click",
+      "selector": "[data-testid='sidebar-paste']",
+      "description": "Paste a duplicate node"
     },
     {
-      "id": "09_assert_edges_visible",
+      "id": "09_save_enabled_when_dirty",
+      "action": "assert_enabled",
+      "selector": "[data-testid='sidebar-save']",
+      "description": "Save becomes enabled after the graph is modified"
+    },
+    {
+      "id": "10_save_graph",
+      "action": "click",
+      "selector": "[data-testid='sidebar-save']",
+      "description": "Save the canvas (the live KB viewer does not persist canvas edits)"
+    },
+    {
+      "id": "11_save_reports_no_persistence",
+      "action": "wait_text",
+      "value": "Sin ruta de guardado",
+      "description": "Save reports the truth: nothing was persisted"
+    },
+    {
+      "id": "12_canvas_still_dirty",
+      "action": "assert_enabled",
+      "selector": "[data-testid='sidebar-save']",
+      "description": "The canvas keeps its unsaved edit instead of pretending it saved"
+    },
+    {
+      "id": "13_reload_page",
+      "action": "reload",
+      "description": "Reload drops the unsaved canvas edit"
+    },
+    {
+      "id": "14_nodes_after_reload",
       "action": "assert_count_at_least",
-      "selector": ".react-flow__edge",
-      "value": 5,
-      "description": "Ensure edges remain rendered"
+      "selector": ".react-flow__node",
+      "value": 10,
+      "description": "The graph rebuilds from the KB"
     }
   ]
 }

@@ -89,7 +89,7 @@ export function filterGraphByRelationTypes(
   };
 }
 
-export function GraphCanvas({ editable = true }: { editable?: boolean }) {
+export function GraphCanvas({ editable = true, onNodeDoubleClick }: { editable?: boolean; onNodeDoubleClick?: (nodeId: string) => void }) {
   const nodes = useGraphStore((state) => state.nodes);
   const edges = useGraphStore((state) => state.edges);
   const onNodesChange = useGraphStore((state) => state.onNodesChange);
@@ -119,6 +119,7 @@ export function GraphCanvas({ editable = true }: { editable?: boolean }) {
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
+      onNodeDoubleClick={(_event, node) => onNodeDoubleClick?.(node.id)}
       nodesDraggable={editable}
       nodesConnectable={editable}
       edgesReconnectable={editable}
