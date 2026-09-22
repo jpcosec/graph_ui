@@ -2,8 +2,8 @@ name: EdgeDoc
 model_ref: deskops.models.edge:EdgeDoc
 path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/edge.py
 documents_index: .sldb/core/documents/EdgeDoc.yaml
-sections_index: ''
-hash_b: 852527561eac3d8811d55622d56b3e0ca5f3106d21327eed565ce83891056ed9
+sections_index: .sldb/runtime/sections/EdgeDoc.yaml
+hash_b: 90c52eaa52c7c6b441e86710453ebb6e0906842c1d58f3340525004166c06ea1
 documents_count: 12
 version: 1
 canonical: false

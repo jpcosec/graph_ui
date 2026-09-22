@@ -1,9 +1,11 @@
 name: task-feed-hum-body-from-sldb-serve-remove-hardcoded-content
 path: desk/tasks/task-feed-hum-body-from-sldb-serve-remove-hardcoded-content.md
-hash_c: 33594727bcde82bb87d3e5fae0a7605be73a3dc89eabf68f81c205bb6d1915c6
-hash_d: 67ad6577c4724d860bcaca1bdd2355c1c53f64ebb4d55d3ca2aefd0987f355d3
+hash_c: 362fd59aa9f95c3565193a0e873ef52a9946e5c95066fab36e9fcec91ba39f53
+hash_d: 3d2088613f2c9c7138c417eb69ab1ad196630307608f5331d43b68114fcfce34
 semantic_tags:
 - artifact:task
+- representation.markdown
+- source.document.markdown
 - source:drawer
 - type.workflow.task
 - workspace.desk

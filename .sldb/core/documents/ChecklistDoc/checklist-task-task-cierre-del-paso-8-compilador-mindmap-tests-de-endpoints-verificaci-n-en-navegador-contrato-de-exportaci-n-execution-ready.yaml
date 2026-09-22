@@ -4,5 +4,7 @@ hash_c: 1f9e9492ab78313e40a8176201d4260178018825471f20acc1a6f5279eb852b4
 hash_d: a573928fb69cde50429ea0586d04a87a48c0d75d071771e0224e23fa05c3fce5
 semantic_tags:
 - primitive:checklist
+- representation.markdown
+- source.document.markdown
 - type.workflow.checklist
 - workspace.desk.primitives

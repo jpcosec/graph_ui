@@ -2,8 +2,8 @@ name: ConditionDoc
 model_ref: deskops.models.condition:ConditionDoc
 path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/condition.py
 documents_index: .sldb/core/documents/ConditionDoc.yaml
-sections_index: ''
-hash_b: 0c53eb62144e1f2b4146ed20a3a24c112a55765d8b5caacf72effa79f18210f5
+sections_index: .sldb/runtime/sections/ConditionDoc.yaml
+hash_b: f2d8fe497da8c08ede51e7e2e089c5e5247a2107f72b7fb6be7da02300646831
 documents_count: 10
 version: 1
 canonical: false
