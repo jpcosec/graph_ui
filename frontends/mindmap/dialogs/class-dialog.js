@@ -44,6 +44,15 @@ export function ClassDialog({models,request,onClose,onRefresh,initialModel=null}
     finally{setBusy(false);}
   };
   const sel=models.find(m=>m.id===model),style=sel?classStyle(sel.id):{icon:'📐',slot:14,name:'Clases'};
+  // Shape estructurado de /api/models/detail (model_dump, igual en local y
+  // remote desde vuelta 5): name/model_ref/path/version/canonical/family/
+  // semantics/base_models/fields[{name,annotation,description}]/documents.
+  // Ojo: validate/promote también traen una clave `model` (string): solo el
+  // describe trae el dict; el reporte crudo de operaciones se sigue
+  // mostrando en el <pre>.
+  const dm=(detail?.model&&typeof detail.model==='object')?detail.model:null;
+  const dmField=name=>(dm?.fields||[]).find(f=>f.name===name);
+  const descOf=name=>dmField(name)?.description || String(name);
   return html`<dialog ref=${ref} className="document-dialog class-dialog" aria-labelledby="class-title" onCancel=${onClose} onClick=${e=>{if(e.target===ref.current)onClose();}}><form onSubmit=${e=>{e.preventDefault();onClose();}}>
     <header className="dialog-header"><span className="dialog-icon" style=${{'--class-color':classVar(style.slot)}}>${style.icon}</span><div><span className="eyebrow">SLDB</span><h2 id="class-title">Editar clases</h2></div><button type="button" className="icon-button" aria-label="Cerrar" onClick=${onClose}>×</button></header>
     <div className="dialog-body" style=${{display:'flex',gap:'16px',maxHeight:'calc(100vh-180px)'}}>
@@ -61,9 +70,9 @@ export function ClassDialog({models,request,onClose,onRefresh,initialModel=null}
           ${sel?html`<table style=${{width:'100%',fontSize:'12px',borderCollapse:'collapse',border:'1px solid var(--border)'}}>
             <thead><tr style=${{background:'var(--surface-app)'}}><th style=${{padding:'6px 8px',textAlign:'left'}}>Campo</th><th style=${{padding:'6px 8px'}}>Tipo</th><th style=${{padding:'6px 8px'}}>Req.</th><th style=${{padding:'6px 8px'}}>Default</th><th style=${{padding:'6px 8px',textAlign:'left'}}>Descripción</th><th style=${{padding:'6px 8px'}}></th></tr></thead>
             <tbody>${(sel.fields||[]).map(f=>html`<tr key=${f.name} style=${{borderTop:'1px solid var(--border)'}}>
-              <td style=${{padding:'6px 8px'}}><code>${f.name}</code></td><td style=${{padding:'6px 8px'}}>${f.kind}</td><td style=${{padding:'6px 8px'}}>${f.required?'✓':''}</td>
+              <td style=${{padding:'6px 8px'}}><code>${f.name}</code></td><td style=${{padding:'6px 8px'}}>${f.kind}${dmField(f.name)&&dmField(f.name).annotation!==f.kind?html`<small style=${{color:'var(--text-faint)'}}> ${dmField(f.name).annotation}</small>`:''}</td><td style=${{padding:'6px 8px'}}>${f.required?'✓':''}</td>
               <td style=${{padding:'6px 8px'}}><small>${f.default!==undefined?JSON.stringify(f.default):'-'}</small></td>
-              <td style=${{padding:'6px 8px'}}><small>${f.description||f.name}</small></td>
+              <td style=${{padding:'6px 8px'}}><small>${descOf(f.name)}</small></td>
               <td style=${{padding:'6px 8px'}}><button type="button" className=${'icon-button'+(draftActive?'':' hidden')} disabled=${busy} onClick=${()=>run('fields-remove',f.name)} title="Quitar campo del draft">×</button></td>
             </tr>`)}
             <tr style=${{borderTop:'1px solid var(--border)',background:'var(--warning-tint-alt)'}}><td style=${{padding:'6px 8px'}}><input value=${newFieldName} placeholder="name" style=${{width:'80px'}} onInput=${e=>{setNewField(e.target.value);setValidated(false);}}/></td>
@@ -81,8 +90,20 @@ export function ClassDialog({models,request,onClose,onRefresh,initialModel=null}
             <button type="button" disabled=${busy} onClick=${()=>run('validate')}>Validar draft</button>
             <button type="button" className="primary" disabled=${busy||!validated} onClick=${()=>run('promote')}>${validated?'Promover draft':'Primero valida'}</button>
           </div>
+          ${dm?html`<div className="class-detail" style=${{marginTop:'12px',fontSize:'12px'}}>
+            <details><summary style=${{fontSize:'12px',cursor:'pointer'}}>Detalle del modelo (model_dump)</summary>
+              <dl style=${{display:'grid',gridTemplateColumns:'110px 1fr',gap:'4px 10px',margin:'8px 0'}}>
+                ${dm.model_ref?html`<dt style=${{color:'var(--text-muted)'}}>model_ref</dt><dd><code>${dm.model_ref}</code></dd>`:''}
+                ${dm.path?html`<dt style=${{color:'var(--text-muted)'}}>path</dt><dd><code>${dm.path}</code></dd>`:''}
+                ${dm.version!=null?html`<dt style=${{color:'var(--text-muted)'}}>version</dt><dd>${dm.version}</dd>`:''}
+                ${dm.semantics?.length?html`<dt style=${{color:'var(--text-muted)'}}>semántica</dt><dd>${dm.semantics.map(s=>html`<code key=${s} className="class-semantic">${s}</code>`)}</dd>`:''}
+                ${dm.documents?.length?html`<dt style=${{color:'var(--text-muted)'}}>documentos</dt><dd>${dm.documents.length} trackeados</dd>`:''}
+              </dl>
+              ${dm.documents?.length?html`<ul style=${{margin:'4px 0 0',paddingLeft:'18px',maxHeight:'120px',overflow:'auto'}}>${dm.documents.map(d=>html`<li key=${d.name} style=${{marginBottom:'2px'}}><code>${d.name}</code> <small style=${{color:'var(--text-muted)'}}>${d.path||''}</small></li>`)}</ul>`:''}
+            </details>
+          </div>`:''}
           ${message?html`<p role="alert" className=${failed?'form-error':'compiler-message'}>${message}</p>`:''}
-          ${detail&&!failed?html`<pre className="compiler-report">${JSON.stringify(detail,null,2)}</pre>`:''}
+          ${detail&&!failed&&!dm?html`<pre className="compiler-report">${JSON.stringify(detail,null,2)}</pre>`:''}
           ${detail?.documents?html`<div style=${{marginTop:'8px'}}><strong>Documentos afectados:</strong><ul>${
             detail.documents.map(d=>html`<li key=${d.name} style=${{fontSize:'12px'}}>${d.name} — ${d.valid?'✅':'❌'}</li>`)
           }</ul></div>`:''}

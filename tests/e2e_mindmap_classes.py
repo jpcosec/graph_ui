@@ -105,8 +105,13 @@ def test_class_editor_add_field_validate_and_promote():
             expect(page.get_by_role("button", name="Validar draft")).to_be_enabled()
             assert page.locator('button[title="Quitar campo del draft"]:not(.hidden)').count() == 0
 
-            detail = str(_detail("TaskDoc"))
-            assert "priority" in detail and "version: 2" in detail, detail
+            detail = _detail("TaskDoc")
+            # Shape estructurado (model_dump) desde vuelta 5: el yaml salió
+            # del contrato; se asserta el dict, no el texto.
+            assert detail.get("ok") is True, detail
+            model = detail.get("model") or {}
+            assert model.get("version") == 2, detail
+            assert any(f.get("name") == "priority" for f in model.get("fields", [])), detail
             assert not errors, f"errores JS: {errors}"
             browser.close()
     finally:

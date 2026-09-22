@@ -380,8 +380,17 @@ def test_models_detail(compiled_env):
     port = compiled_env["env"].port
     status, result = _request(port, "/api/models/detail", {"model": "BoardDoc"})
     assert status == 200
-    # "show" de SLDB no soporta --format json; aceptamos texto o dict.
-    assert "BoardDoc" in str(result), f"detalle inesperado: {result}"
+    # Shape estructurado (model_dump) desde vuelta 5: igual en local y en
+    # sldb serve (GET /models/detail?model=…). El yaml quedó fuera.
+    assert result.get("ok") is True
+    assert "text" not in result, "el detail local ya no emite yaml"
+    model = result.get("model") or {}
+    assert model.get("name") == "BoardDoc"
+    assert set(model) >= {"model_ref", "path", "version", "canonical", "family",
+                          "semantics", "base_models", "fields", "documents"}
+    assert model["fields"][0]["name"] and "annotation" in model["fields"][0]
+    docs = model.get("documents") or []
+    assert any(d.get("name") == "main-board" for d in docs), f"docs trackeados: {docs}"
 
 def test_models_validate(compiled_env):
     port = compiled_env["env"].port

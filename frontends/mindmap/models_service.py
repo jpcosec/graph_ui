@@ -9,12 +9,15 @@ cada función, no en el llamador: así una promoción sin draft se reporta como
 
 Import perezoso de pron a propósito: este módulo solo se usa en modo local (lo
 importa ``serve.py`` dentro del branch local); el modo remote no debe cargar pron.
+
+``detail`` emite el MISMO shape estructurado que sldb serve  ``GET /models/detail``
+(``{"ok": True, "model": <ModelDescription>}``): pron ya devuelve ese dict, solo se
+recorta el envoltorio. El dialog de clases consume ese shape (vuelta 5); el yaml
+quedó fuera del contrato.
 """
 from __future__ import annotations
 
 from typing import Any
-
-import yaml
 
 
 def _store_error():
@@ -31,7 +34,10 @@ def detail(store: Store, model: str) -> dict[str, Any]:
         payload = store.model_detail(model)
     except _store_error() as exc:
         return {"ok": False, "error": str(exc)}
-    return {"ok": True, "text": yaml.safe_dump(payload, sort_keys=False, allow_unicode=True)}
+    # pron ya devuelve el dict estructurado; emitir solo el envoltorio iguala
+    # el shape de sldb serve /models/detail (name, model_ref, path, version,
+    # canonical, family, semantics, base_models, fields, documents).
+    return {"ok": True, "model": payload.get("model", payload)}
 
 
 def list_models(store: Store) -> list[dict[str, Any]]:
