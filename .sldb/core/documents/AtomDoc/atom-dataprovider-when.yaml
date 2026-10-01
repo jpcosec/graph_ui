@@ -1,0 +1,19 @@
+name: atom-dataprovider-when
+path: desk/atoms/atom-dataprovider-when.md
+source_hash: ed0a058d318ee79e53c6e0e23bab38914e384d9fb2f2bf7d5cb9370ffd893782
+content_hash: c41a0cb85a04adde11b592a3877353edf4c530e11d5af73f15190305745e1989
+field_hashes:
+  id: 293a7d0dff6a7bf72c8f3644a786047562114eb7bb606a9e88850f05f6ab5896
+  title: ec7fa83375200aef9b62514f9c890bd329a7c9f5c08d96143268234bfc1ef0e0
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: a2097f963ac348eb0514301813bf357310ba451509f83270d31186a72c61e74c
+  tags: 593672e3a83c9940c9025f745a97da3827935880117dc8357bc3ad29ef1ac19d
+  provenance: dc66e4b71fc7e3ffc25767387da7c3c4c47754fb17a38e7bb62d7415a91be0da
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,0 +1,19 @@
+name: atom-projectionviewstore-when
+path: desk/atoms/atom-projectionviewstore-when.md
+source_hash: 87b13f1e80c65b0412c6eae10a3992eeb7ca8022e9542073fc744d09f9e51933
+content_hash: 8c04ca9cff1357a1bd74c4f7da47381eeed2ba78c18767d571f348ebecde3350
+field_hashes:
+  id: f86d102aff098f0ce69f1cef674d1791cb381550a63307a7c8f334fc7c056172
+  title: b661f1ca28a8b03adb2858b6475bb56f9ff2a4ef46d658fa0e7eda5118e86b5c
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: b8645799487bc6b121cddd1f0c70f91dff6190515c8541030f0023e50f75d356
+  tags: e72d9d060036260f2eaf04f9f2ef71b0daa38fde4b297f17c35885182248ff2d
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:stores
+- type.knowledge.atom
+- workspace.desk.atoms

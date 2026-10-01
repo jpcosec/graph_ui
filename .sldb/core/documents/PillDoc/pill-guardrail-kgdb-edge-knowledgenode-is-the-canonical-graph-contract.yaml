@@ -1,0 +1,21 @@
+name: pill-guardrail-kgdb-edge-knowledgenode-is-the-canonical-graph-contract
+path: desk/contexts/pill-guardrail-kgdb-edge-knowledgenode-is-the-canonical-graph-contract.md
+source_hash: c969066562dc716ca86e013a88526017bfdfe46fd2abf80a371943ba30851fb3
+content_hash: c682781e98ab7caf4e23983291aa5b5348323ae43cf5df0894397fe2e9bab74a
+field_hashes:
+  title: 422998cf19ca48f780dcafd4370ed706bb36aa5a111932a871608bc0ad0c2ec0
+  id: fbe3b370457ad435ce112c49338089feacc67b3a91ae8005ce64c39698db7ed3
+  tags: 2d79a1fa8cef9bfc3e1c8b36327ff8eff8bbe3b5058973e481f7846518454329
+  what: 7b65c55a96a01fa3dba6e0da18297cb6c95d5eec8b8fd138ccaf91068c1e43a5
+  why: 6e76734e4772b61a8cd01b6f0a21ae57440ed9c6b6f4f4df920bab6ef486126d
+  when: 46ca5a11c01925eb0365f72993e79ed3777cd895a021dcb3caa0e46d46b1948f
+  where: 4ecf94693ae9f32e53325c43ba77548407ab4d6b935c602ad3715806ce66778f
+  how: bbc1fa2b27a0b55688b3f831b4423da95ad208761d16b77d2744d55a9c270f12
+  how_not: e4fed86f3ea52370c4e11145fc2b50b53b5b19a8984b9952415e58da2c6f757f
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- topic:contracts
+- topic:projection-grammar
+- type.workflow.pill
+- workspace.desk

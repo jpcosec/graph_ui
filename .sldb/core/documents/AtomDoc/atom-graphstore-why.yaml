@@ -1,0 +1,19 @@
+name: atom-graphstore-why
+path: desk/atoms/atom-graphstore-why.md
+source_hash: 00c1825f4935dd7471aad84df8030cbd7e8b50478d73f386dd0350dfad2d75ab
+content_hash: 56cd59866886f74e15c043e7b1fe31c4b3cc19193885f67512f13567b97b628d
+field_hashes:
+  id: 281c55dc308768fe06b80cbde7379bfbfcab476d7e31efba65153632411f4f84
+  title: 62c7b754cf6892b336446a1bd855a4a9b2d31bcdbc55db7d6a49d3242a6effa1
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: 15d5980e020572649e059c1ab82cf30ef806202a2640352af07d5b70ff11390e
+  tags: e72d9d060036260f2eaf04f9f2ef71b0daa38fde4b297f17c35885182248ff2d
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:stores
+- type.knowledge.atom
+- workspace.desk.atoms

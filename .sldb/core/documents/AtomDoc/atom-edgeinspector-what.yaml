@@ -1,0 +1,19 @@
+name: atom-edgeinspector-what
+path: desk/atoms/atom-edgeinspector-what.md
+source_hash: b60e75da001a1a27bd6e7439526b2f02a366547587453b857f1c99f48ce77c45
+content_hash: 9e6e4a86f2e9415b97606ce25c96a3f1ba83ca5970eeb329fb82f7b8be328a4b
+field_hashes:
+  id: 5595dfd723d05e8fddc8058c294b2e05810aef1214d32bd5aef58752c0dbbf79
+  title: cb38487f734322598f33a54bff00892db3fc6f24eca97f46023f3319e86ccd58
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: c3ab828f32cd60c6f353910b6012c02fde3afecadee65a00e0af14f616616689
+  tags: da029b11abafec3c253b63f80e1167637c23a5d0ad5bc6e967822c425f75fa2b
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,0 +1,19 @@
+name: atom-actionssection-when
+path: desk/atoms/atom-actionssection-when.md
+source_hash: a4434794adec7e4f693790c5906785a46fe0b81a79741d21d900bd469c07dd33
+content_hash: 565f09851fcf4ecf3cfb5eba65280facec78f62ab30112ad001c861858d2ae31
+field_hashes:
+  id: 6410f425b76d1d1e5bac29a326de2a6481e337b4bf1b1e2b1f71e35660dabeff
+  title: bce94eb1f02611a903fcc52ef6813061352195142db9dded21d4b43fbfe76e5b
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 5968ce2cc6be62e3c739b98721527af2ca583e65738704ee3c4201f19f099c3f
+  tags: da029b11abafec3c253b63f80e1167637c23a5d0ad5bc6e967822c425f75fa2b
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms

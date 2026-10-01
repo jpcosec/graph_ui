@@ -1,0 +1,19 @@
+name: atom-creationsection-why
+path: desk/atoms/atom-creationsection-why.md
+source_hash: cd64ceb60caf229ec373a4f17b76fb5cef94330845f6e22b4d22d73536032ee3
+content_hash: 6af920aa334a222719ac1e5241f6d43aa63a9c3334fe05cebb6e2f2f9522b315
+field_hashes:
+  id: 3f8f3ae5a71aede4fac3917b52a6467910588566e906e916b5a553d4cd980147
+  title: 6f7d43e64c7bb680965ee1334b6950a96bba0577a02c51c4ae695e4fe34b2c3c
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: 2d52eaab5b83da198f0a9e7f96ea46ba4727aac5c923493d92a740041f1839d5
+  tags: c55db97557317b3c74a0cecbdaeae907835b89d653d0cef84b54260927fe74ef
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:creation
+- type.knowledge.atom
+- workspace.desk.atoms

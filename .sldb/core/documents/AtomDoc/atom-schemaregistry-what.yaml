@@ -1,0 +1,19 @@
+name: atom-schemaregistry-what
+path: desk/atoms/atom-schemaregistry-what.md
+source_hash: 51ad5ea0480c1ac7df2326b77a434fd00657da405e445efc3d13b26eb9f1c5eb
+content_hash: 734a7379e87b10bd0a6a9e1471192495be9274ec7bd9cc0d98d82bd84b4137aa
+field_hashes:
+  id: c1445a4c735c34978e0f5438ae2afe0ad564530775d8c7b8b81037eaa6ad6a0b
+  title: 52ff5ede2822d1e4debf12e7d822692ef0dae087a58d1601e7a579cf6608612c
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: 2e37e52cd47df2c670b14052329c506192ac81726dd2a509a7fb399cf7b6488e
+  tags: 16bb7390beff4cf11ce0114f0aec4f9aec498748c7eb016dd15f7c65a33e7c7e
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:schema
+- type.knowledge.atom
+- workspace.desk.atoms

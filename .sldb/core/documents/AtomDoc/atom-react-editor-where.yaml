@@ -1,0 +1,19 @@
+name: atom-react-editor-where
+path: desk/atoms/atom-react-editor-where.md
+source_hash: cd0e5849c5c2d6a6f1d397eb291efdd770e20dbac29e28e15528d89c93635eb2
+content_hash: 0a1f0a3cd7d8070a1a268a42fdb2ccdd4c22cb360fad90a07bac1239193113e0
+field_hashes:
+  id: 63e7625cc47f8a572fb5aa8bc8cbc9c581c0ff45b9269b0fd1228fbecf634ec2
+  title: dda6fab7b4977280221d52e4e3669877e2d247f5a5256c7a76a65a4b8f582138
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: a8c2d53cdae53ce39cfe778a9007fbc41740e623153b766de1e4ca76c06533c2
+  tags: 96ae24cb2eb0c9a8464b35b201d8adaf7f10090ea00f46a66d17caab080c069f
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:architecture
+- type.knowledge.atom
+- workspace.desk.atoms

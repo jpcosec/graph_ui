@@ -1,7 +1,16 @@
 name: condition-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-has-implementation-path
 path: desk/primitives/conditions/condition-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-has-implementation-path.md
-hash_c: 56912c37a296bc57c50dde78ca3f0988993d2f5e5f5944a770fcfe4c0cce99dd
-hash_d: 3e40df3d09c53453220154dff07d4e6dcf97906d6e16e6772f226c04a7b1b488
+source_hash: 56912c37a296bc57c50dde78ca3f0988993d2f5e5f5944a770fcfe4c0cce99dd
+content_hash: 3e40df3d09c53453220154dff07d4e6dcf97906d6e16e6772f226c04a7b1b488
+field_hashes:
+  title: e3d129f93145c2c6f749b448afe8219cd62c7c27867100c1b7fa193a2b842a40
+  id: 632d25dca2a141c39dead337869d2ce797247751afac3b985d6dedcb607cc65e
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  summary: 7b43826191da200bbdbb8ea2964b10485dd808ad7641e92ba765654071cfcbae
+  tags: 45204bcdcf0df6ce91df3fae4e174bbaa7a603d65e1780fc30f096aa06e30e01
+  subject: ed628398bfa4a35f1f5904f6976beaaa96d5b1db1732076b1c22eabd4fb0173f
+  predicate: ea9c2bf382f398527e1a67c3b3b3772534cc96b6de4e7009feb25aca8fdca62a
+  expected: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
 semantic_tags:
 - primitive:condition
 - representation.markdown

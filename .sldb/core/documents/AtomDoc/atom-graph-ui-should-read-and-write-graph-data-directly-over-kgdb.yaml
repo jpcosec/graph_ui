@@ -1,0 +1,19 @@
+name: atom-graph-ui-should-read-and-write-graph-data-directly-over-kgdb
+path: desk/atoms/atom-graph-ui-should-read-and-write-graph-data-directly-over-kgdb.md
+source_hash: 3631101b290d6fad46223516c17f8729f457b709ee5a3b0cfcb764fff699e9df
+content_hash: fd2c7b7b12e3ce68afcdb2aa084c6572ac94989a19d6021a0c2913c2258d52ff
+field_hashes:
+  id: 86624f355d6ef083c60802a3efdecb9b58bb48b74dd38cca621e6c61f96b0889
+  title: 561fcac053e760b1ec886d4232a60eec89ebbaafb634f9e765ec3818e45ebf6a
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: e95df75ae75ba0e309ffb020c6b6b907265db8fc4d2b1dffbcd6daf3527a8e88
+  tags: f7f0af861200c08e1ce1104917581c72058821001870154e0ed8dbfa96e23ab0
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- topic:intent
+- topic:kgdb
+- type.knowledge.atom
+- workspace.desk.atoms

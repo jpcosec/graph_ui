@@ -1,0 +1,19 @@
+name: atom-editorengine-why
+path: desk/atoms/atom-editorengine-why.md
+source_hash: 9f2ad09c14d62818a489294b6ba06599d05f6d9dfa0e34f2735fb08a13ffc481
+content_hash: a8ad7ce63c986bae61816c785a6b3b9b4132323acf4d53d23249588b9c00f42f
+field_hashes:
+  id: a97001ebfea3395cedd5fa6b76f6d4424205c60a2c3e7d61c069d7b9dfd1c052
+  title: 764f2c6b304edb8b6ce0d984b9cf6e5bc74f494236f5cd42d8df225afef8bb2b
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: c6ed694ab6a395a296a3ac71efbcbc2f28da672813f38be1da0c57c61dc1ad98
+  tags: 7ae3211b1e2c490b28ade1179dbadb550e010493db5075b6ea3423c0ff89ff9e
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,0 +1,19 @@
+name: atom-encodingrules-when
+path: desk/atoms/atom-encodingrules-when.md
+source_hash: c3d04d78974850a1f9311591d0c7144d671c2caf4253d2fb96d985eaac740e88
+content_hash: eea1a95af106809863fb228a1557cfa4beabc8452d96100d0057f4a90511872f
+field_hashes:
+  id: 1778ed66824685ff0d737c6d578bb81d4fc6cbe4023dd7aad3a962f909dfc793
+  title: 0e8f0de99fc7741025d852511fc30bf67b2da607945dacb88704b90ab0b8f3d4
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 550d0a2a7f6cf0ae689d14b58105fb87764b528234198be574e7fc97ad94f6a8
+  tags: f1ce33a93edd4606403bb3657c7de7487714c8aa6fdf0dd2888a05d60c242574
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:encoding
+- type.knowledge.atom
+- workspace.desk.atoms

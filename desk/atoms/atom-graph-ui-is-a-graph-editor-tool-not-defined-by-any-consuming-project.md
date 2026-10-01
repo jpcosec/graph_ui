@@ -18,6 +18,4 @@ provenance: null
 
 ## Answer
 
-_Answer the selected 5WH1+ question as one stable knowledge unit._
-
 graph_ui is a reusable, domain-agnostic visual editor for graph-shaped data: nodes, edges, typed attributes. Its identity is the editing tool itself, not any product that embeds it. Consumers (such as a review workbench) are downstream users, never part of graph_ui's definition. Earlier docs conflated the two by calling it 'domain-agnostic' and 'the PhD 2.0 review workbench editor' in the same breath; that contradiction is retired. Relationship to the rest of the ecosystem is minimal and one-directional: graph_ui consumes graph data (target: kgdb) and edits it; spec2viz is a separate, non-overlapping tool that renders architecture from specs. graph_ui edits instances; spec2viz renders specs.

@@ -1,0 +1,18 @@
+name: atom-store-core-knows-index-query-hash-lock-consumers-inject-type-and-codec
+path: desk/atoms/atom-store-core-knows-index-query-hash-lock-consumers-inject-type-and-codec.md
+source_hash: 661fcedf1a7843463c97b77b817ee909546a1756fdfa0d86e09242ac60a5a430
+content_hash: 065db7d40f2e6e27e57d0822063528f6e04bb05e10829b9b1523600b6eca2c8b
+field_hashes:
+  id: 6046294b5a893acdabf4ca67dfb6b3db05362a14a9c911193960dd0d97cf7e1d
+  title: 2c5082da3f17f2285b30afcbd058adaa382cfc0bd111c89fa3defe40461e1cae
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 45791e6d9882fac8c7234b564e2ed1fe37be343bddb4054827520587f019c860
+  tags: e1182bdd5f0d1a1d23ed4e1aa3cc59453f3101576d1fd60c75a1d3469d710af9
+semantic_tags:
+- layer:document-model
+- representation.markdown
+- source.document.markdown
+- system:sldb
+- topic:store-extraction
+- type.knowledge.atom
+- workspace.desk.atoms

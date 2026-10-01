@@ -1,0 +1,19 @@
+name: atom-viewssection-what
+path: desk/atoms/atom-viewssection-what.md
+source_hash: 6ab07cff142099781bf4d83d097acddccab8be232d40435aec65f4a72a154ec8
+content_hash: bd8f6637ff290ac60b985695d40a7c2b1bc18952a985f438b6f2e37f523b1f43
+field_hashes:
+  id: 12cf545b21fd2cf515cb74316065321f3f013754c445a1f5d64c604b1237a4e8
+  title: 70f1191ebf949ce90784ba883f83505ed25847eaf05b26def49ef67f96409e10
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: a1db543b7695b1f135cbf4f469f5d4755ac70910cdf3132271854cbe346d771e
+  tags: 12902edad8254a90f98b1173749be2db5f0a42837037a2d95ad2505de620106d
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:views
+- type.knowledge.atom
+- workspace.desk.atoms

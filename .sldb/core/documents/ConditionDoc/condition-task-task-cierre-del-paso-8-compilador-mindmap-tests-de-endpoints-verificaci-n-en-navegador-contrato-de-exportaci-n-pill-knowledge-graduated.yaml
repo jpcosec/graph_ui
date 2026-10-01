@@ -1,7 +1,16 @@
 name: condition-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-pill-knowledge-graduated
 path: desk/primitives/conditions/condition-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-pill-knowledge-graduated.md
-hash_c: e0f111afe4c22d5e27c15bcb53c401cc2677fb0ee34e1ea2231ce8bf5e6e5c9d
-hash_d: 477dd077360b52f43b03f8f04acd64f05030ef6157d9fadce2d95613424b0cc8
+source_hash: e0f111afe4c22d5e27c15bcb53c401cc2677fb0ee34e1ea2231ce8bf5e6e5c9d
+content_hash: 477dd077360b52f43b03f8f04acd64f05030ef6157d9fadce2d95613424b0cc8
+field_hashes:
+  title: 47d0746b86a7e091ed1e3765918efb70ffd030abd2aaf08b856556cabe6f9b4e
+  id: 257f2c30c65571ec4f4147d5f7fb9217851e9cf314f8074776750f058ef6d4b4
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  summary: a68486d19a4eed57477038f80ceb6da484ca23725446b772e9e172c1551ecc26
+  tags: 45204bcdcf0df6ce91df3fae4e174bbaa7a603d65e1780fc30f096aa06e30e01
+  subject: d289c75214f55ca613dadab7d62795fb998d142473283f4d3fa954fb6d2c28fd
+  predicate: ea9c2bf382f398527e1a67c3b3b3772534cc96b6de4e7009feb25aca8fdca62a
+  expected: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
 semantic_tags:
 - primitive:condition
 - representation.markdown

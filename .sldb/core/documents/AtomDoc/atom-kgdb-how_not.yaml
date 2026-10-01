@@ -1,0 +1,19 @@
+name: atom-kgdb-how_not
+path: desk/atoms/atom-kgdb-how_not.md
+source_hash: 7efc85e823ff8aba6d691c07641a25adfbb740525ec21bc5028635a931b38520
+content_hash: 18619519fdb5cc1dda7d357ed40d6f7783bcb28b65b98dadc1530cbb6ddcc6c3
+field_hashes:
+  id: 61277a1181ac40a5d6fb69256057270c2e8115a9eb93bae5619ec758243d68f0
+  title: c17c0c55f3ad2d60654e15beb57f6f3a08cd21606bd84663c0dd3d0c907655c4
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: 43f8cf4a3442646c0e6e83706106ac415d3cad1df0fd3db71730188cc1bcbcea
+  tags: 4b535fb25963f289e66fadb3d2673fbdfe267de1e7c06f7340a9855d8d6884e4
+  provenance: dc66e4b71fc7e3ffc25767387da7c3c4c47754fb17a38e7bb62d7415a91be0da
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,0 +1,19 @@
+name: atom-viewsection-when
+path: desk/atoms/atom-viewsection-when.md
+source_hash: ba86ae7071f16398f0792c699247ac26ebb15120b791c5fa64b50408a31cdafb
+content_hash: dd21ac47c558ecc698dc244fe563fb97381f0a888894e14114f0543f585dd47e
+field_hashes:
+  id: add37c6d97e8668dca0a005c22ae1ce2866c98dea89a7a9b731b005e885c9185
+  title: 65388f8b276cc94273a18b540c349f9e748a94a630983763d0c094fa92ba3e79
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 5a14409ad5544c73b2e5753024f1c6bbeabfdf8ce9958ec76f3ff5ac360c6ff0
+  tags: 2b6bbf6c4cf6975e1495a3dcc7708c40728c4c654145b307ceb2d6366be83795
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:layout
+- type.knowledge.atom
+- workspace.desk.atoms

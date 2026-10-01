@@ -1,0 +1,19 @@
+name: atom-l2canvas-where
+path: desk/atoms/atom-l2canvas-where.md
+source_hash: 0e62fe3b5d3954b58173e680e8e1fc275dc89266ab68ebe015c40c2cefa51002
+content_hash: ee7c98c2ca625cde13eafbd53d9c50c8200ecae09fbf322a813fe6012343f71f
+field_hashes:
+  id: b75976009089f446156e139bb0c5143ce86861551e4b2c448127cf18891a704a
+  title: 6ff1cfdf40d7206f2256e0cd84d9a2ce40a2716207eb339d4aa7cf0d2b068e9c
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: c20b4c081bf94fbddeb5316d10ee3f79f1af4ca57be91841bb5c4cc9d60dd1aa
+  tags: 8ec857b0ed26bf5492f223bf4956bd538e6874c7160e8d0b2d023fad44e624e0
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:canvas
+- type.knowledge.atom
+- workspace.desk.atoms

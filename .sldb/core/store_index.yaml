@@ -136,5 +136,41 @@ models:
   canonical: false
   family: null
   semantics: []
+- name: RepositoryDoc
+  model_ref: deskops.models:RepositoryDoc
+  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/repository.py
+  models_index: .sldb/core/models/RepositoryDoc.yaml
+  version: 1
+  canonical: false
+  family: null
+  semantics:
+  - representation.markdown
+  - source.document.markdown
+  - type.desk.repository
+  - workspace.desk.registry
+- name: ProtoAtomDoc
+  model_ref: deskops.models:ProtoAtomDoc
+  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/protoatom.py
+  models_index: .sldb/core/models/ProtoAtomDoc.yaml
+  version: 1
+  canonical: false
+  family: null
+  semantics:
+  - representation.markdown
+  - source.document.markdown
+  - type.knowledge.protoatom
+  - workspace.desk.atoms
+- name: CrossroadDoc
+  model_ref: deskops.models:CrossroadDoc
+  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/crossroad.py
+  models_index: .sldb/core/models/CrossroadDoc.yaml
+  version: 1
+  canonical: false
+  family: null
+  semantics:
+  - representation.markdown
+  - source.document.markdown
+  - type.knowledge.crossroad
+  - workspace.desk.atoms
 predicates: []
-hash_a: 6dd2dcf91e383f9c046b3d90761fbe6b9beb43eeec1dc5e003ead5b87face209
+store_hash: 091ea18a2e8435ebbcc6602579b480b00c692008ad465795c383b7255d6b2e8d

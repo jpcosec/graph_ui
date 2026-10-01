@@ -1,4 +1,8 @@
 ---
+references:
+- graph_ui/desk/tasks/Board.md
+- graph_ui
+- cd84c13
 id: '003'
 domain: fixtures
 status: resolved
@@ -10,25 +14,33 @@ created: ''
 
 # Create real graph fixture
 
-## Objective
+## Rationale
+
+_Explain why this task exists or the business driver behind it._
+
+## Goal
+
+_Describe the concrete result this task must produce._
 
 Create a real graph fixture that complies with the `GraphData` contract.
 
-## Reference
+## Scope
 
-- Board: `graph_ui/desk/tasks/Board.md`
-- Desk: `graph_ui`
-- Closed by: `cd84c13`
+_State what is in scope and what is out of scope._
 
-## What Was Done
+## Implementation Path
+
+_Outline the expected implementation route or affected surface._
 
 - Created the ecosystem-slice fixture under desk fixtures.
 - Represents core ecosystem modules (repopackage, kgdb, ontology, graph_ui, sldb).
 
 ## Validation
 
-Fixture loads against the `GraphData` contract and feeds the wired editor (task 004).
+_List the checks required before this task can close._
 
-## Status
+- Fixture loads against the `GraphData` contract and feeds the wired editor (task 004).
 
-resolved
+## Done When
+
+_Name the observable condition that makes the task complete._

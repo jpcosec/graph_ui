@@ -1,0 +1,19 @@
+name: atom-l3content-how
+path: desk/atoms/atom-l3content-how.md
+source_hash: 139c51aca14760adf12deeee9b90236eb2d88213193c86948b0d72e9779e71c9
+content_hash: b6280de978dbe1be64dbbc5ad31601b837864246fe8897025df45367236b242d
+field_hashes:
+  id: 08255f0fbcf8621821798332bc1cae1fe85b9fa8cb76ccd8baa40ea269cdfd8a
+  title: 19f33969f9c1db28be4c50f083047f8064d0300d85aadd86bd32ea1874823378
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 986773651f002987bc280557b4c850af8f9e137d7f821103c3ea1acf3275bd9e
+  tags: ea84455200fa4623fe1555dc540cc16d3069426b710043d92096f3778091cc06
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:rendering
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,0 +1,19 @@
+name: atom-l2canvas-why
+path: desk/atoms/atom-l2canvas-why.md
+source_hash: b071278045e04f25b5001d81f1ad9dbbc8cd86dad5d8601894d501d62640df62
+content_hash: 91b8a9bd23224d4662df3b7241a3ca4c98fe6e43ffa4afe7662ab1422ad00316
+field_hashes:
+  id: e47ba1074c4ca875d9ccef2eb28290c3766d703ff0aceed1908d496f577fe360
+  title: 6ff1cfdf40d7206f2256e0cd84d9a2ce40a2716207eb339d4aa7cf0d2b068e9c
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: ef2f0511f6d1276e558c3687bb5ea7a66d7f2f15c4da434753ffdb8c4129cdfe
+  tags: 8ec857b0ed26bf5492f223bf4956bd538e6874c7160e8d0b2d023fad44e624e0
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:canvas
+- type.knowledge.atom
+- workspace.desk.atoms

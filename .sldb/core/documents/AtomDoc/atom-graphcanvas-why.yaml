@@ -1,0 +1,19 @@
+name: atom-graphcanvas-why
+path: desk/atoms/atom-graphcanvas-why.md
+source_hash: fc5bdea57c62108eb72981a7cda4143550c79638e006cbc82fbbf4e5fe433e41
+content_hash: d98c58b5e35ae0ec2acb82ea5bb1f15f12eacaf533b44c084a099660c3c47c46
+field_hashes:
+  id: 6eb94310455041a4108769854cda960842224460e979f5f80193728a9755c29c
+  title: 16a14c8eacd8eb7475187df33db8d31f1aa9626f633425faac7eab2f0a2e5ea8
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: d7d63436bed4d5fa5abbb0f935d923191ff5ba53ff7abf0714f039625d1b6b98
+  tags: a4a473b6b74ffec7629166b0e792d1cd8db6b50b71a03e35ae0ec15b120ec2d2
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:canvas
+- type.knowledge.atom
+- workspace.desk.atoms

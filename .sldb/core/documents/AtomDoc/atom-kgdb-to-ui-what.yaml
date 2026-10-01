@@ -1,0 +1,19 @@
+name: atom-kgdb-to-ui-what
+path: desk/atoms/atom-kgdb-to-ui-what.md
+source_hash: a9e8be3efb3eb9349e163a076686fb5ebbf1bf5c9ada77c1b82f1df449ebafb4
+content_hash: 959c84503ad289e1ae2eb4f261b415efff5195d298cd65c74f427a3bfb5006e3
+field_hashes:
+  id: ad380247a18c184c53a747b2013954dea27819351908c70303c9f780526683a8
+  title: d3212839bd00677becce2cb5363e34a52b8eb5a40282fe38ae4aef93ee6b5476
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: e5181688aed301b3282cfb9bd678cb7309a60f74b702b113a6d3cc172d311714
+  tags: da94272c303a1ccf9331a8cfd111352dbca98811a4b1d3d235c88b8adf412f16
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:adapters
+- type.knowledge.atom
+- workspace.desk.atoms

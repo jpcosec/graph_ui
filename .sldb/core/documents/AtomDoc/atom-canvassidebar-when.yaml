@@ -1,0 +1,19 @@
+name: atom-canvassidebar-when
+path: desk/atoms/atom-canvassidebar-when.md
+source_hash: 3b6274669be9fe12c93cb7787d1dfe583b736d61805c365ac04e53eeaaf62ad8
+content_hash: b5257e5ed47ee24e92b91a8a53eb2d635068c13e666f6bbd565140a945e7fda3
+field_hashes:
+  id: bdb1923e1d9d09347892f7b66fba78beacae752644299725c27c32827d6af7f4
+  title: 547b5f00fd0a88929033eccebd751991de8a3a11a31ce16612f8560679d42a5d
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: a4b5c07195ede56fa57c4da0299dd340032e93938539951213b45819c8225246
+  tags: a4a473b6b74ffec7629166b0e792d1cd8db6b50b71a03e35ae0ec15b120ec2d2
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:canvas
+- type.knowledge.atom
+- workspace.desk.atoms

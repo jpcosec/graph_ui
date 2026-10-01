@@ -1,0 +1,19 @@
+name: atom-react-editor-how
+path: desk/atoms/atom-react-editor-how.md
+source_hash: 82c6b8123c7057c8a7a38d1f28a83b10558889d467e844a567a9a25ffa775db5
+content_hash: e9fd2ee926d3086b5dedda0ed7c6ec2b4ba131692bba015b9a6b1d1e23571e42
+field_hashes:
+  id: 1d5308f2b4eb9b2b64f560cf648ca41242465e8fe9a6aeb8eb8535642859b047
+  title: dda6fab7b4977280221d52e4e3669877e2d247f5a5256c7a76a65a4b8f582138
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: a754364e38b139270de42cd2ad4e3710fd9582fdcf561b5f7269654cf28b065c
+  tags: 96ae24cb2eb0c9a8464b35b201d8adaf7f10090ea00f46a66d17caab080c069f
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:architecture
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,0 +1,19 @@
+name: atom-l2canvas-for_whom
+path: desk/atoms/atom-l2canvas-for_whom.md
+source_hash: a2b1469916e7252046720d868916954c919ce8f26d64ef152edb57aab927e9b9
+content_hash: 09577b362dbf814425d61d957b81f9169690935b37213510ebc4705e2ef43d99
+field_hashes:
+  id: c221e2cfd6420103222cc23879326c27a9fbc134003ade1c4e6302cdab898ff3
+  title: 6ff1cfdf40d7206f2256e0cd84d9a2ce40a2716207eb339d4aa7cf0d2b068e9c
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: 1cdea239981c1b6e7a1bd0751ed48725950b9107b46acab762e9517730216631
+  tags: 8ec857b0ed26bf5492f223bf4956bd538e6874c7160e8d0b2d023fad44e624e0
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:canvas
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,0 +1,18 @@
+name: atom-graph-ui-is-a-schema-driven-typed-editor-not-a-generic-canvas
+path: desk/atoms/atom-graph-ui-is-a-schema-driven-typed-editor-not-a-generic-canvas.md
+source_hash: 617a0fb20d49e6b7874e25003a1825c09446150407ceefe4fcc5798de717140b
+content_hash: 317751ebabdd1e146965b5b512f3429b7de154099c42782025f1544a52055b35
+field_hashes:
+  id: 13fcf1d1b2325f66c75db18e6226a5b3794d17b46def6690fc6733c258aa3dae
+  title: cf2e386258f962a47976aa6eba690d8098d25a215a630a3c604ba0cad0ac281b
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: bc6e19ef403b36c684661dc622f9eda7c14a69683516562d3e79d4aa3e43a554
+  tags: fdf9c807165244e348f56416ff706dfece4ee784eac8c61d9d20e5ffdd784dc7
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:typed-editor
+- type.knowledge.atom
+- workspace.desk.atoms

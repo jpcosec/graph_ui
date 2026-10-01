@@ -1,0 +1,19 @@
+name: atom-encodingsection-how_not
+path: desk/atoms/atom-encodingsection-how_not.md
+source_hash: df2aaee4882b07882b0e1076e656487a8e0ee0502ebd80e4d141b4f3f8411f77
+content_hash: 0a77779c1c306a59765764ca91da3f7dde293d9ed86ee3100822b4a6e0bb12d2
+field_hashes:
+  id: 28795b6a7d6fe4a536d89d507ff48b135a4c3063aa05a01c8a2dad7c14dfc49d
+  title: ac9da21a72b1bf925f838bf1e4f7a49033058a63435c09f6e4a2e723bfc6bf2a
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: 7f12f91bcd7907c31e73ec90efff514ead528a3c8a1b90ffbfdae01c9028b867
+  tags: ef6918bab7c9c2b33bc1dac4c0ff157288cd749a41654ccc4c0e68d71583b4a8
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:encoding
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,0 +1,19 @@
+name: atom-l1app-for_whom
+path: desk/atoms/atom-l1app-for_whom.md
+source_hash: ed3529e5e661a2cb551e774ba9f2ebe4d372df1b32f1b6b3e8fdb8f9bc8fcc30
+content_hash: d08c415a1ba7f138f97a343033665e0ca3333870c72d889978041e0afc128022
+field_hashes:
+  id: d201480105d4579765816e90451f18a4ee81be0c04b0a07d5e5bae86c8c5a80d
+  title: 0985dddff94842da6257b966ca7af56144d05ca40bd2f4905309d452abbc11d6
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: ac41d5bc0d93c2ee1953efb04bc099376f4287b831d65c0fb63c51151c081668
+  tags: 1003f632bfb19dee0e08a2f3b4f35d9228b40edbcdec626aea9ab766e50531b6
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:orchestration
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,0 +1,19 @@
+name: atom-layoutstrategies-why
+path: desk/atoms/atom-layoutstrategies-why.md
+source_hash: ee7e79cd12a78c9573c5b6607861a0ee112e5cad66901a5920ed4c33e6fdcbec
+content_hash: fd552d39c5fb2759c034b330f367939f0deb045bac1db287a567b4619c5cd8b1
+field_hashes:
+  id: 902996711a9687a149b6cb59dee06a250a37b7c5b5ee4b84a399f11499c74890
+  title: 8354f958452c2b9dc78e1525f76a28280b851642e5c510d28b8ef1d6e5202ae1
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: 12d845fc5ca4e0a60c67b969ba795e19f86bbfcab5b960859e6c784bb021a99f
+  tags: 197b7c519d91f0b656b1d69e8703f810f6c1d7845fceed07fea59d6c5a67f326
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:layout
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,0 +1,19 @@
+name: atom-commandmenu-why
+path: desk/atoms/atom-commandmenu-why.md
+source_hash: 231d108c459aa46fecb770d4a997d60e5d66a822f72af0549c371694db11fe51
+content_hash: 696364bf0661ea17916744ac25cee6069637c83353ab5782e98a02e46941dc6d
+field_hashes:
+  id: 64b8c617359137b24c2ab1525cb479aa77e1665c3afdea4467f787f564cc0da6
+  title: e3c54f0d3001e4f6c9157f22041ef508967a4f24d2c20f8829734aa7f8ad4067
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: bfaddc7e828ae5f22e11721d4749f0201556d6abdd6fc2a7e9de35c92529aec0
+  tags: 2f48679c9429c8e50e00843c7c82c35d5bee97bdb233b6ca7fec5b020b571ec0
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:commands
+- type.knowledge.atom
+- workspace.desk.atoms

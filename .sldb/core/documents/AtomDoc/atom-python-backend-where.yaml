@@ -1,0 +1,19 @@
+name: atom-python-backend-where
+path: desk/atoms/atom-python-backend-where.md
+source_hash: f1a0d77d690af5cbaf76e215ee3844d073b107a19f32a38051f241b0581fbe1b
+content_hash: ac7265cfe721d1479dc647998fe4ca9044948d09b5268dc7d7b166231be95534
+field_hashes:
+  id: b94d66abf24fc31ca79f84fa5b01fca84b2a00e5b6e8e9358adbafa372be358f
+  title: e53c86fc0212e56ba3fc178e27e0fdbeafcafa01206736127c9d12eb840e079c
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: f9c14379124abe8424d414b725a7c4597790573f0ae9a95fc2969440937e6deb
+  tags: c25c231416bd5e7a77c73aa56cefe2e97aa6dd31c3c887ec594ea603c2c95180
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:architecture
+- type.knowledge.atom
+- workspace.desk.atoms

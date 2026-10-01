@@ -1,0 +1,19 @@
+name: atom-dataprovider-how
+path: desk/atoms/atom-dataprovider-how.md
+source_hash: 76676af4ef48dff7aef806348dac3c1834f434865caee1d5dd946e891eb42c02
+content_hash: b95418a164ad4f383492550c679013e941ff2f885d0c7ec57d8624b3ab581a7c
+field_hashes:
+  id: ab64830451e8d734b5e3ed737b0e80048e81c672d7b32bfbc19ffa21195e501d
+  title: ec7fa83375200aef9b62514f9c890bd329a7c9f5c08d96143268234bfc1ef0e0
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 094041e0bd7bd2a3984182cb8e096be13813e13a93ba64861ed97242a3203a8d
+  tags: 593672e3a83c9940c9025f745a97da3827935880117dc8357bc3ad29ef1ac19d
+  provenance: dc66e4b71fc7e3ffc25767387da7c3c4c47754fb17a38e7bb62d7415a91be0da
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

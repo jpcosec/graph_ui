@@ -1,0 +1,19 @@
+name: atom-viewssection-why
+path: desk/atoms/atom-viewssection-why.md
+source_hash: 478bda45d9793ad9b6bdb0077417179d53fd614205e500e8ea3a28adb9f58e20
+content_hash: fde1ea68e7b57228750c4952bd7f63bc0ebd70b13ab506c2bbbcd501e097894f
+field_hashes:
+  id: 1e9033b8caa631684c09fe4835c491bf4248763ce10dfe0b8c2ec6a5aa9b47a9
+  title: 70f1191ebf949ce90784ba883f83505ed25847eaf05b26def49ef67f96409e10
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: 99976e0342f60e4f1a5b14843a131db1be2b5e51e7c099202526a040db42d554
+  tags: 12902edad8254a90f98b1173749be2db5f0a42837037a2d95ad2505de620106d
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:views
+- type.knowledge.atom
+- workspace.desk.atoms

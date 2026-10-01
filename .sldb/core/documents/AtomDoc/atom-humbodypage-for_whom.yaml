@@ -1,0 +1,19 @@
+name: atom-humbodypage-for_whom
+path: desk/atoms/atom-humbodypage-for_whom.md
+source_hash: 79b14ec29ce57e1c21e9a8c72e302df223110379cd131212b08b7e5b3892b1de
+content_hash: 63872320092fb0f1c8b4cd323430384f5bce6a42039a1c78f92e073864c99151
+field_hashes:
+  id: 2de3055785f88ed5c59139e710614bc54cb2636d1252b2cdbc90a97cfa4f0cd5
+  title: bd755b3de6527bbb0fce3c3b8bcd5865f1724202eb1560a231f89720a9784d44
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: 807461c4f6c5a43eda082c816e81066f47a0bd19ade858c1918dbb5224233c3f
+  tags: 0e022ee933364062ffdf57f6875d5b4523fbef54d1de72fbd071e5526a035647
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

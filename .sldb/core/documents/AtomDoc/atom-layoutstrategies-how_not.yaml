@@ -1,0 +1,19 @@
+name: atom-layoutstrategies-how_not
+path: desk/atoms/atom-layoutstrategies-how_not.md
+source_hash: 699ac54db7d3a41f00a1224cd9964ecffb14fa2947f2bd0da0aca1fc05913179
+content_hash: b9157709d10467153b37520d536efa5bbe137e9d86bcdb9f153568fd9519cc9f
+field_hashes:
+  id: 4c6818a79d113c90051d6870048ced30ae70b9d7a3d82b5cda2c1b96ee4fe83c
+  title: 8354f958452c2b9dc78e1525f76a28280b851642e5c510d28b8ef1d6e5202ae1
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: 745aab65545432111580ba5e29786be69cc89f672045433f370db1a3b060f2c5
+  tags: 197b7c519d91f0b656b1d69e8703f810f6c1d7845fceed07fea59d6c5a67f326
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:layout
+- type.knowledge.atom
+- workspace.desk.atoms

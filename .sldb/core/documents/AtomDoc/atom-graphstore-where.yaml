@@ -1,0 +1,19 @@
+name: atom-graphstore-where
+path: desk/atoms/atom-graphstore-where.md
+source_hash: eaf4de5e7429510ba7fa856bc588899f44347c22a639604a118d964f7cbabf8d
+content_hash: 8a2b3f5eb1ffbb70f455dd308dfe66311484a7d0ec782be3f9f6a603f4413b28
+field_hashes:
+  id: 586622a84c4f885dce87ec63d06dd347a91a54102548560e67d293ca4597e3c6
+  title: 62c7b754cf6892b336446a1bd855a4a9b2d31bcdbc55db7d6a49d3242a6effa1
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: bcc95b6f078eef79093441d8a6cf0553bda026e14830845ca61422d10978bbe2
+  tags: e72d9d060036260f2eaf04f9f2ef71b0daa38fde4b297f17c35885182248ff2d
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:stores
+- type.knowledge.atom
+- workspace.desk.atoms

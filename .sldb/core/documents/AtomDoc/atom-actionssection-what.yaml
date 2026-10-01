@@ -1,0 +1,19 @@
+name: atom-actionssection-what
+path: desk/atoms/atom-actionssection-what.md
+source_hash: 8c276beb6610cd6402f68a0bd0a87f6442f65b493a1728e6d566bb5b649b7a93
+content_hash: 8a989a56ad44e745d95e673a9b62253227b69e2dfc207c44e1f9373891608f8c
+field_hashes:
+  id: 63dda8e18f7a8051e99eeb26490c119a0bb3ec76418b9c9a0cb8a016ef6474b7
+  title: bce94eb1f02611a903fcc52ef6813061352195142db9dded21d4b43fbfe76e5b
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: b0c2abd68a90f8d496ac7032a8c61414bde23900074f25a5b20aecca176b3c4e
+  tags: da029b11abafec3c253b63f80e1167637c23a5d0ad5bc6e967822c425f75fa2b
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms

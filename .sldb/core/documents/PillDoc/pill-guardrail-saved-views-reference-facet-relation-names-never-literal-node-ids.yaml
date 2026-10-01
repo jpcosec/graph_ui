@@ -1,0 +1,21 @@
+name: pill-guardrail-saved-views-reference-facet-relation-names-never-literal-node-ids
+path: desk/contexts/pill-guardrail-saved-views-reference-facet-relation-names-never-literal-node-ids.md
+source_hash: 515f465a2a783fd2af64b95cdc04c69dabc1680805f513bd3896270de47c6326
+content_hash: f20a17976bddf2398c8a27f9db5ab4d6791c194b19693480a898b0be03b8be6c
+field_hashes:
+  title: 2d03d7eaca4aaabbde1cb522210ac6e4f7c68ed804b89b4a9ca15770252cff28
+  id: 6288ac99dbccebb2ab4f4c86974a8b9b31599ce0648627f5ed934511b8e73c74
+  tags: 147229e7cf3207d1fe75d58f7e931a14a166bcece9ec60825cf63bc95c8cfd00
+  what: 6fdaf4ccc4bf073807c79944f6ce53f18c48edeb995be6835f5310adc85d870f
+  why: 20c7046d9c560644c638a3c0cf12eb058a97c5f88c8161bad9bcc4c8da73a4ec
+  when: 7d81007e22e617722a1b01583ebdd4d7c1820b63a51ca6fb521fcd34daaf7127
+  where: 24724406539a51611d4e54b749633e2bde4f5242b06838fa9d82a407eb6890e0
+  how: e53b06817bf19833c2496167434162d18b31f16bdfb86ca13aec399d91b3c07f
+  how_not: 7c8d3299139c946e8a66af5c5dcb07333d1c3d6a601bef6e4e647a4c29b7807a
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- topic:projection-grammar
+- topic:saved-views
+- type.workflow.pill
+- workspace.desk

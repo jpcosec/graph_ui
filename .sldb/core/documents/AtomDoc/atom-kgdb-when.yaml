@@ -1,0 +1,19 @@
+name: atom-kgdb-when
+path: desk/atoms/atom-kgdb-when.md
+source_hash: 7dc5730c26fa031ca24d30c6a5706ba2dcae6b28f9af547887527fc217eaa340
+content_hash: 2034fc0525457a731e04a92650130901d967629bc3c6a2de8cf7fd53df7ffb61
+field_hashes:
+  id: 8f614943a7f38a03d6103d46d3478989ee9d65b7dee68c38fe56937e790c8125
+  title: c17c0c55f3ad2d60654e15beb57f6f3a08cd21606bd84663c0dd3d0c907655c4
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: b652fc3c4b15c179b218aa517ca3c8d83014601d71919cb44854512b735a7e59
+  tags: 4b535fb25963f289e66fadb3d2673fbdfe267de1e7c06f7340a9855d8d6884e4
+  provenance: dc66e4b71fc7e3ffc25767387da7c3c4c47754fb17a38e7bb62d7415a91be0da
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

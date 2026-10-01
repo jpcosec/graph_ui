@@ -1,0 +1,19 @@
+name: atom-edgeinspector-why
+path: desk/atoms/atom-edgeinspector-why.md
+source_hash: f1ace3fb895a0da13ff65f519c37138972ecabca17768e59ebe18f595ec40325
+content_hash: c35d26477a71393a4432f63260b570c4b2da102f27914f27c5f02d1bc59dd396
+field_hashes:
+  id: 829747b80a6a3d20ef4b4c4638cd90f59ea126a9f2efbb2b479946c98f038dc1
+  title: cb38487f734322598f33a54bff00892db3fc6f24eca97f46023f3319e86ccd58
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: aafcc5ecfead54077b770c27ce85f11e5803b51640c13b28345c8143987d954a
+  tags: da029b11abafec3c253b63f80e1167637c23a5d0ad5bc6e967822c425f75fa2b
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms

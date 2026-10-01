@@ -1,0 +1,19 @@
+name: atom-layoutstrategies-when
+path: desk/atoms/atom-layoutstrategies-when.md
+source_hash: 9534f2ecdd9340fa238bbcc6131c74f226343acd62b48c19ff915772fba1c23e
+content_hash: bac33a8cf7302e6e1da426525edeaac65d8f75825186d6bc8e5c1331071487c3
+field_hashes:
+  id: f23fd10f14cdc45e4ddde67efdc7c9c2d6fe3defd237faa2589179bd596ba9ad
+  title: 8354f958452c2b9dc78e1525f76a28280b851642e5c510d28b8ef1d6e5202ae1
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: dedddaf4d4395097a03c94d4c7802da5e277cb537752107130f6e61145003353
+  tags: 197b7c519d91f0b656b1d69e8703f810f6c1d7845fceed07fea59d6c5a67f326
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:layout
+- type.knowledge.atom
+- workspace.desk.atoms

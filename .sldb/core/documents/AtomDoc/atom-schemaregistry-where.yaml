@@ -1,0 +1,19 @@
+name: atom-schemaregistry-where
+path: desk/atoms/atom-schemaregistry-where.md
+source_hash: 0e7903d7c5731d40c1f49797031035ae747c8ff12b2ac83441cb178da3cad25e
+content_hash: ed84647cecd077610fcf77006414b509bd8a6d2d5009f058176047b0a254580c
+field_hashes:
+  id: 0d923eef8e89876eaad00457dd9eae6da22f1987124ffe277dd91e5247a93adc
+  title: 52ff5ede2822d1e4debf12e7d822692ef0dae087a58d1601e7a579cf6608612c
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 71876fecbbb4c33855030211aa195eff053f058deebd9acb3b5ebd898e3ad901
+  tags: 16bb7390beff4cf11ce0114f0aec4f9aec498748c7eb016dd15f7c65a33e7c7e
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:schema
+- type.knowledge.atom
+- workspace.desk.atoms

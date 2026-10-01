@@ -1,0 +1,19 @@
+name: atom-filterssection-why
+path: desk/atoms/atom-filterssection-why.md
+source_hash: 98e21eca4ceafb8c64314eabf5b5e8928fe4759c4f02fa8577184cbc856f8024
+content_hash: 70dfb297a617c32ebb1b84f0f6b8b006723789d7659fdf9cbf988531ce646f28
+field_hashes:
+  id: c43eb51236627120f3da80fbbbcb0aad73c05ce7ca9722c33936b1bbd5506650
+  title: ee6ee1017bec870d3accd15be32f7359a41a1c1e895dec0916a14855a4da1675
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: f1aa4da6707d968b50084ec00d9c168661de5dd06e159d4a6c39af946b282d0f
+  tags: a817f68b476c13baac25486db0a090ef3a8db039e07023f4fe2ae4c2ad3f3588
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:filtering
+- type.knowledge.atom
+- workspace.desk.atoms

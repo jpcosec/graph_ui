@@ -1,0 +1,19 @@
+name: atom-l1app-how_not
+path: desk/atoms/atom-l1app-how_not.md
+source_hash: 511d2847395ff6166491dd659766cf051748f1f03b11443ca7793ddcb576bd8c
+content_hash: fe59398b4d07717b81e7bd02dffb2e1bd53e1eb614761a93d684382579ae1564
+field_hashes:
+  id: 775e911ff1e8f602a3bb36bb9ce5412ae2dcb24ba540cfa45a4192991a228579
+  title: 0985dddff94842da6257b966ca7af56144d05ca40bd2f4905309d452abbc11d6
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: c0043a2038c981f6d0282f89fdd9311f86cc62ee9a6d3bb03cd465cb172da3fc
+  tags: 1003f632bfb19dee0e08a2f3b4f35d9228b40edbcdec626aea9ab766e50531b6
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:orchestration
+- type.knowledge.atom
+- workspace.desk.atoms

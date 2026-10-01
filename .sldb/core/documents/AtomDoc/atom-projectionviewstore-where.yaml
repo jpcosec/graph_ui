@@ -1,0 +1,19 @@
+name: atom-projectionviewstore-where
+path: desk/atoms/atom-projectionviewstore-where.md
+source_hash: dbc19d57fc059eaa3dc8adc24af3d3b89376fece3f9b0a870b0f671bfc62b1e4
+content_hash: 18d2d0c77950afcf0f8c8b3d8b20f181b4737b0d59180c4e88433294d289f205
+field_hashes:
+  id: 2579e3ffed6ea296a1892d019ef89b29ef58418366fb0325fefb602655a5be28
+  title: b661f1ca28a8b03adb2858b6475bb56f9ff2a4ef46d658fa0e7eda5118e86b5c
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 2ccf37927d606516049a7fa31e28626aa76f88c5aa572495b8e2e717d7e45e8d
+  tags: e72d9d060036260f2eaf04f9f2ef71b0daa38fde4b297f17c35885182248ff2d
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:stores
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,0 +1,19 @@
+name: atom-nodeinspector-why
+path: desk/atoms/atom-nodeinspector-why.md
+source_hash: 809cbf0e2cf9ba6c5fa3dcc6938bc7c56d22e70249e4042f51c3a48780e92c87
+content_hash: 4ebbe64e622cc5f2382a06bbda6dd210d8d948cd3520b2793e3af477b08e2fe2
+field_hashes:
+  id: dc222a29597f436f87f63608b86351714f512f4b71b1b188b490c856af7e555d
+  title: 964a6f88b4f4ad5bbdb0732a1132d67eefa19ed838ff98114d37bd4aea15bded
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: 95d45541afe8e57974a4a842eb07de7adb09b50a458200a4aee678f0220e99f0
+  tags: da029b11abafec3c253b63f80e1167637c23a5d0ad5bc6e967822c425f75fa2b
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,4 +1,8 @@
 ---
+references:
+- graph_ui/desk/tasks/Board.md
+- graph_ui
+- 2ee5376
 id: '006'
 domain: editing
 status: resolved
@@ -11,25 +15,33 @@ created: ''
 
 # Prove one safe edit flow
 
-## Objective
+## Rationale
+
+_Explain why this task exists or the business driver behind it._
+
+## Goal
+
+_Describe the concrete result this task must produce._
 
 Make one safe edit path explicit and proven.
 
-## Reference
+## Scope
 
-- Board: `graph_ui/desk/tasks/Board.md`
-- Desk: `graph_ui`
-- Closed by: `2ee5376`
+_State what is in scope and what is out of scope._
 
-## What Was Done
+## Implementation Path
+
+_Outline the expected implementation route or affected surface._
 
 - Added `GraphEditorEngine` in `src/editor.py`: applies CREATE/UPDATE/DELETE node/edge edits with collision and integrity checks.
 - Added `tests/test_editor.py`.
 
 ## Validation
 
-`tests/test_editor.py` green; safe-edit flow later proven live end-to-end via `sldb serve` + Playwright (`050a35e`, `ce01267`).
+_List the checks required before this task can close._
 
-## Status
+- `tests/test_editor.py` green; safe-edit flow later proven live end-to-end via `sldb serve` + Playwright (`050a35e`, `ce01267`).
 
-resolved
+## Done When
+
+_Name the observable condition that makes the task complete._

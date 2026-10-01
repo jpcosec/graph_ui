@@ -1,0 +1,18 @@
+name: atom-kgdb-s-query-language-has-no-relation-type-filter-yet
+path: desk/atoms/atom-kgdb-s-query-language-has-no-relation-type-filter-yet.md
+source_hash: f33da29e54509fdb9161dc74d7f22221824a10f4999ba731d55936105de59709
+content_hash: 22ff2ee7e866092548e44177dff6446dd6c7ddeee02bd0651291777c70305d41
+field_hashes:
+  id: 40ab804fe9aaa2a52d84c8fbd4418a04290720b553db109264e8add16fbeb67d
+  title: 8099a9502e8681dc0c090341e587dcd8c3df6e1ef7600e81a19e5d966ce195c4
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: 507797413912a434d612a1e1fed03ec87fdcef2feb90239481c421af4ec0388e
+  tags: cb96889b3da309a666f83d14ee24fb4d02771a4dae95f5840aa69fb20b07168d
+semantic_tags:
+- layer:query
+- representation.markdown
+- source.document.markdown
+- system:kgdb
+- topic:projection-grammar
+- type.knowledge.atom
+- workspace.desk.atoms

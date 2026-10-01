@@ -1,0 +1,19 @@
+name: atom-schemaregistry-when
+path: desk/atoms/atom-schemaregistry-when.md
+source_hash: 36fd037fb8059a6ef69f687ac1d1ef6681c6bfb0739358dc57ce2b9b51fb3121
+content_hash: 5cc72ff9d37b65b07ab7cf7cd58abf8e77310ca0a10584116fefa631974d56cd
+field_hashes:
+  id: 7ca9955c0235bcab81ee9c62665b598034ccd8b2e91e1eb48a392cbaf76a1581
+  title: 52ff5ede2822d1e4debf12e7d822692ef0dae087a58d1601e7a579cf6608612c
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: c1894fce7bd7c702451d55dacf24b55d0a13ea1a2a63b4cef08b966555af1efc
+  tags: 16bb7390beff4cf11ce0114f0aec4f9aec498748c7eb016dd15f7c65a33e7c7e
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:schema
+- type.knowledge.atom
+- workspace.desk.atoms

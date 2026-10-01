@@ -1,0 +1,19 @@
+name: atom-encodingsection-for_whom
+path: desk/atoms/atom-encodingsection-for_whom.md
+source_hash: 19796236b27a5037a5e3130102f73ab41ea0b8ebf4c9baace8a7d57be52c6964
+content_hash: afa28cb69a011add9fc70cc78e909f49fd3da98b95af5f87da4ed05ef9a6b8d0
+field_hashes:
+  id: 7fc3f0754d20434cceebc56e7af7f80f87860f31f0119a2bd02d24314d71214f
+  title: ac9da21a72b1bf925f838bf1e4f7a49033058a63435c09f6e4a2e723bfc6bf2a
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: 05be4d3e5e5c5b82b849aeaaeabd59fc23e8a392e1ca202d026bf55a664536bd
+  tags: ef6918bab7c9c2b33bc1dac4c0ff157288cd749a41654ccc4c0e68d71583b4a8
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:encoding
+- type.knowledge.atom
+- workspace.desk.atoms

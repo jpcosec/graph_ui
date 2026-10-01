@@ -1,0 +1,19 @@
+name: atom-vitedevserver-how_not
+path: desk/atoms/atom-vitedevserver-how_not.md
+source_hash: 2fa7070d77ad0a07a7cea81af7d2d388a4c3328bd141859c40646115f3226efb
+content_hash: 2905f206723bb155cbfceb7bd65578dfad86e89b12b969a1aa3ca3786eaeba60
+field_hashes:
+  id: 38961c5fbd2e07e5e056c3233c161fb39f8fe5180a6ae24ca2c06618ae450d3e
+  title: 5b21ec79d20b7bd0c2e971828644eccdf59d2116dfe578dc10d65ae861a1d140
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: fe4c4b343db125fdc028fad8d68bf4d22f71b358469ec79e0f07a972fa2a81bd
+  tags: e494618784dc3b911408ceda9d55ae70e05445973bd899f038d1aebd34a5e4be
+  provenance: b55ad2f4b44bb9f53b0e67becbb2f5d36284f79ea58f6d10ac7a2a603fc43446
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:runtime
+- type.knowledge.atom
+- workspace.desk.atoms

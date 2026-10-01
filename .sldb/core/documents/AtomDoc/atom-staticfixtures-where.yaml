@@ -1,0 +1,19 @@
+name: atom-staticfixtures-where
+path: desk/atoms/atom-staticfixtures-where.md
+source_hash: 03d5e702c6b7063107461ee8f03a1da8985cd0e49c80d2f0d48d67cc023595de
+content_hash: a54d0c34cf6f9c0d7a37d953fa28bb030ebe3dbb7bd1ba95ffd7fd505f29a01e
+field_hashes:
+  id: e2cca08f823955dd03fbdb1849722818cde0c4bcbea3873bf6f56df789bc3d92
+  title: b23e16dded992306916a444b8e1b1a9fa78b145b6b0d0968e24b4839c0880fa8
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: c8626588132369c1a0f9706545f5af6b43a4e197bddc9a67e4a5bb0a7a1d69ba
+  tags: 4b535fb25963f289e66fadb3d2673fbdfe267de1e7c06f7340a9855d8d6884e4
+  provenance: e436159814638009720ca6c1d1b1bdaeff767a03ae3e5e159d2a67c5ff8dc1fd
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

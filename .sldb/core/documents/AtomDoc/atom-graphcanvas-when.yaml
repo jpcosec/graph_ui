@@ -1,0 +1,19 @@
+name: atom-graphcanvas-when
+path: desk/atoms/atom-graphcanvas-when.md
+source_hash: 6de375dbd771fd1d544955b12e185f33c2d3190935586b09027987e749fdd550
+content_hash: a44d99171041e689e60e606aa2f03a166f2f5a0af1fb3754943c969ec4c0d8a5
+field_hashes:
+  id: 9317303f3eb22e4662aea9a6d784fce651f5d23ba0ce237062ab475f9cec7e87
+  title: 16a14c8eacd8eb7475187df33db8d31f1aa9626f633425faac7eab2f0a2e5ea8
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 7d88d36571cb55e2520b1fa00dfac7b40bf11168fdaf83070b8bf222647cbdff
+  tags: a4a473b6b74ffec7629166b0e792d1cd8db6b50b71a03e35ae0ec15b120ec2d2
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:canvas
+- type.knowledge.atom
+- workspace.desk.atoms

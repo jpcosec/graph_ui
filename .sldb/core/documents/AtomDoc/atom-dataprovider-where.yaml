@@ -1,0 +1,19 @@
+name: atom-dataprovider-where
+path: desk/atoms/atom-dataprovider-where.md
+source_hash: 027dabeb61a62fa0377c2a9d0121f7e5c7b3a724203f49c93edabd04fc7e00fc
+content_hash: 47c064d8c1a20ce07a6d8ac594138976ac28f74a9c8bfef66f0e694a3c41ee4a
+field_hashes:
+  id: aaefc25478560c94da674210b27c9b00be948eda5ab2376d6835e42f024d669e
+  title: ec7fa83375200aef9b62514f9c890bd329a7c9f5c08d96143268234bfc1ef0e0
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 7c28a00100ab68fdac7c298ff127108348b5e7a83fd5e6c85a46ae7d158d678f
+  tags: 593672e3a83c9940c9025f745a97da3827935880117dc8357bc3ad29ef1ac19d
+  provenance: dc66e4b71fc7e3ffc25767387da7c3c4c47754fb17a38e7bb62d7415a91be0da
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

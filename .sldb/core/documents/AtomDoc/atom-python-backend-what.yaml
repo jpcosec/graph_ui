@@ -1,0 +1,19 @@
+name: atom-python-backend-what
+path: desk/atoms/atom-python-backend-what.md
+source_hash: 0a71e237be89d67cedbf1dea70f28676a2f2a9f83d7713d680000438a941c78e
+content_hash: c46e8bb1b33f632f4068e7e576683fd41ddb44107b7ff9e4fa3b85a6e86b4799
+field_hashes:
+  id: ce2a1a18a1a7a18339a0a56025055fa043a11012d4e050c88f1bfe768c4a7358
+  title: e53c86fc0212e56ba3fc178e27e0fdbeafcafa01206736127c9d12eb840e079c
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: 32efcc929374c82f17a6131862c59000b6b7aad9a3f4ca8879aab46fd1a806c2
+  tags: c25c231416bd5e7a77c73aa56cefe2e97aa6dd31c3c887ec594ea603c2c95180
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:architecture
+- type.knowledge.atom
+- workspace.desk.atoms

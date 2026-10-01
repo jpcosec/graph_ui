@@ -1,7 +1,16 @@
 name: checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-testing-ready
 path: desk/primitives/checklists/checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-testing-ready.md
-hash_c: 12e69239b9f1ddf4f982ccf55b2b7dc388e1377bcb13d0c29956a2dc3862e0d2
-hash_d: 6a3ece9bcc1ff1cb0112ddbc699f53970ce04bdfac10dc29341e6db0daba8c00
+source_hash: 12e69239b9f1ddf4f982ccf55b2b7dc388e1377bcb13d0c29956a2dc3862e0d2
+content_hash: 6a3ece9bcc1ff1cb0112ddbc699f53970ce04bdfac10dc29341e6db0daba8c00
+field_hashes:
+  title: c9efb55e767853133c783d24f8f4dd93e509da53fe61965feac0b0cd0b85ee27
+  id: 30fa6e4960bd41b50265de3c9a7b6fb7d2383af4a602024a67d0c9452ea0f770
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  summary: da20981496ff58fa2766a31ba80d51047eb94d8ee27f19913c303e7f542d11a4
+  tags: 8325257b89e1ac7ba706788c8183d441db3116d28af0eb064be34dbc69e90f89
+  items: b0ee3b0c3625119a8e2ad8d714d070e34fcaff870cb893cd41aade892982eb22
+  condition_refs: dc5beab383577700cca7b6fcda48c87aaa9f765ce8aeda93c4dbb99d2638bada
+  mode: 5cf7504d9781301d83347546cdabc01a03c9638ab5b36c0a9203911078a0d1a4
 semantic_tags:
 - primitive:checklist
 - representation.markdown

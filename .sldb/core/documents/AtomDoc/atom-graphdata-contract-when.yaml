@@ -1,0 +1,19 @@
+name: atom-graphdata-contract-when
+path: desk/atoms/atom-graphdata-contract-when.md
+source_hash: 1d86c9b5a3c6f50d64aed1201ef0feb59184243646727a55192a8d594d33aa96
+content_hash: 3aba4b9ae922d73d08bdeb60ea71f955dbaddf8271d338c4a7a7600fd2c07767
+field_hashes:
+  id: 0de882347d77f7b189b8fb00a11781f4ec0127cc73f30f21c27329a9e2870914
+  title: 63cd18bff0bf3d7a287fe34b7730380c8959516c0f7dcefba6396bae78795db1
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 1c1e9d5d11fdf9b19723f7eff4cab47b1842e2d2e406a5c1ca1098b09a516b6b
+  tags: 6fcf0756b1f96b9ee0392fe4061fb1c26da197c5553b585957875985ab68feaa
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:contracts
+- type.knowledge.atom
+- workspace.desk.atoms

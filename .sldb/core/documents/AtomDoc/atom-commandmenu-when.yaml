@@ -1,0 +1,19 @@
+name: atom-commandmenu-when
+path: desk/atoms/atom-commandmenu-when.md
+source_hash: d9504b81e0ba200bbc31e46febaef78787019d41a678767a1b1cb066818385e4
+content_hash: aac0a887e6669b2969cd71070814b0bdc88a1a52744e168fa2837f7fed29350e
+field_hashes:
+  id: f79504930672a271c4f73d8eeeef1bb7428f673fcc49f57ca84ed6fcb4c9ac26
+  title: e3c54f0d3001e4f6c9157f22041ef508967a4f24d2c20f8829734aa7f8ad4067
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 4f1fb8f17add9a685912c95e98424e3c73acf1d9bc79557afc40c0b9be0a0228
+  tags: 2f48679c9429c8e50e00843c7c82c35d5bee97bdb233b6ca7fec5b020b571ec0
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:commands
+- type.knowledge.atom
+- workspace.desk.atoms

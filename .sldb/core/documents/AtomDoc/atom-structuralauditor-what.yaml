@@ -1,0 +1,19 @@
+name: atom-structuralauditor-what
+path: desk/atoms/atom-structuralauditor-what.md
+source_hash: f641ccb681680a2bc565e3ac0f8ebeed81e323b4e02d364b2b712a8ae1b6fdc1
+content_hash: d6cf9044e365691292eaf01f8147ecdbea0971c86d8c331609bc506de40424ec
+field_hashes:
+  id: 2b4bc333256465ba8dc2d2c8337fb39798546014e5a09bc7803ad0a3c5ca9962
+  title: 7faef7d43b38efc1a2ac319a4d179db0fbeb3922fc755ebbe2fb87c7d47a4a01
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: 1758571a9aae6625ae4e4c215e3a41ab15d26e08bcd5ddc263c9ecbf573d49b9
+  tags: 5f753985c54f6a9c870db586e0f8f8f015e95680b589e3938651e333aa1aabf8
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:auditing
+- type.knowledge.atom
+- workspace.desk.atoms

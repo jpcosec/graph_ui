@@ -1,0 +1,19 @@
+name: atom-filterssection-when
+path: desk/atoms/atom-filterssection-when.md
+source_hash: 5c8b31b4fadf4b47b16fab7eb67fc2fad6b61028e94e9533a4d2d1dddf25030e
+content_hash: f94b448bc76bc0cd14b31c24c814babab1366e57acc70c35018dfb75945ff33a
+field_hashes:
+  id: 501d6869c76df3bdf936e52f016c716317a519bb7707b7a3de687a84cbecc76d
+  title: ee6ee1017bec870d3accd15be32f7359a41a1c1e895dec0916a14855a4da1675
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 964ad877580ae1deb54aaaaffa607e141d12af3ef39f1005f09856309a6d2a49
+  tags: a817f68b476c13baac25486db0a090ef3a8db039e07023f4fe2ae4c2ad3f3588
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:filtering
+- type.knowledge.atom
+- workspace.desk.atoms

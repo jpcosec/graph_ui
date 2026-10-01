@@ -18,6 +18,4 @@ provenance: null
 
 ## Answer
 
-_Answer the selected 5WH1+ question as one stable knowledge unit._
-
 kgdb's Edge/KnowledgeNode, graph_ui's Python UIEdge/UINode (src/contracts/graph_data.py), and graph_ui's TypeScript ASTEdge/ASTNode (stores/types.ts) are three separate, unreconciled shapes for the same concept. None converts to another today. Building the projection grammar on top of this requires picking one canonical shape (kgdb's) and writing thin adapters for the other two, not adding a fourth.

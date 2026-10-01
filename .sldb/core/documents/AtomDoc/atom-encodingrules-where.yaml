@@ -1,0 +1,19 @@
+name: atom-encodingrules-where
+path: desk/atoms/atom-encodingrules-where.md
+source_hash: baace1b4d20e0f3a4047acd29631192b0bc6b02e141eaaa96337897929bcf537
+content_hash: dcfc493bbf92fc629fb96c8fd12e2938684ada1e0e45f60cff748bb6781d81d6
+field_hashes:
+  id: 12c388573b018dc9cf019bb00382aeba73d07be33ee44f4b955867f438cf99aa
+  title: 0e8f0de99fc7741025d852511fc30bf67b2da607945dacb88704b90ab0b8f3d4
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: e37d3baed14e36f35d587cc86fc33ca9e16cee5ec5fe0d586958df4e329ccaad
+  tags: f1ce33a93edd4606403bb3657c7de7487714c8aa6fdf0dd2888a05d60c242574
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:encoding
+- type.knowledge.atom
+- workspace.desk.atoms

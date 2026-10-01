@@ -1,0 +1,19 @@
+name: atom-encodingsection-where
+path: desk/atoms/atom-encodingsection-where.md
+source_hash: 1b02ca824f466ced456389c56252da70c331677c5c0c1116b1cd3c035c8118db
+content_hash: 4b01d0ba0a0c1b01936c60aee20426321d4b3376e0012bc41764df748e39165f
+field_hashes:
+  id: 6947b6683b5363af687480f3f9a179c3f70fdb6c0a88c46ffce8641974aac8dc
+  title: ac9da21a72b1bf925f838bf1e4f7a49033058a63435c09f6e4a2e723bfc6bf2a
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 6f33227538540ea560af83dd10ba12e965c7b5e0f4ff7ac13e3552ad78420a0d
+  tags: ef6918bab7c9c2b33bc1dac4c0ff157288cd749a41654ccc4c0e68d71583b4a8
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:encoding
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,0 +1,19 @@
+name: atom-staticfixtures-how_not
+path: desk/atoms/atom-staticfixtures-how_not.md
+source_hash: 399481d501e300282a054aeba317b24deebf870592a2e14cc9444ed22fbba1f5
+content_hash: 330bd13e20082099a66354a7758acfb93694e3bf3c90b182bc3cd6f82a619394
+field_hashes:
+  id: ece7a6167ebf36eb506746d554b739123ba86449aad407b8b25acf98281d491f
+  title: b23e16dded992306916a444b8e1b1a9fa78b145b6b0d0968e24b4839c0880fa8
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: 4254e84dcc53b0a671cb61c563eb9314c5639d8889b55a41b4271df14429bc0f
+  tags: 4b535fb25963f289e66fadb3d2673fbdfe267de1e7c06f7340a9855d8d6884e4
+  provenance: e436159814638009720ca6c1d1b1bdaeff767a03ae3e5e159d2a67c5ff8dc1fd
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

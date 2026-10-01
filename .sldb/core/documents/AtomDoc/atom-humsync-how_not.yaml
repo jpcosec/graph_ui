@@ -1,0 +1,19 @@
+name: atom-humsync-how_not
+path: desk/atoms/atom-humsync-how_not.md
+source_hash: 46ed58de0d417033c31fe0fe6e27f016c6171018996479a9d78b1505f449e11d
+content_hash: 4985b8ef3d6631ade8ace2cd5aaf2045a7f6bc17fe3e5e125b9de2a8a211bdf5
+field_hashes:
+  id: 07d888547944f38e6e9ef65df13a4994db6a2043355d34183ca01b4077c99560
+  title: 2c4ff83f86fe95568524ea63388604693c9346e83f9c323328d2ee23efc3b688
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: 997d012bf3f0949d5263e0176108313416da2bdc728544609752d1c8bef59309
+  tags: e494618784dc3b911408ceda9d55ae70e05445973bd899f038d1aebd34a5e4be
+  provenance: b55ad2f4b44bb9f53b0e67becbb2f5d36284f79ea58f6d10ac7a2a603fc43446
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:runtime
+- type.knowledge.atom
+- workspace.desk.atoms

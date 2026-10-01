@@ -1,0 +1,19 @@
+name: atom-humsync-why
+path: desk/atoms/atom-humsync-why.md
+source_hash: afa2be659e6f69a5fd2fd41235454162c84ff230e442fe835678ce679b981396
+content_hash: 6a111e92b33734f6603d97bf194bb67c00bc7d4f90d4dfb72bdedca36c0bc1f0
+field_hashes:
+  id: d2456266ec44bf67adb3cd7eda0b1f7252c6b72c9a92581e63a8e83e9ad8635c
+  title: 2c4ff83f86fe95568524ea63388604693c9346e83f9c323328d2ee23efc3b688
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: 4aaf3e6bfce9840df7e501fbd87fb014b3858f81c42900db91dedc028695c46e
+  tags: e494618784dc3b911408ceda9d55ae70e05445973bd899f038d1aebd34a5e4be
+  provenance: b55ad2f4b44bb9f53b0e67becbb2f5d36284f79ea58f6d10ac7a2a603fc43446
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:runtime
+- type.knowledge.atom
+- workspace.desk.atoms

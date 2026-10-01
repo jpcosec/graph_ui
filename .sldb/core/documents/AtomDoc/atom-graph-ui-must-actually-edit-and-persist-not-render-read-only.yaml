@@ -1,0 +1,18 @@
+name: atom-graph-ui-must-actually-edit-and-persist-not-render-read-only
+path: desk/atoms/atom-graph-ui-must-actually-edit-and-persist-not-render-read-only.md
+source_hash: bd9829947df3eec4d73e3a0ad7a23e92e4af6d67a19dabcbb28267d40cec2b1a
+content_hash: 3cfc18789052672f9d2973108ddda029e4ed1c9a83b69c71823f2a25d75c8ade
+field_hashes:
+  id: c43f3138e0ae6bee37f3d19928d578c314efe9688b281b7db5b61f25339df1ad
+  title: 133b5309931bd66b03c510ab6b5e9887ef774a53a76f23721b5975c95770b411
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: 54a14a757b44e6bac8d6a7d5d30cd3bf24404dc1fcf8c6a3c1b98acc0688372a
+  tags: 29ba77b05a433bdfe1e737fd3b475e268e39662a421cedc771be47479f1b7335
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- topic:intent
+- type.knowledge.atom
+- workspace.desk.atoms

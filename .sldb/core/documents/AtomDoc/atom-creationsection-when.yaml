@@ -1,0 +1,19 @@
+name: atom-creationsection-when
+path: desk/atoms/atom-creationsection-when.md
+source_hash: 5f0d030d5db85571351d6533aafdb37dcc0ec8091a58296f23bc7db6fccc6c37
+content_hash: c26cb0b3cd98ae2a20187b96486f10d2916b61b97820792031f809df16948052
+field_hashes:
+  id: 803bb0f68b76d78129c39773f13fb571962547c31ded1df63a68e6944960a8e3
+  title: 6f7d43e64c7bb680965ee1334b6950a96bba0577a02c51c4ae695e4fe34b2c3c
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: aa77028ff84feef735b6174df80bac6d09e4076d988600e558dfa78517ce24b7
+  tags: c55db97557317b3c74a0cecbdaeae907835b89d653d0cef84b54260927fe74ef
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:creation
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,7 +1,16 @@
 name: operator-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-close
 path: desk/primitives/operators/operator-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-close.md
-hash_c: a64e0984b8f77ab33df667f63e620c35e768ef11064299cb818377801663aedf
-hash_d: f501ff6303b4f065113c83603f65368c8c871ff4c88d59dc9d183a4bdc8f05f8
+source_hash: a64e0984b8f77ab33df667f63e620c35e768ef11064299cb818377801663aedf
+content_hash: f501ff6303b4f065113c83603f65368c8c871ff4c88d59dc9d183a4bdc8f05f8
+field_hashes:
+  title: 3475b4f5f58a51202b2e45845479c3b46e8c3196e9bffb77fe52f00c16887690
+  id: 88e2287fad3278b63eae2ae78106ca4a5daae4c4d29ad3109f91c26e8223f4a4
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  summary: 0e84486c53bf166c790605c71264b5b9f528ca66fa84cf6c718347cff002726a
+  tags: addd3623ce8edccd84747015525ca0bffc07240097d492329f4f1d2a069be349
+  action: 15fe2461fd90705d5e77632cb6d3d337f9cc7e750e8815781dcc4e92d6b89b85
+  target: cfc31bcc34ed7f4cc7895026ae8a54f0494f73757e9f914d0f6ed90f9bc34f51
+  value: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
 semantic_tags:
 - primitive:operator
 - representation.markdown

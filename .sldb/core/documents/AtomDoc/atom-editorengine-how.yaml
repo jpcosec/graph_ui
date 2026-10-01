@@ -1,0 +1,19 @@
+name: atom-editorengine-how
+path: desk/atoms/atom-editorengine-how.md
+source_hash: 9533c423c201c53fc6932f799595278244cff5384d10a640d035897c3ae66a28
+content_hash: d51d8c3c2db9000e13cbc759747a342c515c26b95bfd8cc86207efed2c96310c
+field_hashes:
+  id: b4693a8096ec8e008659a43b3f9003a9796a419b023a4ab8eb0b8fc752f4bda7
+  title: 764f2c6b304edb8b6ce0d984b9cf6e5bc74f494236f5cd42d8df225afef8bb2b
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: c0111cf1ad21aed9500b4eb4c28844aa395e32e0aab45240f0d0ecc12a650d1c
+  tags: 7ae3211b1e2c490b28ade1179dbadb550e010493db5075b6ea3423c0ff89ff9e
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms

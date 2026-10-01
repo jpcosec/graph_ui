@@ -18,6 +18,4 @@ provenance: null
 
 ## Answer
 
-_Answer the selected 5WH1+ question as one stable knowledge unit._
-
 A sidebar-driven, savable config that selects which nodes and which relation types are visible in a graph view, how each is visually encoded, and which layout strategy renders it — authored as data instead of hand-coded per view.

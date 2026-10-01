@@ -1,0 +1,19 @@
+name: atom-l3content-when
+path: desk/atoms/atom-l3content-when.md
+source_hash: 686b3329757109d17a2b01df4cdb7ad4566a3ac59e195c1b7c7370fd946a4a9d
+content_hash: 4bf2107af0c0345168c4e3b5f701327b3881c43b0c81bdf498c832d79503827d
+field_hashes:
+  id: b36e44dce157047d13f5f16bdb3014bb830a6bf634b92d03d540e24423fddfd0
+  title: 19f33969f9c1db28be4c50f083047f8064d0300d85aadd86bd32ea1874823378
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 2ba54a9399d6fde3c7b4052b4715e82ce4ad1a4fc9b1e047964b3d294b31db32
+  tags: ea84455200fa4623fe1555dc540cc16d3069426b710043d92096f3778091cc06
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:rendering
+- type.knowledge.atom
+- workspace.desk.atoms

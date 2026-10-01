@@ -1,0 +1,17 @@
+name: atom-filtering-is-the-primary-projection-mechanism-encoding-is-secondary
+path: desk/atoms/atom-filtering-is-the-primary-projection-mechanism-encoding-is-secondary.md
+source_hash: de3bc964d13122df83512f999b9e9e1df82ba3a0b45146ef049aa0d7aeb1d826
+content_hash: 927d264e4c5238f48dd1c237ecb0ea19505318a2733bae478e0914baec82d65c
+field_hashes:
+  id: 6c7aa7eab654f9fa3d8017c92168a6821cea15a41234b40a11a7530e246eec12
+  title: aea032e9a92b5d4eb0ff67b23badc9d7e8f30e00066014a3f96a95c9f5e97618
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: 3b2fe2b4f24bdf43de36238cf463ef22206e593605676aa7ce10d0fd8ba158fd
+  tags: afef0b2fdf44fb9c12df8c9a98705ed624457425ee022e28fcaf0fafff2cfd9a
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:projection-grammar
+- type.knowledge.atom
+- workspace.desk.atoms

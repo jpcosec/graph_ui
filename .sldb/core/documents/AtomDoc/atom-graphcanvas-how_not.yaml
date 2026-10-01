@@ -1,0 +1,19 @@
+name: atom-graphcanvas-how_not
+path: desk/atoms/atom-graphcanvas-how_not.md
+source_hash: 895bae604b2aa9725dfe6568111f4dc208db8197f6ececd77e7f4e6d60d3d0fd
+content_hash: dc31faa73e81a91a478d2262442b66ce17b738e8c05180eb69662dd9a5b6958a
+field_hashes:
+  id: 41e391227c9e8b32ac7e68e4f532070bf0c0d1acf0e29b753b2b906199752fe7
+  title: 16a14c8eacd8eb7475187df33db8d31f1aa9626f633425faac7eab2f0a2e5ea8
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: b55a3be7dca1c6cd093b1275491c68ed7939136ce73d4ad5e672498aa7d36190
+  tags: a4a473b6b74ffec7629166b0e792d1cd8db6b50b71a03e35ae0ec15b120ec2d2
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:canvas
+- type.knowledge.atom
+- workspace.desk.atoms

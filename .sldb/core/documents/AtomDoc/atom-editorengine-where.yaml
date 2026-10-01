@@ -1,0 +1,19 @@
+name: atom-editorengine-where
+path: desk/atoms/atom-editorengine-where.md
+source_hash: 82199aba790e195662175dec0d584ec0a1ca2f3feb2f73938317ca1bdb7545ca
+content_hash: fc222b86930758488580cc65a0e140422ce599c7fd9c285fe1be035b5b792d8a
+field_hashes:
+  id: 8b90490e40dc97f0ffc254487339cfe68ca2f58ab336b97e5d49418217b93c11
+  title: 764f2c6b304edb8b6ce0d984b9cf6e5bc74f494236f5cd42d8df225afef8bb2b
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 9fd965dc865490039bf4fe669d19b8697065decd80dd34356bbed38976d9e8f1
+  tags: 7ae3211b1e2c490b28ade1179dbadb550e010493db5075b6ea3423c0ff89ff9e
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms

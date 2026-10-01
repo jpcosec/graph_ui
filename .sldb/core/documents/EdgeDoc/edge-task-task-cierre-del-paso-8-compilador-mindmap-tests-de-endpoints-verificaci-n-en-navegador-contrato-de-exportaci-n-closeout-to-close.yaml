@@ -1,7 +1,16 @@
 name: edge-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-closeout-to-close
 path: desk/primitives/edges/edge-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-closeout-to-close.md
-hash_c: f2ae8ade1b801f62dfa78dade7908a9e19037ad2684960d0de9a9397d0ca25fb
-hash_d: 9b5a0e5176cf3db595584337f47cda05f85a0a588d076539c140c5fdce0aeac8
+source_hash: f2ae8ade1b801f62dfa78dade7908a9e19037ad2684960d0de9a9397d0ca25fb
+content_hash: 9b5a0e5176cf3db595584337f47cda05f85a0a588d076539c140c5fdce0aeac8
+field_hashes:
+  title: 5568fcc8869b381e6e149b8e8efa9f8c042d2184674413d370ef4c9614db81d7
+  id: 666636a0375d585797855487cb567419fd8c456deb3c13168c59b227e099f759
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  summary: 6325227c9527c9b5f4f1ffd9122f462874da2df2e828f301eef9a359ff306046
+  tags: 7669a24af159d3197bc1f1cebef462364089cda6e7b0ffc228fcc2b7f2cb9eb6
+  source: 2823ac0676d4f707190cef5dcab61eceec8ba988bb10dc0be63a1267a52bab19
+  target: e0fbcb3115b8323d135680834575319512835996b7ec3e8dae2534620cec41ef
+  condition_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
 semantic_tags:
 - primitive:edge
 - representation.markdown

@@ -1,0 +1,19 @@
+name: atom-kgdb-to-ui-where
+path: desk/atoms/atom-kgdb-to-ui-where.md
+source_hash: ef2435b466e98f6918fd860374860461190458da9fe73d502e1cc6279bfef569
+content_hash: 46361b8cb7caa8cab48d00e97a702349577fa35363fe688171c1d91860cee286
+field_hashes:
+  id: 586cde7ed1c12e83024a6e56531b8648440c89a2e0c92d6a0644dc814d34ff20
+  title: d3212839bd00677becce2cb5363e34a52b8eb5a40282fe38ae4aef93ee6b5476
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: dd1390cc630f86f3dd6d0f992ea87c278b42f3e2554356d4ecbb83f67aac86ff
+  tags: da94272c303a1ccf9331a8cfd111352dbca98811a4b1d3d235c88b8adf412f16
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:adapters
+- type.knowledge.atom
+- workspace.desk.atoms

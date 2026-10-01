@@ -1,0 +1,22 @@
+name: pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables
+path: desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md
+source_hash: 62ecb016eebe818e47729ad029058af18b1cb8838e0e8a2c5b5295063e20ce5f
+content_hash: 4f1b19bd1b84a8597ac8fa6bbacee1f5e7eb41a6fe97883b28d6218faace58ae
+field_hashes:
+  title: 6b58fb9fbceda16da283551e90a43ea60adceda188d6128c029b671bfbd43f4c
+  id: 0f443e9341ebcbae16b567c2ea96200d209047d919945b8e721e3f7986773dd8
+  tags: 160aa7cb2e98362afe4f128b4264064c41f90d4066abb3343b2f1f8172277c56
+  what: 3efa889e945b112b03c3a647fcc06fe9dfcf0b71eaa38aa28bb76241b3eb0712
+  why: cc8d88e75bbf276cb62436bb326f5e2392e9da6ec7269a73dc51190cc00d7a80
+  when: c0ee5c03d193f0048e3357f39694089a3871381f2e2ea091fd365d62fd0e3934
+  where: d1757445650c296c106cc277ec0f384c1b3a775488021f230a9147759cf36d67
+  how: 1e90417c9df04f8993d59ee40dd1021cb07201f4fa63eb684cf68b2c598f168e
+  how_not: 759696bb4839454da18188a188db30b4f6898905970219bb3772b4d90d35f992
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:workflow-guardrail
+- type.workflow.pill
+- workspace.desk

@@ -1,0 +1,19 @@
+name: atom-graphcanvas-where
+path: desk/atoms/atom-graphcanvas-where.md
+source_hash: 659f67b066271b7d7804c59d1d297028279f8d181f152763ea416925512ff7f6
+content_hash: 81c9d3320857553200643b0b24a46428f8b572357a1556c65949eea0b7be7faf
+field_hashes:
+  id: 911af904066da6f9ca6abf495126be443929b5536d1e4fee2fcbf1bf58787776
+  title: 16a14c8eacd8eb7475187df33db8d31f1aa9626f633425faac7eab2f0a2e5ea8
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 3f61b913e1173f38f6a106960658d5a697ecfec05b47ca00d95f0baf35da784c
+  tags: a4a473b6b74ffec7629166b0e792d1cd8db6b50b71a03e35ae0ec15b120ec2d2
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:canvas
+- type.knowledge.atom
+- workspace.desk.atoms

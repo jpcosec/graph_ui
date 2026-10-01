@@ -1,0 +1,21 @@
+name: pill-guardrail-encoding-and-layout-live-in-graph-ui-spec2viz-not-in-kgdb
+path: desk/contexts/pill-guardrail-encoding-and-layout-live-in-graph-ui-spec2viz-not-in-kgdb.md
+source_hash: b933ccd45e796b80cc7c5201b6432987004811ccc369f15510eb6dc94aa81703
+content_hash: 07658ed5f4849234f21e3b46b498f135f50a054a833562e9821bd1064f80aa41
+field_hashes:
+  title: 17ea917230e6738f140db5dd1684eaa6859dfd48eebddb90cfbd19c0cb8cbf44
+  id: aba1f82b54f194c74dbd6e987da0dd80ca53f5b67c0112fcf569318da2f5efe6
+  tags: afc80a59a0e333577fa0c38e68010a77c3111aee7abc5d6df3f927fe991f2858
+  what: f79df4ecf5481f8347f99fe089bfc5bdcdf846de9890c9266529aa1ee4c03eae
+  why: 96e70adf660fbcbb10a3bb2278a5580ddf88e840914dc6c5f5ecf634da435fc0
+  when: 5e91498a95ac9e5d033885db85c7821822b09f871f4ac6a4847608cb896ea86a
+  where: 926073a0886aca1718dd6de5754bea7b761da8fc514a8c02ea75f031cba916eb
+  how: 5c833a2f2032d1197c64696e30980afc5f64938c06030934f989ec5995f31c58
+  how_not: 42e738924764c40579c9b4b6b640875bef888c0926763eda8690c4a74f55fcdd
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- topic:layering
+- topic:projection-grammar
+- type.workflow.pill
+- workspace.desk

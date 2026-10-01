@@ -1,0 +1,19 @@
+name: atom-graphstore-how_not
+path: desk/atoms/atom-graphstore-how_not.md
+source_hash: b7142a0a3429bfca2c434fedef2d0f31770ba1d430a847e763d86981c8af16b1
+content_hash: 5e8ccc888b9a7c012c7b686cb42e45d87932f501ef30c058bb0e5af8eecdfb5d
+field_hashes:
+  id: 72582b3eb5bddfbdf1157d095ac5eea71dccd16287ccbe6f115309c1d4752c0a
+  title: 62c7b754cf6892b336446a1bd855a4a9b2d31bcdbc55db7d6a49d3242a6effa1
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: 76bef83ec233072c76799ff7d96faf4e64e4cb672e13fe02fec986585c2ef5fd
+  tags: e72d9d060036260f2eaf04f9f2ef71b0daa38fde4b297f17c35885182248ff2d
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:stores
+- type.knowledge.atom
+- workspace.desk.atoms

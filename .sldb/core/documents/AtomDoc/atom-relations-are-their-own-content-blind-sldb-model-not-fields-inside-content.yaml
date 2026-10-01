@@ -1,0 +1,18 @@
+name: atom-relations-are-their-own-content-blind-sldb-model-not-fields-inside-content
+path: desk/atoms/atom-relations-are-their-own-content-blind-sldb-model-not-fields-inside-content.md
+source_hash: ad6d38a44e678f5dd36ba945ee6a0f82993932fd604779d19b4ad9fbd78c7d0c
+content_hash: 88fc38afd7be6b9fde3842c7a58c191565a3657639204d7b55cc1545ba410caf
+field_hashes:
+  id: c164a192ecf94c95fbf4d4e0bfddb3d957607d3a407c657778d5f4270f5af30e
+  title: 338d15476c2b00992afddbf945faedbcd53996ac18f2b90ae5e5daa961611e24
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: c4191c8b026c77905ff795973f5f990dfb80e0e32ae78ee1ad70a3b910d404ad
+  tags: 6f0ac34e5288776117826ce11d7091553250b567f53d9b53a43ac91cfdb201f4
+semantic_tags:
+- layer:document-model
+- representation.markdown
+- source.document.markdown
+- system:sldb
+- topic:projection
+- type.knowledge.atom
+- workspace.desk.atoms

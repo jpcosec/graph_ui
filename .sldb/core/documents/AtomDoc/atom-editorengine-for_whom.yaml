@@ -1,0 +1,19 @@
+name: atom-editorengine-for_whom
+path: desk/atoms/atom-editorengine-for_whom.md
+source_hash: 613a2c70438d48c9df3e9a27570591617f150db76947f8156873a36070f1a892
+content_hash: 8501fe23eb25280272ba22c2ee558bdc1a193823ec4369ac05ab059c703d6af9
+field_hashes:
+  id: 7d1ba6b3cc1b148f70d4fcddaf231bb05f8c6be48b2457d0da220492926d372d
+  title: 764f2c6b304edb8b6ce0d984b9cf6e5bc74f494236f5cd42d8df225afef8bb2b
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: 32fc7b6e276f294e7f5ef4629b986df1b79b358edffd33382dff293a8983cd3a
+  tags: 7ae3211b1e2c490b28ade1179dbadb550e010493db5075b6ea3423c0ff89ff9e
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms

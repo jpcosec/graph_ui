@@ -1,0 +1,19 @@
+name: atom-react-editor-why
+path: desk/atoms/atom-react-editor-why.md
+source_hash: 2cdb9a56d2580a2e2328b549e54c79b2e0e08c51ad0f03f90e9f43b828acd14b
+content_hash: 79eaa9d5a8216e600765928d762936ab88edc26c866dab916ce3c76ebba2f0ff
+field_hashes:
+  id: 522f735a4886baa0948c0aacf50c487fe7e00956e3d782c446022ec58d1dd88c
+  title: dda6fab7b4977280221d52e4e3669877e2d247f5a5256c7a76a65a4b8f582138
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: cc9c1868c190bb76161704bb72d28d143141792c22e6d77319293b3a56afe943
+  tags: 96ae24cb2eb0c9a8464b35b201d8adaf7f10090ea00f46a66d17caab080c069f
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:architecture
+- type.knowledge.atom
+- workspace.desk.atoms

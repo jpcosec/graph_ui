@@ -1,0 +1,19 @@
+name: atom-humbodypage-why
+path: desk/atoms/atom-humbodypage-why.md
+source_hash: 75cca60ed09d99f004607e5cd76bd8ae4fcf6f8c348e610f0e10c68b6c2ff588
+content_hash: ca941f50015a8dbf456bdc1107cf5698e04d4f872d1195cbfcd13294d4b45ac6
+field_hashes:
+  id: 73c017e8730493cdb0393feef419cdbec35c5cd1286435f77df7b9c703090b96
+  title: bd755b3de6527bbb0fce3c3b8bcd5865f1724202eb1560a231f89720a9784d44
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: e59829ac475e8a82acaa13e665c203288b9be7058f125fd3c5bfd63179a58b31
+  tags: 0e022ee933364062ffdf57f6875d5b4523fbef54d1de72fbd071e5526a035647
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

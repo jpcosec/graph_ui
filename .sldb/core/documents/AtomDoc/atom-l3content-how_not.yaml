@@ -1,0 +1,19 @@
+name: atom-l3content-how_not
+path: desk/atoms/atom-l3content-how_not.md
+source_hash: 2ce9d7b3ab7eb53bb6ca2f7887b06f24fcb011a7064df674264dff9b89fe7a6d
+content_hash: f754b7056700debe47566aa5fe6a93a7d16972f5f37168b651103d4723f1e998
+field_hashes:
+  id: 43182d3f775616d3dec526f725379c627fa36c340cdc1078b1fc99f1333464b7
+  title: 19f33969f9c1db28be4c50f083047f8064d0300d85aadd86bd32ea1874823378
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: 74192df99874ee6a7ff124f7660efb978ecc9c73a137b172c0b80b429e91c9fc
+  tags: ea84455200fa4623fe1555dc540cc16d3069426b710043d92096f3778091cc06
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:rendering
+- type.knowledge.atom
+- workspace.desk.atoms

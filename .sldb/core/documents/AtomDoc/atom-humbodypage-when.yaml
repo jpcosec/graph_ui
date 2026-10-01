@@ -1,0 +1,19 @@
+name: atom-humbodypage-when
+path: desk/atoms/atom-humbodypage-when.md
+source_hash: 9112182a1fd385cf2a3799e90703752be7bc67e9f13434677cb378f6593b7503
+content_hash: afe03e193ce085a99848219564080247882bb97b90883ea3eacac5cfbd56d593
+field_hashes:
+  id: 2bede6bb1da76544b40c9a8d4f612e6fb8feb3fa56a9b177b5c2993c40809693
+  title: bd755b3de6527bbb0fce3c3b8bcd5865f1724202eb1560a231f89720a9784d44
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 669474d36ffe04e103b2fdf8737c9193bd8f705d668a4c2596ff65148875059e
+  tags: 0e022ee933364062ffdf57f6875d5b4523fbef54d1de72fbd071e5526a035647
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

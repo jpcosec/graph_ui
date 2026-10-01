@@ -1,0 +1,18 @@
+name: atom-how-graph-ui-loads-data-today-static-hum-ast-fixture-baked-into-the-bundle
+path: desk/atoms/atom-how-graph-ui-loads-data-today-static-hum-ast-fixture-baked-into-the-bundle.md
+source_hash: fe1cf5a6852d21ea170fbac607685bcf953516a689d7847446bfac764a904f24
+content_hash: cbcc8000bd243b276a544a62856f77aecbf31b71509551f7f82e3211a05fde04
+field_hashes:
+  id: 06f1c2d70e42b3c0eee3f4f7030cbd7807b0661f91ee51e03890f2e40306d5ab
+  title: 5cb094709fc1c66eb8f56fa00d4c4dbe219c0bf9c3cbb011b572f7df201ebd7d
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 7d39e2bcd507c1ab249d6856437f2a808b8a57196367261c8c401107e269dce5
+  tags: 4491340b1cf21c99da72788e67522d11e434014abe034ba029939bcf7bb6a705
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:current-state
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

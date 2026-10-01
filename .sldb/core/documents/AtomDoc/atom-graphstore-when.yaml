@@ -1,0 +1,19 @@
+name: atom-graphstore-when
+path: desk/atoms/atom-graphstore-when.md
+source_hash: f66dca2aece92ff406ef4663dbd10f01004e84334155bebaee7547232161de52
+content_hash: 622940ca2822ae41906545c17abd255577dc69340e77b4baaff981b71500fcc1
+field_hashes:
+  id: 22848e303fce1c6d73abf3792a05d007d2aca73e8faa69d28599340752c7160f
+  title: 62c7b754cf6892b336446a1bd855a4a9b2d31bcdbc55db7d6a49d3242a6effa1
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 1a43ed40f0a82094a2594a111cf56fd0bc70cc42f68cb0d528b639795f505e68
+  tags: e72d9d060036260f2eaf04f9f2ef71b0daa38fde4b297f17c35885182248ff2d
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:stores
+- type.knowledge.atom
+- workspace.desk.atoms

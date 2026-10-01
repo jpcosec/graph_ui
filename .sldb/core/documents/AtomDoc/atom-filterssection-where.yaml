@@ -1,0 +1,19 @@
+name: atom-filterssection-where
+path: desk/atoms/atom-filterssection-where.md
+source_hash: 5507faa4676291820758eaa4db87635c00d68b4b8d7a065cc7f20d93d75d38b7
+content_hash: d19ac1b7270f8181cd987ea96ed02f0758f68d86a26e8e31b9bbb77694ae8221
+field_hashes:
+  id: 3594e8edbda4265511bca9f6ff8a4d9defb2507e6c25136989803c8cdac479f4
+  title: ee6ee1017bec870d3accd15be32f7359a41a1c1e895dec0916a14855a4da1675
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: c35d2f15053ebceb12e6d3249c2a776260f184ac0456e61ff2f85358386f7b12
+  tags: a817f68b476c13baac25486db0a090ef3a8db039e07023f4fe2ae4c2ad3f3588
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:filtering
+- type.knowledge.atom
+- workspace.desk.atoms

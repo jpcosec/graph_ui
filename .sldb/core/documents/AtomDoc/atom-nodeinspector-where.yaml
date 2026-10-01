@@ -1,0 +1,19 @@
+name: atom-nodeinspector-where
+path: desk/atoms/atom-nodeinspector-where.md
+source_hash: bd7364f5f1c1752990bd1300fa83c5ac7ac789d4f70f4e59cc4eb54a56f57949
+content_hash: f116d1424d1c0faf9a1605f8f853d150bc4d6009e62107583d89bc21d5ae6c75
+field_hashes:
+  id: e40022eebca7d777cc282b4c56b14edeac1b248381d83b8c77ff2a9eb2703b49
+  title: 964a6f88b4f4ad5bbdb0732a1132d67eefa19ed838ff98114d37bd4aea15bded
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 557efc093fefdb3b0d998a91c83309e9d703f32808c732b970415f61dee8a53d
+  tags: da029b11abafec3c253b63f80e1167637c23a5d0ad5bc6e967822c425f75fa2b
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms

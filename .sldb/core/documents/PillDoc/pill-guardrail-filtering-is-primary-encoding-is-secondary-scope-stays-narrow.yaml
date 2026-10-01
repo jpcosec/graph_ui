@@ -1,0 +1,21 @@
+name: pill-guardrail-filtering-is-primary-encoding-is-secondary-scope-stays-narrow
+path: desk/contexts/pill-guardrail-filtering-is-primary-encoding-is-secondary-scope-stays-narrow.md
+source_hash: 5fa1ca239c4ebf2c6941fcf842fbb4d6fefd867b03dd1ed2348723366e778d1c
+content_hash: 97af3f99e402cd3473c2c9c2aac459bf64dc17fdce1a945627ab337b3f5d20e3
+field_hashes:
+  title: c1a144288a251f246d92884973993a1eecc412149f6bae5aca2b403051471104
+  id: 09878d63c43ca1ad633f4e3833a850631463ba990e8d1a6dc6d33fa715c5ddfc
+  tags: 2ae048c74b7bcbd2141672cf8a9e95186011c20b53a0a3c8c33ebcadba22ec2f
+  what: 6df06400e8d7a996e73498535df87baf629c79640c7a1b7b224f0b65a3499291
+  why: c23678a53fce4159f63bb37a564b52d05f44a3bad195f6753636d2ba88b35230
+  when: 069d2bd98d4995274f7c4737155ebe04ae1741e5c79aa30d9a3d7816f9573f67
+  where: a31747111451c2609ad49b7aecf73010048b1a11473beab21af3817639f08019
+  how: 4d4352cb3345981dfd6680649fef8e0eafe5d40432be70bd2c522766b44192a3
+  how_not: a26b02ad339837f1af1de879141aa904c4c238445315a44cf03d64f17ba49ad7
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- topic:filtering
+- topic:projection-grammar
+- type.workflow.pill
+- workspace.desk

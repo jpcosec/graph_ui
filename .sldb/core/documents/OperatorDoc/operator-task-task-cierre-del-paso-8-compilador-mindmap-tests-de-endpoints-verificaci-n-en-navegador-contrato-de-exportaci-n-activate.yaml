@@ -1,7 +1,16 @@
 name: operator-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-activate
 path: desk/primitives/operators/operator-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-activate.md
-hash_c: 455d579a2b6282ebf6e0847c3f07aba359710ad070cc85573cdde8b27434b66f
-hash_d: 7ea474b86875dc4e8ae7814f53a4fba62709a608b86322f73e7f3bb50d59aca6
+source_hash: 455d579a2b6282ebf6e0847c3f07aba359710ad070cc85573cdde8b27434b66f
+content_hash: 7ea474b86875dc4e8ae7814f53a4fba62709a608b86322f73e7f3bb50d59aca6
+field_hashes:
+  title: 565558356b7a264a2d17482dd763600cb1b20fe8fe4b1047e6d5fd2856e32e27
+  id: 5114938ab35b5caa17b8d7519c7ca75b2a7130b9c5f2477e341df80707bf0e35
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  summary: 5489157757845aabc675b8fca80a8037e07bea461044db29447462e7ace9b5a4
+  tags: addd3623ce8edccd84747015525ca0bffc07240097d492329f4f1d2a069be349
+  action: 15fe2461fd90705d5e77632cb6d3d337f9cc7e750e8815781dcc4e92d6b89b85
+  target: cfc31bcc34ed7f4cc7895026ae8a54f0494f73757e9f914d0f6ed90f9bc34f51
+  value: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
 semantic_tags:
 - primitive:operator
 - representation.markdown

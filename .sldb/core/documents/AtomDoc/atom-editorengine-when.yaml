@@ -1,0 +1,19 @@
+name: atom-editorengine-when
+path: desk/atoms/atom-editorengine-when.md
+source_hash: a2303afd412f6bea7afe6543d11b0e375ad5c3e50f1032fc61a5ab62236f4a26
+content_hash: 43d33d855b20245622b5ca0adcb16c67134e28da1de4bc254c22ce499fc109e6
+field_hashes:
+  id: e92d0e8fc83b8e928f44e0c7e65d5fd66cc7d441f6f5c72abe0b38a892951286
+  title: 764f2c6b304edb8b6ce0d984b9cf6e5bc74f494236f5cd42d8df225afef8bb2b
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 57e833bd374ae5fc1f0f24e70115c8035064fcff66fdbb6424af39ef63e782ea
+  tags: 7ae3211b1e2c490b28ade1179dbadb550e010493db5075b6ea3423c0ff89ff9e
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,0 +1,19 @@
+name: atom-reviewworkbenchspa-why
+path: desk/atoms/atom-reviewworkbenchspa-why.md
+source_hash: bab66b2492f3680697a8ca705ac8819ef1bd86ed60f95ea245468df8b181c567
+content_hash: fe32e29c5ade4c24d7077ff91ce6f1bd805fc21c6f27e9aa9789f65c8e808c8b
+field_hashes:
+  id: e716f6149e62cddfb516bebaad75fb636792352f776ac2a048bfc1feb8cd037f
+  title: 645ce8adad1588e8ae8247cc355782f138eb7cb6c62a1ab42ad9705d90367769
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: 6b16267fb4f2607a0129bc23bc1c42df3bb081bacfc0b7a8ed4dff1fafc2db34
+  tags: dbfbda62a1eb93366a9c3145257e2125b45b8f04017c82213c663c56c8b59706
+  provenance: b55ad2f4b44bb9f53b0e67becbb2f5d36284f79ea58f6d10ac7a2a603fc43446
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:runtime
+- type.knowledge.atom
+- workspace.desk.atoms

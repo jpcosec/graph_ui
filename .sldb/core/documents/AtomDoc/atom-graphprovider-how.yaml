@@ -1,0 +1,19 @@
+name: atom-graphprovider-how
+path: desk/atoms/atom-graphprovider-how.md
+source_hash: fcf00e2ee293c62b3ab051e565167a84cef7566a81bd1dd544a0bae3f0dd71d7
+content_hash: 8a83505bd95d77e25d227a810fc23d5f6283fd599dd9515bde98cb2495c7e2c7
+field_hashes:
+  id: f286dd65b2d12003cb285f050cfff89bda67c3f2fc28dc6076704998a434ffbc
+  title: d0e4427b71ccbabeaf1454988c9ab20d178fd0178c3e9a32e39559b33d7e998b
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 14bd28dd6572631265a1359fb3dac297f33143c4ed21fb40fc1f077d24eb32a6
+  tags: b503305db2331e4a3eb55abe62d2e63ad16c1d44f01f411bcb58e111ba8e28fa
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

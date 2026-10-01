@@ -1,0 +1,18 @@
+name: atom-projection-grammar
+path: desk/atoms/atom-projection-grammar.md
+source_hash: bb29bbf51394becff1b11aa50f640c243817345dc84c2c868ef7de99fcd47334
+content_hash: 8002347d9bfabc043b1d4480ffbde7c086f73a7a065470daca215225347a50e2
+field_hashes:
+  id: 7a4cb0fb0b9c7de3428ad066293fa2bad8929d6a2315a9421dd49548ac4baec4
+  title: fb210006979188fde62d70fe796a95526ff04bf898ce8e6f7d282f5475b4d73f
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: 6a9b980892840afb9fbb2b72cafa078385e75a38312b4177042c531868151b02
+  tags: 95fa71b9386874475f9e5545edea7bc5beec0678c6f1818e6e38bec4d71e0436
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:graph-visualization
+- topic:projection-grammar
+- type.knowledge.atom
+- workspace.desk.atoms

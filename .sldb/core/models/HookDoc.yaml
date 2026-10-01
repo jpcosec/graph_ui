@@ -3,7 +3,9 @@ model_ref: deskops.models.hook:HookDoc
 path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/hook.py
 documents_index: .sldb/core/documents/HookDoc.yaml
 sections_index: ''
-hash_b: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+model_hash: e46da1595a071816f01bbd360da7c3363e386feea9d533db019c6c271ce0ef83
+roster_hash: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+contract_hash: 90c9c7fba1378e1628e475b74d11ed2efa682d3c9de368e0d5e9a1deb79d4353
 documents_count: 0
 version: 1
 canonical: false

@@ -1,0 +1,18 @@
+name: atom-hardcoded-static-lenses-are-the-anti-pattern-for-projection
+path: desk/atoms/atom-hardcoded-static-lenses-are-the-anti-pattern-for-projection.md
+source_hash: 09e18037fbd3657c8382b97c612ab58a3c69f329eaf8c43a14cc57e37ae889e6
+content_hash: 29c6628ab5b16c8a54c8740868d59dda21af41c794fc660e557ed755cd09d1f2
+field_hashes:
+  id: 15e534c4c32c208cf4d323c937e941f6d44ef8ad523a6672d23beb24f08d2da5
+  title: 4cd71d9de8ed926b54e1d5a5461696efee817ee05f48189a9af378b978c16f8c
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: efe5eeb2ad4f7f4dbea63bb2b9bbfc9d9bc094b5880976902fcf429f36e6daf3
+  tags: ba6a2a293b71cd1f0c032afa082f6b71dd48ac07bb71f568d3a7991553df0c8f
+semantic_tags:
+- layer:l2-canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:projection-grammar
+- type.knowledge.atom
+- workspace.desk.atoms

@@ -1,0 +1,19 @@
+name: atom-commandmenu-how_not
+path: desk/atoms/atom-commandmenu-how_not.md
+source_hash: 5d931f7232e81dc59c0e8a4b3f879b63a5e5bd016f17e19fe5334b5f5473d184
+content_hash: bacb9910eebc3009f51558b6373b4f31b42df334f8ef67fa07ac04e81434e677
+field_hashes:
+  id: acdabe05102dd988bfbf9011f9e445950b2532579304c6f485598e1027e2ac6e
+  title: e3c54f0d3001e4f6c9157f22041ef508967a4f24d2c20f8829734aa7f8ad4067
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: 511a194e32a6d67e6b943ec292d55c39549bd79103fc6c3614573b9959f2e95e
+  tags: 2f48679c9429c8e50e00843c7c82c35d5bee97bdb233b6ca7fec5b020b571ec0
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:commands
+- type.knowledge.atom
+- workspace.desk.atoms

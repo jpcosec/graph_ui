@@ -1,7 +1,17 @@
 name: routine-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content
 path: desk/routines/routine-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content.md
-hash_c: 19d7f522c05196a141c44c2d3a9c462857c3d3e5943b8ae809fd084e18540571
-hash_d: c8ab916205fa140f7030f8c68bbd2c18b8759f6b32921a05ff535c4dff6bd66e
+source_hash: 19d7f522c05196a141c44c2d3a9c462857c3d3e5943b8ae809fd084e18540571
+content_hash: c8ab916205fa140f7030f8c68bbd2c18b8759f6b32921a05ff535c4dff6bd66e
+field_hashes:
+  title: 3c587af2d4d0c04b80ef0cb5c00ca3c4f7dc2cb95c36118784060908d70af4fc
+  id: 043e5ed97ade1fcaba22fe93eb8af61acd1bc702f4ad2a372337936fd16f079e
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  summary: d4aaa6d7606451003a70b59d9e940bd9150274906eda2003cff6f3423425384e
+  tags: 682ad58c6b2fa3a80465c3d0fa4c9de759c3684e4c83c56f94a9b67d558ddd75
+  entrypoint: 3b0c290a87cfc8233337f750040ef86e4c773503c89bd48c51d540ab0605ba8c
+  decomposition: 2400c217093472bb9548e07a3341fc7be35827416c45fbf7efc467d9b08dbe56
+  edges: b2177a17ca3dfc2c32baf8a0991f1f8ad87618357772d13e162d7d00e8122de9
+  terminal_nodes: 8ace718207dd793346ef234f111009a7c60689ac5c9d016af36586b581ca42fd
 semantic_tags:
 - primitive:routine
 - representation.markdown

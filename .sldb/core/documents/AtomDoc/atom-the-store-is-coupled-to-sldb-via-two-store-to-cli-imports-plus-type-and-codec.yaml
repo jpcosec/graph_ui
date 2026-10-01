@@ -1,0 +1,18 @@
+name: atom-the-store-is-coupled-to-sldb-via-two-store-to-cli-imports-plus-type-and-codec
+path: desk/atoms/atom-the-store-is-coupled-to-sldb-via-two-store-to-cli-imports-plus-type-and-codec.md
+source_hash: 8d47138ce7d533b12f8b324a757b8ea74c5c046df3cd5333136a807af53b6761
+content_hash: 923bc041700e19fd27683c8c1ea6009143db85766b2e491264decb6f239cad4d
+field_hashes:
+  id: 5a6106c236a050cce435f8c6c273f581ee0c7259b63795489af20892fcbab8f9
+  title: bbeefdf25c3df0ef785f3d738f0fe5f6938d5b6c3dac6fa936fc1a815928fc0a
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 9767f3f6d86bc174b353ce4f827090bed50f89ba9469c8e60af29225b65b3540
+  tags: 3e7b0a5ecceb32fbcbd96e17b697065c2971157b4421973bf1ba656811a9e50a
+semantic_tags:
+- layer:cli
+- representation.markdown
+- source.document.markdown
+- system:sldb
+- topic:store-extraction
+- type.knowledge.atom
+- workspace.desk.atoms

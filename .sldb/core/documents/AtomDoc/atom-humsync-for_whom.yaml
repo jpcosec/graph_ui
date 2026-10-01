@@ -1,0 +1,19 @@
+name: atom-humsync-for_whom
+path: desk/atoms/atom-humsync-for_whom.md
+source_hash: 519326b3e96a3314007df8d98fee540912d00fe95e7a59e844150ec0f2f66868
+content_hash: f586475464f7213255df3764143823d0cd70341ca829331162d05468528beb05
+field_hashes:
+  id: b33c7cec7d2f682ff0168f38be0e0609a154ed738d2336120a16ac00586b230e
+  title: 2c4ff83f86fe95568524ea63388604693c9346e83f9c323328d2ee23efc3b688
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: 4206066a9e443804825c037befffb791b0e4460f6604b9a58733cd212135e8fc
+  tags: e494618784dc3b911408ceda9d55ae70e05445973bd899f038d1aebd34a5e4be
+  provenance: b55ad2f4b44bb9f53b0e67becbb2f5d36284f79ea58f6d10ac7a2a603fc43446
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:runtime
+- type.knowledge.atom
+- workspace.desk.atoms

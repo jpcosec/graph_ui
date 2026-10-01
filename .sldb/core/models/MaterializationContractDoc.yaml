@@ -3,7 +3,9 @@ model_ref: deskops.models.materialization:MaterializationContractDoc
 path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/materialization.py
 documents_index: .sldb/core/documents/MaterializationContractDoc.yaml
 sections_index: ''
-hash_b: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+model_hash: 933feb1223a27510b2e67e7a23ce3887349bdcbfd6c6de723a5193508ed8c8e5
+roster_hash: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+contract_hash: 1ab0375dd0decffcd4d8d3bdb2779b8d56d4d80aed9bcc8dd282b6801ffd750f
 documents_count: 0
 version: 1
 canonical: false

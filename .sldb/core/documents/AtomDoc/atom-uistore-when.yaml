@@ -1,0 +1,19 @@
+name: atom-uistore-when
+path: desk/atoms/atom-uistore-when.md
+source_hash: 3d8ce8aabdca711838d28ddb150c612cc35188b7e8b01a0869e9c2331f84359e
+content_hash: 1fdc1012fdff4708a8d45a8bdf6259900cf5fbc5c229fa47e5fa642bfd7d2e69
+field_hashes:
+  id: 063381fb6c03233c53bb9115684b9bf6be4677e25e59aef5cc9bfbe654aed54b
+  title: eadaf1555afa76adf298d00361ed110ebae3fdf4ced8dc46549bb1b13f4f940d
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: e0a82f409030b6b6f321fe1530953f9b6ea20dff0d024a0217bf502cea7ffead
+  tags: e72d9d060036260f2eaf04f9f2ef71b0daa38fde4b297f17c35885182248ff2d
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:stores
+- type.knowledge.atom
+- workspace.desk.atoms

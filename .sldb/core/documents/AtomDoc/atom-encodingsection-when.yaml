@@ -1,0 +1,19 @@
+name: atom-encodingsection-when
+path: desk/atoms/atom-encodingsection-when.md
+source_hash: a4eec876c2044e8cc6edef46add951d3e8281321dfa2b0b26d473459d870f407
+content_hash: 1e2330a2f5507f19321d736fdb4320e8e1b87d06d6d19acb089c425680522c34
+field_hashes:
+  id: a459714117350ae33ea33e59b784cdbbafa66b79547cea00155a54eed5fabbb1
+  title: ac9da21a72b1bf925f838bf1e4f7a49033058a63435c09f6e4a2e723bfc6bf2a
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: a1807a9f6b6aca695726e5319e517c482a2b9bd2b75bbffdd72c6c5e55ec48f1
+  tags: ef6918bab7c9c2b33bc1dac4c0ff157288cd749a41654ccc4c0e68d71583b4a8
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:encoding
+- type.knowledge.atom
+- workspace.desk.atoms

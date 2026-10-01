@@ -1,0 +1,19 @@
+name: atom-vitedevserver-where
+path: desk/atoms/atom-vitedevserver-where.md
+source_hash: c4d3e179b77bb5e3b5efca0b27ceae01d17028b62d25eefc00c3d62060ddfa33
+content_hash: f0284a429fca8d20ed40a306cd5b954301011fb64224c5f62b1ccdd4f61a7c73
+field_hashes:
+  id: c831f1d996e21b822e7d4a84b61729c3309866cf6c764b164a21b1b25a174254
+  title: 5b21ec79d20b7bd0c2e971828644eccdf59d2116dfe578dc10d65ae861a1d140
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: abc6ab60029637e50767925b7a01371676bc60de3f25f96269072d52fd3d9c75
+  tags: e494618784dc3b911408ceda9d55ae70e05445973bd899f038d1aebd34a5e4be
+  provenance: b55ad2f4b44bb9f53b0e67becbb2f5d36284f79ea58f6d10ac7a2a603fc43446
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:runtime
+- type.knowledge.atom
+- workspace.desk.atoms

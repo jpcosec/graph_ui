@@ -1,0 +1,19 @@
+name: atom-schemaregistry-why
+path: desk/atoms/atom-schemaregistry-why.md
+source_hash: 64fe651fc582a2167a2ebc629dabac27f06b56bf6115da12cf6753b505931cfc
+content_hash: 521e772a5ae80a0e6256c32913562466106e5cf785bde3e277b730b6d53d8662
+field_hashes:
+  id: 59c8e5352c335f2b6a47e1b4ca2d09c90000530a82f4a5b834a06f99c28455cd
+  title: 52ff5ede2822d1e4debf12e7d822692ef0dae087a58d1601e7a579cf6608612c
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: d11128120b88fb8f5095f99424cbd2077a65a88352e8af04a830f66089d4a66b
+  tags: 16bb7390beff4cf11ce0114f0aec4f9aec498748c7eb016dd15f7c65a33e7c7e
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:schema
+- type.knowledge.atom
+- workspace.desk.atoms

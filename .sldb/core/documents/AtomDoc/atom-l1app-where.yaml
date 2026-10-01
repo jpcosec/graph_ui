@@ -1,0 +1,19 @@
+name: atom-l1app-where
+path: desk/atoms/atom-l1app-where.md
+source_hash: 53d1c60690a841525c649de41ea7e480234739e3512760f414175a14035166b4
+content_hash: df5947229b0ca38f5ca15906718e45456e96201b26586c20892406e8fb126b2f
+field_hashes:
+  id: 0533fd6b95b257ff74f70db9f046eaa86f1981873aac32b7a10160d95b2da3da
+  title: 0985dddff94842da6257b966ca7af56144d05ca40bd2f4905309d452abbc11d6
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 6593155118593f7a921a82b39313f21f66bd617557c981d0e840c641a8a64934
+  tags: 1003f632bfb19dee0e08a2f3b4f35d9228b40edbcdec626aea9ab766e50531b6
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:orchestration
+- type.knowledge.atom
+- workspace.desk.atoms

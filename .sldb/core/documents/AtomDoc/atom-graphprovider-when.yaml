@@ -1,0 +1,19 @@
+name: atom-graphprovider-when
+path: desk/atoms/atom-graphprovider-when.md
+source_hash: 8d0c2571b588fcaacc8a735c033022f6137490d47816631dfd546b83ff09f842
+content_hash: b2fc908b19893bd8056ee247c8b97f3c0b36a59e84cf62f19621c7805ab9171b
+field_hashes:
+  id: cbdcb4ac741c8668e4b21d920b83a663258de4e128619da69ac154502da6f381
+  title: d0e4427b71ccbabeaf1454988c9ab20d178fd0178c3e9a32e39559b33d7e998b
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: badc3b53ebcdc9c21d6dd87629032d98958aaf48ebc8bf14b2d7bbac7d2985da
+  tags: b503305db2331e4a3eb55abe62d2e63ad16c1d44f01f411bcb58e111ba8e28fa
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

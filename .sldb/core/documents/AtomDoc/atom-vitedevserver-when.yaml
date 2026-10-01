@@ -1,0 +1,19 @@
+name: atom-vitedevserver-when
+path: desk/atoms/atom-vitedevserver-when.md
+source_hash: 59611d115920a20b3ebf1c24605e9dfdc6e1a618d00a48987e5a772f0aaef1a2
+content_hash: 26666394dcd33209243faa510ffe1bbf52bf7422157dd5a93e5bf50c9d5e327c
+field_hashes:
+  id: a0e027fba7472f216c31ba65eb6012d64ac5e56c88f0e0d5f3de7a7c92c1873e
+  title: 5b21ec79d20b7bd0c2e971828644eccdf59d2116dfe578dc10d65ae861a1d140
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: ee1f5cda68863932342dc08f1bcfb2bf1edf56e6c2b42afd9b0779d01a692e4d
+  tags: e494618784dc3b911408ceda9d55ae70e05445973bd899f038d1aebd34a5e4be
+  provenance: b55ad2f4b44bb9f53b0e67becbb2f5d36284f79ea58f6d10ac7a2a603fc43446
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:runtime
+- type.knowledge.atom
+- workspace.desk.atoms

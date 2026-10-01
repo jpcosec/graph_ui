@@ -1,0 +1,19 @@
+name: atom-encodingrules-how
+path: desk/atoms/atom-encodingrules-how.md
+source_hash: adb9cbb813c602374ac22b1d3c0f803b1b8ab582b7faa5664f9b21e4516c850a
+content_hash: 96fd56807dacf1eaf47646bbecac5580e7390e6de19f7e6025d51a47fdda12ee
+field_hashes:
+  id: a3e3f02622d5f8a1152c880774f7bc900412ce6d19568b2748fce52060d9ab78
+  title: 0e8f0de99fc7741025d852511fc30bf67b2da607945dacb88704b90ab0b8f3d4
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: a70ee50507d6bfc279303240ef7247197a32d70d8251658076023ac4b80924ae
+  tags: f1ce33a93edd4606403bb3657c7de7487714c8aa6fdf0dd2888a05d60c242574
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:encoding
+- type.knowledge.atom
+- workspace.desk.atoms

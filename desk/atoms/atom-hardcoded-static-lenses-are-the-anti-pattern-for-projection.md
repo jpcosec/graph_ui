@@ -18,6 +18,4 @@ provenance: null
 
 ## Answer
 
-_Answer the selected 5WH1+ question as one stable knowledge unit._
-
 graph_ui's HUM feature (apps/review-workbench/src/features/hum-body/lib/presets.ts) ships five fixed view modes (structure/body/routine/trace/compare), each with hardcoded hero copy and layout preset. This is a catalog of pre-built views, not a projection grammar, and is the pattern the projection grammar should replace, not extend — a grammar lets an operator define a new view without writing code.

@@ -1,7 +1,17 @@
 name: routine-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n
 path: desk/routines/routine-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n.md
-hash_c: 62dd6dc3ea4abb0cb7cfd6cb5928a891e68cc03cab15133c52c556a3d0390296
-hash_d: af68b9ae9fbab50fe200ac353f2345b6a003dda2e6b9194f50193b527889b82c
+source_hash: 62dd6dc3ea4abb0cb7cfd6cb5928a891e68cc03cab15133c52c556a3d0390296
+content_hash: af68b9ae9fbab50fe200ac353f2345b6a003dda2e6b9194f50193b527889b82c
+field_hashes:
+  title: ef694efcc3c237d1315a64574d8407143cc4c145149462422d1b377b080e8fe4
+  id: 8b7c9c5241cff8190e06cba2f8a0a13cce1167a93c5ddbd46da54cecb28b55f7
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  summary: 98462ef248c37759b9e927671a1c2b88c8d0066581837088925486d1237afccb
+  tags: 682ad58c6b2fa3a80465c3d0fa4c9de759c3684e4c83c56f94a9b67d558ddd75
+  entrypoint: d9f28e3cbe6374af0aaa674750d56f9de91cd0397e9b3ae718bb65c00c44f5c9
+  decomposition: 03e9d2752b73dcf12ce679408ee8eeca1217545e990dd533600c78b7928acc46
+  edges: 55cee521d30ef3ff457f638a595445120eea4071f1d0221e7190e6351516e11a
+  terminal_nodes: 8ace718207dd793346ef234f111009a7c60689ac5c9d016af36586b581ca42fd
 semantic_tags:
 - primitive:routine
 - representation.markdown

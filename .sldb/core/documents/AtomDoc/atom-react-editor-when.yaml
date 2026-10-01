@@ -1,0 +1,19 @@
+name: atom-react-editor-when
+path: desk/atoms/atom-react-editor-when.md
+source_hash: 7341b6ebf2c322a0ad8f6e7a20d1456e7033d56297d98088cc42db4f78a18e82
+content_hash: 68334cfd0e6e8410755705d5da9c58d0673f32d4b1c37f7446143e690d2dec48
+field_hashes:
+  id: bf0e13843c345ceb27c7694dc6e201a35e2257987a8e72746a1815be5b1314da
+  title: dda6fab7b4977280221d52e4e3669877e2d247f5a5256c7a76a65a4b8f582138
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 09017880621e5ea5469445dd53e50daa1c7e6229f5b9bf363d79a50b5b9bcb6f
+  tags: 96ae24cb2eb0c9a8464b35b201d8adaf7f10090ea00f46a66d17caab080c069f
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:architecture
+- type.knowledge.atom
+- workspace.desk.atoms

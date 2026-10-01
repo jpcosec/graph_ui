@@ -1,0 +1,19 @@
+name: atom-viewssection-how_not
+path: desk/atoms/atom-viewssection-how_not.md
+source_hash: 291d4b1c03745088c1b28d09eb93b9fab97dc3292d732b35165869288aadc9e4
+content_hash: ad358915e619b65a69babc4b0dce108f1d058412384b54d08ab70f3d4cdc88f6
+field_hashes:
+  id: 3031a1f2441a4f2942dd80dfb4225c2e84f87ea7a7b54266fabf513d45d641fe
+  title: 70f1191ebf949ce90784ba883f83505ed25847eaf05b26def49ef67f96409e10
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: 42f1d1514078b5a6c577e79925059dbc622a0284fcabcaf4803faeb9d6b0477a
+  tags: 12902edad8254a90f98b1173749be2db5f0a42837037a2d95ad2505de620106d
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:views
+- type.knowledge.atom
+- workspace.desk.atoms

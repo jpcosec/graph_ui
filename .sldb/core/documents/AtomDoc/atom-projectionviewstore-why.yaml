@@ -1,0 +1,19 @@
+name: atom-projectionviewstore-why
+path: desk/atoms/atom-projectionviewstore-why.md
+source_hash: 414f425576a8888383682fde7f0caebce4449eff56d3b07b9a6cf11c43b73a73
+content_hash: 59908182063cc72598270bdd4e83843431f6ae3e0d3823b33827a5553413354e
+field_hashes:
+  id: 435766fd6b9f7a7aadc3eef5882cc54b7dbb19119b7f4b14d066a129d2ec831c
+  title: b661f1ca28a8b03adb2858b6475bb56f9ff2a4ef46d658fa0e7eda5118e86b5c
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: 242ad5abb34cfe512b1752a46310c9d1d388b713dbd0fde03d8c525508725f71
+  tags: e72d9d060036260f2eaf04f9f2ef71b0daa38fde4b297f17c35885182248ff2d
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:stores
+- type.knowledge.atom
+- workspace.desk.atoms

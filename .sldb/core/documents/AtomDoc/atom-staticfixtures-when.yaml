@@ -1,0 +1,19 @@
+name: atom-staticfixtures-when
+path: desk/atoms/atom-staticfixtures-when.md
+source_hash: a03c236d05a329c2c7f9eac96db1b60b0437dbd10574900c24b6bf8e3c82259d
+content_hash: 0d1dc7b4152af33431c4de791bc126a2163142dade81dacfa9207f71437e6647
+field_hashes:
+  id: 30dfb43953d7f82c54e079d3559674ad9feb2f30582d85c2cc8563e128800421
+  title: b23e16dded992306916a444b8e1b1a9fa78b145b6b0d0968e24b4839c0880fa8
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 0d184ee028248563cb2a69dbc1021b87893bdab08422284fa7f1d36eb294d623
+  tags: 4b535fb25963f289e66fadb3d2673fbdfe267de1e7c06f7340a9855d8d6884e4
+  provenance: e436159814638009720ca6c1d1b1bdaeff767a03ae3e5e159d2a67c5ff8dc1fd
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

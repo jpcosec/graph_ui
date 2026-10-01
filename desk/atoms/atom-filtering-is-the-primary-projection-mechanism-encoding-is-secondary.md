@@ -17,6 +17,4 @@ provenance: null
 
 ## Answer
 
-_Answer the selected 5WH1+ question as one stable knowledge unit._
-
 The projection grammar must let an operator control which nodes and relations are even present in a view before it controls how they look. Visual encoding (color, stroke, shape per relation type) only decorates what filtering already let through — it is not a substitute for filtering.

@@ -1,0 +1,19 @@
+name: atom-humsync-when
+path: desk/atoms/atom-humsync-when.md
+source_hash: 701dc9ca7007fd8599610791b05cbc8581bb96757032914cee950d010f6af72a
+content_hash: 58869cdaf5165d46e12d52bb5851c98f2d0a16769b8c700dab977ba1142dd8ae
+field_hashes:
+  id: 8e0f8c4e99589f5401d8ea44844420faf67421b3c852406b7ff635484898657f
+  title: 2c4ff83f86fe95568524ea63388604693c9346e83f9c323328d2ee23efc3b688
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 84e437153ea087d3fb011e4937b464968902ad404111e045f0ebdc636ea4913a
+  tags: e494618784dc3b911408ceda9d55ae70e05445973bd899f038d1aebd34a5e4be
+  provenance: b55ad2f4b44bb9f53b0e67becbb2f5d36284f79ea58f6d10ac7a2a603fc43446
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:runtime
+- type.knowledge.atom
+- workspace.desk.atoms

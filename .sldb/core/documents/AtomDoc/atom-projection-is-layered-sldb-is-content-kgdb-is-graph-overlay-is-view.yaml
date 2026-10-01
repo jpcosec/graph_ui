@@ -1,0 +1,18 @@
+name: atom-projection-is-layered-sldb-is-content-kgdb-is-graph-overlay-is-view
+path: desk/atoms/atom-projection-is-layered-sldb-is-content-kgdb-is-graph-overlay-is-view.md
+source_hash: 189d6e6b41ec5c193f854645299fbd869c58944f1ac1d0ab6f4abb6c659046a2
+content_hash: e82b3cadeff687b50b1f6875be1cc34160fc0f2471303931cd7441913ad6967a
+field_hashes:
+  id: d2ace3dad96d15d8047b4e858243d97205eefe7a21864c8ef32ad423090ce6a5
+  title: c51e19d1f7bd85e1b58648f6e782f63eb217083547bb7dfae1993fdda8ead9b8
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: bf236681973c588a280d0fe0a95f60b28f651c7c583a8ad9852a340e3a04aaa8
+  tags: dba75fe547256a15d39382aa76c03204ecf44da7a86f0980c95e6b7722969e15
+semantic_tags:
+- layer:document-model
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:projection
+- type.knowledge.atom
+- workspace.desk.atoms

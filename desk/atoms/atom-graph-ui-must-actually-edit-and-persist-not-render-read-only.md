@@ -18,6 +18,4 @@ provenance: null
 
 ## Answer
 
-_Answer the selected 5WH1+ question as one stable knowledge unit._
-
 graph_ui is an editor: its reason to exist is letting an operator change graph data (create, edit, delete nodes and edges; edit typed attributes; save) and have those changes persist. Today the save path is a no-op (graphDataProvider.saveGraph returns {ok:true} without writing), and the mounted HumBody view builds draft graphs in memory only. That makes it a viewer, not an editor. Required end state: edits round-trip to the backing data store so a reload shows persisted changes made by the operator, not just localStorage-scoped named views.

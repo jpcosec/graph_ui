@@ -1,0 +1,19 @@
+name: atom-viewsection-where
+path: desk/atoms/atom-viewsection-where.md
+source_hash: 4998179c4aaa0e51812e287a55ca89429554460e024fc0516b3829aaa17b8ae0
+content_hash: d6fb8e78332506087de6c11bca63cb0c9440a56a45fcdc6418fe9f494cab58b9
+field_hashes:
+  id: f9b422f79348f0b7443183eff5d5b275c7a1c805b0e6214870aa9c14a9be262a
+  title: 65388f8b276cc94273a18b540c349f9e748a94a630983763d0c094fa92ba3e79
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 92e54b7426eb0681d85bd058bd90a5604e75fd1ffbbd1915ec5efe348d87d5e4
+  tags: 2b6bbf6c4cf6975e1495a3dcc7708c40728c4c654145b307ceb2d6366be83795
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:layout
+- type.knowledge.atom
+- workspace.desk.atoms

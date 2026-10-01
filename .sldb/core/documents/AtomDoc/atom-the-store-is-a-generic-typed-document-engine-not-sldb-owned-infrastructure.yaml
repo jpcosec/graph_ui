@@ -1,0 +1,18 @@
+name: atom-the-store-is-a-generic-typed-document-engine-not-sldb-owned-infrastructure
+path: desk/atoms/atom-the-store-is-a-generic-typed-document-engine-not-sldb-owned-infrastructure.md
+source_hash: 3a54db5e8584d3bef9acf5963ee5fff750280e1d9657ee787cbdbc7f6cdbeebf
+content_hash: 47e0387fa6595ea9162e5d0638766bcd474cfb05a07e010a570ddef20de213b4
+field_hashes:
+  id: cac88b2f7a2f3a6902624a93c247778de94c1e34f1c95e50ee6e4549810e5d48
+  title: e7fe3b8669be5d5b031278112bb8113ac8803a52b91bebc7ba80da253502ea30
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: 37a5cea27711dab81ee1218c503cfe8c8549cf8991287e90c20d57edce043ae9
+  tags: e1182bdd5f0d1a1d23ed4e1aa3cc59453f3101576d1fd60c75a1d3469d710af9
+semantic_tags:
+- layer:document-model
+- representation.markdown
+- source.document.markdown
+- system:sldb
+- topic:store-extraction
+- type.knowledge.atom
+- workspace.desk.atoms

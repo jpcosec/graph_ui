@@ -1,0 +1,19 @@
+name: atom-grapheditorpage-what
+path: desk/atoms/atom-grapheditorpage-what.md
+source_hash: 10cd0e893308d8aa59c6a3255fbef89fd1d5e0e62546bb5d28bd9b12b7cd0d4b
+content_hash: 6548cc7a53cca60be050ffffcbf7a01351befb9bfd8101e7f4494039198c85dd
+field_hashes:
+  id: 32afd32ac7a896ee4b334fee1cd8b3e15fef5578f1ad8ed6206c8e6b1dc39878
+  title: e325ad69ab388f78edbd616423481037a70b80bdbfe3ca713afe44771ee3be83
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: 6485401384fa3a04d339431931a78dfeb38e78d966f56ad1084b185be4af23dc
+  tags: 0e022ee933364062ffdf57f6875d5b4523fbef54d1de72fbd071e5526a035647
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

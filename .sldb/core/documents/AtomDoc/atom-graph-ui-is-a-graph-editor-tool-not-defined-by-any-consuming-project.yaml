@@ -1,0 +1,18 @@
+name: atom-graph-ui-is-a-graph-editor-tool-not-defined-by-any-consuming-project
+path: desk/atoms/atom-graph-ui-is-a-graph-editor-tool-not-defined-by-any-consuming-project.md
+source_hash: 04b104197dddf0c29046e6d3c701ac8e724c0a3cdfbb257cc143273443a558ed
+content_hash: 3170e6f7c0f7daf98a8a0172f7c2650639f59f247761d87b06d8955ba50445aa
+field_hashes:
+  id: 2ae761cbfe4b610ffb2dd2ff5c92ab6f74847649ada6eaf51b1200f6b5e3b11e
+  title: d5969b88bc69601f6cf61794bf3051d981f081f722528293ff228b586779d331
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: cc44a1db07b82751a0698e1dcb9be3579ee702deafd8ad84e8617287d0740c43
+  tags: 4741abeb763a6b4a2ead323e8790e849ce56e50e9b3a5a54335d7a6eba44fd6d
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:architecture
+- topic:identity
+- type.knowledge.atom
+- workspace.desk.atoms

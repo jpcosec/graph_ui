@@ -1,0 +1,19 @@
+name: atom-uistore-how
+path: desk/atoms/atom-uistore-how.md
+source_hash: 4fe72c280ae88c0dd940675d7cad03e2c1d8f5ef509ae50299813510ffc8439b
+content_hash: 5a7c00f6fff7eef1f47eed1851c2071d4a27277a56c4286afb80328386d9fa26
+field_hashes:
+  id: 63529d0afad9a12d34a62511218e3f13b90ba18f883cc3f74eaef955b665a00a
+  title: eadaf1555afa76adf298d00361ed110ebae3fdf4ced8dc46549bb1b13f4f940d
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 8e7fa068c2185e3bf30d69774ba94a27f8c6dddb92bc892c11a72488f2e4a648
+  tags: e72d9d060036260f2eaf04f9f2ef71b0daa38fde4b297f17c35885182248ff2d
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:stores
+- type.knowledge.atom
+- workspace.desk.atoms

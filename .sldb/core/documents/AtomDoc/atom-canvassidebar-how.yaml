@@ -1,0 +1,19 @@
+name: atom-canvassidebar-how
+path: desk/atoms/atom-canvassidebar-how.md
+source_hash: e6a29936c4675aec41c9037d2d24fdb1a1861510ef50b133c04b78db97371613
+content_hash: a358d2092f2f10ec6a09809d98f8dc62011b1cc5b81a0e9421a399c16ff3198b
+field_hashes:
+  id: 15445ed973d581f88aed4e437e30be315f221d46320a4c2659ece54f52239900
+  title: 547b5f00fd0a88929033eccebd751991de8a3a11a31ce16612f8560679d42a5d
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 80de6e6da71c6ca9643f5f918ab2386905a5e203ca5f3978fde515b2071b39d0
+  tags: a4a473b6b74ffec7629166b0e792d1cd8db6b50b71a03e35ae0ec15b120ec2d2
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:canvas
+- type.knowledge.atom
+- workspace.desk.atoms

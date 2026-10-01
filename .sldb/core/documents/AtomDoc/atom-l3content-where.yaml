@@ -1,0 +1,19 @@
+name: atom-l3content-where
+path: desk/atoms/atom-l3content-where.md
+source_hash: d95b999feac6d0a0652b0119650c8e8eb14108a209f9b7296f43c604ecc6e71c
+content_hash: 0b7eb524147bf29bf9aba3cb57a41cbf2f78fd48b420ba1eea226238b879960e
+field_hashes:
+  id: 73a4a258e5176c701f23b3fed9f274eeaa4f9c293e5eb8e2baada06c67c7fee8
+  title: 19f33969f9c1db28be4c50f083047f8064d0300d85aadd86bd32ea1874823378
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 522368d07bc300c8903a21b4d619f4a5393e5300a4309edf0ff8bdccd89f1243
+  tags: ea84455200fa4623fe1555dc540cc16d3069426b710043d92096f3778091cc06
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:rendering
+- type.knowledge.atom
+- workspace.desk.atoms

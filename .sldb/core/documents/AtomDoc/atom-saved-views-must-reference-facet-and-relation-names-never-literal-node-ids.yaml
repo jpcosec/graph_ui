@@ -1,0 +1,18 @@
+name: atom-saved-views-must-reference-facet-and-relation-names-never-literal-node-ids
+path: desk/atoms/atom-saved-views-must-reference-facet-and-relation-names-never-literal-node-ids.md
+source_hash: 1db3711e1e6381e438306a852cf6e124b21fdfc56898b6fa5f9d0cdd45ca4f92
+content_hash: c3970e8766774e5641297773983cead7ab6d4d2d43260b95c9054764f193141a
+field_hashes:
+  id: ed3d6003c95339cc0a6ef4123ca7afffc60d06c40c76f7b3365370cee83481f6
+  title: dfcc989807a52f03df70df50126a564b82611ec295ed26905e2f9a89e874f878
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 5fc3158a7a4dfe6d4317b244b544d1df2b2955a25b868bb6adf998612c391eee
+  tags: 4bd3e6489270ee0052c47f943abfaf9a85ad64e99bebb15e40a282f7a495c3ef
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- system:kgdb
+- topic:projection-grammar
+- type.knowledge.atom
+- workspace.desk.atoms

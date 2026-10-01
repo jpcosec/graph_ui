@@ -1,7 +1,16 @@
 name: checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-closeout-ready
 path: desk/primitives/checklists/checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-closeout-ready.md
-hash_c: 4ee42326f92855803dadc301fed5a10cbc08e78b1be2c6658fba4429d09b728c
-hash_d: 948a52aaff3f7fa9430f1ca024ec95b600beaa513beee99aa5b22a11e2ad42b1
+source_hash: 4ee42326f92855803dadc301fed5a10cbc08e78b1be2c6658fba4429d09b728c
+content_hash: 948a52aaff3f7fa9430f1ca024ec95b600beaa513beee99aa5b22a11e2ad42b1
+field_hashes:
+  title: f9f518924fe553fd48c847cb4d2e4459078dac250ebbfeb516db04199ed4ee15
+  id: 2823ac0676d4f707190cef5dcab61eceec8ba988bb10dc0be63a1267a52bab19
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  summary: 6fa9966b6f6f96323278c6b97ceb8f78e2a6414d0439ed0cafd5fb6409833f1b
+  tags: 8325257b89e1ac7ba706788c8183d441db3116d28af0eb064be34dbc69e90f89
+  items: 9077a8c0ffb86df4877107bbf5dff24a2b83c748156f933631e53504da002929
+  condition_refs: 2c014b3b6bc428c72a653b94cdebcaa29d9a0cd06bdbeec8fe6017bc533fb12e
+  mode: 5cf7504d9781301d83347546cdabc01a03c9638ab5b36c0a9203911078a0d1a4
 semantic_tags:
 - primitive:checklist
 - representation.markdown

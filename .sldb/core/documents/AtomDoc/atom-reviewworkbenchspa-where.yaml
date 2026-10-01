@@ -1,0 +1,19 @@
+name: atom-reviewworkbenchspa-where
+path: desk/atoms/atom-reviewworkbenchspa-where.md
+source_hash: 0f230b2813bd9d98b18ed95d9eb587dc08ed8aabbb1c056a94dbf823820eca0d
+content_hash: 13ea4d3956a0cb9de01559660a09e49017c603477c6012841bbc1343c827bc15
+field_hashes:
+  id: eb9362573b09c7bc76176fa50d34287e9eb1d1815dd77821caca3fbc1f6bd119
+  title: 645ce8adad1588e8ae8247cc355782f138eb7cb6c62a1ab42ad9705d90367769
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 702e29d77cccee72c30d0a4ffbab2102b0f0319f69ed63bd020fe93f9cd38251
+  tags: dbfbda62a1eb93366a9c3145257e2125b45b8f04017c82213c663c56c8b59706
+  provenance: b55ad2f4b44bb9f53b0e67becbb2f5d36284f79ea58f6d10ac7a2a603fc43446
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:runtime
+- type.knowledge.atom
+- workspace.desk.atoms

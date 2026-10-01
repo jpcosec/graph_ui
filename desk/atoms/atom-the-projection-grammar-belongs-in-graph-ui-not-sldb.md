@@ -18,6 +18,4 @@ provenance: null
 
 ## Answer
 
-_Answer the selected 5WH1+ question as one stable knowledge unit._
-
 graph_ui is the domain-agnostic visual graph editor in this ecosystem and already declares kgdb as its data source. sldb is a test domain for proving the grammar against real typed-relation data (its AST), not the grammar's home.

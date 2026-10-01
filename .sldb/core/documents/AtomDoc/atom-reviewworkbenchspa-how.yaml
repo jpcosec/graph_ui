@@ -1,0 +1,19 @@
+name: atom-reviewworkbenchspa-how
+path: desk/atoms/atom-reviewworkbenchspa-how.md
+source_hash: 271dcf35ecde4191a00b26d4f194cd46d1321ce8038b46f7f9834f8c1cc6c772
+content_hash: 82df61aba58c3296cb0ea08ed3d9e4952926b27a64e276a3c79bda9fe389d8aa
+field_hashes:
+  id: d6b311ba58030844d7c6444099f0ae7214e2ccfc0362f86c14381bca16c1fd73
+  title: 645ce8adad1588e8ae8247cc355782f138eb7cb6c62a1ab42ad9705d90367769
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 4a4e6194e0e81c5ac8757ac0192746a8f02847d505eb05c152f21844ee81270f
+  tags: dbfbda62a1eb93366a9c3145257e2125b45b8f04017c82213c663c56c8b59706
+  provenance: b55ad2f4b44bb9f53b0e67becbb2f5d36284f79ea58f6d10ac7a2a603fc43446
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:runtime
+- type.knowledge.atom
+- workspace.desk.atoms

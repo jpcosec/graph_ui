@@ -1,0 +1,19 @@
+name: atom-kgdb-where
+path: desk/atoms/atom-kgdb-where.md
+source_hash: 8f3a1292e43f20b215aa8b133377879fc56ea40610ef33549aa190f3c45741c4
+content_hash: 52c6a6962372bd33a1e200e4a2161b85b97977ea9ccc0d963e78f7c3d3ac083f
+field_hashes:
+  id: 20db743e0dbb3b36e29ed38802a29675b69c85a0047f0a9fe7d2a754a0ddfddf
+  title: c17c0c55f3ad2d60654e15beb57f6f3a08cd21606bd84663c0dd3d0c907655c4
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 6dda250dab76fe37a7abb3622444c6e3e43d0e92864337427b2d61c967214ef5
+  tags: 4b535fb25963f289e66fadb3d2673fbdfe267de1e7c06f7340a9855d8d6884e4
+  provenance: dc66e4b71fc7e3ffc25767387da7c3c4c47754fb17a38e7bb62d7415a91be0da
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

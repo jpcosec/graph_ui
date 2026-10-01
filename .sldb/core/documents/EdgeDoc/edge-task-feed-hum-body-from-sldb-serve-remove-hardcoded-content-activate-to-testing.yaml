@@ -1,7 +1,16 @@
 name: edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-activate-to-testing
 path: desk/primitives/edges/edge-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-activate-to-testing.md
-hash_c: 4c2ba323fc9825d98c6ab0251132e238c041c5378c1255fb9bf594b9379a6ebd
-hash_d: 2fbb587057c4e4419f4737f89609aa3e23410ab5c7b491626c075a82db4339c2
+source_hash: 4c2ba323fc9825d98c6ab0251132e238c041c5378c1255fb9bf594b9379a6ebd
+content_hash: 2fbb587057c4e4419f4737f89609aa3e23410ab5c7b491626c075a82db4339c2
+field_hashes:
+  title: a9fbfa8600317ae04336b6eb6936beccfdcf56114b343d9a8ea0e7218e7a3c4a
+  id: 7d71796679a494477d5f0b20dc5dba2e0fd4d74c3258dfb4817c16abd33ae0ad
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  summary: 739e6722dd054294e3b466cb6f6b1fa19c06ce767c9b0dd040dff7553982bd0c
+  tags: 7669a24af159d3197bc1f1cebef462364089cda6e7b0ffc228fcc2b7f2cb9eb6
+  source: d579b814fa91f16cffb3e9fdf79d618d961af4b804409271f70e0790a604c8a4
+  target: 30fa6e4960bd41b50265de3c9a7b6fb7d2383af4a602024a67d0c9452ea0f770
+  condition_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
 semantic_tags:
 - primitive:edge
 - representation.markdown

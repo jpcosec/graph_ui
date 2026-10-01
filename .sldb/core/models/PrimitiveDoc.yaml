@@ -3,7 +3,9 @@ model_ref: deskops.models.routine:PrimitiveDoc
 path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/base.py
 documents_index: .sldb/core/documents/PrimitiveDoc.yaml
 sections_index: ''
-hash_b: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+model_hash: d15f8fdc13ec278d5065c11215ec880093b1efeae812111c635cf4f3bfd794b7
+roster_hash: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+contract_hash: 89bfe1d2f940b31eb8abc13ea4e2c205e1fe8ba39063d7245071f5fefe542961
 documents_count: 0
 version: 1
 canonical: false

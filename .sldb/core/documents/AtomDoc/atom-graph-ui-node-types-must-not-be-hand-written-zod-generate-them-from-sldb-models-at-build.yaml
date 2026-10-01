@@ -1,0 +1,18 @@
+name: atom-graph-ui-node-types-must-not-be-hand-written-zod-generate-them-from-sldb-models-at-build
+path: desk/atoms/atom-graph-ui-node-types-must-not-be-hand-written-zod-generate-them-from-sldb-models-at-build.md
+source_hash: c672fd1bc91e26ad2f655622524ab0630ca4053cd4b443c03b0f105620b4ac1d
+content_hash: 6d31a6098d53e333de68f803264a361aa13c4b8013a86bf9ce652a873a0c4e5e
+field_hashes:
+  id: adecd127e69fa4c116db23ab66e838927084131d05da2e4637dce9fa24da1b72
+  title: da39d433aff134da24e302839de5319363ea8c99d99de2fe0c44d18a7e8a6226
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: 81f2b940255e10d5b5cba5e263bc066b7eb0cdb2dd653f0fc45e1527b269b1d3
+  tags: 60ae60aa0f2edb543ca046c7a41f0af9e8c2e78f322775548baa952207cfbb3c
+semantic_tags:
+- layer:document-model
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:typed-editor
+- type.knowledge.atom
+- workspace.desk.atoms

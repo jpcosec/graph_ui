@@ -1,0 +1,18 @@
+name: atom-three-incompatible-graph-node-edge-contracts-exist-across-the-ecosystem
+path: desk/atoms/atom-three-incompatible-graph-node-edge-contracts-exist-across-the-ecosystem.md
+source_hash: 298e9f3c224491f19b89dee161f3eefb48e85742703eb2b3587f92655559f41d
+content_hash: 1090c28783c54c941a232fdc7b2f1bc4db242d78cad5476a7d4980bdca696607
+field_hashes:
+  id: 5dc03ac2c451b45324bc29dc72b7126ca9191e01b3d85e812e325af5c15939a5
+  title: 1953cdfd43083988440ba31e2888529edcf38adbd4d793c579d59f14e24a391b
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: 60a590c587c988aa53c5fe750212c365cd3ede6a15050040d215f52656f7abab
+  tags: b88840f2cc7f1abc7bd7bd2a7b99c333d4a2c09d7616609f6f02038adc3a0dce
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- system:kgdb
+- topic:projection-grammar
+- type.knowledge.atom
+- workspace.desk.atoms

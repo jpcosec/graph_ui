@@ -1,0 +1,19 @@
+name: atom-l3content-why
+path: desk/atoms/atom-l3content-why.md
+source_hash: 993dc74e89bf465c8d64a97e1b20ec953f1d35512bc40b7861fc57510afe4c64
+content_hash: c3f455d2d53421db2d6a08e000f9f1411ea9ca52fd03ac764a1ddaa183f450c6
+field_hashes:
+  id: 4bf5568d0e536b9bf054530ff1d8922535b54ea5799fb24e3632dcd1f98ef5d7
+  title: 19f33969f9c1db28be4c50f083047f8064d0300d85aadd86bd32ea1874823378
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: 7d3399cdc448778cb8616edf380c1be2902a386f4024d61c3fcfd3455f5ae60a
+  tags: ea84455200fa4623fe1555dc540cc16d3069426b710043d92096f3778091cc06
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:rendering
+- type.knowledge.atom
+- workspace.desk.atoms

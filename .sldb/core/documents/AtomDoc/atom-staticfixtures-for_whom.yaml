@@ -1,0 +1,19 @@
+name: atom-staticfixtures-for_whom
+path: desk/atoms/atom-staticfixtures-for_whom.md
+source_hash: d2c62e246bfe8dfd62ec6d98e6ba5542a0abdc5e61c1710a4f8c61b33fd00de6
+content_hash: 449842169060f39469a40c7de0da610d27a1fac2f6826c829ec1e0156c009a7b
+field_hashes:
+  id: e53e342e0ac9d4b018614fc8051a81d5c30d863ef6b18c07c1de6daa12a1152a
+  title: b23e16dded992306916a444b8e1b1a9fa78b145b6b0d0968e24b4839c0880fa8
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: d5b6978578f6dc4d1c1d2d708eb2e7236380335fb8f48fad12909c765e834a14
+  tags: 4b535fb25963f289e66fadb3d2673fbdfe267de1e7c06f7340a9855d8d6884e4
+  provenance: e436159814638009720ca6c1d1b1bdaeff767a03ae3e5e159d2a67c5ff8dc1fd
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

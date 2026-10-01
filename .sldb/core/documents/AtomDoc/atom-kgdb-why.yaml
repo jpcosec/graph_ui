@@ -1,0 +1,19 @@
+name: atom-kgdb-why
+path: desk/atoms/atom-kgdb-why.md
+source_hash: 2ab14d4ab544bf37113f70ffec460c8ded39680ffae2bd3500dbfc63498e6847
+content_hash: 02dc085f6d5dbbdfd79b7a666c0c90d7dad4a91f705cf56574436416530f17e8
+field_hashes:
+  id: 8bb592772ea5d476494291d3a7e1484d3b071fe72e1e64bf52b8d8ea364ab3a6
+  title: c17c0c55f3ad2d60654e15beb57f6f3a08cd21606bd84663c0dd3d0c907655c4
+  five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
+  answer: e845e2eb5250388414d4bd370f8464b0a252349c47d1e0cbeac3a19d53397c03
+  tags: 4b535fb25963f289e66fadb3d2673fbdfe267de1e7c06f7340a9855d8d6884e4
+  provenance: dc66e4b71fc7e3ffc25767387da7c3c4c47754fb17a38e7bb62d7415a91be0da
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms

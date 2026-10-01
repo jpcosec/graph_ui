@@ -1,0 +1,19 @@
+name: atom-actionssection-where
+path: desk/atoms/atom-actionssection-where.md
+source_hash: d6b01f01894f1442d801c283d942468212eb696e2e19badc73289a8586e66baf
+content_hash: bc052a847543e6690697c2f1e5abd8bb0480776d258eee1e65dc26c502786b3d
+field_hashes:
+  id: c92ed29b97f61be94d1dbea09177719ad72e0f15d5a950d926227f963212ece0
+  title: bce94eb1f02611a903fcc52ef6813061352195142db9dded21d4b43fbfe76e5b
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 0c3adc23d9258906a5a013f792d8f7d9337aa5fbc491643f7481ed21e87b0cde
+  tags: da029b11abafec3c253b63f80e1167637c23a5d0ad5bc6e967822c425f75fa2b
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms

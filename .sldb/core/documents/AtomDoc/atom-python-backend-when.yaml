@@ -1,0 +1,19 @@
+name: atom-python-backend-when
+path: desk/atoms/atom-python-backend-when.md
+source_hash: 0091be5be7172ea01a84c8ad6ccaa63efa9345037cb0866fe2f21a8691fbd7f0
+content_hash: f7f22c9d7dd031ea8379e4b672557ec27dcd0a7baf3946d8af6ea094247c8f97
+field_hashes:
+  id: eccf5a00eca8f9d5bdd41a9f9b8053cb4a1817730804bfcaa4b7405d09e31f27
+  title: e53c86fc0212e56ba3fc178e27e0fdbeafcafa01206736127c9d12eb840e079c
+  five_wh_one_plus: 6d924791a1798656302bd4b9716a494a0c5f7f55ad9ceebf629dfb2317e86078
+  answer: 441327d245d9164b1fa69a150586d0edbdaba0d1963235b4fa965b3a037c3668
+  tags: c25c231416bd5e7a77c73aa56cefe2e97aa6dd31c3c887ec594ea603c2c95180
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:architecture
+- type.knowledge.atom
+- workspace.desk.atoms

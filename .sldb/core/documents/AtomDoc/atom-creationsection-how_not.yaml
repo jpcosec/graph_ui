@@ -1,0 +1,19 @@
+name: atom-creationsection-how_not
+path: desk/atoms/atom-creationsection-how_not.md
+source_hash: 4868d65ef347726f6d814c518b82269cf2a4379952fcb197dcf5d0c71c2547d6
+content_hash: 03ca8efba68ea79d029a7f18e9cf6c77bde5aa46587923fdbc621dd3d79f5da7
+field_hashes:
+  id: 038a9b89957872c9d587fb5050a55346bd8046d7676389737ffdb929fdefbe9b
+  title: 6f7d43e64c7bb680965ee1334b6950a96bba0577a02c51c4ae695e4fe34b2c3c
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: a5e33db0da7e44b040bfd065f19a5a689ebd8fa065514de185a19a9b1fb40d4a
+  tags: c55db97557317b3c74a0cecbdaeae907835b89d653d0cef84b54260927fe74ef
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:creation
+- type.knowledge.atom
+- workspace.desk.atoms
