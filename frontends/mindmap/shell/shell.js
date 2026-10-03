@@ -10,6 +10,7 @@ import {useShellDialogs} from './dialogs.js';
 import {ConflictDialog} from '../dialogs/conflict-dialog.js';
 import {ClassDialog} from '../dialogs/class-dialog.js';
 import {CompilerDialog} from '../dialogs/compiler-dialog.js';
+import {WorkersPanel} from './workers-panel.js';
 
 // Shell chrome: topbar (brand, view tabs, skin toggle, save state — the last
 // two only for the active view's "primary" chrome), the error banner, the
@@ -46,7 +47,7 @@ export function Shell() {
   return html`<main className="editor" data-saving=${saving} data-view=${viewId}>
     <header className="topbar"><a href="/" className="brand"><span>◈</span> KB <strong>Mindmap</strong></a><span className="document-name">Explorar · organizar · editar</span><div className="mode-switch" role="tablist" aria-label="Vistas">${VIEWS.map(v=>html`<a key=${v.id} role="tab" href=${routeFor(v)} aria-selected=${viewId===v.id} className=${viewId===v.id?'active':''} onClick=${e=>{e.preventDefault();navigate(v);}}>${v.label}</a>`)}</div>${kb.projections.available.length?html`<select className="projection-select" aria-label="Proyección" title="Proyección activa" value=${kb.projections.activeName} onChange=${e=>kb.projections.setActiveName(e.target.value)}><option value="">Todo</option>${kb.projections.available.map(d=>html`<option key=${d.id} value=${d.payload.name}>${d.payload.name}</option>`)}</select>`:''}<button type="button" className="skin-toggle icon-button" title="Cambiar tema" aria-label="Cambiar tema" onClick=${cycleSkin}>◐</button>${activeView.shell.primary?html`<span className=${'save-state'+(documents.dirty?' unsaved':'')}>${saving?'Guardando…':documents.dirty?'● Cambios sin guardar':'✓ Sin cambios pendientes'}</span><button className="primary" onClick=${documents.save} disabled=${!documents.dirty||saving||!ready}>${saving?'Guardando…':'Guardar en SLDB'}</button>`:''}</header>
     ${documents.error?html`<div className="error-banner" role="alert"><span>${documents.error}</span><button onClick=${()=>{if(!documents.dirty||confirm('Descartar los cambios sin guardar y recargar SLDB?'))kb.reload();}}>Recargar SLDB</button><button aria-label="Cerrar error" onClick=${()=>documents.setError('')}>×</button></div>`:''}
-    <div className="view-outlet"><${View} key=${viewId} skin=${skin} onModalChange=${setViewModalOpen} navigate=${navigate}/></div>
+    <div className="editor-body"><div className="view-outlet"><${View} key=${viewId} skin=${skin} onModalChange=${setViewModalOpen} navigate=${navigate}/></div><${WorkersPanel}/></div>
     ${documents.conflicts?html`<${ConflictDialog} conflicts=${documents.conflicts} documents=${documents.working.documents} onClose=${()=>documents.resolveConflicts('keep')} onReload=${()=>documents.resolveConflicts('reload')}/>`:
       dialogs.current?.kind==='compiler'?html`<${CompilerDialog} request=${request} onClose=${dialogs.close} onRefresh=${kb.reload}/>`:
       dialogs.current?.kind==='classes'?html`<${ClassDialog} models=${kb.models.models} request=${request} initialModel=${dialogs.current.model} onClose=${dialogs.close} onRefresh=${kb.reload}/>`:''}

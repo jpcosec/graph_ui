@@ -165,7 +165,13 @@ class ProxyHandler(SimpleHTTPRequestHandler):
         workers = payload.get('workers') if isinstance(payload, dict) else None
         if not isinstance(workers, list):
             return self.json_response({'workers': [], 'error': 'deskops devolvio una estructura inesperada.'})
-        self.json_response({'workers': workers})
+        # Se reenvia el payload completo, no solo 'workers': deskops tambien
+        # emite 'spaces' (agrupado por space, con label y orden de Herdr) y
+        # reconstruir el dict aqui lo descartaba, dejando al panel en su
+        # fallback de agrupar por id crudo. Validamos 'workers' y dejamos
+        # pasar el resto para no tener que editar este handler cada vez que
+        # deskops agrega una clave.
+        self.json_response(payload)
 
     def _remote_graph(self):
         """GET /api/graph en modo remote: documentos de sldb + vista local.
