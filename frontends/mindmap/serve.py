@@ -27,6 +27,8 @@ import errno
 import hashlib
 import json
 import os
+import shutil
+import subprocess
 import sys
 import urllib.error
 import urllib.request
@@ -124,6 +126,46 @@ class ProxyHandler(SimpleHTTPRequestHandler):
             return json.loads(exc.read()), exc.code
         except (urllib.error.URLError, TimeoutError) as exc:
             return {'ok': False, 'error': f'SLDB no responde: {exc}'}, 502
+
+    def _api_workers(self):
+        """GET /api/workers: agentes vivos, via `deskops runtime workers`.
+
+        El estado de workers NO vive en sldb, asi que esta ruta se resuelve
+        siempre localmente, antes del proxy remote de /api/*.
+
+        Se delega en deskops (no en `herdr` directo) porque ahi vive el
+        contrato: HerdrProvider.list_agents() ya valida la respuesta de Herdr
+        y trata un `agents` ausente como cambio de contrato, no como flota
+        vacia. Este handler solo transporta ese JSON al navegador.
+
+        Si deskops falta o falla, se responde 200 con lista vacia y error: la
+        GUI debe seguir viva sin el runtime (nunca 500).
+        """
+        binary = shutil.which('deskops')
+        if not binary:
+            return self.json_response({'workers': [], 'error': 'deskops no esta instalado.'})
+        command = [binary, 'runtime', 'workers', '--format', 'json']
+        try:
+            proc = subprocess.run(command, capture_output=True, timeout=10)
+        except subprocess.TimeoutExpired:
+            return self.json_response({'workers': [], 'error': 'deskops runtime workers excedio el timeout de 10s.'})
+        except OSError as exc:
+            return self.json_response({'workers': [], 'error': f'No se pudo ejecutar deskops: {exc}'})
+        if proc.returncode != 0:
+            # deskops imprime 'Error: <msg>' en stdout y sale con 1.
+            detail = (proc.stdout or proc.stderr).decode(errors='replace').strip()
+            return self.json_response({'workers': [], 'error': detail or f'deskops fallo (exit {proc.returncode}).'})
+        try:
+            payload = json.loads(proc.stdout)
+        except json.JSONDecodeError as exc:
+            return self.json_response({'workers': [], 'error': f'deskops devolvio JSON invalido: {exc}'})
+        # Sin default: un 'workers' AUSENTE es un cambio de contrato de
+        # deskops, no una flota vacia. Degradar en silencio dejaria la GUI
+        # mostrando cero workers como si todo estuviera bien.
+        workers = payload.get('workers') if isinstance(payload, dict) else None
+        if not isinstance(workers, list):
+            return self.json_response({'workers': [], 'error': 'deskops devolvio una estructura inesperada.'})
+        self.json_response({'workers': workers})
 
     def _remote_graph(self):
         """GET /api/graph en modo remote: documentos de sldb + vista local.
@@ -241,6 +283,11 @@ class ProxyHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         route = urlparse(self.path).path
+        if route == '/api/workers':
+            # Se resuelve ANTES del proxy remote: el estado de workers no
+            # vive en sldb y no debe reenviarse.
+            self._api_workers()
+            return
         if self.backend_mode == 'remote' and route.startswith('/api/'):
             if route == '/api/graph':
                 self._remote_graph()
