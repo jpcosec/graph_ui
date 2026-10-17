@@ -1,0 +1,259 @@
+{
+ "sources": [
+  {
+   "id": "src-mepu-propuesta",
+   "path": "source_docs/projects/teva/MercadoPublico/RE_ Propuesta Solución - Desarrollo Proyecto MEPU.pdf",
+   "title": "RE: Propuesta Solución — Proyecto MEPU",
+   "text": "Estimados,\n\nAdjunto la propuesta de solución para el proyecto MEPU tras la reunión del 1 de agosto.\n\nRespecto a la integración con SAP, el área de seguridad TI del cliente manifiesta que no será posible una conexión directa. No se autoriza IDOC nuevo, ni reuso de LIGO, ni RPA sobre SAP. La integración será vía archivos planos depositados en un directorio compartido, y la carga final la realiza Giuseppe de forma manual.\n\nEl alcance funcional acordado cubre desde la detección de la orden en Mercado Público hasta la aceptación de la misma, pasando por el cruce contra maestros internos y la generación de los insumos para SAP.\n\nEl plazo de aceptación de una orden de compra es de 24 a 48 horas desde su creación en Mercado Público. Pasado ese plazo la orden caduca y debe gestionarse por excepción.\n\nLa aceptación en Mercado Público solo debe ocurrir una vez confirmada la entrega en SAP. No se acepta antes, porque genera compromiso comercial sin respaldo de inventario.\n\nQuedamos atentos a comentarios.\n",
+   "anchored": [
+    {
+     "span": {
+      "start": 187,
+      "end": 223,
+      "line": 5
+     },
+     "atomId": "atom-no-sap-direct-integration-constraint"
+    },
+    {
+     "span": {
+      "start": 288,
+      "end": 367,
+      "line": 5
+     },
+     "atomId": "atom-mepu-architecture-file-based-no-sap-connection"
+    },
+    {
+     "span": {
+      "start": 460,
+      "end": 541,
+      "line": 7
+     },
+     "atomId": "atom-mepu-target-automation-scope-is-order-detection-through-sap-insumos-to-mp-acceptance"
+    },
+    {
+     "span": {
+      "start": 677,
+      "end": 733,
+      "line": 9
+     },
+     "atomId": "atom-purchase-order-acceptance-sla"
+    },
+    {
+     "span": {
+      "start": 836,
+      "end": 890,
+      "line": 11
+     },
+     "atomId": "atom-mepu-acceptance-rule-in-mercado-publico-is-accept-only-gated-by-sap-delivery"
+    }
+   ]
+  }
+ ],
+ "atoms": [
+  {
+   "id": "atom-no-sap-direct-integration-constraint",
+   "title": "No SAP Direct Integration Constraint",
+   "answer": "No podemos integrarnos con SAP: ni IDOC nuevo, ni reuso de LIGO, ni conexión directa, ni RPA sobre SAP. Decisión comunicada el 1 ago 2026. Implicancias: (1) ST2 SAP queda 100% manual — el sistema entrega datos pre-llenados o archivos y Giuseppe ingresa la orden a SAP a mano; (2) el stock de SAP solo entra si el cliente genera exports/arch",
+   "tags": [
+    "system:lab-chile",
+    "layer:infrastructure",
+    "service:sap",
+    "constraint:no-sap-integration"
+   ],
+   "provenance": {
+    "sourceId": "src-mepu-propuesta",
+    "span": {
+     "start": 187,
+     "end": 223,
+     "line": 5
+    }
+   }
+  },
+  {
+   "id": "atom-purchase-order-acceptance-sla",
+   "title": "Purchase Order Acceptance SLA",
+   "answer": "A Mercado Publico purchase order must be accepted within 24 to 48 hours of its creation.",
+   "tags": [
+    "system:lab-chile",
+    "layer:validation",
+    "constraint:acceptance-sla",
+    "concept:purchase-orders"
+   ],
+   "provenance": {
+    "sourceId": "src-mepu-propuesta",
+    "span": {
+     "start": 677,
+     "end": 733,
+     "line": 9
+    }
+   }
+  },
+  {
+   "id": "atom-mepu-architecture-file-based-no-sap-connection",
+   "title": "MEPU architecture: file-based, no SAP connection",
+   "answer": "Decisión arquitectónica central acordada con Teva (correo jul-ago 2026): antonIA NO se conecta a SAP. El modelo es de archivos, no de conexiones. antonIA extrae OCs por API de Mercado Público (token de proveedor, solo estado=enviadaproveedor), lee inventario del reporte NTB/DHL, aplica homologación de códigos MP a codificación interna, y ",
+   "tags": [
+    "system:lab-chile",
+    "service:mercadopublico",
+    "concept:file-based-integration",
+    "constraint:it-security"
+   ],
+   "provenance": {
+    "sourceId": "src-mepu-propuesta",
+    "span": {
+     "start": 288,
+     "end": 367,
+     "line": 5
+    }
+   }
+  },
+  {
+   "id": "atom-mepu-expiry-semaphore-rule-for-order-processing",
+   "title": "MEPU: Expiry Semaphore Rule for Order Processing",
+   "answer": "Semaforo de expiracion: mas de 12 meses (~364+ dias) es verde y se procesa normal; menos de 12 meses es amarillo y requiere validacion del area comercial. No se definio la persona exacta del area comercial que aprueba ni el canal de notificacion. (Reu Charyl Proyecto Mepu, 2026-08-24)",
+   "tags": [
+    "scope:teva-mepu",
+    "business_domain:public-procurement",
+    "knowledge_type:rule",
+    "system_layer:business"
+   ],
+   "provenance": null
+  },
+  {
+   "id": "atom-mepu-target-automation-scope-is-order-detection-through-sap-insumos-to-mp-acceptance",
+   "title": "MEPU: Target Automation Scope Is Order Detection Through SAP Insumos to MP",
+   "answer": "Objetivo funcional del flujo MEPU: procesar ordenes desde Mercado Publico, cruzarlas con stock/maestros internos, generar insumos para SAP y aceptar la OC en Mercado Publico solo cuando exista confirmacion operativa suficiente. La arquitectura depende de dos bloques: homologacion de datos (productos, clientes, direcciones, unidades de med",
+   "tags": [
+    "scope:teva-mepu",
+    "business_domain:public-procurement",
+    "knowledge_type:architecture",
+    "system_layer:business"
+   ],
+   "provenance": {
+    "sourceId": "src-mepu-propuesta",
+    "span": {
+     "start": 460,
+     "end": 541,
+     "line": 7
+    }
+   }
+  },
+  {
+   "id": "atom-mepu-acceptance-rule-in-mercado-publico-is-accept-only-gated-by-sap-delivery",
+   "title": "MEPU: Acceptance Rule in Mercado Publico Is Accept-Only Gated by SAP Delivery",
+   "answer": "En Mercado Publico solo se acepta, nunca se rechaza en el portal. Si no hay stock u otro impedimento, la orden queda en estado pendiente. La aceptacion ocurre unicamente cuando SAP ya genero el delivery y este fue enviado a bodega. Mientras no exista confirmacion/match con delivery, la orden permanece pendiente. (Reu Charyl Proyecto Mepu,",
+   "tags": [
+    "scope:teva-mepu",
+    "business_domain:public-procurement",
+    "knowledge_type:rule",
+    "system_layer:business"
+   ],
+   "provenance": {
+    "sourceId": "src-mepu-propuesta",
+    "span": {
+     "start": 836,
+     "end": 890,
+     "line": 11
+    }
+   }
+  }
+ ],
+ "relations": [
+  {
+   "id": "rel-1",
+   "type": "grounded_by",
+   "from": "atom-mepu-architecture-file-based-no-sap-connection",
+   "to": "atom-no-sap-direct-integration-constraint",
+   "motive": "la arquitectura de archivos existe porque seguridad TI bloqueó la conexión directa"
+  },
+  {
+   "id": "rel-2",
+   "type": "constrains",
+   "from": "atom-no-sap-direct-integration-constraint",
+   "to": "atom-mepu-target-automation-scope-is-order-detection-through-sap-insumos-to-mp-acceptance",
+   "motive": "el alcance termina en insumos para SAP, no en carga automática"
+  },
+  {
+   "id": "rel-3",
+   "type": "constrains",
+   "from": "atom-purchase-order-acceptance-sla",
+   "to": "atom-mepu-acceptance-rule-in-mercado-publico-is-accept-only-gated-by-sap-delivery",
+   "motive": "la ventana de 24-48h presiona la regla de aceptar sólo tras entrega SAP"
+  },
+  {
+   "id": "rel-4",
+   "type": "refines",
+   "from": "atom-mepu-expiry-semaphore-rule-for-order-processing",
+   "to": "atom-purchase-order-acceptance-sla",
+   "motive": "el semáforo operacionaliza el SLA en estados visibles"
+  }
+ ],
+ "docs": [
+  {
+   "id": "wiki-mepu-overview",
+   "title": "MEPU · Visión general",
+   "sections": [
+    {
+     "id": "sec-objetivo",
+     "heading": "Objetivo del proyecto",
+     "binding": {
+      "kind": "list",
+      "atomIds": [
+       "atom-mepu-target-automation-scope-is-order-detection-through-sap-insumos-to-mp-acceptance"
+      ]
+     }
+    },
+    {
+     "id": "sec-alcance",
+     "heading": "Alcance acordado",
+     "binding": {
+      "kind": "query",
+      "tags": [
+       "constraint:"
+      ],
+      "relatedTo": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "wiki-mepu-acuerdos",
+   "title": "MEPU · Acuerdos y decisiones",
+   "sections": [
+    {
+     "id": "sec-arq",
+     "heading": "Decisiones arquitectónicas con cliente",
+     "binding": {
+      "kind": "list",
+      "atomIds": [
+       "atom-mepu-architecture-file-based-no-sap-connection",
+       "atom-no-sap-direct-integration-constraint"
+      ]
+     }
+    },
+    {
+     "id": "sec-sla",
+     "heading": "SLAs",
+     "binding": {
+      "kind": "list",
+      "atomIds": [
+       "atom-purchase-order-acceptance-sla"
+      ]
+     }
+    }
+   ]
+  }
+ ],
+ "drafts": [
+  {
+   "id": "draft-1",
+   "text": "el semáforo de vencimiento lo definieron en la reunión del 12, quedó en 3 días pero hay que confirmarlo con Patricia",
+   "createdAt": "2026-09-26T14:20:00Z"
+  },
+  {
+   "id": "draft-2",
+   "text": "revisar si el flujo de cautela aplica a órdenes parciales",
+   "createdAt": "2026-09-28T06:10:00Z"
+  }
+ ]
+}
