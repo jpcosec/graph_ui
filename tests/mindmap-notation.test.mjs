@@ -1,15 +1,20 @@
 // Lógica pura de la vista de notación (views/specs/notation/notation.mjs).
-// El fixture es la salida REAL de `spec2viz notation view` sobre el piloto
-// state.diagram-sync-lifecycle (estado compuesto + transición que sale de él):
-//   spec2viz diagram sync state-diagram-sync-lifecycle.yml --store .sldb
-//   spec2viz notation view state.diagram-sync-lifecycle --store .sldb
+// Los fixtures son la salida REAL de `spec2viz notation view` sobre pilotos de
+// spec2viz sincronizados en un store temporal:
+//   spec2viz diagram sync <spec.yml> --store .sldb
+//   spec2viz notation view <id> --store .sldb > tests/fixtures/notation-view-<x>.json
+// statechart: state.diagram-sync-lifecycle (estado compuesto + transición que sale);
+// sequence: sequence.render-pipeline (carriles, autollamada, retornos);
+// matrix: matrix.quotation-view (spec2viz/tests/fixtures; grilla con filas anidadas);
+// matrix-coverage: matrix.pipeline-coverage (dos vistas; trae fragments/data/source_label vacíos).
 // La paridad viva endpoint = resolve_view la fija tests/test_mindmap_notation.py.
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {specCatalog, buildScene, byDepth, compartmentLine, glyphSize} from '../frontends/mindmap/views/specs/notation/notation.mjs';
+import {specCatalog, buildScene, sceneFor, laneScene, gridScene, cellKey, byDepth, compartmentLine, glyphSize} from '../frontends/mindmap/views/specs/notation/notation.mjs';
 
-const statechart = JSON.parse(readFileSync(new URL('./fixtures/notation-view-statechart.json', import.meta.url)));
+const fixture = name => JSON.parse(readFileSync(new URL(`./fixtures/notation-view-${name}.json`, import.meta.url)));
+const statechart = fixture('statechart'), sequence = fixture('sequence'), matrix = fixture('matrix'), coverage = fixture('matrix-coverage');
 const tail = id => id.split('.').pop();
 
 test('nest se vuelve contención, no arista: los subestados viven dentro de syncing', () => {
@@ -35,12 +40,73 @@ test('las terminales y el trazo salen del link, no del tipo de relación', () =>
 });
 
 test('lo que no se sabe dibujar se avisa y se dibuja como grafo/línea, sin descartarlo', () => {
-  const view = {layout: {kind: 'lanes'}, nodes: [{doc: 'A', shape: 'lifeline', label: 'A'}, {doc: 'B', shape: 'lifeline', label: 'B'}],
-    links: [{source: 'A', target: 'B', draw: 'cell', order: 3, label: 'call()', doc: 'R'}], skipped: ['x']};
-  const scene = buildScene(view);
+  const view = {layout: {kind: 'axis'}, nodes: [{doc: 'A', shape: 'box', label: 'A'}, {doc: 'B', shape: 'box', label: 'B'}],
+    links: [{source: 'A', target: 'B', draw: 'axis', order: 3, label: 'call()', doc: 'R'}], skipped: ['x']};
+  const scene = sceneFor(view);
+  assert.equal(scene.kind, 'graph');
   assert.equal(scene.edges.length, 1);
-  assert.equal(scene.edges[0].label, '3. call()', 'en carriles el orden es el tiempo y se muestra');
   assert.equal(scene.notices.length, 3);
+});
+
+test('carriles: uno por nodo en el orden de nodes, mensajes bajando por order', () => {
+  const scene = sceneFor(sequence);
+  assert.equal(scene.kind, 'lanes');
+  assert.deepEqual(scene.notices, []);
+  assert.deepEqual(scene.lanes.map(l => tail(l.id)), sequence.nodes.map(n => tail(n.doc)));
+  assert.ok(scene.lanes.every((l, i) => i === 0 || l.x > scene.lanes[i - 1].x));
+  assert.deepEqual(scene.messages.map(m => m.order), [...sequence.links].map(l => l.order).sort((a, b) => a - b));
+  assert.ok(scene.messages.every((m, i) => i === 0 || m.y > scene.messages[i - 1].y), 'cada mensaje en su propia fila, más abajo');
+  assert.ok(scene.messages.every(m => m.y > scene.lifelineTop && m.y < scene.height));
+});
+
+test('carriles: la autollamada es un bucle sobre su carril y ocupa su fila; los retornos traen su trazo', () => {
+  const scene = laneScene(sequence);
+  const self = scene.messages.filter(m => m.self);
+  assert.equal(self.length, 1);
+  assert.equal(tail(self[0].from), 'Loader');
+  assert.equal(self[0].x1, self[0].x2);
+  const returns = scene.messages.filter(m => m.relation === 'returns');
+  assert.ok(returns.length && returns.every(m => m.dash === '6 4' && m.targetEnd === 'open-arrow'));
+  const shuffled = {...sequence, links: [...sequence.links].reverse()};
+  assert.deepEqual(laneScene(shuffled).messages.map(m => m.order), scene.messages.map(m => m.order), 'el orden sale de `order`, no del orden del JSON');
+});
+
+test('grilla: columnas por data.order agrupadas por vista, filas en preorden de nest', () => {
+  const scene = sceneFor(matrix);
+  assert.equal(scene.kind, 'grid');
+  assert.deepEqual(scene.notices, []);
+  assert.deepEqual(scene.grids.map(g => [g.view, g.label]), [['quotation', 'Quotation View']]);
+  assert.deepEqual(scene.grids[0].columns.map(c => tail(c.id)), ['quotation__browse', 'quotation__client', 'quotation__basket', 'quotation__validation', 'quotation__completed']);
+  assert.deepEqual(scene.rows.map(r => [tail(r.id), r.depth]), [['QuotationFlow', 0], ['Store', 1], ['Basket', 1], ['BasketItem', 2]]);
+});
+
+test('grilla: celda en la intersección fila × columna, filas vacías incluidas', () => {
+  const scene = gridScene(matrix);
+  const id = el => matrix.nodes.find(n => tail(n.doc) === el).doc;
+  assert.deepEqual(scene.cells[cellKey(id('BasketItem'), id('quotation__validation'))], ['quotation']);
+  assert.equal(scene.cells[cellKey(id('BasketItem'), id('quotation__browse'))], undefined);
+  assert.equal(Object.keys(scene.cells).length, matrix.links.filter(l => l.draw === 'cell').length);
+  const twoViews = {...matrix, nodes: [...matrix.nodes, {doc: 'S2', collection: 'stages', label: 'Otra', data: {view: 'b', view_label: 'B', order: 1}}]};
+  const grids = gridScene(twoViews).grids;
+  assert.deepEqual(grids.map(g => g.view), ['quotation', 'b']);
+  assert.equal(gridScene(twoViews).rows.length, 4, 'las filas sin celdas en la vista b se dibujan igual');
+});
+
+test('grilla real de dos vistas: una tabla por vista, mismas filas en las dos', () => {
+  assert.ok('fragments' in coverage && coverage.links.every(l => 'data' in l && 'source_label' in l), 'el fixture trae los campos nuevos');
+  const scene = sceneFor(coverage);
+  assert.deepEqual(scene.notices, [], 'fragments/data/source_label no rompen ni avisan');
+  assert.deepEqual(scene.grids.map(g => [g.label, g.columns.length]), [['Render pipeline', 5], ['Store sync', 5]]);
+  assert.equal(scene.rows.length, 12);
+  assert.equal(scene.rows.filter(r => r.depth > 0).length, 9);
+  assert.equal(Object.keys(scene.cells).length, 30);
+  assert.ok(scene.grids.every(g => g.columns.every((c, i) => i === 0 || c.order >= g.columns[i - 1].order)));
+});
+
+test('una grilla sin columnas cae a grafo con aviso', () => {
+  const scene = sceneFor({...matrix, nodes: matrix.nodes.filter(n => n.collection !== 'stages')});
+  assert.equal(scene.kind, 'graph');
+  assert.ok(scene.notices[0].includes('no tiene columnas'));
 });
 
 test('un ciclo de anidado se corta en vez de colgar el layout', () => {
