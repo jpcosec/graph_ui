@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from sldb.api.graph import GraphSnapshot, KnowledgeNode
+from sldb.api.graph import Edge, GraphSnapshot, KnowledgeNode, SystemIdentity
 
 from adapters.snapshot_adapter import snapshot_to_ui_graph
 from contracts.graph_data import GraphData
@@ -13,27 +13,27 @@ def test_snapshot_to_ui_graph_adapts_snapshot_without_contract_changes():
         metadata={"source": "unit-test"},
         nodes=[
             KnowledgeNode(
-                identity={"node_id": "node-a", "node_type": "module"},
+                identity=SystemIdentity(node_id="node-a", node_type="module"),
                 edges=[
-                    {
-                        "target_id": "node-b",
-                        "relation_type": "depends_on",
-                        "metadata": {"weight": 2},
-                    }
+                    Edge(
+                        target_id="node-b",
+                        relation_type="depends_on",
+                        metadata={"weight": 2},
+                    )
                 ],
                 semantics={"name": "Alpha Module", "domain": "core"},
                 compliance={"status": "valid", "owner": "team-alpha"},
                 source={"origin": "fixture"},
             ),
             KnowledgeNode(
-                identity={"node_id": "node-b", "node_type": "document"},
-                edges=[{"target_id": "node-c", "relation_type": "references"}],
+                identity=SystemIdentity(node_id="node-b", node_type="document"),
+                edges=[Edge(target_id="node-c", relation_type="references")],
                 semantics={"title": "Beta Document"},
                 ast={"language": "markdown"},
                 io_ports=[{"name": "input", "direction": "incoming"}],
             ),
             KnowledgeNode(
-                identity={"node_id": "node-c", "node_type": "concept"},
+                identity=SystemIdentity(node_id="node-c", node_type="concept"),
                 semantics={"summary": "No display label facet"},
             ),
         ],

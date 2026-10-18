@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Editor visual de una KB SLDB: el mindmap (frontends/mindmap) como paquete `mindmap`."
 requires-python = ">=3.11"
 dependencies = [
-    "structuredLanguageDB>=0.1.9",
+    "structuredLanguageDB>=0.1.11",
     "pron>=1.0.0",
 ]
 

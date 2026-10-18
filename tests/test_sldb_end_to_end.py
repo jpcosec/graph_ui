@@ -12,10 +12,7 @@ View 2 - 'Sections' filter: relation has_section → document→section breakdow
 from pathlib import Path
 
 import pytest
-from sldb.api.graph import RelationFilter, StructuredQuery, index_from_snapshot, snapshot_load, snapshot_save
-# PENDIENTE (pedido a sldb-04): sldb.api.graph.execute_query solo acepta un
-# store; ejecutar sobre un snapshot en memoria todavía no tiene ruta pública.
-from sldb.store.graph.executor import execute_query
+from sldb.api.graph import RelationFilter, StructuredQuery, query_snapshot, snapshot_load, snapshot_save
 
 from adapters.snapshot_adapter import snapshot_to_ui_graph
 
@@ -31,7 +28,7 @@ def snapshot(tmp_path_factory):
 
 def _query(snapshot, relation):
     query = StructuredQuery(relations=[RelationFilter(relation_types=[relation])])
-    return execute_query(index_from_snapshot(snapshot), query)
+    return query_snapshot(snapshot, query)
 
 
 def _assert_only(nodes, relation):
