@@ -1,0 +1,17 @@
+name: atom-cómo-corre-la-ci-de-graph-ui
+path: desk/atoms/atom-cómo-corre-la-ci-de-graph-ui.md
+source_hash: 7897dd110fae1eca752e91aa192ca2fc8dacd4dbadb420cc13eafa784285f847
+content_hash: 22ccba35136f7c53bc4c3b30112ece6718d8fc49ac7c14fb241f8a56677fec31
+field_hashes:
+  id: 943f42af6afc424ecd84ada1788ff86e7061b10e7fb57ff7013fd4ecdfff772f
+  title: 9bf130a944b91e98dae63c5a3f485b565e50979a9da657bfee2177c118a366cf
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 526202960fd84bc403935cb3f553a15f0ac3011e76cf0d788c9ee2c2e2bb078d
+  tags: a250a0ce9c346180eb06bbd06c4e0d94f2a1860bb0acdea6ecba4fa8e7da18e7
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:ci
+- type.knowledge.atom
+- workspace.desk.atoms
