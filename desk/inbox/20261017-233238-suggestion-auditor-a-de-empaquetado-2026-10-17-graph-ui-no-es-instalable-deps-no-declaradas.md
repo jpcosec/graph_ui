@@ -8,9 +8,11 @@ target_project: graph_ui
 # ISO 8601 timestamp
 created_at: '2026-10-17T23:32:38'
 # open | closed
-status: open
+status: closed
 # project identity that acknowledged the note
+acknowledged_by: graph_ui
 # ISO 8601 timestamp, set when acknowledged
+acknowledged_at: '2026-10-18T01:32:42'
 ---
 
 # Auditoría de empaquetado 2026-10-17: graph_ui no es instalable, deps no declaradas
