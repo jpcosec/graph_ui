@@ -145,7 +145,7 @@ data:
               kind: database
               stages:
                 hum: [structure]
-            - name: KgdbAdapter
+            - name: SnapshotAdapter
               kind: service
               stages:
                 editor: [load]

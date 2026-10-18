@@ -331,8 +331,8 @@
           "depth": 2
         },
         {
-          "id": "KgdbAdapter",
-          "label": "KgdbAdapter",
+          "id": "SnapshotAdapter",
+          "label": "SnapshotAdapter",
           "row": 25,
           "depth": 2
         }
@@ -662,7 +662,7 @@
           "depth": 2
         },
         {
-          "component": "KgdbAdapter",
+          "component": "SnapshotAdapter",
           "row": 25,
           "start": 5,
           "end": 6,
@@ -677,18 +677,18 @@
       "name": "kindColor",
       "type": "ordinal",
       "domain": [
-        "ui",
+        "database",
         "boundary",
+        "ui",
         "service",
-        "core",
-        "database"
+        "core"
       ],
       "range": [
-        "#94A3B8",
+        "#10B981",
         "#60A5FA",
         "#94A3B8",
-        "#F59E0B",
-        "#10B981"
+        "#94A3B8",
+        "#F59E0B"
       ]
     }
   ],

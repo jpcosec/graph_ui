@@ -19,7 +19,7 @@ data:
       label: Backend (target)
       kind: server
       contains:
-        - kgdb_store
+        - sldb_graph_store
   artifacts:
     review_workbench_spa:
       label: review-workbench SPA (React/Vite bundle)
@@ -30,8 +30,8 @@ data:
     hum_sync_script:
       label: generate-hum-ast.mjs (hum:sync)
       kind: backend
-    kgdb_store:
-      label: kgdb graph store / API
+    sldb_graph_store:
+      label: sldb store + graph layer (sldb serve; formerly kgdb)
       kind: backend
   connections:
     - from: review_workbench_spa
@@ -41,5 +41,5 @@ data:
       to: review_workbench_spa
       protocol: build-time-fixture
     - from: review_workbench_spa
-      to: kgdb_store
+      to: sldb_graph_store
       protocol: HTTP (target, not wired)

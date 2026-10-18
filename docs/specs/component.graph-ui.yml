@@ -32,7 +32,7 @@ data:
         - EditorEngine
         - Auditor
         - Provider
-        - KgdbAdapter
+        - SnapshotAdapter
 
     Contracts:
       label: GraphData / UINode / UIEdge (contracts/graph_data.py)
@@ -50,8 +50,8 @@ data:
       label: GraphProvider (provider.py)
       kind: core
 
-    KgdbAdapter:
-      label: kgdb_to_ui_graph (adapters/kgdb_adapter.py)
+    SnapshotAdapter:
+      label: snapshot_to_ui_graph (adapters/snapshot_adapter.py)
       kind: boundary
 
     # --- React frontend (apps/review-workbench/) ---
@@ -91,8 +91,8 @@ data:
       kind: boundary
 
     # --- External sources ---
-    Kgdb:
-      label: kgdb (graph snapshots)
+    SldbGraph:
+      label: sldb.api.graph (graph snapshots, formerly kgdb)
       kind: database
 
     StaticFixtures:
@@ -111,16 +111,16 @@ data:
       label: current source
 
     - from: DataProvider
-      to: Kgdb
+      to: SldbGraph
       relation: reads
       label: target source
 
-    - from: KgdbAdapter
-      to: Kgdb
+    - from: SnapshotAdapter
+      to: SldbGraph
       relation: reads
       label: GraphSnapshot
 
-    - from: KgdbAdapter
+    - from: SnapshotAdapter
       to: Contracts
       relation: produces
       label: GraphData

@@ -1,5 +1,5 @@
 id: sequence.data-load-target
-title: graph_ui - Data Load + Save Flow (target, over kgdb)
+title: graph_ui - Data Load + Save Flow (target, over sldb.api.graph)
 type: sequence
 version: "0.1"
 data:
@@ -8,9 +8,9 @@ data:
       kind: actor
     - id: DataProvider
       kind: component
-    - id: KgdbAdapter
+    - id: SnapshotAdapter
       kind: component
-    - id: Kgdb
+    - id: SldbGraph
       kind: boundary
     - id: GraphStore
       kind: component
@@ -21,16 +21,16 @@ data:
       to: DataProvider
       message: open editor
     - from: DataProvider
-      to: Kgdb
+      to: SldbGraph
       message: fetch GraphSnapshot
       kind: sync
-    - from: Kgdb
-      to: KgdbAdapter
+    - from: SldbGraph
+      to: SnapshotAdapter
       message: GraphSnapshot
       kind: reply
-    - from: KgdbAdapter
+    - from: SnapshotAdapter
       to: DataProvider
-      message: kgdb_to_ui_graph -> GraphData
+      message: snapshot_to_ui_graph -> GraphData
       kind: reply
     - from: DataProvider
       to: GraphStore
@@ -47,10 +47,10 @@ data:
       to: DataProvider
       message: save (Ctrl+S)
     - from: DataProvider
-      to: Kgdb
+      to: SldbGraph
       message: persist mutations (write-back)
       kind: sync
-    - from: Kgdb
+    - from: SldbGraph
       to: DataProvider
       message: ok
       kind: reply

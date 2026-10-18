@@ -7,8 +7,8 @@ graph TD
         hum_sync_script["generate-hum-ast.mjs (hum:sync)"]
     end
     subgraph backend_host ["Backend (target)"]
-        kgdb_store["kgdb graph store / API"]
+        sldb_graph_store["sldb store + graph layer (sldb serve; formerly kgdb)"]
     end
-    review_workbench_spa -->|HTTP| vite_dev_server
-    hum_sync_script -->|build-time-fixture| review_workbench_spa
-    review_workbench_spa -->|HTTP (target, not wired)| kgdb_store
+    review_workbench_spa -->|"HTTP"| vite_dev_server
+    hum_sync_script -->|"build-time-fixture"| review_workbench_spa
+    review_workbench_spa -->|"HTTP (target, not wired)"| sldb_graph_store
