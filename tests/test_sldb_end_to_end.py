@@ -1,129 +1,76 @@
 """End-to-end proof: two ProjectionViews over real sldb data render distinct slices.
 
-Uses kgdb_to_ui_graph adapter (already built) and the sldb_to_kgdb converter
-(script that transforms sldb store AST into kgdb GraphSnapshot).
+The portable graph snapshot is generated from the repository's own `.sldb`
+store with ``sldb.api.graph.snapshot_save`` (read-only), read back with
+``snapshot_load`` and adapted with ``snapshot_to_ui_graph``. Queries run on
+sldb's own graph layer (the former kgdb, merged into sldb in 6deb222).
 
-View 1 - 'Structure' filter: relation_type=contains → model→document hierarchy
-View 2 - 'Definitions' filter: relation_type=defines → model→field definitions
+View 1 - 'Structure' filter: relation has_document → model→document hierarchy
+View 2 - 'Sections' filter: relation has_section → document→section breakdown
 """
 
-import json
 from pathlib import Path
 
-FIXTURE = Path(__file__).resolve().parents[1] / "desk" / "fixtures" / "sldb_snapshot.json"
+import pytest
+from sldb.api.graph import RelationFilter, StructuredQuery, index_from_snapshot, snapshot_load, snapshot_save
+# PENDIENTE (pedido a sldb-04): sldb.api.graph.execute_query solo acepta un
+# store; ejecutar sobre un snapshot en memoria todavía no tiene ruta pública.
+from sldb.store.graph.executor import execute_query
+
+from adapters.snapshot_adapter import snapshot_to_ui_graph
+
+STORE = Path(__file__).resolve().parents[1] / ".sldb"
 
 
-def test_view_contains_shows_model_document_hierarchy():
-    from adapters.kgdb_adapter import kgdb_to_ui_graph
-    from kgdb.contracts.io import GraphSnapshot
-    from kgdb.query.language import RelationFilter, StructuredQuery
-    from kgdb.query.executor import execute_query
-    import networkx as nx
-    from kgdb.graph.utils import add_knowledge_node
+@pytest.fixture(scope="module")
+def snapshot(tmp_path_factory):
+    path = tmp_path_factory.mktemp("snapshot") / "graph.json"
+    snapshot_save(str(STORE), path)
+    return snapshot_load(path)
 
-    snapshot = GraphSnapshot.model_validate_json(FIXTURE.read_text())
-    graph_data = kgdb_to_ui_graph(snapshot)
 
-    # Build a networkx graph to run RelationFilter
-    g = nx.DiGraph()
-    for node in snapshot.nodes:
-        add_knowledge_node(g, node)
+def _query(snapshot, relation):
+    query = StructuredQuery(relations=[RelationFilter(relation_types=[relation])])
+    return execute_query(index_from_snapshot(snapshot), query)
 
-    query = StructuredQuery(
-        relations=[RelationFilter(relation_types=["contains"])]
-    )
-    filtered_nodes = execute_query(g, query)
 
-    # All returned edges should be 'contains' only
-    for node in filtered_nodes:
+def _assert_only(nodes, relation):
+    assert nodes
+    for node in nodes:
         for edge in node.edges:
-            assert edge.relation_type == "contains", \
-                f"Expected contains, got {edge.relation_type}"
-
-    assert len(filtered_nodes) > 0
-    # Models have outgoing 'contains' edges to documents
-    contains_sources = [n for n in filtered_nodes if any(
-        e.relation_type == "contains" for e in n.edges
-    )]
-    assert len(contains_sources) > 0
+            assert edge.relation == relation, f"Expected {relation}, got {edge.relation}"
+    assert any(node.edges for node in nodes)
 
 
-def test_view_defines_shows_field_definitions():
-    from adapters.kgdb_adapter import kgdb_to_ui_graph
-    from kgdb.contracts.io import GraphSnapshot
-    from kgdb.query.language import RelationFilter, StructuredQuery
-    from kgdb.query.executor import execute_query
-    import networkx as nx
-    from kgdb.graph.utils import add_knowledge_node
-
-    snapshot = GraphSnapshot.model_validate_json(FIXTURE.read_text())
-    graph_data = kgdb_to_ui_graph(snapshot)
-
-    g = nx.DiGraph()
-    for node in snapshot.nodes:
-        add_knowledge_node(g, node)
-
-    query = StructuredQuery(
-        relations=[RelationFilter(relation_types=["defines"])]
-    )
-    filtered_nodes = execute_query(g, query)
-
-    # All returned edges should be 'defines' only
-    for node in filtered_nodes:
-        for edge in node.edges:
-            assert edge.relation_type == "defines", \
-                f"Expected defines, got {edge.relation_type}"
-
-    assert len(filtered_nodes) > 0
-    # Models have outgoing 'defines' edges to fields
-    defines_sources = [n for n in filtered_nodes if any(
-        e.relation_type == "defines" for e in n.edges
-    )]
-    assert len(defines_sources) > 0
+def test_view_structure_shows_model_document_hierarchy(snapshot):
+    nodes = _query(snapshot, "has_document")
+    _assert_only(nodes, "has_document")
+    # Los modelos son el origen de has_document.
+    assert any(n.node_type == "sldb_model" and n.edges for n in nodes)
 
 
-def test_both_views_together_produce_distinct_slices():
-    from adapters.kgdb_adapter import kgdb_to_ui_graph
-    from kgdb.contracts.io import GraphSnapshot
-    from kgdb.query.language import RelationFilter, StructuredQuery
-    from kgdb.query.executor import execute_query
-    import networkx as nx
-    from kgdb.graph.utils import add_knowledge_node
-
-    snapshot = GraphSnapshot.model_validate_json(FIXTURE.read_text())
-    graph_data = kgdb_to_ui_graph(snapshot)
-
-    g = nx.DiGraph()
-    for node in snapshot.nodes:
-        add_knowledge_node(g, node)
-
-    # View 1: contains
-    q1 = StructuredQuery(relations=[RelationFilter(relation_types=["contains"])])
-    r1 = execute_query(g, q1)
-    contains_edges = sum(len(n.edges) for n in r1)
-
-    # View 2: defines
-    q2 = StructuredQuery(relations=[RelationFilter(relation_types=["defines"])])
-    r2 = execute_query(g, q2)
-    defines_edges = sum(len(n.edges) for n in r2)
-
-    assert contains_edges > 0
-    assert defines_edges > 0
-    assert contains_edges != defines_edges, \
-        f"Expected distinct slices, got contains={contains_edges} defines={defines_edges}"
+def test_view_sections_shows_document_sections(snapshot):
+    nodes = _query(snapshot, "has_section")
+    _assert_only(nodes, "has_section")
+    assert any(n.node_type == "sldb_document" and n.edges for n in nodes)
 
 
-def test_end_to_end_pipeline():
-    """Prove the full pipe: sldb AST -> kgdb -> kgdb_to_ui_graph -> GraphData."""
-    from adapters.kgdb_adapter import kgdb_to_ui_graph
-    from kgdb.contracts.io import GraphSnapshot
+def test_both_views_together_produce_distinct_slices(snapshot):
+    structure = sum(len(n.edges) for n in _query(snapshot, "has_document"))
+    sections = sum(len(n.edges) for n in _query(snapshot, "has_section"))
 
-    snapshot = GraphSnapshot.model_validate_json(FIXTURE.read_text())
-    graph_data = kgdb_to_ui_graph(snapshot)
+    assert structure > 0
+    assert sections > 0
+    assert structure != sections, f"Expected distinct slices, got has_document={structure} has_section={sections}"
+
+
+def test_end_to_end_pipeline(snapshot):
+    """Prove the full pipe: sldb store -> snapshot -> snapshot_to_ui_graph -> GraphData."""
+    graph_data = snapshot_to_ui_graph(snapshot)
 
     assert len(graph_data.nodes) == len(snapshot.nodes)
     assert len(graph_data.edges) == sum(len(n.edges) for n in snapshot.nodes)
 
     # Verify facets preserved
-    model_node = next(n for n in graph_data.nodes if n.node_type == "model")
+    model_node = next(n for n in graph_data.nodes if n.node_type == "sldb_model")
     assert "name" in model_node.metadata.get("semantics", {})

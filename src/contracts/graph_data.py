@@ -26,7 +26,7 @@ class UINode(BaseModel):
     Includes visual positioning and semantic signals.
     """
 
-    id: str = Field(description="Unique identifier for the node (matches node_id in kgdb).")
+    id: str = Field(description="Unique identifier for the node (matches node_id in the sldb graph snapshot).")
     label: str = Field(description="Display label for the node.")
     node_type: str = Field(description="The semantic type of the node (e.g., 'file', 'concept').")
     

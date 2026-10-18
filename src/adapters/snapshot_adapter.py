@@ -1,17 +1,16 @@
-"""Adapters for converting kgdb graph snapshots into Graph UI data."""
+"""Adapters for converting sldb graph snapshots into Graph UI data."""
 
 from __future__ import annotations
 
 from typing import Any
 
-from kgdb.contracts.io import GraphSnapshot
-from kgdb.contracts.node import KnowledgeNode
+from sldb.api.graph import GraphSnapshot, KnowledgeNode
 
 from contracts.graph_data import GraphData, UIEdge, UINode
 
 
-def kgdb_to_ui_graph(snapshot: GraphSnapshot) -> GraphData:
-    """Convert a kgdb graph snapshot into the Graph UI contract."""
+def snapshot_to_ui_graph(snapshot: GraphSnapshot) -> GraphData:
+    """Convert an sldb graph snapshot into the Graph UI contract."""
 
     return GraphData(
         nodes=[_knowledge_node_to_ui_node(node) for node in snapshot.nodes],
