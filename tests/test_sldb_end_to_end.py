@@ -52,7 +52,10 @@ def test_view_structure_shows_model_document_hierarchy(snapshot):
 def test_view_sections_shows_document_sections(snapshot):
     nodes = _query(snapshot, "has_section")
     _assert_only(nodes, "has_section")
-    assert any(n.node_type == "sldb_document" and n.edges for n in nodes)
+    # El origen de has_section es un documento. Su node_type depende de la
+    # ruta del snapshot: `sldb_document`, o el nombre de su modelo cuando el
+    # store tiene stores enlazados. Por eso basta con que no sea una sección.
+    assert any(n.edges and n.node_type != "sldb_section" for n in nodes)
 
 
 def test_both_views_together_produce_distinct_slices(snapshot):
