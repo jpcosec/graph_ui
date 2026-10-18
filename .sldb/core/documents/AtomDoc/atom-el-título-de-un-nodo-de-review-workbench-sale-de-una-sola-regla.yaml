@@ -1,0 +1,19 @@
+name: atom-el-título-de-un-nodo-de-review-workbench-sale-de-una-sola-regla
+path: desk/atoms/atom-el-título-de-un-nodo-de-review-workbench-sale-de-una-sola-regla.md
+source_hash: f869e134afea9bacce5664ed76c45f67e426e58e4049f8945bb1a53c8781986c
+content_hash: 00b7fd17f0d510f8868df710bcbd1127280e82c0337238152d41ed22b8fb4034
+field_hashes:
+  id: 227654b4705a5457769a0c7f564d8ad30845b7c330fadc2e2f0ba2e8bc2f9cf4
+  title: 94d72c352b49c50aae79c59f09c4d463611dceb0b02adfef0075b1a695e32f75
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: e92fa679f692a907c407839ef582c0886401b90ab7a6b4a548ecd721020c1d2a
+  tags: c5fe520077436da7795f68f4752e0335d304b409c99dc91fa5bebdc0327f8520
+  provenance: 797c2ba0e1fa5143b47cfb2de4173c4e995c14b1cc28557241f63b0c3bc64327
+semantic_tags:
+- layer:review-workbench
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:node-title
+- type.knowledge.atom
+- workspace.desk.atoms
