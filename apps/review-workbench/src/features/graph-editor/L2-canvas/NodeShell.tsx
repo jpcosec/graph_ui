@@ -17,6 +17,7 @@ import type { NodePayload } from '@/stores/types';
 import { useUIStore } from '@/stores/ui-store';
 import type { ASTNode } from '@/stores/types';
 import { LucideEdit2, LucideTrash2, LucideCopy, LucideFocus, LucideChevronDown, LucideChevronRight } from 'lucide-react';
+import { resolveNodeTitle } from '@/features/graph-editor/lib/node-title';
 
 type CanvasNode = Node<ASTNode['data'], string>;
 
@@ -40,23 +41,7 @@ function asDataRecord(data: ASTNode['data']): Record<string, unknown> {
 }
 
 export function getNodeTitle(data: ASTNode['data']): string {
-  // Handle direct JSON format: data.label
-  const asJson = asDataRecord(data);
-  if ('label' in asJson && typeof asJson.label === 'string' && asJson.label.trim().length > 0) {
-    return asJson.label;
-  }
-  
-  // Handle direct JSON format: data.name
-  if ('name' in asJson && typeof asJson.name === 'string' && asJson.name.trim().length > 0) {
-    return asJson.name;
-  }
-
-  // AST format: data.payload.value.name or data.payload.value.title
-  const payload = asJson.payload as NodePayload | undefined;
-  const payloadRecord = asPayloadRecord(payload?.value ?? {});
-  const title = payloadRecord.name ?? payloadRecord.title;
-
-  return typeof title === 'string' && title.trim().length > 0 ? title : 'Untitled';
+  return resolveNodeTitle(data, 'Untitled');
 }
 
 export function getRenderTier(zoom: number): 'detail' | 'label' | 'dot' {

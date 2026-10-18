@@ -1,38 +1,8 @@
-import type { ASTEdge, ASTNode, DomainData, DomainEdge, DomainNode, NodePayload } from './types';
-
-function asRecord(value: unknown): Record<string, unknown> {
-  if (value && typeof value === 'object') {
-    return value as Record<string, unknown>;
-  }
-  return {};
-}
+import type { ASTEdge, ASTNode, DomainData, DomainEdge, DomainNode } from './types';
+import { resolveNodeTitle } from './node-title';
 
 function getDomainName(node: ASTNode): string {
-  const asJson = node.data as Record<string, unknown>;
-  
-  // Direct JSON format: data.label or data.name
-  if ('label' in asJson && typeof asJson.label === 'string' && asJson.label.length > 0) {
-    return asJson.label;
-  }
-  if ('name' in asJson && typeof asJson.name === 'string' && asJson.name.length > 0) {
-    return asJson.name;
-  }
-
-  // AST format: data.payload.value
-  const payload = asJson.payload as NodePayload | undefined;
-  const payloadRecord = asRecord(payload?.value);
-  const name = payloadRecord.name;
-  const title = payloadRecord.title;
-
-  if (typeof name === 'string' && name.length > 0) {
-    return name;
-  }
-
-  if (typeof title === 'string' && title.length > 0) {
-    return title;
-  }
-
-  return 'Untitled';
+  return resolveNodeTitle(node.data, 'Untitled');
 }
 
 function toDomainNode(node: ASTNode): DomainNode {

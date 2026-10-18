@@ -3,38 +3,15 @@ import { memo, useState } from 'react';
 import { Handle, NodeResizer, NodeToolbar, Position, type Node, type NodeProps } from '@xyflow/react';
 
 import { useEdgeInheritance } from './hooks';
-import type { ASTNode, NodePayload } from '@/stores/types';
+import type { ASTNode } from '@/stores/types';
+import { resolveNodeTitle } from '@/features/graph-editor/lib/node-title';
 
 type CanvasNode = Node<ASTNode['data'], string>;
 
 export const COLLAPSED_KEY = '__collapsed';
 
-function asPayloadRecord(value: unknown): Record<string, unknown> {
-  if (value && typeof value === 'object') {
-    return value as Record<string, unknown>;
-  }
-  return {};
-}
-
 function getGroupTitle(nodeData: ASTNode['data']): string {
-  // Handle both AST format and direct JSON format
-  const asJson = nodeData as Record<string, unknown>;
-  
-  // Direct JSON format: data.label
-  if ('label' in asJson && typeof asJson.label === 'string') {
-    return asJson.label;
-  }
-  
-  // AST format: data.payload.value.name or data.payload.value.title
-  const payload = asJson.payload as NodePayload | undefined;
-  const payloadRecord = asPayloadRecord(payload?.value ?? {});
-  const title = payloadRecord.name ?? payloadRecord.title;
-  
-  if (typeof title === 'string' && title.trim().length > 0) {
-    return title;
-  }
-
-  return 'Group';
+  return resolveNodeTitle(nodeData, 'Group');
 }
 
 export function isCollapsed(nodeData: ASTNode['data']): boolean {

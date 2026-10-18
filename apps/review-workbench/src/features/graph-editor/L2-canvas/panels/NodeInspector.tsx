@@ -17,6 +17,7 @@ import type { FieldDescriptor } from '@/schema/registry.types';
 import type { NodePayload } from '@/stores/types';
 import { useGraphStore } from '@/stores/graph-store';
 import { useUIStore } from '@/stores/ui-store';
+import { resolveNodeTitle } from '@/features/graph-editor/lib/node-title';
 
 interface NodeInspectorDraft {
   title: string;
@@ -60,14 +61,7 @@ function asDataRecord(data: unknown): Record<string, unknown> {
 }
 
 function getNodeTitle(data: Record<string, unknown>): string {
-  if ('label' in data && typeof data.label === 'string') {
-    return data.label;
-  }
-  if ('name' in data && typeof data.name === 'string') {
-    return data.name;
-  }
-  const title = data.name ?? data.title;
-  return typeof title === 'string' ? title : '';
+  return resolveNodeTitle(data, '');
 }
 
 function setNodeTitle(payload: Record<string, unknown>, title: string): Record<string, unknown> {
