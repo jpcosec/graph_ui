@@ -1,9 +1,14 @@
 """End-to-end proof: two ProjectionViews over real sldb data render distinct slices.
 
 The portable graph snapshot is generated from the repository's own `.sldb`
-store with ``sldb.api.graph.snapshot_save`` (read-only), read back with
+store with ``sldb.api.graph.snapshot_save``, read back with
 ``snapshot_load`` and adapted with ``snapshot_to_ui_graph``. Queries run on
 sldb's own graph layer (the former kgdb, merged into sldb in 6deb222).
+
+The snapshot reads the store's derived indexes (sections, semantic, edges)
+under ``.sldb/runtime/``, which git ignores: a fresh clone has none, so the
+fixture rebuilds them first with ``sldb.api.rebuild_edges``. On a checkout
+whose indexes are current that writes nothing.
 
 View 1 - 'Structure' filter: relation has_document → model→document hierarchy
 View 2 - 'Sections' filter: relation has_section → document→section breakdown
@@ -12,6 +17,7 @@ View 2 - 'Sections' filter: relation has_section → document→section breakdow
 from pathlib import Path
 
 import pytest
+from sldb.api import rebuild_edges
 from sldb.api.graph import RelationFilter, StructuredQuery, query_snapshot, snapshot_load, snapshot_save
 
 from adapters.snapshot_adapter import snapshot_to_ui_graph
@@ -21,6 +27,7 @@ STORE = Path(__file__).resolve().parents[1] / ".sldb"
 
 @pytest.fixture(scope="module")
 def snapshot(tmp_path_factory):
+    rebuild_edges(STORE, wait=True)
     path = tmp_path_factory.mktemp("snapshot") / "graph.json"
     snapshot_save(str(STORE), path)
     return snapshot_load(path)
