@@ -1,0 +1,75 @@
+name: ci
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  mindmap:
+    name: pytest + node --test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            .github/requirements-suite.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install graph_ui and the suite
+        run: python -m pip install -r .github/requirements-suite.txt -e ".[test]"
+      - name: pytest
+        # The e2e_* files drive a browser; they run in the e2e job.
+        run: python -m pytest tests -q --ignore-glob='tests/e2e_*'
+      - name: node --test
+        run: node --test tests/*.test.mjs
+
+  review-workbench:
+    name: review-workbench (tsc, vitest, lint)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/review-workbench
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: apps/review-workbench/package-lock.json
+      - run: npm ci
+      - name: Type check
+        run: npx tsc -p tsconfig.app.json --noEmit
+      - name: vitest
+        run: npx vitest run
+      - name: Architecture lint
+        run: node scripts/lint-architecture.mjs
+
+  e2e:
+    name: e2e (Playwright, chromium)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            .github/requirements-suite.txt
+      - name: Install graph_ui and the suite
+        run: python -m pip install -r .github/requirements-suite.txt -e ".[test]"
+      - name: Install chromium
+        run: python -m playwright install --with-deps chromium
+      - name: e2e
+        run: python -m pytest tests/e2e_*.py -q

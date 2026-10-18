@@ -1,0 +1,7 @@
+# Sibling repos of the SLDB_1 suite, installed from their main branches: there are no
+# releases or tags until the whole suite is ready (owner's rule), and deskops already
+# needs structuredLanguageDB>=0.1.13, which is not on PyPI.
+structuredLanguageDB @ git+https://github.com/jpcosec/sldb@main
+pron @ git+https://github.com/jpcosec/pron@master
+deskops @ git+https://github.com/jpcosec/opsys@main
+spec2viz @ git+https://github.com/jpcosec/spec2viz@master
