@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 
 import { useGraphStore } from '@/stores/graph-store';
+import { useUIStore, type CollapsedGroups } from '@/stores/ui-store';
 import type { ASTEdge, ASTNode } from '@/stores/types';
 
-const COLLAPSED_KEY = '__collapsed';
-const EXPANDED_HEIGHT_KEY = '__expandedHeight';
-const COLLAPSED_GROUP_HEIGHT = 52;
+/** Height of a collapsed group: just its header. */
+export const COLLAPSED_GROUP_HEIGHT = 52;
 const INHERITED_RELATION_TYPE = 'inherited';
 
 function readStyleHeight(node: ASTNode): number | undefined {
@@ -26,19 +26,9 @@ export interface EdgeInheritanceState {
   edges: ASTEdge[];
   updateNode: UpdateNode;
   updateEdge: UpdateEdge;
-}
-
-function withCollapsedState(
-  data: ASTNode['data'],
-  collapsed: boolean,
-): ASTNode['data'] {
-  return {
-    ...data,
-    properties: {
-      ...data.properties,
-      [COLLAPSED_KEY]: String(collapsed),
-    },
-  };
+  /** Collapse is view state: it lives in ui-store, the node's data is never touched. */
+  collapsedGroups: CollapsedGroups;
+  setGroupCollapsed: (groupId: string, entry: { expandedHeight?: number } | null) => void;
 }
 
 export interface UseEdgeInheritanceResult {
@@ -47,7 +37,7 @@ export interface UseEdgeInheritanceResult {
 }
 
 export function collapseGroupEdges(groupId: string, state: EdgeInheritanceState): void {
-  const { nodes, edges, updateNode, updateEdge } = state;
+  const { nodes, edges, updateNode, updateEdge, setGroupCollapsed } = state;
 
   const childNodes = nodes.filter((node) => node.parentId === groupId);
   const childIds = new Set(childNodes.map((node) => node.id));
@@ -94,27 +84,12 @@ export function collapseGroupEdges(groupId: string, state: EdgeInheritanceState)
   // Shrink the group box to just its header, remembering the expanded height so
   // expandGroup can restore it. Without this the collapsed group stays a tall
   // empty box.
-  const expandedHeight = readStyleHeight(groupNode);
-  const nextData = withCollapsedState(groupNode.data, true);
-  if (expandedHeight !== undefined) {
-    nextData.properties = {
-      ...nextData.properties,
-      [EXPANDED_HEIGHT_KEY]: String(expandedHeight),
-    };
-  }
-
-  updateNode(
-    groupId,
-    {
-      data: nextData,
-      style: { ...groupNode.style, height: COLLAPSED_GROUP_HEIGHT },
-    },
-    { isVisualOnly: true },
-  );
+  setGroupCollapsed(groupId, { expandedHeight: readStyleHeight(groupNode) });
+  updateNode(groupId, { style: { ...groupNode.style, height: COLLAPSED_GROUP_HEIGHT } }, { isVisualOnly: true });
 }
 
 export function expandGroupEdges(groupId: string, state: EdgeInheritanceState): void {
-  const { nodes, edges, updateNode, updateEdge } = state;
+  const { nodes, edges, updateNode, updateEdge, collapsedGroups, setGroupCollapsed } = state;
 
   const childNodes = nodes.filter((node) => node.parentId === groupId);
   const childIds = new Set(childNodes.map((node) => node.id));
@@ -162,23 +137,11 @@ export function expandGroupEdges(groupId: string, state: EdgeInheritanceState): 
   }
 
   // Restore the remembered expanded height.
-  const remembered = groupNode.data.properties?.[EXPANDED_HEIGHT_KEY];
-  const restoredHeight = remembered ? Number.parseFloat(remembered) : undefined;
-  const nextData = withCollapsedState(groupNode.data, false);
-  if (nextData.properties && EXPANDED_HEIGHT_KEY in nextData.properties) {
-    const { [EXPANDED_HEIGHT_KEY]: _drop, ...rest } = nextData.properties;
-    nextData.properties = rest;
-  }
-
+  const restoredHeight = collapsedGroups[groupId]?.expandedHeight;
+  setGroupCollapsed(groupId, null);
   updateNode(
     groupId,
-    {
-      data: nextData,
-      style: {
-        ...groupNode.style,
-        height: Number.isFinite(restoredHeight) ? restoredHeight : groupNode.style?.height,
-      },
-    },
+    { style: { ...groupNode.style, height: restoredHeight ?? groupNode.style?.height } },
     { isVisualOnly: true },
   );
 }
@@ -188,19 +151,21 @@ export function useEdgeInheritance(): UseEdgeInheritanceResult {
   const edges = useGraphStore((state) => state.edges);
   const updateNode = useGraphStore((state) => state.updateNode);
   const updateEdge = useGraphStore((state) => state.updateEdge);
+  const collapsedGroups = useUIStore((state) => state.collapsedGroups);
+  const setGroupCollapsed = useUIStore((state) => state.setGroupCollapsed);
 
   const collapseGroup = useCallback(
     (groupId: string) => {
-      collapseGroupEdges(groupId, { nodes, edges, updateNode, updateEdge });
+      collapseGroupEdges(groupId, { nodes, edges, updateNode, updateEdge, collapsedGroups, setGroupCollapsed });
     },
-    [edges, nodes, updateEdge, updateNode],
+    [collapsedGroups, edges, nodes, setGroupCollapsed, updateEdge, updateNode],
   );
 
   const expandGroup = useCallback(
     (groupId: string) => {
-      expandGroupEdges(groupId, { nodes, edges, updateNode, updateEdge });
+      expandGroupEdges(groupId, { nodes, edges, updateNode, updateEdge, collapsedGroups, setGroupCollapsed });
     },
-    [edges, nodes, updateEdge, updateNode],
+    [collapsedGroups, edges, nodes, setGroupCollapsed, updateEdge, updateNode],
   );
 
   return { collapseGroup, expandGroup };

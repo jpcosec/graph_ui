@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { collapseGroupEdges, expandGroupEdges } from './use-edge-inheritance';
+import { COLLAPSED_GROUP_HEIGHT, collapseGroupEdges, expandGroupEdges } from './use-edge-inheritance';
 import type { ASTEdge, ASTNode } from '@/stores/types';
 
 const groupNode: ASTNode = {
@@ -64,6 +64,8 @@ describe('useEdgeInheritance helpers (GRP-001-09)', () => {
       edges,
       updateNode,
       updateEdge,
+      collapsedGroups: {},
+      setGroupCollapsed: vi.fn(),
     });
 
     expect(updateEdge).toHaveBeenCalledTimes(1);
@@ -107,6 +109,8 @@ describe('useEdgeInheritance helpers (GRP-001-09)', () => {
       edges: [collapsedEdge],
       updateNode,
       updateEdge,
+      collapsedGroups: {},
+      setGroupCollapsed: vi.fn(),
     });
 
     expect(updateEdge).toHaveBeenCalledTimes(1);
@@ -127,4 +131,43 @@ describe('useEdgeInheritance helpers (GRP-001-09)', () => {
       { isVisualOnly: true },
     );
   });
+
+  it('collapse records the group in ui-store and only shrinks its box: node data is untouched', () => {
+    const updateNode = vi.fn();
+    const setGroupCollapsed = vi.fn();
+    const tallGroup: ASTNode = { ...groupNode, style: { height: 240 } };
+
+    collapseGroupEdges('group-1', {
+      nodes: [tallGroup, childA, externalNode],
+      edges: [],
+      updateNode,
+      updateEdge: vi.fn(),
+      collapsedGroups: {},
+      setGroupCollapsed,
+    });
+
+    expect(setGroupCollapsed).toHaveBeenCalledWith('group-1', { expandedHeight: 240 });
+    expect(updateNode).toHaveBeenCalledWith('group-1', { style: { height: COLLAPSED_GROUP_HEIGHT } }, { isVisualOnly: true });
+    updateNode.mock.calls.forEach(([, patch]) => expect(patch).not.toHaveProperty('data'));
+  });
+
+  it('expand restores the remembered height from ui-store and clears the entry', () => {
+    const updateNode = vi.fn();
+    const setGroupCollapsed = vi.fn();
+    const collapsedGroup: ASTNode = { ...groupNode, style: { height: COLLAPSED_GROUP_HEIGHT } };
+
+    expandGroupEdges('group-1', {
+      nodes: [collapsedGroup, childA, externalNode],
+      edges: [],
+      updateNode,
+      updateEdge: vi.fn(),
+      collapsedGroups: { 'group-1': { expandedHeight: 240 } },
+      setGroupCollapsed,
+    });
+
+    expect(setGroupCollapsed).toHaveBeenCalledWith('group-1', null);
+    expect(updateNode).toHaveBeenCalledWith('group-1', { style: { height: 240 } }, { isVisualOnly: true });
+    updateNode.mock.calls.forEach(([, patch]) => expect(patch).not.toHaveProperty('data'));
+  });
 });
+

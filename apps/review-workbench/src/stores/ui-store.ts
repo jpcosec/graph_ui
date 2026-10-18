@@ -12,6 +12,9 @@ export interface FilterState {
   hideNonNeighbors: boolean;
 }
 
+/** View state of a collapsed group: kept here, never in the node's data (which is domain data). */
+export type CollapsedGroups = Record<string, { expandedHeight?: number }>;
+
 export interface DeleteTarget {
   kind: "node" | "edge";
   title: string;
@@ -36,6 +39,7 @@ export interface UIStore {
   pendingDeleteNodeIds: string[];
   pendingDeleteEdgeIds: string[];
   commandDialogOpen: boolean;
+  collapsedGroups: CollapsedGroups;
 
   setEditorState: (state: EditorState) => void;
   setFocusedNode: (id: string | null) => void;
@@ -53,6 +57,8 @@ export interface UIStore {
   executePendingDelete: (removeElements: (nodeIds: string[], edgeIds: string[]) => void) => void;
   openCommandDialog: () => void;
   closeCommandDialog: () => void;
+  /** Mark a group collapsed (remembering its expanded height) or, with null, expanded. */
+  setGroupCollapsed: (groupId: string, entry: { expandedHeight?: number } | null) => void;
 }
 
 const defaultFilters: FilterState = {
@@ -133,4 +139,10 @@ export const useUIStore = create<UIStore>((set) => ({
     }),
   openCommandDialog: () => set({ commandDialogOpen: true }),
   closeCommandDialog: () => set({ commandDialogOpen: false }),
+  collapsedGroups: {},
+  setGroupCollapsed: (groupId, entry) =>
+    set((state) => {
+      const { [groupId]: _previous, ...rest } = state.collapsedGroups;
+      return { collapsedGroups: entry ? { ...rest, [groupId]: entry } : rest };
+    }),
 }));

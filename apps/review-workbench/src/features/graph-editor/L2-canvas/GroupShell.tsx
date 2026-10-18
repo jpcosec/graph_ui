@@ -4,43 +4,24 @@ import { Handle, NodeResizer, NodeToolbar, Position, type Node, type NodeProps }
 
 import { useEdgeInheritance } from './hooks';
 import type { ASTNode } from '@/stores/types';
+import { useUIStore, type CollapsedGroups } from '@/stores/ui-store';
 import { resolveNodeTitle } from '@/features/graph-editor/lib/node-title';
 
 type CanvasNode = Node<ASTNode['data'], string>;
-
-export const COLLAPSED_KEY = '__collapsed';
 
 function getGroupTitle(nodeData: ASTNode['data']): string {
   return resolveNodeTitle(nodeData, 'Group');
 }
 
-export function isCollapsed(nodeData: ASTNode['data']): boolean {
-  // Handle both AST format and direct JSON format
-  const asJson = nodeData as Record<string, unknown>;
-  const props = asJson.properties as Record<string, string> | undefined;
-  if (props && COLLAPSED_KEY in props) {
-    return props[COLLAPSED_KEY] === 'true';
-  }
-  // Check if data has a collapsed property directly (new format)
-  if ('collapsed' in asJson) {
-    return Boolean(asJson.collapsed);
-  }
-  return false;
-}
-
-export function getNextCollapseProperties(
-  properties: ASTNode['data']['properties'],
-  collapsed: boolean,
-): ASTNode['data']['properties'] {
-  return {
-    ...properties,
-    [COLLAPSED_KEY]: String(!collapsed),
-  };
+/** Collapse is view state kept in ui-store (see useEdgeInheritance), never in the node's data. */
+export function isCollapsed(groupId: string, collapsedGroups: CollapsedGroups): boolean {
+  return groupId in collapsedGroups;
 }
 
 export const GroupShell = memo(function GroupShell({ id, data, selected }: NodeProps<CanvasNode>) {
   const { collapseGroup, expandGroup } = useEdgeInheritance();
-  const collapsed = isCollapsed(data);
+  const collapsedGroups = useUIStore((state) => state.collapsedGroups);
+  const collapsed = isCollapsed(id, collapsedGroups);
   const [isHovered, setIsHovered] = useState(false);
 
   const asJson = data as Record<string, unknown>;
