@@ -11,7 +11,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {specCatalog, buildScene, sceneFor, laneScene, gridScene, cellKey, byDepth, compartmentLine, glyphSize} from '../frontends/mindmap/views/specs/notation/notation.mjs';
+import {laneFrames, LANE, specCatalog, buildScene, sceneFor, laneScene, gridScene, cellKey, byDepth, compartmentLine, glyphSize} from '../frontends/mindmap/views/specs/notation/notation.mjs';
 
 const fixture = name => JSON.parse(readFileSync(new URL(`./fixtures/notation-view-${name}.json`, import.meta.url)));
 const statechart = fixture('statechart'), sequence = fixture('sequence'), matrix = fixture('matrix'), coverage = fixture('matrix-coverage');
@@ -130,4 +130,25 @@ test('compartimentos: atributos y métodos de un spec de clases, una línea cada
   assert.equal(compartmentLine('literal'), 'literal');
   const [, h] = glyphSize({shape: 'class-box', label: 'C', compartments: [{path: 'data.attributes', items: [{name: 'a'}, {name: 'b'}]}]});
   assert.ok(h > glyphSize({shape: 'class-box', label: 'C', compartments: []})[1]);
+});
+
+const classes = JSON.parse(readFileSync(new URL('./fixtures/notation-view-class.json', import.meta.url)));
+
+test('los rótulos de extremo (§8d) pasan tal cual a la arista: multiplicidades UML', () => {
+  const edges = buildScene(classes).edges;
+  const aggregation = edges.find(e => e.relation === 'aggregation');
+  assert.deepEqual([aggregation.sourceLabel, aggregation.targetLabel], ['1', '*']);
+  assert.ok(edges.some(e => e.relation === 'composition' && e.targetLabel === '1..*'));
+  assert.ok(edges.every(e => typeof e.sourceLabel === 'string' && typeof e.targetLabel === 'string'));
+});
+
+test('marcos de fragmento: abarcan sus filas y las líneas de vida que tocan; sin mensajes no hay marco', () => {
+  const msg = (order, x1, x2) => ({order, x1, x2, y: 100 + order * LANE.row, self: x1 === x2});
+  const messages = [msg(1, 100, 300), msg(2, 300, 500), msg(3, 100, 100), msg(4, 300, 100)];
+  const [frame, ...rest] = laneFrames([{label: 'loop', kind: 'group', orders: [2, 3]}, {label: 'vacío', kind: 'group', orders: [9]}], messages);
+  assert.equal(rest.length, 0);
+  assert.deepEqual(frame.orders, [2, 3]);
+  assert.ok(frame.x < 100 && frame.x + frame.width > 500, 'cubre de la línea de vida 100 a la 500');
+  assert.ok(frame.y < messages[1].y && frame.y + frame.height > messages[2].y, 'cubre las filas 2 y 3');
+  assert.deepEqual(laneFrames(undefined, messages), []);
 });

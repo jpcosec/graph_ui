@@ -76,3 +76,7 @@
 .notation-grid td{min-width:64px;text-align:center}
 .notation-grid td.is-filled{background:var(--primary-soft)}
 .cell-mark{display:inline-block;padding:1px 7px;border-radius:9px;background:var(--accent);color:var(--text-on-primary);font-size:10px}
+.notation-end-label{position:absolute;padding:0 3px;border-radius:3px;background:var(--surface-app);color:var(--text-secondary);font-size:10px;line-height:14px;pointer-events:none;white-space:nowrap}
+.lane-frame .frame-box{fill:none;stroke:var(--text-muted);stroke-width:1.2}
+.lane-frame .frame-tab{fill:var(--surface-panel);stroke:var(--text-muted);stroke-width:1.2}
+.lane-frame .frame-label{font-size:10.5px;font-weight:600;fill:var(--text)}

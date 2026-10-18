@@ -1,5 +1,5 @@
 import {useState, useEffect, useMemo} from 'react';
-import {ReactFlow, ReactFlowProvider, Controls, MiniMap, Handle, Position, useReactFlow, applyNodeChanges} from '@xyflow/react';
+import {ReactFlow, ReactFlowProvider, Controls, MiniMap, Handle, Position, useReactFlow, applyNodeChanges, BaseEdge, EdgeLabelRenderer, getSmoothStepPath} from '@xyflow/react';
 import dagre from 'dagre';
 import {html} from '../../../shared/html.js';
 import {request} from '../../../shell/api.js';
@@ -82,6 +82,11 @@ function LanesDiagram({scene}) {
         style=${{left: (l.x - l.width / 2) + 'px', top: (LANE.top + head - l.height) + 'px', width: l.width + 'px', height: l.height + 'px'}}>
       <${Glyph} glyph=${l.glyph}/></div>`)}
     <svg className="lanes-svg" width=${width} height=${height} aria-label="Mensajes">
+      ${(scene.frames || []).map(f => html`<g key=${f.id} className="lane-frame" data-fragment=${f.id} data-orders=${f.orders.join(',')}>
+        <rect x=${f.x} y=${f.y} width=${f.width} height=${f.height} className="frame-box"/>
+        <path d=${`M${f.x},${f.y + 16} h${Math.max(48, f.label.length * 6.5 + 14)} l6,-6 v-10`} className="frame-tab"/>
+        <text x=${f.x + 6} y=${f.y + 12} className="frame-label">${f.label}</text>
+      </g>`)}
       ${lanes.map(l => html`<line key=${l.id} className="lifeline" data-lifeline=${l.id} x1=${l.x} x2=${l.x} y1=${lifelineTop} y2=${height - LANE.top}/>`)}
       ${messages.map(m => {
         const ends = {markerEnd: m.targetEnd ? `url(#nv-${m.targetEnd})` : undefined, markerStart: m.sourceEnd ? `url(#nv-${m.sourceEnd})` : undefined};
@@ -136,11 +141,32 @@ function TerminalDefs() {
   </defs></svg>`;
 }
 
+// Rótulo de extremo: junto al puerto, desplazado hacia fuera del nodo según
+// el lado por el que sale la arista, para que no tape la punta.
+const END_OFFSET = {[Position.Bottom]: [12, 14], [Position.Top]: [12, -14], [Position.Right]: [16, -10], [Position.Left]: [-16, -10]};
+function endLabel(text, x, y, position, end) {
+  if (!text) return '';
+  const [dx, dy] = END_OFFSET[position] || [12, 14];
+  return html`<div className="notation-end-label nodrag nopan" data-end=${end}
+    style=${{transform: `translate(-50%, -50%) translate(${x + dx}px, ${y + dy}px)`}}>${text}</div>`;
+}
+
+function NotationEdge({id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style, markerEnd, markerStart, label, labelStyle, labelBgStyle, labelBgPadding, data}) {
+  const [path, labelX, labelY] = getSmoothStepPath({sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition});
+  return html`<${BaseEdge} id=${id} path=${path} style=${style} markerEnd=${markerEnd} markerStart=${markerStart}
+      label=${label} labelX=${labelX} labelY=${labelY} labelStyle=${labelStyle} labelBgStyle=${labelBgStyle} labelBgPadding=${labelBgPadding}/>
+    ${data?.sourceLabel || data?.targetLabel ? html`<${EdgeLabelRenderer}>
+      ${endLabel(data.sourceLabel, sourceX, sourceY, sourcePosition, 'source')}
+      ${endLabel(data.targetLabel, targetX, targetY, targetPosition, 'target')}
+    </${EdgeLabelRenderer}>` : ''}`;
+}
+const edgeTypes = {notation: NotationEdge};
+
 function edgesOf(scene, selected) {
   return scene.edges.map(e => {
     const active = selected && (e.source === selected || e.target === selected);
-    return {id: e.id, source: e.source, target: e.target, type: 'smoothstep', label: e.label || undefined,
-      data: {relation: e.relation}, className: 'notation-edge',
+    return {id: e.id, source: e.source, target: e.target, type: 'notation', label: e.label || undefined,
+      data: {relation: e.relation, sourceLabel: e.sourceLabel, targetLabel: e.targetLabel}, className: 'notation-edge',
       markerEnd: e.targetEnd ? 'nv-' + e.targetEnd : undefined, markerStart: e.sourceEnd ? 'nv-' + e.sourceEnd : undefined,
       style: {stroke: 'var(--edge)', strokeWidth: active ? 2.2 : 1.4, strokeDasharray: e.dash, opacity: selected && !active ? .25 : 1},
       labelStyle: {fontSize: 10, fill: 'var(--text-secondary)'}, labelBgStyle: {fill: 'var(--surface-app)'}, labelBgPadding: [4, 2]};
@@ -195,7 +221,7 @@ function NotationCanvas({skin}) {
           : state.phase === 'loading' || !scene ? html`<div className="state"><p>Resolviendo la notación…</p></div>`
           : scene.kind === 'lanes' ? html`<div className="notation-scroll"><${LanesDiagram} scene=${scene}/></div>`
           : scene.kind === 'grid' ? html`<div className="notation-scroll"><${GridDiagram} scene=${scene}/></div>`
-          : html`<${ReactFlow} nodes=${flowNodes} edges=${scene ? edgesOf(scene, selected) : []} nodeTypes=${nodeTypes}
+          : html`<${ReactFlow} nodes=${flowNodes} edges=${scene ? edgesOf(scene, selected) : []} nodeTypes=${nodeTypes} edgeTypes=${edgeTypes}
               onNodesChange=${changes => setFlowNodes(ns => applyNodeChanges(changes, ns))}
               minZoom=${.08} maxZoom=${2} nodesConnectable=${false} deleteKeyCode=${null} colorMode=${skin || 'light'}>
               <${Controls} showInteractive=${false}/>

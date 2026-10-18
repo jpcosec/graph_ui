@@ -108,6 +108,11 @@ def test_specs_view_draws_nest_markers_compartments_and_terminals():
             attrs = page.locator('[data-doc="SpecNodeDoc:class.sldb-models.SpecDoc"] .glyph-compartment li').all_inner_texts()
             assert "id: str" in attrs and any(a.startswith("nodes:") for a in attrs), attrs
             assert page.locator('.react-flow__edge path[marker-end*="nv-hollow-triangle"]').count() >= 1
+            # Rótulos de extremo (§8d): las multiplicidades de la agregación y las composiciones.
+            ends = page.locator(".notation-end-label")
+            texts = ends.all_inner_texts()
+            assert {"1", "*", "1..*"} <= set(texts), texts
+            assert page.locator('.notation-end-label[data-end="source"]').count() >= 1
             assert not errors, errors
             browser.close()
     finally:

@@ -1,0 +1,804 @@
+{
+  "spec": "SpecDoc:class.sldb-models",
+  "title": "spec2viz documents in the sldb store",
+  "diagram_type": "class",
+  "notation": "NotationDoc:uml-class",
+  "level": "types",
+  "layout": {
+    "kind": "graph",
+    "direction": "TB"
+  },
+  "nodes": [
+    {
+      "doc": "SpecNodeDoc:class.sldb-models.StructuredNLDoc",
+      "element": "StructuredNLDoc",
+      "title": "StructuredNLDoc",
+      "kind": "abstract",
+      "collection": "classes",
+      "data": {
+        "methods": [
+          {
+            "name": "render",
+            "returns": "str"
+          }
+        ]
+      },
+      "glyph": "GlyphDoc:uml-class.abstract",
+      "shape": "class-box",
+      "function": "class",
+      "label": "StructuredNLDoc",
+      "label_style": "italic",
+      "keyword": "",
+      "compartments": [
+        {
+          "path": "data.methods",
+          "items": [
+            {
+              "name": "render",
+              "returns": "str"
+            }
+          ]
+        }
+      ],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:class.sldb-models.SpecDoc",
+      "element": "SpecDoc",
+      "title": "SpecDoc",
+      "kind": "",
+      "collection": "classes",
+      "data": {
+        "attributes": [
+          {
+            "name": "id",
+            "type": "str"
+          },
+          {
+            "name": "diagram_type",
+            "type": "str"
+          },
+          {
+            "name": "spec_path",
+            "type": "str"
+          },
+          {
+            "name": "sha256",
+            "type": "str"
+          },
+          {
+            "name": "notation",
+            "type": "NotationDoc"
+          },
+          {
+            "name": "nodes",
+            "type": "list[SpecNodeDoc]"
+          }
+        ]
+      },
+      "glyph": "GlyphDoc:uml-class.class",
+      "shape": "class-box",
+      "function": "class",
+      "label": "SpecDoc",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [
+        {
+          "path": "data.attributes",
+          "items": [
+            {
+              "name": "id",
+              "type": "str"
+            },
+            {
+              "name": "diagram_type",
+              "type": "str"
+            },
+            {
+              "name": "spec_path",
+              "type": "str"
+            },
+            {
+              "name": "sha256",
+              "type": "str"
+            },
+            {
+              "name": "notation",
+              "type": "NotationDoc"
+            },
+            {
+              "name": "nodes",
+              "type": "list[SpecNodeDoc]"
+            }
+          ]
+        }
+      ],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:class.sldb-models.SpecNodeDoc",
+      "element": "SpecNodeDoc",
+      "title": "SpecNodeDoc",
+      "kind": "",
+      "collection": "classes",
+      "data": {
+        "attributes": [
+          {
+            "name": "id",
+            "type": "str"
+          },
+          {
+            "name": "element",
+            "type": "str"
+          },
+          {
+            "name": "kind",
+            "type": "str"
+          },
+          {
+            "name": "refs",
+            "type": "list[str]"
+          },
+          {
+            "name": "atom_refs",
+            "type": "list[AtomDoc]"
+          },
+          {
+            "name": "contains",
+            "type": "list[SpecNodeDoc]"
+          },
+          {
+            "name": "data",
+            "type": "dict"
+          }
+        ]
+      },
+      "glyph": "GlyphDoc:uml-class.class",
+      "shape": "class-box",
+      "function": "class",
+      "label": "SpecNodeDoc",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [
+        {
+          "path": "data.attributes",
+          "items": [
+            {
+              "name": "id",
+              "type": "str"
+            },
+            {
+              "name": "element",
+              "type": "str"
+            },
+            {
+              "name": "kind",
+              "type": "str"
+            },
+            {
+              "name": "refs",
+              "type": "list[str]"
+            },
+            {
+              "name": "atom_refs",
+              "type": "list[AtomDoc]"
+            },
+            {
+              "name": "contains",
+              "type": "list[SpecNodeDoc]"
+            },
+            {
+              "name": "data",
+              "type": "dict"
+            }
+          ]
+        }
+      ],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:class.sldb-models.RelationDoc",
+      "element": "RelationDoc",
+      "title": "RelationDoc",
+      "kind": "",
+      "collection": "classes",
+      "data": {
+        "attributes": [
+          {
+            "name": "source_id",
+            "type": "SpecNodeDoc"
+          },
+          {
+            "name": "target_id",
+            "type": "SpecNodeDoc"
+          },
+          {
+            "name": "relation_type",
+            "type": "str"
+          },
+          {
+            "name": "notes",
+            "type": "str"
+          }
+        ]
+      },
+      "glyph": "GlyphDoc:uml-class.class",
+      "shape": "class-box",
+      "function": "class",
+      "label": "RelationDoc",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [
+        {
+          "path": "data.attributes",
+          "items": [
+            {
+              "name": "source_id",
+              "type": "SpecNodeDoc"
+            },
+            {
+              "name": "target_id",
+              "type": "SpecNodeDoc"
+            },
+            {
+              "name": "relation_type",
+              "type": "str"
+            },
+            {
+              "name": "notes",
+              "type": "str"
+            }
+          ]
+        }
+      ],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:class.sldb-models.NotationDoc",
+      "element": "NotationDoc",
+      "title": "NotationDoc",
+      "kind": "",
+      "collection": "classes",
+      "data": {
+        "attributes": [
+          {
+            "name": "name",
+            "type": "str"
+          },
+          {
+            "name": "diagram_type",
+            "type": "str"
+          },
+          {
+            "name": "level",
+            "type": "str"
+          },
+          {
+            "name": "layout",
+            "type": "dict"
+          },
+          {
+            "name": "markers",
+            "type": "list[dict]"
+          },
+          {
+            "name": "glyphs",
+            "type": "list[GlyphDoc]"
+          },
+          {
+            "name": "links",
+            "type": "list[LinkDoc]"
+          }
+        ]
+      },
+      "glyph": "GlyphDoc:uml-class.class",
+      "shape": "class-box",
+      "function": "class",
+      "label": "NotationDoc",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [
+        {
+          "path": "data.attributes",
+          "items": [
+            {
+              "name": "name",
+              "type": "str"
+            },
+            {
+              "name": "diagram_type",
+              "type": "str"
+            },
+            {
+              "name": "level",
+              "type": "str"
+            },
+            {
+              "name": "layout",
+              "type": "dict"
+            },
+            {
+              "name": "markers",
+              "type": "list[dict]"
+            },
+            {
+              "name": "glyphs",
+              "type": "list[GlyphDoc]"
+            },
+            {
+              "name": "links",
+              "type": "list[LinkDoc]"
+            }
+          ]
+        }
+      ],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:class.sldb-models.GlyphDoc",
+      "element": "GlyphDoc",
+      "title": "GlyphDoc",
+      "kind": "",
+      "collection": "classes",
+      "data": {
+        "attributes": [
+          {
+            "name": "model",
+            "type": "str"
+          },
+          {
+            "name": "where",
+            "type": "str"
+          },
+          {
+            "name": "shape",
+            "type": "str"
+          },
+          {
+            "name": "label",
+            "type": "str"
+          },
+          {
+            "name": "keyword",
+            "type": "str"
+          },
+          {
+            "name": "compartments",
+            "type": "list[str]"
+          },
+          {
+            "name": "function",
+            "type": "str"
+          }
+        ]
+      },
+      "glyph": "GlyphDoc:uml-class.class",
+      "shape": "class-box",
+      "function": "class",
+      "label": "GlyphDoc",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [
+        {
+          "path": "data.attributes",
+          "items": [
+            {
+              "name": "model",
+              "type": "str"
+            },
+            {
+              "name": "where",
+              "type": "str"
+            },
+            {
+              "name": "shape",
+              "type": "str"
+            },
+            {
+              "name": "label",
+              "type": "str"
+            },
+            {
+              "name": "keyword",
+              "type": "str"
+            },
+            {
+              "name": "compartments",
+              "type": "list[str]"
+            },
+            {
+              "name": "function",
+              "type": "str"
+            }
+          ]
+        }
+      ],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:class.sldb-models.LinkDoc",
+      "element": "LinkDoc",
+      "title": "LinkDoc",
+      "kind": "",
+      "collection": "classes",
+      "data": {
+        "attributes": [
+          {
+            "name": "relation",
+            "type": "str"
+          },
+          {
+            "name": "relation_type",
+            "type": "RelationTypeDoc"
+          },
+          {
+            "name": "draw",
+            "type": "str"
+          },
+          {
+            "name": "line",
+            "type": "str"
+          },
+          {
+            "name": "source_end",
+            "type": "str"
+          },
+          {
+            "name": "target_end",
+            "type": "str"
+          },
+          {
+            "name": "label",
+            "type": "str"
+          }
+        ]
+      },
+      "glyph": "GlyphDoc:uml-class.class",
+      "shape": "class-box",
+      "function": "class",
+      "label": "LinkDoc",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [
+        {
+          "path": "data.attributes",
+          "items": [
+            {
+              "name": "relation",
+              "type": "str"
+            },
+            {
+              "name": "relation_type",
+              "type": "RelationTypeDoc"
+            },
+            {
+              "name": "draw",
+              "type": "str"
+            },
+            {
+              "name": "line",
+              "type": "str"
+            },
+            {
+              "name": "source_end",
+              "type": "str"
+            },
+            {
+              "name": "target_end",
+              "type": "str"
+            },
+            {
+              "name": "label",
+              "type": "str"
+            }
+          ]
+        }
+      ],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:class.sldb-models.RelationTypeDoc",
+      "element": "RelationTypeDoc",
+      "title": "RelationTypeDoc",
+      "kind": "",
+      "collection": "classes",
+      "data": {
+        "attributes": [
+          {
+            "name": "name",
+            "type": "str"
+          },
+          {
+            "name": "direction",
+            "type": "str"
+          },
+          {
+            "name": "cardinality",
+            "type": "str"
+          }
+        ]
+      },
+      "glyph": "GlyphDoc:uml-class.class",
+      "shape": "class-box",
+      "function": "class",
+      "label": "RelationTypeDoc",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [
+        {
+          "path": "data.attributes",
+          "items": [
+            {
+              "name": "name",
+              "type": "str"
+            },
+            {
+              "name": "direction",
+              "type": "str"
+            },
+            {
+              "name": "cardinality",
+              "type": "str"
+            }
+          ]
+        }
+      ],
+      "markers": [],
+      "refs": []
+    }
+  ],
+  "links": [
+    {
+      "source": "SpecNodeDoc:class.sldb-models.SpecDoc",
+      "target": "SpecNodeDoc:class.sldb-models.StructuredNLDoc",
+      "relation": "inheritance",
+      "link": "LinkDoc:uml-class.inheritance",
+      "doc": "RelationDoc:class.sldb-models.01-SpecDoc__inheritance__StructuredNLDoc",
+      "order": 1,
+      "condition": "",
+      "data": {},
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "hollow-triangle",
+      "label": ""
+    },
+    {
+      "source": "SpecNodeDoc:class.sldb-models.SpecNodeDoc",
+      "target": "SpecNodeDoc:class.sldb-models.StructuredNLDoc",
+      "relation": "inheritance",
+      "link": "LinkDoc:uml-class.inheritance",
+      "doc": "RelationDoc:class.sldb-models.02-SpecNodeDoc__inheritance__StructuredNLDoc",
+      "order": 2,
+      "condition": "",
+      "data": {},
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "hollow-triangle",
+      "label": ""
+    },
+    {
+      "source": "SpecNodeDoc:class.sldb-models.NotationDoc",
+      "target": "SpecNodeDoc:class.sldb-models.StructuredNLDoc",
+      "relation": "inheritance",
+      "link": "LinkDoc:uml-class.inheritance",
+      "doc": "RelationDoc:class.sldb-models.03-NotationDoc__inheritance__StructuredNLDoc",
+      "order": 3,
+      "condition": "",
+      "data": {},
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "hollow-triangle",
+      "label": ""
+    },
+    {
+      "source": "SpecNodeDoc:class.sldb-models.GlyphDoc",
+      "target": "SpecNodeDoc:class.sldb-models.StructuredNLDoc",
+      "relation": "inheritance",
+      "link": "LinkDoc:uml-class.inheritance",
+      "doc": "RelationDoc:class.sldb-models.04-GlyphDoc__inheritance__StructuredNLDoc",
+      "order": 4,
+      "condition": "",
+      "data": {},
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "hollow-triangle",
+      "label": ""
+    },
+    {
+      "source": "SpecNodeDoc:class.sldb-models.LinkDoc",
+      "target": "SpecNodeDoc:class.sldb-models.StructuredNLDoc",
+      "relation": "inheritance",
+      "link": "LinkDoc:uml-class.inheritance",
+      "doc": "RelationDoc:class.sldb-models.05-LinkDoc__inheritance__StructuredNLDoc",
+      "order": 5,
+      "condition": "",
+      "data": {},
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "hollow-triangle",
+      "label": ""
+    },
+    {
+      "source": "SpecNodeDoc:class.sldb-models.SpecDoc",
+      "target": "SpecNodeDoc:class.sldb-models.SpecNodeDoc",
+      "relation": "aggregation",
+      "link": "LinkDoc:uml-class.aggregation",
+      "doc": "RelationDoc:class.sldb-models.06-SpecDoc__aggregation__SpecNodeDoc",
+      "order": 6,
+      "condition": "",
+      "data": {
+        "from_multiplicity": "1",
+        "to_multiplicity": "*",
+        "label": "nodes"
+      },
+      "source_label": "1",
+      "target_label": "*",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "hollow-diamond",
+      "target_end": "none",
+      "label": "nodes"
+    },
+    {
+      "source": "SpecNodeDoc:class.sldb-models.SpecNodeDoc",
+      "target": "SpecNodeDoc:class.sldb-models.SpecNodeDoc",
+      "relation": "composition",
+      "link": "LinkDoc:uml-class.composition",
+      "doc": "RelationDoc:class.sldb-models.07-SpecNodeDoc__composition__SpecNodeDoc",
+      "order": 7,
+      "condition": "",
+      "data": {
+        "label": "contains"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "filled-diamond",
+      "target_end": "none",
+      "label": "contains"
+    },
+    {
+      "source": "SpecNodeDoc:class.sldb-models.RelationDoc",
+      "target": "SpecNodeDoc:class.sldb-models.SpecNodeDoc",
+      "relation": "association",
+      "link": "LinkDoc:uml-class.association",
+      "doc": "RelationDoc:class.sldb-models.08-RelationDoc__association__SpecNodeDoc",
+      "order": 8,
+      "condition": "",
+      "data": {
+        "to_multiplicity": "2",
+        "label": "source_id / target_id"
+      },
+      "source_label": "",
+      "target_label": "2",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "source_id / target_id"
+    },
+    {
+      "source": "SpecNodeDoc:class.sldb-models.RelationDoc",
+      "target": "SpecNodeDoc:class.sldb-models.RelationTypeDoc",
+      "relation": "dependency",
+      "link": "LinkDoc:uml-class.dependency",
+      "doc": "RelationDoc:class.sldb-models.09-RelationDoc__dependency__RelationTypeDoc",
+      "order": 9,
+      "condition": "",
+      "data": {
+        "label": "relation_type"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "dashed",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "relation_type"
+    },
+    {
+      "source": "SpecNodeDoc:class.sldb-models.SpecDoc",
+      "target": "SpecNodeDoc:class.sldb-models.NotationDoc",
+      "relation": "association",
+      "link": "LinkDoc:uml-class.association",
+      "doc": "RelationDoc:class.sldb-models.10-SpecDoc__association__NotationDoc",
+      "order": 10,
+      "condition": "",
+      "data": {
+        "to_multiplicity": "0..1",
+        "label": "notation"
+      },
+      "source_label": "",
+      "target_label": "0..1",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "notation"
+    },
+    {
+      "source": "SpecNodeDoc:class.sldb-models.NotationDoc",
+      "target": "SpecNodeDoc:class.sldb-models.GlyphDoc",
+      "relation": "composition",
+      "link": "LinkDoc:uml-class.composition",
+      "doc": "RelationDoc:class.sldb-models.11-NotationDoc__composition__GlyphDoc",
+      "order": 11,
+      "condition": "",
+      "data": {
+        "to_multiplicity": "1..*",
+        "label": "glyphs"
+      },
+      "source_label": "",
+      "target_label": "1..*",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "filled-diamond",
+      "target_end": "none",
+      "label": "glyphs"
+    },
+    {
+      "source": "SpecNodeDoc:class.sldb-models.NotationDoc",
+      "target": "SpecNodeDoc:class.sldb-models.LinkDoc",
+      "relation": "composition",
+      "link": "LinkDoc:uml-class.composition",
+      "doc": "RelationDoc:class.sldb-models.12-NotationDoc__composition__LinkDoc",
+      "order": 12,
+      "condition": "",
+      "data": {
+        "to_multiplicity": "*",
+        "label": "links"
+      },
+      "source_label": "",
+      "target_label": "*",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "filled-diamond",
+      "target_end": "none",
+      "label": "links"
+    },
+    {
+      "source": "SpecNodeDoc:class.sldb-models.LinkDoc",
+      "target": "SpecNodeDoc:class.sldb-models.RelationTypeDoc",
+      "relation": "dependency",
+      "link": "LinkDoc:uml-class.dependency",
+      "doc": "RelationDoc:class.sldb-models.13-LinkDoc__dependency__RelationTypeDoc",
+      "order": 13,
+      "condition": "",
+      "data": {
+        "label": "relation_type"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "dashed",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "relation_type"
+    }
+  ],
+  "fragments": [],
+  "skipped": []
+}

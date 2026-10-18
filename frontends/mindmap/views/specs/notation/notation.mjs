@@ -90,6 +90,9 @@ export function buildScene(view) {
     edges.push({
       id: link.doc || `${link.source}->${link.target}#${index}`, source: link.source, target: link.target,
       relation: link.relation, label: link.label || '',
+      // Rótulos de extremo (§8d): plantillas del LinkDoc ya resueltas por spec2viz
+      // (p. ej. multiplicidades de una asociación UML).
+      sourceLabel: link.source_label || '', targetLabel: link.target_label || '',
       dash: dash(link.line), sourceEnd: terminal(link.source_end), targetEnd: terminal(link.target_end), order: link.order || 0,
     });
   }
@@ -146,8 +149,26 @@ export function laneScene(view) {
   for (const draw of offDraws) notices.push(`El dibujo «${draw}» no es un mensaje de secuencia: esas relaciones se dibujan como mensajes.`);
   if ((view.skipped || []).length) notices.push(`spec2viz omitió ${view.skipped.length} elemento(s) sin glifo ni link en la notación.`);
   const bottom = LANE.top + head + LANE.row * (messages.length + 1);
-  return {kind: 'lanes', lanes, messages, notices, head, lifelineTop: LANE.top + head, height: bottom + LANE.top,
-    width: LANE.gap * 2 + lanes.length * LANE.width + LANE.loop};
+  return {kind: 'lanes', lanes, messages, frames: laneFrames(view.fragments, messages), notices, head,
+    lifelineTop: LANE.top + head, height: bottom + LANE.top, width: LANE.gap * 2 + lanes.length * LANE.width + LANE.loop};
+}
+
+// Marcos de fragmento (§11 `fragments`: rachas de mensajes con el mismo
+// `group`): de la primera a la última fila de sus `orders`, y de la línea de
+// vida más a la izquierda a la más a la derecha que tocan sus mensajes. Un
+// fragmento sin mensajes en la vista no se dibuja.
+export function laneFrames(fragments, messages) {
+  return (fragments || []).flatMap((fragment, index) => {
+    const orders = new Set(fragment.orders || []);
+    const inside = messages.filter(m => orders.has(m.order));
+    if (!inside.length) return [];
+    const xs = inside.flatMap(m => (m.self ? [m.x1, m.x1 + LANE.loop] : [m.x1, m.x2]));
+    const ys = inside.map(m => m.y);
+    const pad = LANE.width / 4;
+    return [{id: `${fragment.kind || 'group'}-${index}`, label: fragment.label || fragment.kind || '', kind: fragment.kind || 'group',
+      orders: inside.map(m => m.order), x: Math.min(...xs) - pad, y: Math.min(...ys) - LANE.row * .6,
+      width: Math.max(...xs) - Math.min(...xs) + pad * 2, height: Math.max(...ys) - Math.min(...ys) + LANE.row * 1.1}];
+  });
 }
 
 // ---- Grilla (layout grid + draw cell, contrato §8c) ----
