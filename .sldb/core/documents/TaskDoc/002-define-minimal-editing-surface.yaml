@@ -1,7 +1,7 @@
 name: 002-define-minimal-editing-surface
 path: desk/tasks/002-define-minimal-editing-surface.md
 source_hash: 22f26281ae90c99f780c199dfabfe0e5cc08126feb78bd86671e0991639e1951
-content_hash: 771a39fc475f3983abf466af173cb9bf2945d0ddbef5e2fcab8c69c8fd9d0f83
+content_hash: ffe27b33a622ccaf0bcd71974f605fa93f94d79ed02b2d8c62d9e188dd09fdbf
 field_hashes:
   title: b0ec7308edab7caec482e4d971c3a3ac89a829f8290764821a7b21700da004ea
   id: f3f2837c2b6669057a26306e8098ee05a18044658898e07528da159fd9a0f57f
@@ -24,9 +24,6 @@ field_hashes:
   inherits_from: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   inherit_acceptance_context: fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa
   atoms: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
-  domain: f0f0cefee51a6c9d31906cbc3dedb418056e96b2626092bad98eb51f83b2f13e
-  priority: 9424f124304d570454622133ed5f9716850f0c8ec9a5e557f360881beabb43e5
-  created: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
 semantic_tags:
 - representation.markdown
 - source.document.markdown

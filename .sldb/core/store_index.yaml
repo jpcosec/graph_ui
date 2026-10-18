@@ -153,6 +153,24 @@ models:
   - representation.markdown
   - source.document.markdown
   - type.relation.instance
+- name: RunDoc
+  model_ref: deskops.models:RunDoc
+  path: ''
+  models_index: .sldb/core/models/RunDoc.yaml
+  version: 1
+  canonical: false
+  family: null
+  semantics: []
+  origin: deskops
+- name: RuntimeProfileDoc
+  model_ref: deskops.models:RuntimeProfileDoc
+  path: ''
+  models_index: .sldb/core/models/RuntimeProfileDoc.yaml
+  version: 1
+  canonical: false
+  family: null
+  semantics: []
+  origin: deskops
 predicates:
 - name: has_model
   axis: WHAT
@@ -209,4 +227,4 @@ predicates:
   axis: WHERE
   description: 'The store links that store under an alias (`stores add`): it reads
     its documents and inherits its models.'
-store_hash: 2c376f70231fcb69f387dc6145adb9cfe3f1995a82d0ff297508cff633ed86a6
+store_hash: 54c1841b726836070aca10ff19e21216ea2fe6e013716256d6030e159ec215ea
