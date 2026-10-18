@@ -16,6 +16,7 @@ tasks:
 - desk/tasks/task-graph-ui-instalable-pyproject-con-dependencias-reales-y-sin-hacks-de-sys-path.md
 - desk/tasks/task-vista-specs-carriles-para-secuencias-y-grilla-para-matrices.md
 - desk/tasks/task-store-de-graph-ui-a-modelos-federados-de-sldb.md
+- desk/tasks/task-sacar-kgdb-el-grafo-de-graph-ui-sobre-sldb-api-graph.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -55,6 +56,7 @@ _Generated from the task references above._
 - Prove one safe edit flow [resolved] - Make one safe edit path explicit and proven.
 - Feed hum-body from sldb serve (remove hardcoded content) [active] - Promote deferred work from task-hum-body-live-sldb.md.
 - Task: Cierre del paso 8 — compilador mindmap (tests de endpoints, verificación en navegador, contrato de exportación) [active] - Promote deferred work from task-mindmap-compiler-closeout.md.
-- graph_ui instalable: pyproject con dependencias reales y sin hacks de sys.path [draft] - pyproject.toml con [project] y [build-system] que declare structuredLanguageDB, kgdb y pron; frontends/mindmap importable como paquete sin inserciones en sys.path.
-- Vista Specs: carriles para secuencias y grilla para matrices [draft] - Las secuencias se dibujan en carriles con los mensajes ordenados en el tiempo y las matrices en una grilla de celdas, desde lo que devuelve resolve_view.
-- Store de graph_ui a modelos federados de sldb [draft] - El store .sldb de graph_ui sobre modelos federados, con sldb stores check en PASS.
+- graph_ui instalable: pyproject con dependencias reales y sin hacks de sys.path [ready_for_testing] - pyproject.toml con [project] y [build-system] que declare structuredLanguageDB, kgdb y pron; frontends/mindmap importable como paquete sin inserciones en sys.path.
+- Vista Specs: carriles para secuencias y grilla para matrices [active] - Las secuencias se dibujan en carriles con los mensajes ordenados en el tiempo y las matrices en una grilla de celdas, desde lo que devuelve resolve_view.
+- Store de graph_ui a modelos federados de sldb [active] - El store .sldb de graph_ui sobre modelos federados, con sldb stores check en PASS.
+- Sacar kgdb: el grafo de graph_ui sobre sldb.api.graph [draft] - Ningún import de kgdb en graph_ui: el adaptador, los contratos y los tests usan sldb.api.graph (GraphSnapshot, snapshot_load, KnowledgeNode, StructuredQuery). pyproject declara solo structuredLanguageDB y pron.
