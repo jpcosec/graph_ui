@@ -8,7 +8,7 @@ Dos modos, elegidos por GRAPH_UI_BACKEND (default 'local'):
 - remote: TODAS las lecturas que sldb serve expone hoy se sirven desde
   ahí (SLDB_URL): /api/schema, /api/graph, /api/edges*, /api/graph/*,
   /api/models, /api/models/detail, /api/lint, /api/health,
-  /api/kgdb/snapshot y lecturas futuras (/document, /document/ir) sin
+  /api/semantic-export y lecturas futuras (/document, /document/ir) sin
   tocar código. Las ESCRITURAS con equivalente en sldb serve también se
   migran: /api/save (los 'changes' viajan a POST /save; la view, estado
   de presentación, se persiste LOCAL en runtime/mindmap-view.json solo si

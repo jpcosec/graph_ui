@@ -1,0 +1,19 @@
+name: 20261018-200055-suggestion-sldb-0-1-13-renombra-export-kgdb-semantic-payload-sldb-kgdb-semantic-export-y-kgdb-snapshot
+path: desk/inbox/20261018-200055-suggestion-sldb-0-1-13-renombra-export-kgdb-semantic-payload-sldb-kgdb-semantic-export-y-kgdb-snapshot.md
+source_hash: bed420e86ff2366c02acc529f2aafc2cfd598f8fbb1c154531c0931add4eb8af
+content_hash: 9a6b6e2d4dc273ac0967acfcaf955cf4a78a1936f2ab55e1404520a9d33dafbf
+field_hashes:
+  kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
+  sender_project: adf8f4fb55456ba91d0b029904c49d4d1b85540b989a86435dfb80c0a89f7efb
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: bedd2dddeccea26bd2d2dca6c3b0e0ce5cc3f7cb03be4d7c47b8e5bd0a602f2a
+  status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
+  acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  acknowledged_at: 64f43384b239d6be68c000070bba4d724c508a90b7e6eaa9bdd945ce70425887
+  title: 05c6c1e34f49d66d5575300e48876511fe92222600a15684425b46b624572489
+  body: 3681033a772fc1ee4bf188d2b257b9070671ac75c1f37d00c8554a610a87d19b
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
