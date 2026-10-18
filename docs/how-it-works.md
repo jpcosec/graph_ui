@@ -17,7 +17,7 @@ Two stacks:
   - `editor.py` — CRUD edits, collision checks, cascade delete.
   - `auditor.py` — structural signals (orphan / terminal / valid).
   - `provider.py` — loads fixtures.
-  - `adapters/kgdb_adapter.py` — `kgdb_to_ui_graph`: kgdb `GraphSnapshot` → UI graph.
+  - `adapters/snapshot_adapter.py` — `snapshot_to_ui_graph`: `sldb.api.graph.GraphSnapshot` → UI graph (antes `kgdb_adapter.py`; kgdb se integró a sldb en 6deb222).
 - **React/Vite** (`apps/review-workbench/`) — the interactive editor, 3 layers:
   - **L1 app** — fetches data, registers node types, orchestrates.
   - **L2 canvas** — ReactFlow: interaction, layout, sidebar, encoding, views.
@@ -59,13 +59,15 @@ persist only in `localStorage`.
 - **Editing must persist.** Save has to round-trip to the backing store so a
   reload shows operator changes. See
   `atom-graph-ui-must-actually-edit-and-persist-not-render-read-only`.
-- **kgdb as the live source, both directions.** Read via
-  `kgdb_to_ui_graph`; write via a real `saveGraph` into kgdb. See
+- **sldb's graph layer as the live source, both directions.** Read via
+  `snapshot_to_ui_graph` over `sldb.api.graph`; write via a real `saveGraph`
+  into the store (kgdb merged into sldb in 6deb222). See
   `atom-graph-ui-should-read-and-write-graph-data-directly-over-kgdb`.
 
 ## Relationship to other tools
 
-- **kgdb** — target data source (graph snapshots). One-directional.
+- **sldb** (`sldb.api.graph`, formerly kgdb) — target data source (graph
+  snapshots). One-directional.
 - **spec2viz** — separate tool, renders architecture from specs. No overlap:
   graph_ui edits instances, spec2viz renders specs.
 
