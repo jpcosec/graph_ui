@@ -12,7 +12,6 @@ tasks:
 - desk/tasks/005-surface-semantic-signals.md
 - desk/tasks/006-prove-one-safe-edit-flow.md
 - desk/tasks/task-feed-hum-body-from-sldb-serve-remove-hardcoded-content.md
-- desk/tasks/task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -51,4 +50,3 @@ _Generated from the task references above._
 - Surface semantic signals [resolved] - Surface at least one semantic or structural signal on the graph.
 - Prove one safe edit flow [resolved] - Make one safe edit path explicit and proven.
 - Feed hum-body from sldb serve (remove hardcoded content) [active] - Promote deferred work from task-hum-body-live-sldb.md.
-- Task: Cierre del paso 8 — compilador mindmap (tests de endpoints, verificación en navegador, contrato de exportación) [active] - Promote deferred work from task-mindmap-compiler-closeout.md.

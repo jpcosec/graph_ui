@@ -1,0 +1,19 @@
+name: atom-el-compilador-del-mindmap-escribe-solo-con-el-plantoken-de-un-plan-previo
+path: desk/atoms/atom-el-compilador-del-mindmap-escribe-solo-con-el-plantoken-de-un-plan-previo.md
+source_hash: 49c2b9ffd9bf8f99712e4602abbdbbcf640172d0147533d2adf029d865e310b9
+content_hash: 3595091347d3008d3f2c37d373e9da4a387805a05958ffbc0b8db66f51db979a
+field_hashes:
+  id: 26e9ba8b720c851099f4da6e7dd8238c039e3ab1a0f5f0248443590a3e99dd3c
+  title: c190e140ecd194e690207cc08244a064c13f53c0bc49d19c2faf78af2945e78e
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 6f8c156fe4f8471e025cdbb006805ed0b522c61aefeb3d93af42e6897c585afb
+  tags: 871964b15ad3d338305a54afbcd5d28e94938786f09f0216c982d914cdf86730
+  provenance: b67a5a5e5d0f8fc1b2778e9519687e543576af30e8439666936e3ee7ce685de8
+semantic_tags:
+- layer:mindmap
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:compiler
+- type.knowledge.atom
+- workspace.desk.atoms
