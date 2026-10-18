@@ -1,0 +1,17 @@
+name: 20261018-003127-unclear-closeout-verify-revienta-con-un-yaml-multi-documento-del-repo
+path: /home/jp/proyectos/SLDB_1/deskops/desk/inbox/20261018-003127-unclear-closeout-verify-revienta-con-un-yaml-multi-documento-del-repo.md
+source_hash: 9a52b905b3d0839d923cb564a160423a9c4d6edb6530000bcf0bf01c53557e21
+content_hash: 14fdbbc97b443aa51e69f0f383f235ff51275a3cd05f78f50978dcaec86782e4
+field_hashes:
+  kind: 683144a12969e0fd85512737e57b4db93ed15ee760906165a5516d581a77889a
+  sender_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  target_project: be1a918d36a26b50ff05a32144905fa0851e3a2c55c93b05726d8a3bab97b3e7
+  created_at: f4de319c7d889a153ac87babb4e0f9f9d7ba1a727e62fd3f8cc6af32137bf8f9
+  status: 35ff74aeea25311f4fe759a6b762c8cd41a79adb23dd5615b92cf215175a63e5
+  title: 713f364c8f1f7a4daf8da01a16ffd041add4e6dfe918985fd1b1d29b016363c7
+  body: f700cb34933e96669ab299f9d660b52d464265a8e8d279bacf524b807373b0e1
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
