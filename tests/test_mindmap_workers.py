@@ -12,7 +12,6 @@ depender de un deskops instalado ni del estado real de la maquina.
 import importlib.util
 import json
 import subprocess
-import sys
 import threading
 import urllib.request
 from pathlib import Path
@@ -20,8 +19,6 @@ from pathlib import Path
 import pytest
 
 MINDMAP = Path(__file__).resolve().parents[1] / "frontends/mindmap"
-# serve.py importa sus vecinos (persistence, models_service, ...) por nombre.
-sys.path.insert(0, str(MINDMAP))
 
 
 def _load(name):

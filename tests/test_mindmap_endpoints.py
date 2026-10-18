@@ -9,7 +9,6 @@ import importlib.util
 import json
 import re
 import shutil
-import sys
 import tempfile
 import threading
 import urllib.error
@@ -19,7 +18,6 @@ from pathlib import Path
 import pytest
 
 MINDMAP = Path(__file__).parents[1] / "frontends" / "mindmap"
-sys.path.insert(0, str(MINDMAP))
 
 
 def _load(name):

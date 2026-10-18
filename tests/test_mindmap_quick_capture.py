@@ -7,11 +7,9 @@ error 422 al guardar: este test lo detecta antes.
 """
 import importlib.util
 import re
-import sys
 from pathlib import Path
 
 MINDMAP = Path(__file__).parents[1] / "frontends" / "mindmap"
-sys.path.insert(0, str(MINDMAP))
 
 _spec = importlib.util.spec_from_file_location("sldb_adapter", MINDMAP / "sldb_adapter.py")
 adapter_mod = importlib.util.module_from_spec(_spec)

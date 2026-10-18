@@ -18,7 +18,6 @@ import time
 from pathlib import Path
 
 MINDMAP = Path(__file__).parents[1] / "frontends" / "mindmap"
-sys.path.insert(0, str(MINDMAP))
 
 try:
     from playwright.sync_api import sync_playwright

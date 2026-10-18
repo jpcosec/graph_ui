@@ -1,12 +1,10 @@
 """Real SLDB round trips in isolated stores; no writes to the user's KB."""
 import importlib.util
-import sys
 from pathlib import Path
 import pytest
 from sldb.cli import main as cli
 
 MODULE = Path(__file__).parents[1] / 'frontends/mindmap/persistence.py'
-sys.path.insert(0, str(MODULE.parent))
 spec = importlib.util.spec_from_file_location('mindmap_persistence', MODULE)
 persistence = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(persistence)

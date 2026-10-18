@@ -10,7 +10,6 @@ import importlib.util
 import json
 import shutil
 import subprocess
-import sys
 import threading
 import urllib.error
 import urllib.request
@@ -22,7 +21,6 @@ spec2viz = pytest.importorskip("spec2viz")
 from spec2viz.notation_view import resolve_view  # noqa: E402
 
 MINDMAP = Path(__file__).resolve().parents[1] / "frontends/mindmap"
-sys.path.insert(0, str(MINDMAP))
 PILOTS = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz"
 STATECHART = "state.diagram-sync-lifecycle"
 CLASSES = "class.sldb-models"

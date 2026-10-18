@@ -1,10 +1,8 @@
 import importlib.util
 import json
-import sys
 from pathlib import Path
 
 MINDMAP = Path(__file__).parents[1] / "frontends" / "mindmap"
-sys.path.insert(0, str(MINDMAP))
 
 _spec = importlib.util.spec_from_file_location("kb_contract", MINDMAP / "contract.py")
 contract = importlib.util.module_from_spec(_spec)

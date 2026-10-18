@@ -1,6 +1,6 @@
 # graph_ui — editor visual de un store pron/sldb
 
-> ⚠️ **Este repo tiene imports rotos contra pron desde el 2026-09-17.** Ver [AVISO-imports-rotos.md](AVISO-imports-rotos.md).
+> Los imports rotos contra pron del 2026-09-17 quedaron resueltos el 2026-09-21; ver [AVISO-imports-rotos.md](AVISO-imports-rotos.md).
 
 
 El desarrollo activo está en `frontends/mindmap/`: un editor visual para
@@ -8,16 +8,27 @@ cualquier store [`pron`](https://github.com/jpcosec/pron) — y por lo tanto de
 cualquier store `sldb`/`kgdb`, que `pron` unifica. No es una KB fija: apunta
 al store que quieras con `SLDB_STORE` y edita sus documentos y sus clases.
 
-## Ejecutar
+## Instalar y ejecutar
 
-Desde la raíz del repositorio:
+El mindmap es el paquete Python `mindmap` (código en `frontends/mindmap/`,
+declarado en `pyproject.toml`). Desde la raíz del repositorio:
 
 ```sh
-python3 frontends/mindmap/serve.py 8088
+pip install -e .                       # o `pip install -e '.[test]'` para la suite
+python3 frontends/mindmap/serve.py 8088   # equivale a: graph-ui 8088
 ```
 
-Abrir http://127.0.0.1:8088/. Requiere `sldb` y `pron` instalados (editable
-o no) en el entorno Python — no hace falta `PYTHONPATH` para eso. Usa la
+Abrir http://127.0.0.1:8088/. Depende de `structuredLanguageDB` (sldb),
+`kgdb` y `pron`; `spec2viz` es opcional (`.[notation]`, vista Specs).
+
+**Bloqueo conocido (2026-10-18):** en un entorno limpio `pip install -e .` no
+resuelve. `kgdb` 0.1.0 y `pron` 1.0.0 declaran la distribución `sldb`, que
+no existe: la distribución de sldb se llama `structuredLanguageDB`. Además,
+`kgdb>=0.1.0` no está en PyPI (se instala desde
+`git+https://github.com/jpcosec/kgdb.git`). Hasta que se corrija esa
+metadata, en un entorno donde sldb, kgdb y pron ya están instalados basta con
+`pip install -e . --no-deps`. Con el paquete instalado, ningún módulo del
+mindmap toca `sys.path`. Usa la
 `.sldb` del repositorio por defecto; `SLDB_STORE=/ruta/a/otra/.sldb` apunta a
 cualquier otro store. Si los modelos de ese store no viven en un paquete
 instalado, agrega su carpeta a `PYTHONPATH`. Las dependencias del navegador
