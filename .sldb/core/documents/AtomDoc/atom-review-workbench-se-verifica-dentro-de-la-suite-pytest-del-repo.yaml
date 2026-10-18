@@ -1,0 +1,19 @@
+name: atom-review-workbench-se-verifica-dentro-de-la-suite-pytest-del-repo
+path: desk/atoms/atom-review-workbench-se-verifica-dentro-de-la-suite-pytest-del-repo.md
+source_hash: 187aae6ddeb26d6c3789336aab58188cc317f30ba220833435742e568e03cc29
+content_hash: 05075fab4400241349853c9a4388c94a849c2e4bc7ad3efe4e7de2cda9ac4364
+field_hashes:
+  id: d545a31c8cbf10ec4e9f5f66294df87943dbc5163441b84575e5fdfde3d9f024
+  title: a3aa982623ab7ac47cc625b50b58b59ea29a7e933108e32fc7c935a49753fc49
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 4849823004d2d8590969a4ceda7826eb50a5a2d9ddd986e8b8cf0182bcd2ffb7
+  tags: 7e74b3c028518f7436631508ed9d3f9cd5eb4f2374d0fd99fc55474354cec1da
+  provenance: baaf147470edf6d16c1ab7cf91e4c91435ccae8f291e35dd306dbe6cecacaa9c
+semantic_tags:
+- layer:review-workbench
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:testing
+- type.knowledge.atom
+- workspace.desk.atoms
