@@ -1,0 +1,18 @@
+name: atom-graph-ui-se-instala-como-paquete-mindmap
+path: desk/atoms/atom-graph-ui-se-instala-como-paquete-mindmap.md
+source_hash: 883a0dabd9739e802ed05e3f1fcc9902a42b9e23271363952a6feadae881e89e
+content_hash: dd75aabb22efac88be86745796be797b0b8be9075904a61a6bff8b75750e075d
+field_hashes:
+  id: dd60c06489a4dd8756a05b2f4875c98c9d1176d58a140bd898f963716d8168fc
+  title: 260949b0802243b0719ee5d6cf59631391a742b77d688e0c0f8cc2f27012fccf
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 274b0e1f78b476037d4094f8207fbcd249730cd471c478b88635cbdd01391b79
+  tags: 75bc347c83cc09bc52638e6b11d588283797ee8d508fad935563fb51da53f68c
+  provenance: 9c6cd9431da5c16d2ee820ad552f266833f2ce755f554cbf9ffc5e0d3ccf1504
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:packaging
+- type.knowledge.atom
+- workspace.desk.atoms

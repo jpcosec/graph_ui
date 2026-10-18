@@ -1,0 +1,19 @@
+name: atom-la-capa-de-grafo-de-graph-ui-es-sldb-api-graph
+path: desk/atoms/atom-la-capa-de-grafo-de-graph-ui-es-sldb-api-graph.md
+source_hash: 3babe679a0334ccdbb4a96c93cfae47cc6fa13daf9d6f87899aa0c0726642f50
+content_hash: 0dd93b48041b06ef969ad94b7ee3268c4b5282aa79f2f55a467bb1059b79d17c
+field_hashes:
+  id: 00deefc66c60a47924e0273d4e6eb16e44aba21f2683eba18d2733330397cfe1
+  title: b646fd83cee2e78d688e602ba585e3aece5005645f8ae9696966d13f7a4788cc
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 98123870aef17bc9b7fac326d06e26544636edbeec455667839c888492e5eb94
+  tags: 7b2f0970dd32f7efade0aa1e375b45b6b7f70405e25d5898194cddbc9bad8ee8
+  provenance: cbb3a5fa706ae750934f5eeae6dda123caedbad5f01d88baf30da35cc5a6bad3
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- system:sldb
+- topic:graph
+- type.knowledge.atom
+- workspace.desk.atoms
