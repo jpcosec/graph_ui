@@ -5,7 +5,6 @@ id: board-graph-ui
 scope: graph_ui
 # List of task-xxx paths
 tasks:
-- desk/tasks/005-surface-semantic-signals.md
 - desk/tasks/006-prove-one-safe-edit-flow.md
 # List of pill-xxx paths
 pills: []
@@ -38,5 +37,4 @@ Phase B delivery tasks (adapter, encoding, layout, store, sidebar) are closed. k
 
 _Generated from the task references above._
 
-- Surface semantic signals [resolved] - Surface at least one semantic or structural signal on the graph.
 - Prove one safe edit flow [resolved] - Make one safe edit path explicit and proven.
