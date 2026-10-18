@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
+import type { NodeData } from '@/stores/types';
+
 import { resolveNodeTitle } from './node-title';
 
 describe('resolveNodeTitle', () => {
@@ -17,7 +19,9 @@ describe('resolveNodeTitle', () => {
   });
 
   it('skips blank and non-string candidates', () => {
-    expect(resolveNodeTitle({ label: '   ', name: 42, payload: { value: { name: '', title: 'Real' } } }, '')).toBe('Real');
+    // Runtime data can disagree with the type (e.g. a numeric name from a raw document).
+    const corrupt = { label: '   ', name: 42, payload: { value: { name: '', title: 'Real' } } } as unknown as NodeData;
+    expect(resolveNodeTitle(corrupt, '')).toBe('Real');
   });
 
   it("falls back to the caller's name for no title", () => {

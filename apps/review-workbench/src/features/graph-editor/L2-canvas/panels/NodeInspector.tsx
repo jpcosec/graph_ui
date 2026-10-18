@@ -14,7 +14,8 @@ import { sldbProvider } from '@/features/graph-editor/lib/sldb-provider';
 import { pairsFromRecord, recordFromPairs } from '@/lib/utils';
 import { registry } from '@/schema/registry';
 import type { FieldDescriptor } from '@/schema/registry.types';
-import type { NodePayload } from '@/stores/types';
+import type { NodeData, NodePayload } from '@/stores/types';
+import { payloadValue } from '@/features/graph-editor/lib/node-data';
 import { useGraphStore } from '@/stores/graph-store';
 import { useUIStore } from '@/stores/ui-store';
 import { resolveNodeTitle } from '@/features/graph-editor/lib/node-title';
@@ -46,21 +47,7 @@ const CURATED_FIELDS = new Set([
 const SKIP_FIELDS = new Set(['embedding', 'semantic_anchors', 'parent']);
 const LONG_TEXT_FIELDS = new Set(['instructions', 'summary', 'completion_condition']);
 
-function asRecord(value: unknown): Record<string, unknown> {
-  if (value && typeof value === 'object') {
-    return value as Record<string, unknown>;
-  }
-  return {};
-}
-
-function asDataRecord(data: unknown): Record<string, unknown> {
-  if (data && typeof data === 'object') {
-    return data as Record<string, unknown>;
-  }
-  return {};
-}
-
-function getNodeTitle(data: Record<string, unknown>): string {
+function getNodeTitle(data: NodeData): string {
   return resolveNodeTitle(data, '');
 }
 
@@ -276,11 +263,10 @@ export function NodeInspector() {
       return;
     }
 
-    const asJson = asDataRecord(node.data);
-    const title = getNodeTitle(asJson);
-    const properties = asJson.properties as Record<string, string> | undefined;
-    const payload = asRecord((asJson.payload as NodePayload | undefined)?.value ?? {});
-    const typeId = typeof asJson.typeId === 'string' ? asJson.typeId : undefined;
+    const title = getNodeTitle(node.data);
+    const properties = node.data.properties;
+    const payload = payloadValue(node.data);
+    const typeId = node.data.typeId;
 
     setDraft({
       title,
@@ -311,12 +297,10 @@ export function NodeInspector() {
       return;
     }
 
-    const asJson = asDataRecord(node.data);
-    const existingPayload = asJson.payload as NodePayload | undefined;
-    const existingValue = existingPayload?.value;
-    const payloadRecord = asRecord(existingValue ?? {});
+    const existingPayload = node.data.payload;
+    const payloadRecord = payloadValue(node.data);
 
-    const safeTypeId = (existingPayload?.typeId ?? asJson.typeId ?? 'unknown') as string;
+    const safeTypeId = existingPayload?.typeId ?? node.data.typeId ?? 'unknown';
     const newPayload: NodePayload = {
       typeId: safeTypeId || 'unknown',
       value: setNodeTitle(payloadRecord, draft.title),
@@ -325,8 +309,8 @@ export function NodeInspector() {
     updateNode(node.id, {
       data: {
         ...node.data,
-        ...(asJson.label !== undefined ? { label: draft.title } : {}),
-        ...(asJson.name !== undefined ? { name: draft.title } : {}),
+        ...(node.data.label !== undefined ? { label: draft.title } : {}),
+        ...(node.data.name !== undefined ? { name: draft.title } : {}),
         payload: newPayload,
         properties: draft.properties,
       },
@@ -340,10 +324,9 @@ export function NodeInspector() {
       return;
     }
 
-    const asJson = asDataRecord(node.data);
-    const typeId = typeof asJson.typeId === 'string' ? asJson.typeId : undefined;
-    const existingPayload = asJson.payload as NodePayload | undefined;
-    const payloadRecord = asRecord(existingPayload?.value ?? {});
+    const typeId = node.data.typeId;
+    const existingPayload = node.data.payload;
+    const payloadRecord = payloadValue(node.data);
     const fields = getTypedFields(typeId);
 
     const editedFields = Object.fromEntries(
@@ -357,7 +340,7 @@ export function NodeInspector() {
     const nextTitleCandidate = nextPayload.title;
     const nextTitle = typeof nextTitleCandidate === 'string' && nextTitleCandidate.trim().length > 0
       ? nextTitleCandidate
-      : getNodeTitle(asJson);
+      : getNodeTitle(node.data);
 
     setIsSaving(true);
     setSaveError(null);
@@ -391,8 +374,7 @@ export function NodeInspector() {
     return null;
   }
 
-  const asJson = asDataRecord(node.data);
-  const typeId = asJson.typeId as string | undefined;
+  const typeId = node.data.typeId;
   const typedFields = getTypedFields(typeId);
   const showTypedInspector = typedFields.length > 0 && typedDraft !== null;
 

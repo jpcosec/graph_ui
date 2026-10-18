@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useGraphStore } from '@/stores/graph-store';
-import type { ASTNode, NodePayload } from '@/stores/types';
+import type { ASTNode } from '@/stores/types';
 import { useUIStore } from '@/stores/ui-store';
 import { toast } from 'sonner';
 
@@ -17,9 +17,8 @@ function cloneValue<T>(value: T): T {
 }
 
 function makeCopyNode(node: ASTNode): ASTNode {
-  const asJson = node.data as Record<string, unknown>;
-  const existingPayload = asJson.payload as NodePayload | undefined;
-  
+  const existingPayload = node.data.payload;
+
   return {
     ...node,
     id: `node-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
@@ -34,7 +33,7 @@ function makeCopyNode(node: ASTNode): ASTNode {
         ...existingPayload,
         value: cloneValue(existingPayload.value),
       } : undefined,
-      properties: { ...(asJson.properties as Record<string, string> ?? {}) },
+      properties: { ...(node.data.properties ?? {}) },
     },
   };
 }

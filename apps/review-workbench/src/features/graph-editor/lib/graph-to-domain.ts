@@ -6,15 +6,11 @@ function getDomainName(node: ASTNode): string {
 }
 
 function toDomainNode(node: ASTNode): DomainNode {
-  const asJson = node.data as Record<string, unknown>;
-  const typeId = asJson.typeId as string | undefined;
-  const properties = asJson.properties as Record<string, string> | undefined;
-  
   return {
     id: node.id,
-    type: typeId ?? 'unknown',
+    type: node.data.typeId ?? 'unknown',
     name: getDomainName(node),
-    properties: properties ?? {},
+    properties: node.data.properties ?? {},
     children: [],
   };
 }

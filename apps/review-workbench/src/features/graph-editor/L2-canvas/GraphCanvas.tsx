@@ -23,6 +23,7 @@ import { resolveNodeTitle } from '@/features/graph-editor/lib/node-title';
 import { GroupShell } from './GroupShell';
 import { NodeShell } from './NodeShell';
 import { ButtonEdge, FloatingEdge } from './edges';
+import { payloadValue } from '@/features/graph-editor/lib/node-data';
 
 type CanvasNode = Node<ASTNode['data'], string>;
 type CanvasEdgeData = NonNullable<ASTEdge['data']>;
@@ -92,10 +93,7 @@ export function filterGraphByRelationTypes(
 }
 
 function nodeAttributes(node: ASTNode): Record<string, unknown> {
-  const data = node.data as Record<string, unknown>;
-  const payload = data.payload as { value?: unknown } | undefined;
-  const value = payload?.value && typeof payload.value === 'object' ? (payload.value as Record<string, unknown>) : {};
-  return { ...value, ...(node.data.properties ?? {}) };
+  return { ...payloadValue(node.data), ...(node.data.properties ?? {}) };
 }
 
 function contains(haystack: unknown, needle: string): boolean {

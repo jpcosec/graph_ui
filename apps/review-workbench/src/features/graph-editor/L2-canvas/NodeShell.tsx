@@ -13,10 +13,10 @@ import {
 import { Button } from '@/components/ui/button';
 import { resolveNodeStyle } from '@/features/graph-editor/L2-canvas/encoding/encoding-rules';
 import { registry } from '@/schema/registry';
-import type { NodePayload } from '@/stores/types';
 import { useUIStore } from '@/stores/ui-store';
 import type { ASTNode } from '@/stores/types';
 import { LucideEdit2, LucideTrash2, LucideCopy, LucideFocus, LucideChevronDown, LucideChevronRight } from 'lucide-react';
+import { payloadValue } from '@/features/graph-editor/lib/node-data';
 import { resolveNodeTitle } from '@/features/graph-editor/lib/node-title';
 
 type CanvasNode = Node<ASTNode['data'], string>;
@@ -25,20 +25,6 @@ const ZOOM_DETAIL = 0.9;
 const ZOOM_LABEL = 0.4;
 
 const zoomSelector = (state: { transform: [number, number, number] }) => state.transform[2];
-
-function asPayloadRecord(value: unknown): Record<string, unknown> {
-  if (value && typeof value === 'object') {
-    return value as Record<string, unknown>;
-  }
-  return {};
-}
-
-function asDataRecord(data: ASTNode['data']): Record<string, unknown> {
-  if (data && typeof data === 'object') {
-    return data as Record<string, unknown>;
-  }
-  return {};
-}
 
 export function getNodeTitle(data: ASTNode['data']): string {
   return resolveNodeTitle(data, 'Untitled');
@@ -57,22 +43,16 @@ export function getRenderTier(zoom: number): 'detail' | 'label' | 'dot' {
 }
 
 function renderNodeBody(data: ASTNode['data'], colorToken: string, zoom: number) {
-  const asJson = asDataRecord(data);
-  const typeId = asJson.typeId as string | undefined;
-  
-  const safeTypeId = typeId ?? 'entity';
+  const safeTypeId = data.typeId ?? 'entity';
   const definition = registry.get(safeTypeId);
   if (!definition) {
     return null;
   }
 
-  const payload = asJson.payload as NodePayload | undefined;
-  const payloadRecord = asPayloadRecord(payload?.value ?? {});
+  const payloadRecord = payloadValue(data);
   const title = getNodeTitle(data);
   const tier = getRenderTier(zoom);
-
-  // Get properties from direct JSON or AST format
-  const properties = asJson.properties as Record<string, string> | undefined;
+  const properties = data.properties;
 
   if (tier === 'detail') {
     const DetailRenderer = definition.renderers.detail as ComponentType<Record<string, unknown>>;
@@ -81,7 +61,7 @@ function renderNodeBody(data: ASTNode['data'], colorToken: string, zoom: number)
       title,
       category: definition.label,
       properties,
-      visualToken: asJson.visualToken as string | undefined,
+      visualToken: data.visualToken,
       colorToken,
     };
 
@@ -98,14 +78,11 @@ function renderNodeBody(data: ASTNode['data'], colorToken: string, zoom: number)
 }
 
 export function getUnknownMessage(data: ASTNode['data']): string | null {
-  const asJson = asDataRecord(data);
-  if ('message' in asJson && typeof asJson.message === 'string' && asJson.message.trim().length > 0) {
-    return asJson.message;
+  if (typeof data.message === 'string' && data.message.trim().length > 0) {
+    return data.message;
   }
-  
-  const payload = asJson.payload as NodePayload | undefined;
-  const payloadRecord = asPayloadRecord(payload?.value ?? {});
-  const message = payloadRecord.message;
+
+  const message = payloadValue(data).message;
 
   return typeof message === 'string' && message.trim().length > 0 ? message : null;
 }
@@ -117,11 +94,8 @@ export const NodeShell = memo(function NodeShell(props: NodeProps<CanvasNode>) {
   const [isHovered, setIsHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
 
-  const asJson = asDataRecord(data);
-  const typeId = asJson.typeId as string | undefined;
-  const label = asJson.label as string | undefined;
-  const name = asJson.name as string | undefined;
-  const hasChildren = !!(asJson.childIds && Array.isArray(asJson.childIds) && (asJson.childIds as string[]).length > 0);
+  const { typeId, label, name, category } = data;
+  const hasChildren = (data.childIds?.length ?? 0) > 0;
 
   const setFocusedNode = useUIStore((state) => state.setFocusedNode);
   const setFocusedEdge = useUIStore((state) => state.setFocusedEdge);
@@ -134,7 +108,6 @@ export const NodeShell = memo(function NodeShell(props: NodeProps<CanvasNode>) {
   const definition = registry.get(safeTypeId) ?? registry.get('entity');
   const colorToken = definition?.colorToken ?? 'token-surface-primary';
 
-  const category = asJson.category as string | undefined;
   const { nodeColorToken: nodeBorderColor } = resolveNodeStyle(data, activeEncodingRules, colorToken);
 
   const nodeBody = useMemo(() => renderNodeBody(data, nodeBorderColor, zoom), [data, nodeBorderColor, zoom]);

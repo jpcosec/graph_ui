@@ -11,7 +11,12 @@ export type NodeData = {
   visualToken?: string;
   label?: string;
   name?: string;
-  [key: string]: unknown;
+  /** Group category ('document', 'section', 'folder'); picks the group's border colour. */
+  category?: string;
+  /** Free text a node can show instead of its payload (e.g. an unknown node type's notice). */
+  message?: string;
+  /** Ids of contained nodes, when the node is a container. */
+  childIds?: string[];
 };
 
 export interface ASTNode {

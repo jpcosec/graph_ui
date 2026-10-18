@@ -1,3 +1,11 @@
+import type { NodeData } from '@/stores/types';
+
+import { payloadValue } from './node-data';
+
+function nonBlank(value: unknown): value is string {
+  return typeof value === 'string' && value.trim().length > 0;
+}
+
 /**
  * The one rule for a node's display title, shared by the canvas (NodeShell,
  * GroupShell), the inspector and the domain translation.
@@ -9,17 +17,8 @@
  * differently ('Untitled', 'Group', or an empty draft field).
  */
 
-function asRecord(value: unknown): Record<string, unknown> {
-  return value && typeof value === 'object' ? (value as Record<string, unknown>) : {};
-}
-
-function nonBlank(value: unknown): value is string {
-  return typeof value === 'string' && value.trim().length > 0;
-}
-
-export function resolveNodeTitle(data: unknown, fallback: string): string {
-  const record = asRecord(data);
-  const payloadValue = asRecord(asRecord(record.payload).value);
-  const candidates = [record.label, record.name, payloadValue.name, payloadValue.title];
+export function resolveNodeTitle(data: NodeData | undefined, fallback: string): string {
+  const payload = payloadValue(data);
+  const candidates = [data?.label, data?.name, payload.name, payload.title];
   return candidates.find(nonBlank) ?? fallback;
 }

@@ -9,6 +9,7 @@ import type {
 } from './types';
 import { registry } from '@/schema/registry';
 import type { NodeTypeRegistry } from '@/schema/registry';
+import { payloadValue } from './node-data';
 
 const X_SPACING = 220;
 const Y_SPACING = 140;
@@ -160,13 +161,8 @@ function collectErrors(nodeMap: Map<string, ASTNode>): ValidationError[] {
       return;
     }
 
-    const asJson = node.data as Record<string, unknown>;
-    const payload = asJson.payload as { value?: unknown } | undefined;
-    const payloadValue = payload?.value;
-    const message =
-      payloadValue && typeof payloadValue === 'object' && 'message' in payloadValue
-        ? String((payloadValue as { message: unknown }).message)
-        : 'Validation failed';
+    const value = payloadValue(node.data);
+    const message = 'message' in value ? String(value.message) : 'Validation failed';
 
     errors.push({ nodeId, message });
   });

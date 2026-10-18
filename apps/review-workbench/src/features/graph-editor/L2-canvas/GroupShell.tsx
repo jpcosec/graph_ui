@@ -24,11 +24,7 @@ export const GroupShell = memo(function GroupShell({ id, data, selected }: NodeP
   const collapsed = isCollapsed(id, collapsedGroups);
   const [isHovered, setIsHovered] = useState(false);
 
-  const asJson = data as Record<string, unknown>;
-  const category = asJson.category as string | undefined;
-  const label = asJson.label as string | undefined;
-  const visualToken = asJson.visualToken as string | undefined;
-  const properties = asJson.properties as Record<string, string> | undefined;
+  const { category, label, visualToken, properties } = data;
   const formCount = properties?.formCount;
   
   const categoryColors: Record<string, string> = {
