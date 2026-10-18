@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: "22"
       - name: Install graph_ui and the suite
-        run: python -m pip install -r .github/requirements-suite.txt -e ".[test]"
+        run: python -m pip install --src "$RUNNER_TEMP/suite-src" -r .github/requirements-suite.txt -e ".[test]"
       - name: pytest
         # The e2e_* files drive a browser; they run in the e2e job.
         run: python -m pytest tests -q -rs --ignore-glob='tests/e2e_*'
@@ -68,7 +68,7 @@ jobs:
             pyproject.toml
             .github/requirements-suite.txt
       - name: Install graph_ui and the suite
-        run: python -m pip install -r .github/requirements-suite.txt -e ".[test]"
+        run: python -m pip install --src "$RUNNER_TEMP/suite-src" -r .github/requirements-suite.txt -e ".[test]"
       - name: Install chromium
         run: python -m playwright install --with-deps chromium
       - name: e2e
