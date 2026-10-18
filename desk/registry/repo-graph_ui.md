@@ -1,6 +1,6 @@
 ---
 # repo-xxx
-id: graph-ui
+id: graph_ui
 # Relative path to repository
 path: /home/jp/proyectos/SLDB_1/UIs/graph_ui
 # active | maintenance | archived
