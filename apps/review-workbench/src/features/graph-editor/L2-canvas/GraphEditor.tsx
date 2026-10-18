@@ -52,8 +52,8 @@ export function GraphEditor({ initialNodes, initialEdges, onSave, editable = tru
   const setFocusedNode = useUIStore((state) => state.setFocusedNode);
 
   /**
-   * El inspector se abre con DOBLE CLICK sobre un nodo (misma convencion que
-   * `pages/global/KnowledgeGraph.tsx`). Antes nadie seteaba `focusedNodeId`, asi
+   * El inspector se abre con DOBLE CLICK sobre un nodo (la convencion del editor
+   * React Flow anterior, ya retirado). Antes nadie seteaba `focusedNodeId`, asi
    * que `NodeInspector` —y con el el unico camino de escritura por documento de
    * la UI, `sldbProvider.saveDoc` -> POST /sldb/save— era inalcanzable.
    *
