@@ -75,7 +75,8 @@ commitear.
 Este repo no implementa persistencia de documentos ni grafo propios. SLDB
 (`tools/sldb`, `sldb`/`python -m sldb` en el CLI) es la capa de datos: modelos
 `StructuredNLDoc`, Markdown reversible, store `.sldb/` con hashes de
-integridad. kgdb es la capa de grafo tipado sobre eso. `graph_ui` es
+integridad, y desde el merge 6deb222 también la capa de grafo tipado que antes
+era kgdb (`sldb.api.graph`; kgdb ya no existe como proyecto). `graph_ui` es
 proyección visual, no una tercera fuente de verdad — si algo que hace la UI
 requiere inventar semántica que no vive en SLDB, es una señal de alarma, no
 una feature.

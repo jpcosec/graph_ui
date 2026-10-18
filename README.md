@@ -5,7 +5,7 @@
 
 El desarrollo activo está en `frontends/mindmap/`: un editor visual para
 cualquier store [`pron`](https://github.com/jpcosec/pron) — y por lo tanto de
-cualquier store `sldb`/`kgdb`, que `pron` unifica. No es una KB fija: apunta
+cualquier store `sldb` (que desde el merge 6deb222 incluye la capa de grafo que antes era kgdb). No es una KB fija: apunta
 al store que quieras con `SLDB_STORE` y edita sus documentos y sus clases.
 
 ## Instalar y ejecutar
@@ -18,16 +18,16 @@ pip install -e .                       # o `pip install -e '.[test]'` para la su
 python3 frontends/mindmap/serve.py 8088   # equivale a: graph-ui 8088
 ```
 
-Abrir http://127.0.0.1:8088/. Depende de `structuredLanguageDB` (sldb),
-`kgdb` y `pron`; `spec2viz` es opcional (`.[notation]`, vista Specs).
+Abrir http://127.0.0.1:8088/. Depende de `structuredLanguageDB` (sldb) y
+`pron`; `spec2viz` es opcional (`.[notation]`, vista Specs). kgdb ya no
+existe como proyecto: su capa de grafo vive en `sldb.api.graph`.
 
 **Bloqueo conocido (2026-10-18):** en un entorno limpio `pip install -e .` no
-resuelve. `kgdb` 0.1.0 y `pron` 1.0.0 declaran la distribución `sldb`, que
-no existe: la distribución de sldb se llama `structuredLanguageDB`. Además,
-`kgdb>=0.1.0` no está en PyPI (se instala desde
-`git+https://github.com/jpcosec/kgdb.git`). Hasta que se corrija esa
-metadata, en un entorno donde sldb, kgdb y pron ya están instalados basta con
-`pip install -e . --no-deps`. Con el paquete instalado, ningún módulo del
+resuelve. `pron` 1.0.0 declara la distribución `sldb`, que no existe (la de
+sldb se llama `structuredLanguageDB`), y `deskops` 0.1.0 (extra `test`) todavía
+declara `kgdb`. Hasta que se corrija esa metadata, instala sldb y luego el
+resto sin dependencias:
+`pip install -e ../../sldb && pip install --no-deps -e ../../pron -e . && pip install click pydantic pyyaml`. Con el paquete instalado, ningún módulo del
 mindmap toca `sys.path`. Usa la
 `.sldb` del repositorio por defecto; `SLDB_STORE=/ruta/a/otra/.sldb` apunta a
 cualquier otro store. Si los modelos de ese store no viven en un paquete
