@@ -136,7 +136,9 @@ def test_specs_view_draws_sequences_in_lanes_and_matrices_in_a_grid():
             page.wait_for_selector(".notation-catalog button", timeout=15000)
 
             page.click('[data-spec="sequence.render-pipeline"]')
-            page.wait_for_selector(".lane-message", timeout=15000)
+            # Wait for this spec's own lanes: the spec drawn before the click also has
+            # .lane-message, and reading the heads then races the swap.
+            page.wait_for_selector('.lane-head[data-lane^="SpecNodeDoc:sequence.render-pipeline."]', timeout=15000)
             assert page.locator(".notation-notices").count() == 0
             heads = page.locator(".lane-head").evaluate_all("els => els.map(e => [e.dataset.lane.split('.').pop(), e.getBoundingClientRect().x])")
             assert [h[0] for h in heads] == ["User", "CLI", "Facade", "Loader", "Validator", "Compiler", "Renderer", "Disk"]
@@ -153,6 +155,7 @@ def test_specs_view_draws_sequences_in_lanes_and_matrices_in_a_grid():
             # Fragmentos (§8c/§11): pestaña con el operador, condición al lado, marco
             # de la primera a la última fila y sobre las líneas de vida que tocan.
             page.click('[data-spec="sequence.sync-pipeline"]')
+            page.wait_for_selector('.lane-head[data-lane^="SpecNodeDoc:sequence.sync-pipeline."]', timeout=15000)
             page.wait_for_selector(".lane-frame", timeout=15000)
             frames = page.locator(".lane-frame")
             assert frames.count() == 3
