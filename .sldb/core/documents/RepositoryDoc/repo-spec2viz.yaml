@@ -1,0 +1,16 @@
+name: repo-spec2viz
+path: desk/registry/repo-spec2viz.md
+source_hash: 3ca19793752e6184654aef9fedae4cb88c14944e6504c90dedb9a075c15d9710
+content_hash: dd2859e46e61dd6caa8e77e59457c7082dc9847b6e64b0bd04c0312355c2c222
+field_hashes:
+  name: ceff6202e6805e3bc22d70f0f2e7fee9f6478bcff2cb6a60430793b5268a8e12
+  id: ceff6202e6805e3bc22d70f0f2e7fee9f6478bcff2cb6a60430793b5268a8e12
+  path: 6db65f4a01950c9beb3bf7a22b0834b2c52cfbee095ffbbe134ae49df457daa0
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  description: 912af4b45cc04cfcbc4bec5f7293e64f5dc2435f4b78dd836edd0107f024aa44
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.repository
+- workspace.desk.registry

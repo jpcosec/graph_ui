@@ -1,0 +1,16 @@
+name: repo-graph-ui
+path: desk/registry/repo-graph-ui.md
+source_hash: 1918bc9dabc362aaf91706ff3129d204332f1bb4549193df745ea0aee7bc03a1
+content_hash: be7281648f34479851298a6a55247e572235e97f4393a1cc95f318502c59030b
+field_hashes:
+  name: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  id: b7bcf0769c769f458387c85e8965ff57ff7369caa55019baf0e5c6c2660bd2b1
+  path: 7a649c6d7e7255e345a67095f0c61df3b67f0f0f0837fd3acd2164799876ad88
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  description: 09d5541e8b4974c9a4471667c420213785bab047afb3d16e833003fd6511a9ac
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.repository
+- workspace.desk.registry
