@@ -24,9 +24,8 @@ existe como proyecto: su capa de grafo vive en `sldb.api.graph`.
 
 **Bloqueo conocido (2026-10-18):** en un entorno limpio `pip install -e .` no
 resuelve. `pron` 1.0.0 declara la distribución `sldb`, que no existe (la de
-sldb se llama `structuredLanguageDB`), y `deskops` 0.1.0 (extra `test`) todavía
-declara `kgdb`. Hasta que se corrija esa metadata, instala sldb y luego el
-resto sin dependencias:
+sldb se llama `structuredLanguageDB`). Hasta que se corrija esa metadata,
+instala sldb y luego el resto sin dependencias:
 `pip install -e ../../sldb && pip install --no-deps -e ../../pron -e . && pip install click pydantic pyyaml`. Con el paquete instalado, ningún módulo del
 mindmap toca `sys.path`. Usa la
 `.sldb` del repositorio por defecto; `SLDB_STORE=/ruta/a/otra/.sldb` apunta a
