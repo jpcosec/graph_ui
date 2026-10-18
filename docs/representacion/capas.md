@@ -1,5 +1,10 @@
 # Capas: sldb, kgdb, pron y graph_ui
 
+> **Nota (2026-10-18):** desde el merge 6deb222 kgdb ya no es una capa aparte: su grafo tipado vive
+> en sldb (`sldb.api.graph`; `sldb edges` registra `RelationTypeDoc`/`RelationDoc`). La §3 y las
+> tablas describen kgdb tal como estaba en `846f331`; las responsabilidades que le asignan son hoy
+> de sldb.
+
 Qué hace cada pieza del ecosistema en la representación, qué no hace, dónde está hoy cada responsabilidad
 y qué descubrimos al intentar representar 26 notaciones sobre ella. Es la base para las revisiones que
 vienen: cada afirmación sobre el código dice dónde se comprobó.

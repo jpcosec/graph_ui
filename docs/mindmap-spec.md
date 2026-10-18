@@ -18,8 +18,8 @@ documento:
 | Schema / Documentos | Su mitad de "estructura de clases" existe en dos piezas: la vista **📐 Schema** (`views/models/diagram`, `/models/diagram`, tab de la barra superior: diagrama de clases con campos, contención como aristas y referencias anotadas, solo lectura) y el diálogo **📐 Editar clases** (`dialogs/class-dialog.js`, sobre `models_service.py`→`pron.Store`) para modificar el contrato, abierto desde KB o desde una card del Schema | Su mitad de "documentos de una clase con ficha completa" no tiene UI dedicada; hoy se cubre parcialmente filtrando la leyenda de KB por clase y abriendo la ficha modal de cada documento — no hay una lista dedicada por clase con ficha en el mismo lugar |
 
 Todo lo que este documento describe como escritura contra "SLDB" ocurre hoy
-a través de `pron.Store` (`pron` es la única puerta a `sldb`/`kgdb` desde
-este editor) — es un detalle de implementación, no cambia las invariantes de
+a través de `pron.Store` (`pron` es la única puerta a `sldb` —incluida su capa de grafo, antes
+kgdb— desde este editor) — es un detalle de implementación, no cambia las invariantes de
 producto de este documento.
 
 El producto es direccionable como `/{faceta}/{vista}` (una URL por cada fila

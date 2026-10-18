@@ -157,7 +157,7 @@ un diagrama, en vez de sus documentos. Cada card es una clase registrada:
   queda solo anotada, sin flecha.
 - Además de la contención, cabecera a cabecera puede haber **flechas de
   relación** (color de acento): un tipo declarado por un `RelationTypeDoc`
-  de kgdb (origen → destino entre clases) y/u observado en documentos de
+  de sldb (origen → destino entre clases) y/u observado en documentos de
   relación (`RelationDoc`, con `source_id`/`target_id`/tipo) reales del
   store. La etiqueta lleva el nombre del tipo y cuántas instancias se
   observaron (`implements ×36`); si el tipo está declarado pero el store no

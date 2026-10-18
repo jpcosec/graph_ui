@@ -90,7 +90,7 @@ abajo.
 Una proyección es pron's own `ProjectionDoc` (spec 01/05: qué puede nombrar
 una sesión), reusada tal cual en vez de inventar un filtro propio de la UI —
 `isProjectionDocument` detecta el modelo de forma nominal (`model_name ===
-'ProjectionDoc'`, a diferencia de las convenciones estructurales de kgdb como
+'ProjectionDoc'`, a diferencia de las convenciones estructurales del grafo de sldb (antes kgdb) como
 `isRelationDocument`, porque `ProjectionDoc` es un modelo real y nombrado, no
 una convención). `source/projections.js` (`useProjectionsFacet`) expone
 `{available, activeName, setActiveName, active, documents, titleFor}`: la
@@ -101,7 +101,7 @@ sin `ProjectionDoc` tiene `available` vacío: cero cambio de comportamiento.
 
 `applyProjection` (`source/projections.mjs`) filtra: una entidad pasa si
 `projection.models` está vacío o la incluye; un `RelationDoc`/`RelationTypeDoc`
-(convención kgdb) pasa si `projection.relations` está vacío o incluye su
+(convención del grafo de sldb, antes kgdb) pasa si `projection.relations` está vacío o incluye su
 `relation_type`/`name` — mismos namespaces separados que pron (`models` para
 entidades nombrables, `relations` para tipos de arista), nunca acoplados.
 `projections.documents` es la misma referencia de array que
@@ -322,12 +322,12 @@ arista, cada una con su `kind`:
   sin cambios respecto al diseño original. Cada fila de contención lleva un
   `Handle` fuente con `id` = nombre del campo y la arista usa
   `sourceHandle: field`: la flecha sale de la fila concreta, no de la card.
-- `relation`: relaciones tipadas de kgdb en dos niveles, detectadas
+- `relation`: relaciones tipadas del grafo de sldb (antes kgdb) en dos niveles, detectadas
   estructuralmente (igual que `isRelationDocument`, no por nombre de clase)
   vía `isRelationTypeDocument`/`isRelationDocument` en `source/graph.mjs`.
   Un `RelationTypeDoc`-like (`payload.name` + `source_types`/`target_types`)
   declara el par origen→destino — un extremo que no es una clase registrada
-  (tokens abstractos de kgdb como `sldb_model`) simplemente no genera arista
+  (tokens abstractos del grafo como `sldb_model`) simplemente no genera arista
   para ese par. Un `RelationDoc`-like (`source_id`/`target_id`/tipo)
   resuelve sus extremos con la misma regla de alias que `relationships()`
   (`buildAliases`/`resolveAlias`, compartidas para no duplicar la

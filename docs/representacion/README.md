@@ -1,5 +1,10 @@
 # Representación semántica — manual
 
+> **Nota (2026-10-18):** kgdb ya no es un proyecto aparte; su capa de grafo se integró entera a
+> sldb (merge 6deb222, `sldb.api.graph`). Este corpus se escribió antes: sus citas a kgdb (commits,
+> rutas `src/kgdb/...`) describen el código tal como estaba en ese commit y se dejan así. Donde dice
+> «kgdb» como capa, léase hoy «la capa de grafo de sldb».
+
 Este manual reúne lo que necesitamos entender para que `graph_ui` deje de *proyectar* datos y
 pase a *representarlos*: mostrar un mundo de `pron`/`sldb` con la notación y el significado de
 un vocabulario (UML, ER, statecharts, BPMN…) y permitir editarlo a través de esa misma notación,
