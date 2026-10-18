@@ -11,7 +11,7 @@ type LayoutMode = 'auto' | 'manual';
 export function ViewSection() {
   const [layoutMode, setLayoutMode] = useState<LayoutMode>('manual');
   const [isApplyingLayout, setIsApplyingLayout] = useState(false);
-  const { layout } = useGraphLayout();
+  const { layout, ready } = useGraphLayout();
 
   const focusedNodeId = useUIStore((state) => state.focusedNodeId);
   const setEditorState = useUIStore((state) => state.setEditorState);
@@ -52,7 +52,7 @@ export function ViewSection() {
         </TabsList>
 
         <TabsContent value="auto" className="mt-2 space-y-2">
-          <Button size="sm" className="w-full" onClick={applyLayout} disabled={isApplyingLayout}>
+          <Button size="sm" className="w-full" onClick={applyLayout} disabled={isApplyingLayout || !ready}>
             Apply Layout
           </Button>
           <p className="text-[10px] text-muted-foreground">ELK-layered layout repositions all nodes.</p>

@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { ReactFlowProvider } from '@xyflow/react';
 
 import { ProjectionViewStore, type StorageLike } from '@/features/graph-editor/lib/projection-view-store';
 import { useUIStore } from '@/stores/ui-store';
@@ -33,7 +34,12 @@ beforeEach(() => {
 describe('ViewsSection', () => {
   it('renders the saved-view selector and save action', () => {
     const store = new ProjectionViewStore(createStorage());
-    const markup = renderToStaticMarkup(<ViewsSection store={store} />);
+    // The sidebar lives inside GraphEditor's ReactFlowProvider (the layout hook reads React Flow's store).
+    const markup = renderToStaticMarkup(
+      <ReactFlowProvider>
+        <ViewsSection store={store} />
+      </ReactFlowProvider>,
+    );
 
     expect(markup).toContain('Saved views');
     expect(markup).toContain('Save current as view');

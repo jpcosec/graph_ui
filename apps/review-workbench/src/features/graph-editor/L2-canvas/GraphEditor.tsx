@@ -1,5 +1,6 @@
 import { Toaster } from '@/components/ui/sonner';
 import type { ReactNode } from 'react';
+import { ReactFlowProvider } from '@xyflow/react';
 
 import type { ASTEdge, ASTNode } from '@/stores/types';
 
@@ -36,7 +37,7 @@ interface GraphEditorProps {
   overlayPlacement?: 'canvas' | 'sidebar';
 }
 
-export function GraphEditor({ initialNodes, initialEdges, onSave, editable = true, hero, workspace, topOverlay, shellVariant = 'default', contentTopInset = 0, overlayPlacement = 'canvas' }: GraphEditorProps) {
+function GraphEditorContent({ initialNodes, initialEdges, onSave, editable = true, hero, workspace, topOverlay, shellVariant = 'default', contentTopInset = 0, overlayPlacement = 'canvas' }: GraphEditorProps) {
   useKeyboard(editable);
 
   void initialNodes;
@@ -118,5 +119,18 @@ export function GraphEditor({ initialNodes, initialEdges, onSave, editable = tru
       {editable && onSave ? <CommandMenu open={commandDialogOpen} onOpenChange={closeCommandDialog} onSave={onSave} /> : null}
       <Toaster />
     </div>
+  );
+}
+
+/**
+ * The provider wraps the whole editor, not just the canvas, so the sidebar
+ * shares React Flow's store: the auto layout reads the measured node sizes
+ * (and waits for them) from there.
+ */
+export function GraphEditor(props: GraphEditorProps) {
+  return (
+    <ReactFlowProvider>
+      <GraphEditorContent {...props} />
+    </ReactFlowProvider>
   );
 }
