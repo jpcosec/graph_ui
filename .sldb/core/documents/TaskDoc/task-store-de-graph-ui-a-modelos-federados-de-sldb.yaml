@@ -1,0 +1,33 @@
+name: task-store-de-graph-ui-a-modelos-federados-de-sldb
+path: desk/tasks/task-store-de-graph-ui-a-modelos-federados-de-sldb.md
+source_hash: 83e5fa4e686a68803a2113d025d7210fa1b1182e6e6e30b4c7d7f21b1452311e
+content_hash: b9ebac589a682c63a68b730d8cbc6f61d024d21d195cf300e876cd197a4723ae
+field_hashes:
+  title: d38cc7d45f5f5463c1add876b442b11a1c16e8f280f1fc804f572b440c99debc
+  id: f939127c32d1685e5b1c503ab2ba3dc0167015d4da96ffc7860b836fcd880c3f
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  tags: 9e7e8be2998f87dfcbb538781d827f202722ef7dad630b93bca343e20f247db8
+  current_node: d10f5286503cbf750af0584acaec732741c2d9cfbae2a6d5b8ce45b8bf83b79d
+  history: f89b8fd2ac9e43a24ba505d162381268ed901d0695f62c6ad8ec2c62718dfa1c
+  why: 5111fdc9468776fc374b01f809ee87d95f91b83bd99ed77b27483ec18ed003c3
+  goal: 24e48b46342a5acb28a281d5eb1d4c29c2455a81999c161adb74862636d412be
+  scope: f8d918f0e96a20a17e8d96434e8905b5236dd6fa1be112eb357d46a4569ba7eb
+  references: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  depends_on: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  implementation_path: 15b7e54f6afd95be7fc09bf8025b879f694a4776738955a6f2e7973fa20a5450
+  validation: a31f605248177c066ccf0001813a9ef77d2713f60598be0cc446e73afb09ba52
+  done_when: d9b1b16759285af37f18c85b7af0dc0f30da1a5716a54549ee057303495720db
+  task_type: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  inherits_from: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  inherit_acceptance_context: fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa
+  atoms: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- artifact:task
+- representation.markdown
+- source.document.markdown
+- type.workflow.task
+- workspace.desk
+- workspace:desk

@@ -13,6 +13,9 @@ tasks:
 - desk/tasks/006-prove-one-safe-edit-flow.md
 - desk/tasks/task-feed-hum-body-from-sldb-serve-remove-hardcoded-content.md
 - desk/tasks/task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n.md
+- desk/tasks/task-graph-ui-instalable-pyproject-con-dependencias-reales-y-sin-hacks-de-sys-path.md
+- desk/tasks/task-vista-specs-carriles-para-secuencias-y-grilla-para-matrices.md
+- desk/tasks/task-store-de-graph-ui-a-modelos-federados-de-sldb.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -44,11 +47,14 @@ Phase B delivery tasks (adapter, encoding, layout, store, sidebar) are closed. k
 
 _Generated from the task references above._
 
-- Define graph UI data contract [resolved] - 
-- Define minimal editing surface [resolved] - 
-- Create real graph fixture [resolved] - 
-- Wire reusable editor to real fixture [resolved] - 
-- Surface semantic signals [resolved] - 
-- Prove one safe edit flow [resolved] - 
+- Define graph UI data contract [resolved] - Define the canonical graph UI data contract that every render and edit path consumes.
+- Define minimal editing surface [resolved] - Define the minimal graph editing surface over the data contract.
+- Create real graph fixture [resolved] - Create a real graph fixture that complies with the `GraphData` contract.
+- Wire reusable editor to real fixture [resolved] - Wire the reusable editor architecture to the real fixture.
+- Surface semantic signals [resolved] - Surface at least one semantic or structural signal on the graph.
+- Prove one safe edit flow [resolved] - Make one safe edit path explicit and proven.
 - Feed hum-body from sldb serve (remove hardcoded content) [active] - Promote deferred work from task-hum-body-live-sldb.md.
 - Task: Cierre del paso 8 — compilador mindmap (tests de endpoints, verificación en navegador, contrato de exportación) [active] - Promote deferred work from task-mindmap-compiler-closeout.md.
+- graph_ui instalable: pyproject con dependencias reales y sin hacks de sys.path [draft] - pyproject.toml con [project] y [build-system] que declare structuredLanguageDB, kgdb y pron; frontends/mindmap importable como paquete sin inserciones en sys.path.
+- Vista Specs: carriles para secuencias y grilla para matrices [draft] - Las secuencias se dibujan en carriles con los mensajes ordenados en el tiempo y las matrices en una grilla de celdas, desde lo que devuelve resolve_view.
+- Store de graph_ui a modelos federados de sldb [draft] - El store .sldb de graph_ui sobre modelos federados, con sldb stores check en PASS.
