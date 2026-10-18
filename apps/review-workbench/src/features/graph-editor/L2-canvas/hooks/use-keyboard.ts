@@ -44,7 +44,7 @@ export function resolveKeyboardCommand(
     return 'edit-node';
   }
 
-  if (key === 'escape' && (editorState === 'edit_node' || editorState === 'edit_relation')) {
+  if (key === 'escape' && (editorState === 'edit_node' || editorState === 'edit_relation' || editorState === 'focus')) {
     return 'exit-edit-mode';
   }
 

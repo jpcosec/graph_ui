@@ -78,6 +78,13 @@ describe('useKeyboard key gating (GRP-001-09)', () => {
         focusedNodeId: null,
       }),
     ).toBe('exit-edit-mode');
+
+    expect(
+      resolveKeyboardCommand(keyEvent('Escape'), {
+        editorState: 'focus',
+        focusedNodeId: 'node-1',
+      }),
+    ).toBe('exit-edit-mode');
   });
 
   it('detects editable DOM targets for shortcut guard', () => {
