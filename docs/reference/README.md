@@ -7,7 +7,8 @@ Material de consulta que vivía en `desk/drawer/` y no es trabajo pendiente. Se 
   tomado el 2026-08-24 (8e3138b). Copia de documentación externa: puede ir por detrás de la
   versión que carga el mindmap (`@xyflow/react` 12.11.5).
 - [`review-workbench/`](review-workbench/) — mapas de componentes y de comportamiento de
-  `apps/review-workbench/` (2026-08). Aproximadamente vigentes: aún nombran `HumBodyPage`
+  `apps/review-workbench/` (2026-08). También la revisión de arquitectura del 2026-08-24 con la
+  resolución de cada issue (`architecture-review-2026-08-24.md`). Aproximadamente vigentes: aún nombran `HumBodyPage`
   (borrada en 9f64f0f) y algunas líneas citadas se movieron.
 - [`history/`](history/) — informes y specs de diseño de etapas anteriores:
   `REPORT-antonia-live-editor-arc.md` (arco del editor Antonia en vivo) y

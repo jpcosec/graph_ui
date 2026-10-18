@@ -1,3 +1,24 @@
+> **Estado al 2026-10-18.** Revisión de arquitectura de `apps/review-workbench` hecha el
+> 2026-08-24. Sus issues vivían en `desk/drawer/issues/`; cada uno se trianguló contra el código y se
+> cerró como task de deskops (o se retiró con evidencia). Los enlaces de abajo apuntan a archivos
+> que ya no existen; el historial está en git.
+>
+> | Issue | Resolución |
+> |---|---|
+> | 01 KnowledgeGraph.tsx sin usar | retirado, 2383c8e |
+> | 02 GraphEditorPage huérfana | **pendiente de decisión del dueño**: cuál es la página L1 |
+> | 03 API pública falsa de GraphEditor | props de grafo quitadas, contrato manejado por el store, 41e0fcb |
+> | 04 filtros y foco sin efecto | aplicados en el lienzo, 9674e5a |
+> | 05 plegado en los datos del nodo | movido a ui-store, 555fccc |
+> | 06 vista HUM con fixtures | obsoleto: la vista se borró en 9f64f0f |
+> | 07 persistencia | los borradores de localStorage se fueron con HUM; `saveGraph` sigue siendo no-op: **pendiente de la misma decisión** que 02 |
+> | 08 NodeData abierto | cerrado, con un solo acceso a `payload.value`, a083068 |
+> | 09 título de nodo duplicado | un solo resolvedor, 79931bb |
+> | 10 layout sin tamaños medidos | usa los tamaños de React Flow, 4865788 |
+>
+> La narrativa de abajo (que el runtime vive en `HumBodyPage`) ya no aplica: App.tsx monta
+> `AntoniaFlowPage`.
+
 # Architecture review index
 
 The codebase has a **partially sound base**: the intended `L1-app / L2-canvas / L3 content` folder split is visible, the architecture lint currently passes, and several lower-level helpers have focused tests. That means this is not a hopeless rewrite case. There is a real architecture to recover.
