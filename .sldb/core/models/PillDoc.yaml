@@ -1,6 +1,6 @@
 name: PillDoc
-model_ref: deskops.models.pill:PillDoc
-path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/pill.py
+model_ref: deskops.models:PillDoc
+path: ''
 documents_index: .sldb/core/documents/PillDoc.yaml
 sections_index: .sldb/runtime/sections/PillDoc.yaml
 model_hash: 5689bcc840fd7a76a3fd3508129a4f40daef457e824b137b2dcf7d5ab9e78c04

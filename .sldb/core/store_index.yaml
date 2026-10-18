@@ -1,45 +1,52 @@
-stores: []
+stores:
+- name: deskops
+  path: ../../deskops/.sldb
 models:
 - name: TaskDoc
-  model_ref: deskops.models.task:TaskDoc
-  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/task.py
+  model_ref: deskops.models:TaskDoc
+  path: ''
   models_index: .sldb/core/models/TaskDoc.yaml
   version: 1
   canonical: false
   family: null
   semantics: []
+  origin: deskops
 - name: BoardDoc
-  model_ref: deskops.models.board:BoardDoc
-  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/board.py
+  model_ref: deskops.models:BoardDoc
+  path: ''
   models_index: .sldb/core/models/BoardDoc.yaml
   version: 1
   canonical: false
   family: null
   semantics: []
+  origin: deskops
 - name: PillDoc
-  model_ref: deskops.models.pill:PillDoc
-  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/pill.py
+  model_ref: deskops.models:PillDoc
+  path: ''
   models_index: .sldb/core/models/PillDoc.yaml
   version: 1
   canonical: false
   family: null
   semantics: []
+  origin: deskops
 - name: AtomDoc
-  model_ref: deskops.models.atom:AtomDoc
-  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/atom.py
+  model_ref: deskops.models:AtomDoc
+  path: ''
   models_index: .sldb/core/models/AtomDoc.yaml
   version: 1
   canonical: false
   family: null
   semantics: []
+  origin: deskops
 - name: RitualDoc
-  model_ref: deskops.models.ritual:RitualDoc
-  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/ritual.py
+  model_ref: deskops.models:RitualDoc
+  path: ''
   models_index: .sldb/core/models/RitualDoc.yaml
   version: 1
   canonical: false
   family: null
   semantics: []
+  origin: deskops
 - name: FAQDoc
   model_ref: deskops.models.faq:FAQDoc
   path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/faq.py
@@ -49,13 +56,14 @@ models:
   family: null
   semantics: []
 - name: InboxNoteDoc
-  model_ref: deskops.models.inbox:InboxNoteDoc
-  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/inbox.py
+  model_ref: deskops.models:InboxNoteDoc
+  path: ''
   models_index: .sldb/core/models/InboxNoteDoc.yaml
   version: 1
   canonical: false
   family: null
   semantics: []
+  origin: deskops
 - name: MaterializationContractDoc
   model_ref: deskops.models.materialization:MaterializationContractDoc
   path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/materialization.py
@@ -65,24 +73,26 @@ models:
   family: null
   semantics: []
 - name: RoleDoc
-  model_ref: deskops.models.role:RoleDoc
-  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/role.py
+  model_ref: deskops.models:RoleDoc
+  path: ''
   models_index: .sldb/core/models/RoleDoc.yaml
   version: 1
   canonical: false
   family: null
   semantics: []
+  origin: deskops
 - name: StepDoc
-  model_ref: deskops.models.step:StepDoc
-  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/step.py
+  model_ref: deskops.models:StepDoc
+  path: ''
   models_index: .sldb/core/models/StepDoc.yaml
   version: 1
   canonical: false
   family: null
   semantics: []
+  origin: deskops
 - name: RepositoryDoc
   model_ref: deskops.models:RepositoryDoc
-  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/repository.py
+  path: ''
   models_index: .sldb/core/models/RepositoryDoc.yaml
   version: 1
   canonical: false
@@ -92,9 +102,10 @@ models:
   - source.document.markdown
   - type.desk.repository
   - workspace.desk.registry
+  origin: deskops
 - name: ProtoAtomDoc
   model_ref: deskops.models:ProtoAtomDoc
-  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/protoatom.py
+  path: ''
   models_index: .sldb/core/models/ProtoAtomDoc.yaml
   version: 1
   canonical: false
@@ -104,9 +115,10 @@ models:
   - source.document.markdown
   - type.knowledge.protoatom
   - workspace.desk.atoms
+  origin: deskops
 - name: CrossroadDoc
   model_ref: deskops.models:CrossroadDoc
-  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/crossroad.py
+  path: ''
   models_index: .sldb/core/models/CrossroadDoc.yaml
   version: 1
   canonical: false
@@ -116,6 +128,7 @@ models:
   - source.document.markdown
   - type.knowledge.crossroad
   - workspace.desk.atoms
+  origin: deskops
 - name: RelationTypeDoc
   model_ref: sldb.models.relation_type_doc:RelationTypeDoc
   path: /home/jp/proyectos/SLDB_1/sldb/src/sldb/models/relation_type_doc.py
@@ -192,4 +205,8 @@ predicates:
   description: A composed field of the source (`__compositions__`) renders this document's
     payload into the source's text; the edge carries the composed field, the field
     holding the refs and the ref as authored.
-store_hash: ce18eae63736f0da37af347f632591e7e742fc605b45d3c1224a28c1932c3071
+- name: links_to
+  axis: WHERE
+  description: 'The store links that store under an alias (`stores add`): it reads
+    its documents and inherits its models.'
+store_hash: 01368643b31e2f47bd39e37775be4a5cd343bcd72315bcffbc91a68cfb1f4cdf
