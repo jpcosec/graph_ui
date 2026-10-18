@@ -171,6 +171,6 @@ python3 -m pytest tests/e2e_mindmap_brainstorm.py tests/e2e_mindmap_classes.py \
 
 Las pruebas Python crean stores y servidores reales en directorios
 temporales; no modifican la KB de trabajo. `tests/test_auditor.py`,
-`test_editor.py`, `test_kgdb_adapter.py`, `test_provider.py` y
+`test_editor.py`, `test_snapshot_adapter.py`, `test_provider.py` y
 `test_sldb_end_to_end.py` pertenecen a la identidad retirada de `src/`, no a
 Mindmap — ver [`CLAUDE.md`](../../CLAUDE.md).
