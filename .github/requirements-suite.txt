@@ -4,4 +4,6 @@
 structuredLanguageDB @ git+https://github.com/jpcosec/sldb@main
 pron @ git+https://github.com/jpcosec/pron@master
 deskops @ git+https://github.com/jpcosec/opsys@main
-spec2viz @ git+https://github.com/jpcosec/spec2viz@master
+# Editable checkout: the notation tests read the pilot specs under spec2viz's own
+# docs/architecture/spec2viz, which a plain install does not ship.
+-e git+https://github.com/jpcosec/spec2viz@master#egg=spec2viz
