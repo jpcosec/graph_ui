@@ -113,8 +113,6 @@ export function AntoniaFlowPage() {
 
   return (
     <GraphEditor
-      initialNodes={[]}
-      initialEdges={[]}
       onSave={() => {}}
       hero={{
         eyebrow: 'Conversation Flow',

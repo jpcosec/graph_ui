@@ -230,5 +230,5 @@ export function GraphEditorPage() {
     );
   }
 
-  return <GraphEditor initialNodes={graph.nodes} initialEdges={graph.edges} onSave={handleSave} />;
+  return <GraphEditor onSave={handleSave} />;
 }

@@ -2,8 +2,6 @@ import { Toaster } from '@/components/ui/sonner';
 import type { ReactNode } from 'react';
 import { ReactFlowProvider } from '@xyflow/react';
 
-import type { ASTEdge, ASTNode } from '@/stores/types';
-
 /** L2: Main editor container - canvas + sidebar + panels */
 import { GraphCanvas } from './GraphCanvas';
 import { useKeyboard } from './hooks/use-keyboard';
@@ -16,9 +14,12 @@ import { useUIStore } from '@/stores/ui-store';
 import { useGraphStore } from '@/stores/graph-store';
 import { toast } from 'sonner';
 
+/**
+ * GraphEditor is store-driven: it renders whatever graph is in `useGraphStore`.
+ * Whoever mounts it loads the graph first (`useGraphStore.getState().loadGraph`),
+ * as AntoniaFlowPage and GraphEditorPage do; there are no graph props.
+ */
 interface GraphEditorProps {
-  initialNodes: ASTNode[];
-  initialEdges: ASTEdge[];
   onSave?: () => void;
   editable?: boolean;
   hero?: {
@@ -37,11 +38,9 @@ interface GraphEditorProps {
   overlayPlacement?: 'canvas' | 'sidebar';
 }
 
-function GraphEditorContent({ initialNodes, initialEdges, onSave, editable = true, hero, workspace, topOverlay, shellVariant = 'default', contentTopInset = 0, overlayPlacement = 'canvas' }: GraphEditorProps) {
+function GraphEditorContent({ onSave, editable = true, hero, workspace, topOverlay, shellVariant = 'default', contentTopInset = 0, overlayPlacement = 'canvas' }: GraphEditorProps) {
   useKeyboard(editable);
 
-  void initialNodes;
-  void initialEdges;
 
   const deleteConfirmOpen = useUIStore((state) => state.deleteConfirmOpen);
   const deleteTarget = useUIStore((state) => state.deleteTarget);
