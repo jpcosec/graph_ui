@@ -10,3 +10,4 @@
 {"task_id": "task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": "0b52a99e5ff8d4811a1933bcf6e451de02ed2aea"}
 {"task_id": "task-review-workbench-retirar-el-editor-paralelo-knowledgegraph-tsx-y-meter-su-suite-en-pytest", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": "673b076d77c7f807eee9a876ed0ee9a779a8f117"}
 {"task_id": "task-review-workbench-un-solo-resolvedor-del-t\u00edtulo-de-nodo", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": "023786a260ea6a9fc6bf343a0f0a67070186f4d1"}
+{"task_id": "task-review-workbench-los-filtros-de-texto-atributo-y-foco-filtran-de-verdad-el-lienzo", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": "dd477907bfcb9f9f7a9fb4902a31d6a060c1c95f"}
