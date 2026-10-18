@@ -4,8 +4,7 @@ id: board-graph-ui
 # Affected workspace or domain
 scope: graph_ui
 # List of task-xxx paths
-tasks:
-- desk/tasks/006-prove-one-safe-edit-flow.md
+tasks: []
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -36,5 +35,3 @@ Phase B delivery tasks (adapter, encoding, layout, store, sidebar) are closed. k
 ## Task Details
 
 _Generated from the task references above._
-
-- Prove one safe edit flow [resolved] - Make one safe edit path explicit and proven.
