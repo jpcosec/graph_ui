@@ -80,3 +80,4 @@
 .lane-frame .frame-box{fill:none;stroke:var(--text-muted);stroke-width:1.2}
 .lane-frame .frame-tab{fill:var(--surface-panel);stroke:var(--text-muted);stroke-width:1.2}
 .lane-frame .frame-label{font-size:10.5px;font-weight:600;fill:var(--text)}
+.lane-frame .frame-guard{font-size:10.5px;fill:var(--text-secondary)}

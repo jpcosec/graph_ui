@@ -123,8 +123,8 @@ def test_specs_view_draws_nest_markers_compartments_and_terminals():
 def test_specs_view_draws_sequences_in_lanes_and_matrices_in_a_grid():
     if sync_playwright is None:
         pytest.skip("playwright no está instalado")
-    server = _start_server(_store([PILOTS / "sequence-render-pipeline.yml", MATRIX,
-                                   PILOTS / "matrix-pipeline-coverage.yml"]), LANES_PORT)
+    server = _start_server(_store([PILOTS / "sequence-render-pipeline.yml", PILOTS / "sequence-sync-pipeline.yml",
+                                   MATRIX, PILOTS / "matrix-pipeline-coverage.yml"]), LANES_PORT)
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch()
@@ -148,6 +148,28 @@ def test_specs_view_draws_sequences_in_lanes_and_matrices_in_a_grid():
             assert [m[0] for m in messages if m[2]] == [4], "la autollamada del Loader es el mensaje 4"
             ret = page.locator('.lane-message[data-order="5"] .message-line')
             assert ret.get_attribute("stroke-dasharray") == "6 4" and "nv-open-arrow" in ret.get_attribute("marker-end")
+            assert page.locator(".lane-frame").count() == 0, "render-pipeline no tiene fragmentos"
+
+            # Fragmentos (§8c/§11): pestaña con el operador, condición al lado, marco
+            # de la primera a la última fila y sobre las líneas de vida que tocan.
+            page.click('[data-spec="sequence.sync-pipeline"]')
+            page.wait_for_selector(".lane-frame", timeout=15000)
+            frames = page.locator(".lane-frame")
+            assert frames.count() == 3
+            svg_text = "els => els.map(e => e.textContent)"  # <text> de SVG no tiene innerText
+            assert page.locator(".lane-frame .frame-label").evaluate_all(svg_text) == ["loop", "alt", "loop"]
+            assert page.locator(".lane-frame .frame-guard").evaluate_all(svg_text) == [
+                "[for each spec]", "[the diagram type has a notation]", "[for each spec]"]
+            box = frames.nth(0).locator(".frame-box").bounding_box()
+            lanes = dict(page.locator(".lane-head").evaluate_all(
+                "els => els.map(e => [e.dataset.lane.split('.').pop(), e.getBoundingClientRect().x + e.getBoundingClientRect().width / 2])"))
+            for p in ("CLI", "SpecSync", "Loader"):
+                assert box["x"] < lanes[p] < box["x"] + box["width"], p
+            assert lanes["User"] < box["x"]
+            rows = page.locator(".lane-message").evaluate_all(
+                "els => Object.fromEntries(els.map(e => [e.dataset.order, e.getBoundingClientRect().y]))")
+            assert box["y"] < rows["2"] and rows["4"] < box["y"] + box["height"]
+            assert not (box["y"] < rows["5"] < box["y"] + box["height"]), "el mensaje 5 ya es del alt"
 
             page.click('[data-spec="matrix.quotation-view"]')
             page.wait_for_selector(".notation-grid", timeout=15000)

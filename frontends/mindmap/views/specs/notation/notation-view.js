@@ -84,8 +84,9 @@ function LanesDiagram({scene}) {
     <svg className="lanes-svg" width=${width} height=${height} aria-label="Mensajes">
       ${(scene.frames || []).map(f => html`<g key=${f.id} className="lane-frame" data-fragment=${f.id} data-orders=${f.orders.join(',')}>
         <rect x=${f.x} y=${f.y} width=${f.width} height=${f.height} className="frame-box"/>
-        <path d=${`M${f.x},${f.y + 16} h${Math.max(48, f.label.length * 6.5 + 14)} l6,-6 v-10`} className="frame-tab"/>
-        <text x=${f.x + 6} y=${f.y + 12} className="frame-label">${f.label}</text>
+        <path d=${`M${f.x},${f.y + 16} h${Math.max(30, (f.operator || f.label).length * 6.5 + 12)} l6,-6 v-10`} className="frame-tab"/>
+        <text x=${f.x + 6} y=${f.y + 12} className="frame-label" data-operator=${f.operator}>${f.operator || f.label}</text>
+        ${f.operator && f.label ? html`<text x=${f.x + Math.max(30, f.operator.length * 6.5 + 12) + 14} y=${f.y + 12} className="frame-guard">[${f.label}]</text>` : ''}
       </g>`)}
       ${lanes.map(l => html`<line key=${l.id} className="lifeline" data-lifeline=${l.id} x1=${l.x} x2=${l.x} y1=${lifelineTop} y2=${height - LANE.top}/>`)}
       ${messages.map(m => {

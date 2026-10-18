@@ -165,9 +165,14 @@ export function laneFrames(fragments, messages) {
     const xs = inside.flatMap(m => (m.self ? [m.x1, m.x1 + LANE.loop] : [m.x1, m.x2]));
     const ys = inside.map(m => m.y);
     const pad = LANE.width / 4;
-    return [{id: `${fragment.kind || 'group'}-${index}`, label: fragment.label || fragment.kind || '', kind: fragment.kind || 'group',
-      orders: inside.map(m => m.order), x: Math.min(...xs) - pad, y: Math.min(...ys) - LANE.row * .6,
-      width: Math.max(...xs) - Math.min(...xs) + pad * 2, height: Math.max(...ys) - Math.min(...ys) + LANE.row * 1.1}];
+    // `kind` es el operador UML (alt, loop, opt…) o `group` si no lo hay;
+    // la pestaña lleva el operador y el `label` va como condición al lado.
+    const kind = fragment.kind || 'group';
+    return [{id: `${kind}-${index}`, kind, operator: kind === 'group' ? '' : kind, label: fragment.label || '',
+      // Arriba deja sitio para la pestaña sin pisar el rótulo del primer mensaje;
+      // abajo cierra justo bajo el último, para que dos marcos seguidos no se monten.
+      orders: inside.map(m => m.order), x: Math.min(...xs) - pad, y: Math.min(...ys) - LANE.row * .85,
+      width: Math.max(...xs) - Math.min(...xs) + pad * 2, height: Math.max(...ys) - Math.min(...ys) + LANE.row * .97}];
   });
 }
 

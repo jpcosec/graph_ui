@@ -1,0 +1,394 @@
+{
+  "spec": "SpecDoc:sequence.sync-pipeline",
+  "title": "diagram sync call chain",
+  "diagram_type": "sequence",
+  "notation": "NotationDoc:uml-sequence",
+  "level": "instances",
+  "layout": {
+    "kind": "lanes",
+    "direction": "LR"
+  },
+  "nodes": [
+    {
+      "doc": "SpecNodeDoc:sequence.sync-pipeline.User",
+      "element": "User",
+      "title": "User",
+      "kind": "actor",
+      "collection": "participants",
+      "data": {},
+      "glyph": "GlyphDoc:uml-sequence.actor",
+      "shape": "stick-figure",
+      "function": "actor",
+      "label": "User",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:sequence.sync-pipeline.CLI",
+      "element": "CLI",
+      "title": "CLI",
+      "kind": "component",
+      "collection": "participants",
+      "data": {},
+      "glyph": "GlyphDoc:uml-sequence.participant",
+      "shape": "lifeline",
+      "function": "participant",
+      "label": "CLI",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:sequence.sync-pipeline.SpecSync",
+      "element": "SpecSync",
+      "title": "SpecSync",
+      "kind": "component",
+      "collection": "participants",
+      "data": {},
+      "glyph": "GlyphDoc:uml-sequence.participant",
+      "shape": "lifeline",
+      "function": "participant",
+      "label": "SpecSync",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:sequence.sync-pipeline.Loader",
+      "element": "Loader",
+      "title": "Loader",
+      "kind": "component",
+      "collection": "participants",
+      "data": {},
+      "glyph": "GlyphDoc:uml-sequence.participant",
+      "shape": "lifeline",
+      "function": "participant",
+      "label": "Loader",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:sequence.sync-pipeline.NotationSync",
+      "element": "NotationSync",
+      "title": "NotationSync",
+      "kind": "component",
+      "collection": "participants",
+      "data": {},
+      "glyph": "GlyphDoc:uml-sequence.participant",
+      "shape": "lifeline",
+      "function": "participant",
+      "label": "NotationSync",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:sequence.sync-pipeline.StoreAPI",
+      "element": "StoreAPI",
+      "title": "StoreAPI",
+      "kind": "boundary",
+      "collection": "participants",
+      "data": {},
+      "glyph": "GlyphDoc:uml-sequence.boundary",
+      "shape": "boundary-lifeline",
+      "function": "boundary",
+      "label": "StoreAPI",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    }
+  ],
+  "links": [
+    {
+      "source": "SpecNodeDoc:sequence.sync-pipeline.User",
+      "target": "SpecNodeDoc:sequence.sync-pipeline.CLI",
+      "relation": "sends",
+      "link": "LinkDoc:uml-sequence.sync",
+      "doc": "RelationDoc:sequence.sync-pipeline.01-User__sends__CLI",
+      "order": 1,
+      "condition": "",
+      "data": {
+        "message": "spec2viz diagram sync a.yml b.yml --strict"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "filled-arrow",
+      "label": "spec2viz diagram sync a.yml b.yml --strict"
+    },
+    {
+      "source": "SpecNodeDoc:sequence.sync-pipeline.CLI",
+      "target": "SpecNodeDoc:sequence.sync-pipeline.SpecSync",
+      "relation": "sends",
+      "link": "LinkDoc:uml-sequence.sync",
+      "doc": "RelationDoc:sequence.sync-pipeline.02-CLI__sends__SpecSync",
+      "order": 2,
+      "condition": "",
+      "data": {
+        "group": "loop for each spec",
+        "message": "sync(path, notation)"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "filled-arrow",
+      "label": "sync(path, notation)"
+    },
+    {
+      "source": "SpecNodeDoc:sequence.sync-pipeline.SpecSync",
+      "target": "SpecNodeDoc:sequence.sync-pipeline.Loader",
+      "relation": "sends",
+      "link": "LinkDoc:uml-sequence.sync",
+      "doc": "RelationDoc:sequence.sync-pipeline.03-SpecSync__sends__Loader",
+      "order": 3,
+      "condition": "",
+      "data": {
+        "group": "loop for each spec",
+        "message": "load(path)"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "filled-arrow",
+      "label": "load(path)"
+    },
+    {
+      "source": "SpecNodeDoc:sequence.sync-pipeline.Loader",
+      "target": "SpecNodeDoc:sequence.sync-pipeline.SpecSync",
+      "relation": "returns",
+      "link": "LinkDoc:uml-sequence.return",
+      "doc": "RelationDoc:sequence.sync-pipeline.04-Loader__returns__SpecSync",
+      "order": 4,
+      "condition": "",
+      "data": {
+        "kind": "reply",
+        "group": "loop for each spec",
+        "message": "BaseDiagram or ParseError"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "dashed",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "BaseDiagram or ParseError"
+    },
+    {
+      "source": "SpecNodeDoc:sequence.sync-pipeline.SpecSync",
+      "target": "SpecNodeDoc:sequence.sync-pipeline.NotationSync",
+      "relation": "sends",
+      "link": "LinkDoc:uml-sequence.sync",
+      "doc": "RelationDoc:sequence.sync-pipeline.05-SpecSync__sends__NotationSync",
+      "order": 5,
+      "condition": "",
+      "data": {
+        "group": "alt the diagram type has a notation",
+        "message": "sync(name, finish=False)"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "filled-arrow",
+      "label": "sync(name, finish=False)"
+    },
+    {
+      "source": "SpecNodeDoc:sequence.sync-pipeline.NotationSync",
+      "target": "SpecNodeDoc:sequence.sync-pipeline.StoreAPI",
+      "relation": "sends",
+      "link": "LinkDoc:uml-sequence.sync",
+      "doc": "RelationDoc:sequence.sync-pipeline.06-NotationSync__sends__StoreAPI",
+      "order": 6,
+      "condition": "",
+      "data": {
+        "group": "alt the diagram type has a notation",
+        "message": "create_document / save_document_payload (NotationDoc, GlyphDoc, LinkDoc)"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "filled-arrow",
+      "label": "create_document / save_document_payload (NotationDoc, GlyphDoc, LinkDoc)"
+    },
+    {
+      "source": "SpecNodeDoc:sequence.sync-pipeline.StoreAPI",
+      "target": "SpecNodeDoc:sequence.sync-pipeline.NotationSync",
+      "relation": "returns",
+      "link": "LinkDoc:uml-sequence.return",
+      "doc": "RelationDoc:sequence.sync-pipeline.07-StoreAPI__returns__NotationSync",
+      "order": 7,
+      "condition": "",
+      "data": {
+        "kind": "reply",
+        "group": "alt the diagram type has a notation",
+        "message": "documents"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "dashed",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "documents"
+    },
+    {
+      "source": "SpecNodeDoc:sequence.sync-pipeline.SpecSync",
+      "target": "SpecNodeDoc:sequence.sync-pipeline.StoreAPI",
+      "relation": "sends",
+      "link": "LinkDoc:uml-sequence.sync",
+      "doc": "RelationDoc:sequence.sync-pipeline.08-SpecSync__sends__StoreAPI",
+      "order": 8,
+      "condition": "",
+      "data": {
+        "group": "loop for each spec",
+        "message": "upsert SpecNodeDoc, SpecDoc, RelationDoc (attributes)"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "filled-arrow",
+      "label": "upsert SpecNodeDoc, SpecDoc, RelationDoc (attributes)"
+    },
+    {
+      "source": "SpecNodeDoc:sequence.sync-pipeline.SpecSync",
+      "target": "SpecNodeDoc:sequence.sync-pipeline.StoreAPI",
+      "relation": "sends",
+      "link": "LinkDoc:uml-sequence.sync",
+      "doc": "RelationDoc:sequence.sync-pipeline.09-SpecSync__sends__StoreAPI",
+      "order": 9,
+      "condition": "",
+      "data": {
+        "group": "loop for each spec",
+        "message": "rebuild_edges() / check_edges()"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "filled-arrow",
+      "label": "rebuild_edges() / check_edges()"
+    },
+    {
+      "source": "SpecNodeDoc:sequence.sync-pipeline.StoreAPI",
+      "target": "SpecNodeDoc:sequence.sync-pipeline.SpecSync",
+      "relation": "returns",
+      "link": "LinkDoc:uml-sequence.return",
+      "doc": "RelationDoc:sequence.sync-pipeline.10-StoreAPI__returns__SpecSync",
+      "order": 10,
+      "condition": "",
+      "data": {
+        "kind": "reply",
+        "group": "loop for each spec",
+        "message": "edge errors"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "dashed",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "edge errors"
+    },
+    {
+      "source": "SpecNodeDoc:sequence.sync-pipeline.SpecSync",
+      "target": "SpecNodeDoc:sequence.sync-pipeline.CLI",
+      "relation": "returns",
+      "link": "LinkDoc:uml-sequence.return",
+      "doc": "RelationDoc:sequence.sync-pipeline.11-SpecSync__returns__CLI",
+      "order": 11,
+      "condition": "",
+      "data": {
+        "kind": "reply",
+        "group": "loop for each spec",
+        "message": "SyncReport"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "dashed",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "SyncReport"
+    },
+    {
+      "source": "SpecNodeDoc:sequence.sync-pipeline.CLI",
+      "target": "SpecNodeDoc:sequence.sync-pipeline.User",
+      "relation": "returns",
+      "link": "LinkDoc:uml-sequence.return",
+      "doc": "RelationDoc:sequence.sync-pipeline.12-CLI__returns__User",
+      "order": 12,
+      "condition": "",
+      "data": {
+        "kind": "reply",
+        "message": "one line per spec; exit 1 if --strict and problems"
+      },
+      "source_label": "",
+      "target_label": "",
+      "draw": "line",
+      "line": "dashed",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "one line per spec; exit 1 if --strict and problems"
+    }
+  ],
+  "fragments": [
+    {
+      "label": "for each spec",
+      "kind": "loop",
+      "group": "loop for each spec",
+      "orders": [
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "label": "the diagram type has a notation",
+      "kind": "alt",
+      "group": "alt the diagram type has a notation",
+      "orders": [
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "label": "for each spec",
+      "kind": "loop",
+      "group": "loop for each spec",
+      "orders": [
+        8,
+        9,
+        10,
+        11
+      ]
+    }
+  ],
+  "skipped": []
+}

@@ -145,10 +145,26 @@ test('los rótulos de extremo (§8d) pasan tal cual a la arista: multiplicidades
 test('marcos de fragmento: abarcan sus filas y las líneas de vida que tocan; sin mensajes no hay marco', () => {
   const msg = (order, x1, x2) => ({order, x1, x2, y: 100 + order * LANE.row, self: x1 === x2});
   const messages = [msg(1, 100, 300), msg(2, 300, 500), msg(3, 100, 100), msg(4, 300, 100)];
-  const [frame, ...rest] = laneFrames([{label: 'loop', kind: 'group', orders: [2, 3]}, {label: 'vacío', kind: 'group', orders: [9]}], messages);
+  const [frame, ...rest] = laneFrames([{label: 'for each', kind: 'loop', orders: [2, 3]}, {label: 'vacío', kind: 'group', orders: [9]}], messages);
   assert.equal(rest.length, 0);
   assert.deepEqual(frame.orders, [2, 3]);
   assert.ok(frame.x < 100 && frame.x + frame.width > 500, 'cubre de la línea de vida 100 a la 500');
   assert.ok(frame.y < messages[1].y && frame.y + frame.height > messages[2].y, 'cubre las filas 2 y 3');
   assert.deepEqual(laneFrames(undefined, messages), []);
+});
+
+const fragments = JSON.parse(readFileSync(new URL('./fixtures/notation-view-fragments.json', import.meta.url)));
+
+test('piloto real sequence.sync-pipeline: tres marcos con su operador y sus líneas de vida', () => {
+  const scene = laneScene(fragments);
+  assert.deepEqual(scene.frames.map(f => [f.operator, f.label, f.orders]), [
+    ['loop', 'for each spec', [2, 3, 4]],
+    ['alt', 'the diagram type has a notation', [5, 6, 7]],
+    ['loop', 'for each spec', [8, 9, 10, 11]],
+  ]);
+  const laneX = Object.fromEntries(scene.lanes.map(l => [l.glyph.element, l.x]));
+  const [loop] = scene.frames;
+  // El primer loop toca CLI, SpecSync y Loader: cubre esas tres líneas de vida y no la de User.
+  for (const p of ['CLI', 'SpecSync', 'Loader']) assert.ok(loop.x < laneX[p] && laneX[p] < loop.x + loop.width, p);
+  assert.ok(laneX.User < loop.x);
 });
