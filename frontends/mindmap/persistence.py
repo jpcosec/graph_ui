@@ -55,6 +55,10 @@ class EditorStore:
         Mismo shape que ``GET /document`` de sldb serve (ver sldb_adapter)."""
         return self.adapter.document_ir(name)
 
+    def notation_view(self, spec_ref):
+        """Vista de notación de un SpecDoc, resuelta por spec2viz (ver sldb_adapter)."""
+        return self.adapter.notation_view(spec_ref)
+
     def save(self, request):
         """Prevalidate the entire batch; never acknowledge partial writes as success.
 

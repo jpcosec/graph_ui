@@ -205,6 +205,27 @@ class SldbAdapter:
                 'ir': ir,
             }
 
+    def notation_view(self, spec_ref: str) -> dict[str, Any]:
+        """Vista resuelta de un ``SpecDoc`` según su ``NotationDoc``.
+
+        El contrato de notación tiene un único intérprete,
+        ``spec2viz.notation_view.resolve_view`` (spec2viz/docs/notation-contract.md):
+        graph_ui no casa glifos ni evalúa ``where``, solo dibuja lo que devuelve.
+        Errores: spec2viz ausente → 501; spec inexistente → 404; datos de
+        notación incoherentes → 422.
+        """
+        try:
+            from spec2viz.notation_view import ViewError, resolve_view
+        except ImportError as exc:
+            raise AdapterError(f"spec2viz no está instalado: {exc}", 501) from exc
+        ref = spec_ref if ":" in spec_ref else f"SpecDoc:{spec_ref}"
+        with self.lock:
+            try:
+                return resolve_view(str(self.store), ref, self.pythonpath)
+            except ViewError as exc:
+                missing = str(exc).startswith(f"{ref} is not in the store")
+                raise AdapterError(str(exc), 404 if missing else 422) from exc
+
     def model_for(self, model_name: str, pythonpath: str | None = None):
         return self._pron_for(pythonpath).model_type(model_name)
 

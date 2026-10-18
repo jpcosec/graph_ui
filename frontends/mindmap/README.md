@@ -47,6 +47,17 @@ las clases, que es la misma en ambos temas.
   altura de la fila) y entra por la cabecera de la clase destino, etiquetada
   con el campo. Filtro por texto; doble clic o ✎ abre «Editar clases» en esa
   clase. Solo lectura: el contrato se edita en el diálogo.
+- **🧩 Specs** (`/specs/notation`) — los specs de spec2viz del store,
+  dibujados según su notación (UML de clases, statechart, componentes,
+  secuencia…). El catálogo son los `SpecDoc` agrupados por `category`; abrir
+  uno pide `GET /api/notation/view?spec=`, que delega en
+  `spec2viz.notation_view.resolve_view`: graph_ui no casa glifos ni evalúa
+  `where`, solo dibuja forma, compartimentos, marcas y terminales tal como
+  vienen. `draw: nest` es contención (el destino dentro del origen). Los
+  layouts y dibujos que aún no tiene (`lanes`, `grid`, `cell`, `axis`) se
+  dibujan como grafo y línea, con aviso. Requiere spec2viz instalado y modo
+  local (en remote, 501). Solo lectura. Contrato:
+  `spec2viz/docs/notation-contract.md`.
 
 Tres diálogos:
 

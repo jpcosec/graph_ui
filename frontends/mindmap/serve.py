@@ -127,6 +127,22 @@ class ProxyHandler(SimpleHTTPRequestHandler):
         except (urllib.error.URLError, TimeoutError) as exc:
             return {'ok': False, 'error': f'SLDB no responde: {exc}'}, 502
 
+    def _api_notation_view(self):
+        """GET /api/notation/view?spec=<SpecDoc>: el spec dibujado según su notación.
+
+        Lo resuelve spec2viz (``resolve_view``) sobre el store local; sldb serve
+        no tiene equivalente, así que en remote responde 501 explícito.
+        """
+        if self.backend_mode == 'remote':
+            return self.json_response({'ok': False, 'error': 'La vista de notación solo existe en modo local: resolve_view necesita el store en disco.'}, 501)
+        spec = (parse_qs(urlparse(self.path).query).get('spec') or [None])[0]
+        if not spec:
+            return self.json_response({'ok': False, 'error': 'spec es obligatorio'}, 400)
+        try:
+            self.json_response(self.editor_store.notation_view(spec))
+        except self.save_error as exc:
+            self.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 500))
+
     def _api_workers(self):
         """GET /api/workers: agentes vivos, via `deskops runtime workers`.
 
@@ -293,6 +309,9 @@ class ProxyHandler(SimpleHTTPRequestHandler):
             # Se resuelve ANTES del proxy remote: el estado de workers no
             # vive en sldb y no debe reenviarse.
             self._api_workers()
+            return
+        if route == '/api/notation/view':
+            self._api_notation_view()
             return
         if self.backend_mode == 'remote' and route.startswith('/api/'):
             if route == '/api/graph':
