@@ -31,6 +31,30 @@ from sldb.cli.store_context import get_store_context
 from sldb.runtime.validation import render_model_markdown, validate_model_input_roundtrip
 
 VIEW_FILENAME = "mindmap-view.json"
+QUICK_CAPTURE_TITLE = "Captura rápida"
+
+
+def quick_payload(fields: list[dict[str, Any]]) -> dict[str, Any]:
+    """Espejo de ``defaultsFor``/``quickPayload`` (shared/documents.mjs): título + defaults."""
+    payload: dict[str, Any] = {}
+    for field in fields:
+        name, kind = field.get("name", field.get("id")), field.get("kind")
+        if "default" in field:
+            payload[name] = field["default"]
+        elif kind == "enum":
+            payload[name] = (field.get("enum") or [""])[0]
+        elif kind in ("stringlist", "list", "enumlist"):
+            payload[name] = []
+        elif kind == "boolean":
+            payload[name] = False
+        elif kind == "object":
+            payload[name] = {}
+        else:
+            payload[name] = ""
+    names = {f.get("name") for f in fields}
+    payload["name" if "name" in names and "title" not in names else "title"] = QUICK_CAPTURE_TITLE
+    payload["id"] = "captura-rapida"
+    return payload
 
 
 class AdapterError(Exception):
@@ -94,6 +118,13 @@ class SldbAdapter:
                         descriptor["default"] = default.value if isinstance(default, Enum) else default
                     except Exception:  # noqa: BLE001
                         pass
+                # La UI no ve validadores (patrones, no-vacío): se le dice si un
+                # payload de solo título pasa el round-trip real, para no ofrecer
+                # una captura rápida que acabaría en 422 al guardar.
+                try:
+                    model_dict["quick_capture"] = bool(self.validate_payload(entry.name, quick_payload(fields))[0])
+                except Exception:  # noqa: BLE001
+                    model_dict["quick_capture"] = False
                 out.append(model_dict)
             return out
 
@@ -153,7 +184,7 @@ class SldbAdapter:
         # Local-only (imports diferidos): el modo remote ya sirve /document vía
         # proxy HTTP y no debe cargar esto.
         from sldb.api import build_document_ir_json
-        from sldb.cli.graph_ops.resolve import resolve_runtime_doc
+        from sldb.api.records.resolve import resolve_runtime_doc
 
         with self.lock:
             try:

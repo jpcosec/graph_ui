@@ -1,10 +1,12 @@
 """Real SLDB round trips in isolated stores; no writes to the user's KB."""
 import importlib.util
+import sys
 from pathlib import Path
 import pytest
 from sldb.cli import main as cli
 
 MODULE = Path(__file__).parents[1] / 'frontends/mindmap/persistence.py'
+sys.path.insert(0, str(MODULE.parent))
 spec = importlib.util.spec_from_file_location('mindmap_persistence', MODULE)
 persistence = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(persistence)
@@ -13,7 +15,7 @@ spec.loader.exec_module(persistence)
 @pytest.fixture
 def store(tmp_path):
     assert cli(['stores', 'init', '--path', str(tmp_path)]) == 0
-    for model in ('board:BoardDoc', 'task:TaskDoc', 'routine:RoutineDoc', 'condition:ConditionDoc'):
+    for model in ('board:BoardDoc', 'task:TaskDoc', 'ritual:RitualDoc', 'step:StepDoc'):
         assert cli(['models', 'add', 'deskops.models.' + model, '--store', str(tmp_path / '.sldb')]) == 0
     return persistence.EditorStore(tmp_path / '.sldb')
 
@@ -28,31 +30,31 @@ def save(store, changes, view=None):
 
 def test_create_update_containment_and_reload_from_disk(store):
     result = save(store, [
-        create('child', 'ConditionDoc', title='Child', subject='status', predicate='eq'),
-        create('parent', 'RoutineDoc', title='Parent', entrypoint='child', decomposition=['child']),
+        create('child', 'StepDoc', title='Child', action='Run it', outcome='Done'),
+        create('parent', 'RitualDoc', title='Parent', purpose='Group', trigger='Always', completion='All steps', steps=['child']),
         create('board', 'BoardDoc', title='Board', scope='UI', purpose='Organize'),
     ], {'collapsed': ['parent']})
     assert len(result['documents']) == 3
     child = next(d for d in result['documents'] if d['id'] == 'child')
-    save(store, [{'action': 'update', 'id': 'child', 'model': 'ConditionDoc',
+    save(store, [{'action': 'update', 'id': 'child', 'model': 'StepDoc',
                   'expected': child['payload'], 'payload': {**child['payload'], 'title': 'Changed'}}])
     reopened = persistence.EditorStore(store.store).graph()
     assert next(d for d in reopened['documents'] if d['id'] == 'child')['payload']['title'] == 'Changed'
-    assert next(d for d in reopened['documents'] if d['id'] == 'parent')['payload']['decomposition'] == ['child']
+    assert next(d for d in reopened['documents'] if d['id'] == 'parent')['payload']['steps'] == ['child']
     assert 'Changed' in (store.root / child['path']).read_text()
 
 
 def test_invalid_batch_writes_nothing(store):
     with pytest.raises(persistence.SaveError) as error:
-        save(store, [create('valid', 'ConditionDoc', title='Valid', subject='x', predicate='eq'),
+        save(store, [create('valid', 'StepDoc', title='Valid', action='x', outcome='y'),
                      create('invalid', 'BoardDoc', title='Missing scope and purpose')])
     assert error.value.status == 422
     assert store.graph()['documents'] == []
-    assert not (store.root / 'ConditionDoc/valid.md').exists()
+    assert not (store.root / 'StepDoc/valid.md').exists()
 
 
 def test_conflict_and_untrack_preserves_file(store):
-    result = save(store, [create('condition', 'ConditionDoc', title='Condition', subject='x', predicate='eq')])
+    result = save(store, [create('step', 'StepDoc', title='Step', action='x', outcome='y')])
     doc = result['documents'][0]
     with pytest.raises(persistence.SaveError) as error:
         save(store, [{'action': 'update', 'id': doc['id'], 'model': doc['model_name'],
@@ -70,4 +72,4 @@ def test_view_conflict_and_path_traversal_rejected(store):
         store.save({'changes': [], 'view': {}, 'viewRevision': revision})
     assert error.value.status == 409
     with pytest.raises(persistence.SaveError):
-        save(store, [create('../escape', 'ConditionDoc', title='Bad', subject='x', predicate='eq')])
+        save(store, [create('../escape', 'StepDoc', title='Bad', action='x', outcome='y')])

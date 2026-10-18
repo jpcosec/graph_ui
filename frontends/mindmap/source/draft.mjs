@@ -2,7 +2,7 @@
 // documents until an explicit conversion validates and applies them via
 // /api/plan + /api/compile. Pure logic + localStorage access; no React.
 import {childOptions} from './graph.mjs';
-import {slugify, quickPayload} from '../shared/documents.mjs';
+import {slugify, quickPayload, quickCapturable} from '../shared/documents.mjs';
 
 export const DRAFT_KEY = 'kb-brainstorm-draft-v1';
 
@@ -39,12 +39,13 @@ export function brainstormIssues(ideas, models) {
     if(!idea.title?.trim())issues.push({id:idea.id,reason:'sin título'});
     else if(!idea.className)issues.push({id:idea.id,reason:'sin clase'});
     else if(!models.some(m=>m.id===idea.className))issues.push({id:idea.id,reason:'clase inexistente'});
+    else if(!quickCapturable(models.find(m=>m.id===idea.className)))issues.push({id:idea.id,reason:'la clase pide más que un título'});
   }
   return issues;
 }
 export function brainstormToSource(ideas, models, reservedIds=[]) {
   const byId=new Map(ideas.map(i=>[i.id,i])),docIds=new Map();
-  const valid=ideas.filter(i=>i.title?.trim()&&i.className&&models.some(m=>m.id===i.className));
+  const valid=ideas.filter(i=>i.title?.trim()&&i.className&&quickCapturable(models.find(m=>m.id===i.className)));
   const usedIds=new Set(reservedIds);
   for(const idea of valid){
     const base=slugify(idea.title);let candidate=base,n=2;

@@ -21,6 +21,12 @@ export function quickPayload(model,title,rawId) {
   payload.id=rawId||slugify(payload[titleField]);
   return payload;
 }
+// The server marks models whose title-only payload fails SLDB's round-trip
+// (patterns, non-empty validators the schema does not expose). A descriptor
+// without the flag (remote backend) is assumed capturable.
+export function quickCapturable(model) {
+  return Boolean(model)&&model.quick_capture!==false;
+}
 // Reference search for the document modal: matches title, id and alias.
 export function searchDocuments(documents,query,limit=10) {
   const needle=String(query||'').trim().toLowerCase();

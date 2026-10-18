@@ -44,7 +44,8 @@ def quick_payload(descriptor, title, doc_id):
 
         else:
             payload[name] = ""
-    title_field = "name" if any(f.get("name") == "name" for f in descriptor["fields"]) else "title"
+    names = {f.get("name") for f in descriptor["fields"]}
+    title_field = "name" if "name" in names and "title" not in names else "title"
     payload[title_field] = title
     if "title" not in payload and "name" not in payload:
         payload["title"] = title
@@ -56,11 +57,25 @@ def test_quick_capture_payload_passes_sldb_roundtrip():
         import pytest
         pytest.skip("no dev store available")
     adapter = SldbAdapter(DEV_STORE)
-    failures = []
+    mismatches = []
     for descriptor in adapter.schema():
         doc_id = "qc-" + slugify(descriptor["id"]).lower()
         payload = quick_payload(descriptor, "Captura rápida de prueba", doc_id)
-        valid, details = adapter.validate_payload(descriptor["id"], payload)
-        if not valid:
-            failures.append((descriptor["id"], str(details)[:120]))
-    assert not failures, f"Modelos que rechazan la captura rápida: {failures}"
+        try:
+            valid, details = adapter.validate_payload(descriptor["id"], payload)
+        except Exception as exc:  # noqa: BLE001  (pydantic rechaza al renderizar)
+            valid, details = False, exc
+        # O el modelo acepta la captura, o el schema lo marca y la UI no la ofrece.
+        if valid != descriptor["quick_capture"]:
+            mismatches.append((descriptor["id"], descriptor["quick_capture"], str(details)[:120]))
+    assert not mismatches, f"quick_capture no refleja el round-trip real: {mismatches}"
+
+
+def test_models_with_validators_beyond_the_title_are_not_offered():
+    """CrossroadDoc exige path con patrón y content no vacío: no cabe en una captura."""
+    if not DEV_STORE.exists():
+        import pytest
+        pytest.skip("no dev store available")
+    flags = {d["id"]: d["quick_capture"] for d in SldbAdapter(DEV_STORE).schema()}
+    assert flags["CrossroadDoc"] is False
+    assert flags["AtomDoc"] is True

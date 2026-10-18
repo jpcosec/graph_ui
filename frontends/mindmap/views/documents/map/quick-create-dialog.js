@@ -1,11 +1,11 @@
 import {useState, useEffect, useRef} from 'react';
 import {html} from '../../../shared/html.js';
-import {titleOf, quickPayload, slugify} from '../../../shared/documents.mjs';
+import {titleOf, quickPayload, quickCapturable, slugify} from '../../../shared/documents.mjs';
 import {classStyle, classVar} from '../../../shared/classes.mjs';
 
 export function QuickCreateDialog({spec,models,documents,onClose,onApply}) {
   const parent=documents.find(d=>d.id===spec.parentId);
-  const choices=models.filter(m=>!spec.options||spec.options.some(o=>o.model===m.id));
+  const choices=models.filter(m=>quickCapturable(m)&&(!spec.options||spec.options.some(o=>o.model===m.id)));
   const [model,setModel]=useState(spec.model&&choices.some(m=>m.id===spec.model)?spec.model:choices[0]?.id);
   const [title,setTitle]=useState('');
   const [error,setError]=useState('');
