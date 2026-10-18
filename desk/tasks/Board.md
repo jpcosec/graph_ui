@@ -5,7 +5,6 @@ id: board-graph-ui
 scope: graph_ui
 # List of task-xxx paths
 tasks:
-- desk/tasks/001-define-graph-ui-data-contract.md
 - desk/tasks/002-define-minimal-editing-surface.md
 - desk/tasks/003-create-real-graph-fixture.md
 - desk/tasks/004-wire-reusable-editor-to-real-fixture.md
@@ -42,7 +41,6 @@ Phase B delivery tasks (adapter, encoding, layout, store, sidebar) are closed. k
 
 _Generated from the task references above._
 
-- Define graph UI data contract [resolved] - Define the canonical graph UI data contract that every render and edit path consumes.
 - Define minimal editing surface [resolved] - Define the minimal graph editing surface over the data contract.
 - Create real graph fixture [resolved] - Create a real graph fixture that complies with the `GraphData` contract.
 - Wire reusable editor to real fixture [resolved] - Wire the reusable editor architecture to the real fixture.
