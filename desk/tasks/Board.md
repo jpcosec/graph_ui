@@ -14,7 +14,6 @@ tasks:
 - desk/tasks/task-feed-hum-body-from-sldb-serve-remove-hardcoded-content.md
 - desk/tasks/task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n.md
 - desk/tasks/task-vista-specs-carriles-para-secuencias-y-grilla-para-matrices.md
-- desk/tasks/task-store-de-graph-ui-a-modelos-federados-de-sldb.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -55,4 +54,3 @@ _Generated from the task references above._
 - Feed hum-body from sldb serve (remove hardcoded content) [active] - Promote deferred work from task-hum-body-live-sldb.md.
 - Task: Cierre del paso 8 — compilador mindmap (tests de endpoints, verificación en navegador, contrato de exportación) [active] - Promote deferred work from task-mindmap-compiler-closeout.md.
 - Vista Specs: carriles para secuencias y grilla para matrices [ready_for_testing] - Las secuencias se dibujan en carriles con los mensajes ordenados en el tiempo y las matrices en una grilla de celdas, desde lo que devuelve resolve_view.
-- Store de graph_ui a modelos federados de sldb [ready_for_testing] - El store .sldb de graph_ui sobre modelos federados, con sldb stores check en PASS.
