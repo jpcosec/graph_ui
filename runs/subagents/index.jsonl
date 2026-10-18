@@ -17,3 +17,4 @@
 {"task_id": "task-review-workbench-nodedata-cerrado-y-un-solo-acceso-tipado-a-payload-value", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": "4dd7066e1f0f10bade90d3465711cc4f40d8fb60"}
 {"task_id": "task-feed-hum-body-from-sldb-serve-remove-hardcoded-content", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "superseded", "commit": null}
 {"task_id": "001", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "legacy-resolved", "commit": null}
+{"task_id": "002", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "legacy-resolved", "commit": null}
