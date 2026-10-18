@@ -4,7 +4,7 @@ import dagre from 'dagre';
 import {html} from '../../../shared/html.js';
 import {request} from '../../../shell/api.js';
 import {useSource} from '../../../source/source.js';
-import {specCatalog, buildScene, byDepth, compartmentLine, POINT_SHAPES, TERMINALS} from './notation.mjs';
+import {specCatalog, sceneFor, byDepth, compartmentLine, cellKey, LANE, POINT_SHAPES, TERMINALS} from './notation.mjs';
 
 // Vista genérica de notación: dibuja un spec de spec2viz tal como lo resuelve
 // GET /api/notation/view (resolve_view de spec2viz). Nada aquí distingue UML,
@@ -49,22 +49,71 @@ function layout(scene) {
   });
 }
 
-function GlyphNode({data, selected}) {
-  const {glyph: g, container, direction} = data;
-  const [inPos, outPos] = HANDLES[direction] || HANDLES.TB;
+// Cuerpo del glifo, sin handles: lo usan los nodos de React Flow y las
+// cabeceras de carril (que no viven dentro de React Flow).
+function Glyph({glyph: g, container, selected, children, style}) {
   const point = POINT_SHAPES.includes(g.shape);
   const label = html`<span className=${'glyph-label' + (g.label_style ? ' is-' + g.label_style : '')}>${g.label}</span>`;
   const compartments = (g.compartments || []).filter(c => c.items && c.items.length);
-  return html`<div className=${'glyph shape-' + g.shape + (container ? ' is-container' : '') + (selected ? ' selected' : '')}
+  return html`<div className=${'glyph shape-' + g.shape + (container ? ' is-container' : '') + (selected ? ' selected' : '')} style=${style}
       data-doc=${g.doc} data-glyph=${g.glyph} data-function=${g.function || ''} title=${g.doc}>
-    <${Handle} type="target" position=${inPos}/><${Handle} type="source" position=${outPos}/>
+    ${children}
     ${(g.markers || []).map(m => html`<span key=${m.id} className=${'glyph-marker marker-' + m.shape} title=${m.id} data-marker=${m.id}></span>`)}
     ${point ? html`<span className="glyph-point-label">${g.label}</span>`
       : html`<header className="glyph-head">${g.keyword ? html`<small className="glyph-keyword">${g.keyword}</small>` : ''}${label}</header>
         ${compartments.map(c => html`<ul key=${c.path} className="glyph-compartment" data-path=${c.path}>${c.items.map((item, i) => html`<li key=${i}>${compartmentLine(item)}</li>`)}</ul>`)}`}
   </div>`;
 }
+
+function GlyphNode({data, selected}) {
+  const [inPos, outPos] = HANDLES[data.direction] || HANDLES.TB;
+  return html`<${Glyph} glyph=${data.glyph} container=${data.container} selected=${selected}>
+    <${Handle} type="target" position=${inPos}/><${Handle} type="source" position=${outPos}/>
+  </${Glyph}>`;
+}
 const nodeTypes = {glyph: GlyphNode};
+
+// Carriles: cabecera = glifo del participante, línea de vida vertical, un
+// mensaje por fila en orden de `order`. Una autollamada es un bucle.
+function LanesDiagram({scene}) {
+  const {lanes, messages, head, lifelineTop, width, height} = scene;
+  return html`<div className="notation-lanes" style=${{width: width + 'px', height: height + 'px'}}>
+    ${lanes.map(l => html`<div key=${l.id} className="lane-head" data-lane=${l.id}
+        style=${{left: (l.x - l.width / 2) + 'px', top: (LANE.top + head - l.height) + 'px', width: l.width + 'px', height: l.height + 'px'}}>
+      <${Glyph} glyph=${l.glyph}/></div>`)}
+    <svg className="lanes-svg" width=${width} height=${height} aria-label="Mensajes">
+      ${lanes.map(l => html`<line key=${l.id} className="lifeline" data-lifeline=${l.id} x1=${l.x} x2=${l.x} y1=${lifelineTop} y2=${height - LANE.top}/>`)}
+      ${messages.map(m => {
+        const ends = {markerEnd: m.targetEnd ? `url(#nv-${m.targetEnd})` : undefined, markerStart: m.sourceEnd ? `url(#nv-${m.sourceEnd})` : undefined};
+        const path = m.self
+          ? `M${m.x1},${m.y - LANE.row / 3} h${LANE.loop} v${LANE.row / 3 * 2} h${-LANE.loop}`
+          : `M${m.x1},${m.y} L${m.x2},${m.y}`;
+        const tx = m.self ? m.x1 + LANE.loop + 6 : (m.x1 + m.x2) / 2, ty = m.self ? m.y + 4 : m.y - 6;
+        return html`<g key=${m.id} className="lane-message" data-message=${m.id} data-order=${m.order} data-from=${m.from} data-to=${m.to} data-y=${m.y}>
+          <path d=${path} className="message-line" strokeDasharray=${m.dash} markerEnd=${ends.markerEnd} markerStart=${ends.markerStart}/>
+          <text x=${tx} y=${ty} textAnchor=${m.self ? 'start' : 'middle'} className="message-label">${m.order}. ${m.label}</text>
+        </g>`;
+      })}
+    </svg>
+  </div>`;
+}
+
+// Grilla: una tabla por vista; columnas = stages, filas = components
+// (indentadas por anidado), celda marcada con su label. Una fila sin
+// celdas en una vista se dibuja vacía, no se omite.
+function GridDiagram({scene}) {
+  return html`<div className="notation-grids">${scene.grids.map(grid => html`<table key=${grid.view} className="notation-grid" data-view=${grid.view}>
+    <caption>${grid.label}</caption>
+    <thead><tr><th scope="col"></th>${grid.columns.map(c => html`<th key=${c.id} scope="col" data-col=${c.id}>${c.label}</th>`)}</tr></thead>
+    <tbody>${scene.rows.map(r => html`<tr key=${r.id} data-row=${r.id}>
+      <th scope="row" style=${{paddingLeft: (10 + r.depth * 16) + 'px'}} data-depth=${r.depth}>${r.label}</th>
+      ${grid.columns.map(c => {
+        const labels = scene.cells[cellKey(r.id, c.id)];
+        return html`<td key=${c.id} data-cell=${r.id + '|' + c.id} className=${labels ? 'is-filled' : ''} title=${labels ? labels.join(', ') : undefined}>${labels ? html`<span className="cell-mark">${labels.join(', ')}</span>` : ''}</td>`;
+      })}
+    </tr>`)}</tbody>
+  </table>`)}</div>`;
+}
 
 // Terminales como <marker> SVG propios: React Flow solo trae flechas.
 // orient=auto-start-reverse sirve el mismo marker para el origen.
@@ -117,9 +166,9 @@ function NotationCanvas({skin}) {
     return () => { cancelled = true; };
   }, [current]);
 
-  const scene = useMemo(() => (state.view ? buildScene(state.view) : null), [state.view]);
+  const scene = useMemo(() => (state.view ? sceneFor(state.view) : null), [state.view]);
   const [flowNodes, setFlowNodes] = useState([]);
-  useEffect(() => { setFlowNodes(scene ? layout(scene) : []); }, [scene]);
+  useEffect(() => { setFlowNodes(scene && scene.kind === 'graph' ? layout(scene) : []); }, [scene]);
   useEffect(() => { const t = setTimeout(() => fitView({padding: .12, maxZoom: 1.1, duration: 200}), 60); return () => clearTimeout(t); }, [flowNodes.length, scene, fitView]);
   const selected = flowNodes.find(n => n.selected)?.id || null;
 
@@ -136,14 +185,16 @@ function NotationCanvas({skin}) {
       <div className="notation-bar" role="toolbar" aria-label="Herramientas de la vista">
         <strong>${view ? view.title : current || 'Specs'}</strong>
         ${view ? html`<span className="notation-meta">${view.notation.replace(/^NotationDoc:/, '')} · ${view.nodes.length} elementos · ${view.links.length} relaciones</span>` : ''}
-        <button type="button" onClick=${() => fitView({padding: .12, duration: 200})}>⛶ Ver todo</button>
+        ${!scene || scene.kind === 'graph' ? html`<button type="button" onClick=${() => fitView({padding: .12, duration: 200})}>⛶ Ver todo</button>` : ''}
       </div>
       ${scene && scene.notices.length ? html`<div className="notation-notices" role="status">${scene.notices.map(n => html`<p key=${n}>${n}</p>`)}</div>` : ''}
       <div className="notation-canvas">
         <${TerminalDefs}/>
         ${!current ? html`<div className="state"><h2>Este store no tiene specs de spec2viz</h2><p>Sincroniza uno con <code>spec2viz diagram sync spec.yml --store .sldb</code>.</p></div>`
           : state.phase === 'error' ? html`<div className="state" role="alert"><h2>No se pudo dibujar ${current}</h2><p>${state.error}</p></div>`
-          : state.phase === 'loading' ? html`<div className="state"><p>Resolviendo la notación…</p></div>`
+          : state.phase === 'loading' || !scene ? html`<div className="state"><p>Resolviendo la notación…</p></div>`
+          : scene.kind === 'lanes' ? html`<div className="notation-scroll"><${LanesDiagram} scene=${scene}/></div>`
+          : scene.kind === 'grid' ? html`<div className="notation-scroll"><${GridDiagram} scene=${scene}/></div>`
           : html`<${ReactFlow} nodes=${flowNodes} edges=${scene ? edgesOf(scene, selected) : []} nodeTypes=${nodeTypes}
               onNodesChange=${changes => setFlowNodes(ns => applyNodeChanges(changes, ns))}
               minZoom=${.08} maxZoom=${2} nodesConnectable=${false} deleteKeyCode=${null} colorMode=${skin || 'light'}>

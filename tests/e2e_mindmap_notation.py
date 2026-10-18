@@ -8,6 +8,9 @@
    transición que sale del compuesto.
 4. El diagrama de clases muestra compartimentos con los atributos reales y
    terminales propias (triángulo hueco de la herencia).
+5. Una secuencia se dibuja en carriles (mensajes bajando por `order`, la
+   autollamada como bucle) y una matriz en grilla (celda en la intersección
+   fila × columna, filas indentadas por anidado).
 """
 import os
 import shutil
@@ -23,6 +26,7 @@ import pytest
 MINDMAP = Path(__file__).parents[1] / "frontends" / "mindmap"
 spec2viz = pytest.importorskip("spec2viz")
 PILOTS = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz"
+MATRIX = Path(spec2viz.__file__).resolve().parents[1] / "tests/fixtures/matrix.quotation-view.yml"
 
 try:
     from playwright.sync_api import sync_playwright
@@ -30,10 +34,11 @@ except ImportError:  # pragma: no cover
     sync_playwright = None
 
 PORT = 8157
+LANES_PORT = 8159
 
 
-def _store():
-    pilots = [PILOTS / "state-diagram-sync-lifecycle.yml", PILOTS / "class-sldb-models.yml"]
+def _store(pilots=None):
+    pilots = pilots or [PILOTS / "state-diagram-sync-lifecycle.yml", PILOTS / "class-sldb-models.yml"]
     if not all(p.exists() for p in pilots) or not shutil.which("spec2viz"):
         pytest.skip("sin los pilotos o el CLI de spec2viz")
     root = Path(tempfile.mkdtemp(prefix="kb-e2e-notation-"))
@@ -45,15 +50,15 @@ def _store():
     return root / ".sldb"
 
 
-def _start_server(store):
+def _start_server(store, port=PORT):
     server = subprocess.Popen(
-        [sys.executable, str(MINDMAP / "serve.py"), str(PORT)],
+        [sys.executable, str(MINDMAP / "serve.py"), str(port)],
         cwd=str(MINDMAP), env={**os.environ, "SLDB_STORE": str(store), "GRAPH_UI_BACKEND": "local"},
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     for _ in range(60):
         time.sleep(0.25)
         try:
-            urllib.request.urlopen(f"http://127.0.0.1:{PORT}/api/graph", timeout=1)
+            urllib.request.urlopen(f"http://127.0.0.1:{port}/api/graph", timeout=1)
             return server
         except Exception:
             continue
@@ -103,6 +108,67 @@ def test_specs_view_draws_nest_markers_compartments_and_terminals():
             attrs = page.locator('[data-doc="SpecNodeDoc:class.sldb-models.SpecDoc"] .glyph-compartment li').all_inner_texts()
             assert "id: str" in attrs and any(a.startswith("nodes:") for a in attrs), attrs
             assert page.locator('.react-flow__edge path[marker-end*="nv-hollow-triangle"]').count() >= 1
+            assert not errors, errors
+            browser.close()
+    finally:
+        server.terminate()
+        server.wait(timeout=10)
+
+
+def test_specs_view_draws_sequences_in_lanes_and_matrices_in_a_grid():
+    if sync_playwright is None:
+        pytest.skip("playwright no está instalado")
+    server = _start_server(_store([PILOTS / "sequence-render-pipeline.yml", MATRIX,
+                                   PILOTS / "matrix-pipeline-coverage.yml"]), LANES_PORT)
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1400, "height": 900})
+            errors = []
+            page.on("pageerror", lambda e: errors.append(str(e)))
+            page.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
+            page.goto(f"http://127.0.0.1:{LANES_PORT}/specs/notation")
+            page.wait_for_selector(".notation-catalog button", timeout=15000)
+
+            page.click('[data-spec="sequence.render-pipeline"]')
+            page.wait_for_selector(".lane-message", timeout=15000)
+            assert page.locator(".notation-notices").count() == 0
+            heads = page.locator(".lane-head").evaluate_all("els => els.map(e => [e.dataset.lane.split('.').pop(), e.getBoundingClientRect().x])")
+            assert [h[0] for h in heads] == ["User", "CLI", "Facade", "Loader", "Validator", "Compiler", "Renderer", "Disk"]
+            assert all(heads[i][1] < heads[i + 1][1] for i in range(len(heads) - 1))
+            messages = page.locator(".lane-message").evaluate_all(
+                "els => els.map(e => [Number(e.dataset.order), e.getBoundingClientRect().y, e.dataset.from === e.dataset.to])")
+            assert [m[0] for m in messages] == list(range(1, 15))
+            assert all(messages[i][1] < messages[i + 1][1] for i in range(len(messages) - 1)), "el tiempo baja"
+            assert [m[0] for m in messages if m[2]] == [4], "la autollamada del Loader es el mensaje 4"
+            ret = page.locator('.lane-message[data-order="5"] .message-line')
+            assert ret.get_attribute("stroke-dasharray") == "6 4" and "nv-open-arrow" in ret.get_attribute("marker-end")
+
+            page.click('[data-spec="matrix.quotation-view"]')
+            page.wait_for_selector(".notation-grid", timeout=15000)
+            assert page.locator(".notation-notices").count() == 0
+            assert page.locator(".notation-grid caption").inner_text() == "Quotation View"
+            cols = page.locator(".notation-grid thead th[data-col]").all_inner_texts()
+            assert [c.strip() for c in cols] == ["browse", "client", "basket", "validation", "completed"]
+            depths = page.locator(".notation-grid tbody th").evaluate_all("els => els.map(e => [e.textContent, Number(e.dataset.depth)])")
+            assert depths == [["QuotationFlow", 0], ["Store", 1], ["Basket", 1], ["BasketItem", 2]]
+            # La celda marcada está en la columna de su stage y la fila de su componente.
+            row = page.locator('.notation-grid tr[data-row$=".BasketItem"]')
+            filled = row.locator("td").evaluate_all("tds => tds.map(td => td.classList.contains('is-filled'))")
+            assert filled == [False, False, True, True, False]
+            cell = row.locator("td.is-filled").first.bounding_box()
+            head = page.locator('.notation-grid thead th[data-col$=".quotation__basket"]').bounding_box()
+            assert abs((cell["x"] + cell["width"] / 2) - (head["x"] + head["width"] / 2)) < 2
+            assert page.locator("td.is-filled").count() == 12
+
+            # Piloto real de dos vistas: una tabla por vista, las filas vacías no se omiten.
+            page.click('[data-spec="matrix.pipeline-coverage"]')
+            page.wait_for_selector(".notation-grid caption >> text=Store sync", timeout=15000)
+            assert page.locator(".notation-grid caption").all_inner_texts() == ["Render pipeline", "Store sync"]
+            assert page.locator(".notation-grid").nth(0).locator("tbody tr").count() == 12
+            assert page.locator(".notation-grid").nth(1).locator("tbody tr").count() == 12
+            assert page.locator("td.is-filled").count() == 30
+            assert page.locator(".notation-notices").count() == 0
             assert not errors, errors
             browser.close()
     finally:

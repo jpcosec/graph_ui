@@ -53,9 +53,14 @@ las clases, que es la misma en ambos temas.
   uno pide `GET /api/notation/view?spec=`, que delega en
   `spec2viz.notation_view.resolve_view`: graph_ui no casa glifos ni evalúa
   `where`, solo dibuja forma, compartimentos, marcas y terminales tal como
-  vienen. `draw: nest` es contención (el destino dentro del origen). Los
-  layouts y dibujos que aún no tiene (`lanes`, `grid`, `cell`, `axis`) se
-  dibujan como grafo y línea, con aviso. Requiere spec2viz instalado y modo
+  vienen. `draw: nest` es contención (el destino dentro del origen). Layout
+  `lanes` (secuencias): un carril por nodo en el orden de `nodes`, mensajes
+  bajando por `order`, autollamada como bucle en su propia fila. Layout
+  `grid` (matrices): una tabla por `data.view` de los stages, columnas por
+  `data.order`, filas = components indentados por `nest`, celda = link
+  `cell` (fila → columna); una fila sin celdas se dibuja vacía. Lo que aún
+  no tiene (`axis`, `draw: lane`) se dibuja como grafo y línea, con aviso.
+  Requiere spec2viz instalado y modo
   local (en remote, 501). Solo lectura. Contrato:
   `spec2viz/docs/notation-contract.md`.
 
