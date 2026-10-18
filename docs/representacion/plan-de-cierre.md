@@ -21,7 +21,7 @@ las revisiones grandes de capas están en [`capas.md`](capas.md) §8 y aquí sol
 |---|---|---|---|
 | D1 | `(created)` como sustantivo de cualquier `move` (spec 13) | asociación UML en un movimiento; insertar un mensaje de secuencia | extender las formas: es lo que `compose` ya hace por dentro |
 | D2 | Lectura estructurada con proyección para superficies que no hablan | quitar la copia en JS de proyección y `display` | que el contrato de runtime la ofrezca (spec 12); mientras tanto `graph_ui` aplica `World.projection()` |
-| D3 | Dónde viven los modelos del vocabulario visual (`NotationDoc`, `GlyphDoc`, `LinkDoc`, `GestureDoc`) y si `kgdb` genera aristas `names` para toda familia con `ref` | validar notaciones rotas en el ingest | modelos en `graph_ui`, registrados en el mundo; generalizar el ingest en `kgdb` |
+| D3 | Dónde viven los modelos del vocabulario visual (`NotationDoc`, `GlyphDoc`, `LinkDoc`, `GestureDoc`) y si `kgdb` genera aristas `names` para toda familia con `ref` | validar notaciones rotas en el ingest | **Resuelta (2026-10-17), contra la recomendación original:** `NotationDoc`/`GlyphDoc`/`LinkDoc` viven en `spec2viz.sldb_models` y los escribe `spec2viz notation sync`; el único intérprete es `spec2viz.notation_view.resolve_view` (contrato: `spec2viz/docs/notation-contract.md`). `GestureDoc` y el edit-back siguen en `graph_ui`. Los `ref` son campos planos (`model`/`where`, `relation` + `relation_type` en `__references__`), no formas de `pron`; la validación de notaciones rotas la hace `sync`, no el ingest de `kgdb`. |
 | D4 | Quién commitea los cambios pendientes de `sldb` | fijar versiones en `pron/constraints.txt` | la sesión dueña; después se fija el pin |
 | D5 | Revisiones pesadas de `pron` (capas §8.2–8.3) antes o después de las visualizaciones | alcance de la fase 3 | después: las dos visualizaciones, usando solo el contrato estable (spec 12), definen qué tiene que ofrecer el núcleo |
 
@@ -59,11 +59,11 @@ commit y push de cada repo.
    store servido y una `Session` por vista (`speaker = graph_ui:<vista>:<id>`), evalúa y devuelve `outcome`, `text`,
    `record["writes"]` y `move_id`. Prueba real en `tests/` con un mundo temporal: afirmación aceptada, condición
    rechazada sin escritura, `undo`.
-2. **El vocabulario visual como documentos**: los modelos de D3 y un validador (partiendo de
-   [`validar-vocabulario.py`](propuesta-vocabulario-visual.assets/validar-vocabulario.py), con `ref` como formas).
-   Declarar `uml-clases` y `uml-secuencia` como documentos en sus mundos de ejemplo.
-3. **Una sola vista de notación**, genérica (`views/notation/…`, una línea en `shell/registry.js`), que lee el
-   `NotationDoc` elegido y dibuja con primitivas: caja con compartimentos, línea con terminales, arista reificada
+2. **El vocabulario visual como documentos**: ya no es trabajo de `graph_ui` (D3). Lo hace `spec2viz`: ocho
+   notaciones builtin y su validador (`spec2viz notation validate`) en el store de `spec2viz`.
+3. **Una sola vista de notación**, genérica (`views/notation/…`, una línea en `shell/registry.js`), que sirve
+   `resolve_view` como `/api/notation/view?spec=` y dibuja con primitivas lo que devuelve, sin reinterpretar el
+   contrato: caja con compartimentos, línea con terminales, arista reificada
    colapsada, ejes (categórico y ordinal) para secuencia. Nada que distinga UML en el código.
 4. **Paleta de gestos** desde `World.relation_types()` y la proyección (un endpoint que junte eso con los
    `GestureDoc`); cada gesto llena su `form` y llama a `/api/eval`.
