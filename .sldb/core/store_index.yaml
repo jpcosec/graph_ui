@@ -47,15 +47,6 @@ models:
   family: null
   semantics: []
   origin: deskops
-- name: FAQDoc
-  model_ref: deskops.models:FAQDoc
-  path: ''
-  models_index: .sldb/core/models/FAQDoc.yaml
-  version: 1
-  canonical: false
-  family: null
-  semantics: []
-  origin: deskops
 - name: InboxNoteDoc
   model_ref: deskops.models:InboxNoteDoc
   path: ''
@@ -173,6 +164,19 @@ models:
   family: null
   semantics: []
   origin: deskops
+- name: DeskFAQDoc
+  model_ref: deskops.models:DeskFAQDoc
+  path: ''
+  models_index: .sldb/core/models/DeskFAQDoc.yaml
+  version: 1
+  canonical: false
+  family: null
+  semantics:
+  - representation.markdown
+  - source.document.markdown
+  - type.documentation.faq
+  - workspace.docs.faq
+  origin: deskops
 predicates:
 - name: has_model
   axis: WHAT
@@ -229,4 +233,4 @@ predicates:
   axis: WHERE
   description: 'The store links that store under an alias (`stores add`): it reads
     its documents and inherits its models.'
-store_hash: 3af4432de1c38f252921f61cea1de40ff62ae2a0167cf4505e1ef4850bb8d755
+store_hash: 7e8fdc4a780ab3f3e87d848b690e5f3abdfe50bf8fa281c1c01b831701868ce0
