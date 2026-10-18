@@ -15,6 +15,7 @@ de código están copiados de documentación oficial o de los repositorios ofici
 | [vowl.md](vowl.md) | Notación visual para ontologías OWL | Notación para un metamodelo de conocimiento; colores por función; reglas de división | escrito |
 | [structurizr-c4.md](structurizr-c4.md) | Arquitectura como código (modelo C4) | Un solo modelo, muchas vistas; tags → estilos; relaciones implícitas entre niveles | escrito |
 | [spec2viz.md](spec2viz.md) | Herramienta propia del ecosistema | Modelo semántico → IR tipado → renderer; `kind` vs `style`; qué le falta | escrito |
+| [apps-react-flow/](apps-react-flow/) | Lectura de código de tres apps hechas con React Flow: liam (ERD), otelbin (pipelines OpenTelemetry), prismaliser (esquemas Prisma) | Layout ELK con tamaños medidos, nodos colapsables y medición antes del layout (útil para los issues de layout y colapso de review-workbench) | escrito (2026-08, rutas `/tmp/loot` ya no existen) |
 
 ## Comparación
 
