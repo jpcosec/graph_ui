@@ -4,7 +4,7 @@
    (BoardDoc contiene TaskDoc por `tasks`; TaskDoc referencia por `blocks`,
    que en el fixture apunta a otra TaskDoc: una auto-relación inferida).
 2. La pestaña «Schema» dibuja una card por clase y tres tipos de arista:
-   contención declarada (◆, etiquetada con el campo), relación kgdb
+   contención declarada (◆, etiquetada con el campo), relación sldb
    (RelationTypeDoc declarado y/u observado en RelationDoc, cabecera a
    cabecera) y referencia inferida (⇢, destino deducido de los documentos
    reales cuando el schema no declara la clase destino).
@@ -47,7 +47,7 @@ def _compile(store):
 
 
 # Modelo inline sin containment/references declarados, igual que en
-# tests/e2e_mindmap_flow.py: la convención kgdb RelationDoc (source_id/
+# tests/e2e_mindmap_flow.py: la convención RelationDoc de sldb (source_id/
 # target_id string, aquí además relation_type) se reconoce estructuralmente
 # (isRelationDocument en source/graph.mjs), nunca por nombre de clase ni
 # metadatos de schema. Sin un RelationTypeDoc que lo declare, `depends` solo
@@ -175,9 +175,9 @@ def test_schema_view_draws_classes_and_containment():
         shutil.rmtree(tmp, ignore_errors=True)
 
 
-def test_schema_view_draws_relation_and_reference_edges_from_kgdb_documents():
+def test_schema_view_draws_relation_and_reference_edges_from_relation_documents():
     """Sobre el mismo store, se agrega LinkDoc/link-1 (ver LINK_SOURCE arriba):
-    un documento-relación kgdb sin RelationTypeDoc que lo declare. La Schema
+    un documento-relación sldb sin RelationTypeDoc que lo declare. La Schema
     view debe dibujar la relación observada (cabecera a cabecera, con su
     conteo) aunque nadie la haya declarado, y seguir mostrando la referencia
     inferida `blocks` (TaskDoc -> TaskDoc) del fixture base.
@@ -227,5 +227,5 @@ def test_schema_view_draws_relation_and_reference_edges_from_kgdb_documents():
 
 if __name__ == "__main__":
     test_schema_view_draws_classes_and_containment()
-    test_schema_view_draws_relation_and_reference_edges_from_kgdb_documents()
+    test_schema_view_draws_relation_and_reference_edges_from_relation_documents()
     print("OK")

@@ -1,8 +1,8 @@
 // Pure layout data for the Schema view: CLASS graph (not documents) from
 // /api/schema, with three kinds of typed edges:
 // - containment (`kind:'containment'`): declared `__containment__`, unchanged.
-// - relation (`kind:'relation'`): a kgdb RelationTypeDoc-like document
-//   declares `source_types -> target_types`; a kgdb RelationDoc-like
+// - relation (`kind:'relation'`): an sldb RelationTypeDoc-like document
+//   declares `source_types -> target_types`; an sldb RelationDoc-like
 //   document (source_id/target_id) is an observed *instance* of one, merged
 //   in by (source class, type, target class) with a count. Declared-but-
 //   unseen relations keep `count:0`; observed-but-undeclared relations still

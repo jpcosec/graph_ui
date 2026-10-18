@@ -52,7 +52,7 @@ def _compile(store):
 # del compilador (sin genéricos anidados: dict[str, Any] y list[Any], no
 # list[dict[str, Any]]). El filtrado en la UI es nominal por model_name
 # (ProjectionDoc es un modelo real y nombrado, no una convención estructural
-# como RelationDoc/RelationTypeDoc de kgdb).
+# como RelationDoc/RelationTypeDoc de sldb).
 PROJECTION_SOURCE = {
     "version": 1,
     "models": [{

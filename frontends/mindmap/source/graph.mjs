@@ -13,23 +13,23 @@ export const CONTAINMENT = {
   RitualDoc:{steps:['StepDoc']},
 };
 export const REFERENCE_FIELDS = new Set(['routine','current_node','entrypoint','source','target','source_id','target_id','condition_ref','condition_refs','allowed_transitions','decomposition','edges','tasks','pills','steps','depends_on','references','conditions','operators','checklists','grounding_atoms','atoms','rituals','terminal_nodes']);
-// A document IS an edge, structurally: kgdb's RelationDoc convention (and any
+// A document IS an edge, structurally: sldb's RelationDoc convention (and any
 // model that follows it) declares string source_id/target_id in its payload.
 // Deliberately not keyed by model_name/class — deskops' EdgeDoc uses
 // source/target instead and is a node with reference fields, not this.
 export function isRelationDocument(doc) {
   return typeof doc?.payload?.source_id==='string' && typeof doc?.payload?.target_id==='string';
 }
-// kgdb's RelationTypeDoc convention, structural like isRelationDocument: a
+// sldb's RelationTypeDoc convention, structural like isRelationDocument: a
 // document DECLARES a relation type when its payload has a string `name` and
 // array `source_types`/`target_types` — regardless of whether every listed
-// type is itself a registered class (abstract kgdb tokens like `sldb_model`
+// type is itself a registered class (abstract graph tokens like `sldb_model`
 // are filtered by the caller, not here).
 export function isRelationTypeDocument(doc) {
   const p=doc?.payload;
   return typeof p?.name==='string' && Array.isArray(p?.source_types) && Array.isArray(p?.target_types);
 }
-// Export-id alias, kgdb/pron convention (see pron's ids.py split_id/join_id):
+// Export-id alias, sldb/pron convention (see pron's ids.py split_id/join_id):
 // 'Model:doc' -> 'doc', 'Store:Model:doc' -> 'doc' (last ':'-segment); a bare
 // local id or path passes through unchanged.
 export function localIdOf(value) {

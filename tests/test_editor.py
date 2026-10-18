@@ -44,7 +44,7 @@ def test_node_deletion_cascade():
     
     updated_data = engine.apply_node_edit(data, edit)
     
-    # kgdb had 4 edges connected in the slice (orchestrates, persists_to, audits, visualizes)
+    # The "kgdb" node of the fixture had 4 edges connected in the slice (orchestrates, persists_to, audits, visualizes)
     assert len(updated_data.nodes) == 4
     assert len(updated_data.edges) == initial_edge_count - 4
     assert not any(e.source == "kgdb" or e.target == "kgdb" for e in updated_data.edges)

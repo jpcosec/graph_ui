@@ -44,7 +44,7 @@ def _compile(store):
 
 
 # Un modelo inline sin containment/references declarados, a propósito: la
-# convención kgdb RelationDoc (source_id/target_id string en el payload) se
+# convención RelationDoc de sldb (source_id/target_id string en el payload) se
 # reconoce estructuralmente (isRelationDocument en source/graph.mjs), nunca
 # por metadatos de schema ni por nombre de clase.
 LINK_SOURCE = {
@@ -156,7 +156,7 @@ def test_flow_view_draws_documents_as_a_directed_graph():
 
 
 def test_flow_view_collapses_relation_documents_into_edges():
-    """kgdb's RelationDoc convention (source_id/target_id string payload, no
+    """sldb's RelationDoc convention (source_id/target_id string payload, no
     __containment__/__references__ declared) collapses into one labeled edge
     between its endpoints by default; `.flow-relations-as-nodes` opts back
     into drawing it as its own node (see source/graph.mjs isRelationDocument

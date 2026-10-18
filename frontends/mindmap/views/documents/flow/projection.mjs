@@ -7,7 +7,7 @@
 // here, containment and reference alike, so the flow reads as one directed
 // graph instead of a tree with a side channel.
 //
-// kgdb's RelationDoc convention (a document that IS an edge: payload has
+// sldb's RelationDoc convention (a document that IS an edge: payload has
 // source_id/target_id, see source/graph.mjs isRelationDocument) collapses by
 // default into a single labeled edge between its two endpoints instead of a
 // third node floating between them — it is the relation, not a participant.

@@ -128,7 +128,7 @@ test('mixed stores keep per-model legacy fallback',()=>{
   assert.equal(graphMaps([{id:'XDoc',fields:[]}]),null);
 });
 
-test('localIdOf strips an export-id prefix (kgdb/pron Model:doc, Store:Model:doc convention)',()=>{
+test('localIdOf strips an export-id prefix (sldb/pron Model:doc, Store:Model:doc convention)',()=>{
   assert.equal(localIdOf('SurfaceDoc:x'),'x');
   assert.equal(localIdOf('A:SurfaceDoc:x'),'x');
   assert.equal(localIdOf('x'),'x');
@@ -142,7 +142,7 @@ test('isRelationDocument: a document IS an edge when its payload has string sour
   assert.ok(!isRelationDocument(null));
 });
 
-test('relationships() resolves kgdb export ids (Model:doc) to the plain document id in legacy mode',()=>{
+test('relationships() resolves sldb export ids (Model:doc) to the plain document id in legacy mode',()=>{
   const surface={id:'surface-a',model_name:'SurfaceDoc',payload:{title:'Surface A'}};
   const relation={id:'rel-1',model_name:'RelationDoc',payload:{title:'implements--SurfaceDoc:surface-a--SpecDoc:spec-1',source_id:'SurfaceDoc:surface-a',target_id:'SpecDoc:spec-1',relation_type:'implements'}};
   const links=relationships([surface,relation]);
@@ -239,7 +239,7 @@ test('schemaGraph: relaciones declaradas por un RelationTypeDoc ignoran extremos
     {id:'CliCommandDoc',model_ref:'m:CliCommandDoc',containment:{},references:[],fields:[{name:'id',kind:'string'}]},
   ];
   const docs=[
-    // sldb_model es un token abstracto de kgdb, no una clase registrada: no genera arista.
+    // sldb_model es un token abstracto del grafo de sldb, no una clase registrada: no genera arista.
     {id:'rt1',model_name:'RelationTypeDoc',payload:{name:'implements',source_types:['SurfaceDoc','CliCommandDoc','sldb_model'],target_types:['SpecDoc']}},
     {id:'surface-x',model_name:'SurfaceDoc',payload:{}},
     {id:'surface-y',model_name:'SurfaceDoc',payload:{}},
@@ -338,7 +338,7 @@ test('flowGraph respects declared schema metadata over the legacy fallback',()=>
   assert.ok(edges.find(e=>e.source==='t1'&&e.target==='t1-other'&&e.field==='blocks'&&e.contains===false));
 });
 
-test('flowGraph collapses a kgdb RelationDoc into one labeled edge and drops its node',()=>{
+test('flowGraph collapses an sldb RelationDoc into one labeled edge and drops its node',()=>{
   const source={id:'surface-pron-world',model_name:'SurfaceDoc',payload:{title:'World'}};
   const target={id:'spec-01',model_name:'SpecDoc',payload:{title:'Spec 01'}};
   const relation={id:'rel-1',model_name:'RelationDoc',payload:{title:'implements--SurfaceDoc:surface-pron-world--SpecDoc:spec-01',source_id:'SurfaceDoc:surface-pron-world',target_id:'SpecDoc:spec-01',relation_type:'implements'}};

@@ -133,7 +133,7 @@ function SchemaCanvas({skin,onModalChange}) {
         <${MiniMap} pannable zoomable nodeColor=${n=>resolveToken('--class-color-'+classStyle(n.id).slot)} ariaLabel="Vista general del diagrama"/>
       </${ReactFlow}>
       <div className="schema-legend"><span><i className="legend-contain"></i>◆ Contención: la flecha sale del campo que guarda los IDs de la clase destino</span>
-        <span><i className="legend-relation"></i>Relación: tipo declarado por un RelationTypeDoc y/u observado en documentos de relación (kgdb), cabecera a cabecera; punteada = declarada pero sin instancias</span>
+        <span><i className="legend-relation"></i>Relación: tipo declarado por un RelationTypeDoc y/u observado en documentos de relación (sldb), cabecera a cabecera; punteada = declarada pero sin instancias</span>
         <span><i className="legend-ref"></i>⇢ Referencia: campo con IDs; el destino se infiere de los documentos reales cuando no hay clase declarada</span>
         <span><b>*</b> obligatorio · <b>?</b> destino inferido, no declarado · doble clic o ✎ abre el editor de la clase</span></div>
       ${!graph.nodes.length?html`<div className="state"><h2>Este store no tiene clases registradas</h2></div>`:''}

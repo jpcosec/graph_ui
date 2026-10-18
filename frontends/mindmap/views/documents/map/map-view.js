@@ -35,7 +35,7 @@ function MapCanvas({skin,onModalChange}) {
   const canvasRef=useRef(null);
   const [selected,setSelected]=useState(null),[modal,setModal]=useState(null),[connecting,setConnecting]=useState(null);
   const [query,setQuery]=useState(''),[activeClass,setActiveClass]=useState(null);
-  // null = automático: un store sin contención (p. ej. pron/kgdb, donde las
+  // null = automático: un store sin contención (p. ej. pron/sldb, donde las
   // relaciones son documentos aparte) mostraría un mapa mudo con las
   // referencias ocultas; el usuario puede fijarlo con la casilla.
   const [showRelations,setShowRelations]=useState(null),[sidebarOpen,setSidebarOpen]=useState(false),[focusId,setFocusId]=useState(null);

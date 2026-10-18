@@ -4,7 +4,7 @@ import {isRelationDocument, isRelationTypeDocument, buildAliases, resolveAlias} 
 import {titleOf} from '../shared/documents.mjs';
 
 // Nominal, not structural: ProjectionDoc is a real, named pron/sldb model
-// (unlike kgdb's RelationDoc convention), so matching by model_name is right.
+// (unlike sldb's RelationDoc convention), so matching by model_name is right.
 export function isProjectionDocument(doc) {
   return doc?.model_name === 'ProjectionDoc';
 }
