@@ -14,7 +14,7 @@ from __future__ import annotations
 import os
 import re
 
-from sldb_adapter import AdapterError, SldbAdapter
+from mindmap.sldb_adapter import AdapterError, SldbAdapter
 
 SaveError = AdapterError
 

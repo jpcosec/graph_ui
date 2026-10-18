@@ -1,3 +1,46 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "graph-ui"
+version = "0.1.0"
+description = "Editor visual de una KB SLDB: el mindmap (frontends/mindmap) como paquete `mindmap`."
+requires-python = ">=3.11"
+dependencies = [
+    "structuredLanguageDB>=0.1.9",
+    "kgdb>=0.1.0",
+    "pron>=1.0.0",
+]
+
+[project.optional-dependencies]
+# Vista Specs: /api/notation/view delega en spec2viz.notation_view.resolve_view.
+notation = ["spec2viz>=0.1.0"]
+test = [
+    "pytest>=8",
+    "playwright>=1.40",
+    "deskops>=0.1.0",
+    "spec2viz>=0.1.0",
+]
+
+[project.scripts]
+graph-ui = "mindmap.serve:main"
+
+[tool.setuptools]
+package-dir = { "mindmap" = "frontends/mindmap" }
+packages = ["mindmap"]
+
+[tool.setuptools.package-data]
+# La UI no tiene build: el servidor sirve estos archivos desde el paquete.
+mindmap = [
+    "index.html",
+    "*.js",
+    "**/*.js",
+    "**/*.mjs",
+    "**/*.css",
+    "fixtures/*.json",
+]
+
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 asyncio_default_fixture_loop_scope = "function"

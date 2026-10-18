@@ -23,13 +23,8 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-# Módulos hermanos: garantiza carga aislada (tests, CLI desde otro cwd).
-_HERE = Path(__file__).resolve().parent
-if str(_HERE) not in sys.path:
-    sys.path.insert(0, str(_HERE))
-
-import contract as kb_contract
-from sldb_adapter import AdapterError, SldbAdapter
+from mindmap import contract as kb_contract
+from mindmap.sldb_adapter import AdapterError, SldbAdapter
 
 
 IDENTIFIER = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")

@@ -8,3 +8,5 @@ desk/config.local.json
 runs/*
 !runs/subagents/
 node_modules/
+*.egg-info/
+.claude/worktrees/

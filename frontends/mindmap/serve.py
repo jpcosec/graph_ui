@@ -413,7 +413,7 @@ class ProxyHandler(SimpleHTTPRequestHandler):
                     self.json_response(self.editor_store.save(request))
                     return
                 if route.startswith('/api/models/'):
-                    from models_service import (detail as _detail, list_models as _list_models,
+                    from mindmap.models_service import (detail as _detail, list_models as _list_models,
                         template_edit as _template_edit, fields_add as _fields_add,
                         fields_remove as _fields_remove, validate as _validate, promote as _promote)
                     action = route.rsplit('/', 1)[-1]
@@ -462,8 +462,8 @@ def _build_local_handler(store):
     pron. Si la dependencia falta, falla con el mismo ModuleNotFoundError de
     siempre.
     """
-    from persistence import EditorStore, SaveError
-    from compilation import CompilationService
+    from mindmap.persistence import EditorStore, SaveError
+    from mindmap.compilation import CompilationService
     backend = EditorStore(store)
     return type('EditorHandler', (ProxyHandler,), {
         'editor_store': backend, 'compilation': CompilationService(backend.adapter),
@@ -479,8 +479,9 @@ def make_server(port=8088, store=None):
     return ThreadingHTTPServer(('127.0.0.1', port), handler)
 
 
-if __name__ == '__main__':
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8088
+def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
+    port = int(argv[0]) if argv else 8088
     try:
         server = make_server(port)
     except OSError as exc:
@@ -494,3 +495,7 @@ if __name__ == '__main__':
     else:
         print(f'KB Mindmap: http://127.0.0.1:{port}/ · store: {server.RequestHandlerClass.editor_store.store}', flush=True)
     server.serve_forever()
+
+
+if __name__ == '__main__':
+    main()

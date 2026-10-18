@@ -4,8 +4,8 @@ import json
 import threading
 from pathlib import Path
 
-from compiler import CompileError, compile_json, plan_source, validate_source
-from contract import validate
+from mindmap.compiler import CompileError, compile_json, plan_source, validate_source
+from mindmap.contract import validate
 
 # Model imports used by the compiler have process-global caches.
 COMPILER_LOCK = threading.RLock()
