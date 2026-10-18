@@ -1,0 +1,430 @@
+{
+  "spec": "SpecDoc:matrix.quotation-view",
+  "title": "Quotation Flow - Component View Matrix",
+  "diagram_type": "component_view_matrix",
+  "notation": "NotationDoc:component-view-matrix",
+  "level": "types",
+  "layout": {
+    "kind": "grid"
+  },
+  "nodes": [
+    {
+      "doc": "SpecNodeDoc:matrix.quotation-view.quotation__browse",
+      "element": "quotation__browse",
+      "title": "browse",
+      "kind": "",
+      "collection": "stages",
+      "data": {
+        "view": "quotation",
+        "view_label": "Quotation View",
+        "order": 1
+      },
+      "glyph": "GlyphDoc:component-view-matrix.stage",
+      "shape": "column-header",
+      "function": "column",
+      "label": "browse",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:matrix.quotation-view.quotation__client",
+      "element": "quotation__client",
+      "title": "client",
+      "kind": "",
+      "collection": "stages",
+      "data": {
+        "view": "quotation",
+        "view_label": "Quotation View",
+        "order": 2
+      },
+      "glyph": "GlyphDoc:component-view-matrix.stage",
+      "shape": "column-header",
+      "function": "column",
+      "label": "client",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:matrix.quotation-view.quotation__basket",
+      "element": "quotation__basket",
+      "title": "basket",
+      "kind": "",
+      "collection": "stages",
+      "data": {
+        "view": "quotation",
+        "view_label": "Quotation View",
+        "order": 3
+      },
+      "glyph": "GlyphDoc:component-view-matrix.stage",
+      "shape": "column-header",
+      "function": "column",
+      "label": "basket",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:matrix.quotation-view.quotation__validation",
+      "element": "quotation__validation",
+      "title": "validation",
+      "kind": "",
+      "collection": "stages",
+      "data": {
+        "view": "quotation",
+        "view_label": "Quotation View",
+        "order": 4
+      },
+      "glyph": "GlyphDoc:component-view-matrix.stage",
+      "shape": "column-header",
+      "function": "column",
+      "label": "validation",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:matrix.quotation-view.quotation__completed",
+      "element": "quotation__completed",
+      "title": "completed",
+      "kind": "",
+      "collection": "stages",
+      "data": {
+        "view": "quotation",
+        "view_label": "Quotation View",
+        "order": 5
+      },
+      "glyph": "GlyphDoc:component-view-matrix.stage",
+      "shape": "column-header",
+      "function": "column",
+      "label": "completed",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:matrix.quotation-view.QuotationFlow",
+      "element": "QuotationFlow",
+      "title": "QuotationFlow",
+      "kind": "core",
+      "collection": "components",
+      "data": {
+        "stages": {
+          "quotation": [
+            "browse",
+            "client",
+            "basket",
+            "validation",
+            "completed"
+          ]
+        }
+      },
+      "glyph": "GlyphDoc:component-view-matrix.component",
+      "shape": "row-header",
+      "function": "row",
+      "label": "QuotationFlow",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:matrix.quotation-view.Store",
+      "element": "Store",
+      "title": "Store",
+      "kind": "boundary",
+      "collection": "components",
+      "data": {
+        "stages": {
+          "quotation": [
+            "browse",
+            "client",
+            "basket"
+          ]
+        }
+      },
+      "glyph": "GlyphDoc:component-view-matrix.boundary",
+      "shape": "row-header",
+      "function": "row",
+      "label": "Store",
+      "label_style": "italic",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:matrix.quotation-view.Basket",
+      "element": "Basket",
+      "title": "Basket",
+      "kind": "core",
+      "collection": "components",
+      "data": {
+        "stages": {
+          "quotation": [
+            "basket",
+            "validation"
+          ]
+        }
+      },
+      "glyph": "GlyphDoc:component-view-matrix.component",
+      "shape": "row-header",
+      "function": "row",
+      "label": "Basket",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    },
+    {
+      "doc": "SpecNodeDoc:matrix.quotation-view.BasketItem",
+      "element": "BasketItem",
+      "title": "BasketItem",
+      "kind": "core",
+      "collection": "components",
+      "data": {
+        "stages": {
+          "quotation": [
+            "basket",
+            "validation"
+          ]
+        }
+      },
+      "glyph": "GlyphDoc:component-view-matrix.component",
+      "shape": "row-header",
+      "function": "row",
+      "label": "BasketItem",
+      "label_style": "",
+      "keyword": "",
+      "compartments": [],
+      "markers": [],
+      "refs": []
+    }
+  ],
+  "links": [
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.QuotationFlow",
+      "target": "SpecNodeDoc:matrix.quotation-view.Store",
+      "relation": "contains",
+      "link": "LinkDoc:component-view-matrix.contains",
+      "doc": null,
+      "order": 0,
+      "condition": "",
+      "draw": "nest",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": ""
+    },
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.QuotationFlow",
+      "target": "SpecNodeDoc:matrix.quotation-view.Basket",
+      "relation": "contains",
+      "link": "LinkDoc:component-view-matrix.contains",
+      "doc": null,
+      "order": 0,
+      "condition": "",
+      "draw": "nest",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": ""
+    },
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.Basket",
+      "target": "SpecNodeDoc:matrix.quotation-view.BasketItem",
+      "relation": "contains",
+      "link": "LinkDoc:component-view-matrix.contains",
+      "doc": null,
+      "order": 0,
+      "condition": "",
+      "draw": "nest",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": ""
+    },
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.QuotationFlow",
+      "target": "SpecNodeDoc:matrix.quotation-view.quotation__browse",
+      "relation": "occupies",
+      "link": "LinkDoc:component-view-matrix.occupies",
+      "doc": "RelationDoc:matrix.quotation-view.01-QuotationFlow__occupies__quotation__browse",
+      "order": 1,
+      "condition": "",
+      "draw": "cell",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "quotation"
+    },
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.QuotationFlow",
+      "target": "SpecNodeDoc:matrix.quotation-view.quotation__client",
+      "relation": "occupies",
+      "link": "LinkDoc:component-view-matrix.occupies",
+      "doc": "RelationDoc:matrix.quotation-view.02-QuotationFlow__occupies__quotation__client",
+      "order": 2,
+      "condition": "",
+      "draw": "cell",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "quotation"
+    },
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.QuotationFlow",
+      "target": "SpecNodeDoc:matrix.quotation-view.quotation__basket",
+      "relation": "occupies",
+      "link": "LinkDoc:component-view-matrix.occupies",
+      "doc": "RelationDoc:matrix.quotation-view.03-QuotationFlow__occupies__quotation__basket",
+      "order": 3,
+      "condition": "",
+      "draw": "cell",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "quotation"
+    },
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.QuotationFlow",
+      "target": "SpecNodeDoc:matrix.quotation-view.quotation__validation",
+      "relation": "occupies",
+      "link": "LinkDoc:component-view-matrix.occupies",
+      "doc": "RelationDoc:matrix.quotation-view.04-QuotationFlow__occupies__quotation__validation",
+      "order": 4,
+      "condition": "",
+      "draw": "cell",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "quotation"
+    },
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.QuotationFlow",
+      "target": "SpecNodeDoc:matrix.quotation-view.quotation__completed",
+      "relation": "occupies",
+      "link": "LinkDoc:component-view-matrix.occupies",
+      "doc": "RelationDoc:matrix.quotation-view.05-QuotationFlow__occupies__quotation__completed",
+      "order": 5,
+      "condition": "",
+      "draw": "cell",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "quotation"
+    },
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.Store",
+      "target": "SpecNodeDoc:matrix.quotation-view.quotation__browse",
+      "relation": "occupies",
+      "link": "LinkDoc:component-view-matrix.occupies",
+      "doc": "RelationDoc:matrix.quotation-view.06-Store__occupies__quotation__browse",
+      "order": 6,
+      "condition": "",
+      "draw": "cell",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "quotation"
+    },
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.Store",
+      "target": "SpecNodeDoc:matrix.quotation-view.quotation__client",
+      "relation": "occupies",
+      "link": "LinkDoc:component-view-matrix.occupies",
+      "doc": "RelationDoc:matrix.quotation-view.07-Store__occupies__quotation__client",
+      "order": 7,
+      "condition": "",
+      "draw": "cell",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "quotation"
+    },
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.Store",
+      "target": "SpecNodeDoc:matrix.quotation-view.quotation__basket",
+      "relation": "occupies",
+      "link": "LinkDoc:component-view-matrix.occupies",
+      "doc": "RelationDoc:matrix.quotation-view.08-Store__occupies__quotation__basket",
+      "order": 8,
+      "condition": "",
+      "draw": "cell",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "quotation"
+    },
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.Basket",
+      "target": "SpecNodeDoc:matrix.quotation-view.quotation__basket",
+      "relation": "occupies",
+      "link": "LinkDoc:component-view-matrix.occupies",
+      "doc": "RelationDoc:matrix.quotation-view.09-Basket__occupies__quotation__basket",
+      "order": 9,
+      "condition": "",
+      "draw": "cell",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "quotation"
+    },
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.Basket",
+      "target": "SpecNodeDoc:matrix.quotation-view.quotation__validation",
+      "relation": "occupies",
+      "link": "LinkDoc:component-view-matrix.occupies",
+      "doc": "RelationDoc:matrix.quotation-view.10-Basket__occupies__quotation__validation",
+      "order": 10,
+      "condition": "",
+      "draw": "cell",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "quotation"
+    },
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.BasketItem",
+      "target": "SpecNodeDoc:matrix.quotation-view.quotation__basket",
+      "relation": "occupies",
+      "link": "LinkDoc:component-view-matrix.occupies",
+      "doc": "RelationDoc:matrix.quotation-view.11-BasketItem__occupies__quotation__basket",
+      "order": 11,
+      "condition": "",
+      "draw": "cell",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "quotation"
+    },
+    {
+      "source": "SpecNodeDoc:matrix.quotation-view.BasketItem",
+      "target": "SpecNodeDoc:matrix.quotation-view.quotation__validation",
+      "relation": "occupies",
+      "link": "LinkDoc:component-view-matrix.occupies",
+      "doc": "RelationDoc:matrix.quotation-view.12-BasketItem__occupies__quotation__validation",
+      "order": 12,
+      "condition": "",
+      "draw": "cell",
+      "line": "solid",
+      "source_end": "none",
+      "target_end": "open-arrow",
+      "label": "quotation"
+    }
+  ],
+  "skipped": []
+}
