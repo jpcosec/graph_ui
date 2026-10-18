@@ -1,6 +1,6 @@
 name: MaterializationContractDoc
-model_ref: deskops.models.materialization:MaterializationContractDoc
-path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/materialization.py
+model_ref: deskops.models:MaterializationContractDoc
+path: ''
 documents_index: .sldb/core/documents/MaterializationContractDoc.yaml
 sections_index: ''
 model_hash: 84042093d400acf50f188756fd44ecac2a0cfa01c381c1abd1706256c9e4aa5c

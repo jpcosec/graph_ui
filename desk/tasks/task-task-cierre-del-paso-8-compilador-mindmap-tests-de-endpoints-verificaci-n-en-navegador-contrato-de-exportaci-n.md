@@ -25,19 +25,7 @@ atoms: []
 
 _Explain why this task exists or the business driver behind it._
 
-Not provided.
-
-## Goal
-
-_Describe the concrete result this task must produce._
-
-Promote deferred work from task-mindmap-compiler-closeout.md.
-
-## Scope
-
-_State what is in scope and what is out of scope._
-
-## Contexto
+**Contexto**
 
 El repo es `graph_ui` (raíz del workspace). El editor Mindmap/SLDB vive en
 `frontends/mindmap/`. El plan maestro es `docs/mindmap-finalization-plan.md`;
@@ -52,7 +40,7 @@ pero el propio plan declara lo que falta:
 
 Esta tarea cierra exactamente ese hueco. NO reimplementar la superficie.
 
-## Estado actual verificado
+**Estado actual verificado**
 
 - `frontends/mindmap/compilation.py` — clase `CompilationService(backend.adapter)`
   con método `run(mode, request)` donde `mode ∈ {validate, plan, compile, export}`.
@@ -77,7 +65,17 @@ Esta tarea cierra exactamente ese hueco. NO reimplementar la superficie.
 - El adaptador usa el store real por defecto:
   `SLDB_STORE` env o `<repo>/.sldb`.
 
-## Alcance (qué hacer)
+## Goal
+
+_Describe the concrete result this task must produce._
+
+Promote deferred work from task-mindmap-compiler-closeout.md.
+
+## Scope
+
+_State what is in scope and what is out of scope._
+
+**Alcance (qué hacer)**
 
 1. **Tests de endpoints HTTP** (nuevo archivo `tests/test_mindmap_endpoints.py`):
    - Levantar `make_server(port=0)` en un thread (obtener puerto real con
@@ -123,14 +121,20 @@ Esta tarea cierra exactamente ese hueco. NO reimplementar la superficie.
    `docs/mindmap-finalization-plan.md` marcando el paso 8 como listo cuando los
    tests anteriores pasen, listando qué quedó cubierto.
 
-## Fuera de alcance
+**Fuera de alcance**
 
 - Brainstorm (paso 4) y edición de clases (paso 7): tareas separadas.
 - Cambiar el contrato JSON v1.
 - Modificar `sldb_adapter.py` más allá de lo mínimo si un endpoint necesita
   datos que ya no expone (si hace falta, reportarlo antes de ampliar).
 
-## Guardarraíles
+## Implementation Path
+
+_Outline the expected implementation route or affected surface._
+
+Promoted from desk/drawer/tasks/task-mindmap-compiler-closeout.md.
+
+**Guardarraíles**
 
 - Pills vinculadas (obligatorias):
   - `desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md`
@@ -148,20 +152,6 @@ Esta tarea cierra exactamente ese hueco. NO reimplementar la superficie.
   - `python -m pytest tests/ -q` (desde la raíz del repo)
   - `python -m pytest tests/e2e_mindmap_compiler.py -q` (E2E aislado)
 
-## Criterio de aceptación
-
-1. `python -m pytest tests/ -q` verde con los nuevos tests incluidos.
-2. Los 4 endpoints tienen cobertura HTTP real (servidor levantado de verdad).
-3. Round-trip export → plan demuestra conservación de documentos y layout.
-4. E2E Playwright del diálogo del compilador pasa sin intervención manual.
-5. `docs/mindmap-finalization-plan.md` refleja el estado real del paso 8.
-
-## Implementation Path
-
-_Outline the expected implementation route or affected surface._
-
-Promoted from desk/drawer/tasks/task-mindmap-compiler-closeout.md.
-
 ## Validation
 
 _List the checks required before this task can close._
@@ -171,5 +161,13 @@ _List the checks required before this task can close._
 ## Done When
 
 _Name the observable condition that makes the task complete._
+
+**Criterio de aceptación**
+
+1. `python -m pytest tests/ -q` verde con los nuevos tests incluidos.
+2. Los 4 endpoints tienen cobertura HTTP real (servidor levantado de verdad).
+3. Round-trip export → plan demuestra conservación de documentos y layout.
+4. E2E Playwright del diálogo del compilador pasa sin intervención manual.
+5. `docs/mindmap-finalization-plan.md` refleja el estado real del paso 8.
 
 Promoted work is completed, validated, and closed with a commit.

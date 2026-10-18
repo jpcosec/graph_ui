@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-The Python Backend applies whenever graph_ui needs backend graph semantics: when fixtures are loaded, when validated edits are applied, when structural signals are computed, and when a kgdb snapshot is adapted into UI data. In the current repo it is exercised by the Python tests and by scripts or integrations that need a canonical graph contract. It is not tied to a browser render cycle.
+The Python Backend applies whenever graph_ui needs backend graph semantics: when fixtures are loaded, when validated edits are applied, when structural signals are computed, and when an sldb graph snapshot (sldb.api.graph) is adapted into UI data. In the current repo it is exercised by the Python tests and by scripts or integrations that need a canonical graph contract. It is not tied to a browser render cycle.

@@ -13,4 +13,4 @@ provenance: docs/specs/sequence.data-load.yml
 
 ## Answer
 
-StaticFixtures exist so the app can render predictable graph-shaped data even before a live kgdb integration is wired. They make local development, demos, and tests possible without needing a running backend. That convenience is also why the repository can look functional today despite not persisting semantic edits.
+StaticFixtures exist so the app can render predictable graph-shaped data even before a live sldb-backed integration is wired in that app. They make local development, demos, and tests possible without needing a running backend. That convenience is also why the repository can look functional today despite not persisting semantic edits.

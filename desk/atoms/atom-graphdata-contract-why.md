@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-This contract exists so graph_ui has one agreed graph shape instead of each subsystem inventing its own node and edge schema. The grounding explicitly identifies `contracts/graph_data.py` as the canonical contract. That common model lets the editor engine, auditor, provider, and kgdb adapter interoperate safely.
+This contract exists so graph_ui has one agreed graph shape instead of each subsystem inventing its own node and edge schema. The grounding explicitly identifies `contracts/graph_data.py` as the canonical contract. That common model lets the editor engine, auditor, provider, and snapshot adapter interoperate safely.

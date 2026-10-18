@@ -1,6 +1,6 @@
 ---
 id: atom-kgdb-when
-title: Kgdb
+title: sldb.api.graph (formerly kgdb)
 five_wh_one_plus: when
 tags:
 - system:graph_ui
@@ -9,8 +9,8 @@ tags:
 provenance: docs/specs/sequence.data-load-target.yml
 ---
 
-# Kgdb
+# sldb.api.graph (formerly kgdb)
 
 ## Answer
 
-Kgdb belongs to the editor's open-and-save moments. In the target sequence it is read when the operator opens the editor and DataProvider fetches graph data, and it is written when the operator saves after semantic edits. It is not part of visual-only actions like pan, zoom, or view selection.
+The graph layer belongs to the editor's open-and-save moments. Reads happen when the editor loads graph data (a snapshot built from the SLDB store and queried with `query_snapshot`); writes are document mutations against the store when the operator saves semantic edits. It is not part of visual-only actions like pan, zoom, or view selection.

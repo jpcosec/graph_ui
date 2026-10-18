@@ -1,6 +1,6 @@
 ---
 id: atom-kgdb-how
-title: Kgdb
+title: sldb.api.graph (formerly kgdb)
 five_wh_one_plus: how
 tags:
 - system:graph_ui
@@ -9,8 +9,8 @@ tags:
 provenance: docs/specs/sequence.data-load-target.yml
 ---
 
-# Kgdb
+# sldb.api.graph (formerly kgdb)
 
 ## Answer
 
-The target read flow is: DataProvider asks Kgdb for a `GraphSnapshot`, Kgdb returns it, and `kgdb_to_ui_graph` converts it into the UI graph contract before `loadGraph(nodes, edges)` hydrates the store. The target write flow is: after canvas edits, DataProvider persists mutations back to Kgdb on save. The open questions are still unresolved: whether Kgdb is exposed as a server/API or as an on-disk library, and whether saves replace a whole snapshot or apply incremental node/edge mutations.
+The read flow is: a `GraphSnapshot` is built from the `.sldb` store (`snapshot_save`/`snapshot_load` in sldb.api.graph), optionally narrowed with `query_snapshot` and a `StructuredQuery`, and `snapshot_to_ui_graph` converts it into the UI graph contract. The mindmap frontend talks to the store through `serve.py`, which serves local reads and proxies to `sldb serve` in remote mode. The review-workbench `DataProvider` path is still a mock with a no-op save.

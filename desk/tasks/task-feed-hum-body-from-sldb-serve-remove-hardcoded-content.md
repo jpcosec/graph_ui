@@ -54,19 +54,12 @@ _State what is in scope and what is out of scope._
 4. Si un modo de vista (structure/body/routine/trace/compare) no tiene datos
    en el store, renderiza vacío con copy honesto (estado vacío real, no fake).
 
-## Out of scope
+**Out of scope**
 
 - Autorar documentos hum en ningún store (cross-repo, se delega vía inbox si
   aplica).
 - Cambiar el tema visual ni los renderers `renderers.tsx` más allá de lo que
   exija el compile.
-
-## Guardarraíles
-
-- Anti-mock (pill vinculada): prohibido reemplazar datos del store por
-  literales; el empty state es honesto.
-- Sin `TODO` ni stubs como entregable.
-- El save path, si se toca, usa `POST /sldb/save` real — nunca no-op.
 
 ## Implementation Path
 
@@ -74,15 +67,20 @@ _Outline the expected implementation route or affected surface._
 
 Promoted from desk/drawer/tasks/task-hum-body-live-sldb.md.
 
+**Guardarraíles**
+
+- Anti-mock (pill vinculada): prohibido reemplazar datos del store por
+  literales; el empty state es honesto.
+- Sin `TODO` ni stubs como entregable.
+- El save path, si se toca, usa `POST /sldb/save` real — nunca no-op.
+
 ## Validation
 
 _List the checks required before this task can close._
 
-- ```bash
 - cd apps/review-workbench
 - npx tsc -p tsconfig.app.json --noEmit
 - npm test -- --run          # Vitest; hum-body adapter.test.ts se actualiza al contrato live
-- ```
 - Smoke manual: `npm run dev` con `sldb serve` activo → `?view=hum` carga sin
 - errores de red y sin imports de `mock-data`.
 

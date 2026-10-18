@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-GraphProvider must not bypass validation by returning raw JSON text or unvalidated dicts. It also must not guess missing fixture paths silently, because `load_fixture()` explicitly raises `FileNotFoundError` when the target file does not exist. Its grounded behavior is validated fixture loading, not live kgdb I/O.
+GraphProvider must not bypass validation by returning raw JSON text or unvalidated dicts. It also must not guess missing fixture paths silently, because `load_fixture()` explicitly raises `FileNotFoundError` when the target file does not exist. Its grounded behavior is validated fixture loading, not live sldb.api.graph I/O.

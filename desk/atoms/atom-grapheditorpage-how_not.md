@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-It must not be confused with the default mounted app path, because `src/App.tsx` currently mounts `HumBodyPage`, not `GraphEditorPage`. It also must not pretend persistence is real today: its `saveGraph` target is still a no-op provider path, so treating it as a live kgdb-backed save would be false.
+It must not be confused with the default mounted app path: `apps/review-workbench/src/App.tsx` mounts `AntoniaFlowPage`, not `GraphEditorPage`. It also must not pretend persistence is real through this page: its `saveGraph` target is still the no-op `graphDataProvider` path, so treating it as a live sldb-backed save would be false.

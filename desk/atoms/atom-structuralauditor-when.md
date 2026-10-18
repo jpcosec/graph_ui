@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-It applies after graph data exists and needs structural inspection. In practice that means after a graph has been loaded or adapted and before a consumer wants compliance cues on nodes. It is not the step that creates fixtures or transforms kgdb snapshots into the UI contract.
+It applies after graph data exists and needs structural inspection. In practice that means after a graph has been loaded or adapted and before a consumer wants compliance cues on nodes. It is not the step that creates fixtures or transforms sldb graph snapshots into the UI contract.

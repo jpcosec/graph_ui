@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-It must not be described as the generic editor path, because it is a HUM-specific page with its own overlays, modes, and mock data model. It also must not be treated as live-data persistence: its drafts are localStorage-backed and its underlying source is the static generated HUM AST fixture, not a real kgdb write path.
+HumBodyPage no longer exists in the tree: it was removed in commit 9f64f0f (retire archived HUM view and focus on Mindmap). Historically it was a HUM-specific page, not the generic editor path, with its own overlays, modes and mock data model; its drafts were localStorage-backed and its source was the static generated HUM AST fixture, not a real sldb write path.

@@ -48,13 +48,14 @@ models:
   semantics: []
   origin: deskops
 - name: FAQDoc
-  model_ref: deskops.models.faq:FAQDoc
-  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/faq.py
+  model_ref: deskops.models:FAQDoc
+  path: ''
   models_index: .sldb/core/models/FAQDoc.yaml
   version: 1
   canonical: false
   family: null
   semantics: []
+  origin: deskops
 - name: InboxNoteDoc
   model_ref: deskops.models:InboxNoteDoc
   path: ''
@@ -65,13 +66,14 @@ models:
   semantics: []
   origin: deskops
 - name: MaterializationContractDoc
-  model_ref: deskops.models.materialization:MaterializationContractDoc
-  path: /home/jp/proyectos/hum-ecosystem/tools/deskops/deskops/models/materialization.py
+  model_ref: deskops.models:MaterializationContractDoc
+  path: ''
   models_index: .sldb/core/models/MaterializationContractDoc.yaml
   version: 1
   canonical: false
   family: null
   semantics: []
+  origin: deskops
 - name: RoleDoc
   model_ref: deskops.models:RoleDoc
   path: ''
@@ -227,4 +229,4 @@ predicates:
   axis: WHERE
   description: 'The store links that store under an alias (`stores add`): it reads
     its documents and inherits its models.'
-store_hash: 54c1841b726836070aca10ff19e21216ea2fe6e013716256d6030e159ec215ea
+store_hash: 2b10955deb3428e808869cbd46ce0ad153d677fdc00a928ba93e3a4946d4809b

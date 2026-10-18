@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-The Python Backend exists to keep graph_ui's core contract and graph-manipulation logic out of the React rendering layer. It gives the project one canonical `GraphData` shape plus backend utilities for editing, auditing, loading fixtures, and adapting kgdb snapshots. That separation lets frontend surfaces consume prepared graph data instead of reimplementing these concerns.
+The Python Backend exists to keep graph_ui's core contract and graph-manipulation logic out of the React rendering layer. It gives the project one canonical `GraphData` shape plus backend utilities for editing, auditing, loading fixtures, and adapting sldb graph snapshots. That separation lets frontend surfaces consume prepared graph data instead of reimplementing these concerns.

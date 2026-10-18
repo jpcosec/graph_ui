@@ -1,6 +1,6 @@
 ---
 id: atom-kgdb-how_not
-title: Kgdb
+title: sldb.api.graph (formerly kgdb)
 five_wh_one_plus: how_not
 tags:
 - system:graph_ui
@@ -9,8 +9,8 @@ tags:
 provenance: docs/specs/sequence.data-load-target.yml
 ---
 
-# Kgdb
+# sldb.api.graph (formerly kgdb)
 
 ## Answer
 
-Kgdb must not remain only an implied future box in diagrams while graph_ui keeps using hardcoded fixtures and a no-op save path. The integration also must not skip the adapter seam by forcing canvas code to understand raw backend graph structures directly. Long-term persistence should not be reduced to localStorage-only named views, because that stores view choices, not graph edits.
+The graph layer must not remain only an implied future box in diagrams while the review-workbench provider keeps using hardcoded fixtures and a no-op save path. Integrations must not skip the adapter seam by forcing canvas code to understand raw `GraphSnapshot` structures directly. Long-term persistence should not be reduced to localStorage-only named views, because that stores view choices, not graph edits.

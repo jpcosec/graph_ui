@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-It is for backend code inside graph_ui that needs a shared graph model, especially the editor engine, auditor, provider, and kgdb adapter. It also benefits any downstream integration or test that wants validated graph_ui-shaped data. End users never interact with this contract directly.
+It is for backend code inside graph_ui that needs a shared graph model, especially the editor engine, auditor, provider, and snapshot adapter. It also benefits any downstream integration or test that wants validated graph_ui-shaped data. End users never interact with this contract directly.

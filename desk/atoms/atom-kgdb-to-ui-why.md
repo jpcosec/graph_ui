@@ -1,6 +1,6 @@
 ---
 id: atom-kgdb-to-ui-why
-title: kgdb_to_ui_graph
+title: snapshot_to_ui_graph
 five_wh_one_plus: why
 tags:
 - system:graph_ui
@@ -9,8 +9,8 @@ tags:
 provenance: docs/specs/component.graph-ui.yml
 ---
 
-# kgdb_to_ui_graph
+# snapshot_to_ui_graph
 
 ## Answer
 
-This adapter exists because graph_ui targets kgdb as its live graph source but does not natively consume `GraphSnapshot` objects. The grounding explicitly identifies `kgdb_to_ui_graph(GraphSnapshot) -> GraphData` as the read-side bridge. Without it, kgdb data would not arrive in the canonical graph_ui contract.
+This adapter exists because graph_ui does not natively consume `GraphSnapshot` objects from sldb.api.graph. `snapshot_to_ui_graph(GraphSnapshot) -> GraphData` is the read-side bridge. Without it, sldb graph data would not arrive in the canonical graph_ui contract.

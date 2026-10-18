@@ -1,12 +1,12 @@
 name: atom-deskops-spec2viz-and-knowledge-are-instances-of-the-sldb-plus-kgdb-nucleus
 path: desk/atoms/atom-deskops-spec2viz-and-knowledge-are-instances-of-the-sldb-plus-kgdb-nucleus.md
-source_hash: 2a9174a153f6c09b49abccfb589bed09d3d627f14a738cd9919a67cbbbbaa907
-content_hash: b12c1743a5a2a09c66809922127649af2d07ba783bbbc3f251e8169c6485ed2c
+source_hash: 31dd258c65adfc1a7fbaeb098204cf83ffe210d438c49ad031bc13f8d962ebcc
+content_hash: 87a69e30bfe513d3bea46500371b395f535f9d5afda25aff5d8bd3788fa8b3b5
 field_hashes:
   id: 501e3a8ae5a55e0e7160496bdd35d0b10206e78eccd0d244de1b00b92b63d874
-  title: 7ebd16ffa571268420c3c9315e78fc70fa6a6dd0fa03a983f0bf3fd5a9eb1826
+  title: b4f66cb5c71ce276d81eeec731260b612a7117814cf0fcf01b0ecb5fa58ce97b
   five_wh_one_plus: 1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c
-  answer: 3ce15ac4ba5a7fdf8382946e4723dc854dc88f7e9b01cb2628598a8a2a62cc86
+  answer: dfdfafce7af46f7a6cf1d03cce60acc064b74fde8fbf4c19ff231facac868f57
   tags: 54436b0873d005dfdd7a400651dfe9aba8df44264c5717ae8a0544f8bf6cc286
 semantic_tags:
 - layer:document-model

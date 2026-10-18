@@ -1,6 +1,6 @@
 ---
 id: atom-kgdb-for_whom
-title: Kgdb
+title: sldb.api.graph (formerly kgdb)
 five_wh_one_plus: for_whom
 tags:
 - system:graph_ui
@@ -9,8 +9,8 @@ tags:
 provenance: docs/specs/sequence.data-load-target.yml
 ---
 
-# Kgdb
+# sldb.api.graph (formerly kgdb)
 
 ## Answer
 
-Kgdb serves graph_ui as the backing store for live graph reads and writes. It also serves operators indirectly, because a real backend is what makes their edits survive reloads and become reviewable state instead of transient UI changes. For implementers, it is the external system DataProvider must eventually integrate with.
+sldb.api.graph serves graph_ui as the typed graph layer over the SLDB store for live graph reads. It also serves operators indirectly, because real store-backed documents are what make their edits survive reloads and become reviewable state instead of transient UI changes. For implementers, it is the dependency the snapshot adapter and the frontend data sources integrate with.

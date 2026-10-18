@@ -1,12 +1,12 @@
 name: atom-the-projection-grammar-belongs-in-graph-ui-not-sldb
 path: desk/atoms/atom-the-projection-grammar-belongs-in-graph-ui-not-sldb.md
-source_hash: 9d667d680606c64243c91176fb4b59c899e6fa645513c3bf3527ea1aab3b02b1
-content_hash: a56e0f0991560fd82d688773083c44019b503b5c3f72010c74439868d6c65ab9
+source_hash: aec77ad2de9deef0b90d4dd3dbdc61b69478eabbdb6c34c8041a23fadbb7286b
+content_hash: ee2d460999014b969303868a2853480f7b7876bb7602c51694bc556dc60789cb
 field_hashes:
   id: 03b5ce7fbc04d0981ebbf40b976a07cb7d5396e905eb89a78329f3b3bb7cb9c3
   title: 5d3711acc2f4d4e19966963300bb6f2ac274a26ee748d1f7dc232b269e984cd6
   five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
-  answer: b24effb960aa51d647ef2cc9411532d616f19b31b2fc103d480452fe1a27e3a2
+  answer: 022d0ea9db8eb4215416b5dbcf6be935ebc2c2a42e4848f87960b3dcfd89f572
   tags: e2417fb3f28abfc17071d71de7f139da5530a25126545be6cdd19e9eae5861a1
 semantic_tags:
 - representation.markdown

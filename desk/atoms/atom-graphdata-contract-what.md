@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-The GraphData Contract is the canonical Python data model that describes a graph slice for graph_ui. In `src/contracts/graph_data.py` it is expressed as the `GraphData` top-level model plus `UINode`, `UIEdge`, and `Position`. It defines the backend shape that editing, auditing, fixture loading, and kgdb adaptation all share.
+The GraphData Contract is the canonical Python data model that describes a graph slice for graph_ui. In `src/contracts/graph_data.py` it is expressed as the `GraphData` top-level model plus `UINode`, `UIEdge`, and `Position`. It defines the backend shape that editing, auditing, fixture loading, and snapshot adaptation (sldb.api.graph) all share.

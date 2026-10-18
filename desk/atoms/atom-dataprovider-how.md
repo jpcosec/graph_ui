@@ -13,4 +13,4 @@ provenance: docs/specs/sequence.data-load-target.yml
 
 ## Answer
 
-DataProvider is implemented as the `graphDataProvider` object in `data-provider.ts`, conforming to the `GraphDataProvider` interface. Today `getSchema()` returns a small in-file `mockSchema`, `getGraph()` delegates to `mockClient.getGraph()`, and `saveGraph(_payload)` returns `{ ok: true }` without writing anything. The target flow in `sequence.data-load-target.yml` is for this boundary to fetch from kgdb, load the store with UI graph data, and later persist save requests back to kgdb.
+DataProvider is implemented as the `graphDataProvider` object in `data-provider.ts`, conforming to the `GraphDataProvider` interface. Today `getSchema()` returns a small in-file `mockSchema`, `getGraph()` delegates to `mockClient.getGraph()`, and `saveGraph(_payload)` returns `{ ok: true }` without writing anything. The target flow in `sequence.data-load-target.yml` is for this boundary to fetch graph data from sldb (a GraphSnapshot via sldb.api.graph, adapted with snapshot_to_ui_graph), load the store with UI graph data, and later persist save requests back to sldb.

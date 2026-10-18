@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-The immediate consumers are other graph_ui modules and tests that need a canonical graph contract or backend graph operations. It also serves downstream integrations that want to feed graph data into the UI, especially the kgdb adaptation path. It is not authored for end operators directly; it supports the tool that they use.
+The immediate consumers are other graph_ui modules and tests that need a canonical graph contract or backend graph operations. It also serves downstream integrations that want to feed graph data into the UI, especially the snapshot adaptation path (sldb.api.graph to GraphData). It is not authored for end operators directly; it supports the tool that they use.
