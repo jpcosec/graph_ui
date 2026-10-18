@@ -1,0 +1,19 @@
+name: atom-el-estado-de-plegado-de-los-grupos-de-review-workbench-vive-en-ui-store
+path: desk/atoms/atom-el-estado-de-plegado-de-los-grupos-de-review-workbench-vive-en-ui-store.md
+source_hash: 5fb32e80711120e5fd809f7e715d4a70b26b8a43edbef597d20f75a3c1d0816d
+content_hash: 37156e96b0caeb6125996ff2b3fd3ffe289ec5a34a1bea0e25d1e4a517103341
+field_hashes:
+  id: f5ac9da26b98526d200606ead3958c4d04fa3a7ff686122f0c4d7941c97e6cb7
+  title: 57aadbe9c927d765c0d22e66ee0cffffaa9f5f34d7ff58fd27d0d7c1df13181d
+  five_wh_one_plus: 43f94244d00ce4813a89d3c0d15e1842fe2cfd95ce9fe3b063dda9e7983e0063
+  answer: 91b12961eeeda1bacd8c7e826a9c344327e926d96dee71fd871b806f9deb32e2
+  tags: 3e0fd376f1c8e988b5ea605dbf26d19b4028822c25e8d69b538abfbe672d9757
+  provenance: 5c53b1794c53745d73e19eedfc1314cfd6580f162545b4c01d3b95be8d96a8e6
+semantic_tags:
+- layer:review-workbench
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:collapse
+- type.knowledge.atom
+- workspace.desk.atoms
