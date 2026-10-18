@@ -1,10 +1,13 @@
 ---
+# ritual-xxx
 id: ritual-execution
+# List of step-xxx paths
+steps: []
+# e.g., layer:workflow, system:sldb
 tags:
 - workspace:desk
 - system:graph_ui
 - layer:workflow
-steps: []
 ---
 
 # Execution ritual
@@ -47,3 +50,7 @@ _List common mistakes this ritual prevents._
 _Describe what completion looks like._
 
 The active task is implemented within scope and ready for the testing ritual.
+
+## Step Details
+
+_Generated from the step references above._

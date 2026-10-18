@@ -6,18 +6,13 @@ tags:
 - workspace:desk
 - artifact:task
 - source:drawer
-routine: routine-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n
-current_node: checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-execution-ready
+current_node: ritual-execution
 history: []
 references:
 - desk/drawer/tasks/task-mindmap-compiler-closeout.md
 depends_on: []
 pills: []
 files: []
-checklists:
-- checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-execution-ready
-- checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-testing-ready
-- checklist-task-task-cierre-del-paso-8-compilador-mindmap-tests-de-endpoints-verificaci-n-en-navegador-contrato-de-exportaci-n-closeout-ready
 task_type: ''
 inherits_from: []
 inherit_acceptance_context: false

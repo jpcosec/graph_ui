@@ -1,10 +1,13 @@
 ---
+# ritual-xxx
 id: ritual-testing
+# List of step-xxx paths
+steps: []
+# e.g., layer:workflow, system:sldb
 tags:
 - workspace:desk
 - system:graph_ui
 - layer:workflow
-steps: []
 ---
 
 # Testing ritual
@@ -47,3 +50,7 @@ _List common mistakes this ritual prevents._
 _Describe what completion looks like._
 
 The task's contract is proven green and the change is ready for closeout.
+
+## Step Details
+
+_Generated from the step references above._

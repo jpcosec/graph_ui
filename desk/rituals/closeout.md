@@ -1,10 +1,13 @@
 ---
+# ritual-xxx
 id: ritual-closeout
+# List of step-xxx paths
+steps: []
+# e.g., layer:workflow, system:sldb
 tags:
 - workspace:desk
 - system:graph_ui
 - layer:workflow
-steps: []
 ---
 
 # Closeout ritual
@@ -47,3 +50,7 @@ _List common mistakes this ritual prevents._
 _Describe what completion looks like._
 
 The task is resolved, the board is reconciled, and the closeout commit is recorded.
+
+## Step Details
+
+_Generated from the step references above._

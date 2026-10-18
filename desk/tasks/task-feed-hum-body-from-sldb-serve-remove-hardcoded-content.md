@@ -6,8 +6,7 @@ tags:
 - workspace:desk
 - artifact:task
 - source:drawer
-routine: routine-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content
-current_node: checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-execution-ready
+current_node: ritual-execution
 history: []
 references:
 - desk/drawer/tasks/task-hum-body-live-sldb.md
@@ -16,10 +15,6 @@ pills:
 - desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md
 - desk/contexts/pill-guardrail-the-model-descriptor-is-a-real-contract-mirror-not-a-mock.md
 files: []
-checklists:
-- checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-execution-ready
-- checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-testing-ready
-- checklist-task-feed-hum-body-from-sldb-serve-remove-hardcoded-content-closeout-ready
 task_type: ''
 inherits_from: []
 inherit_acceptance_context: false
