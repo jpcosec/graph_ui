@@ -1,13 +1,14 @@
 ---
 id: task-sacar-kgdb-el-grafo-de-graph-ui-sobre-sldb-api-graph
-status: active
+status: ready_for_testing
 summary: ''
 tags:
 - workspace:desk
 - artifact:task
-current_node: ritual-testing
+current_node: ritual-closeout
 history:
 - task_activates
+- task_hands_to_closeout
 references: []
 depends_on: []
 pills: []
