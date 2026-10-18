@@ -1,17 +1,26 @@
 ---
+id: '004'
+status: resolved
+summary: ''
+tags:
+- domain:reconstruction
+- priority:p1
+current_node: ''
+history: []
 references:
 - graph_ui/desk/tasks/Board.md
 - graph_ui
 - 4fd4c1e
-id: '004'
-domain: reconstruction
-status: resolved
-priority: p1
 depends_on:
-- '001'
-- '002'
-- '003'
-created: ''
+- 001-define-graph-ui-data-contract
+- 002-define-minimal-editing-surface
+- 003-create-real-graph-fixture
+pills: []
+files: []
+task_type: ''
+inherits_from: []
+inherit_acceptance_context: false
+atoms: []
 ---
 
 # Wire reusable editor to real fixture
@@ -19,6 +28,8 @@ created: ''
 ## Rationale
 
 _Explain why this task exists or the business driver behind it._
+
+
 
 ## Goal
 
@@ -29,6 +40,8 @@ Wire the reusable editor architecture to the real fixture.
 ## Scope
 
 _State what is in scope and what is out of scope._
+
+
 
 ## Implementation Path
 

@@ -1,20 +1,20 @@
 name: 004-wire-reusable-editor-to-real-fixture
 path: desk/tasks/004-wire-reusable-editor-to-real-fixture.md
-source_hash: 59ecd654499ef39ee1a57c79d67989038ba2c699a0a0d83177cef5e544dabc22
-content_hash: 4c1661c67d8593ac79a55f2c9c7369d8792f577c7013ff7426432960cd7154fd
+source_hash: 037f9b78b08318c1d7ca823153505c6f81b8ea8d2bec7211d28d4e7ff09d893d
+content_hash: 3d558caedf83e1bf37e4528cc66ece6d748db5b697a22b6134b91d085944253b
 field_hashes:
   title: 7e2bbcd8e06b9438b875889943392cd0fd06b1f7a1ba55ca2096dfdb88a9f329
   id: df2ed63dd071cb3a6d47c8962f019d030c91e17406d9e57225da408ae7195c12
   status: 0772fde17309bd271c343f359e848907b3a93b420878fd1e0b68bbdadcd98eda
   summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
-  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  tags: 67a96fb2dd6c3f740d463c973187768eb6a7f9891ca82557938818cb2e572d5e
   current_node: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   history: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   why: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   goal: f16924c48c4123e07d95227efb5dcaa7f462fe10ecd7e5f96061b9951196890b
   scope: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   references: de7501a958a19be2ff5250474af79a33c702e7f7097508427a6d2d5ffd600240
-  depends_on: 18d1ac894769aa521acf298b1b5c9c2827314501e532273ba76cbd2e6462c389
+  depends_on: ad4154e58183d8b6bfba07b3204f32b8a8e48aaf9f4143b0a83019ec338b959b
   pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   implementation_path: 47d65b5e065fa3a495adbb25979a7bc1cf29d6c9c4d223888b4cdcb0f818c315
@@ -25,6 +25,8 @@ field_hashes:
   inherit_acceptance_context: fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa
   atoms: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
+- domain:reconstruction
+- priority:p1
 - representation.markdown
 - source.document.markdown
 - type.workflow.task

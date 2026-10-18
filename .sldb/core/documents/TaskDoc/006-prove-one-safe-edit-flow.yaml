@@ -1,20 +1,20 @@
 name: 006-prove-one-safe-edit-flow
 path: desk/tasks/006-prove-one-safe-edit-flow.md
-source_hash: 2909e69e56946b91b9fcddec11bc609a12f9567b7b184803aa58f3d2dc86d453
-content_hash: 0de7d6243c12e85b1059c5dcfc85cfe4cba63dc811f3aae539378622e4a42167
+source_hash: b6b5a32e707ba92e29d2d556e55b3cbf28bcd791ee137a5f20c6d786575b1bac
+content_hash: d662df386defe5f7fe3f451c424089fdc11d85a0b78c222daa33741323419574
 field_hashes:
   title: 97eb2127fbedb961803547fc9509763f275210ccbf8dda3c1eb907cbbb396c3e
   id: 6fdef0cb390f1aec9d6c3a25dad925e1637e1956f2b9772986a2493ec0d717a6
   status: 0772fde17309bd271c343f359e848907b3a93b420878fd1e0b68bbdadcd98eda
   summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
-  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  tags: 6863fe8df18fef427d6c819b10e39f83729ad17df0ce29e46fe145566e33c3a6
   current_node: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   history: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   why: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   goal: 6d60c2eac71f950a7d75f5dc5aafaeb632392fbc367d5fe4517b105b07f8926f
   scope: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   references: 15d7f2b0f9ca37d8a880e3d5a564154bf32c09427cc21f3cf9b3379eefedabb6
-  depends_on: 7d31559562d7b15040a83e657c6e386fd7e7fdbbe640c8181ec26e59233250b7
+  depends_on: 1b1b32dd19d7423f6fb71aa4cd60cd556c99fff682c2ada65491611767e7d58a
   pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   implementation_path: 0b2de9d30d79fc02883d69fdd79fc196153d5a12674beef63403d83619ddf245
@@ -25,6 +25,8 @@ field_hashes:
   inherit_acceptance_context: fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa
   atoms: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
+- domain:editing
+- priority:p1
 - representation.markdown
 - source.document.markdown
 - type.workflow.task

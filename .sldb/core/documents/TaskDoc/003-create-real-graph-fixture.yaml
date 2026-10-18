@@ -1,20 +1,20 @@
 name: 003-create-real-graph-fixture
 path: desk/tasks/003-create-real-graph-fixture.md
-source_hash: 1ca16458bbf368fbd20b0ed6705d9028c5d7fa4b3ca358ae89cea5521a78f0e7
-content_hash: 1c7e39348c6a9cb2e8eafca55d9b9ba3ff5d05589396ca528aad0f6b77beb8f8
+source_hash: 34b50ff7736f412302e78d52ac77bb085fa2b93a6af77aee589603f76e088736
+content_hash: 763814a5509486d35310d92b1878a60a22de46d7abb0e443dd03f2ad04c1b5a4
 field_hashes:
   title: 4784555604d02e9479ac14bc71673225ddda335b6caad74918f6cbc845aa3ff1
   id: 03b9fa4b773610c8a60262936d75446af0919271a730a90a5ea1d461130d3f42
   status: 0772fde17309bd271c343f359e848907b3a93b420878fd1e0b68bbdadcd98eda
   summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
-  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  tags: 006b0628ad60e56cabbc930f366c39ca47c475817aa6a8cf511761a0c087b707
   current_node: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   history: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   why: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   goal: dd9ca300070da64b9a91431f7346654b8e0824634214d227d75569b901cb64fc
   scope: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   references: c040dcd618654f7787f99e098ac40e57cc01642a5e81ad61cde5ee396e7cdfd2
-  depends_on: d5dc721078d2251ad1e88b90b8cc8c2e866c729025a3f331f28162312f3a19c0
+  depends_on: 832adc4749ede4e7db0feaed320a87b6c8e3fa086abe8d655fc432fd494ce5d7
   pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   implementation_path: 149b3e3798f2c94318c041e52ffc81fd071746562b34aa771cc6a5a8fee7a82b
@@ -25,6 +25,8 @@ field_hashes:
   inherit_acceptance_context: fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa
   atoms: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
+- domain:fixtures
+- priority:p1
 - representation.markdown
 - source.document.markdown
 - type.workflow.task

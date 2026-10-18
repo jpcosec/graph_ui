@@ -1,15 +1,24 @@
 ---
+id: '002'
+status: resolved
+summary: ''
+tags:
+- domain:editing
+- priority:p0
+current_node: ''
+history: []
 references:
 - graph_ui/desk/tasks/Board.md
 - graph_ui
 - ff85428
-id: '002'
-domain: editing
-status: resolved
-priority: p0
 depends_on:
-- '001'
-created: ''
+- 001-define-graph-ui-data-contract
+pills: []
+files: []
+task_type: ''
+inherits_from: []
+inherit_acceptance_context: false
+atoms: []
 ---
 
 # Define minimal editing surface
@@ -17,6 +26,8 @@ created: ''
 ## Rationale
 
 _Explain why this task exists or the business driver behind it._
+
+
 
 ## Goal
 
@@ -27,6 +38,8 @@ Define the minimal graph editing surface over the data contract.
 ## Scope
 
 _State what is in scope and what is out of scope._
+
+
 
 ## Implementation Path
 

@@ -1,15 +1,24 @@
 ---
+id: '003'
+status: resolved
+summary: ''
+tags:
+- domain:fixtures
+- priority:p1
+current_node: ''
+history: []
 references:
 - graph_ui/desk/tasks/Board.md
 - graph_ui
 - cd84c13
-id: '003'
-domain: fixtures
-status: resolved
-priority: p1
 depends_on:
-- '001'
-created: ''
+- 001-define-graph-ui-data-contract
+pills: []
+files: []
+task_type: ''
+inherits_from: []
+inherit_acceptance_context: false
+atoms: []
 ---
 
 # Create real graph fixture
@@ -17,6 +26,8 @@ created: ''
 ## Rationale
 
 _Explain why this task exists or the business driver behind it._
+
+
 
 ## Goal
 
@@ -27,6 +38,8 @@ Create a real graph fixture that complies with the `GraphData` contract.
 ## Scope
 
 _State what is in scope and what is out of scope._
+
+
 
 ## Implementation Path
 

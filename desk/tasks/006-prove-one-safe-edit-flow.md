@@ -1,16 +1,25 @@
 ---
+id: '006'
+status: resolved
+summary: ''
+tags:
+- domain:editing
+- priority:p1
+current_node: ''
+history: []
 references:
 - graph_ui/desk/tasks/Board.md
 - graph_ui
 - 2ee5376
-id: '006'
-domain: editing
-status: resolved
-priority: p1
 depends_on:
-- '002'
-- '004'
-created: ''
+- 002-define-minimal-editing-surface
+- 004-wire-reusable-editor-to-real-fixture
+pills: []
+files: []
+task_type: ''
+inherits_from: []
+inherit_acceptance_context: false
+atoms: []
 ---
 
 # Prove one safe edit flow
@@ -18,6 +27,8 @@ created: ''
 ## Rationale
 
 _Explain why this task exists or the business driver behind it._
+
+
 
 ## Goal
 
@@ -28,6 +39,8 @@ Make one safe edit path explicit and proven.
 ## Scope
 
 _State what is in scope and what is out of scope._
+
+
 
 ## Implementation Path
 
