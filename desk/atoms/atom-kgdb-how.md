@@ -13,4 +13,4 @@ provenance: docs/specs/sequence.data-load-target.yml
 
 ## Answer
 
-The read flow is: a `GraphSnapshot` is built from the `.sldb` store (`snapshot_save`/`snapshot_load` in sldb.api.graph), optionally narrowed with `query_snapshot` and a `StructuredQuery`, and `snapshot_to_ui_graph` converts it into the UI graph contract. The mindmap frontend talks to the store through `serve.py`, which serves local reads and proxies to `sldb serve` in remote mode. The review-workbench `DataProvider` path is still a mock with a no-op save.
+The read flow is: a `GraphSnapshot` is built from the `.sldb` store (`snapshot_save`/`snapshot_load` in sldb.api.graph), optionally narrowed with `query_snapshot` and a `StructuredQuery`, and `snapshot_to_ui_graph` converts it into the UI graph contract. The mindmap frontend talks to the store through `serve.py`, which serves local reads and proxies to `sldb serve` in remote mode. The review-workbench reads live documents through `sldb-provider.ts` (`/sldb/schema`, `/sldb/graph`, `/sldb/save` proxied by Vite), while its `graphDataProvider` in `data-provider.ts` is still a mock.

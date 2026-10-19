@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-It works through renderer components registered in the schema registry. Generic content lives in `src/components/content/` such as `EntityCard.tsx`, while HUM-specific renderers live in `src/features/hum-body/renderers.tsx` with `HumDot`, `HumLabel`, and `HumCard` chosen through `registerHumNodeTypes` and similar registration flows.
+It works through renderer components registered in the schema registry. Generic content lives in `src/components/content/` (`EntityCard.tsx`, `PropertiesPreview.tsx`, `PropertyEditor.tsx`), default renderers are registered in `src/schema/register-defaults.ts`, and the Antonia flow adds `StepCard.tsx`, chosen for `conversation-step` by `registerModelsFromSchema` in `features/antonia-flow/lib/schema-to-registry.ts`.

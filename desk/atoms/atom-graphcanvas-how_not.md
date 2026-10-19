@@ -13,4 +13,4 @@ provenance: docs/specs/matrix.graph-ui-views.yml
 
 ## Answer
 
-GraphCanvas does not own graph persistence, schema registration, or sidebar controls. It also does not apply text, attribute, or neighbor filtering itself; in this file it only filters by hidden relation types before rendering.
+GraphCanvas does not own graph persistence, schema registration, or sidebar controls. It does not define the filter state either: the filters live in the UI store and FiltersSection edits them, while GraphCanvas.tsx only applies them through applyCanvasFilters before rendering.

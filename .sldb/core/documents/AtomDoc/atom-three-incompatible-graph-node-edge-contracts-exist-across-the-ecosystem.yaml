@@ -1,12 +1,12 @@
 name: atom-three-incompatible-graph-node-edge-contracts-exist-across-the-ecosystem
 path: desk/atoms/atom-three-incompatible-graph-node-edge-contracts-exist-across-the-ecosystem.md
-source_hash: 86b7cc0d6f92c07a79e5c70dee62fa5d3f1306595cdaca817a82fb9114bfecf6
-content_hash: 44b45fab613afebd656aba021c4de9b25cf20bcbe617f5432d2df7c4bb899a2d
+source_hash: 2efc70b3767ffb6fe794bbfe14555f4f259a6b032a586a0c3d7363402e14761c
+content_hash: 60478270bd1772f656899a0c25b4675c677863d1d3f26859ebcc84b4d5f8abba
 field_hashes:
   id: 5dc03ac2c451b45324bc29dc72b7126ca9191e01b3d85e812e325af5c15939a5
   title: 1953cdfd43083988440ba31e2888529edcf38adbd4d793c579d59f14e24a391b
   five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
-  answer: 7318b8b2eabb11e62a261290f55657bb7031c96ff37a5264e0e4a16901e66c7e
+  answer: 44178adac1b1afc9e1a568480c10de520f661f4a2e83efa08ba6f4c9c28b8976
   tags: b88840f2cc7f1abc7bd7bd2a7b99c333d4a2c09d7616609f6f02038adc3a0dce
 semantic_tags:
 - representation.markdown

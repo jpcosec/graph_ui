@@ -13,4 +13,4 @@ provenance: .sldb/core/store_index.yaml
 
 ## Answer
 
-El store .sldb de graph_ui está enlazado al de deskops (sldb stores add ../../deskops/.sldb --name deskops) y hereda de él los modelos que deskops posee (sldb models inherit deskops:<Model>): AtomDoc, BoardDoc, CrossroadDoc, InboxNoteDoc, PillDoc, ProtoAtomDoc, RepositoryDoc, RitualDoc, RoleDoc, StepDoc y TaskDoc. Las entradas usan el model_ref del dueño, deskops.models:<Model>. FAQDoc y MaterializationContractDoc siguen como entradas propias porque deskops no los posee.
+El store .sldb de graph_ui está enlazado al de deskops (sldb stores add ../../deskops/.sldb --name deskops) y hereda de él los modelos que deskops posee (sldb models inherit deskops:<Model>): TaskDoc, BoardDoc, PillDoc, AtomDoc, RitualDoc, InboxNoteDoc, MaterializationContractDoc, RoleDoc, StepDoc, RepositoryDoc, ProtoAtomDoc, CrossroadDoc, RunDoc, RuntimeProfileDoc y DeskFAQDoc. Las entradas usan el model_ref del dueño, deskops.models:<Model> (origin: deskops). RelationTypeDoc y RelationDoc son entradas propias con model_ref de sldb (sldb.models.relation_type_doc / relation_doc).

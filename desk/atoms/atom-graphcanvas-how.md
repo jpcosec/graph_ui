@@ -13,4 +13,4 @@ provenance: docs/specs/matrix.graph-ui-views.yml
 
 ## Answer
 
-It reads nodes, edges, and change handlers from the graph store and hidden relation types from the UI store. On each change it filters edges by relation type, keeps isolated nodes visible, maps AST structures into ReactFlow structures, and renders ReactFlow with NodeShell, GroupShell, FloatingEdge, and ButtonEdge.
+It reads nodes, edges, and change handlers from the graph store, and filters, focusedNodeId and editor state from the UI store. In an effect it runs applyCanvasFilters (hidden relation types, text, attribute, and hide-non-neighbors in focus mode, keeping isolated nodes visible), maps AST structures into ReactFlow structures, and renders ReactFlow with NodeShell, GroupShell, FloatingEdge, and ButtonEdge.

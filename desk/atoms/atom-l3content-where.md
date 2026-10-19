@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-It lives in the frontend content layer. The generic renderer path is `apps/review-workbench/src/components/content/`, and HUM-specific renderer components are in `apps/review-workbench/src/features/hum-body/renderers.tsx`.
+It lives in the frontend content layer. The generic renderer path is `apps/review-workbench/src/components/content/`, with default registrations in `apps/review-workbench/src/schema/register-defaults.ts` and the flow-specific `apps/review-workbench/src/features/antonia-flow/StepCard.tsx`.

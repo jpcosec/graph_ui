@@ -13,4 +13,4 @@ provenance: docs/specs/sequence.data-load-target.yml
 
 ## Answer
 
-The graph layer exists in the graph_ui design so the editor operates on real graph data from the SLDB store instead of frozen bundle fixtures. It is now provided by sldb.api.graph rather than a separate kgdb project. The mindmap frontend reads and writes the real store; the older review-workbench provider (`data-provider.ts`) still serves a mock graph and a no-op save, so there a reload does not prove semantic edits persisted.
+The graph layer exists in the graph_ui design so the editor operates on real graph data from the SLDB store instead of frozen bundle fixtures. It is now provided by sldb.api.graph rather than a separate kgdb project. The mindmap frontend reads and writes the real store, and the review-workbench's Antonia page reads live documents via `sldb serve`; only the generic `graphDataProvider` (`data-provider.ts`) still serves a mock graph and a no-op save, so there a reload does not prove semantic edits persisted.

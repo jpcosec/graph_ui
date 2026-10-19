@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-It exists to provide a generic editor boot path that is separate from the HUM-specific page. That keeps the editor capable of loading arbitrary graph-shaped data through a provider instead of tying the whole app to the current HUM mock flow.
+It exists to provide a generic editor boot path that loads arbitrary graph-shaped data through a provider instead of tying the app to one page. It is the generic counterpart to `AntoniaFlowPage`, which is the page `App.tsx` mounts today; the HUM-specific page it was contrasted with was retired.

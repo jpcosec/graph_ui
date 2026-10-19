@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-L1App is the application/orchestration layer of the React editor. It is responsible for page-level concerns: fetching or constructing graph data, registering node types, hydrating the graph store, and handing a prepared graph to the shared `GraphEditor` canvas surface. In this repo, `GraphEditorPage` and `HumBodyPage` are the concrete L1 pages.
+L1App is the application/orchestration layer of the React editor. It is responsible for page-level concerns: fetching or constructing graph data, registering node types, hydrating the graph store, and handing a prepared graph to the shared `GraphEditor` canvas surface. In this repo, `AntoniaFlowPage` (mounted by `App.tsx`) and `GraphEditorPage` are the concrete L1 pages.

@@ -1,12 +1,12 @@
 name: atom-the-store-is-a-generic-typed-document-engine-not-sldb-owned-infrastructure
 path: desk/atoms/atom-the-store-is-a-generic-typed-document-engine-not-sldb-owned-infrastructure.md
-source_hash: 3a54db5e8584d3bef9acf5963ee5fff750280e1d9657ee787cbdbc7f6cdbeebf
-content_hash: 47e0387fa6595ea9162e5d0638766bcd474cfb05a07e010a570ddef20de213b4
+source_hash: 0d5983ffa288d580df7b2aeaa74d6e5301c9ef44b670908e504870fa776327cb
+content_hash: 6e607f3ca0d33ff54208f5eac451f44a92e0664e143e6cb69ecfd6b88251dc1f
 field_hashes:
   id: cac88b2f7a2f3a6902624a93c247778de94c1e34f1c95e50ee6e4549810e5d48
   title: e7fe3b8669be5d5b031278112bb8113ac8803a52b91bebc7ba80da253502ea30
   five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
-  answer: 37a5cea27711dab81ee1218c503cfe8c8549cf8991287e90c20d57edce043ae9
+  answer: 0a0734c195497834be040fbb7cbcc9f3c2c49162a645d9a6494008853c776dbc
   tags: e1182bdd5f0d1a1d23ed4e1aa3cc59453f3101576d1fd60c75a1d3469d710af9
 semantic_tags:
 - layer:document-model

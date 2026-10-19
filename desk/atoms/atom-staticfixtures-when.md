@@ -13,4 +13,4 @@ provenance: docs/specs/sequence.data-load.yml
 
 ## Answer
 
-StaticFixtures are used in the repository's current runtime, both when the mounted HumBody page builds its initial graph and when the mock generic editor path reads `graph_data.json`. They also participate at build time when the generated HUM AST file is refreshed or, today, left frozen by the broken sync step. Their role is therefore current-state bootstrapping, not target-state persistence.
+StaticFixtures are used when the generic editor path reads `graph_data.json` through `mockClient`, and when `AntoniaFlowPage` runs with `?src=fixture` instead of the default live source. The Antonia fixture is regenerated on demand by `scripts/generate-antonia-fixture.mjs`; the old `hum:sync` fixture step no longer exists (it now generates node types). Their role is current-state bootstrapping and fallback, not target-state persistence.

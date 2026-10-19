@@ -12,4 +12,4 @@ tags:
 
 ## Answer
 
-graph_ui is the domain-agnostic visual graph editor in this ecosystem and already declares sldb (its sldb.api.graph layer, formerly kgdb) as its data source. sldb is a test domain for proving the grammar against real typed-relation data (its AST), not the grammar's home.
+graph_ui is the visual graph editor of this ecosystem (active frontend frontends/mindmap over a real SLDB store) and already declares sldb (its sldb.api.graph layer, formerly kgdb) as its data source. The projection grammar belongs in graph_ui as view-layer config (projection views in apps/review-workbench lib/projection-view-store.ts and frontends/mindmap/source/projections.mjs); sldb is a test domain for proving the grammar against real typed-relation data, not the grammar's home.

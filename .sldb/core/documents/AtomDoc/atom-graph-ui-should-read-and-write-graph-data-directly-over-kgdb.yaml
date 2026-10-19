@@ -1,12 +1,12 @@
 name: atom-graph-ui-should-read-and-write-graph-data-directly-over-kgdb
 path: desk/atoms/atom-graph-ui-should-read-and-write-graph-data-directly-over-kgdb.md
-source_hash: ad5e1fa049ef11e1a50a6700d23fb827c595abbbf0ab59eeacca7292b0995684
-content_hash: f9a29ee9fda6e01f6be6467275038e814ecf512d026182c1e9415741118a93e7
+source_hash: 482033fdaa78c627f69e2aa1c9772f9933ac06bd54da002f6af4cd164467fa65
+content_hash: c48ff1bbb91e4f26b63d9faa5a5ae751cc5f2407174ffe15e00c7b34298c4b2e
 field_hashes:
   id: 86624f355d6ef083c60802a3efdecb9b58bb48b74dd38cca621e6c61f96b0889
   title: 3b567dea52193be55220b4302f702364fb3dfad7825d6b716cfea604d9fd988f
   five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
-  answer: feaeffea8693ab437e2fe932707b7ae019934c40ede88eb73cdf69338a736adb
+  answer: d6068d8e3b3f090d20e2034d338e056485d695b322e6062a1b73a1766ae1feea
   tags: f7f0af861200c08e1ce1104917581c72058821001870154e0ed8dbfa96e23ab0
 semantic_tags:
 - representation.markdown

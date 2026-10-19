@@ -13,4 +13,4 @@ provenance: docs/specs/matrix.graph-ui-views.yml
 
 ## Answer
 
-NodeInspector does not change the node type, schema definition, or graph persistence layer. It only edits the focused node draft and writes those specific fields back into the current graph store entry.
+NodeInspector does not change the node type or the schema definition. It only edits the focused node's draft; the typed path persists that one document through `sldbProvider.saveDoc`, and the fallback path writes only title and properties into the current graph store entry. Graph-level save remains owned by the page.

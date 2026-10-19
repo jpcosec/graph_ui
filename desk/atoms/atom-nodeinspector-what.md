@@ -13,4 +13,4 @@ provenance: docs/specs/matrix.graph-ui-views.yml
 
 ## Answer
 
-NodeInspector is the side sheet for editing a focused node. It lets the operator change the node name and key-value properties and then save those edits back into the graph store.
+NodeInspector is the side sheet for editing a focused node, opened by double click on the node. For nodes whose type has typed fields it renders one editor per field and saves the document through `sldbProvider.saveDoc` (POST /sldb/save); otherwise it falls back to a name plus key-value properties form that writes back to the graph store.

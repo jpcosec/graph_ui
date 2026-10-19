@@ -7,11 +7,10 @@ tags:
 - system:graph_ui
 - topic:typed-editor
 - layer:document-model
-provenance: null
 ---
 
 # graph_ui node types must not be hand-written Zod; generate them from sldb models at build
 
 ## Answer
 
-Today node types are hardcoded in src/schema/register-defaults.ts (Zod written by hand, placeholder renderers). This is the gap: the registry must be populated FROM sldb models, not local definitions. The chosen path is BUILD-TIME: export sldb models to a schema/contract that graph_ui consumes to generate NodeTypeDefinition (Zod from Field, allowedConnections from relation fields, colorToken/category from __family__), rather than runtime store reads. This is where 'typed editor' meets 'sldb nucleus': one sldb model -> one generated typed, validated, renderable node.
+En apps/review-workbench los tipos de nodo ya se generan en parte desde modelos: scripts/generate-node-types.mjs (npm run hum:sync) lee src/schema/models/*.model.json y escribe src/schema/generated-node-types.ts (Zod por campo), que registerDefaultNodeTypes registra junto a los tipos 'group' y 'simple', que siguen escritos a mano con Zod y renderers placeholder en src/schema/register-defaults.ts. Lo que no debe hacerse es ampliar esos tipos a mano: el camino elegido es BUILD-TIME, exportar los modelos sldb a un contrato/schema que graph_ui consume para generar NodeTypeDefinition (Zod desde Field, allowedConnections desde campos de relación, colorToken/category desde __family__), no lecturas del store en runtime. Falta que los .model.json salgan de los modelos sldb reales en lugar de mantenerse localmente.

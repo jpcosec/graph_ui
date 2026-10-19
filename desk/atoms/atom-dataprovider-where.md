@@ -13,4 +13,4 @@ provenance: docs/specs/sequence.data-load-target.yml
 
 ## Answer
 
-DataProvider lives at `apps/review-workbench/src/features/graph-editor/lib/data-provider.ts` in the frontend L1/data-loading boundary. Its current read path reaches `apps/review-workbench/src/mock/client.ts`, and its intended runtime role is described in `docs/specs/sequence.data-load-target.yml`. Those are the exact code and spec locations that define it today.
+The mock provider lives at `apps/review-workbench/src/features/graph-editor/lib/data-provider.ts` (read path through `apps/review-workbench/src/mock/client.ts`), and the live sldb provider at `apps/review-workbench/src/features/graph-editor/lib/sldb-provider.ts`. The intended runtime role is described in `docs/specs/sequence.data-load-target.yml`.

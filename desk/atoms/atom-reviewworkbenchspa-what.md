@@ -13,4 +13,4 @@ provenance: docs/specs/deployment.runtime.yml
 
 ## Answer
 
-ReviewWorkbenchSPA is the browser-side React/Vite application bundle that hosts the graph_ui frontend. It is the delivered frontend artifact in the runtime deployment, and in `src/App.tsx` it mounts the app shell, query client, and the default `HumBodyPage`. This is the interactive surface the browser actually runs.
+ReviewWorkbenchSPA is the browser-side React/Vite application bundle that hosts the graph_ui review-workbench frontend. It is the delivered frontend artifact in the runtime deployment, and in `src/App.tsx` it mounts the app shell, query client, and the default `AntoniaFlowPage`. This is the interactive surface the browser actually runs.

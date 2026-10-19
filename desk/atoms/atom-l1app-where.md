@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-It lives in the frontend app layer. The generic implementation is `apps/review-workbench/src/features/graph-editor/L1-app/GraphEditorPage.tsx`, and the currently mounted HUM implementation is `apps/review-workbench/src/features/hum-body/HumBodyPage.tsx`.
+It lives in the frontend app layer. The page mounted today is `apps/review-workbench/src/features/antonia-flow/AntoniaFlowPage.tsx`, and the generic implementation is `apps/review-workbench/src/features/graph-editor/L1-app/GraphEditorPage.tsx` (not mounted by `App.tsx`).

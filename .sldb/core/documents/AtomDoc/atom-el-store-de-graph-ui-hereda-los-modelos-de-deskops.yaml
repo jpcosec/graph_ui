@@ -1,12 +1,12 @@
 name: atom-el-store-de-graph-ui-hereda-los-modelos-de-deskops
 path: desk/atoms/atom-el-store-de-graph-ui-hereda-los-modelos-de-deskops.md
-source_hash: e9917de42e20af207b6d4cd9385ae250816bb328fb1ebc797fc7c1f8b08ef34e
-content_hash: fbcfab7a99d563611ce99c9460f8c691960e92753464e4fa6ef9a35ad36af629
+source_hash: fc2ec07b53943ccaf64548fd5745789dd629bd9a61e3668b7464b2ea96a9a7cc
+content_hash: 53e81f9b234f5e6dcab4298240d8cf8a35f3a9b6cb8e9cc82ac06058a5caa42f
 field_hashes:
   id: b12e1fc46bb7287b251484c2a0d8889d86630b05087577906efc25b92b9d030a
   title: 6dad7d05169ea09c05217fc6adab45ca2748f29cc7f748594a9f0da5b7aa7de8
   five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
-  answer: ae2cc8512059c4e5534e14ebca96d79ac58ab3d5ef9d114585c387646d8da260
+  answer: 8e929a4f456cfd8d79038029607d07627f9e7c8fa5136bb8b38109b213f86309
   tags: 52a91f44495539f05ddfbb6a99667819f45765c5079e0da49f0b655e31e10284
   provenance: b122c4ad260aae5ede39b68bb93b48383a39d0098ef025164bb32275e079392a
 semantic_tags:

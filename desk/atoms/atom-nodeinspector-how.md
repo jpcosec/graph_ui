@@ -13,4 +13,4 @@ provenance: docs/specs/matrix.graph-ui-views.yml
 
 ## Answer
 
-It derives the open node from focusedNodeId in the UI store, builds a local draft from the current node data, and uses PropertyEditor to edit key-value properties. On save it rewrites label or name fields when present, updates the payload value title or name, replaces properties, and calls graphStore.updateNode before closing back to browse mode.
+It derives the open node from `focusedNodeId` in the UI store and builds a draft from the node's `payloadValue`. If `getTypedFields(typeId)` returns fields it renders `TypedFieldEditor` per field and `handleTypedSave` calls `sldbProvider.saveDoc(node.id, payload)` and then `graphStore.updateNode` with the new payload, label and properties, surfacing errors as `saveError`. Otherwise `PropertyEditor` edits key-value properties and `handleFallbackSave` rewrites the title and properties in the graph store only; both paths close back to browse mode.
