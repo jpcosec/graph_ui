@@ -2,7 +2,7 @@
 title: "R1: En actividad, el nodo inicial queda debajo del primer paso"
 severity: high
 category: layout
-status: open
+status: closed
 ---
 # R1: En actividad, el nodo inicial queda debajo del primer paso
 
@@ -23,3 +23,9 @@ Ronda 2 del reporte de legibilidad (2026-10-19), sobre el store de prueba de sol
 ## Acceptance
 Aserción: el centro del inicial está antes (arriba en TB) que el del primer paso.
 Criterio (ronda 2): en /specs/notation, 1800x1200, «Ver todo»: texto ≥ 10 px, sin títulos tapados ni rótulos encimados, y además sin puntas de flecha sueltas, cada rótulo de arista a ≤ 20 px de su arista y el nodo inicial arriba. Cada issue tiene su aserción en tests/e2e_notation_legibility.py.
+
+## Resolution
+
+Closed: 2026-10-19
+Reason: El inicial va a la primera capa de ELK y el final a la última; e2e: el inicial queda arriba de su primer paso.
+Refs: 3bfb7f5

@@ -2,7 +2,7 @@
 title: "R3: Los rótulos de arista quedan lejos de su línea"
 severity: high
 category: layout
-status: open
+status: closed
 ---
 # R3: Los rótulos de arista quedan lejos de su línea
 
@@ -24,3 +24,9 @@ Ronda 2 del reporte de legibilidad (2026-10-19), sobre el store de prueba de sol
 ## Acceptance
 Aserción: la distancia del centro de cada rótulo a su arista es ≤ 20 px.
 Criterio (ronda 2): en /specs/notation, 1800x1200, «Ver todo»: texto ≥ 10 px, sin títulos tapados ni rótulos encimados, y además sin puntas de flecha sueltas, cada rótulo de arista a ≤ 20 px de su arista y el nodo inicial arriba. Cada issue tiene su aserción en tests/e2e_notation_legibility.py.
+
+## Resolution
+
+Closed: 2026-10-19
+Reason: Cada rótulo se coloca junto a un tramo de su arista (4 px) sin pisar nodos, títulos ni otros rótulos; e2e: cada rótulo a <= 20 px de su arista.
+Refs: 3bfb7f5

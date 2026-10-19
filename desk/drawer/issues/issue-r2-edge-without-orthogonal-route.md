@@ -2,7 +2,7 @@
 title: "R2: Una arista sin ruta ortogonal se dibuja como diagonal con puntas sueltas"
 severity: high
 category: layout
-status: open
+status: closed
 ---
 # R2: Una arista sin ruta ortogonal se dibuja como diagonal con puntas sueltas
 
@@ -22,3 +22,9 @@ Ronda 2 del reporte de legibilidad (2026-10-19), sobre el store de prueba de sol
 ## Acceptance
 Aserción: cada arista empieza y termina sobre el borde de su origen y su destino.
 Criterio (ronda 2): en /specs/notation, 1800x1200, «Ver todo»: texto ≥ 10 px, sin títulos tapados ni rótulos encimados, y además sin puntas de flecha sueltas, cada rótulo de arista a ≤ 20 px de su arista y el nodo inicial arriba. Cada issue tiene su aserción en tests/e2e_notation_legibility.py.
+
+## Resolution
+
+Closed: 2026-10-19
+Reason: Las ramas de un rombo usan sus vértices (puertos fijos) y un candidato con arista diagonal o extremo al aire se descarta; e2e: cada arista empieza y termina sobre su origen y su destino.
+Refs: 3bfb7f5
