@@ -24,3 +24,4 @@
 {"task_id": "006", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "legacy-resolved", "commit": null}
 {"task_id": "task-ci-de-graph-ui-en-github-actions", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
 {"task_id": "task-modelo-de-vista-viewdoc-en-spec2viz", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
+{"task_id": "task-evaluaci\u00f3n-de-vistas-filtros-y-guardado-en-graph-ui", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
