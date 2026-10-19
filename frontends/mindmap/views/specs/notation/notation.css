@@ -23,15 +23,16 @@
 .notation-terminal .hollow{fill:var(--surface-app)}
 
 /* Glifos: la clase sale de `shape` del GlyphDoc, nunca del `kind` del elemento. */
-.glyph{position:relative;box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;border:1.5px solid var(--ink);background:var(--surface-panel);color:var(--text);font-size:12px;box-shadow:var(--shadow-card)}
+.glyph{position:relative;box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;border:1.5px solid var(--ink);background:var(--surface-panel);color:var(--text);font-size:12.5px;box-shadow:var(--shadow-card)}
 .glyph.selected{box-shadow:0 0 0 3px var(--focus-ring)}
 .glyph-head,.glyph-compartment{flex:none}
 .glyph-head{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:6px 10px;min-height:28px;text-align:center}
-.glyph-keyword{font-size:10px;color:var(--text-muted)}
-.glyph-label{font-weight:600;line-height:1.25}
+.glyph-keyword{font-size:12.5px;line-height:1.3;color:var(--text-muted)}
+.glyph-label{font-weight:600;line-height:1.3}
+.glyph-line{display:block;white-space:nowrap}
 .glyph-label.is-italic{font-style:italic}
 .glyph-label.is-bold{font-weight:700}
-.glyph-compartment{list-style:none;margin:0;padding:4px 10px;border-top:1px solid var(--ink);font-size:10.5px;line-height:17px;white-space:nowrap}
+.glyph-compartment{list-style:none;margin:0;padding:4px 10px;border-top:1px solid var(--ink);font-size:12.5px;line-height:17px;white-space:nowrap}
 .glyph-compartment li{display:block;height:17px;overflow:hidden;text-overflow:ellipsis}
 
 .glyph.shape-class-box{border-radius:2px}
@@ -40,15 +41,22 @@
 .glyph.shape-box,.glyph.shape-lifeline{border-radius:3px;justify-content:center}
 .glyph.shape-boundary-lifeline{border-radius:3px;border-style:dashed;justify-content:center}
 .glyph.shape-rounded-container,.glyph.is-container{border-radius:16px;background:var(--surface-panel-veil);box-shadow:none}
+/* G2: la cabecera de un contenedor va arriba, en la franja que ELK le reservó; los hijos empiezan debajo. */
+.glyph.is-container{justify-content:flex-start}
 .glyph.is-container .glyph-head{align-items:flex-start;border-bottom:1px solid var(--border);padding:6px 14px}
 .glyph.shape-stick-figure{border:0;background:none;box-shadow:none;justify-content:flex-end}
 .glyph.shape-stick-figure::before{content:'🧍';font-size:36px;line-height:1;text-align:center}
 
-.glyph.shape-filled-circle,.glyph.shape-bullseye,.glyph.shape-diamond{border-radius:50%;background:var(--ink);box-shadow:none;align-items:center;justify-content:center}
+.glyph.shape-filled-circle,.glyph.shape-bullseye{border-radius:50%;background:var(--ink);box-shadow:none;align-items:center;justify-content:center}
 .glyph.shape-bullseye{background:var(--surface-panel);border:2px solid var(--ink);box-shadow:inset 0 0 0 4px var(--surface-panel),inset 0 0 0 12px var(--ink)}
-.glyph.shape-diamond{border-radius:3px;transform:rotate(45deg) scale(.72);background:var(--surface-panel)}
-.glyph-point-label{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:4px;font-size:10px;color:var(--text-secondary);white-space:nowrap}
-.glyph.shape-diamond .glyph-point-label{transform:rotate(-45deg) translate(-30%,10px)}
+/* Decisión (G6): el rombo contiene su rótulo; su tamaño sale del texto (notation-layout.mjs). */
+.glyph.shape-diamond{border:0;background:none;box-shadow:none;align-items:center;justify-content:center}
+.glyph.shape-diamond::before,.glyph.shape-diamond::after{content:'';position:absolute;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.glyph.shape-diamond::before{inset:0;background:var(--ink)}
+.glyph.shape-diamond::after{inset:1.5px;background:var(--surface-panel)}
+.glyph-diamond-label{position:relative;z-index:1;font-weight:600;line-height:1.3;text-align:center}
+/* Rótulo de un pseudoestado: donde ELK le reservó sitio, fuera del círculo. */
+.glyph-point-label{position:absolute;font-size:12.5px;line-height:1.3;color:var(--text-secondary);text-align:center;pointer-events:none}
 
 /* Marcas (contrato §6): símbolo junto al glifo, con una línea corta hacia él. */
 .glyph-marker{position:absolute;top:-26px;left:-26px;width:14px;height:14px;border-radius:50%;background:var(--ink)}
@@ -76,7 +84,9 @@
 .notation-grid td{min-width:64px;text-align:center}
 .notation-grid td.is-filled{background:var(--primary-soft)}
 .cell-mark{display:inline-block;color:var(--accent);font-size:14px;line-height:1}
-.notation-end-label{position:absolute;padding:0 3px;border-radius:3px;background:var(--surface-app);color:var(--text-secondary);font-size:10px;line-height:14px;pointer-events:none;white-space:nowrap}
+.notation-end-label{position:absolute;padding:0 3px;border-radius:3px;background:var(--surface-app);color:var(--text-secondary);font-size:12.5px;line-height:15px;pointer-events:none;white-space:nowrap}
+/* Rótulo de arista en la caja que ELK le reservó (G5): no se encima con otros rótulos ni nodos. */
+.notation-edge-label{position:absolute;top:0;left:0;box-sizing:border-box;padding:0 4px;border-radius:3px;background:var(--surface-app);color:var(--text-secondary);font-size:12.5px;line-height:1.3;text-align:center;pointer-events:none}
 .lane-frame .frame-box{fill:none;stroke:var(--text-muted);stroke-width:1.2}
 .lane-frame .frame-tab{fill:var(--surface-panel);stroke:var(--text-muted);stroke-width:1.2}
 .lane-frame .frame-label{font-size:10.5px;font-weight:600;fill:var(--text)}

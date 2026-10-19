@@ -1,65 +1,63 @@
-import {useState, useEffect, useMemo} from 'react';
+import {useState, useEffect, useMemo, useRef} from 'react';
 import {ReactFlow, ReactFlowProvider, Controls, MiniMap, Handle, Position, useReactFlow, applyNodeChanges, BaseEdge, EdgeLabelRenderer, getSmoothStepPath} from '@xyflow/react';
-import dagre from 'dagre';
 import {html} from '../../../shared/html.js';
 import {request} from '../../../shell/api.js';
 import {useSource} from '../../../source/source.js';
-import {specCatalog, sceneFor, byDepth, compartmentLine, cellKey, LANE, POINT_SHAPES, TERMINALS} from './notation.mjs';
+import {specCatalog, sceneFor, compartmentLine, cellKey, LANE, TERMINALS} from './notation.mjs';
+import {bestLayout, pathOf, POINT_SHAPES} from './notation-layout.mjs';
 
 // Vista genérica de notación: dibuja un spec de spec2viz tal como lo resuelve
 // GET /api/notation/view (resolve_view de spec2viz). Nada aquí distingue UML,
 // statechart o secuencia: la forma viene del glifo y el trazo del link. El
-// layout lo calcula dagre (compuesto, para el anidado), nunca coordenadas del
+// layout lo calcula ELK (notation-layout.mjs, jerárquico), nunca coordenadas del
 // store: posiciones y plegado son estado de la superficie (contrato §7).
 const STORAGE_KEY = 'kb-notation-spec';
-const PAD = 18, HEAD = 30;
+const FIT_PADDING = 0.05;
 const HANDLES = {TB: [Position.Top, Position.Bottom], BT: [Position.Bottom, Position.Top],
   LR: [Position.Left, Position.Right], RL: [Position.Right, Position.Left]};
 
-function layout(scene) {
-  const g = new dagre.graphlib.Graph({compound: true});
-  // En horizontal los rótulos de las transiciones corren a lo largo del rango.
-  const horizontal = scene.direction === 'LR' || scene.direction === 'RL';
-  g.setGraph({rankdir: scene.direction, nodesep: horizontal ? 60 : 46, ranksep: horizontal ? 150 : 74, marginx: 24, marginy: 24});
-  g.setDefaultEdgeLabel(() => ({}));
-  const byId = new Map(scene.nodes.map(n => [n.id, n]));
-  for (const n of scene.nodes) g.setNode(n.id, n.container ? {} : {width: n.width, height: n.height});
-  for (const n of scene.nodes) if (n.parent) g.setParent(n.id, n.parent);
-  // dagre no admite aristas hacia un clúster: se apoyan en una hoja del
-  // contenedor para el layout; se dibujan igual hacia el contenedor.
-  const leaf = id => { let n = byId.get(id); while (n?.container) n = scene.nodes.find(c => c.parent === n.id); return n?.id || id; };
-  for (const e of scene.edges) { const s = leaf(e.source), t = leaf(e.target); if (s !== t) g.setEdge(s, t); }
-  dagre.layout(g);
-  const box = new Map();
-  for (const n of scene.nodes) if (!n.container) { const p = g.node(n.id); box.set(n.id, {x: p.x - n.width / 2, y: p.y - n.height / 2, w: n.width, h: n.height}); }
-  // Contenedores de adentro hacia afuera: su caja envuelve a sus hijos.
-  for (const n of [...byDepth(scene.nodes)].reverse()) {
-    if (!n.container) continue;
-    const kids = scene.nodes.filter(c => c.parent === n.id && box.has(c.id)).map(c => box.get(c.id));
-    if (!kids.length) { const p = g.node(n.id); box.set(n.id, {x: p.x - n.width / 2, y: p.y - n.height / 2, w: n.width, h: n.height}); continue; }
-    const x = Math.min(...kids.map(k => k.x)) - PAD, y = Math.min(...kids.map(k => k.y)) - PAD - HEAD;
-    const w = Math.max(Math.max(...kids.map(k => k.x + k.w)) + PAD - x, n.width);
-    box.set(n.id, {x, y, w, h: Math.max(...kids.map(k => k.y + k.h)) + PAD - y});
-  }
-  return byDepth(scene.nodes).map(n => {
-    const b = box.get(n.id), parent = n.parent && box.get(n.parent);
-    return {id: n.id, type: 'glyph', parentId: n.parent || undefined, zIndex: n.container ? 0 : 1,
-      position: parent ? {x: b.x - parent.x, y: b.y - parent.y} : {x: b.x, y: b.y},
-      style: {width: b.w, height: b.h}, data: {glyph: n.glyph, container: n.container, direction: scene.direction}};
-  });
+let elkInstance = null;
+const elkReady = () => (elkInstance ||= import('elkjs').then(m => new (m.default)()));
+
+// Medida real del texto con la misma fuente que el lienzo: la caja crece con su rótulo (G4).
+function canvasMeasure(element) {
+  const ctx = document.createElement('canvas').getContext('2d');
+  const family = getComputedStyle(element || document.body).fontFamily;
+  const cache = new Map();
+  return (text, size) => {
+    const key = size + '\u0000' + text;
+    if (!cache.has(key)) { ctx.font = `600 ${size}px ${family}`; cache.set(key, ctx.measureText(text || '').width); }
+    return cache.get(key);
+  };
+}
+
+// Layout ELK (notation-layout.mjs): el candidato que mejor cabe en el lienzo, en nodos y aristas de React Flow.
+async function layoutGraph(scene, element) {
+  const box = element.getBoundingClientRect();
+  const best = await bestLayout(await elkReady(), scene, {measure: canvasMeasure(element), canvas: {width: box.width, height: box.height}});
+  if (!best) return {nodes: [], edges: []};
+  const nodes = [...best.nodes].sort((a, b) => a.depth - b.depth).map(n => ({
+    id: n.id, type: 'glyph', parentId: n.parent || undefined, zIndex: n.container ? 0 : 1,
+    position: {x: n.x, y: n.y}, style: {width: n.width, height: n.height},
+    data: {glyph: n.glyph, container: n.container, lines: n.lines, header: n.header, outside: n.outside, direction: best.direction}}));
+  return {nodes, edges: best.edges, zoom: best.zoom, width: best.width, height: best.height};
 }
 
 // Cuerpo del glifo, sin handles: lo usan los nodos de React Flow y las
 // cabeceras de carril (que no viven dentro de React Flow).
-function Glyph({glyph: g, container, selected, children, style}) {
+const lineList = lines => lines.map((line, i) => html`<span key=${i} className="glyph-line">${line}</span>`);
+
+function Glyph({glyph: g, container, selected, children, style, lines, outside}) {
   const point = POINT_SHAPES.includes(g.shape);
-  const label = html`<span className=${'glyph-label' + (g.label_style ? ' is-' + g.label_style : '')}>${g.label}</span>`;
+  const text = lines && lines.length ? lineList(lines) : g.label;
+  const label = html`<span className=${'glyph-label' + (g.label_style ? ' is-' + g.label_style : '')}>${text}</span>`;
   const compartments = (g.compartments || []).filter(c => c.items && c.items.length);
   return html`<div className=${'glyph shape-' + g.shape + (container ? ' is-container' : '') + (selected ? ' selected' : '')} style=${style}
       data-doc=${g.doc} data-glyph=${g.glyph} data-function=${g.function || ''} title=${g.doc}>
     ${children}
     ${(g.markers || []).map(m => html`<span key=${m.id} className=${'glyph-marker marker-' + m.shape} title=${m.id} data-marker=${m.id}></span>`)}
-    ${point ? html`<span className="glyph-point-label">${g.label}</span>`
+    ${point ? (outside ? html`<span className="glyph-point-label" style=${{left: outside.x + 'px', top: outside.y + 'px', width: outside.width + 'px'}}>${lineList(outside.lines)}</span>` : '')
+      : g.shape === 'diamond' ? html`<span className="glyph-diamond-label">${text}</span>`
       : html`<header className="glyph-head">${g.keyword ? html`<small className="glyph-keyword">${g.keyword}</small>` : ''}${label}</header>
         ${compartments.map(c => html`<ul key=${c.path} className="glyph-compartment" data-path=${c.path}>${c.items.map((item, i) => html`<li key=${i}>${compartmentLine(item)}</li>`)}</ul>`)}`}
   </div>`;
@@ -67,7 +65,8 @@ function Glyph({glyph: g, container, selected, children, style}) {
 
 function GlyphNode({data, selected}) {
   const [inPos, outPos] = HANDLES[data.direction] || HANDLES.TB;
-  return html`<${Glyph} glyph=${data.glyph} container=${data.container} selected=${selected}>
+  return html`<${Glyph} glyph=${data.glyph} container=${data.container} selected=${selected}
+      lines=${data.container ? data.header?.lines : data.lines} outside=${data.outside}>
     <${Handle} type="target" position=${inPos}/><${Handle} type="source" position=${outPos}/>
   </${Glyph}>`;
 }
@@ -155,25 +154,29 @@ function endLabel(text, x, y, position, end) {
     style=${{transform: `translate(-50%, -50%) translate(${x + dx}px, ${y + dy}px)`}}>${text}</div>`;
 }
 
-function NotationEdge({id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style, markerEnd, markerStart, label, labelStyle, labelBgStyle, labelBgPadding, data}) {
-  const [path, labelX, labelY] = getSmoothStepPath({sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition});
-  return html`<${BaseEdge} id=${id} path=${path} style=${style} markerEnd=${markerEnd} markerStart=${markerStart}
-      label=${label} labelX=${labelX} labelY=${labelY} labelStyle=${labelStyle} labelBgStyle=${labelBgStyle} labelBgPadding=${labelBgPadding}/>
-    ${data?.sourceLabel || data?.targetLabel ? html`<${EdgeLabelRenderer}>
-      ${endLabel(data.sourceLabel, sourceX, sourceY, sourcePosition, 'source')}
-      ${endLabel(data.targetLabel, targetX, targetY, targetPosition, 'target')}
-    </${EdgeLabelRenderer}>` : ''}`;
+// La arista sigue el recorrido ortogonal de ELK y su rótulo va en la caja que ELK le reservó (G5);
+// sin recorrido (no debería pasar) cae a un escalón entre los puertos.
+function NotationEdge({id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style, markerEnd, markerStart, data}) {
+  const routed = data?.points && data.points.length > 1;
+  const [fallback] = routed ? [null] : getSmoothStepPath({sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition});
+  const ends = routed ? [data.points[0], data.points[data.points.length - 1]] : [{x: sourceX, y: sourceY}, {x: targetX, y: targetY}];
+  return html`<${BaseEdge} id=${id} path=${routed ? pathOf(data.points) : fallback} style=${style} markerEnd=${markerEnd} markerStart=${markerStart}/>
+    <${EdgeLabelRenderer}>
+      ${data?.labelBox ? html`<div className="notation-edge-label nodrag nopan" data-edge=${id}
+          style=${{transform: `translate(${data.labelBox.x}px, ${data.labelBox.y}px)`, width: data.labelBox.width + 'px'}}>${lineList(data.labelBox.lines)}</div>` : ''}
+      ${endLabel(data?.sourceLabel, ends[0].x, ends[0].y, sourcePosition, 'source')}
+      ${endLabel(data?.targetLabel, ends[1].x, ends[1].y, targetPosition, 'target')}
+    </${EdgeLabelRenderer}>`;
 }
 const edgeTypes = {notation: NotationEdge};
 
-function edgesOf(scene, selected) {
-  return scene.edges.map(e => {
+function edgesOf(edges, selected) {
+  return edges.map(e => {
     const active = selected && (e.source === selected || e.target === selected);
-    return {id: e.id, source: e.source, target: e.target, type: 'notation', label: e.label || undefined,
-      data: {relation: e.relation, sourceLabel: e.sourceLabel, targetLabel: e.targetLabel}, className: 'notation-edge',
+    return {id: e.id, source: e.source, target: e.target, type: 'notation',
+      data: {relation: e.relation, sourceLabel: e.sourceLabel, targetLabel: e.targetLabel, points: e.points, labelBox: e.labelBox}, className: 'notation-edge',
       markerEnd: e.targetEnd ? 'nv-' + e.targetEnd : undefined, markerStart: e.sourceEnd ? 'nv-' + e.sourceEnd : undefined,
-      style: {stroke: 'var(--edge)', strokeWidth: active ? 2.2 : 1.4, strokeDasharray: e.dash, opacity: selected && !active ? .25 : 1},
-      labelStyle: {fontSize: 10, fill: 'var(--text-secondary)'}, labelBgStyle: {fill: 'var(--surface-app)'}, labelBgPadding: [4, 2]};
+      style: {stroke: 'var(--edge)', strokeWidth: active ? 2.2 : 1.4, strokeDasharray: e.dash, opacity: selected && !active ? .25 : 1}};
   });
 }
 
@@ -184,7 +187,17 @@ function NotationCanvas({skin}) {
   const [specId, setSpecId] = useState(() => { try { return localStorage.getItem(STORAGE_KEY); } catch { return null; } });
   const current = specIds.includes(specId) ? specId : specIds[0] || null;
   const [state, setState] = useState({phase: 'idle', view: null, error: null});
-  const {fitView} = useReactFlow();
+  const {fitView, setViewport} = useReactFlow();
+  const [extent, setExtent] = useState(null);
+  // «Ver todo» encuadra la caja entera del layout de ELK, rutas de aristas incluidas (fitView solo
+  // mira los nodos y dejaba aristas fuera del lienzo).
+  const fitAll = (duration = 200) => {
+    const el = canvasRef.current;
+    if (!extent || !el) return fitView({padding: FIT_PADDING, maxZoom: 1.1, duration});
+    const {width, height} = el.getBoundingClientRect();
+    const zoom = Math.min(1.1, Math.min(width / extent.width, height / extent.height) / (1 + FIT_PADDING));
+    setViewport({x: (width - extent.width * zoom) / 2, y: (height - extent.height * zoom) / 2, zoom}, {duration});
+  };
 
   useEffect(() => {
     if (!current) return;
@@ -198,8 +211,18 @@ function NotationCanvas({skin}) {
 
   const scene = useMemo(() => (state.view ? sceneFor(state.view) : null), [state.view]);
   const [flowNodes, setFlowNodes] = useState([]);
-  useEffect(() => { setFlowNodes(scene && scene.kind === 'graph' ? layout(scene) : []); }, [scene]);
-  useEffect(() => { const t = setTimeout(() => fitView({padding: .12, maxZoom: 1.1, duration: 200}), 60); return () => clearTimeout(t); }, [flowNodes.length, scene, fitView]);
+  const [flowEdges, setFlowEdges] = useState([]);
+  const canvasRef = useRef(null);
+  useEffect(() => {
+    let cancelled = false;
+    setFlowNodes([]); setFlowEdges([]); setExtent(null);
+    if (!scene || scene.kind !== 'graph' || !canvasRef.current) return;
+    layoutGraph(scene, canvasRef.current).then(result => {
+      if (!cancelled) { setFlowNodes(result.nodes); setFlowEdges(result.edges); setExtent({width: result.width, height: result.height}); }
+    });
+    return () => { cancelled = true; };
+  }, [scene]);
+  useEffect(() => { const t = setTimeout(() => fitAll(), 60); return () => clearTimeout(t); }, [extent]);
   const selected = flowNodes.find(n => n.selected)?.id || null;
 
   const choose = id => { setSpecId(id); try { localStorage.setItem(STORAGE_KEY, id); } catch {} };
@@ -215,10 +238,10 @@ function NotationCanvas({skin}) {
       <div className="notation-bar" role="toolbar" aria-label="Herramientas de la vista">
         <strong>${view ? view.title : current || 'Specs'}</strong>
         ${view ? html`<span className="notation-meta">${view.notation.replace(/^NotationDoc:/, '')} · ${view.nodes.length} elementos · ${view.links.length} relaciones</span>` : ''}
-        ${!scene || scene.kind === 'graph' ? html`<button type="button" onClick=${() => fitView({padding: .12, duration: 200})}>⛶ Ver todo</button>` : ''}
+        ${!scene || scene.kind === 'graph' ? html`<button type="button" onClick=${() => fitAll()}>⛶ Ver todo</button>` : ''}
       </div>
       ${scene && scene.notices.length ? html`<div className="notation-notices" role="status">${scene.notices.map(n => html`<p key=${n}>${n}</p>`)}</div>` : ''}
-      <div className="notation-canvas">
+      <div className="notation-canvas" ref=${canvasRef}>
         <${TerminalDefs}/>
         ${!current && kb.documents.status === 'error' ? html`<div className="state" role="alert"><h2>No se pudo leer el store</h2><p>${kb.documents.error}</p></div>`
           : !current ? html`<div className="state"><h2>Este store no tiene specs de spec2viz</h2><p>Sincroniza uno con <code>spec2viz diagram sync spec.yml --store .sldb</code>.</p></div>`
@@ -226,7 +249,7 @@ function NotationCanvas({skin}) {
           : state.phase === 'loading' || !scene ? html`<div className="state"><p>Resolviendo la notación…</p></div>`
           : scene.kind === 'lanes' ? html`<div className="notation-scroll"><${LanesDiagram} scene=${scene}/></div>`
           : scene.kind === 'grid' ? html`<div className="notation-scroll"><${GridDiagram} scene=${scene}/></div>`
-          : html`<${ReactFlow} nodes=${flowNodes} edges=${scene ? edgesOf(scene, selected) : []} nodeTypes=${nodeTypes} edgeTypes=${edgeTypes}
+          : html`<${ReactFlow} nodes=${flowNodes} edges=${edgesOf(flowEdges, selected)} nodeTypes=${nodeTypes} edgeTypes=${edgeTypes}
               onNodesChange=${changes => setFlowNodes(ns => applyNodeChanges(changes, ns))}
               minZoom=${.08} maxZoom=${2} nodesConnectable=${false} deleteKeyCode=${null} colorMode=${skin || 'light'}>
               <${Controls} showInteractive=${false}/>
