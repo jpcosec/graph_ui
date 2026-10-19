@@ -1,0 +1,17 @@
+name: 20261019-121253-suggestion-sldb-envelope-un-json-por-corrida-y-exit-codes-tipados-opt-in
+path: desk/inbox/20261019-121253-suggestion-sldb-envelope-un-json-por-corrida-y-exit-codes-tipados-opt-in.md
+source_hash: 6edb05d293673ab9b87c095c3a3ac870d10c091b1273f4063a95de254dc4adee
+content_hash: 62d5219ad5527b921d898b0262f7c8cb0ffe2aa2f75bc6a515a9b9ad38c470b0
+field_hashes:
+  kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
+  sender_project: adf8f4fb55456ba91d0b029904c49d4d1b85540b989a86435dfb80c0a89f7efb
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: 444c9917b44cad75bbf23a2f5ac109520d8c9a2c5ab8c351b4c876d16d4c960d
+  status: 35ff74aeea25311f4fe759a6b762c8cd41a79adb23dd5615b92cf215175a63e5
+  title: 044381bc5fca69e43e4e75dee4c7ac8ae0932fb0cc20bbbec381105d9e74e792
+  body: 65497d22fe6028334b325f1fbdb0db57f7317218a1fdf196063dfa6e2ef41c7e
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox

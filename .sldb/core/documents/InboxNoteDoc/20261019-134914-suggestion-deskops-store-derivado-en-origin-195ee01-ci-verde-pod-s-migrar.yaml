@@ -1,0 +1,17 @@
+name: 20261019-134914-suggestion-deskops-store-derivado-en-origin-195ee01-ci-verde-pod-s-migrar
+path: desk/inbox/20261019-134914-suggestion-deskops-store-derivado-en-origin-195ee01-ci-verde-pod-s-migrar.md
+source_hash: 6f86ae40083afad7ce91a3d724799634781fc31c3bd8377187d808c9533b60ae
+content_hash: d6eb7046b6bda5f71d1b9765efd27e85f84d71f78fc7e3f9c39ee3b102322132
+field_hashes:
+  kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
+  sender_project: be1a918d36a26b50ff05a32144905fa0851e3a2c55c93b05726d8a3bab97b3e7
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: 24f3038fe7d2052547962ddb1991f60319f99d9c88097349eed70ae4729be259
+  status: 35ff74aeea25311f4fe759a6b762c8cd41a79adb23dd5615b92cf215175a63e5
+  title: e680f9485da2b27b021cd041590e6fafdc485d1b066f8be8232762a44bd5bd98
+  body: 1a2f25778d5b0f8aa8a2a7a8b0b15867708e03dbde819c0504ae8ad0bab20a46
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
