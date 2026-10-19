@@ -19,7 +19,7 @@ ProjectionView query filters must reference facet names and relation-type names,
 
 _Explain why this context matters for safe execution._
 
-A view that hardcodes node ids only re-runs against the exact graph it was authored on. Name-based references are what make a view re-runnable across different kgdb instances (the cross-database requirement).
+A view that hardcodes node ids only re-runs against the exact graph it was authored on. Name-based references are what make a view re-runnable across different sldb stores (the cross-database requirement).
 
 ## When
 

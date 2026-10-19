@@ -20,7 +20,7 @@ A hard prohibition on mock/stub/fake/placeholder implementations in any code an 
 
 _Explain why this context matters for safe execution._
 
-This ecosystem treats deliverables as production truth. A mock silently breaks the nucleus tesis (real typed data flowing sldb->kgdb->overlay). Mocks pass shallow checks while leaving the contract unimplemented, causing false-green closeouts and drift that surfaces much later. Real wiring is the only acceptable evidence a task is done.
+This ecosystem treats deliverables as production truth. A mock silently breaks the nucleus tesis (real typed data flowing sldb -> sldb.api.graph -> overlay). Mocks pass shallow checks while leaving the contract unimplemented, causing false-green closeouts and drift that surfaces much later. Real wiring is the only acceptable evidence a task is done.
 
 ## When
 

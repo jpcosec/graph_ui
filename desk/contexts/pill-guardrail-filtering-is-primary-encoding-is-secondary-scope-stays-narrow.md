@@ -31,7 +31,7 @@ When implementing RelationFilter, EncodingRule, or layout strategies.
 
 _Name the files, surfaces, or scope this pill applies to._
 
-kgdb RelationFilter, graph_ui EncodingRule (L2), LAYOUT_REGISTRY. See SPEC sections 3.2, 3.3, 4.2 and vision point 1.3.
+sldb.api.graph RelationFilter (exists today), graph_ui EncodingRule (L2), LAYOUT_REGISTRY. See SPEC sections 3.2, 3.3, 4.2 and vision point 1.3.
 
 ## How
 
