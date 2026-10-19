@@ -1,0 +1,17 @@
+name: atom-qué-es-una-vista-de-proyección-y-cómo-la-evalúa-graph-ui
+path: desk/atoms/atom-qué-es-una-vista-de-proyección-y-cómo-la-evalúa-graph-ui.md
+source_hash: 6c612fdfebdc156ac2cfa268c3410133984d65841d707f1b5f84c393ad08cb2d
+content_hash: 813be1deef3a6dbc714213cc9f110ac2cd8fe010c3e4e08f40e1355a3efa737b
+field_hashes:
+  id: da6b28f71513f48b5d7e337ca901585e118959f1e5ff60132b9777379c5cc90a
+  title: 6c16f26e4e32d88d9f479b3d8b9bfb206687b6dd9153a3541edda345581d9b9d
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: d1eb1808904f63416180e82dc2249ede0c0057fe55081d74af360f23237acfa8
+  tags: afef0b2fdf44fb9c12df8c9a98705ed624457425ee022e28fcaf0fafff2cfd9a
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:projection-grammar
+- type.knowledge.atom
+- workspace.desk.atoms
