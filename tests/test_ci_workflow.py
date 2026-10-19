@@ -53,3 +53,10 @@ def test_e2e_job_is_separate_and_installs_chromium():
 def test_sibling_repos_come_from_git_main_branches_not_releases():
     lines = [l for l in SUITE.read_text(encoding="utf-8").splitlines() if l and not l.startswith("#")]
     assert len(lines) == 4 and all("git+https://github.com/jpcosec/" in l for l in lines)
+
+
+def test_python_jobs_cover_the_supported_floor():
+    pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    assert 'requires-python = ">=3.12"' in pyproject
+    for name in ("mindmap", "e2e"):
+        assert _jobs()[name]["strategy"]["matrix"]["python-version"] == ["3.12", "3.13"]

@@ -12,13 +12,17 @@ concurrency:
 
 jobs:
   mindmap:
-    name: pytest + node --test
+    name: pytest + node --test (py${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: ${{ matrix.python-version }}
           cache: pip
           cache-dependency-path: |
             pyproject.toml
@@ -56,13 +60,17 @@ jobs:
         run: node scripts/lint-architecture.mjs
 
   e2e:
-    name: e2e (Playwright, chromium)
+    name: e2e (Playwright, chromium, py${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: ${{ matrix.python-version }}
           cache: pip
           cache-dependency-path: |
             pyproject.toml
