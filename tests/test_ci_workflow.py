@@ -62,3 +62,17 @@ def test_python_jobs_cover_the_supported_floor():
     assert 'requires-python = ">=3.12"' in pyproject
     for name in ("mindmap", "e2e"):
         assert _jobs()[name]["strategy"]["matrix"]["python-version"] == ["3.12", "3.13"]
+
+
+def test_python_jobs_rebuild_the_derived_store_beside_deskops():
+    """The store is derived (.sldb/store.yaml): it links ../../deskops/.sldb, so CI lays the repos
+    out as on a workstation and builds deskops' store before graph_ui's."""
+    for name in ("mindmap", "e2e"):
+        job = _jobs()[name]
+        assert job["defaults"]["run"]["working-directory"] == "UIs/graph_ui"
+        paths = {step.get("with", {}).get("path") for step in job["steps"] if step.get("uses", "").startswith("actions/checkout")}
+        assert paths == {"UIs/graph_ui", "deskops"}
+        build = next(r for r in _runs(job) if "sldb stores build" in r)
+        assert build.index("../../deskops") < build.rindex("sldb stores build")
+    assert "sldb stores build --check" in _runs(_jobs()["mindmap"])
+    assert (ROOT / ".sldb" / "store.yaml").exists()

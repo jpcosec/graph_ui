@@ -18,20 +18,37 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12", "3.13"]
+    # The store is derived (.sldb/store.yaml): it links ../../deskops/.sldb, so graph_ui is checked
+    # out at UIs/graph_ui with deskops beside it, the same relative layout as on a workstation.
+    defaults:
+      run:
+        working-directory: UIs/graph_ui
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: UIs/graph_ui
+      - uses: actions/checkout@v4
+        with:
+          repository: jpcosec/opsys
+          path: deskops
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
           cache-dependency-path: |
-            pyproject.toml
-            .github/requirements-suite.txt
+            UIs/graph_ui/pyproject.toml
+            UIs/graph_ui/.github/requirements-suite.txt
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
       - name: Install graph_ui and the suite
         run: python -m pip install --src "$RUNNER_TEMP/suite-src" -r .github/requirements-suite.txt -e ".[test]"
+      - name: Build the stores (deskops, then graph_ui) from their declarations
+        run: |
+          (cd ../../deskops && sldb stores build)
+          sldb stores build
+      - name: The versioned sources rebuild the store
+        run: sldb stores build --check
       - name: pytest
         # The e2e_* files drive a browser; they run in the e2e job.
         run: python -m pytest tests -q -rs --ignore-glob='tests/e2e_*'
@@ -66,25 +83,40 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12", "3.13"]
+    # The store is derived (.sldb/store.yaml): it links ../../deskops/.sldb, so graph_ui is checked
+    # out at UIs/graph_ui with deskops beside it, the same relative layout as on a workstation.
+    defaults:
+      run:
+        working-directory: UIs/graph_ui
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: UIs/graph_ui
+      - uses: actions/checkout@v4
+        with:
+          repository: jpcosec/opsys
+          path: deskops
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
           cache-dependency-path: |
-            pyproject.toml
-            .github/requirements-suite.txt
+            UIs/graph_ui/pyproject.toml
+            UIs/graph_ui/.github/requirements-suite.txt
       - name: Install graph_ui and the suite
         run: python -m pip install --src "$RUNNER_TEMP/suite-src" -r .github/requirements-suite.txt -e ".[test]"
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: apps/review-workbench/package-lock.json
+          cache-dependency-path: UIs/graph_ui/apps/review-workbench/package-lock.json
       - name: review-workbench dependencies (its e2e builds and previews the app)
         run: npm ci
-        working-directory: apps/review-workbench
+        working-directory: UIs/graph_ui/apps/review-workbench
+      - name: Build the stores (deskops, then graph_ui) from their declarations
+        run: |
+          (cd ../../deskops && sldb stores build)
+          sldb stores build
       - name: Install chromium
         run: python -m playwright install --with-deps chromium
       - name: e2e
