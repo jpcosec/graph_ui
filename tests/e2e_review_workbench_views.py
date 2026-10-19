@@ -9,15 +9,17 @@ build of review-workbench under ``vite preview``, whose proxy forwards both. In 
    nodes and edges ``evaluate_view`` computes on the server;
 2. saving writes a ``ViewDoc`` to the store; after a reload, choosing it in "Saved views" redraws
    the same slice;
-3. the same view pointed at a second store draws that store's slice.
+3. the same view pointed at a second store draws that store's slice;
+4. a view's layout style places the nodes: ``rings`` by a payload field (every node of a ring at
+   that ring's radius, inner ring first), ``layered`` top to bottom along the relations.
 """
+import json
 import os
 import shutil
 import socket
 import subprocess
 import sys
 import tempfile
-import threading
 import time
 import urllib.request
 from pathlib import Path
@@ -95,7 +97,7 @@ def stack():
                                            "--host", "127.0.0.1"], cwd=APP, env=app_env,
                                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL))
         _wait(f"http://127.0.0.1:{app_port}/", processes[2])
-        yield {"store": store, "other": other, "app": f"http://127.0.0.1:{app_port}"}
+        yield {"store": store, "other": other, "app": f"http://127.0.0.1:{app_port}", "ui": f"http://127.0.0.1:{ui_port}"}
     finally:
         for process in processes:
             process.terminate()
@@ -171,4 +173,59 @@ def test_views_query_save_reload_and_point_at_another_store(stack):
         _apply(page, "SpecNodeDoc", "", "")
         _drawn(page, n_there, e_there)
         assert errors == []
+        browser.close()
+
+
+def _save(ui: str, name: str, view: dict) -> None:
+    request = urllib.request.Request(f"{ui}/api/views/save", data=json.dumps({"name": name, "view": view}).encode(),
+                                     headers={"Content-Type": "application/json"})
+    with urllib.request.urlopen(request, timeout=60) as response:
+        assert response.status == 200
+
+
+CENTERS = """() => Object.fromEntries([...document.querySelectorAll('.react-flow__node')].map((el) => {
+  const m = /translate\\(([-\\d.]+)px,\\s*([-\\d.]+)px\\)/.exec(el.style.transform);
+  return [el.dataset.id, [Number(m[1]) + el.offsetWidth / 2, Number(m[2]) + el.offsetHeight / 2]];
+}))"""
+
+
+def _laid_out(page, ref: str, nodes: int, edges: int) -> dict:
+    page.select_option("[data-testid='saved-view-select']", ref)
+    _drawn(page, nodes, edges)
+    page.wait_for_function("() => [...document.querySelectorAll('.react-flow__node')].some((el) => !/translate\\(0px, 0px\\)/.test(el.style.transform))", timeout=20000)
+    page.wait_for_timeout(500)
+    return page.evaluate(CENTERS)
+
+
+def test_layout_style_rings_by_field_and_layered_by_relation(stack):
+    from mindmap.projection_views import evaluate_view
+
+    rings = {"nodes": [{"model": "SpecNodeDoc", "where": ""}], "relations": ["inherits"],
+             "layout": {"kind": "graph", "style": "rings", "ring_field": "kind", "rings": ["core", "boundary"]}}
+    layered = {"nodes": [{"model": "SpecNodeDoc", "where": ""}], "relations": ["inherits"],
+               "layout": {"kind": "graph", "style": "layered", "direction": "TB"}}
+    _save(stack["ui"], "anillos", rings)
+    _save(stack["ui"], "capas", layered)
+    result = evaluate_view(stack["store"], rings)
+    kind = {n["id"].split("/", 3)[-1]: n["payload"]["kind"] for n in result["nodes"]}
+    n, e = len(result["nodes"]), len(result["edges"])
+
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1600, "height": 1000})
+        page.goto(stack["app"])
+        page.wait_for_selector("[data-testid='saved-view-select'] option[value='ViewDoc:anillos']", state="attached", timeout=30000)
+
+        centers = _laid_out(page, "ViewDoc:anillos", n, e)
+        radius = {node: (x * x + y * y) ** 0.5 for node, (x, y) in centers.items()}
+        core = [r for node, r in radius.items() if kind[node] == "core"]
+        boundary = [r for node, r in radius.items() if kind[node] == "boundary"]
+        assert core and boundary
+        assert max(core) - min(core) < 2 and max(boundary) - min(boundary) < 2
+        assert max(core) < min(boundary)
+
+        centers = _laid_out(page, "ViewDoc:capas", n, e)
+        for edge in result["edges"]:
+            source, target = (edge[k].split("/", 3)[-1] for k in ("source", "target"))
+            assert centers[source][1] < centers[target][1], (source, target)
         browser.close()

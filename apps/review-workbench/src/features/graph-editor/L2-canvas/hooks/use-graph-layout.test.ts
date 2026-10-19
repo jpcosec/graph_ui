@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { everyNodeMeasured, layoutNodeSize } from './use-graph-layout';
+import { everyNodeMeasured, layoutNodeSize, ringOf } from './use-graph-layout';
 
 describe('layoutNodeSize', () => {
   it('uses the size React Flow measured', () => {
@@ -27,5 +27,15 @@ describe('everyNodeMeasured', () => {
     expect(everyNodeMeasured([{ measured: { width: 150, height: 44 } }, { measured: undefined }])).toBe(false);
     expect(everyNodeMeasured([{ measured: { width: 150, height: 0 } }])).toBe(false);
     expect(everyNodeMeasured([{ measured: { width: 150, height: 44 } }, { measured: { width: 90, height: 30 } }])).toBe(true);
+  });
+});
+
+describe('ringOf', () => {
+  it('reads strings and numbers as ring names, nothing else', () => {
+    expect(ringOf('core')).toBe('core');
+    expect(ringOf(2)).toBe('2');
+    expect(ringOf('')).toBeUndefined();
+    expect(ringOf(['core'])).toBeUndefined();
+    expect(ringOf(undefined)).toBeUndefined();
   });
 });

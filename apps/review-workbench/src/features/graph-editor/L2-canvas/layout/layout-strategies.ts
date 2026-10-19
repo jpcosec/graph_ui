@@ -11,12 +11,18 @@ export interface LayoutOptions {
   interfaceRelationTypes?: string[];
   center?: { x: number; y: number };
   ringSpacing?: number;
+  /** Payload field whose value names each node's ring (elk-rings); see `ring` on LayoutNode. */
+  ringField?: string;
+  /** Ring values from the inner ring outwards; values not listed follow, sorted. */
+  rings?: string[];
 }
 
 export type LayoutNode = {
   id: string;
   width?: number;
   height?: number;
+  /** The node's ring, read from `ringField` of its payload; empty when it has none. */
+  ring?: string;
 };
 
 export type LayoutEdge = {
@@ -187,6 +193,38 @@ function computeBreadthFirstDepths(nodes: LayoutNode[], edges: LayoutEdge[], opt
   return depths;
 }
 
+/**
+ * Ring index per node when the nodes carry a ring (architecture style: concentric layers).
+ * Listed rings come first, inner to outer; the rest follow sorted; nodes without a ring go last.
+ * Indices start at 1, so even the inner ring is a circle around the centre.
+ */
+export function ringDepths(nodes: LayoutNode[], order: string[]): Map<string, number> {
+  const present = [...new Set(nodes.map((node) => node.ring).filter((ring): ring is string => Boolean(ring)))];
+  const ordered = [...order.filter((ring) => present.includes(ring)), ...present.filter((ring) => !order.includes(ring)).sort()];
+  const index = new Map(ordered.map((ring, i) => [ring, i + 1]));
+  return new Map(nodes.map((node) => [node.id, (node.ring && index.get(node.ring)) || ordered.length + 1]));
+}
+
+export interface ViewLayoutSpec {
+  style?: string;
+  direction?: string;
+  ring_field?: string;
+  rings?: unknown;
+}
+
+/**
+ * Architecture style -> layout: a view's (or its notation's) `layout.style` picks the strategy,
+ * `layered` (ordered hierarchy, the default) or `rings` (concentric layers by `ring_field`).
+ */
+export function strategyForLayout(layout: ViewLayoutSpec | undefined): { strategy: string; options: LayoutOptions } {
+  const direction = ['LR', 'RL', 'TB', 'BT'].includes(String(layout?.direction)) ? (layout?.direction as LayoutOptions['direction']) : undefined;
+  if (layout?.style === 'rings') {
+    const rings = Array.isArray(layout.rings) ? layout.rings.map(String) : undefined;
+    return { strategy: 'elk-rings', options: { ringField: layout.ring_field || undefined, rings } };
+  }
+  return { strategy: DEFAULT_LAYOUT_STRATEGY_NAME, options: direction ? { direction } : {} };
+}
+
 export function computeElkRingsLayout(
   nodes: LayoutNode[],
   edges: LayoutEdge[],
@@ -198,7 +236,7 @@ export function computeElkRingsLayout(
 
   const center = options.center ?? { x: 0, y: 0 };
   const ringSpacing = options.ringSpacing ?? DEFAULT_RING_SPACING;
-  const depths = computeBreadthFirstDepths(nodes, edges, options);
+  const depths = nodes.some((node) => node.ring) ? ringDepths(nodes, options.rings ?? []) : computeBreadthFirstDepths(nodes, edges, options);
   const levels = new Map<number, LayoutNode[]>();
 
   for (const node of nodes) {

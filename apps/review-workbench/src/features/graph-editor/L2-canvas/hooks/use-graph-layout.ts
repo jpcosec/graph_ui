@@ -7,6 +7,7 @@ import {
   type LayoutOptions,
   type LayoutResult,
 } from '@/features/graph-editor/L2-canvas/layout/layout-strategies';
+import { payloadValue } from '@/features/graph-editor/lib/node-data';
 import { useGraphStore } from '@/stores/graph-store';
 import { useUIStore } from '@/stores/ui-store';
 
@@ -53,6 +54,11 @@ export function everyNodeMeasured(internalNodes: Iterable<{ measured?: Measured 
   return any;
 }
 
+/** A payload value as a ring name: strings and numbers as text, anything else no ring. */
+export function ringOf(value: unknown): string | undefined {
+  return typeof value === 'string' || typeof value === 'number' ? String(value) || undefined : undefined;
+}
+
 export function useGraphLayout(): UseGraphLayoutResult {
   const nodes = useGraphStore((state) => state.nodes);
   const edges = useGraphStore((state) => state.edges);
@@ -69,6 +75,7 @@ export function useGraphLayout(): UseGraphLayoutResult {
       const nodesInput = nodes.map((node) => ({
         id: node.id,
         ...layoutNodeSize(node, getInternalNode(node.id)?.measured),
+        ...(options.ringField ? { ring: ringOf(payloadValue(node.data)[options.ringField]) } : {}),
       }));
 
       const edgesInput = edges.map((edge) => ({
