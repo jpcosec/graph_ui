@@ -1,3 +1,4 @@
+%% spec2viz: generated from docs/specs/component.graph-ui.yml; do not edit, run `spec2viz diagram validate docs/specs/component.graph-ui.yml` and re-render
 graph TD
     subgraph PyBackend ["Python Backend (src/)"]
         Contracts["GraphData / UINode / UIEdge (contracts/graph_data.py)"]
@@ -7,7 +8,7 @@ graph TD
         SnapshotAdapter["snapshot_to_ui_graph (adapters/snapshot_adapter.py)"]
     end
     subgraph Frontend ["React Editor (apps/review-workbench/)"]
-        L1App["L1 App (GraphEditorPage / HumBodyPage)"]
+        L1App["L1 App (AntoniaFlowPage mounted; GraphEditorPage unmounted)"]
         L2Canvas["L2 Canvas (ReactFlow, sidebar, layout, encoding, views)"]
         L3Content["L3 Content (node/edge renderers)"]
         Stores["graph-store / ui-store (zustand)"]
@@ -15,7 +16,7 @@ graph TD
         DataProvider["graphDataProvider / mockClient"]
     end
     SldbGraph["sldb.api.graph (graph snapshots, formerly kgdb)"]
-    StaticFixtures["Static fixtures (generated-hum-ast.ts, graph_data.json)"]
+    StaticFixtures["Static fixtures (antonia-fixture.generated.json for ?src=fixture, mock graph_data.json)"]
     L1App -->|"getGraph/getSchema"| DataProvider
     DataProvider -->|"current source"| StaticFixtures
     DataProvider -->|"target source"| SldbGraph

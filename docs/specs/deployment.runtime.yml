@@ -28,7 +28,7 @@ data:
       label: Vite dev server (:5173)
       kind: frontend
     hum_sync_script:
-      label: generate-hum-ast.mjs (hum:sync)
+      label: generate-node-types.mjs (hum:sync)
       kind: backend
     sldb_graph_store:
       label: sldb store + graph layer (sldb serve; formerly kgdb)

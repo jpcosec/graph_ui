@@ -4,19 +4,6 @@ type: component_view_matrix
 version: "0.1"
 data:
   views:
-    - id: hum
-      label: HUM Body Views (mounted default)
-      stages:
-        - id: structure
-          label: structure
-        - id: body
-          label: body
-        - id: routine
-          label: routine
-        - id: trace
-          label: trace
-        - id: compare
-          label: compare
     - id: editor
       label: Generic Graph Editor
       stages:
@@ -35,19 +22,17 @@ data:
     - name: Frontend
       kind: core
       stages:
-        hum: [structure, body, routine, trace, compare]
         editor: [load, edit, filter, layout, save]
       children:
         - name: L1App
           kind: boundary
           stages:
-            hum: [structure, body, routine, trace, compare]
             editor: [load, save]
           children:
-            - name: HumBodyPage
+            - name: AntoniaFlowPage
               kind: ui
               stages:
-                hum: [structure, body, routine, trace, compare]
+                editor: [load, edit, save]
             - name: GraphEditorPage
               kind: ui
               stages:
@@ -55,13 +40,11 @@ data:
         - name: L2Canvas
           kind: core
           stages:
-            hum: [structure, body, routine, trace, compare]
             editor: [edit, filter, layout]
           children:
             - name: GraphCanvas
               kind: ui
               stages:
-                hum: [structure, body, routine, trace, compare]
                 editor: [edit]
             - name: CanvasSidebar
               kind: ui
@@ -107,7 +90,6 @@ data:
             - name: LayoutStrategies
               kind: service
               stages:
-                hum: [structure, body]
                 editor: [layout]
             - name: EncodingRules
               kind: service
@@ -116,7 +98,6 @@ data:
         - name: Stores
           kind: core
           stages:
-            hum: [structure, body, routine, trace, compare]
             editor: [load, edit, save]
           children:
             - name: GraphStore
@@ -134,17 +115,12 @@ data:
         - name: DataLayer
           kind: boundary
           stages:
-            hum: [structure]
             editor: [load, save]
           children:
             - name: DataProvider
               kind: service
               stages:
                 editor: [load, save]
-            - name: HumAstFixture
-              kind: database
-              stages:
-                hum: [structure]
             - name: SnapshotAdapter
               kind: service
               stages:

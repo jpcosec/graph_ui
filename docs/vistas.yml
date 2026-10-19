@@ -12,7 +12,7 @@ vistas:
     category: Arquitectura
     title: Components x Views Matrix
     nav: Componentes
-    desc: Which parts serve HUM views vs the generic editor, across stages.
+    desc: Which parts of the review-workbench editor serve each stage (load, edit, filter, layout, save).
     src: diagrams/matrix.graph-ui-views.vega.json
     specs:
       - specs/matrix.graph-ui-views.yml
@@ -57,7 +57,7 @@ vistas:
     category: Arquitectura
     title: Runtime Deployment
     nav: Deployment
-    desc: Browser SPA, Vite dev server, hum:sync, target kgdb backend.
+    desc: Browser SPA, Vite dev server, hum:sync (node types), sldb serve backend.
     src: diagrams/deployment.runtime.mmd
     specs:
       - specs/deployment.runtime.yml

@@ -1,50 +1,50 @@
 id: sequence.data-load
-title: graph_ui - Data Load Flow (current)
+title: graph_ui - Data Load Flow (current, review-workbench)
 type: sequence
-version: "0.1"
+version: "0.2"
 data:
   participants:
     - id: App
       kind: component
-    - id: HumBodyPage
+    - id: AntoniaFlowPage
       kind: component
+    - id: SldbProvider
+      kind: component
+    - id: SldbServe
+      kind: boundary
     - id: Adapter
       kind: component
-    - id: MockData
-      kind: component
-    - id: GeneratedAst
-      kind: boundary
     - id: GraphStore
       kind: component
   messages:
     - from: App
-      to: HumBodyPage
+      to: AntoniaFlowPage
       message: mount default page
-    - from: HumBodyPage
+    - from: AntoniaFlowPage
+      to: SldbProvider
+      message: getSchema() + getGraph()
+      kind: sync
+    - from: SldbProvider
+      to: SldbServe
+      message: GET /sldb/schema, /sldb/graph (Vite proxy)
+      kind: sync
+    - from: SldbServe
+      to: SldbProvider
+      message: schema + documents
+      kind: reply
+    - from: AntoniaFlowPage
       to: Adapter
-      message: buildHumViewGraph(mode)
+      message: buildAntoniaGraphFromDocuments (?src=fixture uses the generated fixture)
       kind: sync
     - from: Adapter
-      to: MockData
-      message: read humBodyModel
-      kind: sync
-    - from: MockData
-      to: GeneratedAst
-      message: import generatedHumAstFiles/Forms
-      kind: sync
-    - from: GeneratedAst
-      to: MockData
-      message: static TS array (frozen fixture)
+      to: AntoniaFlowPage
+      message: nodes + edges (elk-layered layout)
       kind: reply
-    - from: Adapter
-      to: HumBodyPage
-      message: nodes + edges
-      kind: reply
-    - from: HumBodyPage
+    - from: AntoniaFlowPage
       to: GraphStore
       message: loadGraph(nodes, edges)
       kind: sync
     - from: GraphStore
-      to: HumBodyPage
+      to: AntoniaFlowPage
       message: in-memory draft graph
       kind: reply

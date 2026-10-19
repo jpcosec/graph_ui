@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "graph_ui - Components x Views Matrix",
-  "width": 1640,
-  "height": 974,
+  "width": 940,
+  "height": 940,
   "padding": 5,
   "signals": [
     {
@@ -31,62 +31,32 @@
       "name": "stages",
       "values": [
         {
-          "id": "structure",
-          "index": 0,
-          "label": "structure",
-          "view": "HUM Body Views (mounted default)"
-        },
-        {
-          "id": "body",
-          "index": 1,
-          "label": "body",
-          "view": "HUM Body Views (mounted default)"
-        },
-        {
-          "id": "routine",
-          "index": 2,
-          "label": "routine",
-          "view": "HUM Body Views (mounted default)"
-        },
-        {
-          "id": "trace",
-          "index": 3,
-          "label": "trace",
-          "view": "HUM Body Views (mounted default)"
-        },
-        {
-          "id": "compare",
-          "index": 4,
-          "label": "compare",
-          "view": "HUM Body Views (mounted default)"
-        },
-        {
           "id": "load",
-          "index": 5,
+          "index": 0,
           "label": "load",
           "view": "Generic Graph Editor"
         },
         {
           "id": "edit",
-          "index": 6,
+          "index": 1,
           "label": "edit",
           "view": "Generic Graph Editor"
         },
         {
           "id": "filter",
-          "index": 7,
+          "index": 2,
           "label": "filter",
           "view": "Generic Graph Editor"
         },
         {
           "id": "layout",
-          "index": 8,
+          "index": 3,
           "label": "layout",
           "view": "Generic Graph Editor"
         },
         {
           "id": "save",
-          "index": 9,
+          "index": 4,
           "label": "save",
           "view": "Generic Graph Editor"
         }
@@ -159,21 +129,6 @@
         },
         {
           "index": 5
-        },
-        {
-          "index": 6
-        },
-        {
-          "index": 7
-        },
-        {
-          "index": 8
-        },
-        {
-          "index": 9
-        },
-        {
-          "index": 10
         }
       ]
     },
@@ -193,8 +148,8 @@
           "depth": 1
         },
         {
-          "id": "HumBodyPage",
-          "label": "HumBodyPage",
+          "id": "AntoniaFlowPage",
+          "label": "AntoniaFlowPage",
           "row": 2,
           "depth": 2
         },
@@ -325,15 +280,9 @@
           "depth": 2
         },
         {
-          "id": "HumAstFixture",
-          "label": "HumAstFixture",
-          "row": 24,
-          "depth": 2
-        },
-        {
           "id": "SnapshotAdapter",
           "label": "SnapshotAdapter",
-          "row": 25,
+          "row": 24,
           "depth": 2
         }
       ]
@@ -350,41 +299,33 @@
           "depth": 0
         },
         {
-          "component": "Frontend",
-          "row": 0,
-          "start": 5,
-          "end": 10,
-          "kind": "core",
-          "depth": 0
+          "component": "L1App",
+          "row": 1,
+          "start": 0,
+          "end": 1,
+          "kind": "boundary",
+          "depth": 1
         },
         {
           "component": "L1App",
           "row": 1,
-          "start": 0,
+          "start": 4,
           "end": 5,
           "kind": "boundary",
           "depth": 1
         },
         {
-          "component": "L1App",
-          "row": 1,
-          "start": 5,
-          "end": 6,
-          "kind": "boundary",
-          "depth": 1
-        },
-        {
-          "component": "L1App",
-          "row": 1,
-          "start": 9,
-          "end": 10,
-          "kind": "boundary",
-          "depth": 1
-        },
-        {
-          "component": "HumBodyPage",
+          "component": "AntoniaFlowPage",
           "row": 2,
           "start": 0,
+          "end": 2,
+          "kind": "ui",
+          "depth": 2
+        },
+        {
+          "component": "AntoniaFlowPage",
+          "row": 2,
+          "start": 4,
           "end": 5,
           "kind": "ui",
           "depth": 2
@@ -392,160 +333,136 @@
         {
           "component": "GraphEditorPage",
           "row": 3,
-          "start": 5,
-          "end": 6,
+          "start": 0,
+          "end": 1,
           "kind": "ui",
           "depth": 2
         },
         {
           "component": "GraphEditorPage",
           "row": 3,
-          "start": 9,
-          "end": 10,
+          "start": 4,
+          "end": 5,
           "kind": "ui",
           "depth": 2
         },
         {
           "component": "L2Canvas",
           "row": 4,
-          "start": 0,
-          "end": 5,
-          "kind": "core",
-          "depth": 1
-        },
-        {
-          "component": "L2Canvas",
-          "row": 4,
-          "start": 6,
-          "end": 9,
+          "start": 1,
+          "end": 4,
           "kind": "core",
           "depth": 1
         },
         {
           "component": "GraphCanvas",
           "row": 5,
-          "start": 0,
-          "end": 5,
-          "kind": "ui",
-          "depth": 2
-        },
-        {
-          "component": "GraphCanvas",
-          "row": 5,
-          "start": 6,
-          "end": 7,
+          "start": 1,
+          "end": 2,
           "kind": "ui",
           "depth": 2
         },
         {
           "component": "CanvasSidebar",
           "row": 6,
-          "start": 6,
-          "end": 10,
+          "start": 1,
+          "end": 5,
           "kind": "ui",
           "depth": 2
         },
         {
           "component": "CreationSection",
           "row": 7,
-          "start": 6,
-          "end": 7,
+          "start": 1,
+          "end": 2,
           "kind": "ui",
           "depth": 3
         },
         {
           "component": "FiltersSection",
           "row": 8,
-          "start": 7,
-          "end": 8,
+          "start": 2,
+          "end": 3,
           "kind": "ui",
           "depth": 3
         },
         {
           "component": "EncodingSection",
           "row": 9,
-          "start": 7,
-          "end": 8,
+          "start": 2,
+          "end": 3,
           "kind": "ui",
           "depth": 3
         },
         {
           "component": "ViewsSection",
           "row": 10,
-          "start": 7,
-          "end": 8,
+          "start": 2,
+          "end": 3,
           "kind": "ui",
           "depth": 3
         },
         {
           "component": "ViewsSection",
           "row": 10,
-          "start": 9,
-          "end": 10,
+          "start": 4,
+          "end": 5,
           "kind": "ui",
           "depth": 3
         },
         {
           "component": "ViewSection",
           "row": 11,
-          "start": 8,
-          "end": 9,
+          "start": 3,
+          "end": 4,
           "kind": "ui",
           "depth": 3
         },
         {
           "component": "ActionsSection",
           "row": 12,
-          "start": 9,
-          "end": 10,
+          "start": 4,
+          "end": 5,
           "kind": "ui",
           "depth": 3
         },
         {
           "component": "NodeInspector",
           "row": 13,
-          "start": 6,
-          "end": 7,
+          "start": 1,
+          "end": 2,
           "kind": "ui",
           "depth": 2
         },
         {
           "component": "EdgeInspector",
           "row": 14,
-          "start": 6,
-          "end": 7,
+          "start": 1,
+          "end": 2,
           "kind": "ui",
           "depth": 2
         },
         {
           "component": "CommandMenu",
           "row": 15,
-          "start": 6,
-          "end": 7,
+          "start": 1,
+          "end": 2,
           "kind": "ui",
           "depth": 2
         },
         {
           "component": "LayoutStrategies",
           "row": 16,
-          "start": 0,
-          "end": 2,
-          "kind": "service",
-          "depth": 2
-        },
-        {
-          "component": "LayoutStrategies",
-          "row": 16,
-          "start": 8,
-          "end": 9,
+          "start": 3,
+          "end": 4,
           "kind": "service",
           "depth": 2
         },
         {
           "component": "EncodingRules",
           "row": 17,
-          "start": 7,
-          "end": 8,
+          "start": 2,
+          "end": 3,
           "kind": "service",
           "depth": 2
         },
@@ -553,63 +470,55 @@
           "component": "Stores",
           "row": 18,
           "start": 0,
+          "end": 2,
+          "kind": "core",
+          "depth": 1
+        },
+        {
+          "component": "Stores",
+          "row": 18,
+          "start": 4,
           "end": 5,
-          "kind": "core",
-          "depth": 1
-        },
-        {
-          "component": "Stores",
-          "row": 18,
-          "start": 5,
-          "end": 7,
-          "kind": "core",
-          "depth": 1
-        },
-        {
-          "component": "Stores",
-          "row": 18,
-          "start": 9,
-          "end": 10,
           "kind": "core",
           "depth": 1
         },
         {
           "component": "GraphStore",
           "row": 19,
-          "start": 5,
-          "end": 7,
+          "start": 0,
+          "end": 2,
           "kind": "database",
           "depth": 2
         },
         {
           "component": "GraphStore",
           "row": 19,
-          "start": 9,
-          "end": 10,
+          "start": 4,
+          "end": 5,
           "kind": "database",
           "depth": 2
         },
         {
           "component": "UiStore",
           "row": 20,
-          "start": 6,
-          "end": 8,
+          "start": 1,
+          "end": 3,
           "kind": "database",
           "depth": 2
         },
         {
           "component": "ProjectionViewStore",
           "row": 21,
-          "start": 7,
-          "end": 8,
+          "start": 2,
+          "end": 3,
           "kind": "database",
           "depth": 2
         },
         {
           "component": "ProjectionViewStore",
           "row": 21,
-          "start": 9,
-          "end": 10,
+          "start": 4,
+          "end": 5,
           "kind": "database",
           "depth": 2
         },
@@ -624,48 +533,32 @@
         {
           "component": "DataLayer",
           "row": 22,
-          "start": 5,
-          "end": 6,
-          "kind": "boundary",
-          "depth": 1
-        },
-        {
-          "component": "DataLayer",
-          "row": 22,
-          "start": 9,
-          "end": 10,
+          "start": 4,
+          "end": 5,
           "kind": "boundary",
           "depth": 1
         },
         {
           "component": "DataProvider",
           "row": 23,
-          "start": 5,
-          "end": 6,
-          "kind": "service",
-          "depth": 2
-        },
-        {
-          "component": "DataProvider",
-          "row": 23,
-          "start": 9,
-          "end": 10,
-          "kind": "service",
-          "depth": 2
-        },
-        {
-          "component": "HumAstFixture",
-          "row": 24,
           "start": 0,
           "end": 1,
-          "kind": "database",
+          "kind": "service",
+          "depth": 2
+        },
+        {
+          "component": "DataProvider",
+          "row": 23,
+          "start": 4,
+          "end": 5,
+          "kind": "service",
           "depth": 2
         },
         {
           "component": "SnapshotAdapter",
-          "row": 25,
-          "start": 5,
-          "end": 6,
+          "row": 24,
+          "start": 0,
+          "end": 1,
           "kind": "service",
           "depth": 2
         }
@@ -677,15 +570,15 @@
       "name": "kindColor",
       "type": "ordinal",
       "domain": [
-        "database",
         "boundary",
-        "ui",
+        "database",
         "service",
+        "ui",
         "core"
       ],
       "range": [
-        "#10B981",
         "#60A5FA",
+        "#10B981",
         "#94A3B8",
         "#94A3B8",
         "#F59E0B"
@@ -769,7 +662,7 @@
             "signal": "top - 20"
           },
           "y2": {
-            "signal": "top + 26 * rowHeight + 10"
+            "signal": "top + 25 * rowHeight + 10"
           },
           "stroke": {
             "value": "#CBD5E1"
@@ -797,7 +690,7 @@
             "signal": "top - 40"
           },
           "y2": {
-            "signal": "top + 26 * rowHeight + 20"
+            "signal": "top + 25 * rowHeight + 20"
           },
           "stroke": {
             "value": "#475569"

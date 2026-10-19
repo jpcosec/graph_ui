@@ -67,7 +67,7 @@ data:
         - DataProvider
 
     L1App:
-      label: L1 App (GraphEditorPage / HumBodyPage)
+      label: L1 App (AntoniaFlowPage mounted; GraphEditorPage unmounted)
       kind: core
 
     L2Canvas:
@@ -96,7 +96,7 @@ data:
       kind: database
 
     StaticFixtures:
-      label: Static fixtures (generated-hum-ast.ts, graph_data.json)
+      label: Static fixtures (antonia-fixture.generated.json for ?src=fixture, mock graph_data.json)
       kind: database
 
   edges:
