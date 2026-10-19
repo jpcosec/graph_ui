@@ -4,7 +4,11 @@ id: board-graph-ui
 # Affected workspace or domain
 scope: graph_ui
 # List of task-xxx paths
-tasks: []
+tasks:
+- desk/tasks/task-estilo-de-glifos-en-la-vista-specs-colores-íconos-formas-y-leyenda.md
+- desk/tasks/task-activity-en-la-vista-specs-carriles-por-partición-notas-y-merge.md
+- desk/tasks/task-deployment-en-la-vista-specs-nodos-anidados-communication-paths-y-deploy-manifest.md
+- desk/tasks/task-estilo-de-notación-en-las-vistas-viewdoc-de-review-workbench.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -35,3 +39,8 @@ Phase B delivery tasks (adapter, encoding, layout, store, sidebar) are closed. k
 ## Task Details
 
 _Generated from the task references above._
+
+- Estilo de glifos en la vista Specs: colores, íconos, formas y leyenda [draft] - La vista Specs usa node.style (fill/stroke por tema, ícono lucide), link.color y las formas cylinder, queue, cloud, package y note; classes.mjs solo cuando el glifo no declara estilo; leyenda por notación (glifo -> forma, color, ícono, rótulo); e2e en Chromium.
+- Activity en la vista Specs: carriles por partición, notas y merge [draft] - Un carril por partición (en orden de aparición) con sus pasos dentro, notas UML con esquina doblada unidas a su paso por línea punteada y merge como rombo sin rótulo; e2e.
+- Deployment en la vista Specs: nodos anidados, communication paths y deploy/manifest [draft] - Los nodos anidados se dibujan como contenedores dentro de contenedores, los paths con su rótulo y deploy/manifest punteadas con «deploy»/«manifest»; e2e.
+- Estilo de notación en las vistas (ViewDoc) de review-workbench [draft] - El servidor de graph_ui aplica la notación de la vista con resolve_documents y review-workbench dibuja cada nodo con el estilo de su glifo y la leyenda de la notación; e2e.
