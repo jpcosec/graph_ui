@@ -1,0 +1,17 @@
+name: 20261019-113131-suggestion-candidata-final-3-12-3-13-suite-graph-ui-fail-en-test-no-duplicate-sldb-imports-outside-adapter
+path: desk/inbox/20261019-113131-suggestion-candidata-final-3-12-3-13-suite-graph-ui-fail-en-test-no-duplicate-sldb-imports-outside-adapter.md
+source_hash: 0564875351ca4cda90a4d1362a8180c5cea57462eec075f19913d45f90c7d187
+content_hash: f6ca439902912bbc662964e72bffa00c582b28c6a76f2ef1df3bec442b71b3ad
+field_hashes:
+  kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
+  sender_project: ceff6202e6805e3bc22d70f0f2e7fee9f6478bcff2cb6a60430793b5268a8e12
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: 831ca4932e8c13b971f2041b60d7e1958a070ca6f8a0b2c1fe8620aa2dfbc90e
+  status: 35ff74aeea25311f4fe759a6b762c8cd41a79adb23dd5615b92cf215175a63e5
+  title: c82a336410b8376b0c13b2d6ecfbcba005775e6a569b48491cd9448fd468c840
+  body: bccd9b05f969f0fc49f2dfd63a29a5976ea500b19fc339091da1839d7e75131e
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
