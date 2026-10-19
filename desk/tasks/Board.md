@@ -4,8 +4,7 @@ id: board-graph-ui
 # Affected workspace or domain
 scope: graph_ui
 # List of task-xxx paths
-tasks:
-- desk/tasks/task-layout-por-estilo-de-arquitectura-en-las-vistas.md
+tasks: []
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -36,5 +35,3 @@ Phase B delivery tasks (adapter, encoding, layout, store, sidebar) are closed. k
 ## Task Details
 
 _Generated from the task references above._
-
-- Layout por estilo de arquitectura en las vistas [draft] - El layout de la vista (ViewDoc.layout, o el de su NotationDoc) con style layered o rings elige elk-layered o elk-rings en layout-strategies.ts; rings usa layout.ring_field; e2e verifica las posiciones.
