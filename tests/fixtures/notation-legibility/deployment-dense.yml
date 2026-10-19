@@ -1,0 +1,137 @@
+# Legibility fixture for the Specs view: a dense deployment (13 nodes hosting 18 artifacts, 21
+# labelled connections, all between nodes) that must still read at >= 10 px after «Ver todo».
+id: deployment.legibility-dense
+title: "Legibility: dense deployment"
+type: deployment
+version: "0.1"
+data:
+  nodes:
+    internet:
+      label: "Internet"
+      kind: client
+      contains: [browsers]
+    alb:
+      label: "«device» load balancer front-dev-alb"
+      kind: network
+      contains: [rule_panel, rule_public]
+    idp:
+      label: "«external» identity provider login.dev.example.com"
+      kind: auth
+      contains: [user_pool]
+    svc_edge:
+      label: "«executionEnvironment» container service · S1 edge"
+      kind: server
+      contains: [img_edge]
+    svc_control:
+      label: "«executionEnvironment» container service · S2 control"
+      kind: server
+      contains: [img_control]
+    svc_runtime:
+      label: "«executionEnvironment» container service · S3 runtime"
+      kind: server
+      contains: [img_runtime]
+    svc_gateway:
+      label: "«executionEnvironment» container service · S4 model gateway"
+      kind: server
+      contains: [img_gateway]
+    svc_worker:
+      label: "«executionEnvironment» container service · S5 worker"
+      kind: server
+      contains: [img_worker]
+    svc_oneshot:
+      label: "«executionEnvironment» container service · one-off tasks"
+      kind: server
+      contains: [img_migrate, img_plan, img_tunnel]
+    db:
+      label: "«device» relational database front-dev-postgres + front-dev-pii"
+      kind: database
+      contains: [db_platform, db_runtime, db_vault]
+    queue:
+      label: "«device» message queue"
+      kind: queue
+      contains: [fifo]
+    bucket:
+      label: "«device» object storage"
+      kind: storage
+      contains: [media]
+    llm:
+      label: "«external» hosted model provider"
+      kind: cloud
+      contains: [model]
+  artifacts:
+    browsers:
+      label: "Browsers, messaging apps (WhatsApp), chat bots"
+      kind: image
+    rule_panel:
+      label: "rule /basic, /basic/* with authentication"
+      kind: image
+    rule_public:
+      label: "public rules: /basic/webhooks/*, /basic/demo/*, /basic/api/health"
+      kind: image
+    user_pool:
+      label: "user pool · admins group → basic client"
+      kind: image
+    img_edge:
+      label: "edge image · service edge"
+      kind: image
+    img_control:
+      label: "control image · service control"
+      kind: image
+    img_runtime:
+      label: "runtime image · service runtime (+ffmpeg)"
+      kind: image
+    img_gateway:
+      label: "gateway image · model gateway server"
+      kind: image
+    img_worker:
+      label: "worker image · service worker"
+      kind: image
+    img_migrate:
+      label: "migration · service migrate (control image)"
+      kind: image
+    img_plan:
+      label: "private infrastructure plan (OIDC from CI; state in the infra repo)"
+      kind: image
+    img_tunnel:
+      label: "session tunnel (12 h; applied: not verified)"
+      kind: image
+    db_platform:
+      label: "platform database"
+      kind: image
+    db_runtime:
+      label: "runtime database (+ gateway schema)"
+      kind: image
+    db_vault:
+      label: "vault database (PII)"
+      kind: image
+    fifo:
+      label: "front-dev-basic.fifo + DLQ"
+      kind: image
+    media:
+      label: "front-dev-basic-media"
+      kind: image
+    model:
+      label: "provider.model-lite-v1:0"
+      kind: image
+  connections:
+    - {from: browsers, to: rule_public, protocol: "HTTPS"}
+    - {from: browsers, to: rule_panel, protocol: "HTTPS"}
+    - {from: rule_panel, to: user_pool, protocol: "OIDC"}
+    - {from: rule_public, to: img_edge, protocol: "HTTP"}
+    - {from: rule_panel, to: img_edge, protocol: "HTTP"}
+    - {from: img_edge, to: img_control, protocol: "Service Connect"}
+    - {from: img_edge, to: img_runtime, protocol: "Service Connect"}
+    - {from: img_worker, to: img_control, protocol: "Service Connect"}
+    - {from: img_worker, to: img_runtime, protocol: "Service Connect"}
+    - {from: img_control, to: img_gateway, protocol: "Service Connect"}
+    - {from: img_runtime, to: img_gateway, protocol: "Service Connect"}
+    - {from: img_worker, to: img_gateway, protocol: "Service Connect"}
+    - {from: img_gateway, to: model, protocol: "SDK"}
+    - {from: img_control, to: db_platform, protocol: "Postgres"}
+    - {from: img_runtime, to: db_runtime, protocol: "Postgres"}
+    - {from: img_runtime, to: db_vault, protocol: "Postgres"}
+    - {from: img_gateway, to: db_runtime, protocol: "Postgres"}
+    - {from: img_migrate, to: db_platform, protocol: "Postgres"}
+    - {from: img_worker, to: fifo, protocol: "SQS"}
+    - {from: img_control, to: media, protocol: "S3"}
+    - {from: img_runtime, to: media, protocol: "S3"}

@@ -2,11 +2,13 @@
 // GET /api/workers cada POLL_MS, agrupa por space (shared/workers.mjs) y pinta
 // pane/kind/name/status/cwd de cada worker. Solo lectura, sin botones.
 // Nunca rompe el resto de la UI: cualquier fallo de red o del endpoint se
-// muestra dentro del panel y el polling sigue reintentando.
+// muestra dentro del panel y el polling sigue reintentando. Se pliega a un riel con un
+// control visible; plegado no consulta. El estado se recuerda por vista (shared/workers-collapse.mjs).
 import {useState, useEffect} from 'react';
 import {html} from '../shared/html.js';
 import {request} from './api.js';
 import {basename, groupBySpace, normalizeStatus, statusLabel} from '../shared/workers.mjs';
+import {workersCollapsed, rememberWorkers} from '../shared/workers-collapse.mjs';
 
 const POLL_MS = 2500;
 
@@ -45,10 +47,14 @@ function workersList(groups) {
   </section>`)}`;
 }
 
-export function WorkersPanel() {
+export function WorkersPanel({viewId = 'default', defaultCollapsed = false}) {
   const [state, setState] = useState({phase: 'loading', error: null, payload: null});
+  const [collapsed, setCollapsed] = useState(() => workersCollapsed(viewId, defaultCollapsed));
+  useEffect(() => { setCollapsed(workersCollapsed(viewId, defaultCollapsed)); }, [viewId, defaultCollapsed]);
+  const toggle = () => setCollapsed(current => { rememberWorkers(viewId, !current); return !current; });
 
   useEffect(() => {
+    if (collapsed) return undefined;
     let cancelled = false;
     let timer = null;
     const tick = async () => {
@@ -66,7 +72,14 @@ export function WorkersPanel() {
       cancelled = true;
       if (timer) clearTimeout(timer);
     };
-  }, []);
+  }, [collapsed]);
+
+  if (collapsed) {
+    return html`<aside className="workers-panel is-collapsed" aria-label="Workers vivos">
+      <button type="button" className="workers-toggle" aria-expanded="false" aria-label="Mostrar workers" title="Mostrar workers" onClick=${toggle}>
+        <span aria-hidden="true">‹</span><span className="workers-toggle-label">Workers</span></button>
+    </aside>`;
+  }
 
   const error = state.error || (state.payload && state.payload.error);
   let body;
@@ -81,7 +94,8 @@ export function WorkersPanel() {
   }
 
   return html`<aside className="workers-panel" aria-label="Workers vivos">
-    <header className="workers-panel-head"><span>Workers</span></header>
+    <header className="workers-panel-head"><span>Workers</span>
+      <button type="button" className="workers-collapse icon-button" aria-expanded="true" aria-label="Plegar workers" title="Plegar workers" onClick=${toggle}>›</button></header>
     <div className="workers-body">${body}</div>
   </aside>`;
 }

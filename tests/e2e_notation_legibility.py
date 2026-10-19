@@ -8,7 +8,10 @@ containers) and spec2viz's activity pilot (decisions and a loop back). In Chromi
 - no two edge/pseudostate labels overlap, no node label spills out of its box;
 - a container's title sits above its children (G2), and the nine children use more than one row (G3);
 - a decision's label is inside its diamond (G6);
-- no edge passes through a node other than its two ends (G5, G6).
+- no edge passes through a node other than its two ends (G5, G6);
+- round 2: the initial node is above its first step (R1); every edge starts and ends on its source
+  and target (R2); every edge label is within 20 px of its edge (R3); with the minimap shown, it
+  covers no node after «Ver todo» (R4); no edge crosses a container's title (R5).
 
 G1: with a model whose module does not import, the shell names the model and its error and the
 catalog still lists the specs; started with --pythonpath, the error is gone.
@@ -33,9 +36,10 @@ spec2viz = pytest.importorskip("spec2viz")
 
 ROOT = Path(__file__).resolve().parents[1]
 MINDMAP = ROOT / "frontends" / "mindmap"
-FIXTURE = ROOT / "tests" / "fixtures" / "notation-legibility" / "component-containers.yml"
+FIXTURES = ROOT / "tests" / "fixtures" / "notation-legibility"
+FIXTURE, DENSE = FIXTURES / "component-containers.yml", FIXTURES / "deployment-dense.yml"
 ACTIVITY = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz/activity-render-error-handling.yml"
-COMPONENT, FLOW = "component.legibility-containers", "activity.render-error-handling"
+COMPONENT, FLOW, DEPLOYMENT = "component.legibility-containers", "activity.render-error-handling", "deployment.legibility-dense"
 
 MEASURE = r"""() => {
   const vp = document.querySelector('.react-flow__viewport');
@@ -65,18 +69,45 @@ MEASURE = r"""() => {
     return inside(l.left, l.top) && inside(l.right, l.top) && inside(l.left, l.bottom) && inside(l.right, l.bottom);
   });
   const nodeRects = leaves.map(n => ({id: n.dataset.id, r: rect(n)}));
-  let crossings = 0;
+  const allNodes = new Map([...document.querySelectorAll('.notation-canvas .react-flow__node')].map(n => [n.dataset.id, rect(n)]));
+  const heads = [...document.querySelectorAll('.notation-canvas .glyph.is-container > .glyph-head')].filter(visible).map(rect);
+  const onBorder = (p, r) => r && p.x >= r.left - 2 && p.x <= r.right + 2 && p.y >= r.top - 2 && p.y <= r.bottom + 2
+    && Math.min(Math.abs(p.x - r.left), Math.abs(p.x - r.right), Math.abs(p.y - r.top), Math.abs(p.y - r.bottom)) <= 2;
+  const toRect = (p, r) => Math.hypot(Math.max(r.left - p.x, 0, p.x - r.right), Math.max(r.top - p.y, 0, p.y - r.bottom));
+  let crossings = 0, looseEnds = 0, headerCrossings = 0;
+  const samples = new Map();
   for (const edge of document.querySelectorAll('.notation-canvas .react-flow__edge')) {
-    const path = edge.querySelector('.react-flow__edge-path'); if (!path) continue;
+    const path = edge.querySelector('.react-flow__edge-path'), ends = edge.querySelector('.notation-edge-ends'); if (!path || !ends) continue;
     const ctm = path.getScreenCTM(), total = path.getTotalLength();
-    const [source, target] = [edge.dataset.source, edge.dataset.target];
-    for (let s = 6; s < total - 6; s += 4) {
-      const p = path.getPointAtLength(s), x = p.x * ctm.a + ctm.e, y = p.y * ctm.d + ctm.f;
-      const hit = nodeRects.find(({id, r}) => id !== source && id !== target && x > r.left + 2 && x < r.right - 2 && y > r.top + 2 && y < r.bottom - 2);
-      if (hit) { crossings++; break; }
-    }
+    const at = s => { const p = path.getPointAtLength(s); return {x: p.x * ctm.a + ctm.e, y: p.y * ctm.d + ctm.f}; };
+    const {source, target} = ends.dataset;
+    const pts = []; for (let s = 0; s <= total; s += 3) pts.push(at(s)); pts.push(at(total));
+    samples.set(edge.dataset.id || path.id, pts);
+    if (!onBorder(pts[0], allNodes.get(source)) || !onBorder(pts[pts.length - 1], allNodes.get(target))) looseEnds++;
+    const inner = pts.slice(2, -2);
+    if (inner.some(p => nodeRects.some(({id, r}) => id !== source && id !== target && p.x > r.left + 2 && p.x < r.right - 2 && p.y > r.top + 2 && p.y < r.bottom - 2))) crossings++;
+    if (inner.some(p => heads.some(h => p.x > h.left + 1 && p.x < h.right - 1 && p.y > h.top + 1 && p.y < h.bottom - 1))) headerCrossings++;
   }
-  return {zoom, minTextPx, texts: texts.length, labelOverlaps, spills, containers, diamonds, crossings};
+  // Cada rótulo contra el recorrido de SU arista (data-edge = id de la arista).
+  const pathById = new Map([...document.querySelectorAll('.notation-canvas .react-flow__edge')].map(e => [e.querySelector('.react-flow__edge-path')?.id, e.querySelector('.react-flow__edge-path')]));
+  const labelDistances = [...document.querySelectorAll('.notation-canvas .notation-edge-label')].filter(visible).map(l => {
+    const path = pathById.get(l.dataset.edge); if (!path) return Infinity;
+    const ctm = path.getScreenCTM(), total = path.getTotalLength(), r = rect(l);
+    let best = Infinity; for (let s = 0; s <= total; s += 2) { const p = path.getPointAtLength(s); best = Math.min(best, toRect({x: p.x * ctm.a + ctm.e, y: p.y * ctm.d + ctm.f}, r)); }
+    return best;
+  });
+  const initial = document.querySelector('.notation-canvas .glyph.shape-filled-circle');
+  let initialAbove = null;
+  if (initial) {
+    const id = initial.closest('.react-flow__node').dataset.id;
+    const first = [...document.querySelectorAll('.notation-canvas .notation-edge-ends')].find(g => g.dataset.source === id);
+    const a = rect(initial), b = first && allNodes.get(first.dataset.target);
+    initialAbove = Boolean(b) && (a.top + a.bottom) / 2 < (b.top + b.bottom) / 2;
+  }
+  const minimap = document.querySelector('.notation-canvas .react-flow__minimap');
+  const minimapCovers = minimap ? [...allNodes.values()].filter(r => overlap(r, rect(minimap))).length : null;
+  return {zoom, minTextPx, texts: texts.length, labelOverlaps, spills, containers, diamonds, crossings, looseEnds, headerCrossings,
+          maxLabelDistance: labelDistances.length ? Math.max(...labelDistances) : 0, labels: labelDistances.length, initialAbove, minimapCovers};
 }"""
 
 
@@ -111,17 +142,27 @@ def store(tmp_path_factory):
     if not ACTIVITY.exists() or not shutil.which("spec2viz"):
         pytest.skip("sin el piloto de actividad o el CLI de spec2viz")
     root = tmp_path_factory.mktemp("legibility")
-    for spec in (FIXTURE, ACTIVITY):
+    for spec in (FIXTURE, DENSE, ACTIVITY):
         shutil.copy(spec, root / spec.name)
     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
-    subprocess.run(["spec2viz", "diagram", "sync", FIXTURE.name, ACTIVITY.name, "--store", ".sldb"], cwd=root, check=True, capture_output=True)
+    subprocess.run(["spec2viz", "diagram", "sync", FIXTURE.name, DENSE.name, ACTIVITY.name, "--store", ".sldb"], cwd=root, check=True, capture_output=True)
     return root / ".sldb"
+
+
+def _round_two(result):
+    """R2, R3, R5 on any graph spec: ends on their nodes, labels on their edge, titles uncrossed."""
+    assert result["texts"] > 0, result  # something was drawn and measured
+    assert result["looseEnds"] == 0, result
+    assert result["maxLabelDistance"] <= 20, result
+    assert result["headerCrossings"] == 0, result
 
 
 def _measure(page, spec):
     page.click(f'[data-spec="{spec}"]')
-    page.wait_for_selector(".notation-canvas .react-flow__node", timeout=30000)
-    page.wait_for_function("() => [...document.querySelectorAll('.notation-canvas .react-flow__edge-path')].length > 0", timeout=30000)
+    # Wait for THIS spec's diagram: the previous one stays on screen while the new layout runs.
+    page.wait_for_function("spec => { const ids = [...document.querySelectorAll('.notation-canvas .react-flow__node')].map(n => n.dataset.id);"
+                           " return ids.length > 0 && ids.every(id => id.includes(spec + '.') || id.includes(spec + '#'))"
+                           " && document.querySelectorAll('.notation-canvas .react-flow__edge-path').length > 0; }", arg=spec, timeout=60000)
     page.wait_for_timeout(600)
     page.click(".notation-bar button")
     page.wait_for_timeout(500)
@@ -149,12 +190,33 @@ def test_specs_read_whole_after_fit(store):
             assert all(c["kids"] > 0 for c in component["containers"]), component["containers"]
             kit = max(component["containers"], key=lambda c: c["kids"])
             assert kit["kids"] == 9 and kit["rows"] >= 2, kit
+            _round_two(component)
 
             flow = _measure(page, FLOW)
             assert flow["minTextPx"] >= 10, flow
             assert flow["labelOverlaps"] == 0 and flow["spills"] == 0, flow
             assert flow["diamonds"] and all(flow["diamonds"]), flow["diamonds"]
             assert flow["crossings"] == 0, flow
+            _round_two(flow)
+            assert flow["labels"] >= 4 and flow["initialAbove"] is True, flow
+
+            # Dense deployment (13 nodes, 18 artifacts, 21 labelled connections between nodes): with the
+            # workers panel collapsed, as the Specs view starts, it still reads at >= 10 px.
+            assert page.locator(".workers-panel.is-collapsed").count() == 1
+            dense = _measure(page, DEPLOYMENT)
+            assert dense["minTextPx"] >= 10, dense
+            assert dense["labelOverlaps"] == 0 and dense["spills"] == 0, dense
+            assert len(dense["containers"]) == 13 and all(c["headBottom"] <= c["kidsTop"] + 0.5 for c in dense["containers"]), dense["containers"]
+            _round_two(dense)
+
+            # R4: the minimap starts hidden; shown, «Ver todo» frames the diagram clear of it.
+            assert dense["minimapCovers"] is None
+            page.click(".notation-minimap-toggle")
+            page.wait_for_selector(".notation-canvas .react-flow__minimap")
+            for spec in (DEPLOYMENT, COMPONENT, FLOW):
+                shown = _measure(page, spec)
+                assert shown["minimapCovers"] == 0, (spec, shown["minimapCovers"])
+            page.click(".notation-minimap-toggle")
             assert errors == []
             browser.close()
     finally:
@@ -194,6 +256,40 @@ def test_an_unimportable_model_is_named_and_pythonpath_fixes_it(store, tmp_path)
     try:
         schema = urllib.request.urlopen(f"{base}/api/schema", timeout=30).read().decode()
         assert "import_error" not in schema
+    finally:
+        process.terminate()
+        process.wait(timeout=10)
+
+
+def test_the_workers_panel_folds_per_view_and_remembers(store):
+    """The Specs view starts with the workers panel collapsed (the diagram gets the whole width);
+    a visible control unfolds it; the choice is remembered per view and the KB view keeps its own."""
+    process, base = _serve(store)
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1800, "height": 1200})
+            page.goto(f"{base}/specs/notation")
+            page.wait_for_selector(".notation-catalog button", timeout=30000)
+            assert page.locator(".workers-panel.is-collapsed").count() == 1
+            canvas_folded = page.locator(".notation-canvas").bounding_box()["width"]
+
+            page.get_by_role("button", name="Mostrar workers").click()
+            page.wait_for_selector(".workers-panel:not(.is-collapsed) .workers-panel-head")
+            assert page.locator(".notation-canvas").bounding_box()["width"] < canvas_folded - 200
+
+            page.reload()
+            page.wait_for_selector(".notation-catalog button", timeout=30000)
+            assert page.locator(".workers-panel.is-collapsed").count() == 0
+
+            page.goto(f"{base}/documents/map")
+            page.wait_for_selector(".workers-panel-head", timeout=30000)
+            page.get_by_role("button", name="Plegar workers").click()
+            page.wait_for_selector(".workers-panel.is-collapsed")
+            page.goto(f"{base}/specs/notation")
+            page.wait_for_selector(".notation-catalog button", timeout=30000)
+            assert page.locator(".workers-panel.is-collapsed").count() == 0
+            browser.close()
     finally:
         process.terminate()
         process.wait(timeout=10)

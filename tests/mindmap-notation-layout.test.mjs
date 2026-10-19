@@ -5,7 +5,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {buildScene} from '../frontends/mindmap/views/specs/notation/notation.mjs';
 import {wrapText, sizeGlyph, containerHeader, edgeLabelBox, gridEdges, elkGraph, fromElk, bestLayout, fitZoom, legibleZoom,
-  approximateMeasure, DIAMOND_RATIO, GRID_MIN, FONT, MIN_TEXT_PX} from '../frontends/mindmap/views/specs/notation/notation-layout.mjs';
+  approximateMeasure, DIAMOND_RATIO, GRID_MIN, FONT, MIN_TEXT_PX, headerId, diamondPorts, routeOf, placeLabels, layoutIssues,
+  LABEL_MAX_DISTANCE} from '../frontends/mindmap/views/specs/notation/notation-layout.mjs';
 
 const measure = (text, size) => (text || '').length * size * 0.5;
 
@@ -76,13 +77,20 @@ test('G3: los hijos sueltos de un contenedor se apilan en filas con aristas invi
   assert.equal(gridEdges(chained).length, 0);
 });
 
-test('elkGraph: jerarquía, cabecera como padding, rótulos medidos y grilla', () => {
+test('elkGraph: jerarquía, título como nodo (vertical) o como padding (horizontal), rótulos medidos y grilla', () => {
   const scene = buildScene(containerView(['a', 'b', 'c', 'd', 'e']));
   const {graph, sizes, labels} = elkGraph(scene, {measure, wrapWidth: 170});
   assert.equal(graph.layoutOptions['elk.hierarchyHandling'], 'INCLUDE_CHILDREN');
   const container = graph.children.find(c => c.id === 'C');
-  assert.equal(container.children.length, 5);
-  assert.match(container.layoutOptions['elk.padding'], new RegExp(`top=${sizes.get('C').header.height + 6}`));
+  // R5: en vertical el título es un nodo de la primera capa, así ELK rutea las aristas alrededor.
+  const title = container.children.find(c => c.id === headerId('C'));
+  assert.equal(title.layoutOptions['elk.layered.layering.layerConstraint'], 'FIRST');
+  assert.equal(title.height, sizes.get('C').header.height);
+  assert.equal(container.children.length, 6);
+  const sideways = elkGraph({...scene, direction: 'LR'}, {measure, wrapWidth: 170});
+  const lrContainer = sideways.graph.children.find(c => c.id === 'C');
+  assert.equal(lrContainer.children.length, 5);
+  assert.match(lrContainer.layoutOptions['elk.padding'], new RegExp(`top=${sideways.sizes.get('C').header.height + 6}`));
   const entering = graph.edges.find(e => e.sources[0] === 'X');
   assert.equal(entering.labels[0].text, 'entra');
   assert.ok(labels.get(entering.id).width > 0);
@@ -99,13 +107,71 @@ test('fromElk: posiciones relativas al padre, recorrido de aristas y caja del r�
     edges: [{id: edge.id, sections: [{startPoint: {x: 430, y: 50}, bendPoints: [{x: 430, y: 100}], endPoint: {x: 45, y: 120}}],
       labels: [{x: 300, y: 90, width: 40, height: 16}]},
       {id: 'grid:a>d', sections: [{startPoint: {x: 0, y: 0}, endPoint: {x: 1, y: 1}}]}]};
+  result.children[0].children.unshift({id: headerId('C'), x: 10, y: 4, width: 120, height: 30});
   const layout = fromElk(result, scene, built);
+  assert.deepEqual([layout.nodes.find(n => n.id === 'C').header.x, layout.nodes.find(n => n.id === 'C').header.y], [10, 4]);
   const a = layout.nodes.find(n => n.id === 'a');
   assert.deepEqual([a.parent, a.x, a.y, a.depth], ['C', 10, 50, 1]);
   assert.ok(layout.nodes.find(n => n.id === 'C').container);
   assert.equal(layout.edges.length, 1);
   assert.deepEqual(layout.edges[0].points.map(p => [p.x, p.y]), [[430, 50], [430, 100], [45, 120]]);
   assert.deepEqual(layout.edges[0].labelBox.lines, ['entra']);
+});
+
+const flowView = {layout: {kind: 'graph', direction: 'TB'},
+  nodes: [{doc: 'i', shape: 'filled-circle', label: ''}, {doc: 'q', shape: 'diamond', label: '¿Sí?'}, {doc: 'y', shape: 'box', label: 'Y'},
+    {doc: 'n', shape: 'box', label: 'N'}, {doc: 'f', shape: 'bullseye', label: ''}],
+  links: [line('i', 'q'), line('q', 'y', '[sí]'), line('q', 'n', '[no]'), line('y', 'f'), line('n', 'q')]};
+
+test('R1/R2: el inicial va a la primera capa y el final a la última; las ramas de un rombo usan sus vértices', () => {
+  const scene = buildScene(flowView);
+  const {graph} = elkGraph(scene, {measure});
+  const node = id => graph.children.find(c => c.id === id);
+  assert.equal(node('i').layoutOptions['elk.layered.layering.layerConstraint'], 'FIRST');
+  assert.equal(node('f').layoutOptions['elk.layered.layering.layerConstraint'], 'LAST');
+  assert.deepEqual(node('q').ports.map(p => p.id), ['q#N', 'q#E', 'q#S', 'q#W']);
+  const S = node('q').ports.find(p => p.id === 'q#S');
+  assert.deepEqual([S.x, S.y], [node('q').width / 2, node('q').height]);
+  const ports = diamondPorts(scene, 'TB');
+  const byLabel = Object.fromEntries(scene.edges.map(e => [e.label || `${e.source}>${e.target}`, e]));
+  assert.equal(ports.get(`${byLabel['i>q'].id}>target`), 'q#N');
+  assert.equal(ports.get(`${byLabel['[sí]'].id}>source`), 'q#S');
+  assert.equal(ports.get(`${byLabel['[no]'].id}>source`), 'q#E');
+  assert.equal(diamondPorts(scene, 'LR').get(`${byLabel['i>q'].id}>target`), 'q#W');
+});
+
+test('routeOf sigue las secciones en el orden en que se conectan', () => {
+  const sections = [{id: 's1', incomingSections: ['s0'], startPoint: {x: 5, y: 0}, endPoint: {x: 5, y: 9}},
+    {id: 's0', outgoingSections: ['s1'], startPoint: {x: 0, y: 0}, bendPoints: [{x: 5, y: 0}], endPoint: {x: 5, y: 0}}];
+  assert.deepEqual(routeOf(sections).map(p => [p.x, p.y]), [[0, 0], [5, 0], [5, 0], [5, 9]]);
+});
+
+function plainLayout(edges, nodes) {
+  return {width: 400, height: 400, nodes: nodes.map(([id, x, y, w, h, extra = {}]) => ({id, parent: null, x, y, width: w, height: h, container: false, glyph: {}, ...extra})), edges};
+}
+
+test('R3: placeLabels deja cada rótulo pegado a un tramo de su arista, sin pisar nodos ni otros rótulos', () => {
+  const layout = plainLayout([
+    {id: 'e1', source: 'A', target: 'B', points: [{x: 50, y: 40}, {x: 50, y: 200}], labelSize: {width: 40, height: 16, lines: ['[sí]']}},
+    {id: 'e2', source: 'A', target: 'C', points: [{x: 60, y: 40}, {x: 60, y: 200}], labelSize: {width: 40, height: 16, lines: ['[no]']}},
+  ], [['A', 30, 0, 60, 40], ['B', 30, 200, 60, 40], ['C', 90, 200, 60, 40]]);
+  placeLabels(layout);
+  const [l1, l2] = layout.edges.map(e => e.labelBox);
+  assert.ok(Math.abs(l1.x - 54) < 1 || Math.abs(l1.x + l1.width - 46) < 1, l1);
+  assert.ok(!(l1.x < l2.x + l2.width && l2.x < l1.x + l1.width && l1.y < l2.y + l2.height && l2.y < l1.y + l1.height), [l1, l2]);
+  assert.equal(layoutIssues(layout).farLabels, 0);
+});
+
+test('layoutIssues: arista diagonal o con un extremo al aire, rótulo lejos y arista sobre un encabezado', () => {
+  const nodes = [['A', 0, 0, 40, 40], ['B', 200, 200, 40, 40]];
+  const good = plainLayout([{id: 'e', source: 'A', target: 'B', points: [{x: 20, y: 40}, {x: 20, y: 120}, {x: 220, y: 120}, {x: 220, y: 200}]}], nodes);
+  assert.equal(layoutIssues(good).total, 0);
+  assert.equal(layoutIssues(plainLayout([{id: 'e', source: 'A', target: 'B', points: [{x: 20, y: 40}, {x: 220, y: 200}]}], nodes)).broken, 1);
+  assert.equal(layoutIssues(plainLayout([{id: 'e', source: 'A', target: 'B', points: [{x: 20, y: 40}, {x: 20, y: 120}, {x: 220, y: 120}, {x: 220, y: 150}]}], nodes)).broken, 1);
+  const far = plainLayout([{...good.edges[0], labelBox: {x: 100, y: 120 + LABEL_MAX_DISTANCE + 10, width: 30, height: 14}}], nodes);
+  assert.equal(layoutIssues(far).farLabels, 1);
+  const withHeader = plainLayout(good.edges, [...nodes, ['K', 0, 100, 300, 60, {container: true, header: {x: 10, y: 10, width: 150, height: 30}}]]);
+  assert.equal(layoutIssues(withHeader).headerCrossings, 1);
 });
 
 test('bestLayout: prefiere el orden del spec mientras se lea; si no, el que mejor cabe', async () => {

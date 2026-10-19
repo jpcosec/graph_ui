@@ -12,7 +12,10 @@ import {bestLayout, pathOf, POINT_SHAPES} from './notation-layout.mjs';
 // layout lo calcula ELK (notation-layout.mjs, jerárquico), nunca coordenadas del
 // store: posiciones y plegado son estado de la superficie (contrato §7).
 const STORAGE_KEY = 'kb-notation-spec';
-const FIT_PADDING = 0.05;
+const MINIMAP_KEY = 'kb-notation-minimap';
+// MiniMap de React Flow: 200x150 abajo a la derecha, a 15 px del borde.
+const MINIMAP = {width: 200, height: 150, margin: 15};
+const FIT_PADDING = 0.03;
 const HANDLES = {TB: [Position.Top, Position.Bottom], BT: [Position.Bottom, Position.Top],
   LR: [Position.Left, Position.Right], RL: [Position.Right, Position.Left]};
 
@@ -47,7 +50,7 @@ async function layoutGraph(scene, element) {
 // cabeceras de carril (que no viven dentro de React Flow).
 const lineList = lines => lines.map((line, i) => html`<span key=${i} className="glyph-line">${line}</span>`);
 
-function Glyph({glyph: g, container, selected, children, style, lines, outside}) {
+function Glyph({glyph: g, container, selected, children, style, lines, outside, header}) {
   const point = POINT_SHAPES.includes(g.shape);
   const text = lines && lines.length ? lineList(lines) : g.label;
   const label = html`<span className=${'glyph-label' + (g.label_style ? ' is-' + g.label_style : '')}>${text}</span>`;
@@ -58,7 +61,7 @@ function Glyph({glyph: g, container, selected, children, style, lines, outside})
     ${(g.markers || []).map(m => html`<span key=${m.id} className=${'glyph-marker marker-' + m.shape} title=${m.id} data-marker=${m.id}></span>`)}
     ${point ? (outside ? html`<span className="glyph-point-label" style=${{left: outside.x + 'px', top: outside.y + 'px', width: outside.width + 'px'}}>${lineList(outside.lines)}</span>` : '')
       : g.shape === 'diamond' ? html`<span className="glyph-diamond-label">${text}</span>`
-      : html`<header className="glyph-head">${g.keyword ? html`<small className="glyph-keyword">${g.keyword}</small>` : ''}${label}</header>
+      : html`<header className="glyph-head" style=${container && header && header.x != null ? {position: 'absolute', left: header.x + 'px', top: header.y + 'px', width: header.width + 'px', height: header.height + 'px'} : undefined}>${g.keyword ? html`<small className="glyph-keyword">${g.keyword}</small>` : ''}${label}</header>
         ${compartments.map(c => html`<ul key=${c.path} className="glyph-compartment" data-path=${c.path}>${c.items.map((item, i) => html`<li key=${i}>${compartmentLine(item)}</li>`)}</ul>`)}`}
   </div>`;
 }
@@ -66,7 +69,7 @@ function Glyph({glyph: g, container, selected, children, style, lines, outside})
 function GlyphNode({data, selected}) {
   const [inPos, outPos] = HANDLES[data.direction] || HANDLES.TB;
   return html`<${Glyph} glyph=${data.glyph} container=${data.container} selected=${selected}
-      lines=${data.container ? data.header?.lines : data.lines} outside=${data.outside}>
+      lines=${data.container ? data.header?.lines : data.lines} outside=${data.outside} header=${data.container ? data.header : null}>
     <${Handle} type="target" position=${inPos}/><${Handle} type="source" position=${outPos}/>
   </${Glyph}>`;
 }
@@ -156,11 +159,12 @@ function endLabel(text, x, y, position, end) {
 
 // La arista sigue el recorrido ortogonal de ELK y su rótulo va en la caja que ELK le reservó (G5);
 // sin recorrido (no debería pasar) cae a un escalón entre los puertos.
-function NotationEdge({id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style, markerEnd, markerStart, data}) {
+function NotationEdge({id, source, target, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style, markerEnd, markerStart, data}) {
   const routed = data?.points && data.points.length > 1;
   const [fallback] = routed ? [null] : getSmoothStepPath({sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition});
   const ends = routed ? [data.points[0], data.points[data.points.length - 1]] : [{x: sourceX, y: sourceY}, {x: targetX, y: targetY}];
-  return html`<${BaseEdge} id=${id} path=${routed ? pathOf(data.points) : fallback} style=${style} markerEnd=${markerEnd} markerStart=${markerStart}/>
+  return html`<g className="notation-edge-ends" data-source=${source} data-target=${target}></g>
+    <${BaseEdge} id=${id} path=${routed ? pathOf(data.points) : fallback} style=${style} markerEnd=${markerEnd} markerStart=${markerStart}/>
     <${EdgeLabelRenderer}>
       ${data?.labelBox ? html`<div className="notation-edge-label nodrag nopan" data-edge=${id}
           style=${{transform: `translate(${data.labelBox.x}px, ${data.labelBox.y}px)`, width: data.labelBox.width + 'px'}}>${lineList(data.labelBox.lines)}</div>` : ''}
@@ -189,14 +193,26 @@ function NotationCanvas({skin}) {
   const [state, setState] = useState({phase: 'idle', view: null, error: null});
   const {fitView, setViewport} = useReactFlow();
   const [extent, setExtent] = useState(null);
+  // R4: el minimapa es plegable (recordado; arranca plegado) y, si se muestra, «Ver todo» encuadra
+  // el diagrama fuera de su esquina para que no tape nodos.
+  const [minimap, setMinimap] = useState(() => { try { return localStorage.getItem(MINIMAP_KEY) === '1'; } catch { return false; } });
+  const toggleMinimap = () => setMinimap(on => { try { localStorage.setItem(MINIMAP_KEY, on ? '0' : '1'); } catch {} return !on; });
   // «Ver todo» encuadra la caja entera del layout de ELK, rutas de aristas incluidas (fitView solo
   // mira los nodos y dejaba aristas fuera del lienzo).
   const fitAll = (duration = 200) => {
     const el = canvasRef.current;
     if (!extent || !el) return fitView({padding: FIT_PADDING, maxZoom: 1.1, duration});
     const {width, height} = el.getBoundingClientRect();
-    const zoom = Math.min(1.1, Math.min(width / extent.width, height / extent.height) / (1 + FIT_PADDING));
-    setViewport({x: (width - extent.width * zoom) / 2, y: (height - extent.height * zoom) / 2, zoom}, {duration});
+    const fit = (w, h) => Math.min(1.1, Math.min(w / extent.width, h / extent.height) / (1 + FIT_PADDING));
+    if (!minimap) {
+      const zoom = fit(width, height);
+      return setViewport({x: (width - extent.width * zoom) / 2, y: (height - extent.height * zoom) / 2, zoom}, {duration});
+    }
+    const beside = width - MINIMAP.width - MINIMAP.margin * 2, above = height - MINIMAP.height - MINIMAP.margin * 2;
+    const [zoomBeside, zoomAbove] = [fit(beside, height), fit(width, above)];
+    const zoom = Math.max(zoomBeside, zoomAbove);
+    const [w, h] = zoomBeside >= zoomAbove ? [beside, height] : [width, above];
+    setViewport({x: (w - extent.width * zoom) / 2, y: (h - extent.height * zoom) / 2, zoom}, {duration});
   };
 
   useEffect(() => {
@@ -222,7 +238,16 @@ function NotationCanvas({skin}) {
     });
     return () => { cancelled = true; };
   }, [scene]);
-  useEffect(() => { const t = setTimeout(() => fitAll(), 60); return () => clearTimeout(t); }, [extent]);
+  useEffect(() => { const t = setTimeout(() => fitAll(), 60); return () => clearTimeout(t); }, [extent, minimap]);
+  // Plegar o desplegar el panel de workers cambia el lienzo: se vuelve a encuadrar.
+  useEffect(() => {
+    const el = canvasRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return undefined;
+    let timer = null;
+    const observer = new ResizeObserver(() => { clearTimeout(timer); timer = setTimeout(() => fitAll(0), 80); });
+    observer.observe(el);
+    return () => { clearTimeout(timer); observer.disconnect(); };
+  }, [extent]);
   const selected = flowNodes.find(n => n.selected)?.id || null;
 
   const choose = id => { setSpecId(id); try { localStorage.setItem(STORAGE_KEY, id); } catch {} };
@@ -238,7 +263,8 @@ function NotationCanvas({skin}) {
       <div className="notation-bar" role="toolbar" aria-label="Herramientas de la vista">
         <strong>${view ? view.title : current || 'Specs'}</strong>
         ${view ? html`<span className="notation-meta">${view.notation.replace(/^NotationDoc:/, '')} · ${view.nodes.length} elementos · ${view.links.length} relaciones</span>` : ''}
-        ${!scene || scene.kind === 'graph' ? html`<button type="button" onClick=${() => fitAll()}>⛶ Ver todo</button>` : ''}
+        ${!scene || scene.kind === 'graph' ? html`<button type="button" onClick=${() => fitAll()}>⛶ Ver todo</button>
+          <button type="button" className="notation-minimap-toggle" aria-pressed=${minimap ? 'true' : 'false'} onClick=${toggleMinimap}>${minimap ? 'Ocultar minimapa' : 'Minimapa'}</button>` : ''}
       </div>
       ${scene && scene.notices.length ? html`<div className="notation-notices" role="status">${scene.notices.map(n => html`<p key=${n}>${n}</p>`)}</div>` : ''}
       <div className="notation-canvas" ref=${canvasRef}>
@@ -253,7 +279,7 @@ function NotationCanvas({skin}) {
               onNodesChange=${changes => setFlowNodes(ns => applyNodeChanges(changes, ns))}
               minZoom=${.08} maxZoom=${2} nodesConnectable=${false} deleteKeyCode=${null} colorMode=${skin || 'light'}>
               <${Controls} showInteractive=${false}/>
-              <${MiniMap} pannable zoomable ariaLabel="Vista general del spec"/>
+              ${minimap ? html`<${MiniMap} pannable zoomable ariaLabel="Vista general del spec"/>` : ''}
             </${ReactFlow}>`}
       </div>
     </div>
@@ -264,4 +290,4 @@ function NotationView(props) {
   return html`<${ReactFlowProvider}><${NotationCanvas} ...${props}/></${ReactFlowProvider}>`;
 }
 
-export const notationView = {id: 'notation', facet: 'specs', label: '🧩 Specs', component: NotationView, shell: {primary: false}, styles: ['/views/specs/notation/notation.css']};
+export const notationView = {id: 'notation', facet: 'specs', label: '🧩 Specs', component: NotationView, shell: {primary: false, workers: 'collapsed'}, styles: ['/views/specs/notation/notation.css']};

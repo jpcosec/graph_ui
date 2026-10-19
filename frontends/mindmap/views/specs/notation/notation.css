@@ -43,6 +43,7 @@
 .glyph.shape-rounded-container,.glyph.is-container{border-radius:16px;background:var(--surface-panel-veil);box-shadow:none}
 /* G2: la cabecera de un contenedor va arriba, en la franja que ELK le reservó; los hijos empiezan debajo. */
 .glyph.is-container{justify-content:flex-start}
+.glyph.is-container > .glyph-head{border-bottom:0;padding:6px 4px;box-sizing:border-box}
 .glyph.is-container .glyph-head{align-items:flex-start;border-bottom:1px solid var(--border);padding:6px 14px}
 .glyph.shape-stick-figure{border:0;background:none;box-shadow:none;justify-content:flex-end}
 .glyph.shape-stick-figure::before{content:'🧍';font-size:36px;line-height:1;text-align:center}
@@ -91,3 +92,6 @@
 .lane-frame .frame-tab{fill:var(--surface-panel);stroke:var(--text-muted);stroke-width:1.2}
 .lane-frame .frame-label{font-size:10.5px;font-weight:600;fill:var(--text)}
 .lane-frame .frame-guard{font-size:10.5px;fill:var(--text-secondary)}
+.notation-bar .notation-minimap-toggle{margin-left:6px}
+/* Los rótulos de arista se dibujan sobre los nodos (no los tapa el velo de un contenedor); ya evitan los nodos hoja. */
+.notation-canvas .react-flow__edgelabel-renderer{z-index:5}
