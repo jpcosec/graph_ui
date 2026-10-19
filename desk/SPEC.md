@@ -1,16 +1,24 @@
 # Graph UI Delivery Spec
 
-`graph_ui` should become the human-facing graph inspection and editing surface for real ecosystem graph data.
+`graph_ui` is the visual editor of an SLDB knowledge base: it reads and writes a
+real `.sldb` store and never invents semantics that do not live in SLDB.
 
 ---
 
-## Real Use Case
+## Where it stands (2026-10-18)
 
-We want a human to inspect a real knowledge graph slice, see semantic findings or validation signals, and edit graph state through a reusable UI instead of through ad hoc internal tooling.
+- Active development: `frontends/mindmap/` (stdlib `serve.py`, React/htm by CDN),
+  addressed as `/{facet}/{view}`, over a real store, locally or through
+  `sldb serve` (`GRAPH_UI_BACKEND=remote`).
+- `apps/review-workbench/` (React/Vite) is maintained: it mounts
+  `AntoniaFlowPage` over `sldb serve` (`/sldb/*`).
+- The graph layer is `sldb.api.graph` (formerly kgdb); `src/adapters/snapshot_adapter.py`
+  adapts its snapshot to the UI contract.
 
-The first slice should prove:
+The first delivery slice (real graph data, reusable editor, one semantic signal,
+one safe edit) closed with tasks 001-006, retired in 4b7ec60..13717d7.
 
-1. load a real graph-shaped dataset
-2. render it with the reusable editor architecture
-3. surface at least one semantic or structural signal
-4. make one safe edit path explicit
+## Open product decision
+
+Which page is review-workbench's L1 (`GraphEditorPage` or `AntoniaFlowPage`), and
+with it the projection grammar in the drawer: pending with the owner.

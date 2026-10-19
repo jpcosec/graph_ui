@@ -1,9 +1,8 @@
 # Graph UI Desk Standards
 
-Use this `desk/` to turn the reconstruction guide into a deliverable interface plan.
-
 Rules:
 
 1. Keep tasks focused on real interface slices, not abstract UI ambition.
-2. Every task must reference the canonical graph contract it consumes.
-3. Prefer integrating one real graph workflow over polishing a toy dataset.
+2. Every task names the SLDB data it reads or writes (models, `sldb.api.graph`, `sldb serve` routes).
+3. Tests run against real stores and servers, never mocks (see the no-mocks pill).
+4. Commit a task when it is created, so its body stays in git history.
