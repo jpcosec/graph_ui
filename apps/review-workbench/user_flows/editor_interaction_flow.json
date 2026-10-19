@@ -48,7 +48,7 @@
     {
       "id": "08_sidebar_reachable",
       "action": "wait",
-      "selector": "[data-testid='sidebar-save']",
+      "selector": "[data-testid='sidebar-copy']",
       "description": "The sidebar actions stay reachable with the inspector open"
     },
     {

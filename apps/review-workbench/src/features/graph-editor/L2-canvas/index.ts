@@ -6,3 +6,4 @@ export { ButtonEdge, FloatingEdge } from './edges';
 export { useEdgeInheritance, useGraphLayout, useKeyboard } from './hooks';
 export { NodeInspector, EdgeInspector } from './panels';
 export { CanvasSidebar } from './sidebar';
+export { computeElkLayeredLayout, LAYOUT_STRATEGIES, DEFAULT_LAYOUT_STRATEGY_NAME } from './layout/layout-strategies';

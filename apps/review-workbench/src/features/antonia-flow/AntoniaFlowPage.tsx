@@ -113,7 +113,6 @@ export function AntoniaFlowPage() {
 
   return (
     <GraphEditor
-      onSave={() => {}}
       hero={{
         eyebrow: 'Conversation Flow',
         title: 'Antonia — real ConversationStep atoms',

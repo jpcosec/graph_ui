@@ -17,10 +17,10 @@ import { toast } from 'sonner';
 /**
  * GraphEditor is store-driven: it renders whatever graph is in `useGraphStore`.
  * Whoever mounts it loads the graph first (`useGraphStore.getState().loadGraph`),
- * as AntoniaFlowPage and GraphEditorPage do; there are no graph props.
+ * as AntoniaFlowPage does; there are no graph props. Persistence is per document
+ * (NodeInspector -> sldbProvider.saveDoc), never the whole graph.
  */
 interface GraphEditorProps {
-  onSave?: () => void;
   editable?: boolean;
   hero?: {
     eyebrow: string;
@@ -38,7 +38,7 @@ interface GraphEditorProps {
   overlayPlacement?: 'canvas' | 'sidebar';
 }
 
-function GraphEditorContent({ onSave, editable = true, hero, workspace, topOverlay, shellVariant = 'default', contentTopInset = 0, overlayPlacement = 'canvas' }: GraphEditorProps) {
+function GraphEditorContent({ editable = true, hero, workspace, topOverlay, shellVariant = 'default', contentTopInset = 0, overlayPlacement = 'canvas' }: GraphEditorProps) {
   useKeyboard(editable);
 
 
@@ -58,7 +58,7 @@ function GraphEditorContent({ onSave, editable = true, hero, workspace, topOverl
    * la UI, `sldbProvider.saveDoc` -> POST /sldb/save— era inalcanzable.
    *
    * No se abre con la seleccion simple a proposito: el Sheet es modal y tapa el
-   * sidebar (copiar/pegar/guardar), que sigue necesitando clicks.
+   * sidebar (copiar/pegar/borrar), que sigue necesitando clicks.
    */
 
   const heroCopy = hero ?? {
@@ -69,7 +69,7 @@ function GraphEditorContent({ onSave, editable = true, hero, workspace, topOverl
   const workspaceCopy = workspace ?? {
     label: 'Workspace',
     title: 'Live canvas',
-    description: 'Save, inspect, and refactor visually',
+    description: 'Inspect and refactor visually',
   };
 
   const handleConfirm = () => {
@@ -102,7 +102,6 @@ function GraphEditorContent({ onSave, editable = true, hero, workspace, topOverl
         </div>
       </div>
       <CanvasSidebar
-        onSave={onSave}
         editable={editable}
         variant={shellVariant === 'compact' ? 'compact' : 'default'}
         topPanel={topOverlay && overlayPlacement === 'sidebar' ? topOverlay : undefined}
@@ -115,7 +114,7 @@ function GraphEditorContent({ onSave, editable = true, hero, workspace, topOverl
         target={deleteTarget}
         onConfirm={handleConfirm}
       /> : null}
-      {editable && onSave ? <CommandMenu open={commandDialogOpen} onOpenChange={closeCommandDialog} onSave={onSave} /> : null}
+      {editable ? <CommandMenu open={commandDialogOpen} onOpenChange={closeCommandDialog} /> : null}
       <Toaster />
     </div>
   );

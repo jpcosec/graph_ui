@@ -15,10 +15,9 @@ import { useUIStore } from '@/stores/ui-store';
 interface CommandMenuProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSave: () => void;
 }
 
-export function CommandMenu({ open, onOpenChange, onSave }: CommandMenuProps) {
+export function CommandMenu({ open, onOpenChange }: CommandMenuProps) {
   const nodes = useGraphStore((state) => state.nodes);
   const setFocusedNode = useUIStore((state) => state.setFocusedNode);
   const setEditorState = useUIStore((state) => state.setEditorState);
@@ -28,11 +27,6 @@ export function CommandMenu({ open, onOpenChange, onSave }: CommandMenuProps) {
   const handleSelectNode = (nodeId: string) => {
     setFocusedNode(nodeId);
     setEditorState('focus');
-    onOpenChange(false);
-  };
-
-  const handleSave = () => {
-    onSave();
     onOpenChange(false);
   };
 
@@ -64,10 +58,6 @@ export function CommandMenu({ open, onOpenChange, onSave }: CommandMenuProps) {
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Actions">
-          <CommandItem onSelect={handleSave}>
-            <span>Save Graph</span>
-            <CommandShortcut>⌘S</CommandShortcut>
-          </CommandItem>
           <CommandItem onSelect={handleUndo}>
             <span>Undo</span>
             <CommandShortcut>⌘Z</CommandShortcut>

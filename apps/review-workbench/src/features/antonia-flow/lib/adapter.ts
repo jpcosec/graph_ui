@@ -1,7 +1,7 @@
 import fixture from '../antonia-fixture.generated.json';
 
-import type { SldbDocument } from '@/features/graph-editor/lib/data-provider';
-import { computeElkLayeredLayout } from '@/features/graph-editor/L2-canvas/layout/layout-strategies';
+import type { SldbDocument } from '@/features/graph-editor/lib/sldb-types';
+import { computeElkLayeredLayout } from '@/features/graph-editor/L2-canvas';
 import { registerDefaultNodeTypes } from '@/schema/register-defaults';
 import { registry } from '@/schema/registry';
 import type { ASTEdge, ASTNode } from '@/stores/types';

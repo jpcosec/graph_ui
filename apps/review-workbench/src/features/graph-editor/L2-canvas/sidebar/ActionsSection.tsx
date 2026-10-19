@@ -38,16 +38,11 @@ function makeCopyNode(node: ASTNode): ASTNode {
   };
 }
 
-interface ActionsSectionProps {
-  onSave: () => void | Promise<void>;
-}
-
-export function ActionsSection({ onSave }: ActionsSectionProps) {
+export function ActionsSection() {
   const nodes = useGraphStore((state) => state.nodes);
   const edges = useGraphStore((state) => state.edges);
   const undoStack = useGraphStore((state) => state.undoStack);
   const redoStack = useGraphStore((state) => state.redoStack);
-  const isDirty = useGraphStore((state) => state.isDirty());
   const addElements = useGraphStore((state) => state.addElements);
   const removeElements = useGraphStore((state) => state.removeElements);
   const undo = useGraphStore((state) => state.undo);
@@ -60,19 +55,6 @@ export function ActionsSection({ onSave }: ActionsSectionProps) {
   const selectedNode = nodes.find((node) => node.selected);
   const selectedNodeIds = nodes.filter((node) => node.selected).map((node) => node.id);
   const selectedEdgeIds = edges.filter((edge) => edge.selected).map((edge) => edge.id);
-
-  const handleSave = async () => {
-    await onSave();
-
-    // El toast depende de la verdad del store, no de que onSave haya vuelto:
-    // una pagina sin ruta de guardado no puede reportar exito.
-    if (useGraphStore.getState().isDirty()) {
-      toast.warning('Sin ruta de guardado para este lienzo: los cambios no se persistieron');
-      return;
-    }
-
-    toast.success('Graph saved successfully');
-  };
 
   const handleCopy = () => {
     if (!selectedNode) {
@@ -133,9 +115,6 @@ export function ActionsSection({ onSave }: ActionsSectionProps) {
 
   return (
     <div className="flex flex-col gap-2 px-3 pb-3">
-      <Button size="sm" onClick={handleSave} disabled={!isDirty} data-testid="sidebar-save">
-        Save
-      </Button>
       <div className="flex gap-1">
         <Button size="sm" variant="outline" onClick={undo} className="flex-1" disabled={undoStack.length === 0}>
           Undo

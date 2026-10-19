@@ -41,18 +41,6 @@ beforeEach(() => {
 });
 
 describe('useGraphStore (GRP-001-01)', () => {
-  it('tracks dirty state across markSaved and updates', () => {
-    const store = useGraphStore.getState();
-    store.loadGraph([nodeA], []);
-
-    expect(useGraphStore.getState().isDirty()).toBe(false);
-
-    useGraphStore.getState().updateNode('n-a', { position: { x: 11, y: 22 } });
-    expect(useGraphStore.getState().isDirty()).toBe(true);
-
-    useGraphStore.getState().markSaved();
-    expect(useGraphStore.getState().isDirty()).toBe(false);
-  });
 
   it('does not add visual-only updates to semantic history', () => {
     useGraphStore.getState().loadGraph([nodeA], []);
@@ -178,25 +166,5 @@ describe('useGraphStore (GRP-001-01)', () => {
     });
   });
 
-  it('no se ensucia por seleccionar un nodo (cambio visual, no contenido)', () => {
-    useGraphStore.getState().loadGraph([nodeA, nodeB], [edgeAB]);
 
-    useGraphStore.getState().onNodesChange([{ type: 'select', id: 'n-a', selected: true }]);
-    useGraphStore.getState().onEdgesChange([{ type: 'select', id: 'e-ab', selected: true }]);
-
-    expect(useGraphStore.getState().nodes[0]?.selected).toBe(true);
-    expect(useGraphStore.getState().isDirty()).toBe(false);
-  });
-
-  it('una seleccion posterior al save no vuelve a ensuciar el grafo', () => {
-    useGraphStore.getState().loadGraph([nodeA], []);
-    useGraphStore.getState().updateNode('n-a', { position: { x: 99, y: 99 } });
-    expect(useGraphStore.getState().isDirty()).toBe(true);
-
-    useGraphStore.getState().markSaved();
-    expect(useGraphStore.getState().isDirty()).toBe(false);
-
-    useGraphStore.getState().onNodesChange([{ type: 'select', id: 'n-a', selected: true }]);
-    expect(useGraphStore.getState().isDirty()).toBe(false);
-  });
 });

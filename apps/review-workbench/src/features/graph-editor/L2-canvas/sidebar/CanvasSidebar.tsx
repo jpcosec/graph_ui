@@ -20,7 +20,6 @@ import { ViewSection } from './ViewSection';
 const accordionClassName = 'px-4 font-mono text-[10px] uppercase tracking-[0.24em]';
 
 interface CanvasSidebarProps {
-  onSave?: () => void;
   editable?: boolean;
   variant?: 'default' | 'compact';
   topPanel?: ReactNode;
@@ -43,7 +42,7 @@ function AccordionPanel({
   );
 }
 
-export function CanvasSidebar({ onSave, editable = true, variant = 'default', topPanel }: CanvasSidebarProps) {
+export function CanvasSidebar({ editable = true, variant = 'default', topPanel }: CanvasSidebarProps) {
   const sidebarOpen = useUIStore((state) => state.sidebarOpen);
   const toggleSidebar = useUIStore((state) => state.toggleSidebar);
 
@@ -111,8 +110,8 @@ export function CanvasSidebar({ onSave, editable = true, variant = 'default', to
           </div>
 
           <Accordion type="multiple" defaultValue={editable ? (variant === 'compact' ? ['actions', 'creation', 'view', 'encoding', 'views'] : ['actions', 'filters', 'creation', 'view', 'encoding', 'views']) : ['filters', 'view', 'encoding', 'views']} className="space-y-3 px-1 pb-4">
-            {editable && onSave ? <AccordionPanel value="actions" title="Actions">
-              <ActionsSection onSave={onSave} />
+            {editable ? <AccordionPanel value="actions" title="Actions">
+              <ActionsSection />
             </AccordionPanel> : null}
 
             <AccordionPanel value="filters" title="Filters">

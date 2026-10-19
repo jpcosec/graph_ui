@@ -28,12 +28,6 @@
       "description": "Wait for the EncodingSection to render"
     },
     {
-      "id": "05_save_disabled_when_clean",
-      "action": "assert_disabled",
-      "selector": "[data-testid='sidebar-save']",
-      "description": "Save is disabled while the graph is clean"
-    },
-    {
       "id": "06_select_first_node",
       "action": "dispatch_click",
       "selector": ".react-flow__node >> nth=0",
@@ -52,33 +46,9 @@
       "description": "Paste a duplicate node"
     },
     {
-      "id": "09_save_enabled_when_dirty",
-      "action": "assert_enabled",
-      "selector": "[data-testid='sidebar-save']",
-      "description": "Save becomes enabled after the graph is modified"
-    },
-    {
-      "id": "10_save_graph",
-      "action": "click",
-      "selector": "[data-testid='sidebar-save']",
-      "description": "Save the canvas (the live KB viewer does not persist canvas edits)"
-    },
-    {
-      "id": "11_save_reports_no_persistence",
-      "action": "wait_text",
-      "value": "Sin ruta de guardado",
-      "description": "Save reports the truth: nothing was persisted"
-    },
-    {
-      "id": "12_canvas_still_dirty",
-      "action": "assert_enabled",
-      "selector": "[data-testid='sidebar-save']",
-      "description": "The canvas keeps its unsaved edit instead of pretending it saved"
-    },
-    {
       "id": "13_reload_page",
       "action": "reload",
-      "description": "Reload drops the unsaved canvas edit"
+      "description": "Reload: canvas edits are not persisted (persistence is per document, from the inspector)"
     },
     {
       "id": "14_nodes_after_reload",

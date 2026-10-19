@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { buildAntoniaGraphFromDocuments, buildEdgesFromAuthoredRelations } from './adapter';
-import type { SldbDocument } from '@/features/graph-editor/lib/data-provider';
+import type { SldbDocument } from '@/features/graph-editor/lib/sldb-types';
 
 describe('buildAntoniaGraphFromDocuments', () => {
   it('builds conversation-step nodes and edges from live documents', async () => {

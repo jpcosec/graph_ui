@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import type { SldbSchema } from '@/features/graph-editor/lib/data-provider';
+import type { SldbSchema } from '@/features/graph-editor/lib/sldb-types';
 import { registry } from '@/schema/registry';
 import { detailRendererFor, PlaceholderDot, PlaceholderLabel } from '@/schema/renderer-helpers';
 import { StepCard } from '../StepCard';

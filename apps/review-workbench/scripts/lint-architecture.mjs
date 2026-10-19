@@ -8,6 +8,7 @@ const srcRoot = path.join(appRoot, 'src');
 
 const PROD_EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx']);
 const TEST_FILE_RE = /\.(test|spec)\.[jt]sx?$/;
+const L2_ENTRYPOINTS = new Set(['features/graph-editor/L2-canvas/GraphEditor', 'features/graph-editor/L2-canvas', 'features/graph-editor/L2-canvas/index']);
 
 function walk(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -35,10 +36,10 @@ function normalize(relativePath) {
 
 function classify(file) {
   const rel = normalize(path.relative(srcRoot, file));
-  if (rel.startsWith('features/graph-editor/L1-app/')) return 'L1';
+  // L1 is the page App.tsx mounts (AntoniaFlowPage): it loads the graph and mounts L2.
+  if (rel.startsWith('features/antonia-flow/')) return 'L1';
   if (rel.startsWith('features/graph-editor/L2-canvas/')) return 'L2';
   if (rel.startsWith('components/content/')) return 'L3';
-  if (rel.startsWith('features/hum-body/')) return 'HUM';
   return 'OTHER';
 }
 
@@ -78,23 +79,20 @@ for (const file of files) {
   const imports = extractImports(source).map((specifier) => ({ raw: specifier, resolved: resolveSpecifier(file, specifier) }));
 
   for (const entry of imports) {
-    if (zone === 'L1' && entry.resolved.startsWith('features/graph-editor/L2-canvas/') && entry.resolved !== 'features/graph-editor/L2-canvas/GraphEditor') {
-      violations.push(`${rel}: L1 may only import the L2 public entrypoint, found ${entry.raw}`);
+    if (zone === 'L1' && entry.resolved.startsWith('features/graph-editor/L2-canvas/') && !L2_ENTRYPOINTS.has(entry.resolved)) {
+      violations.push(`${rel}: L1 may only import the L2 public entrypoints (GraphEditor, the L2-canvas index), found ${entry.raw}`);
     }
 
-    if (zone === 'L2' && (entry.resolved.startsWith('features/graph-editor/L1-app/') || entry.resolved.startsWith('features/hum-body/'))) {
+    if (zone === 'L2' && entry.resolved.startsWith('features/antonia-flow/')) {
       violations.push(`${rel}: L2 must stay domain-agnostic, found ${entry.raw}`);
     }
 
     if (zone === 'L3') {
-      if (entry.raw === '@xyflow/react' || entry.resolved.startsWith('stores/') || entry.resolved.startsWith('features/hum-body/') || entry.resolved.startsWith('features/graph-editor/L1-app/') || entry.resolved.startsWith('features/graph-editor/L2-canvas/')) {
+      if (entry.raw === '@xyflow/react' || entry.resolved.startsWith('stores/') || entry.resolved.startsWith('features/antonia-flow/') || entry.resolved.startsWith('features/graph-editor/L2-canvas/')) {
         violations.push(`${rel}: L3 content components cannot depend on editor/runtime internals, found ${entry.raw}`);
       }
     }
 
-    if (zone === 'HUM' && entry.resolved.startsWith('features/graph-editor/L2-canvas/') && entry.resolved !== 'features/graph-editor/L2-canvas/GraphEditor') {
-      violations.push(`${rel}: HUM view may only mount the generic GraphEditor from L2, found ${entry.raw}`);
-    }
   }
 
   if (zone === 'L2' && (rel.endsWith('GraphEditor.tsx') || rel.endsWith('CanvasSidebar.tsx'))) {

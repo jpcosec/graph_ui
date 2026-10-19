@@ -1,5 +1,4 @@
-import type { DomainData } from './types';
-import type { SldbGraph, SldbSchema } from './data-provider';
+import type { SldbGraph, SldbSchema } from './sldb-types';
 
 async function readJson<T>(response: Response): Promise<T> {
   const data = (await response.json()) as T;
@@ -33,7 +32,6 @@ async function requestJson<T>(input: RequestInfo | URL, init?: RequestInit): Pro
 export interface SldbDataProvider {
   getSchema: () => Promise<SldbSchema>;
   getGraph: () => Promise<SldbGraph>;
-  saveGraph: (payload: DomainData) => Promise<{ ok: true }>;
   saveDoc: (docId: string, payload: Record<string, unknown>) => Promise<{ ok: true; doc: string }>;
 }
 
@@ -66,9 +64,6 @@ export const sldbProvider: SldbDataProvider = {
   },
   async getGraph() {
     return getGraphOnce();
-  },
-  async saveGraph(_payload: DomainData) {
-    return { ok: true };
   },
   async saveDoc(docId, payload) {
     return requestJson<{ ok: true; doc: string }>('/sldb/save', {
