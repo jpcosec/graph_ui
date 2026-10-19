@@ -5,7 +5,6 @@ id: board-graph-ui
 scope: graph_ui
 # List of task-xxx paths
 tasks:
-- desk/tasks/task-modelo-de-vista-viewdoc-en-spec2viz.md
 - desk/tasks/task-evaluación-de-vistas-filtros-y-guardado-en-graph-ui.md
 - desk/tasks/task-layout-por-estilo-de-arquitectura-en-las-vistas.md
 # List of pill-xxx paths
@@ -39,6 +38,5 @@ Phase B delivery tasks (adapter, encoding, layout, store, sidebar) are closed. k
 
 _Generated from the task references above._
 
-- Modelo de vista ViewDoc en spec2viz [draft] - spec2viz.sldb_models.ViewDoc existe en spec2viz main con los campos de PROJECTION_GRAMMAR_SPEC §3 (nodes {model, where}, relations, direction, notation, layout) y graph_ui puede trackear y leer un ViewDoc.
 - Evaluación de vistas, filtros y guardado en graph_ui [draft] - graph_ui evalúa un ViewDoc con sldb.api.graph (§4) por /api/views, /api/views/evaluate y /api/views/save; el ViewsSection de review-workbench lista, carga y guarda vistas del store y el FiltersSection edita nodes y relations; e2e lo prueba en navegador.
 - Layout por estilo de arquitectura en las vistas [draft] - El layout de la vista (ViewDoc.layout, o el de su NotationDoc) con style layered o rings elige elk-layered o elk-rings en layout-strategies.ts; rings usa layout.ring_field; e2e verifica las posiciones.
