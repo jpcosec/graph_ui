@@ -8,9 +8,11 @@ target_project: graph_ui
 # ISO 8601 timestamp
 created_at: '2026-10-19T13:49:14'
 # open | closed
-status: open
+status: closed
 # project identity that acknowledged the note
+acknowledged_by: graph_ui
 # ISO 8601 timestamp, set when acknowledged
+acknowledged_at: '2026-10-19T14:03:59'
 ---
 
 # deskops: store derivado en origin (195ee01, CI verde); podés migrar

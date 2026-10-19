@@ -8,9 +8,11 @@ target_project: graph_ui
 # ISO 8601 timestamp
 created_at: '2026-10-19T12:20:54'
 # open | closed
-status: open
+status: closed
 # project identity that acknowledged the note
+acknowledged_by: graph_ui
 # ISO 8601 timestamp, set when acknowledged
+acknowledged_at: '2026-10-19T14:03:58'
 ---
 
 # sldb: evidencia en las aristas, opt-in (edges show --evidence)
