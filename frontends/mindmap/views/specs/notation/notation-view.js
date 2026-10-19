@@ -115,7 +115,10 @@ function GridDiagram({scene}) {
       <th scope="row" style=${{paddingLeft: (10 + r.depth * 16) + 'px'}} data-depth=${r.depth}>${r.label}</th>
       ${grid.columns.map(c => {
         const labels = scene.cells[cellKey(r.id, c.id)];
-        return html`<td key=${c.id} data-cell=${r.id + '|' + c.id} className=${labels ? 'is-filled' : ''} title=${labels ? labels.join(', ') : undefined}>${labels ? html`<span className="cell-mark">${labels.join(', ')}</span>` : ''}</td>`;
+        // G7: una celda marcada es una marca; lo que diga el link queda en el title (la
+        // columna ya nombra la vista), para que la grilla se lea de un vistazo.
+        const detail = labels ? labels.filter(Boolean).join(', ') : '';
+        return html`<td key=${c.id} data-cell=${r.id + '|' + c.id} className=${labels ? 'is-filled' : ''} title=${labels ? detail || c.label : undefined}>${labels ? html`<span className="cell-mark" aria-label=${detail || c.label}>●</span>` : ''}</td>`;
       })}
     </tr>`)}</tbody>
   </table>`)}</div>`;

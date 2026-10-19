@@ -198,6 +198,9 @@ def test_specs_view_draws_sequences_in_lanes_and_matrices_in_a_grid():
             assert page.locator(".notation-grid").nth(0).locator("tbody tr").count() == 12
             assert page.locator(".notation-grid").nth(1).locator("tbody tr").count() == 12
             assert page.locator("td.is-filled").count() == 30
+            # G7: a filled cell is a mark, not the view's name; the detail stays in its title.
+            marks = page.locator("td.is-filled").evaluate_all("tds => tds.map(td => [td.textContent, Boolean(td.title)])")
+            assert all(text == "●" and titled for text, titled in marks), marks[:3]
             assert page.locator(".notation-notices").count() == 0
             assert not errors, errors
             browser.close()
