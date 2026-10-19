@@ -3,6 +3,8 @@ __pycache__/
 .pytest_cache/
 
 .sldb/runtime/
+# Derived from .sldb/store.yaml + the tracked Markdown: `sldb stores build` rebuilds it.
+.sldb/core/
 .deskops.log
 desk/config.local.json
 runs/*
