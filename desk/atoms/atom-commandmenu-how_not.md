@@ -13,4 +13,4 @@ provenance: docs/specs/matrix.graph-ui-views.yml
 
 ## Answer
 
-CommandMenu does not create nodes in the current source, even though a command palette could be used that way in another design. Here it is limited to session actions and node focus, and it delegates the real work to the stores or the parent onSave callback.
+CommandMenu does not create nodes in the current source, even though a command palette could be used that way in another design. Here it is limited to undo/redo and node focus, and it delegates the real work to the stores. It has no save command: persistence is per document through NodeInspector.

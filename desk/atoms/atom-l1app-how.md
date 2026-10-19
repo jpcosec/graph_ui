@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-It works by using page components that call data functions, prepare graph nodes and edges, and then call store and registry APIs before rendering `GraphEditor`. `GraphEditorPage.tsx` uses `useQuery`, `registerSchemaTypes`, `loadGraph`, and `graphToDomain`/`saveGraph`; `AntoniaFlowPage.tsx` loads the live (sldb serve) or fixture graph, registers models via `registerModelsFromSchema`, and calls `loadGraph`.
+It works by using a page component that calls data functions, prepares graph nodes and edges, and then calls store and registry APIs before rendering `GraphEditor`. `AntoniaFlowPage.tsx` loads the live (sldb serve) or fixture graph, registers models via `registerModelsFromSchema`, and calls `loadGraph`.

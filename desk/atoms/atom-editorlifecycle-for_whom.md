@@ -13,4 +13,4 @@ provenance: docs/specs/state.editor-lifecycle.yml
 
 ## Answer
 
-EditorLifecycle serves the frontend code that needs consistent rules for dirty state, save transitions, and error recovery. It also serves the human using the editor, because their expectations about whether work is loaded, unsaved, saved, or failed depend on this model being coherent. It is a contract for both runtime logic and user trust.
+For the operator editing documents of a live SLDB store through review-workbench, and for whoever extends the editor and needs to know that persistence is per document, not per canvas.

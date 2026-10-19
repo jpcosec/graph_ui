@@ -13,4 +13,4 @@ provenance: docs/specs/matrix.graph-ui-views.yml
 
 ## Answer
 
-GraphStore must not treat visual-only changes as semantic history, which is why `isVisualOnly` bypasses the undo stack. It must not persist data by itself; persistence is owned by the save flow above it, which calls `markSaved()` after `saveGraph()` succeeds. It also must not silently invent edits for missing ids, because `updateNode()` and `updateEdge()` return early when the target element does not exist.
+GraphStore must not treat visual-only changes as semantic history, which is why `isVisualOnly` bypasses the undo stack. It must not persist data by itself; persistence is per document (NodeInspector -> `sldbProvider.saveDoc`), and the store has no dirty or saved state. It also must not silently invent edits for missing ids, because `updateNode()` and `updateEdge()` return early when the target element does not exist.

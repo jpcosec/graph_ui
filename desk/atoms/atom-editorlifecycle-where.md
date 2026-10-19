@@ -13,4 +13,4 @@ provenance: docs/specs/state.editor-lifecycle.yml
 
 ## Answer
 
-The lifecycle is specified explicitly in `docs/specs/state.editor-lifecycle.yml`. Its concrete frontend support lives in `apps/review-workbench/src/stores/graph-store.ts` through concepts like `isDirty`, semantic actions, and `markSaved`, and in `apps/review-workbench/src/features/graph-editor/L1-app/GraphEditorPage.tsx` where save success calls `markSaved`. Those are the exact spec and code paths that define EditorLifecycle today.
+apps/review-workbench/src/features/antonia-flow/AntoniaFlowPage.tsx (LoadState), features/graph-editor/L2-canvas/panels/NodeInspector.tsx (handleTypedSave) and features/graph-editor/lib/sldb-provider.ts (saveDoc); modeled in docs/specs/state.editor-lifecycle.yml.

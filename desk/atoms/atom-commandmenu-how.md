@@ -13,4 +13,4 @@ provenance: docs/specs/matrix.graph-ui-views.yml
 
 ## Answer
 
-It listens for Ctrl+K or Cmd+K in a document-level keydown effect and toggles a CommandDialog. Inside the dialog, action items call onSave, undo, or redo, and node items call setFocusedNode plus setEditorState('focus') before closing the palette.
+It listens for Ctrl+K or Cmd+K in a document-level keydown effect and toggles a CommandDialog. Inside the dialog, action items call undo or redo, and node items call setFocusedNode plus setEditorState('focus') before closing the palette.

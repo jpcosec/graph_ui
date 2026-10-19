@@ -13,4 +13,4 @@ provenance: docs/specs/sequence.data-load-target.yml
 
 ## Answer
 
-DataProvider must not stay a permanent stub where `saveGraph()` always returns `{ ok: true }` and nothing is persisted. L1 pages should not bypass it by importing fixtures or talking to a backend directly, because that would hard-wire data access into UI orchestration. It is also not acceptable to let this boundary hide that the current data source is frozen bundle data instead of a live store.
+DataProvider must not grow a whole-graph save that returns `{ ok: true }` without persisting; persistence is per document through `saveDoc`. L1 pages should not bypass it by importing fixtures or talking to a backend directly, because that would hard-wire data access into UI orchestration. The explicit `?src=fixture` fallback of `AntoniaFlowPage` must not be mistaken for the live store.

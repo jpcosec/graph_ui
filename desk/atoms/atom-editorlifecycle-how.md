@@ -13,4 +13,4 @@ provenance: docs/specs/state.editor-lifecycle.yml
 
 ## Answer
 
-Per `state.editor-lifecycle.yml`, the session starts in `loading`, moves to `clean` on `data_ready`, and goes to `error` on `fetch_failed`. Semantic edits transition `clean` to `dirty` when they are not `isVisualOnly`; `dirty` transitions to `saving` on save; `saving` returns to `clean` on `persisted` with `markSaved`, or back to `dirty` on `save_failed`. A guarded reload sends `clean` back to `loading` only when the graph is not dirty.
+AntoniaFlowPage sets its LoadState to loading, then ready or error after sldbProvider.getSchema/getGraph (or the ?src=fixture fallback) and loadGraph. A double click opens NodeInspector (inspecting); its typed Save calls sldbProvider.saveDoc (saving) and, on success, updates the node in the graph store and closes (ready); on failure it shows the error and keeps the draft (inspecting).

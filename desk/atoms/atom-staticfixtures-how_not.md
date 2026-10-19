@@ -13,4 +13,4 @@ provenance: docs/specs/sequence.data-load.yml
 
 ## Answer
 
-StaticFixtures must not be mistaken for live graph data or described as if they prove end-to-end persistence. They also must not quietly mask that `saveGraph()` does nothing, because a frozen input plus an in-memory draft graph is still not a real editor round-trip. Long-term architecture should not keep them as the primary source once a live sldb-backed source is available.
+StaticFixtures must not be mistaken for live graph data or described as if they prove end-to-end persistence. A frozen input plus an in-memory draft graph is not a real editor round-trip; only `sldbProvider.saveDoc` writes to the store. Long-term architecture should not keep them as the primary source once a live sldb-backed source is available (it already is the default).

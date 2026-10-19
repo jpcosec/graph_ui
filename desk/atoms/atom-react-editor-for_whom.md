@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-It is for the human operator who needs to inspect and edit graph-shaped data on a canvas. It also serves downstream page modules inside the app, because both `AntoniaFlowPage` and `GraphEditorPage` rely on the same `GraphEditor` surface instead of each building their own interaction stack.
+It is for the human operator who needs to inspect and edit graph-shaped data on a canvas. It also serves the page module inside the app: `AntoniaFlowPage` relies on the shared `GraphEditor` surface instead of building its own interaction stack.

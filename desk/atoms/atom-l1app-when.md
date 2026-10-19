@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-It runs when a page mounts and whenever the page's data inputs change. In the generic path that means schema/graph query results and dirty-state guards; in the Antonia path it is the one-time load of the live or fixture graph, with loading and error states.
+It runs when the page mounts: the one-time load of the live (default) or `?src=fixture` graph, with loading and error states.

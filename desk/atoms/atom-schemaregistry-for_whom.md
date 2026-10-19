@@ -13,4 +13,4 @@ provenance: docs/specs/matrix.graph-ui-views.yml
 
 ## Answer
 
-SchemaRegistry is for L1 pages, canvas code, and renderers that need type metadata instead of ad hoc conditionals. `GraphEditorPage` uses it to register schema types, while rendering and connection logic depend on it to resolve components and constraints. It serves both the frontend implementation and the operator indirectly by ensuring node types behave consistently on the canvas.
+SchemaRegistry is for L1 pages, canvas code, and renderers that need type metadata instead of ad hoc conditionals. `AntoniaFlowPage` uses it to register default and schema-derived types, while rendering and connection logic depend on it to resolve components and constraints. It serves both the frontend implementation and the operator indirectly by ensuring node types behave consistently on the canvas.

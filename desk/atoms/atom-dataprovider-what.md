@@ -13,4 +13,4 @@ provenance: docs/specs/sequence.data-load-target.yml
 
 ## Answer
 
-DataProvider is the frontend boundary that supplies the editor with its graph data and schema, and accepts save requests. `graphDataProvider` in `data-provider.ts` implements `GraphDataProvider` (`getSchema()`, `getGraph()`, `saveGraph(payload)`) over a mock: it reads from `mockClient` and its `saveGraph` is a stub. The live path is `sldbProvider` in `sldb-provider.ts`, which reads `/sldb/schema` and `/sldb/graph` and saves a document with `saveDoc` (POST `/sldb/save`).
+DataProvider is the frontend boundary that supplies the editor with its graph data and schema, and accepts save requests. `sldbProvider` in `sldb-provider.ts` implements `SldbDataProvider`: it reads `/sldb/schema` and `/sldb/graph` and saves one document with `saveDoc` (POST `/sldb/save`). There is no whole-graph save and no mock provider.

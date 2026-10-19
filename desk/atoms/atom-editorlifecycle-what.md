@@ -13,4 +13,4 @@ provenance: docs/specs/state.editor-lifecycle.yml
 
 ## Answer
 
-EditorLifecycle is the state model that describes a graph editing session moving through loading, clean, dirty, saving, and error. In the state spec it is the `GraphSession` entity and it captures when the editor has loaded data, has unsaved semantic edits, is persisting, or has failed. It is the conceptual lifecycle around graph state rather than a visible UI widget.
+EditorLifecycle is the state model of an editing session in review-workbench: loading, ready or error, and the per-document loop inspecting -> saving. In docs/specs/state.editor-lifecycle.yml it is the `EditorSession` entity. There is no whole-graph clean/dirty state: canvas edits live in the graph store and are not persisted; only a document saved from the inspector is.

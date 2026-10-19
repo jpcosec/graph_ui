@@ -13,4 +13,4 @@ provenance: docs/specs/sequence.data-load.yml
 
 ## Answer
 
-In the generic editor path, `mockClient` imports `graph_data.json`, validates it with `validateGraphData`, and returns it after a short delay. In the Antonia path, `buildAntoniaGraph()` in `features/antonia-flow/lib/adapter.ts` builds nodes and edges from the bundled `antonia-fixture.generated.json` when the page runs with `?src=fixture`. Both flows load bundle-local data instead of fetching from an external graph store.
+In the Antonia path, `buildAntoniaGraph()` in `features/antonia-flow/lib/adapter.ts` builds nodes and edges from the bundled `antonia-fixture.generated.json` when the page runs with `?src=fixture`. The default source is live (`sldb serve`). The fixture is bundle-local data instead of a fetch from an external graph store.

@@ -13,4 +13,4 @@ provenance: docs/specs/sequence.data-load.yml
 
 ## Answer
 
-StaticFixtures are used when the generic editor path reads `graph_data.json` through `mockClient`, and when `AntoniaFlowPage` runs with `?src=fixture` instead of the default live source. The Antonia fixture is regenerated on demand by `scripts/generate-antonia-fixture.mjs`; the old `hum:sync` fixture step no longer exists (it now generates node types). Their role is current-state bootstrapping and fallback, not target-state persistence.
+StaticFixtures are used when `AntoniaFlowPage` runs with `?src=fixture` instead of the default live source. The Antonia fixture is regenerated on demand by `scripts/generate-antonia-fixture.mjs`; the old `hum:sync` fixture step no longer exists (it now generates node types). Their role is current-state bootstrapping and fallback, not target-state persistence.

@@ -13,4 +13,4 @@ provenance: docs/specs/matrix.graph-ui-views.yml
 
 ## Answer
 
-UiStore must not become a second graph database; it should not own nodes, edges, or semantic undo history. It must not persist operator edits by itself, because save and dirty tracking live elsewhere, and its filters should not be mistaken for permanent graph mutations. It also must not blur browse and edit modes together, since keyboard and panel behavior depends on the explicit `EditorState` values.
+UiStore must not become a second graph database; it should not own nodes, edges, or semantic undo history. It must not persist operator edits by itself, because persistence is per document through `sldbProvider.saveDoc` from NodeInspector, and its filters should not be mistaken for permanent graph mutations. It also must not blur browse and edit modes together, since keyboard and panel behavior depends on the explicit `EditorState` values.

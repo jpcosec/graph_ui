@@ -1,12 +1,12 @@
 name: atom-grapheditor-de-review-workbench-dibuja-lo-que-hay-en-el-graph-store
 path: desk/atoms/atom-grapheditor-de-review-workbench-dibuja-lo-que-hay-en-el-graph-store.md
-source_hash: fab6e9c9435ca82b2a2acdeaba05fe0517791d978a879aed84ecfa657e8a9e86
-content_hash: a1c756d5db6b0e0eed34a8a372a122bde9a3d70bd1f6d64e404432dde6b3b223
+source_hash: 8c34f3fa257dfa622c6be30ed0b112d250630e7acd697d399f68919e379a0557
+content_hash: be43fd7a390e4dbcee4d1b036eebeea38883c25bc0a430b44bae023284a56562
 field_hashes:
   id: ef3410383b4856e4df6788186add2b95b776e72294575113fdbe7d0066419e95
   title: 752d7426d820815d8520a3712ad5eab348b4b5a2e6bb9b5b97a630c305b9901d
   five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
-  answer: c88ea6b897f8a429d790586f8991e4a618142764103cfb05e658dde22c0e1248
+  answer: f0d1bb9a6df0f224b5c56e87c8591e314d0f8f00f43e149719b262cffa5c4073
   tags: 3c0ac4b81c0672c6ab5904a0050b7e07e08b6dfbeb6dafaba1aefdb6f9c7b0ad
   provenance: fd4742c2b85c317f06f13771a944b78ac13d22864fc8798cb16dc39bf1788eb7
 semantic_tags:

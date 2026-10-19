@@ -13,4 +13,4 @@ provenance: docs/specs/component.graph-ui.yml
 
 ## Answer
 
-It is for the operator using the editor and for L1 pages that need a shared canvas implementation. `AntoniaFlowPage` and `GraphEditorPage` both render it instead of owning their own interaction stack.
+It is for the operator using the editor and for L1 pages that need a shared canvas implementation. `AntoniaFlowPage` renders it instead of owning its own interaction stack.

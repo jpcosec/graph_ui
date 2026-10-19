@@ -13,4 +13,4 @@ provenance: docs/specs/state.editor-lifecycle.yml
 
 ## Answer
 
-EditorLifecycle applies for the entire duration of an editor session. It begins when schema and graph loading start, remains relevant through semantic edits and saves, and matters again on failure or reload. Every meaningful load/save/dirtiness transition belongs to this lifecycle.
+It applies from the moment App.tsx mounts AntoniaFlowPage (loading) and every time the operator opens a node's inspector and saves it.

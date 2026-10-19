@@ -1,12 +1,12 @@
 name: atom-el-título-de-un-nodo-de-review-workbench-sale-de-una-sola-regla
 path: desk/atoms/atom-el-título-de-un-nodo-de-review-workbench-sale-de-una-sola-regla.md
-source_hash: f869e134afea9bacce5664ed76c45f67e426e58e4049f8945bb1a53c8781986c
-content_hash: 00b7fd17f0d510f8868df710bcbd1127280e82c0337238152d41ed22b8fb4034
+source_hash: fd22d4331ac248e9a9ef851970abe3ac807d781566af9cd7acf43c7da984d001
+content_hash: 29a5fad9fd253faf00be21bc589d6eaea9a8fdc213151ebf6c746c2ab4fe314c
 field_hashes:
   id: 227654b4705a5457769a0c7f564d8ad30845b7c330fadc2e2f0ba2e8bc2f9cf4
   title: 94d72c352b49c50aae79c59f09c4d463611dceb0b02adfef0075b1a695e32f75
   five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
-  answer: e92fa679f692a907c407839ef582c0886401b90ab7a6b4a548ecd721020c1d2a
+  answer: 1a8a511dd8f11508817db8961a8eb4cb12c1b4b6702d6ef6bbb4fbac7ddebbb5
   tags: c5fe520077436da7795f68f4752e0335d304b409c99dc91fa5bebdc0327f8520
   provenance: 797c2ba0e1fa5143b47cfb2de4173c4e995c14b1cc28557241f63b0c3bc64327
 semantic_tags:

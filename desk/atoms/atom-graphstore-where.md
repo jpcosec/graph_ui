@@ -13,4 +13,4 @@ provenance: docs/specs/matrix.graph-ui-views.yml
 
 ## Answer
 
-GraphStore lives in `apps/review-workbench/src/stores/graph-store.ts` in the frontend stores layer. It is consumed by L1 pages such as `GraphEditorPage.tsx` and by L2 canvas code that needs graph state and mutation actions. That file is the single implementation of graph session state, history, and dirty tracking on the client.
+GraphStore lives in `apps/review-workbench/src/stores/graph-store.ts` in the frontend stores layer. It is consumed by the L1 page `AntoniaFlowPage.tsx` and by L2 canvas code that needs graph state and mutation actions. That file is the single implementation of graph session state and history on the client.

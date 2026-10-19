@@ -13,4 +13,4 @@ provenance: docs/specs/state.editor-lifecycle.yml
 
 ## Answer
 
-EditorLifecycle exists so graph_ui can separate initial loading, editable clean state, unsaved semantic work, persistence attempts, and failures. That distinction matters because the editor should not treat all changes the same: semantic edits must make the graph dirty, while visual-only changes should not. It is the behavioral contract behind save, reload, and dirty-state expectations.
+It makes explicit which edits survive a reload. AntoniaFlowPage persists one document at a time (NodeInspector -> sldbProvider.saveDoc -> POST /sldb/save); the earlier whole-graph save (isDirty/markSaved, saveGraph) was a no-op and was removed in 56ad840, so the lifecycle no longer pretends the canvas is savable.

@@ -13,4 +13,4 @@ provenance: docs/specs/matrix.graph-ui-views.yml
 
 ## Answer
 
-It reads nodes, edges, undoStack, redoStack, and isDirty from the graph store, then uses UI store clipboard and delete-confirm state for copy, paste, and delete flows. Save delegates to the provided onSave callback, copy stores the selected node id, paste clones payload and properties into a new offset node, and delete opens a confirmation flow before graphStore.removeElements executes.
+It reads nodes, edges, undoStack, and redoStack from the graph store, then uses UI store clipboard and delete-confirm state for copy, paste, and delete flows. It has no save button: persistence is per document through NodeInspector. Copy stores the selected node id, paste clones payload and properties into a new offset node, and delete opens a confirmation flow before graphStore.removeElements executes.

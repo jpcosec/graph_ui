@@ -13,4 +13,4 @@ provenance: docs/specs/matrix.graph-ui-views.yml
 
 ## Answer
 
-It is used throughout an editing session whenever the operator wants to save work, reverse or reapply semantic edits, duplicate a node, or remove selected elements. Button enablement follows current store state such as dirty state, clipboard state, selection state, and undo or redo availability.
+It is used throughout an editing session whenever the operator wants to reverse or reapply semantic edits, duplicate a node, or remove selected elements. Button enablement follows current store state such as clipboard state, selection state, and undo or redo availability. Saving is not done here; documents are saved from NodeInspector.
