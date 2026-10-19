@@ -43,7 +43,6 @@ export function EncodingSection() {
   const activeEncodingRules = useUIStore((state) => state.activeEncodingRules);
   const setActiveEncodingRules = useUIStore((state) => state.setActiveEncodingRules);
   const resetActiveEncodingRules = useUIStore((state) => state.resetActiveEncodingRules);
-  const setActiveViewId = useUIStore((state) => state.setActiveViewId);
   const [editingRuleIndex, setEditingRuleIndex] = useState<number | null>(null);
 
   const rules = useMemo(() => activeEncodingRules, [activeEncodingRules]);
@@ -58,7 +57,6 @@ export function EncodingSection() {
           variant="outline"
           onClick={() => {
             resetActiveEncodingRules();
-            setActiveViewId('default-view');
             setEditingRuleIndex(null);
           }}
         >
@@ -95,7 +93,6 @@ export function EncodingSection() {
                     placeholder="Stroke color"
                     value={rule.style.strokeColor ?? ''}
                     onChange={(event) => {
-                      setActiveViewId(null);
                       setActiveEncodingRules(updateEncodingRuleStyle(rules, index, { strokeColor: event.target.value || undefined }));
                     }}
                   />
@@ -104,7 +101,6 @@ export function EncodingSection() {
                     className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm"
                     value={rule.style.strokeStyle ?? 'solid'}
                     onChange={(event) => {
-                      setActiveViewId(null);
                       setActiveEncodingRules(
                         updateEncodingRuleStyle(rules, index, {
                           strokeStyle: event.target.value as EncodingRule['style']['strokeStyle'],
@@ -124,7 +120,6 @@ export function EncodingSection() {
                     value={typeof rule.style.strokeWidth === 'number' ? String(rule.style.strokeWidth) : ''}
                     onChange={(event) => {
                       const value = event.target.value;
-                      setActiveViewId(null);
                       setActiveEncodingRules(
                         updateEncodingRuleStyle(rules, index, {
                           strokeWidth: value ? Number(value) : undefined,
@@ -137,7 +132,6 @@ export function EncodingSection() {
                     placeholder="Node color token"
                     value={rule.style.nodeColorToken ?? ''}
                     onChange={(event) => {
-                      setActiveViewId(null);
                       setActiveEncodingRules(updateEncodingRuleStyle(rules, index, { nodeColorToken: event.target.value || undefined }));
                     }}
                   />

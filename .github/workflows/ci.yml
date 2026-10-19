@@ -77,6 +77,14 @@ jobs:
             .github/requirements-suite.txt
       - name: Install graph_ui and the suite
         run: python -m pip install --src "$RUNNER_TEMP/suite-src" -r .github/requirements-suite.txt -e ".[test]"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: apps/review-workbench/package-lock.json
+      - name: review-workbench dependencies (its e2e builds and previews the app)
+        run: npm ci
+        working-directory: apps/review-workbench
       - name: Install chromium
         run: python -m playwright install --with-deps chromium
       - name: e2e

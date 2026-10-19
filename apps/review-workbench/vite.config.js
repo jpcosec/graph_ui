@@ -15,6 +15,11 @@ export default defineConfig(function (_a) {
             host: "127.0.0.1",
             port: 5173,
             proxy: {
+                // Projection views are evaluated by the graph_ui server (frontends/mindmap/serve.py).
+                '/api': {
+                    target: process.env.VITE_GRAPH_UI_URL || 'http://127.0.0.1:8088',
+                    changeOrigin: false,
+                },
                 '/sldb': {
                     target: process.env.VITE_SLDB_URL || 'http://127.0.0.1:8787',
                     changeOrigin: true,

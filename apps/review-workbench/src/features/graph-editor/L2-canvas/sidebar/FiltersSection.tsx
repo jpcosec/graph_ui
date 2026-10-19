@@ -14,6 +14,8 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { useGraphStore } from '@/stores/graph-store';
 import { useUIStore } from '@/stores/ui-store';
 
+import { ViewQuery } from './ViewQuery';
+
 export function FiltersSection() {
   const edges = useGraphStore((state) => state.edges);
   const filters = useUIStore((state) => state.filters);
@@ -46,6 +48,9 @@ export function FiltersSection() {
 
   return (
     <div className="space-y-2 px-3 pb-3">
+      <ViewQuery />
+
+      <p className="pt-1 text-xs text-muted-foreground">On the canvas (display only)</p>
       <Input
         placeholder="Search nodes..."
         value={filters.filterText}

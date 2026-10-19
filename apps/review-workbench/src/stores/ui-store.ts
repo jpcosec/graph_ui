@@ -31,7 +31,6 @@ export interface UIStore {
   filters: FilterState;
   activeEncodingRules: EncodingRule[];
   activeLayoutStrategy: string;
-  activeViewId: string | null;
   copiedNodeId: string | null;
   copiedNodeData: unknown;
   deleteConfirmOpen: boolean;
@@ -50,7 +49,6 @@ export interface UIStore {
   setActiveEncodingRules: (rules: EncodingRule[]) => void;
   resetActiveEncodingRules: () => void;
   setActiveLayoutStrategy: (layoutStrategy: string) => void;
-  setActiveViewId: (viewId: string | null) => void;
   copyNode: (id: string, data?: unknown) => void;
   openDeleteConfirm: (target: DeleteTarget, nodeIds?: string[], edgeIds?: string[]) => void;
   closeDeleteConfirm: () => void;
@@ -85,7 +83,6 @@ export const useUIStore = create<UIStore>((set) => ({
   filters: defaultFilters,
   activeEncodingRules: cloneEncodingRules(DEFAULT_ENCODING_RULES),
   activeLayoutStrategy: DEFAULT_LAYOUT_STRATEGY_NAME,
-  activeViewId: 'default-view',
   copiedNodeId: null,
   copiedNodeData: null,
   deleteConfirmOpen: false,
@@ -107,9 +104,8 @@ export const useUIStore = create<UIStore>((set) => ({
     })),
   clearFilters: () => set({ filters: defaultFilters }),
   setActiveEncodingRules: (activeEncodingRules) => set({ activeEncodingRules: cloneEncodingRules(activeEncodingRules) }),
-  resetActiveEncodingRules: () => set({ activeEncodingRules: cloneEncodingRules(DEFAULT_ENCODING_RULES), activeViewId: 'default-view' }),
+  resetActiveEncodingRules: () => set({ activeEncodingRules: cloneEncodingRules(DEFAULT_ENCODING_RULES) }),
   setActiveLayoutStrategy: (activeLayoutStrategy) => set({ activeLayoutStrategy }),
-  setActiveViewId: (activeViewId) => set({ activeViewId }),
   copyNode: (copiedNodeId, copiedNodeData) => set({ copiedNodeId, copiedNodeData }),
   openDeleteConfirm: (target, nodeIds = [], edgeIds = []) => 
     set({ 

@@ -1,105 +1,75 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useGraphLayout } from '@/features/graph-editor/L2-canvas/hooks';
-import {
-  projectionViewStore,
-  type ProjectionView,
-  type ProjectionViewStore,
-} from '@/features/graph-editor/lib/projection-view-store';
-import { useUIStore } from '@/stores/ui-store';
+import { useApplyView } from '@/features/graph-editor/L2-canvas/hooks';
+import { viewsProvider, type StoredView } from '@/features/graph-editor/lib/views-provider';
+import { useViewStore } from '@/stores/view-store';
 import { toast } from 'sonner';
 
-export function createViewIdFromLabel(label: string): string {
-  const slug = label
+/** `My View!` -> `my-view`: the ViewDoc name a label saves under. */
+export function viewNameFromLabel(label: string): string {
+  return label
     .trim()
     .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
-
-  return slug ? `view-${slug}` : `view-${Date.now()}`;
 }
 
-export function applyProjectionView(view: ProjectionView): void {
-  const { setActiveEncodingRules, setActiveLayoutStrategy, setActiveViewId } = useUIStore.getState();
-  setActiveEncodingRules(view.encoding);
-  setActiveLayoutStrategy(view.layout_strategy);
-  setActiveViewId(view.view_id);
-}
-
-export function buildProjectionView(label: string): ProjectionView {
-  const { activeEncodingRules, activeLayoutStrategy } = useUIStore.getState();
-  return {
-    view_id: createViewIdFromLabel(label),
-    label: label.trim(),
-    encoding: activeEncodingRules,
-    layout_strategy: activeLayoutStrategy,
-    created_by: 'review-workbench',
-  };
-}
-
-interface ViewsSectionProps {
-  store?: ProjectionViewStore;
-}
-
-export function ViewsSection({ store = projectionViewStore }: ViewsSectionProps) {
-  const { layout } = useGraphLayout();
-  const activeViewId = useUIStore((state) => state.activeViewId);
-  const activeLayoutStrategy = useUIStore((state) => state.activeLayoutStrategy);
-  const [views, setViews] = useState<ProjectionView[]>(() => store.list());
-  const [selectedViewId, setSelectedViewId] = useState<string>(() => activeViewId ?? store.list()[0]?.view_id ?? '');
+/**
+ * Saved views are `ViewDoc`s of the store (spec2viz's model), listed, evaluated and saved through
+ * the graph_ui server. The store field points them at any other `.sldb`.
+ */
+export function ViewsSection() {
+  const applyView = useApplyView();
+  const activeRef = useViewStore((state) => state.activeRef);
+  const storePath = useViewStore((state) => state.storePath);
+  const setStorePath = useViewStore((state) => state.setStorePath);
+  const [views, setViews] = useState<StoredView[]>([]);
   const [viewName, setViewName] = useState('');
 
-  useEffect(() => {
-    const nextViews = store.list();
-    setViews(nextViews);
-    if (!selectedViewId && nextViews[0]) {
-      setSelectedViewId(nextViews[0].view_id);
+  const refresh = useCallback(async () => {
+    try {
+      setViews(await viewsProvider.list(storePath));
+    } catch (error) {
+      setViews([]);
+      toast.error(error instanceof Error ? error.message : 'Could not list views');
     }
-  }, [selectedViewId, store]);
+  }, [storePath]);
 
   useEffect(() => {
-    if (activeViewId) {
-      setSelectedViewId(activeViewId);
-    }
-  }, [activeViewId]);
+    void refresh();
+  }, [refresh]);
 
-  const selectedView = useMemo(
-    () => views.find((view) => view.view_id === selectedViewId) ?? null,
-    [selectedViewId, views],
-  );
-
-  const handleApplySelectedView = async (nextViewId: string) => {
-    const view = store.load(nextViewId);
-    if (!view) {
-      toast.error('Saved view not found');
+  const handleLoad = async (ref: string) => {
+    if (!ref) {
       return;
     }
-
-    applyProjectionView(view);
-    setSelectedViewId(view.view_id);
-    await layout();
-    toast.success(`Applied view "${view.label}"`);
+    try {
+      const result = await applyView(ref);
+      toast.success(`Loaded ${ref}: ${result.nodes.length} nodes, ${result.edges.length} edges`);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Could not load the view');
+    }
   };
 
-  const handleSaveCurrentView = () => {
-    const label = viewName.trim();
-    if (!label) {
+  const handleSave = async () => {
+    const name = viewNameFromLabel(viewName);
+    if (!name) {
       toast.error('Name the view before saving');
       return;
     }
-
     try {
-      const savedView = store.save(buildProjectionView(label));
-      const nextViews = store.list();
-      setViews(nextViews);
-      setSelectedViewId(savedView.view_id);
+      const { draft } = useViewStore.getState();
+      const saved = await viewsProvider.save(name, { ...draft, title: viewName.trim() }, storePath);
+      useViewStore.getState().setDraft(saved.view, saved.ref);
       setViewName('');
-      applyProjectionView(savedView);
-      toast.success(`Saved view "${savedView.label}"`);
+      await refresh();
+      toast.success(`Saved ${saved.ref}`);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Could not save view');
+      toast.error(error instanceof Error ? error.message : 'Could not save the view');
     }
   };
 
@@ -112,34 +82,36 @@ export function ViewsSection({ store = projectionViewStore }: ViewsSectionProps)
         <select
           id="saved-view-select"
           aria-label="Saved views"
+          data-testid="saved-view-select"
           className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm"
-          value={selectedViewId}
-          onChange={(event) => {
-            const nextViewId = event.target.value;
-            setSelectedViewId(nextViewId);
-            void handleApplySelectedView(nextViewId);
-          }}
+          value={activeRef ?? ''}
+          onChange={(event) => void handleLoad(event.target.value)}
         >
+          <option value="">{views.length ? 'Choose a view…' : 'No views in this store'}</option>
           {views.map((view) => (
-            <option key={view.view_id} value={view.view_id}>
-              {view.label}
+            <option key={view.ref} value={view.ref}>
+              {view.payload.title || view.ref}
             </option>
           ))}
         </select>
-        <p className="text-[11px] text-muted-foreground">
-          Active layout strategy: <span className="font-medium text-on-surface">{activeLayoutStrategy}</span>
-          {selectedView ? ` · ${selectedView.encoding.length} encoding rules` : ''}
-        </p>
+        <Input
+          aria-label="Store"
+          data-testid="view-store-path"
+          placeholder="Store (.sldb path; empty = this server's)"
+          value={storePath}
+          onChange={(event) => setStorePath(event.target.value)}
+        />
       </div>
 
       <div className="space-y-2 rounded-2xl border border-white/10 p-3">
         <Input
           aria-label="View name"
+          data-testid="view-name"
           placeholder="View name"
           value={viewName}
           onChange={(event) => setViewName(event.target.value)}
         />
-        <Button type="button" size="sm" className="w-full" onClick={handleSaveCurrentView}>
+        <Button type="button" size="sm" className="w-full" data-testid="view-save" onClick={() => void handleSave()}>
           Save current as view
         </Button>
       </div>

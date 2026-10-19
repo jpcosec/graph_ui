@@ -48,6 +48,8 @@ def test_e2e_job_is_separate_and_installs_chromium():
     runs = _runs(_jobs()["e2e"])
     assert any("playwright install --with-deps chromium" in r for r in runs)
     assert any("pytest tests/e2e_*.py" in r for r in runs)
+    # The review-workbench e2e builds the app: without npm ci it would skip silently.
+    assert "npm ci" in runs
 
 
 def test_sibling_repos_come_from_git_main_branches_not_releases():
