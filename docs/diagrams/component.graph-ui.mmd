@@ -8,15 +8,15 @@ graph TD
         SnapshotAdapter["snapshot_to_ui_graph (adapters/snapshot_adapter.py)"]
     end
     subgraph Frontend ["React Editor (apps/review-workbench/)"]
-        L1App["L1 App (AntoniaFlowPage mounted; GraphEditorPage unmounted)"]
+        L1App["L1 App (AntoniaFlowPage)"]
         L2Canvas["L2 Canvas (ReactFlow, sidebar, layout, encoding, views)"]
         L3Content["L3 Content (node/edge renderers)"]
         Stores["graph-store / ui-store (zustand)"]
         SchemaRegistry["Node type registry (schema/)"]
-        DataProvider["graphDataProvider / mockClient"]
+        DataProvider["sldbProvider (sldb serve /schema, /graph, /save)"]
     end
     SldbGraph["sldb.api.graph (graph snapshots, formerly kgdb)"]
-    StaticFixtures["Static fixtures (antonia-fixture.generated.json for ?src=fixture, mock graph_data.json)"]
+    StaticFixtures["Static fixture (antonia-fixture.generated.json for ?src=fixture)"]
     L1App -->|"getGraph/getSchema"| DataProvider
     DataProvider -->|"current source"| StaticFixtures
     DataProvider -->|"target source"| SldbGraph

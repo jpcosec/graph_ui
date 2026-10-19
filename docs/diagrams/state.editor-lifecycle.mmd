@@ -1,10 +1,16 @@
+%% spec2viz: generated from docs/specs/state.editor-lifecycle.yml; do not edit, run `spec2viz diagram validate docs/specs/state.editor-lifecycle.yml` and re-render
 stateDiagram-v2
+    state "Loading (sldb serve /schema + /graph, or ?src=fixture)" as loading
+    state "Ready (graph in the store; canvas edits are not persisted)" as ready
+    state "Error (schema/data failure, banner over the canvas)" as error
+    state "Inspecting a document (NodeInspector, opened by double click)" as inspecting
+    state "Saving the document (sldbProvider.saveDoc -#gt; POST /sldb/save)" as saving
     [*] --> loading
-    loading --> clean : data_ready
+    loading --> ready : data_ready
     loading --> error : fetch_failed
-    clean --> dirty : semantic_edit [not isVisualOnly]
-    dirty --> dirty : more_edits
-    dirty --> saving : save
-    saving --> clean : persisted [markSaved]
-    saving --> dirty : save_failed
-    clean --> loading : reload [not isDirty]
+    ready --> inspecting : double_click_node
+    inspecting --> ready : close
+    inspecting --> saving : save_document
+    saving --> ready : persisted
+    saving --> inspecting : save_failed
+    ready --> loading : reload

@@ -1,5 +1,5 @@
 id: sequence.data-load-target
-title: graph_ui - Data Load + Save Flow (target, over sldb.api.graph)
+title: graph_ui - Data Load + per-document Save (target, over sldb.api.graph)
 type: sequence
 version: "0.1"
 data:
@@ -45,10 +45,10 @@ data:
       kind: sync
     - from: Operator
       to: DataProvider
-      message: save (Ctrl+S)
+      message: save one document (NodeInspector)
     - from: DataProvider
       to: SldbGraph
-      message: persist mutations (write-back)
+      message: POST /sldb/save (that document only)
       kind: sync
     - from: SldbGraph
       to: DataProvider

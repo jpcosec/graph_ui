@@ -1,46 +1,43 @@
 id: state.editor-lifecycle
-title: graph_ui - Editor Graph Lifecycle
+title: graph_ui - Editor Lifecycle (AntoniaFlowPage, per-document save)
 type: state
-version: "0.1"
+version: "0.2"
 data:
-  entity: GraphSession
+  entity: EditorSession
   initial: loading
   states:
     - id: loading
-      label: Loading (fetch schema + graph)
-    - id: clean
-      label: Clean (loaded, no unsaved edits)
-    - id: dirty
-      label: Dirty (unsaved semantic edits)
-    - id: saving
-      label: Saving (persist to backing store)
+      label: Loading (sldb serve /schema + /graph, or ?src=fixture)
+    - id: ready
+      label: Ready (graph in the store; canvas edits are not persisted)
     - id: error
-      label: Error (schema/data failure)
+      label: Error (schema/data failure, banner over the canvas)
+    - id: inspecting
+      label: Inspecting a document (NodeInspector, opened by double click)
+    - id: saving
+      label: Saving the document (sldbProvider.saveDoc -> POST /sldb/save)
   transitions:
     - from: loading
-      to: clean
+      to: ready
       "on": data_ready
     - from: loading
       to: error
       "on": fetch_failed
-    - from: clean
-      to: dirty
-      "on": semantic_edit
-      guard: not isVisualOnly
-    - from: dirty
-      to: dirty
-      "on": more_edits
-    - from: dirty
+    - from: ready
+      to: inspecting
+      "on": double_click_node
+    - from: inspecting
+      to: ready
+      "on": close
+    - from: inspecting
       to: saving
-      "on": save
+      "on": save_document
     - from: saving
-      to: clean
+      to: ready
       "on": persisted
-      guard: markSaved
     - from: saving
-      to: dirty
+      to: inspecting
       "on": save_failed
-    - from: clean
+    - from: ready
       to: loading
       "on": reload
-      guard: not isDirty

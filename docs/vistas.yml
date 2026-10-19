@@ -39,7 +39,7 @@ vistas:
     category: Flujos
     title: Operator Edit Flow
     nav: Flujos
-    desc: Select, edit, save; dirty/persist decision points.
+    desc: Select and edit; only the inspector saves, one document at a time.
     src: diagrams/activity.edit-flow.mmd
     specs:
       - specs/activity.edit-flow.yml
@@ -48,7 +48,7 @@ vistas:
     category: Flujos
     title: Editor Graph Lifecycle
     nav: Flujos
-    desc: loading / clean / dirty / saving / error states.
+    desc: loading / ready / error, and the per-document inspect -> save loop.
     src: diagrams/state.editor-lifecycle.mmd
     specs:
       - specs/state.editor-lifecycle.yml

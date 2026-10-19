@@ -67,7 +67,7 @@ data:
         - DataProvider
 
     L1App:
-      label: L1 App (AntoniaFlowPage mounted; GraphEditorPage unmounted)
+      label: L1 App (AntoniaFlowPage)
       kind: core
 
     L2Canvas:
@@ -87,7 +87,7 @@ data:
       kind: core
 
     DataProvider:
-      label: graphDataProvider / mockClient
+      label: sldbProvider (sldb serve /schema, /graph, /save)
       kind: boundary
 
     # --- External sources ---
@@ -96,7 +96,7 @@ data:
       kind: database
 
     StaticFixtures:
-      label: Static fixtures (antonia-fixture.generated.json for ?src=fixture, mock graph_data.json)
+      label: Static fixture (antonia-fixture.generated.json for ?src=fixture)
       kind: database
 
   edges:
