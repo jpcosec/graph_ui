@@ -1,6 +1,7 @@
 """Tests del adaptador único de SLDB (paso 2 del plan de finalización)."""
 import importlib.util
 import json
+import re
 from pathlib import Path
 
 MINDMAP = Path(__file__).parents[1] / "frontends" / "mindmap"
@@ -97,3 +98,31 @@ def test_no_duplicate_sldb_imports_outside_adapter():
             if line.startswith(("import sldb", "from sldb.")) or line == "from sldb import":
                 raise AssertionError(f"{path.name} importa sldb directamente: {line.strip()}")
     assert (MINDMAP / allowed).exists()
+
+def test_an_unimportable_model_is_reported_not_fatal(tmp_path):
+    """G1: a model whose module does not import (its package is not on the path) used to make
+    /api/schema drop the connection, and the Specs view said the store had no specs. The schema
+    keeps the other models and carries the real error for the broken one."""
+    store = tmp_path / ".sldb"
+    _compile(store, tmp_path)
+    index = store / "core" / "store_index.yaml"
+    text = index.read_text(encoding="utf-8")
+    broken = re.sub(r"model_ref: \S+:TaskDoc", "model_ref: nowhere_pkg.models:TaskDoc", text)
+    assert broken != text
+    index.write_text(broken, encoding="utf-8")
+
+    models = {m["id"]: m for m in SldbAdapter(store).schema()}
+    assert "nowhere_pkg" in models["TaskDoc"]["import_error"]
+    assert models["TaskDoc"]["fields"] == []
+    assert "import_error" not in models["BoardDoc"] and models["BoardDoc"]["fields"]
+
+
+def test_graph_ui_takes_pythonpath_from_the_cli_and_the_environment(tmp_path):
+    spec = importlib.util.spec_from_file_location("serve_for_roots", MINDMAP / "serve.py")
+    serve = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(serve)
+    roots, rest = serve.import_roots(["--pythonpath", str(tmp_path / "a"), "8090", f"--pythonpath={tmp_path / 'b'}"],
+                                     {"SLDB_PYTHONPATH": str(tmp_path / "c")})
+    assert roots == [str((tmp_path / d).resolve()) for d in ("a", "b", "c")]
+    assert rest == ["8090"]
+    assert serve.import_roots(["8088"], {}) == ([], ["8088"])

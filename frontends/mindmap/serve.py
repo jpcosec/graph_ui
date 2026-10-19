@@ -332,7 +332,10 @@ class ProxyHandler(SimpleHTTPRequestHandler):
                 self._remote_read(route)
             return
         if route == '/api/schema':
-            self.json_response(self.editor_store.schema())
+            try:
+                self.json_response(self.editor_store.schema())
+            except Exception as exc:  # noqa: BLE001  never drop the connection: say what failed
+                self.json_response({'ok': False, 'error': f'No se pudo leer el schema del store: {exc}'}, 500)
         elif route == '/api/graph':
             try:
                 self.json_response(self.editor_store.graph())
@@ -499,8 +502,28 @@ def make_server(port=8088, store=None):
     return ThreadingHTTPServer(('127.0.0.1', port), handler)
 
 
+def import_roots(argv, environ=os.environ):
+    """(--pythonpath dirs + SLDB_PYTHONPATH entries, rest of argv): where the store's model
+    modules import from when they do not live in an installed package (G1)."""
+    roots, rest, args = [], [], list(argv)
+    while args:
+        arg = args.pop(0)
+        if arg == '--pythonpath' and args:
+            roots.append(args.pop(0))
+        elif arg.startswith('--pythonpath='):
+            roots.append(arg.split('=', 1)[1])
+        else:
+            rest.append(arg)
+    roots += [p for p in environ.get('SLDB_PYTHONPATH', '').split(os.pathsep) if p]
+    return [str(Path(r).expanduser().resolve()) for r in roots], rest
+
+
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
+    roots, argv = import_roots(argv)
+    for root in reversed(roots):
+        if root not in sys.path:
+            sys.path.insert(0, root)
     port = int(argv[0]) if argv else 8088
     try:
         server = make_server(port)

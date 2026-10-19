@@ -31,7 +31,9 @@ proyecto. `--src` saca de `./src` el clon editable de spec2viz: ahí lo taparía
 mindmap toca `sys.path`. Usa la
 `.sldb` del repositorio por defecto; `SLDB_STORE=/ruta/a/otra/.sldb` apunta a
 cualquier otro store. Si los modelos de ese store no viven en un paquete
-instalado, agrega su carpeta a `PYTHONPATH`. Las dependencias del navegador
+instalado, arranca con `graph-ui --pythonpath <carpeta> 8088` (o `SLDB_PYTHONPATH`);
+un modelo que no se importa se informa con su error en la barra de errores, sin
+esconder el resto del store. Las dependencias del navegador
 (React, React Flow, htm) se cargan vía CDN — no hay build step.
 
 ## Vistas

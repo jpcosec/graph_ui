@@ -1,8 +1,10 @@
 import {useState, useCallback} from 'react';
 import * as historyMod from './history.mjs';
 import {changesBetween, conflictsBetween} from './batch.mjs';
+import {importErrorMessage} from './import-errors.mjs';
 
 const EMPTY_BASELINE = {documents: [], view: {}, revision: ''};
+
 
 // Owns the documents/view working copy, its baseline (last known-good SLDB
 // state), undo/redo history and the save/export/reload mutations. Moved
@@ -39,6 +41,8 @@ export function useDocumentsFacet(request) {
       setConflicts(null);
       setNotice('');
       setStatus('ready');
+      // G1: un modelo que no se importa no impide abrir el store, pero se dice cuál y por qué.
+      setError(importErrorMessage(schema.models));
       setLoadCount(n => n + 1);
     } catch (e) { setStatus('error'); setError(e.message); }
   }, [request]);

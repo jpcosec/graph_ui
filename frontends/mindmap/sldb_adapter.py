@@ -99,7 +99,14 @@ class SldbAdapter:
         with self.lock:
             out = []
             for entry in self.pron.store_index().models:
-                fields = self.pron.schema(entry.name)
+                try:
+                    fields = self.pron.schema(entry.name)
+                except Exception as exc:  # noqa: BLE001  (G1: el resto del schema sigue sirviendo)
+                    # Un modelo que no se importa no tumba el schema: se informa con su error
+                    # real para que la UI lo muestre en vez de "no hay specs".
+                    out.append({"id": entry.name, "model_ref": entry.model_ref, "fields": [],
+                                "import_error": f"{exc} ({exc.__cause__})" if exc.__cause__ else str(exc)})
+                    continue
                 model_dict = {"id": entry.name, "model_ref": entry.model_ref, "fields": fields}
                 try:
                     model_type = self.pron.model_type(entry.name)
