@@ -364,3 +364,52 @@ class SldbAdapter:
         temporary = self.view_path.with_suffix(".tmp")
         temporary.write_text(json.dumps(view, ensure_ascii=False, indent=2), encoding="utf-8")
         temporary.replace(self.view_path)
+
+
+# ------------------------------------------------- vistas de proyección (cualquier store)
+#
+# Las vistas (mindmap.projection_views) se evalúan sobre el store que el operador elija, no solo
+# el de este adaptador, así que estas funciones reciben el store. Excepción deliberada al "todo
+# por pron.Store": pron no expone el índice de aristas filtrado por RelationFilter ni `where`
+# sobre un payload suelto; aquí se usa la API pública de sldb (sldb.api, sldb.api.graph).
+
+
+def runtime_documents(store: str | Path, pythonpath: str | None = None) -> list[Any]:
+    """Todos los documentos del store (``model_name``, ``name``, ``payload``)."""
+    from sldb.api import load_runtime_documents
+
+    return load_runtime_documents(Path(store), pythonpath)
+
+
+def where_holds(expression: str, payload: dict[str, Any]) -> bool:
+    """Si un predicado ``--where`` de sldb vale sobre ``payload`` (lanza si no parsea)."""
+    from sldb.api.where import where_matches
+
+    return where_matches(expression, payload)
+
+
+def relation_edges(store: str | Path, relation_types: list[str], direction: str) -> list[tuple[str, str, str, str]]:
+    """(nodo, source, target, relación) de cada arista que deja pasar el RelationFilter."""
+    from sldb.api.graph import RelationFilter, StructuredQuery, execute_query
+
+    query = StructuredQuery(relations=[RelationFilter(relation_types=relation_types, direction=direction)])
+    return [(n.id, e.source, e.target, e.relation)
+            for n in execute_query(Path(store), query, include_linked=False) for e in n.edges]
+
+
+def ensure_model(store: str | Path, model: str, model_ref: str) -> None:
+    """Registra ``model_ref`` en el store si ``model`` no está registrado."""
+    from sldb.api import add_model, is_model_registered
+
+    if not is_model_registered(Path(store), model):
+        add_model(Path(store), model_ref)
+
+
+def write_document(store: str | Path, model: str, name: str, path: Path, payload: dict[str, Any], exists: bool) -> None:
+    """Crea (en ``path``) o reemplaza el documento ``model:name`` desde ``payload``."""
+    from sldb.api import create_document, save_document_payload
+
+    if exists:
+        save_document_payload(Path(store), model, name, payload)
+    else:
+        create_document(Path(store), model, path, payload, name=name)

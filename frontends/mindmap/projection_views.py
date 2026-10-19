@@ -10,16 +10,15 @@ types, never node ids or a store path, so the same view evaluates against any st
   direction)``, between two documents of that node set;
 - layout: the view's ``layout``, else its notation's ``layout`` (``NotationDoc.layout``).
 
-graph_ui only evaluates; drawing rules stay in spec2viz.
+graph_ui only evaluates; drawing rules stay in spec2viz. The sldb calls live in
+``mindmap.sldb_adapter`` (the one module of the mindmap that imports sldb).
 """
 from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
 
-from sldb.api import load_runtime_documents
-from sldb.api.graph import RelationFilter, StructuredQuery, execute_query
-from sldb.api.where import where_matches
+from mindmap.sldb_adapter import relation_edges, runtime_documents, where_holds
 
 VIEW_MODEL = 'ViewDoc'
 DIRECTIONS = ('both', 'outgoing', 'incoming')
@@ -46,17 +45,17 @@ def _selected(doc: Any, entries: list[dict[str, str]]) -> bool:
     if not entries:
         return True
     try:
-        return any(e['model'] == doc.model_name and where_matches(e['where'], doc.payload) for e in entries)
+        return any(e['model'] == doc.model_name and where_holds(e['where'], doc.payload) for e in entries)
     except Exception as exc:  # WherePredicateError and friends: the view is wrong, not the store
         raise ViewError(f'where does not parse: {exc}') from exc
 
 
-def _relation_filter(view: dict[str, Any]) -> RelationFilter:
+def _relation_filter(view: dict[str, Any]) -> tuple[list[str], str]:
     relations = view.get('relations') or []
     direction = view.get('direction') or 'both'
     if not isinstance(relations, list) or direction not in DIRECTIONS:
         raise ViewError(f'relations must be a list and direction one of {", ".join(DIRECTIONS)}')
-    return RelationFilter(relation_types=[str(r) for r in relations], direction=direction)
+    return [str(r) for r in relations], direction
 
 
 def _title(doc: Any) -> str:
@@ -75,15 +74,11 @@ def _layout(view: dict[str, Any], documents: list[Any]) -> dict[str, Any]:
 def evaluate_view(store: str | Path, view: dict[str, Any], pythonpath: str | None = None) -> dict[str, Any]:
     """The view's nodes, edges and layout over ``store`` (a ``.sldb`` directory)."""
     store = Path(store)
-    entries, relation_filter = _entries(view), _relation_filter(view)
-    documents = load_runtime_documents(store, pythonpath)
+    entries, (relations, direction) = _entries(view), _relation_filter(view)
+    documents = runtime_documents(store, pythonpath)
     selected = {node_id(d.model_name, d.name): d for d in documents if _selected(d, entries)}
-    query = StructuredQuery(relations=[relation_filter])
-    seen: set[tuple[str, str, str]] = set()
-    for graph_node in execute_query(store, query, include_linked=False):
-        for edge in graph_node.edges if graph_node.id in selected else []:
-            if edge.source in selected and edge.target in selected:
-                seen.add((edge.source, edge.target, edge.relation))
+    seen = {(source, target, relation) for node, source, target, relation in relation_edges(store, relations, direction)
+            if node in selected and source in selected and target in selected}
     return {
         'view': view,
         'nodes': [{'id': key, 'model': d.model_name, 'name': d.name, 'title': _title(d), 'payload': d.payload}
@@ -95,7 +90,7 @@ def evaluate_view(store: str | Path, view: dict[str, Any], pythonpath: str | Non
 
 def list_views(store: str | Path, pythonpath: str | None = None) -> list[dict[str, Any]]:
     """The store's ``ViewDoc``s, as ``{ref, payload}``."""
-    documents = load_runtime_documents(Path(store), pythonpath)
+    documents = runtime_documents(store, pythonpath)
     return [{'ref': f'{VIEW_MODEL}:{d.name}', 'payload': d.payload}
             for d in sorted(documents, key=lambda d: d.name) if d.model_name == VIEW_MODEL]
 

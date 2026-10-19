@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any
 
 from mindmap.projection_views import VIEW_MODEL, ViewError, evaluate_view, find_view, list_views
+from mindmap.sldb_adapter import ensure_model, write_document
 
 VIEW_MODEL_REF = 'spec2viz.sldb_models:ViewDoc'
 
@@ -46,18 +47,13 @@ def _view_payload(store: Path, body: dict[str, Any]) -> dict[str, Any]:
 
 def _ensure_view_model(store: Path) -> None:
     """Register spec2viz's ``ViewDoc`` in a store that has none yet (spec2viz must be installed)."""
-    from sldb.api import add_model, is_model_registered
-
-    if not is_model_registered(store, VIEW_MODEL):
-        try:
-            add_model(store, VIEW_MODEL_REF)
-        except Exception as exc:
-            raise RouteError(f'{VIEW_MODEL_REF} is not available: {exc}', 501) from exc
+    try:
+        ensure_model(store, VIEW_MODEL, VIEW_MODEL_REF)
+    except Exception as exc:
+        raise RouteError(f'{VIEW_MODEL_REF} is not available: {exc}', 501) from exc
 
 
 def save_view(store: Path, body: dict[str, Any]) -> dict[str, Any]:
-    from sldb.api import create_document, save_document_payload
-
     name, view = str(body.get('name') or '').strip(), body.get('view')
     if not name or not isinstance(view, dict):
         raise RouteError('name and a view payload are required', 400)
@@ -65,10 +61,8 @@ def save_view(store: Path, body: dict[str, Any]) -> dict[str, Any]:
     fields = ('nodes', 'relations', 'direction', 'notation', 'layout', 'description')
     payload = {**{k: view[k] for k in fields if k in view}, 'id': name, 'name': name, 'title': view.get('title') or name}
     _ensure_view_model(store)
-    if find_view(store, name) is not None:
-        save_document_payload(store, VIEW_MODEL, name, payload)
-    else:
-        create_document(store, VIEW_MODEL, store.parent / 'sldb' / 'views' / f'{name}.md', payload, name=name)
+    path = store.parent / 'sldb' / 'views' / f'{name}.md'
+    write_document(store, VIEW_MODEL, name, path, payload, exists=find_view(store, name) is not None)
     return {'ok': True, 'ref': f'{VIEW_MODEL}:{name}', 'view': payload}
 
 
