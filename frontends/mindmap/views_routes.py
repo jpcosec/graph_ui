@@ -56,15 +56,16 @@ def _ensure_view_model(store: Path) -> None:
 
 
 def save_view(store: Path, body: dict[str, Any]) -> dict[str, Any]:
-    from sldb.api import create_document, doc_exists, save_document_payload
+    from sldb.api import create_document, save_document_payload
 
     name, view = str(body.get('name') or '').strip(), body.get('view')
     if not name or not isinstance(view, dict):
         raise RouteError('name and a view payload are required', 400)
     evaluate_view(store, view)  # a view that does not evaluate is not saved
-    payload = {**view, 'id': name, 'name': name, 'title': view.get('title') or name}
+    fields = ('nodes', 'relations', 'direction', 'notation', 'layout', 'description')
+    payload = {**{k: view[k] for k in fields if k in view}, 'id': name, 'name': name, 'title': view.get('title') or name}
     _ensure_view_model(store)
-    if doc_exists(store, f'{VIEW_MODEL}:{name}'):
+    if find_view(store, name) is not None:
         save_document_payload(store, VIEW_MODEL, name, payload)
     else:
         create_document(store, VIEW_MODEL, store.parent / 'sldb' / 'views' / f'{name}.md', payload, name=name)

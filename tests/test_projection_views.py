@@ -116,3 +116,18 @@ def test_http_errors_say_what_is_wrong(server, tmp_path):
     assert _call(f"{server}/api/views/evaluate", {"view": {**INHERITS, "direction": "up"}})[0] == 422
     assert _call(f"{server}/api/views/evaluate", {"view": INHERITS, "store": str(tmp_path)})[0] == 404
     assert _call(f"{server}/api/views", None)[1] == {"views": []}
+
+
+def test_a_saved_view_is_a_viewdoc_of_the_store_and_evaluates_by_ref(server, store):
+    pytest.importorskip("spec2viz.sldb_models").ViewDoc  # task a: the model lives in spec2viz
+    view = {**INHERITS, "title": "Herencia", "notation": "NotationDoc:component", "layout": {"kind": "graph", "style": "layered"}}
+    status, saved = _call(f"{server}/api/views/save", {"name": "herencia", "view": view})
+    assert status == 200 and saved["ref"] == "ViewDoc:herencia"
+    _, listed = _call(f"{server}/api/views")
+    assert [v["ref"] for v in listed["views"]] == ["ViewDoc:herencia"]
+    status, by_ref = _call(f"{server}/api/views/evaluate?view=ViewDoc:herencia")
+    assert status == 200 and by_ref["layout"]["style"] == "layered"
+    assert by_ref["edges"] == evaluate_view(store, view)["edges"]
+    resaved = _call(f"{server}/api/views/save", {"name": "herencia", "view": {**view, "relations": ["uses"]}})[1]
+    assert resaved["view"]["relations"] == ["uses"]
+    assert _call(f"{server}/api/views/save", {"name": "rota", "view": {**view, "direction": "up"}})[0] == 422
