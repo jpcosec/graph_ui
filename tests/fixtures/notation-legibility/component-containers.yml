@@ -1,0 +1,81 @@
+# Legibility fixture for the Specs view (issues G2-G5): two containers with long titles, one with
+# nine children that are not linked to each other (they used to land in a single row), long
+# labels, and labelled edges that cross between containers.
+id: component.legibility-containers
+title: "Legibility: containers, long labels and edges between containers"
+type: component
+version: "0.1"
+
+data:
+  nodes:
+    surface_kit:
+      label: "Surface 1 · what the kit exposes to every client (kit infrastructure 1.0)"
+      kind: boundary
+      contains: [chain, routes, settings, public_pages, tabs, agent_json, knowledge_store, extension_points, health]
+    chain:
+      label: Conversation chain (runtime turn)
+      kind: core
+    routes:
+      label: Routes (application API)
+      kind: core
+    settings:
+      label: Settings (application panel)
+      kind: core
+    public_pages:
+      label: Public pages (webhooks, demo, landing)
+      kind: core
+    tabs:
+      label: Panel tabs
+      kind: core
+    agent_json:
+      label: agent/<slug>.json
+      kind: core
+    knowledge_store:
+      label: kb/ (knowledge_<client>)
+      kind: core
+    extension_points:
+      label: EXTENSION_POINTS (importable symbols)
+      kind: core
+    health:
+      label: Health check /basic/api/health
+      kind: core
+    surface_satellite:
+      label: "Surface 2 · «abstract» what a satellite may declare"
+      kind: boundary
+      contains: [entry_points, public_entry, panel_login, publish_agent, kb_slot, services]
+    entry_points:
+      label: "Entry points: api · app · public · panel · turn"
+      kind: core
+    public_entry:
+      label: "Public entry: webhooks, demo, pages"
+      kind: core
+    panel_login:
+      label: Panel /basic with Cognito
+      kind: core
+    publish_agent:
+      label: "Publish agent: POST /api/basic/agents/{slug}"
+      kind: core
+    kb_slot:
+      label: "KB slot: /opt/antonia/kb"
+      kind: core
+    services:
+      label: Services S1..S5
+      kind: core
+    grifo:
+      label: grifo_chatbot · agent, kb/
+      kind: boundary
+    psp:
+      label: psp_chatbot · agent, kb/, api, app, public, panel
+      kind: boundary
+
+  edges:
+    - {from: public_pages, to: entry_points, relation: uses, label: "antonia.public → S1 and S2"}
+    - {from: routes, to: entry_points, relation: uses, label: "antonia.api → S2"}
+    - {from: tabs, to: panel_login, relation: uses, label: "antonia.panel → S2"}
+    - {from: settings, to: panel_login, relation: uses, label: "antonia.app → S2"}
+    - {from: extension_points, to: publish_agent, relation: uses, label: "«import» only these symbols (border test)"}
+    - {from: knowledge_store, to: kb_slot, relation: uses, label: "«use» make load registry"}
+    - {from: health, to: services, relation: uses, label: "«use» publish_services.sh SATELITE="}
+    - {from: chain, to: public_entry, relation: uses, label: "turn webhooks"}
+    - {from: grifo, to: surface_kit, relation: uses}
+    - {from: psp, to: surface_kit, relation: uses}
