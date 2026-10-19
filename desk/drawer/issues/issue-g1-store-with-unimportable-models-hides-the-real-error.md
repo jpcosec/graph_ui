@@ -2,7 +2,7 @@
 title: "G1: Un store con modelos no importables muestra «no tiene specs» en vez del error real"
 severity: high
 category: data-loading
-status: open
+status: closed
 ---
 # G1: Un store con modelos no importables muestra «no tiene specs» en vez del error real
 
@@ -21,3 +21,9 @@ Reporte de la sesión de 2026-10-19 sobre un store de prueba de solo lectura con
 
 ## Acceptance
 Criterio de aceptación (común a G1-G7): en /specs/notation, con «Ver todo», cada spec del store de prueba se lee al 100% de zoom en 1800x1200 (texto ≥ 10 px), sin títulos tapados, sin rótulos encimados y con la categoría del vistas.yml. Se verifica con capturas propias antes de cerrar.
+
+## Resolution
+
+Closed: 2026-10-19
+Reason: Un modelo que no se importa entra al schema con import_error; la barra de errores lo nombra con su error y --pythonpath; graph-ui --pythonpath / SLDB_PYTHONPATH. Verificado en el store de prueba y en e2e.
+Refs: c56e811, f63edf3

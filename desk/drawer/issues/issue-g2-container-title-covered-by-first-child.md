@@ -2,7 +2,7 @@
 title: "G2: El título de un contenedor queda tapado por su primer hijo"
 severity: high
 category: layout
-status: open
+status: closed
 ---
 # G2: El título de un contenedor queda tapado por su primer hijo
 
@@ -21,3 +21,9 @@ Reporte de la sesión de 2026-10-19 sobre un store de prueba de solo lectura con
 
 ## Acceptance
 Criterio de aceptación (común a G1-G7): en /specs/notation, con «Ver todo», cada spec del store de prueba se lee al 100% de zoom en 1800x1200 (texto ≥ 10 px), sin títulos tapados, sin rótulos encimados y con la categoría del vistas.yml. Se verifica con capturas propias antes de cerrar.
+
+## Resolution
+
+Closed: 2026-10-19
+Reason: La cabecera del contenedor es padding superior en ELK y se dibuja arriba; capturas propias sin títulos tapados en los 6 specs; e2e lo mide.
+Refs: b701555, f63edf3

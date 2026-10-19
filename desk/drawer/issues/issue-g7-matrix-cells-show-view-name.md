@@ -2,7 +2,7 @@
 title: "G7: En la matriz, las celdas muestran el nombre de la vista en vez de una marca"
 severity: high
 category: rendering
-status: open
+status: closed
 ---
 # G7: En la matriz, las celdas muestran el nombre de la vista en vez de una marca
 
@@ -21,3 +21,9 @@ Reporte de la sesión de 2026-10-19 sobre un store de prueba de solo lectura con
 
 ## Acceptance
 Criterio de aceptación (común a G1-G7): en /specs/notation, con «Ver todo», cada spec del store de prueba se lee al 100% de zoom en 1800x1200 (texto ≥ 10 px), sin títulos tapados, sin rótulos encimados y con la categoría del vistas.yml. Se verifica con capturas propias antes de cerrar.
+
+## Resolution
+
+Closed: 2026-10-19
+Reason: La celda marcada muestra un ●; el detalle va en title/aria-label; e2e de la grilla.
+Refs: 0bb7223

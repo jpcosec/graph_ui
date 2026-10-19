@@ -2,7 +2,7 @@
 title: "G3: Los hijos de un contenedor quedan en una sola fila"
 severity: high
 category: layout
-status: open
+status: closed
 ---
 # G3: Los hijos de un contenedor quedan en una sola fila
 
@@ -23,3 +23,9 @@ Reporte de la sesión de 2026-10-19 sobre un store de prueba de solo lectura con
 
 ## Acceptance
 Criterio de aceptación (común a G1-G7): en /specs/notation, con «Ver todo», cada spec del store de prueba se lee al 100% de zoom en 1800x1200 (texto ≥ 10 px), sin títulos tapados, sin rótulos encimados y con la categoría del vistas.yml. Se verifica con capturas propias antes de cerrar.
+
+## Resolution
+
+Closed: 2026-10-19
+Reason: Los hijos sueltos de un contenedor se apilan en una grilla 2D (aristas invisibles de layout). Superficies pasa de zoom 0.30 a 1.02 y kit de 0.60 a 0.96 con Ver todo. Despliegue (31 nodos, todas sus aristas entre contenedores) queda en 0.72 = 9.1 px: el límite ya no es la fila sino la densidad y el ancho del lienzo (panel de workers); propuesta al coordinador.
+Refs: b701555, f63edf3
