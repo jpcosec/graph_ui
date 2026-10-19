@@ -143,6 +143,15 @@ class ProxyHandler(SimpleHTTPRequestHandler):
         except self.save_error as exc:
             self.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 500))
 
+    def _api_views(self, method, body):
+        """/api/views*: projection views (mindmap.views_routes), local mode only like notation."""
+        if self.backend_mode == 'remote':
+            return self.json_response({'ok': False, 'error': 'Las vistas solo existen en modo local: se evalúan sobre un store en disco.'}, 501)
+        from mindmap.views_routes import dispatch
+        url = urlparse(self.path)
+        payload, status = dispatch(method, url.path, parse_qs(url.query), body, self.editor_store.store)
+        self.json_response(payload, status)
+
     def _api_workers(self):
         """GET /api/workers: agentes vivos, via `deskops runtime workers`.
 
@@ -313,6 +322,9 @@ class ProxyHandler(SimpleHTTPRequestHandler):
         if route == '/api/notation/view':
             self._api_notation_view()
             return
+        if route == '/api/views' or route.startswith('/api/views/'):
+            self._api_views('GET', None)
+            return
         if self.backend_mode == 'remote' and route.startswith('/api/'):
             if route == '/api/graph':
                 self._remote_graph()
@@ -355,6 +367,14 @@ class ProxyHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         route = urlparse(self.path).path
+        if route.startswith('/api/views/'):
+            origin = self.headers.get('Origin')
+            if origin and urlparse(origin).netloc != self.headers.get('Host'):
+                return self.json_response({'ok': False, 'error': 'Origen no permitido.'}, 403)
+            request = self._read_remote_body()
+            if request is not None:
+                self._api_views('POST', request)
+            return
         if route in ('/api/save', '/api/validate', '/api/plan', '/api/compile', '/api/export') or route.startswith('/api/models/'):
             if self.backend_mode == 'remote':
                 # ── /api/save: changes → POST /save de sldb; vista → local (§3) ──
