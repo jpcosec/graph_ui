@@ -8,9 +8,11 @@ target_project: graph_ui
 # ISO 8601 timestamp
 created_at: '2026-10-19T11:29:33'
 # open | closed
-status: open
+status: closed
 # project identity that acknowledged the note
+acknowledged_by: graph_ui
 # ISO 8601 timestamp, set when acknowledged
+acknowledged_at: '2026-10-19T11:39:21'
 ---
 
 # El store derivado sale de git: .sldb/store.yaml y sldb stores build
