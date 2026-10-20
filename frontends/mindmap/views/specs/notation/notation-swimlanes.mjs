@@ -5,7 +5,9 @@
 // ELK (nodos con padre, aristas con recorrido, rótulos colocados por placeLabels).
 import {sizeGlyph, containerHeader, edgeLabelBox, placeLabels} from './notation-layout.mjs';
 
-export const LANE_PAD = 24, ROW_GAP = 36, ITEM_GAP = 24, TRACK = 8, GUTTER = 9, NOTE_WRAP = 150, LANE_GAP = 4;
+// TRACK: separación entre dos tramos paralelos (pistas de un canal, pasillos de un carril); a los
+// zooms en que se lee el diagrama son >= 12 px en pantalla.
+export const LANE_PAD = 30, ROW_GAP = 40, ITEM_GAP = 24, TRACK = 15, GUTTER = 8, NOTE_WRAP = 150, LANE_GAP = 4;
 
 // Filas: el rango de cada paso es su camino más largo desde el inicio por las aristas hacia adelante.
 // Una arista es un bucle (hacia atrás) si en un DFS desde el inicio llega a un paso todavía abierto.
@@ -133,7 +135,7 @@ export function swimlaneLayout(scene, {measure, wrapWidth = 170} = {}) {
   const gutters = new Map();
   const gutterX = (l, side) => {
     const key = `${l}|${side}`, k = gutters.get(key) || 0; gutters.set(key, k + 1);
-    return side === 'right' ? laneX.get(l) + laneW.get(l) - GUTTER - k * 7 : laneX.get(l) + GUTTER + k * 7;
+    return side === 'right' ? laneX.get(l) + laneW.get(l) - GUTTER - k * TRACK : laneX.get(l) + GUTTER + k * TRACK;
   };
   const isDiamond = id => sizes.has(id) && scene.nodes.find(n => n.id === id)?.glyph?.shape === 'diamond';
   const cxOf = b => b.x + b.width / 2, cyOf = b => b.y + b.height / 2;
@@ -155,11 +157,57 @@ export function swimlaneLayout(scene, {measure, wrapWidth = 170} = {}) {
     forwardOut.set(e.source, [...(forwardOut.get(e.source) || []), e]);
     forwardIn.set(e.target, [...(forwardIn.get(e.target) || []), e]);
   }
-  // Las entradas por arriba incluyen los bucles que no entran por el costado: cada flecha, su punto.
-  const sideEntry = e => back.has(e.id) && lane.get(e.target) === lane.get(e.source) && !isDiamond(e.target)
-    && !neighbour(e.target, 'right') && !neighbour(e.target, 'left');
+  // Vértice por el que sale cada rama de un rombo: hacia el lado de su destino, o por abajo.
+  // Si el rombo además tiene un bucle y las ramas ocupan W y E, la rama más cercana al centro sale por S
+  // y deja un costado libre para el bucle.
+  const rawSide = e => { const d = cxOf(box.get(e.target)) - cxOf(box.get(e.source)); return Math.abs(d) < 2 ? 'S' : d < 0 ? 'W' : 'E'; };
+  const sideOf = new Map();
+  for (const [id, list] of forwardOut) {
+    if (!isDiamond(id)) continue;
+    for (const e of list) sideOf.set(e.id, rawSide(e));
+    const loops = flow.some(e => e.source === id && back.has(e.id)), sides = new Set(list.map(e => sideOf.get(e.id)));
+    if (loops && sides.has('W') && sides.has('E') && !sides.has('S')) {
+      const nearest = [...list].sort((a, b) => Math.abs(cxOf(box.get(a.target)) - cxOf(box.get(id))) - Math.abs(cxOf(box.get(b.target)) - cxOf(box.get(id))))[0];
+      sideOf.set(nearest.id, 'S');
+    }
+  }
+  const branchSide = e => sideOf.get(e.id) ?? rawSide(e);
+  const branchSides = id => new Set((forwardOut.get(id) || []).map(branchSide));
+  // Plan de cada bucle: sale por el costado que mira a su destino, sube por el pasillo de su carril y
+  // entra por el costado del destino si la fila está libre; si no, por arriba, en su propia pista.
+  const laneIdx = id => lanes.findIndex(l => l.id === lane.get(id));
+  const VERTEX = {right: 'E', left: 'W'};
+  const loopPlan = new Map();
+  for (const e of flow) if (back.has(e.id)) {
+    const t = box.get(e.target), dl = laneIdx(e.target) - laneIdx(e.source);
+    let side = dl < 0 ? 'left' : dl > 0 ? 'right' : (neighbour(e.source, 'right') ? 'left' : 'right');
+    if (neighbour(e.source, side) || (isDiamond(e.source) && branchSides(e.source).has(VERTEX[side]))) side = side === 'right' ? 'left' : 'right';
+    const tside = dl === 0 ? side : dl < 0 ? 'right' : 'left';
+    const facing = dl === 0 || (dl < 0) === (side === 'left');
+    const gx = side === 'right' ? laneX.get(lane.get(e.source)) + laneW.get(lane.get(e.source)) - GUTTER : laneX.get(lane.get(e.source)) + GUTTER;
+    const tx = tside === 'right' ? t.x + t.width : t.x;
+    const enter = facing && !neighbour(e.target, tside) && freeH(cyOf(t), gx, tx, [e.target])
+      && (!isDiamond(e.target) || !branchSides(e.target).has(VERTEX[tside]));
+    // A un rombo con los costados ocupados por sus ramas, un bucle que viene de más abajo entra por su
+    // vértice inferior (S), desde el canal bajo su fila: así no cae en el mismo punto que el flujo.
+    const below = !enter && isDiamond(e.target) && rank.get(e.source) > rank.get(e.target) && !branchSides(e.target).has('S')
+      && ![...loopPlan.values()].some(v => v.below === e.target);
+    loopPlan.set(e.id, {side, tside, enter, below: below ? e.target : null});
+  }
+  // Un rombo que recibe varias ramas hacia adelante (un merge) las recibe por vértices distintos: la de
+  // más a la izquierda por W, la de más a la derecha por E y el resto por arriba.
+  const mergeEntry = new Map();
+  for (const [id, list] of forwardIn) {
+    if (!isDiamond(id) || list.length < 2) continue;
+    const t = box.get(id), sorted = [...list].sort((a, b) => cxOf(box.get(a.source)) - cxOf(box.get(b.source)));
+    const busy = new Set([...loopPlan.entries()].filter(([k, v]) => v.enter && flow.find(f => f.id === k)?.target === id).map(([, v]) => VERTEX[v.tside]));
+    const first = sorted[0], last = sorted[sorted.length - 1];
+    if (cxOf(box.get(first.source)) < t.x && !busy.has('W') && !branchSides(id).has('W')) mergeEntry.set(first.id, 'W');
+    if (cxOf(box.get(last.source)) > t.x + t.width && !busy.has('E') && !branchSides(id).has('E')) mergeEntry.set(last.id, 'E');
+  }
+  // Las entradas por arriba: cada flecha, su punto.
   const topIn = new Map();
-  for (const e of flow) if (!sideEntry(e)) topIn.set(e.target, [...(topIn.get(e.target) || []), e]);
+  for (const e of flow) if (!loopPlan.get(e.id)?.enter && !loopPlan.get(e.id)?.below && !mergeEntry.has(e.id)) topIn.set(e.target, [...(topIn.get(e.target) || []), e]);
   const outPort = new Map(), inPort = new Map();
   for (const [id, list] of topIn) for (const [k, v] of ports(id, list, e => e.source)) inPort.set(k, v);
 
@@ -172,7 +220,7 @@ export function swimlaneLayout(scene, {measure, wrapWidth = 170} = {}) {
     const top = box.get(t).y;
     if (r2 === r1 + 1) { const yc = channelY(r2, x0, ex); return [{x: x0, y: y0}, {x: x0, y: yc}, {x: ex, y: yc}, {x: ex, y: top}]; }
     const y1 = rowTop[r1 + 1], y2 = rowTop[r2 - 1] + rowH[r2 - 1];
-    const candidates = [ex, x0, ...[...laneX.keys()].flatMap(l => [laneX.get(l) + GUTTER + 14, laneX.get(l) + laneW.get(l) - GUTTER - 14])]
+    const candidates = [ex, x0, ...[...laneX.keys()].flatMap(l => [laneX.get(l) + GUTTER + 2 * TRACK, laneX.get(l) + laneW.get(l) - GUTTER - 2 * TRACK])]
       .sort((a, b) => Math.abs(a - ex) - Math.abs(b - ex));
     const cx = candidates.find(c => freeV(c, y1, y2, skip)) ?? ex;
     if (cx === x0) { const yc = channelY(r2, x0, ex); return [{x: x0, y: y0}, {x: x0, y: yc}, {x: ex, y: yc}, {x: ex, y: top}]; }
@@ -190,9 +238,14 @@ export function swimlaneLayout(scene, {measure, wrapWidth = 170} = {}) {
     const r1 = rank.get(e.source), r2 = rank.get(e.target), skip = [e.source, e.target];
     if (!back.has(e.id)) {
       const ex = inPort.get(e.id) ?? cxOf(t);
+      // Al merge, por su vértice lateral: baja por la vertical de su salida y entra de costado.
+      if (mergeEntry.has(e.id) && !isDiamond(e.source)) {
+        const px = outPort.get(e.id) ?? cxOf(s), vy = cyOf(t), vx = mergeEntry.get(e.id) === 'W' ? t.x : t.x + t.width;
+        if (freeV(px, s.y + s.height, vy, skip) && freeH(vy, px, vx, skip)) { routes.set(e.id, [{x: px, y: s.y + s.height}, {x: px, y: vy}, {x: vx, y: vy}]); continue; }
+      }
       if (isDiamond(e.source)) {
-        const side = Math.abs(ex - cxOf(s)) < 2 ? 'S' : ex < cxOf(s) ? 'W' : 'E';
-        if (side !== 'S' && takeVertex(e.source, side) && r2 === r1 + 1) {
+        const side = branchSide(e);
+        if (side !== 'S' && r2 === r1 + 1 && takeVertex(e.source, side)) {
           const vx = side === 'W' ? s.x : s.x + s.width, vy = cyOf(s);
           const beyond = side === 'W' ? ex < vx - 8 : ex > vx + 8;
           if (beyond && freeH(vy, vx, ex, skip) && freeV(ex, vy, t.y, skip)) { routes.set(e.id, [{x: vx, y: vy}, {x: ex, y: vy}, {x: ex, y: t.y}]); continue; }
@@ -208,15 +261,18 @@ export function swimlaneLayout(scene, {measure, wrapWidth = 170} = {}) {
       continue;
     }
     // Bucle: sale por un costado al pasillo de su carril, sube y entra por el costado (o por arriba).
-    let side = neighbour(e.source, 'right') ? 'left' : 'right';
-    if (isDiamond(e.source) && !takeVertex(e.source, side === 'right' ? 'E' : 'W')) { side = side === 'right' ? 'left' : 'right'; takeVertex(e.source, side === 'right' ? 'E' : 'W'); }
+    const {side, tside, enter, below} = loopPlan.get(e.id);
+    if (isDiamond(e.source)) takeVertex(e.source, VERTEX[side]);
     const sx = side === 'right' ? s.x + s.width : s.x, sy = cyOf(s);
     const gx = gutterX(lane.get(e.source), side);
-    const sameLane = lane.get(e.target) === lane.get(e.source);
-    const enterSide = isDiamond(e.target) ? sameLane && !neighbour(e.target, side) && takeVertex(e.target, side === 'right' ? 'E' : 'W') : sideEntry(e);
-    if (enterSide) {
-      const tx = side === 'right' ? t.x + t.width : t.x;
+    if (enter) {
+      if (isDiamond(e.target)) takeVertex(e.target, VERTEX[tside]);
+      const tx = tside === 'right' ? t.x + t.width : t.x;
       routes.set(e.id, [{x: sx, y: sy}, {x: gx, y: sy}, {x: gx, y: cyOf(t)}, {x: tx, y: cyOf(t)}]);
+    } else if (below) {
+      takeVertex(e.target, 'S');
+      const yc = channelY(r2 + 1, gx, cxOf(t));
+      routes.set(e.id, [{x: sx, y: sy}, {x: gx, y: sy}, {x: gx, y: yc}, {x: cxOf(t), y: yc}, {x: cxOf(t), y: t.y + t.height}]);
     } else {
       const ex = inPort.get(e.id) ?? cxOf(t), yc = channelY(r2, gx, ex);
       routes.set(e.id, [{x: sx, y: sy}, {x: gx, y: sy}, {x: gx, y: yc}, {x: ex, y: yc}, {x: ex, y: t.y}]);
