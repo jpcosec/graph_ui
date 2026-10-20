@@ -69,6 +69,51 @@ def test_layout_comes_from_the_notation_unless_the_view_overrides_it(store):
     assert overridden["layout"] == {"kind": "graph", "style": "rings"}
 
 
+STYLE = Path(__file__).resolve().parent / "fixtures" / "notation-style"
+
+
+@pytest.fixture(scope="module")
+def styled_store(tmp_path_factory):
+    """A store with the styled notation of the Specs view's style e2e (infra: palette, glyph and link colours)."""
+    root = tmp_path_factory.mktemp("views-styled")
+    for spec in STYLE.glob("*.yml"):
+        shutil.copy(spec, root / spec.name)
+    subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
+    subprocess.run(["spec2viz", "diagram", "sync", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
+                   cwd=root, check=True, capture_output=True)
+    return root / ".sldb"
+
+
+INFRA = {"nodes": [{"model": "SpecNodeDoc", "where": 'spec = "SpecDoc:component.style-infra"'}],
+         "relations": ["reads", "calls"], "notation": "infra"}
+
+
+def test_a_view_with_a_notation_carries_each_node_style_each_edge_link_and_the_legend(styled_store):
+    result = evaluate_view(styled_store, INFRA)
+    notation = result["notation"]
+    assert "error" not in notation and notation["notation"] == "NotationDoc:infra"
+    assert notation["ink"]["light"] and notation["ink"]["dark"]
+    by_name = {key.rsplit(".", 1)[-1]: value for key, value in notation["nodes"].items()}
+    assert set(by_name) == {n["name"].rsplit(".", 1)[-1] for n in result["nodes"]}
+    # El glifo con estilo propio gana; la base de datos es un cilindro con el ícono de su glifo.
+    assert by_name["checkout"]["glyph"] == "GlyphDoc:infra.hot" and by_name["checkout"]["style"]["fill"]["light"] == "#fff1c2"
+    assert by_name["db"]["shape"] == "cylinder" and by_name["db"]["style"]["icon"] == "database"
+    # Una arista por posición, con el LinkDoc de su relación (reads: punteada y azul).
+    assert len(notation["edges"]) == len(result["edges"])
+    reads = [s for e, s in zip(result["edges"], notation["edges"]) if e["relation_type"] == "reads"]
+    assert reads and all(s["line"] == "dashed" and s["color"]["light"] == "#0072b2" for s in reads)
+    assert {len(notation["legend"][k]) for k in ("glyphs", "links")} and notation["legend"]["glyphs"]
+
+
+def test_a_notation_that_does_not_resolve_is_reported_not_raised(styled_store):
+    result = evaluate_view(styled_store, {**INFRA, "notation": "nonexistent"})
+    assert result["nodes"] and "nonexistent" in result["notation"]["error"]
+
+
+def test_a_view_without_notation_has_no_notation_block(styled_store):
+    assert "notation" not in evaluate_view(styled_store, {**INFRA, "notation": ""})
+
+
 def test_malformed_views_are_rejected(store):
     with pytest.raises(ViewError):
         evaluate_view(store, {**INHERITS, "direction": "sideways"})

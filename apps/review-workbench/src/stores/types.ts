@@ -17,6 +17,10 @@ export type NodeData = {
   message?: string;
   /** Ids of contained nodes, when the node is a container. */
   childIds?: string[];
+  /** How a view's notation draws this node (glyph, shape, resolved style); see views-provider. */
+  notation?: import('@/features/graph-editor/lib/views-provider').NodeNotation;
+  /** The notation's ink per theme: the text colour over a declared fill. */
+  ink?: import('@/features/graph-editor/lib/views-provider').Themed | null;
 };
 
 export interface ASTNode {
@@ -42,6 +46,8 @@ export interface ASTEdge {
     _originalSource?: string;
     _originalTarget?: string;
     _originalRelationType?: string;
+    /** How a view's notation draws this edge (line, colour, arrowhead). */
+    notation?: import('@/features/graph-editor/lib/views-provider').EdgeNotation | null;
   };
   selected?: boolean;
   hidden?: boolean;

@@ -33,4 +33,22 @@ describe('viewResultToGraph', () => {
     expect(docRef('sldb://document/ViewDoc:x')).toBe('ViewDoc:x');
     expect(docRef('ViewDoc:x')).toBe('ViewDoc:x');
   });
+
+  it('carries the notation the server applied: each node its glyph and style, each edge its link', () => {
+    const styled: EvaluatedView = {
+      ...result,
+      notation: {
+        notation: 'NotationDoc:infra',
+        ink: { light: '#1f2328', dark: '#e6edf3' },
+        nodes: { 'sldb://document/SpecNodeDoc:a': { glyph: 'GlyphDoc:infra.hot', shape: 'box', style: { fill: { light: '#fff1c2', dark: '#fff1c2' }, icon: 'workflow' } } },
+        edges: [{ link: 'LinkDoc:infra.reads', line: 'dashed', color: { light: '#0072b2', dark: '#0072b2' } }],
+        legend: { glyphs: [], links: [], kinds: [] },
+      },
+    };
+    const graph = viewResultToGraph(styled);
+    expect(graph.nodes[0]?.data.notation).toMatchObject({ glyph: 'GlyphDoc:infra.hot', style: { icon: 'workflow' } });
+    expect(graph.nodes[0]?.data.ink).toEqual({ light: '#1f2328', dark: '#e6edf3' });
+    expect(graph.nodes[1]?.data.notation).toBeUndefined();
+    expect(graph.edges[0]?.data?.notation).toMatchObject({ line: 'dashed' });
+  });
 });

@@ -16,8 +16,10 @@ import { registry } from '@/schema/registry';
 import { useUIStore } from '@/stores/ui-store';
 import type { ASTNode } from '@/stores/types';
 import { LucideEdit2, LucideTrash2, LucideCopy, LucideFocus, LucideChevronDown, LucideChevronRight } from 'lucide-react';
+import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
 import { payloadValue } from '@/features/graph-editor/lib/node-data';
 import { resolveNodeTitle } from '@/features/graph-editor/lib/node-title';
+import { nodeColours, shapeRadius } from '@/features/graph-editor/lib/notation-style';
 
 type CanvasNode = Node<ASTNode['data'], string>;
 
@@ -201,9 +203,19 @@ export const NodeShell = memo(function NodeShell(props: NodeProps<CanvasNode>) {
     );
   }
 
+  // A view's notation (§13): fill, stroke and text colour, the shape's corners and the glyph's icon.
+  const notation = data.notation;
+  const colours = nodeColours(notation?.style, data.ink);
+  const icon = notation?.style?.icon;
+
   return (
     <div
       data-testid={`node-${id}`}
+      data-glyph={notation?.glyph}
+      data-shape={notation?.shape}
+      data-fill={colours.fill ?? undefined}
+      data-stroke={colours.stroke ?? undefined}
+      data-icon={icon}
       onDoubleClick={handleEdit}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -230,9 +242,10 @@ export const NodeShell = memo(function NodeShell(props: NodeProps<CanvasNode>) {
       <ContextMenu>
         <ContextMenuTrigger disabled={selected}>
           <div
-            className={`rounded-lg border bg-card ${selected ? 'ring-2 ring-primary/30' : ''}`}
+            className={`relative rounded-lg border bg-card ${selected ? 'ring-2 ring-primary/30' : ''}`}
+            data-notation-body={notation ? 'true' : undefined}
             style={{
-              borderColor: isFormNode ? `${String(nodeBorderColor)}66` : nodeBorderColor,
+              borderColor: colours.stroke ?? (isFormNode ? `${String(nodeBorderColor)}66` : nodeBorderColor),
               minWidth: definition.defaultSize.width,
               background: isFormNode
                 ? 'linear-gradient(180deg, rgba(12,16,21,0.92), rgba(9,12,16,0.86))'
@@ -244,6 +257,12 @@ export const NodeShell = memo(function NodeShell(props: NodeProps<CanvasNode>) {
                       ? 'linear-gradient(180deg, rgba(10,15,20,0.98), rgba(9,12,17,0.92))'
                       : undefined,
               boxShadow: isFormNode ? '0 8px 24px rgba(0,0,0,0.18)' : undefined,
+              // Last, so the notation's fill wins over the category gradients above.
+              ...(notation ? {
+                ...(colours.fill ? { background: colours.fill } : {}),
+                ...(colours.text ? { color: colours.text } : {}),
+                ...(shapeRadius(notation.shape) ? { borderRadius: shapeRadius(notation.shape) } : {}),
+              } : {}),
             }}
           >
             <Handle
@@ -251,6 +270,12 @@ export const NodeShell = memo(function NodeShell(props: NodeProps<CanvasNode>) {
               position={Position.Top}
               className="!border-muted-foreground !bg-muted-foreground"
             />
+
+            {icon ? (
+              <span className="pointer-events-none absolute left-1.5 top-1.5" style={colours.stroke ? { color: colours.stroke } : undefined}>
+                <DynamicIcon name={icon as IconName} size={14} data-notation-icon={icon} />
+              </span>
+            ) : null}
 
             {nodeBody}
 

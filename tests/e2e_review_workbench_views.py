@@ -11,7 +11,11 @@ build of review-workbench under ``vite preview``, whose proxy forwards both. In 
    the same slice;
 3. the same view pointed at a second store draws that store's slice;
 4. a view's layout style places the nodes: ``rings`` by a payload field (every node of a ring at
-   that ring's radius, inner ring first), ``layered`` top to bottom along the relations.
+   that ring's radius, inner ring first), ``layered`` top to bottom along the relations;
+5. a view with a ``notation`` (a third store, synced from tests/fixtures/notation-style with a
+   styled notation) draws each node with its glyph's resolved style: the fill, stroke and icon the
+   server resolved with spec2viz's ``resolve_documents``, painted on the node; each edge with its
+   link's colour and dash; and the notation's legend in a canvas panel that covers no node.
 """
 import json
 import os
@@ -39,6 +43,9 @@ MINDMAP = ROOT / "frontends" / "mindmap"
 PILOTS = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz"
 HERE = ["component-exception-hierarchy.yml", "component-type-system.yml"]
 THERE = ["component-architecture.yml"]
+STYLE = ROOT / "tests" / "fixtures" / "notation-style"
+INFRA = {"nodes": [{"model": "SpecNodeDoc", "where": 'spec = "SpecDoc:component.style-infra"'}],
+         "relations": ["reads", "calls", "publishes", "charges", "uses"], "direction": "both", "notation": "infra"}
 
 
 def _free_port() -> int:
@@ -79,8 +86,14 @@ def stack():
     work = Path(tempfile.mkdtemp(prefix="rw-views-"))
     processes = []
     try:
-        (work / "here").mkdir(), (work / "there").mkdir()
+        (work / "here").mkdir(), (work / "there").mkdir(), (work / "styled").mkdir()
         store, other = _store(work / "here", HERE), _store(work / "there", THERE)
+        for spec in STYLE.glob("*.yml"):
+            shutil.copy(spec, work / "styled" / spec.name)
+        subprocess.run(["sldb", "stores", "init", "--path", str(work / "styled")], check=True, capture_output=True)
+        subprocess.run(["spec2viz", "diagram", "sync", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
+                       cwd=work / "styled", check=True, capture_output=True)
+        styled = work / "styled" / ".sldb"
         sldb_port, ui_port, app_port = _free_port(), _free_port(), _free_port()
         env = {**os.environ, "GRAPH_UI_BACKEND": "local", "SLDB_STORE": str(store)}
         processes.append(subprocess.Popen(["sldb", "serve", "--store", str(store), "--port", str(sldb_port)],
@@ -97,7 +110,7 @@ def stack():
                                            "--host", "127.0.0.1"], cwd=APP, env=app_env,
                                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL))
         _wait(f"http://127.0.0.1:{app_port}/", processes[2])
-        yield {"store": store, "other": other, "app": f"http://127.0.0.1:{app_port}", "ui": f"http://127.0.0.1:{ui_port}"}
+        yield {"store": store, "other": other, "styled": styled, "app": f"http://127.0.0.1:{app_port}", "ui": f"http://127.0.0.1:{ui_port}"}
     finally:
         for process in processes:
             process.terminate()
@@ -228,4 +241,98 @@ def test_layout_style_rings_by_field_and_layered_by_relation(stack):
         for edge in result["edges"]:
             source, target = (edge[k].split("/", 3)[-1] for k in ("source", "target"))
             assert centers[source][1] < centers[target][1], (source, target)
+        browser.close()
+
+
+NOTATION = r"""() => {
+  const nodes = [...document.querySelectorAll('.react-flow__node')].map((el) => {
+    const shell = el.querySelector('[data-testid^="node-"]'), body = el.querySelector('[data-notation-body]');
+    return {id: el.dataset.id, glyph: shell?.dataset.glyph || null, fill: shell?.dataset.fill || null, stroke: shell?.dataset.stroke || null,
+            icon: shell?.dataset.icon || null, iconDrawn: Boolean(el.querySelector('[data-notation-icon] path, [data-notation-icon] rect, [data-notation-icon] circle')),
+            background: body ? getComputedStyle(body).backgroundColor : null, border: body ? getComputedStyle(body).borderTopColor : null};
+  });
+  const edges = [...document.querySelectorAll('.react-flow__edge')].map((el) => {
+    const path = el.querySelector('.react-flow__edge-path'); const cs = getComputedStyle(path);
+    return {id: el.dataset.id || path.id, stroke: cs.stroke, dash: cs.strokeDasharray};
+  });
+  const legend = document.querySelector('[data-testid="view-legend"]');
+  const lr = legend && legend.getBoundingClientRect();
+  const covers = lr ? [...document.querySelectorAll('.react-flow__node')].filter((n) => { const r = n.getBoundingClientRect();
+    return r.left < lr.right && lr.left < r.right && r.top < lr.bottom && lr.top < r.bottom; }).length : null;
+  return {nodes, edges, covers, legend: legend && {
+    notation: legend.dataset.notation,
+    glyphs: [...legend.querySelectorAll('.legend-glyph')].map((li) => ({glyph: li.dataset.glyph, fill: li.dataset.fill, icon: li.dataset.icon})),
+    kinds: legend.querySelectorAll('.legend-kind').length,
+    links: [...legend.querySelectorAll('.legend-link')].map((li) => ({link: li.dataset.link, color: li.dataset.color}))}};
+}"""
+
+
+def _rgb(hex_colour: str) -> str:
+    h = hex_colour.lstrip("#")
+    return "rgb({}, {}, {})".format(*(int(h[i:i + 2], 16) for i in (0, 2, 4)))
+
+
+def test_a_view_with_a_notation_draws_glyph_styles_link_colours_and_the_legend(stack, tmp_path):
+    from mindmap.projection_views import evaluate_view
+
+    request = urllib.request.Request(f"{stack['ui']}/api/views/save", headers={"Content-Type": "application/json"},
+                                     data=json.dumps({"name": "infra", "view": INFRA, "store": str(stack["styled"])}).encode())
+    with urllib.request.urlopen(request, timeout=60) as response:
+        assert response.status == 200
+    expected = evaluate_view(stack["styled"], INFRA)
+    styles = {key.removeprefix("sldb://document/"): value for key, value in expected["notation"]["nodes"].items()}
+    dark = lambda themed: themed and (themed.get("dark") or themed.get("light"))  # noqa: E731  (review-workbench es oscuro)
+
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1600, "height": 1000})
+        errors = []
+        page.on("pageerror", lambda exc: errors.append(str(exc)))
+        page.goto(stack["app"])
+        page.wait_for_selector("[data-testid='views-section']", timeout=30000)
+        page.fill("[data-testid='view-store-path']", str(stack["styled"]))
+        page.locator("[data-testid='view-store-path']").blur()
+        page.wait_for_selector("[data-testid='saved-view-select'] option[value='ViewDoc:infra']", state="attached", timeout=30000)
+        _laid_out(page, "ViewDoc:infra", len(expected["nodes"]), len(expected["edges"]))
+        page.wait_for_function("() => document.querySelectorAll('[data-notation-icon]').length >= 5", timeout=20000)
+        page.wait_for_timeout(500)
+        drawn = page.evaluate(NOTATION)
+
+        # Cada nodo con el glifo y el estilo que resolvió el servidor, pintado en el nodo.
+        nodes = {n["id"]: n for n in drawn["nodes"]}
+        assert set(nodes) == set(styles)
+        for ref, style in styles.items():
+            node, fill, stroke, icon = nodes[ref], dark(style["style"].get("fill")), dark(style["style"].get("stroke")), style["style"].get("icon")
+            assert node["glyph"] == style["glyph"], (ref, node)
+            assert node["fill"] == fill and node["stroke"] == stroke and node["icon"] == icon, (ref, node, style)
+            if fill:
+                assert node["background"] == _rgb(fill), (ref, node)
+            if stroke:
+                assert node["border"] == _rgb(stroke), (ref, node)
+            if icon:
+                assert node["iconDrawn"], (ref, node)
+        assert nodes["SpecNodeDoc:component.style-infra.checkout"]["fill"] == "#fff1c2"
+
+        # Cada arista con el color y el trazo de su link: reads es punteada y azul.
+        links = expected["notation"]["edges"]
+        reads = [i for i, e in enumerate(expected["edges"]) if e["relation_type"] == "reads"]
+        assert reads and all(links[i]["line"] == "dashed" for i in reads)
+        dashed = [e for e in drawn["edges"] if e["dash"] not in ("none", "")]
+        assert len(dashed) == len(reads) and all(e["stroke"] == _rgb("#0072b2") for e in dashed), drawn["edges"]
+
+        # La leyenda de la notación, en un panel que no tapa nodos.
+        legend = drawn["legend"]
+        assert legend and legend["notation"] == "NotationDoc:infra", drawn
+        assert len(legend["glyphs"]) == len(expected["notation"]["legend"]["glyphs"])
+        assert len(legend["links"]) == len(expected["notation"]["legend"]["links"])
+        assert legend["kinds"] == len(expected["notation"]["legend"]["kinds"])
+        hot = next(g for g in legend["glyphs"] if g["glyph"] == "GlyphDoc:infra.hot")
+        assert hot["fill"] == "#fff1c2" and hot["icon"] == "workflow"
+        assert next(l for l in legend["links"] if l["link"] == "LinkDoc:infra.reads")["color"] == "#0072b2"
+        assert drawn["covers"] == 0, drawn["covers"]
+        page.click(".react-flow__controls-fitview")
+        page.locator("[data-testid='view-legend']").scroll_into_view_if_needed()
+        page.wait_for_timeout(600)
+        page.screenshot(path=str(tmp_path / "view-notation.png"))
+        assert errors == []
         browser.close()

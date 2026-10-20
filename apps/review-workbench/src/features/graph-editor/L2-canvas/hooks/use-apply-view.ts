@@ -28,10 +28,11 @@ export function useApplyView() {
 
   return useCallback(
     async (view: ProjectionViewDoc | string, ref: string | null = typeof view === 'string' ? view : null) => {
-      const { storePath, setDraft } = useViewStore.getState();
+      const { storePath, setDraft, setNotation } = useViewStore.getState();
       const result = await viewsProvider.evaluate(view, storePath);
       const graph = viewResultToGraph(result);
       setDraft(result.view, ref);
+      setNotation(result.notation ?? null);
       const { strategy, options } = strategyForLayout(result.layout);
       useUIStore.getState().setActiveLayoutStrategy(strategy);
       loadGraph(graph.nodes, graph.edges);

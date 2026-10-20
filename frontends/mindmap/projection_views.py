@@ -8,7 +8,11 @@ types, never node ids or a store path, so the same view evaluates against any st
   (``sldb.api.where.where_matches``), united; no entries means every document;
 - edges: the edges ``sldb.api.graph.execute_query`` keeps for ``RelationFilter(relations,
   direction)``, between two documents of that node set;
-- layout: the view's ``layout``, else its notation's ``layout`` (``NotationDoc.layout``).
+- layout: the view's ``layout``, else its notation's ``layout`` (``NotationDoc.layout``);
+- notation: with a ``notation``, spec2viz's ``resolve_documents`` applies it to the view's documents:
+  each node's glyph, shape and resolved style (fill and stroke per theme, icon), each edge's colour,
+  line and arrowhead (its ``LinkDoc``), the legend and the palette's ink per theme. Without spec2viz,
+  or with a notation that does not resolve, the view still evaluates and ``notation.error`` says why.
 
 graph_ui only evaluates; drawing rules stay in spec2viz. The sldb calls live in
 ``mindmap.sldb_adapter`` (the one module of the mindmap that imports sldb).
@@ -18,7 +22,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from mindmap.sldb_adapter import relation_edges, runtime_documents, where_holds
+from mindmap.sldb_adapter import notation_documents, relation_edges, runtime_documents, where_holds
 
 VIEW_MODEL = 'ViewDoc'
 DIRECTIONS = ('both', 'outgoing', 'incoming')
@@ -71,6 +75,35 @@ def _layout(view: dict[str, Any], documents: list[Any]) -> dict[str, Any]:
     return dict((found.payload or {}).get('layout') or {}) if found else {}
 
 
+def _ink(documents: list[Any], palette: str) -> dict[str, str] | None:
+    name = str(palette or '').split(':', 1)[-1]
+    found = next((d for d in documents if d.model_name == 'PaletteDoc' and d.name == name), None)
+    ink = (found.payload or {}).get('ink') if found else None
+    return {'light': ink, 'dark': ink} if isinstance(ink, str) else ink
+
+
+def _notation(store: Path, view: dict[str, Any], nodes: list[dict[str, Any]], edges: list[dict[str, Any]],
+              documents: list[Any], pythonpath: str | None) -> dict[str, Any]:
+    """The view's notation over its nodes and edges, as spec2viz resolves it (graph_ui only maps it back)."""
+    try:
+        resolved = notation_documents(store, str(view['notation']), [f"{n['model']}:{n['name']}" for n in nodes], pythonpath)
+    except ImportError as exc:
+        return {'error': f'spec2viz no está instalado: {exc}'}
+    except ValueError as exc:
+        return {'error': str(exc)}
+    by_doc = {n['doc']: n for n in resolved['nodes']}
+    keys = ('glyph', 'shape', 'function', 'keyword', 'label', 'style')
+    styled = {n['id']: {k: by_doc[ref].get(k) for k in keys}
+              for n in nodes if (ref := f"{n['model']}:{n['name']}") in by_doc}
+    links = {(l['source'], l['target'], l['relation']): l for l in resolved['links']}
+    plain = lambda ref: ref[len(DOCUMENT_PREFIX):] if ref.startswith(DOCUMENT_PREFIX) else ref  # noqa: E731
+    keys = ('link', 'draw', 'line', 'color', 'source_end', 'target_end', 'label')
+    edge_styles = [{k: link.get(k) for k in keys} if (link := links.get((plain(e['source']), plain(e['target']), e['relation_type']))) else None
+                   for e in edges]
+    return {'notation': resolved['notation'], 'palette': resolved.get('palette') or '', 'ink': _ink(documents, resolved.get('palette')),
+            'nodes': styled, 'edges': edge_styles, 'legend': resolved['legend'], 'skipped': resolved.get('skipped') or []}
+
+
 def evaluate_view(store: str | Path, view: dict[str, Any], pythonpath: str | None = None) -> dict[str, Any]:
     """The view's nodes, edges and layout over ``store`` (a ``.sldb`` directory)."""
     store = Path(store)
@@ -79,13 +112,16 @@ def evaluate_view(store: str | Path, view: dict[str, Any], pythonpath: str | Non
     selected = {node_id(d.model_name, d.name): d for d in documents if _selected(d, entries)}
     seen = {(source, target, relation) for node, source, target, relation in relation_edges(store, relations, direction)
             if node in selected and source in selected and target in selected}
-    return {
+    result = {
         'view': view,
         'nodes': [{'id': key, 'model': d.model_name, 'name': d.name, 'title': _title(d), 'payload': d.payload}
                   for key, d in sorted(selected.items())],
         'edges': [{'source': s, 'target': t, 'relation_type': r} for s, t, r in sorted(seen)],
         'layout': _layout(view, documents),
     }
+    if view.get('notation'):
+        result['notation'] = _notation(store, view, result['nodes'], result['edges'], documents, pythonpath)
+    return result
 
 
 def list_views(store: str | Path, pythonpath: str | None = None) -> list[dict[str, Any]]:

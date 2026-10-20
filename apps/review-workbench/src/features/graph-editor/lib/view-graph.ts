@@ -41,6 +41,8 @@ export function viewResultToGraph(result: EvaluatedView): { nodes: ASTNode[]; ed
         category: node.model,
         properties: properties(node.payload),
         payload: { typeId, value: node.payload },
+        // With a notation (ViewDoc.notation): the glyph, shape and style spec2viz resolved.
+        ...(result.notation?.nodes?.[node.id] ? { notation: result.notation.nodes[node.id], ink: result.notation.ink ?? null } : {}),
       },
     };
   });
@@ -49,7 +51,7 @@ export function viewResultToGraph(result: EvaluatedView): { nodes: ASTNode[]; ed
     source: docRef(edge.source),
     target: docRef(edge.target),
     type: 'floating',
-    data: { relationType: edge.relation_type, properties: {} },
+    data: { relationType: edge.relation_type, properties: {}, ...(result.notation?.edges?.[index] ? { notation: result.notation.edges[index] } : {}) },
   }));
   return { nodes, edges };
 }

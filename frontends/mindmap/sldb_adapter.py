@@ -404,6 +404,18 @@ def relation_edges(store: str | Path, relation_types: list[str], direction: str)
             for n in execute_query(Path(store), query, include_linked=False) for e in n.edges]
 
 
+def notation_documents(store: str | Path, notation: str, doc_refs: list[str], pythonpath: str | None = None) -> dict[str, Any]:
+    """La notación de una vista aplicada a sus documentos (``Model:name``), con el único intérprete
+    del contrato: ``spec2viz.notation_view.resolve_documents`` (glifo, forma y estilo de cada nodo,
+    links y leyenda). spec2viz ausente: ImportError; notación incoherente: ValueError."""
+    from spec2viz.notation_view import ViewError, resolve_documents
+
+    try:
+        return resolve_documents(Path(store), notation, doc_refs, pythonpath=pythonpath)
+    except ViewError as exc:
+        raise ValueError(str(exc)) from exc
+
+
 def ensure_model(store: str | Path, model: str, model_ref: str) -> None:
     """Registra ``model_ref`` en el store si ``model`` no está registrado."""
     from sldb.api import add_model, is_model_registered

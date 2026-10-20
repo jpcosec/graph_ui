@@ -44,6 +44,58 @@ export interface EvaluatedEdge {
   relation_type: string;
 }
 
+/** A colour per theme, as spec2viz resolves it (a literal hex is the same on both sides). */
+export interface Themed {
+  light?: string;
+  dark?: string;
+}
+
+export interface NotationStyle {
+  fill?: Themed;
+  stroke?: Themed;
+  icon?: string;
+  source?: unknown;
+}
+
+/** How the view's notation draws one node (spec2viz `resolve_documents`, contract §13). */
+export interface NodeNotation {
+  glyph: string;
+  shape: string;
+  function?: string;
+  keyword?: string;
+  label?: string;
+  style: NotationStyle;
+}
+
+/** How it draws one edge: its LinkDoc's line, colour and arrowhead. */
+export interface EdgeNotation {
+  link: string;
+  draw?: string;
+  line?: 'solid' | 'dashed' | 'dotted' | string;
+  color?: Themed | null;
+  source_end?: string;
+  target_end?: string;
+  label?: string;
+}
+
+export interface NotationLegend {
+  glyphs: { glyph: string; title: string; shape: string; function?: string; style: NotationStyle }[];
+  links: { link: string; title: string; relation?: string; line?: string; color?: Themed | null }[];
+  kinds: { kind: string; style: NotationStyle }[];
+}
+
+/** The view's notation applied by the server; `error` when it could not be (spec2viz missing, bad notation). */
+export interface ViewNotation {
+  error?: string;
+  notation?: string;
+  palette?: string;
+  ink?: Themed | null;
+  nodes?: Record<string, NodeNotation>;
+  edges?: (EdgeNotation | null)[];
+  legend?: NotationLegend;
+  skipped?: string[];
+}
+
 export interface EvaluatedView {
   ok: true;
   store: string;
@@ -51,6 +103,7 @@ export interface EvaluatedView {
   nodes: EvaluatedNode[];
   edges: EvaluatedEdge[];
   layout: ViewLayout;
+  notation?: ViewNotation;
 }
 
 export interface StoredView {

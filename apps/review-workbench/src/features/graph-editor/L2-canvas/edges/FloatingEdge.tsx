@@ -4,6 +4,9 @@ import { BaseEdge, EdgeLabelRenderer, getBezierPath, useStore, type EdgeProps } 
 
 import { useUIStore } from '@/stores/ui-store';
 
+import { dashFor, themed } from '@/features/graph-editor/lib/notation-style';
+import type { EdgeNotation } from '@/features/graph-editor/lib/views-provider';
+
 import { resolveEdgeStyle } from '../encoding/encoding-rules';
 import { getEdgeParams } from './edge-helpers';
 
@@ -46,13 +49,17 @@ export const FloatingEdge = memo(function FloatingEdge({
   });
 
   const isInherited = relationType === 'inherited';
+  // A view's notation (§13): the LinkDoc's colour and line.
+  const notation = (data as { notation?: EdgeNotation | null } | undefined)?.notation;
+  const colour = themed(notation?.color);
+  const notationStyle = notation ? { ...(colour ? { stroke: colour } : {}), ...(dashFor(notation.line) ? { strokeDasharray: dashFor(notation.line) } : {}) } : {};
 
   return (
     <>
       <BaseEdge
         id={id}
         path={path}
-        style={{ ...resolveEdgeStyle(relationType, activeEncodingRules), ...style }}
+        style={{ ...resolveEdgeStyle(relationType, activeEncodingRules), ...notationStyle, ...style }}
         markerEnd={isInherited ? undefined : markerEnd}
       />
       <EdgeLabelRenderer>

@@ -7,6 +7,8 @@ import { viewsProvider, type StoredView } from '@/features/graph-editor/lib/view
 import { useViewStore } from '@/stores/view-store';
 import { toast } from 'sonner';
 
+import { ViewLegend } from '../ViewLegend';
+
 /** `My View!` -> `my-view`: the ViewDoc name a label saves under. */
 export function viewNameFromLabel(label: string): string {
   return label
@@ -115,6 +117,8 @@ export function ViewsSection() {
           Save current as view
         </Button>
       </div>
+
+      <ViewLegend />
     </div>
   );
 }
