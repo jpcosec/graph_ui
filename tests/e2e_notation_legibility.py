@@ -13,7 +13,8 @@ containers) and spec2viz's activity pilot (decisions and a loop back). In Chromi
   and target (R2); every edge label is within 20 px of its edge (R3); with the minimap shown, it
   covers no node after «Ver todo» (R4); no edge crosses a container's title (R5);
 - round 3: every guard (label of a branch leaving a decision) is at least 8 px closer to its own
-  branch than to any other edge, so parallel branches cannot swap their guards (R6).
+  branch than to any other edge, so parallel branches cannot swap their guards (R6); hovering an
+  edge's label highlights that edge and dims the others, to follow one line in a bundle (R7).
 
 G1: with a model whose module does not import, the shell names the model and its error and the
 catalog still lists the specs; started with --pythonpath, the error is gone.
@@ -215,6 +216,20 @@ def test_specs_read_whole_after_fit(store):
             assert flow["labels"] >= 4 and flow["initialAbove"] is True, flow
             # R6: every guard reads as its own branch's.
             assert flow["guards"] >= 4 and flow["minGuardMargin"] >= 8, flow
+
+            # R7: hovering a label highlights its own edge and dims the rest.
+            label = page.locator(".notation-canvas .notation-edge-label").first
+            edge_id = label.get_attribute("data-edge")
+            label.hover()
+            page.wait_for_selector(".notation-canvas .notation-edge-label.is-hovered")
+            styles = page.evaluate('''id => [...document.querySelectorAll('.notation-canvas .react-flow__edge-path')]
+                .map(p => [p.id === id, Number(getComputedStyle(p).opacity), parseFloat(getComputedStyle(p).strokeWidth)])''', edge_id)
+            mine = [s for s in styles if s[0]]
+            others = [s for s in styles if not s[0]]
+            assert mine and mine[0][1] == 1 and mine[0][2] > 2, styles
+            assert others and all(o[1] < 0.5 for o in others), styles
+            page.mouse.move(5, 5)
+            page.wait_for_function("() => !document.querySelector('.notation-canvas .notation-edge-label.is-hovered')")
 
             # Dense deployment (13 nodes, 18 artifacts, 21 labelled connections between nodes): with the
             # workers panel collapsed, as the Specs view starts, it still reads at >= 10 px.

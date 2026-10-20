@@ -166,7 +166,8 @@ function NotationEdge({id, source, target, sourceX, sourceY, targetX, targetY, s
   return html`<g className="notation-edge-ends" data-source=${source} data-target=${target}></g>
     <${BaseEdge} id=${id} path=${routed ? pathOf(data.points) : fallback} style=${style} markerEnd=${markerEnd} markerStart=${markerStart}/>
     <${EdgeLabelRenderer}>
-      ${data?.labelBox ? html`<div className="notation-edge-label nodrag nopan" data-edge=${id}
+      ${data?.labelBox ? html`<div className=${'notation-edge-label nodrag nopan' + (data.hovered ? ' is-hovered' : '')} data-edge=${id}
+          onMouseEnter=${() => data.onHover?.(id)} onMouseLeave=${() => data.onHover?.(null)}
           style=${{transform: `translate(${data.labelBox.x}px, ${data.labelBox.y}px)`, width: data.labelBox.width + 'px'}}>${lineList(data.labelBox.lines)}</div>` : ''}
       ${endLabel(data?.sourceLabel, ends[0].x, ends[0].y, sourcePosition, 'source')}
       ${endLabel(data?.targetLabel, ends[1].x, ends[1].y, targetPosition, 'target')}
@@ -174,13 +175,18 @@ function NotationEdge({id, source, target, sourceX, sourceY, targetX, targetY, s
 }
 const edgeTypes = {notation: NotationEdge};
 
-function edgesOf(edges, selected) {
+// R7: pasar el mouse por una arista o por su rótulo la resalta y atenúa las demás, para seguir una
+// línea dentro de un haz de paralelas (p. ej. varias «Service Connect»). Sin hover, manda la selección.
+function edgesOf(edges, selected, hovered, setHovered) {
   return edges.map(e => {
-    const active = selected && (e.source === selected || e.target === selected);
+    const focus = hovered || null;
+    const active = focus ? e.id === focus : selected && (e.source === selected || e.target === selected);
+    const dimmed = focus ? e.id !== focus : selected && !active;
     return {id: e.id, source: e.source, target: e.target, type: 'notation',
-      data: {relation: e.relation, sourceLabel: e.sourceLabel, targetLabel: e.targetLabel, points: e.points, labelBox: e.labelBox}, className: 'notation-edge',
+      data: {relation: e.relation, sourceLabel: e.sourceLabel, targetLabel: e.targetLabel, points: e.points, labelBox: e.labelBox,
+        hovered: focus === e.id, onHover: setHovered}, className: 'notation-edge' + (focus === e.id ? ' is-hovered' : ''),
       markerEnd: e.targetEnd ? 'nv-' + e.targetEnd : undefined, markerStart: e.sourceEnd ? 'nv-' + e.sourceEnd : undefined,
-      style: {stroke: 'var(--edge)', strokeWidth: active ? 2.2 : 1.4, strokeDasharray: e.dash, opacity: selected && !active ? .25 : 1}};
+      style: {stroke: focus === e.id ? 'var(--accent)' : 'var(--edge)', strokeWidth: focus === e.id ? 2.8 : active ? 2.2 : 1.4, strokeDasharray: e.dash, opacity: dimmed ? .2 : 1}};
   });
 }
 
@@ -249,6 +255,7 @@ function NotationCanvas({skin}) {
     return () => { clearTimeout(timer); observer.disconnect(); };
   }, [extent]);
   const selected = flowNodes.find(n => n.selected)?.id || null;
+  const [hoveredEdge, setHoveredEdge] = useState(null);
 
   const choose = id => { setSpecId(id); try { localStorage.setItem(STORAGE_KEY, id); } catch {} };
   const view = state.view;
@@ -275,7 +282,8 @@ function NotationCanvas({skin}) {
           : state.phase === 'loading' || !scene ? html`<div className="state"><p>Resolviendo la notación…</p></div>`
           : scene.kind === 'lanes' ? html`<div className="notation-scroll"><${LanesDiagram} scene=${scene}/></div>`
           : scene.kind === 'grid' ? html`<div className="notation-scroll"><${GridDiagram} scene=${scene}/></div>`
-          : html`<${ReactFlow} nodes=${flowNodes} edges=${edgesOf(flowEdges, selected)} nodeTypes=${nodeTypes} edgeTypes=${edgeTypes}
+          : html`<${ReactFlow} nodes=${flowNodes} edges=${edgesOf(flowEdges, selected, hoveredEdge, setHoveredEdge)}
+              onEdgeMouseEnter=${(_, edge) => setHoveredEdge(edge.id)} onEdgeMouseLeave=${() => setHoveredEdge(null)} nodeTypes=${nodeTypes} edgeTypes=${edgeTypes}
               onNodesChange=${changes => setFlowNodes(ns => applyNodeChanges(changes, ns))}
               minZoom=${.08} maxZoom=${2} nodesConnectable=${false} deleteKeyCode=${null} colorMode=${skin || 'light'}>
               <${Controls} showInteractive=${false}/>
