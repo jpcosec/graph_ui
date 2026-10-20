@@ -1,0 +1,471 @@
+# Test spec for the Specs view's class drawing (issue R10): a schema of 26 records where only 8 are
+# related (15 associations) and 18 have no relation at all. ELK alone puts the unrelated ones in one
+# row; they must go in a grid chosen to maximise the zoom, so the whole diagram reads at >= 10 px.
+id: class.large-schema
+title: 'Class: a large schema with many unrelated records'
+type: class
+version: '0.1'
+style:
+  kinds:
+    record:
+      fill: database-fill
+      stroke: database-stroke
+      icon: database
+data:
+  direction: TB
+  classes:
+    sessions:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+    conversations:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+      - name: status
+        type: text
+      - name: created_at
+        type: timestamptz
+      - name: updated_at
+        type: timestamptz
+    messages:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+      - name: status
+        type: text
+      - name: created_at
+        type: timestamptz
+    traces:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+      - name: status
+        type: text
+    contexts:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+    summaries:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+    subjects:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+    logs:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+      - name: status
+        type: text
+      - name: created_at
+        type: timestamptz
+      - name: updated_at
+        type: timestamptz
+    business_records:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+      - name: status
+        type: text
+      - name: created_at
+        type: timestamptz
+    processed:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+      - name: status
+        type: text
+    subject_merges:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+    curation_seen:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+    checkpoints:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+    tool_idempotency:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+      - name: status
+        type: text
+      - name: created_at
+        type: timestamptz
+      - name: updated_at
+        type: timestamptz
+    inbound_messages:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+      - name: status
+        type: text
+      - name: created_at
+        type: timestamptz
+    pending_replies:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+      - name: status
+        type: text
+    running_replies:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+    inbound_buffer:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+    outbox:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+    conversation_turns:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+      - name: status
+        type: text
+      - name: created_at
+        type: timestamptz
+      - name: updated_at
+        type: timestamptz
+    journey_claims:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+      - name: status
+        type: text
+      - name: created_at
+        type: timestamptz
+    journey_passes:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+      - name: status
+        type: text
+    rate_counters:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+    webhook_reports:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+    coverage:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+    subject_traits:
+      kind: record
+      attributes:
+      - name: id
+        type: int, PK
+      - name: session_id
+        type: text
+      - name: conversation_id
+        type: text
+      - name: kind
+        type: text
+      - name: payload
+        type: jsonb
+      - name: status
+        type: text
+      - name: created_at
+        type: timestamptz
+      - name: updated_at
+        type: timestamptz
+  relations:
+  - from: conversations
+    to: sessions
+    relation: association
+    label: session_id
+    from_multiplicity: '*'
+    to_multiplicity: '1'
+  - from: messages
+    to: conversations
+    relation: association
+    label: conversation_id
+    from_multiplicity: '*'
+    to_multiplicity: 0..1
+  - from: traces
+    to: conversations
+    relation: association
+    label: conversation_id
+    from_multiplicity: '*'
+    to_multiplicity: 0..1
+  - from: contexts
+    to: conversations
+    relation: association
+    label: conversation_id
+    from_multiplicity: '*'
+    to_multiplicity: 0..1
+  - from: summaries
+    to: conversations
+    relation: association
+    label: conversation_id
+    from_multiplicity: '*'
+    to_multiplicity: '1'
+  - from: logs
+    to: conversations
+    relation: association
+    label: conversation_id
+    from_multiplicity: '*'
+    to_multiplicity: '1'
+  - from: subjects
+    to: sessions
+    relation: association
+    label: session_id
+    from_multiplicity: '*'
+    to_multiplicity: '1'
+  - from: messages
+    to: sessions
+    relation: association
+    label: session_id
+    from_multiplicity: '*'
+    to_multiplicity: '1'
+  - from: traces
+    to: sessions
+    relation: association
+    label: session_id
+    from_multiplicity: '*'
+    to_multiplicity: '1'
+  - from: contexts
+    to: sessions
+    relation: association
+    label: session_id
+    from_multiplicity: '*'
+    to_multiplicity: '1'
+  - from: summaries
+    to: sessions
+    relation: association
+    label: session_id
+    from_multiplicity: '*'
+    to_multiplicity: '1'
+  - from: logs
+    to: sessions
+    relation: association
+    label: session_id
+    from_multiplicity: '*'
+    to_multiplicity: '1'
+  - from: logs
+    to: subjects
+    relation: association
+    label: session_id
+    from_multiplicity: '*'
+    to_multiplicity: '1'
+  - from: summaries
+    to: subjects
+    relation: association
+    label: session_id
+    from_multiplicity: '*'
+    to_multiplicity: '1'
+  - from: contexts
+    to: subjects
+    relation: association
+    label: session_id
+    from_multiplicity: '*'
+    to_multiplicity: '1'

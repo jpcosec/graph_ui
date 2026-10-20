@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {buildScene} from '../frontends/mindmap/views/specs/notation/notation.mjs';
 import {wrapText, sizeGlyph, containerHeader, edgeLabelBox, gridEdges, elkGraph, fromElk, bestLayout, fitZoom, legibleZoom,
   approximateMeasure, DIAMOND_RATIO, GRID_MIN, FONT, MIN_TEXT_PX, headerId, diamondPorts, routeOf, placeLabels, layoutIssues,
-  LABEL_MAX_DISTANCE, LABEL_MARGIN, labelsOnNodes, placeEndLabels} from '../frontends/mindmap/views/specs/notation/notation-layout.mjs';
+  LABEL_MAX_DISTANCE, LABEL_MARGIN, labelsOnNodes, placeEndLabels, isolatedNodes, packIsolated} from '../frontends/mindmap/views/specs/notation/notation-layout.mjs';
 
 const measure = (text, size) => (text || '').length * size * 0.5;
 
@@ -283,4 +283,21 @@ test('R9: una multiplicidad va junto al extremo real de su arista, fuera de la c
     assert.ok(Math.hypot(dx, dy) <= 24, key + ' pegada al extremo');
   }
   assert.equal(layout.edges[0].targetLabelBox.text, '0..1');
+});
+
+test('R10: los nodos sueltos van en la grilla que más zoom da, al costado o debajo de lo conectado', () => {
+  const node = (id, extra = {}) => ({id, parent: null, container: false, glyph: {shape: 'class-box', label: id, compartments: []}, ...extra});
+  const scene = {nodes: [node('a'), node('b'), ...Array.from({length: 12}, (_, i) => node('l' + i)), node('k', {container: true}), node('c', {parent: 'k'})],
+    edges: [{id: 'ab', source: 'a', target: 'b'}]};
+  assert.deepEqual(isolatedNodes(scene).map(n => n.id), Array.from({length: 12}, (_, i) => 'l' + i), 'ni los conectados ni los contenedores ni sus hijos');
+  const core = {nodes: [{id: 'a', parent: null, x: 0, y: 0, width: 150, height: 60, container: false, glyph: {}},
+    {id: 'b', parent: null, x: 0, y: 200, width: 150, height: 60, container: false, glyph: {}}], edges: [], width: 150, height: 260};
+  const layout = packIsolated(core, isolatedNodes(scene), {measure, canvas: {width: 1400, height: 900}});
+  const loose = layout.nodes.filter(n => n.id.startsWith('l'));
+  assert.equal(loose.length, 12);
+  assert.ok(new Set(loose.map(n => n.y)).size > 1 && new Set(loose.map(n => n.x)).size > 1, 'una grilla, no una fila');
+  const overlap = (p, q) => p.x < q.x + q.width && q.x < p.x + p.width && p.y < q.y + q.height && q.y < p.y + p.height;
+  for (let i = 0; i < layout.nodes.length; i++) for (let j = i + 1; j < layout.nodes.length; j++) assert.ok(!overlap(layout.nodes[i], layout.nodes[j]));
+  assert.ok(layout.nodes.every(n => n.x + n.width <= layout.width + 1e-6 && n.y + n.height <= layout.height + 1e-6));
+  assert.ok(layout.width / layout.height < 6, 'no una fila larga');
 });

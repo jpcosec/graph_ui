@@ -428,9 +428,63 @@ export const fitZoom = (layout, canvas, padding = FIT_PADDING) => Math.min(canva
 // perpendicular, y gana la que mejor cabe.
 const PERPENDICULAR = {TB: 'LR', BT: 'RL', LR: 'TB', RL: 'BT'};
 export const legibleZoom = MIN_TEXT_PX / FONT.label;
+// R10: nodos sueltos (sin aristas, sin contenedor ni hijos). ELK los pone en una fila; aparte, se
+// acomodan en una grilla al costado o debajo de lo conectado, la que más zoom da en el lienzo.
+export const ISOLATED = {min: 4, gap: 40};
+export function isolatedNodes(scene) {
+  const linked = new Set(scene.edges.flatMap(e => [e.source, e.target]));
+  const parents = new Set(scene.nodes.map(n => n.parent).filter(Boolean));
+  return scene.nodes.filter(n => !n.parent && !n.container && !parents.has(n.id) && !linked.has(n.id));
+}
+
+export function packIsolated(layout, isolated, {measure = approximateMeasure, wrapWidth = 170, canvas}) {
+  const items = isolated.map(n => ({n, size: sizeGlyph(n.glyph, {measure, wrapWidth})}));
+  const W = layout.nodes.length ? layout.width : 0, H = layout.nodes.length ? layout.height : 0, gap = ISOLATED.gap;
+  let best = null;
+  for (let k = 1; k <= items.length; k++) {
+    const rows = Math.ceil(items.length / k);
+    const colW = Array.from({length: k}, (_, c) => Math.max(0, ...items.filter((_, i) => i % k === c).map(it => it.size.width)));
+    const rowH = Array.from({length: rows}, (_, r) => Math.max(0, ...items.slice(r * k, r * k + k).map(it => it.size.height)));
+    const gw = colW.reduce((a, b) => a + b, 0) + gap * (k - 1), gh = rowH.reduce((a, b) => a + b, 0) + gap * (rows - 1);
+    for (const side of W ? ['right', 'below'] : ['alone']) {
+      const [width, height, ox, oy] = side === 'right' ? [W + gap + gw, Math.max(H, gh), W + gap, 0]
+        : side === 'below' ? [Math.max(W, gw), H + gap + gh, 0, H + gap] : [gw, gh, 0, 0];
+      const zoom = fitZoom({width, height}, canvas);
+      if (!best || zoom > best.zoom + 1e-6) best = {zoom, width, height, ox, oy, k, colW, rowH};
+    }
+  }
+  const {k, colW, rowH, ox, oy} = best;
+  items.forEach(({n, size}, i) => {
+    const c = i % k, r = Math.floor(i / k);
+    const x = ox + colW.slice(0, c).reduce((a, b) => a + b, 0) + gap * c + (colW[c] - size.width) / 2;
+    const y = oy + rowH.slice(0, r).reduce((a, b) => a + b, 0) + gap * r;
+    layout.nodes.push({id: n.id, parent: null, depth: 0, x, y, width: size.width, height: size.height, container: false,
+      glyph: n.glyph, lines: size.lines || [], header: null, outside: null});
+  });
+  Object.assign(layout, {width: best.width, height: best.height, isolated: {count: items.length, columns: k}});
+  return layout;
+}
+
 export async function bestLayout(elk, scene, {measure = approximateMeasure, canvas = {width: 1200, height: 900}, candidates = LAYOUT_CANDIDATES} = {}) {
   // Activity con particiones (§14) y sin anidado: carriles UML propios, no ELK.
   if (usesSwimlanes(scene)) return placeEndLabels(clipEnds(Object.assign(bestSwimlanes(scene, {measure, canvas}), {engine: 'swimlanes'})), {measure});
+  // R10: lo conectado va por ELK; los sueltos, en su grilla (un despliegue tiene su propio empaque).
+  const loose = scene.diagramType === 'deployment' ? [] : isolatedNodes(scene);
+  if (loose.length >= ISOLATED.min) {
+    const ids = new Set(loose.map(n => n.id));
+    const core = {...scene, nodes: scene.nodes.filter(n => !ids.has(n.id))};
+    // Lo conectado se elige contra un lienzo más angosto también: la grilla le va a sacar ancho.
+    let best = null;
+    for (const share of core.nodes.length ? [1, 0.75, 0.6] : [1]) {
+      const layout = core.nodes.length ? await bestLayout(elk, core, {measure, canvas: {width: canvas.width * share, height: canvas.height}, candidates})
+        : {nodes: [], edges: [], width: 0, height: 0, direction: scene.direction, candidate: {wrapWidth: 170}, issues: {total: 0}};
+      packIsolated(layout, loose, {measure, wrapWidth: layout.candidate?.wrapWidth || 170, canvas});
+      layout.zoom = fitZoom(layout, canvas);
+      layout.issues = layoutIssues(layout);
+      if (!best || layout.issues.total < best.issues.total || (layout.issues.total === best.issues.total && layout.zoom > best.zoom + 1e-6)) best = layout;
+    }
+    return best;
+  }
   let best = await bestIn(elk, scene, {measure, canvas, candidates});
   const better = (a, b) => a && (!b || a.issues.total < b.issues.total || (a.issues.total === b.issues.total && a.zoom > b.zoom));
   if (best && (best.zoom < legibleZoom || best.issues.total)) {

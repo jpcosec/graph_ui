@@ -3,6 +3,9 @@
 - R9: tests/fixtures/notation-class/class-records.yml has associations with multiplicities at both ends,
   several converging on one class. Every multiplicity sits next to its own edge's end (within 24 px of
   it), outside every class box, and clear of edge labels and other multiplicities.
+- R10: tests/fixtures/notation-class/class-large.yml has 26 records, only 8 of them related (15
+  associations). With «Ver todo» it reads at >= 10 px: the 18 unrelated ones go in a grid (more than one
+  row and one column) beside or below the related ones, and every class is inside the canvas.
 """
 import shutil
 import subprocess
@@ -14,7 +17,8 @@ from e2e_notation_legibility import _measure, _round_two, _serve, sync_playwrigh
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "tests" / "fixtures" / "notation-class"
-RECORDS = "class.records-multiplicities"
+RECORDS, LARGE = "class.records-multiplicities", "class.large-schema"
+UNRELATED = 18
 
 ENDS = r"""() => {
   const r = (e) => e.getBoundingClientRect();
@@ -70,6 +74,36 @@ def test_r9_multiplicities_sit_at_their_edge_end_outside_the_boxes(store):
             assert len(ends) == 18, ends
             bad = [e for e in ends if e["onBox"] or e["onLabel"] or e["onEnd"] or e["distance"] > 24]
             assert not bad, bad
+            assert not errors, errors
+            browser.close()
+    finally:
+        process.terminate()
+        process.wait()
+
+
+def test_r10_unrelated_classes_go_in_a_grid_and_the_whole_reads(store):
+    process, base = _serve(store)
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1800, "height": 1200})
+            errors = []
+            page.on("pageerror", lambda e: errors.append(str(e)))
+            page.goto(f"{base}/specs/notation")
+            page.wait_for_selector(".notation-catalog button", timeout=30000)
+            result = _measure(page, LARGE)
+            assert result["minTextPx"] >= 10, result
+            assert result["labelOverlaps"] == 0 and result["spills"] == 0 and result["crossings"] == 0, result
+            _round_two(result)
+            grid = page.evaluate("""() => {
+              const c = document.querySelector('.notation-canvas').getBoundingClientRect();
+              const linked = new Set([...document.querySelectorAll('.notation-canvas .notation-edge-ends')].flatMap(g => [g.dataset.source, g.dataset.target]));
+              const nodes = [...document.querySelectorAll('.notation-canvas .react-flow__node')].map(n => ({id: n.dataset.id, r: n.getBoundingClientRect()}));
+              const loose = nodes.filter(n => !linked.has(n.id));
+              return {loose: loose.length, rows: new Set(loose.map(n => Math.round(n.r.top))).size, cols: new Set(loose.map(n => Math.round(n.r.left + n.r.width / 2))).size,
+                      outside: nodes.filter(n => n.r.left < c.left || n.r.right > c.right || n.r.top < c.top || n.r.bottom > c.bottom).length};
+            }""")
+            assert grid["loose"] == UNRELATED and grid["rows"] > 1 and grid["cols"] > 1 and grid["outside"] == 0, grid
             assert not errors, errors
             browser.close()
     finally:
