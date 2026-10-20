@@ -2,7 +2,7 @@
 title: "R9: En class, las multiplicidades se dibujan encima de la caja de la clase"
 severity: high
 category: legibility
-status: open
+status: closed
 ---
 # R9: En class, las multiplicidades se dibujan encima de la caja de la clase
 
@@ -18,3 +18,9 @@ frontends/mindmap/views/specs/notation (rótulos de extremo, sourceLabel/targetL
 
 ## Evidence
 - assets/specs-legibility-r11-2026-10-20/class.esquema-plataforma.png (13 clases, 10 relaciones).
+
+## Resolution
+
+Closed: 2026-10-20
+Reason: placeEndLabels: cada multiplicidad junto al extremo real de su arista, fuera de la caja; e2e con class-records.yml
+Refs: 8ea35f5
