@@ -2,7 +2,7 @@
 title: "R8: Un despliegue grande y anidado queda bajo 10 px tras «Ver todo»"
 severity: medium
 category: legibility
-status: open
+status: closed
 ---
 # R8: Un despliegue grande y anidado queda bajo 10 px tras «Ver todo»
 
@@ -27,3 +27,9 @@ frontends/mindmap/views/specs/notation/notation-layout.mjs (candidatos de ELK y 
   suma su encabezado y su padding en cada capa.
 - Siguiente paso posible: un layout propio para despliegues (como los carriles de activity), o
   aceptar que un despliegue de este tamaño se lea con zoom y desplazamiento.
+
+## Resolution
+
+Closed: 2026-10-19
+Reason: Layout propio de despliegues (notation-deployment.mjs): el despliegue real de 34 elementos queda en 11,4 px; e2e con deployment-large.yml
+Refs: 6d8336d
