@@ -2,7 +2,7 @@
 title: "R10: Un diagrama de clases grande queda en ~5 px porque las clases sueltas van en una fila"
 severity: high
 category: legibility
-status: open
+status: closed
 ---
 # R10: Un diagrama de clases grande queda en ~5 px porque las clases sueltas van en una fila
 
@@ -19,3 +19,9 @@ frontends/mindmap/views/specs/notation/notation-layout.mjs (elección del layout
 
 ## Evidence
 - assets/specs-legibility-r11-2026-10-20/class.esquema-runtime.png
+
+## Resolution
+
+Closed: 2026-10-20
+Reason: Los sueltos en una grilla que maximiza el zoom; el esquema real queda en 11,1 px; e2e con class-large.yml
+Refs: 9c44bc1
