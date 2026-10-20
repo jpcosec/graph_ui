@@ -2,7 +2,7 @@
 title: "R13: El lienzo crece con la leyenda y queda más alto que la ventana; «Ver todo» corta la parte de abajo"
 severity: high
 category: legibility
-status: open
+status: closed
 ---
 # R13: El lienzo crece con la leyenda y queda más alto que la ventana; «Ver todo» corta la parte de abajo
 
@@ -23,3 +23,9 @@ frontends/mindmap/views/specs/notation/notation.css (alto de la vista); tests/e2
 - assets/specs-legibility-r13-2026-10-20/fit-component.contexto.png
 - assets/specs-legibility-r13-2026-10-20/fit-deployment.dev-aws.png
 - assets/specs-legibility-r13-2026-10-20/fit-component.kit-componentes.png
+
+## Resolution
+
+Closed: 2026-10-20
+Reason: La vista queda acotada a la ventana (min-height:0) y la leyenda hace scroll en el catálogo; el e2e mide el encuadre contra la ventana y falla sin el arreglo
+Refs: cb7623e
