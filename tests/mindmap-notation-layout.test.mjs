@@ -215,3 +215,20 @@ test('R6: con dos ramas paralelas, cada guarda va a la salida de su vértice y m
   }
   assert.equal(layoutIssues(layout).ambiguousGuards, 0);
 });
+
+test('§14: una nota de un paso es un nodo derivado justo después de él, unido por una línea punteada sin punta', () => {
+  const view = {notation: 'activity', layout: {kind: 'graph', direction: 'TB'},
+    nodes: [{doc: 'S.a', label: 'a', shape: 'rounded-box', data: {notes: 'una nota'}}, {doc: 'S.b', label: 'b', shape: 'rounded-box', data: {}}],
+    links: [{doc: 'R.ab', source: 'S.a', target: 'S.b', relation: 'next', draw: 'line', line: 'solid', target_end: 'open-arrow'}]};
+  const scene = buildScene(view);
+  assert.deepEqual(scene.nodes.map(n => n.id), ['S.a', 'S.a#note', 'S.b']);
+  const note = scene.nodes[1].glyph;
+  assert.equal(note.shape, 'note');
+  assert.equal(note.function, 'note');
+  assert.equal(note.label, 'una nota');
+  const link = scene.edges.find(e => e.target === 'S.a#note');
+  assert.equal(link.source, 'S.a');
+  assert.equal(link.dash, '2 3');
+  assert.equal(link.targetEnd, null);
+  assert.equal(link.sourceEnd, null);
+});

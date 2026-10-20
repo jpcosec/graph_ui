@@ -1,0 +1,53 @@
+# Test spec for the Specs view's activity drawing without partitions (spec2viz contract §14): UML
+# notes joined to their step by a dotted line, and a decision whose two branches meet again at a merge
+# (a diamond with no label). With no partition, the activity keeps the ELK layout path.
+id: activity.notes-merge
+title: "Activity: notes and merge"
+type: activity
+version: "0.1"
+data:
+  start: write
+  steps:
+    write:
+      label: write the change and its tests
+      next: push
+    push:
+      label: push the branch
+      next: build
+      notes: "Never push straight to the main branch."
+    build:
+      label: build and run the whole test suite
+      next: green
+    green:
+      label: ¿Is the suite green?
+      kind: decision
+      branches:
+        "yes": review
+        "no": fix
+    fix:
+      label: fix the failing tests
+      next: push
+    review:
+      label: read the diff and decide
+      next: verdict
+      notes: "A review looks at intent, not only at style."
+    verdict:
+      label: ¿Approved?
+      kind: decision
+      branches:
+        "yes": merge_now
+        later: queue
+    merge_now:
+      label: merge the branch now
+      next: join
+    queue:
+      label: put it in the merge queue
+      next: join
+    join:
+      label: ""
+      kind: merge
+      next: announce
+    announce:
+      label: announce the release
+      next: end
+  end: end

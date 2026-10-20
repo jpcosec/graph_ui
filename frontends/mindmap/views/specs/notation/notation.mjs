@@ -64,6 +64,10 @@ export function glyphSize(node) {
   return [Math.min(Math.max(w, (node.label || '').length * 7.2 + 32), 320), h + (node.keyword ? 14 : 0)];
 }
 
+// Glifo de un nodo derivado (una nota): sin documento ni notación propia; su forma la fija §14.
+const derivedGlyph = (doc, label, fn) => ({doc, element: '', label, glyph: '', shape: fn, function: fn,
+  label_style: '', keyword: '', compartments: [], markers: [], refs: [], data: {}, style: {}, derived: true});
+
 const terminal = end => (TERMINALS.includes(end) ? end : null);
 const dash = line => (line === 'dashed' ? '6 4' : line === 'dotted' ? '2 3' : undefined);
 
@@ -107,8 +111,22 @@ export function buildScene(view) {
       seen.add(p);
     }
   }
+  // Activity (contrato §14): una nota UML por `data.notes`, unida a su paso por una línea punteada.
+  // Es un nodo derivado del spec, no un documento: vive solo en la escena, justo después de su paso
+  // (el orden del spec es el que ELK respeta).
+  const ordered = [];
+  for (const n of view.nodes || []) {
+    ordered.push(n);
+    const text = n.data?.notes;
+    if (!text) continue;
+    const id = `${n.doc}#note`;
+    ordered.push(derivedGlyph(id, String(text), 'note'));
+    if (parentOf.has(n.doc)) parentOf.set(id, parentOf.get(n.doc));
+    edges.push({id: `${n.doc}#note-link`, source: n.doc, target: id, relation: 'note', label: '', sourceLabel: '', targetLabel: '',
+      dash: dash('dotted'), sourceEnd: null, targetEnd: null, order: 0, color: null, note: true});
+  }
   const containers = new Set(parentOf.values());
-  const nodes = (view.nodes || []).map(n => {
+  const nodes = ordered.map(n => {
     const [width, height] = glyphSize(n);
     return {id: n.doc, parent: parentOf.get(n.doc) || null, container: containers.has(n.doc), width, height, glyph: n};
   });

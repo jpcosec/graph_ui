@@ -122,3 +122,7 @@
 .legend-line{flex:none}
 .legend-line line{stroke-width:2}
 .notation-canvas .react-flow__handle{opacity:0;pointer-events:none}
+
+/* Activity (spec2viz §14): nota UML con la esquina doblada, unida a su paso por una línea punteada. */
+.glyph[data-function="note"]:not(.is-styled) .glyph-outline path{fill:var(--warning-soft);stroke:var(--warning-border)}
+.glyph[data-function="note"] .glyph-label{font-weight:400}
