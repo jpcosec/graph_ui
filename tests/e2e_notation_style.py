@@ -211,6 +211,9 @@ def test_glyphs_wear_the_resolved_style_and_the_legend_explains_it(store):
             assert {k["kind"]: k["fill"] for k in legend["kinds"]}["backend"] == "#e8f4e8"
             reads = next(link for link in legend["links"] if link["link"].endswith("reads"))
             assert reads["color"] == "#0072b2" and reads["stroke"] == _rgb("#0072b2"), reads
+            # La muestra de cada link dibuja la misma punta y el mismo trazo que una arista real de ese link.
+            from e2e_notation_sequence import assert_legend_links_match
+            assert_legend_links_match(page, 2)
             page.screenshot(path=str(store.parent / "style-light.png"))
 
             # Tema oscuro: cada color resuelto por tema cambia con el tema.

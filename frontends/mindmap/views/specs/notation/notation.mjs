@@ -69,7 +69,8 @@ const derivedGlyph = (doc, label, fn) => ({doc, element: '', label, glyph: '', s
   label_style: '', keyword: '', compartments: [], markers: [], refs: [], data: {}, style: {}, derived: true});
 
 const terminal = end => (TERMINALS.includes(end) ? end : null);
-const dash = line => (line === 'dashed' ? '6 4' : line === 'dotted' ? '2 3' : undefined);
+// Trazo de un link (LinkDoc.line); el mismo en el diagrama y en la muestra de la leyenda.
+export const dash = line => (line === 'dashed' ? '6 4' : line === 'dotted' ? '2 3' : undefined);
 
 // Escena: nodos con su contenedor (draw: nest → el destino vive dentro del
 // origen), aristas dibujables y avisos. Un link cuyo `draw` no está soportado
@@ -93,7 +94,7 @@ export function buildScene(view) {
     if (!SUPPORTED_DRAWS.includes(link.draw)) fallbackDraws.add(link.draw);
     edges.push({
       id: link.doc || `${link.source}->${link.target}#${index}`, source: link.source, target: link.target,
-      relation: link.relation, label: link.label || '',
+      relation: link.relation, link: link.link || '', label: link.label || '',
       // Rótulos de extremo (§8d): plantillas del LinkDoc ya resueltas por spec2viz
       // (p. ej. multiplicidades de una asociación UML).
       sourceLabel: link.source_label || '', targetLabel: link.target_label || '',
@@ -172,7 +173,7 @@ export function laneScene(view) {
     const from = lane.get(link.source), to = lane.get(link.target);
     return {id: link.doc || `${link.source}->${link.target}#${index}`, order: link.order || row + 1, row,
       from: from.id, to: to.id, x1: from.x, x2: to.x, y: LANE.top + head + LANE.row * (row + 1), self: from.id === to.id,
-      relation: link.relation, label: link.label || '', dash: dash(link.line),
+      relation: link.relation, link: link.link || '', label: link.label || '', dash: dash(link.line),
       sourceEnd: terminal(link.source_end), targetEnd: terminal(link.target_end)};
   });
   for (const draw of offDraws) notices.push(`El dibujo «${draw}» no es un mensaje de secuencia: esas relaciones se dibujan como mensajes.`);

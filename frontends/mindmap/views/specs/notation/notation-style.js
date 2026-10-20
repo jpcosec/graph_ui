@@ -2,6 +2,10 @@
 import {useEffect, useState} from 'react';
 import {html} from '../../../shared/html.js';
 import {OUTLINES, OUTLINE_SHAPES, glyphVars, iconKey, themed} from './notation-style.mjs';
+import {TERMINALS, dash} from './notation.mjs';
+
+// La punta de un extremo, con el mismo <marker> que usa el diagrama (TerminalDefs).
+const marker = end => (TERMINALS.includes(end) ? `url(#nv-${end})` : undefined);
 
 let lucide = null;
 const loadLucide = () => (lucide ||= import('lucide').then(m => m.icons || m.default?.icons || {}));
@@ -49,8 +53,9 @@ export function NotationLegend({legend, skin, ink, notation}) {
     ${kinds.map(k => html`<li key=${'kind:' + k.kind} className="legend-kind" data-kind=${k.kind} data-fill=${themed(k.fill, skin) || ''}>
       ${swatch(k.shape || 'box', k)}<${GlyphIcon} icons=${icons} name=${k.icon}/><span className="legend-title">${k.kind}</span><small>kind</small></li>`)}
     ${links.map(l => html`<li key=${l.link} className="legend-link" data-link=${l.link} data-color=${themed(l.color, skin) || ''}>
-      <svg className="legend-line" width="34" height="10" aria-hidden="true"><line x1="1" y1="5" x2="33" y2="5"
-        style=${{stroke: themed(l.color, skin) || 'var(--edge)'}} strokeDasharray=${l.line === 'dashed' ? '6 4' : l.line === 'dotted' ? '2 3' : undefined}/></svg>
+      <svg className="legend-line" width="34" height="14" aria-hidden="true"><line x1="3" y1="7" x2="31" y2="7"
+        style=${{stroke: themed(l.color, skin) || 'var(--edge)'}} strokeDasharray=${dash(l.line)}
+        markerStart=${marker(l.source_end)} markerEnd=${marker(l.target_end)}/></svg>
       <span className="legend-title">${l.title}</span><small>${l.relation === '*' ? 'cualquier relación' : l.relation}</small></li>`)}</ul>
   </section>`;
 }

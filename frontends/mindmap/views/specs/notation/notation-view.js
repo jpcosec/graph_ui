@@ -104,7 +104,7 @@ function LanesDiagram({scene}) {
           ? `M${m.x1},${m.y - LANE.row / 3} h${LANE.loop} v${LANE.row / 3 * 2} h${-LANE.loop}`
           : `M${m.x1},${m.y} L${m.x2},${m.y}`;
         const tx = m.self ? m.x1 + LANE.loop + 6 : (m.x1 + m.x2) / 2, ty = m.self ? m.y + 4 : m.y - 6;
-        return html`<g key=${m.id} className="lane-message" data-message=${m.id} data-order=${m.order} data-from=${m.from} data-to=${m.to} data-y=${m.y}>
+        return html`<g key=${m.id} className="lane-message" data-link=${m.link || ''} data-message=${m.id} data-order=${m.order} data-from=${m.from} data-to=${m.to} data-y=${m.y}>
           <path d=${path} className="message-line" strokeDasharray=${m.dash} markerEnd=${ends.markerEnd} markerStart=${ends.markerStart}/>
           <text x=${tx} y=${ty} textAnchor=${m.self ? 'start' : 'middle'} className="message-label">${m.order}. ${m.label}</text>
         </g>`;
@@ -170,7 +170,7 @@ function NotationEdge({id, source, target, sourceX, sourceY, targetX, targetY, s
   const routed = data?.points && data.points.length > 1;
   const [fallback] = routed ? [null] : getSmoothStepPath({sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition});
   const ends = routed ? [data.points[0], data.points[data.points.length - 1]] : [{x: sourceX, y: sourceY}, {x: targetX, y: targetY}];
-  return html`<g className="notation-edge-ends" data-source=${source} data-target=${target}></g>
+  return html`<g className="notation-edge-ends" data-source=${source} data-target=${target} data-link=${data?.link || ''}></g>
     <${BaseEdge} id=${id} path=${routed ? pathOf(data.points) : fallback} style=${style} markerEnd=${markerEnd} markerStart=${markerStart}/>
     <${EdgeLabelRenderer}>
       ${data?.labelBox ? html`<div className=${'notation-edge-label nodrag nopan' + (data.hovered ? ' is-hovered' : '')} data-edge=${id}
@@ -190,7 +190,7 @@ function edgesOf(edges, selected, hovered, setHovered, skin = 'light') {
     const active = focus ? e.id === focus : selected && (e.source === selected || e.target === selected);
     const dimmed = focus ? e.id !== focus : selected && !active;
     return {id: e.id, source: e.source, target: e.target, type: 'notation',
-      data: {relation: e.relation, sourceLabel: e.sourceLabel, targetLabel: e.targetLabel, points: e.points, labelBox: e.labelBox,
+      data: {relation: e.relation, link: e.link, sourceLabel: e.sourceLabel, targetLabel: e.targetLabel, points: e.points, labelBox: e.labelBox,
         hovered: focus === e.id, onHover: setHovered}, className: 'notation-edge' + (focus === e.id ? ' is-hovered' : ''),
       markerEnd: e.targetEnd ? 'nv-' + e.targetEnd : undefined, markerStart: e.sourceEnd ? 'nv-' + e.sourceEnd : undefined,
       style: {stroke: focus === e.id ? 'var(--accent)' : themed(e.color, skin) || 'var(--edge)', strokeWidth: focus === e.id ? 2.8 : active ? 2.2 : 1.4, strokeDasharray: e.dash, opacity: dimmed ? .2 : 1}};
