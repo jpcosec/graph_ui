@@ -118,11 +118,17 @@ MEASURE = r"""() => {
     const a = rect(initial), b = first && allNodes.get(first.dataset.target);
     initialAbove = Boolean(b) && (a.top + a.bottom) / 2 < (b.top + b.bottom) / 2;
   }
+  // Encuadre: cada nodo (su caja y lo que dibuja dentro) completo en el lienzo, con margen.
+  const canvas = rect(document.querySelector('.notation-canvas'));
+  const minMargin = Math.min(...[...document.querySelectorAll('.notation-canvas .react-flow__node')].map(n => {
+    const boxes = [rect(n), ...[...n.querySelectorAll('.glyph, .glyph > *')].map(rect)];
+    return Math.min(...boxes.map(b => Math.min(b.left - canvas.left, canvas.right - b.right, b.top - canvas.top, canvas.bottom - b.bottom)));
+  }));
   const minimap = document.querySelector('.notation-canvas .react-flow__minimap');
   const minimapCovers = minimap ? [...allNodes.values()].filter(r => overlap(r, rect(minimap))).length : null;
   return {zoom, minTextPx, texts: texts.length, labelOverlaps, spills, containers, diamonds, crossings, looseEnds, headerCrossings,
           maxLabelDistance: labelDistances.length ? Math.max(...labelDistances) : 0, labels: labelDistances.length, initialAbove, minimapCovers,
-          guards: guardMargins.length, minGuardMargin: guardMargins.length ? Math.min(...guardMargins) : null};
+          guards: guardMargins.length, minGuardMargin: guardMargins.length ? Math.min(...guardMargins) : null, minMargin};
 }"""
 
 
@@ -165,11 +171,32 @@ def store(tmp_path_factory):
 
 
 def _round_two(result):
-    """R2, R3, R5 on any graph spec: ends on their nodes, labels on their edge, titles uncrossed."""
+    """R2, R3, R5 on any graph spec: ends on their nodes, labels on their edge, titles uncrossed; and after
+    «Ver todo» every node, with everything it draws inside, fully in the canvas with >= 8 px of margin."""
     assert result["texts"] > 0, result  # something was drawn and measured
+    assert result["minMargin"] >= 8, result
     assert result["looseEnds"] == 0, result
     assert result["maxLabelDistance"] <= 20, result
     assert result["headerCrossings"] == 0, result
+
+
+FRAMED = r"""() => {
+  const rect = (e) => e.getBoundingClientRect(), canvas = rect(document.querySelector('.notation-canvas'));
+  const nodes = [...document.querySelectorAll('.notation-canvas .react-flow__node, .notation-canvas .lane-head, .notation-canvas .lane-message')];
+  return nodes.length ? Math.min(...nodes.map((n) => [rect(n), ...[...n.querySelectorAll('.glyph, .glyph > *, .message-label')].map(rect)]
+    .reduce((m, b) => Math.min(m, b.left - canvas.left, canvas.right - b.right, b.top - canvas.top, canvas.bottom - b.bottom), Infinity))) : null;
+}"""
+
+
+def assert_nodes_framed(page, margin=8):
+    """Every node (and what it draws inside) fully in the canvas with >= `margin` px: as the view stands
+    (its automatic framing) and again after «Ver todo»."""
+    before = page.evaluate(FRAMED)
+    page.get_by_role("button", name="⛶ Ver todo").click()
+    page.wait_for_timeout(500)
+    least = page.evaluate(FRAMED)
+    assert before is not None and before >= margin and least >= margin, (before, least)
+    return least
 
 
 def _measure(page, spec):

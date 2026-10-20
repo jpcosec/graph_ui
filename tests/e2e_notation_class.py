@@ -6,6 +6,8 @@
 - R10: tests/fixtures/notation-class/class-large.yml has 26 records, only 8 of them related (15
   associations). With «Ver todo» it reads at >= 10 px: the 18 unrelated ones go in a grid (more than one
   row and one column) beside or below the related ones, and every class is inside the canvas.
+- Framing: opening a spec straight away (as a reload with it chosen does), the automatic framing and
+  «Ver todo» keep every class box, with all its compartments, inside the canvas with >= 8 px of margin.
 """
 import shutil
 import subprocess
@@ -13,7 +15,7 @@ from pathlib import Path
 
 import pytest
 
-from e2e_notation_legibility import _measure, _round_two, _serve, sync_playwright
+from e2e_notation_legibility import FRAMED, _measure, _round_two, _serve, assert_nodes_framed, sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "tests" / "fixtures" / "notation-class"
@@ -105,6 +107,28 @@ def test_r10_unrelated_classes_go_in_a_grid_and_the_whole_reads(store):
             }""")
             assert grid["loose"] == UNRELATED and grid["rows"] > 1 and grid["cols"] > 1 and grid["outside"] == 0, grid
             assert not errors, errors
+            browser.close()
+    finally:
+        process.terminate()
+        process.wait()
+
+
+def test_opening_a_spec_frames_every_box_with_its_compartments(store):
+    process, base = _serve(store)
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1800, "height": 1200})
+            for spec in (RECORDS, LARGE):
+                page.goto(f"{base}/specs/notation")
+                page.wait_for_selector(".notation-catalog button", timeout=30000)
+                page.evaluate("id => localStorage.setItem('kb-notation-spec', id)", spec)
+                page.goto(f"{base}/specs/notation")
+                page.wait_for_function("s => [...document.querySelectorAll('.notation-canvas .react-flow__node')].some(n => n.dataset.id.includes(s + '.'))",
+                                       arg=spec, timeout=60000)
+                page.wait_for_timeout(2500)
+                assert page.evaluate(FRAMED) >= 8, spec
+                assert_nodes_framed(page)
             browser.close()
     finally:
         process.terminate()

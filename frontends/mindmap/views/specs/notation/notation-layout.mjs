@@ -26,7 +26,7 @@ export const DIAMOND_RATIO = 2;
 export const approximateMeasure = (text, size) => (text || '').length * size * 0.56;
 
 const lineHeight = size => Math.ceil(size * FONT.line);
-const KEYWORD = lineHeight(FONT.small), COMPARTMENT_ROW = lineHeight(FONT.small);
+const KEYWORD = lineHeight(FONT.small), COMPARTMENT_ROW = lineHeight(FONT.small), COMPARTMENT_CHROME = 9;
 
 // Corte en palabras para que una línea no pase de maxWidth; una palabra más larga se parte.
 export function wrapText(text, maxWidth, size, measure = approximateMeasure) {
@@ -80,7 +80,8 @@ export function sizeGlyph(glyph, {measure = approximateMeasure, wrapWidth = 200}
   const keyword = glyph.keyword ? KEYWORD : 0;
   const rows = (glyph.compartments || []).filter(c => c.items && c.items.length);
   const itemWidth = Math.max(0, ...rows.flatMap(c => c.items.map(i => measure(compartmentLine(i), FONT.small))));
-  const body = rows.reduce((h, c) => h + 8 + c.items.length * COMPARTMENT_ROW, 0);
+  // Un compartimento mide lo que dibuja el CSS: 4 px arriba y abajo, 1 de borde y un renglón por item.
+  const body = rows.reduce((h, c) => h + COMPARTMENT_CHROME + c.items.length * COMPARTMENT_ROW, 0);
   const [minW, minH] = MIN[shape] || [120, 40];
   // Un ícono va antes del rótulo; en las formas de contorno, el texto va en su área interior y la caja
   // crece hasta que quepa (shapeBox).

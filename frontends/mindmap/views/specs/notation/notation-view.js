@@ -1,5 +1,5 @@
 import {useState, useEffect, useMemo, useRef} from 'react';
-import {ReactFlow, ReactFlowProvider, Controls, MiniMap, Handle, Position, useReactFlow, applyNodeChanges, BaseEdge, EdgeLabelRenderer, getSmoothStepPath} from '@xyflow/react';
+import {ReactFlow, ReactFlowProvider, Controls, MiniMap, Handle, Position, useReactFlow, useNodesInitialized, applyNodeChanges, BaseEdge, EdgeLabelRenderer, getSmoothStepPath} from '@xyflow/react';
 import {html} from '../../../shared/html.js';
 import {request} from '../../../shell/api.js';
 import {useSource} from '../../../source/source.js';
@@ -17,7 +17,7 @@ const STORAGE_KEY = 'kb-notation-spec';
 const MINIMAP_KEY = 'kb-notation-minimap';
 // MiniMap de React Flow: 200x150 abajo a la derecha, a 15 px del borde.
 const MINIMAP = {width: 200, height: 150, margin: 15};
-const FIT_PADDING = 0.03;
+const FIT_PADDING = 0.03, FIT_MARGIN = 16;
 const HANDLES = {TB: [Position.Top, Position.Bottom], BT: [Position.Bottom, Position.Top],
   LR: [Position.Left, Position.Right], RL: [Position.Right, Position.Left]};
 
@@ -38,6 +38,8 @@ function canvasMeasure(element, weight = 600) {
 
 // Layout ELK (notation-layout.mjs): el candidato que mejor cabe en el lienzo, en nodos y aristas de React Flow.
 async function layoutGraph(scene, element) {
+  // Se mide con la fuente real: si la web font aún no cargó, measureText daría el ancho de la de reemplazo.
+  if (document.fonts?.ready) await document.fonts.ready;
   const box = element.getBoundingClientRect();
   const best = await bestLayout(await elkReady(), scene, {measure: canvasMeasure(element), canvas: {width: box.width, height: box.height}});
   if (!best) return {nodes: [], edges: []};
@@ -220,7 +222,8 @@ function NotationCanvas({skin}) {
   const [specId, setSpecId] = useState(() => { try { return localStorage.getItem(STORAGE_KEY); } catch { return null; } });
   const current = specIds.includes(specId) ? specId : specIds[0] || null;
   const [state, setState] = useState({phase: 'idle', view: null, error: null});
-  const {fitView, setViewport} = useReactFlow();
+  const {fitView, setViewport, getNodes, getNodesBounds} = useReactFlow();
+  const nodesMeasured = useNodesInitialized();
   const [extent, setExtent] = useState(null);
   // R4: el minimapa es plegable (recordado; arranca plegado) y, si se muestra, «Ver todo» encuadra
   // el diagrama fuera de su esquina para que no tape nodos.
@@ -228,20 +231,23 @@ function NotationCanvas({skin}) {
   const toggleMinimap = () => setMinimap(on => { try { localStorage.setItem(MINIMAP_KEY, on ? '0' : '1'); } catch {} return !on; });
   // «Ver todo» encuadra la caja entera del layout de ELK, rutas de aristas incluidas (fitView solo
   // mira los nodos y dejaba aristas fuera del lienzo).
+  // Encuadra la caja del layout unida a las cajas YA medidas de los nodos (lo que React Flow dibujó,
+  // si algo creció al renderizarse), con un margen que nunca baja de FIT_MARGIN px en pantalla.
   const fitAll = (duration = 200) => {
     const el = canvasRef.current;
     if (!extent || !el) return fitView({padding: FIT_PADDING, maxZoom: 1.1, duration});
     const {width, height} = el.getBoundingClientRect();
-    const fit = (w, h) => Math.min(1.1, Math.min(w / extent.width, h / extent.height) / (1 + FIT_PADDING));
-    if (!minimap) {
-      const zoom = fit(width, height);
-      return setViewport({x: (width - extent.width * zoom) / 2, y: (height - extent.height * zoom) / 2, zoom}, {duration});
-    }
+    const drawn = getNodes().length ? getNodesBounds(getNodes()) : {x: 0, y: 0, width: 0, height: 0};
+    const x0 = Math.min(0, drawn.x), y0 = Math.min(0, drawn.y);
+    const box = {x: x0, y: y0, width: Math.max(extent.width, drawn.x + drawn.width) - x0, height: Math.max(extent.height, drawn.y + drawn.height) - y0};
+    // El margen es el mayor entre el relativo (FIT_PADDING) y el absoluto (FIT_MARGIN px por lado), no la suma.
+    const usable = n => Math.min(n / (1 + FIT_PADDING), n - FIT_MARGIN * 2);
+    const fit = (w, h) => Math.min(1.1, usable(w) / box.width, usable(h) / box.height);
+    const place = (w, h, zoom) => setViewport({x: (w - box.width * zoom) / 2 - box.x * zoom, y: (h - box.height * zoom) / 2 - box.y * zoom, zoom}, {duration});
+    if (!minimap) return place(width, height, fit(width, height));
     const beside = width - MINIMAP.width - MINIMAP.margin * 2, above = height - MINIMAP.height - MINIMAP.margin * 2;
     const [zoomBeside, zoomAbove] = [fit(beside, height), fit(width, above)];
-    const zoom = Math.max(zoomBeside, zoomAbove);
-    const [w, h] = zoomBeside >= zoomAbove ? [beside, height] : [width, above];
-    setViewport({x: (w - extent.width * zoom) / 2, y: (h - extent.height * zoom) / 2, zoom}, {duration});
+    return zoomBeside >= zoomAbove ? place(beside, height, zoomBeside) : place(width, above, zoomAbove);
   };
 
   useEffect(() => {
@@ -257,10 +263,12 @@ function NotationCanvas({skin}) {
   // R11: las secuencias se encuadran por escala (no viven en React Flow): «Ver todo» al abrir y a pedido.
   // Se miden con la fuente real (rótulos en peso normal) y su ancho de corte depende del lienzo.
   const [canvasSize, setCanvasSize] = useState(null);
+  const [fontsReady, setFontsReady] = useState(() => !document.fonts || document.fonts.status === 'loaded');
+  useEffect(() => { if (!fontsReady && document.fonts?.ready) document.fonts.ready.then(() => setFontsReady(true)); }, [fontsReady]);
   const isLanes = state.view?.layout?.kind === 'lanes';
   const laneCanvas = isLanes ? canvasSize : null;
   const scene = useMemo(() => (state.view ? sceneFor(state.view, {measure: canvasMeasure(document.body, 400), canvas: laneCanvas}) : null),
-    [state.view, laneCanvas?.width, laneCanvas?.height]);
+    [state.view, laneCanvas?.width, laneCanvas?.height, isLanes && fontsReady]);
   const [flowNodes, setFlowNodes] = useState([]);
   const [flowEdges, setFlowEdges] = useState([]);
   const canvasRef = useRef(null);
@@ -273,7 +281,8 @@ function NotationCanvas({skin}) {
     });
     return () => { cancelled = true; };
   }, [scene]);
-  useEffect(() => { const t = setTimeout(() => fitAll(), 60); return () => clearTimeout(t); }, [extent, minimap]);
+  // Se vuelve a encuadrar cuando React Flow termina de medir los nodos (las cajas reales, no las del layout).
+  useEffect(() => { const t = setTimeout(() => fitAll(), 60); return () => clearTimeout(t); }, [extent, minimap, nodesMeasured]);
   // Plegar o desplegar el panel de workers cambia el lienzo: se vuelve a encuadrar.
   useEffect(() => {
     const el = canvasRef.current;

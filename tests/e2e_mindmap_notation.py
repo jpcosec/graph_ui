@@ -103,9 +103,13 @@ def test_specs_view_draws_nest_markers_compartments_and_terminals():
             # 11 links: 3 nest se vuelven contención, 8 transiciones se dibujan.
             assert page.locator(".react-flow__edge").count() == 8
             assert page.locator(".notation-notices").count() == 0
+            from e2e_notation_legibility import assert_nodes_framed
+            assert_nodes_framed(page)  # «Ver todo»: cada nodo completo en el lienzo, con margen
 
             page.click('[data-spec="class.sldb-models"]')
             page.wait_for_selector('[data-doc="SpecNodeDoc:class.sldb-models.SpecDoc"]', timeout=15000)
+            page.wait_for_timeout(700)
+            assert_nodes_framed(page)
             attrs = page.locator('[data-doc="SpecNodeDoc:class.sldb-models.SpecDoc"] .glyph-compartment li').all_inner_texts()
             assert "id: str" in attrs and any(a.startswith("nodes:") for a in attrs), attrs
             assert page.locator('.react-flow__edge path[marker-end*="nv-hollow-triangle"]').count() >= 1

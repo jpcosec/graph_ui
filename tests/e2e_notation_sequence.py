@@ -161,6 +161,8 @@ def test_r11_view_all_frames_every_participant_legibly_and_scrolls_to_the_last_m
             short = page.evaluate(LANES)
             assert short["participants"] == 4 and short["headsInside"] and not short["scrolls"], short
             assert short["visible"] == short["labels"] == 6 and short["minTextPx"] >= 10, short
+            from e2e_notation_legibility import assert_nodes_framed
+            assert_nodes_framed(page)  # entera: participantes y mensajes con margen
             # Ancha: «Ver todo» (también tras «100 %») encuadra a los 11 participantes a >= 10 px.
             _open(page, base)
             page.click(".notation-actual-size")

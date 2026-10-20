@@ -211,6 +211,9 @@ def test_glyphs_wear_the_resolved_style_and_the_legend_explains_it(store):
             assert {k["kind"]: k["fill"] for k in legend["kinds"]}["backend"] == "#e8f4e8"
             reads = next(link for link in legend["links"] if link["link"].endswith("reads"))
             assert reads["color"] == "#0072b2" and reads["stroke"] == _rgb("#0072b2"), reads
+            # «Ver todo» encuadra cada nodo completo (formas de contorno incluidas) con margen.
+            from e2e_notation_legibility import assert_nodes_framed
+            assert_nodes_framed(page)
             # La muestra de cada link dibuja la misma punta y el mismo trazo que una arista real de ese link.
             from e2e_notation_sequence import assert_legend_links_match
             assert_legend_links_match(page, 2)
