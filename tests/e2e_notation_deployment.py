@@ -12,10 +12,15 @@ protocol, and has a «deploy» (artifact -> node) and a «manifest» (artifact -
   the deploy and the manifest) are left of the account, so no edge has to come back around it;
 - the usual legibility rules hold after «Ver todo».
 
+tests/fixtures/notation-deployment/deployment-large.yml is too wide for ELK to read at >= 10 px (issue
+R8): it gets the own deployment layout (data-layout="deployment") and must read at >= 10 px after «Ver
+todo», with every element inside its container, the client left of the account (outside in), no edge
+label over a node or a container title, and the usual legibility rules.
+
 Small deployments must not get worse: this fixture and the dense one of the legibility e2e
 (tests/fixtures/notation-legibility/deployment-dense.yml) keep the ELK layout and at least the zoom
 they read at before the deployment layout existed (BASELINE). In every deployment, no container
-title touches its container's border.
+title touches its container's border (>= 8 px to each side, >= 4 px to the top).
 """
 import shutil
 import subprocess
@@ -32,12 +37,25 @@ SPEC = "deployment.nested-paths"
 # Antes del layout propio de despliegues (commit 5576e23): motor y zoom tras «Ver todo» a 1800x1200.
 BASELINE = {"deployment.nested-paths": ("elk", 1.09), "deployment.legibility-dense": ("elk", 1.0)}
 
+LARGE = "deployment.large-nested"
+LARGE_CONTAINS = {"vpc": "account", "idp": "account", "queue_host": "account", "storage_host": "account", "model_host": "account",
+                  "lb": "vpc", "cluster": "vpc", "db_host": "vpc", "svc_edge": "cluster", "svc_jobs": "cluster", "svc_gateway": "cluster",
+                  "img_edge": "svc_edge", "img_tunnel": "svc_jobs", "img_gateway": "svc_gateway", "db_vault": "db_host", "model": "model_host",
+                  "browsers": "internet"}
+
+# Rótulos de arista encima de un nodo o del título de un contenedor (tapan texto).
+COVERED = r"""() => { const r = e => e.getBoundingClientRect();
+  const boxes = [...document.querySelectorAll('.notation-canvas .glyph:not(.is-container), .notation-canvas .glyph.is-container > .glyph-head')].map(r);
+  return [...document.querySelectorAll('.notation-canvas .notation-edge-label')].filter(l => { const a = r(l);
+    return boxes.some(b => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1); }).map(l => l.innerText); }"""
+
 # Cada título de contenedor queda dentro de su caja, con margen (no toca el borde).
 TITLES = r"""() => [...document.querySelectorAll('.notation-canvas .glyph.is-container')].map(g => {
   const box = g.getBoundingClientRect(), head = g.querySelector(':scope > .glyph-head');
   const texts = [...head.querySelectorAll('.glyph-keyword, .glyph-label, svg.glyph-icon')].map(t => t.getBoundingClientRect());
-  const margin = Math.min(...texts.map(t => Math.min(t.left - box.left, box.right - t.right, t.top - box.top)));
-  return {title: head.innerText.replace(/\s+/g, ' ').trim(), margin: +margin.toFixed(1)};
+  const side = Math.min(...texts.map(t => Math.min(t.left - box.left, box.right - t.right)));
+  const top = Math.min(...texts.map(t => t.top - box.top));
+  return {title: head.innerText.replace(/\s+/g, ' ').trim(), side: +side.toFixed(1), top: +top.toFixed(1)};
 })"""
 CONTAINS = {"network": "account", "cluster": "network", "db_host": "network", "api_node": "cluster", "worker_node": "cluster",
             "api_container": "api_node", "worker_container": "worker_node", "orders_db": "db_host", "api_image": "registry"}
@@ -129,7 +147,38 @@ def test_small_deployments_do_not_get_worse_and_titles_stay_inside(store):
                 assert page.get_attribute(".notation-canvas", "data-layout") == engine, spec
                 assert result["zoom"] >= zoom and result["minTextPx"] >= 10, (spec, result)
                 titles = page.evaluate(TITLES)
-                assert titles and all(t["margin"] >= 4 for t in titles), (spec, [t for t in titles if t["margin"] < 4])
+                assert titles and all(t["side"] >= 8 and t["top"] >= 4 for t in titles), (spec, [t for t in titles if t["side"] < 8 or t["top"] < 4])
+            browser.close()
+    finally:
+        process.terminate()
+        process.wait()
+
+
+def test_a_large_nested_deployment_reads_whole_with_its_own_layout(store):
+    process, base = _serve(store)
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1800, "height": 1200})
+            errors = []
+            page.on("pageerror", lambda e: errors.append(str(e)))
+            page.goto(f"{base}/specs/notation")
+            page.wait_for_selector(".notation-catalog button", timeout=30000)
+            result = _measure(page, LARGE)
+            assert page.get_attribute(".notation-canvas", "data-layout") == "deployment"
+            assert result["minTextPx"] >= 10, result
+            assert result["labelOverlaps"] == 0 and result["spills"] == 0 and result["crossings"] == 0, result
+            _round_two(result)
+            assert page.evaluate(COVERED) == []
+            titles = page.evaluate(TITLES)
+            assert all(t["side"] >= 8 and t["top"] >= 4 for t in titles), [t for t in titles if t["side"] < 8 or t["top"] < 4]
+            boxes = page.evaluate(DEPLOYMENT)["boxes"]
+            for child, parent in LARGE_CONTAINS.items():
+                c, p = boxes[child], boxes[parent]
+                assert p["left"] - 1 <= c["left"] and c["right"] <= p["right"] + 1 and p["top"] - 1 <= c["top"] and c["bottom"] <= p["bottom"] + 1, (child, parent)
+            assert boxes["internet"]["right"] <= boxes["account"]["left"], (boxes["internet"], boxes["account"])
+            page.screenshot(path=str(store.parent / "deployment-large.png"))
+            assert not errors, errors
             browser.close()
     finally:
         process.terminate()

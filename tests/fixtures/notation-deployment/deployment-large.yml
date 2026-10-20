@@ -1,0 +1,116 @@
+# Test spec for the Specs view's own deployment layout (issue R8): a large deployment nested four levels
+# deep (account > network > cluster > service > image) with 22 labelled connections, too wide for ELK
+# to read at >= 10 px after «Ver todo». The client is outside the account; the identity provider, the
+# queue, the object storage and the model provider are inside it, next to the network.
+id: deployment.large-nested
+title: "Deployment: large, nested and labelled"
+type: deployment
+version: "0.1"
+data:
+  nodes:
+    internet:
+      label: Internet
+      kind: client
+      contains: [browsers]
+    account:
+      label: "Cloud account 000000000000 · region-1"
+      kind: account
+      contains: [vpc, idp, queue_host, storage_host, model_host]
+    vpc:
+      label: "Private network (private subnets except the load balancer)"
+      kind: vpc
+      contains: [lb, cluster, db_host]
+    lb:
+      label: "«device» load balancer front-dev-lb"
+      kind: network
+      contains: [rule_public, rule_panel]
+    cluster:
+      label: "«executionEnvironment» container cluster front-dev-cluster"
+      kind: cluster
+      contains: [svc_edge, svc_worker, svc_jobs, svc_control, svc_runtime, svc_gateway]
+    svc_edge:
+      label: "Container service · S1 edge"
+      kind: server
+      contains: [img_edge]
+    svc_worker:
+      label: "Container service · S5 worker"
+      kind: server
+      contains: [img_worker]
+    svc_jobs:
+      label: "Container service · one-off tasks"
+      kind: server
+      contains: [img_migrate, img_plan, img_tunnel]
+    svc_control:
+      label: "Container service · S2 control"
+      kind: server
+      contains: [img_control]
+    svc_runtime:
+      label: "Container service · S3 runtime"
+      kind: server
+      contains: [img_runtime]
+    svc_gateway:
+      label: "Container service · S4 model gateway"
+      kind: server
+      contains: [img_gateway]
+    db_host:
+      label: "«device» database server front-dev-postgres + front-dev-pii"
+      kind: database
+      contains: [db_platform, db_runtime, db_vault]
+    idp:
+      label: "«external» identity provider login.dev.example.com"
+      kind: auth
+      contains: [user_pool]
+    queue_host:
+      label: "«device» message queue"
+      kind: queue
+      contains: [fifo]
+    storage_host:
+      label: "«device» object storage"
+      kind: storage
+      contains: [bucket]
+    model_host:
+      label: "«external» model provider"
+      kind: cloud
+      contains: [model]
+  artifacts:
+    browsers: {label: "Browser, messaging apps, chat widgets", kind: client}
+    rule_public: {label: "public rules: /basic/webhooks/*, /basic/demo/*, /basic/api/health", kind: config}
+    rule_panel: {label: "rule /basic, /basic/* with authentication", kind: config}
+    img_edge: {label: "edge image · front edge", kind: image}
+    img_worker: {label: "worker image · front worker", kind: image}
+    img_migrate: {label: "migration · front migrate (control image)", kind: image}
+    img_plan: {label: "private plan (CI identity; state in the plan store)", kind: image}
+    img_tunnel: {label: "session tunnel (12 h; applied: not verified)", kind: image}
+    img_control: {label: "control image · front control", kind: image}
+    img_runtime: {label: "runtime image · front runtime (+ffmpeg)", kind: image}
+    img_gateway: {label: "gateway image · model gateway server", kind: image}
+    db_platform: {label: platform database, kind: database}
+    db_runtime: {label: "runtime database (+ gateway schema)", kind: database}
+    db_vault: {label: vault database (PII), kind: database}
+    user_pool: {label: "user pool · admins group → basic client", kind: auth}
+    fifo: {label: "front-dev-basic.fifo + dead letters", kind: queue}
+    bucket: {label: front-dev-basic-media, kind: storage}
+    model: {label: "model.provider.lite-v1:0", kind: model}
+  connections:
+    - {from: browsers, to: rule_public, protocol: HTTPS}
+    - {from: browsers, to: rule_panel, protocol: HTTPS}
+    - {from: rule_public, to: img_edge, protocol: HTTP}
+    - {from: rule_panel, to: img_edge, protocol: HTTP, label: "only to S1 (edge target group)"}
+    - {from: rule_panel, to: user_pool, protocol: OIDC}
+    - {from: img_edge, to: img_control, label: Service Connect}
+    - {from: img_edge, to: img_runtime, label: Service Connect}
+    - {from: img_worker, to: img_control, label: Service Connect}
+    - {from: img_worker, to: img_runtime, label: Service Connect}
+    - {from: img_worker, to: fifo, protocol: SQS}
+    - {from: img_control, to: img_gateway, label: Service Connect}
+    - {from: img_runtime, to: img_gateway, label: Service Connect}
+    - {from: img_runtime, to: img_control, label: Service Connect}
+    - {from: img_control, to: db_platform, protocol: Postgres}
+    - {from: img_runtime, to: db_runtime, protocol: Postgres}
+    - {from: img_runtime, to: db_vault, protocol: Postgres}
+    - {from: img_gateway, to: db_runtime, protocol: Postgres}
+    - {from: img_migrate, to: db_platform, protocol: Postgres}
+    - {from: img_control, to: bucket, protocol: S3}
+    - {from: img_runtime, to: bucket, protocol: S3}
+    - {from: img_gateway, to: model, protocol: SDK}
+    - {from: img_worker, to: img_gateway, label: Service Connect}

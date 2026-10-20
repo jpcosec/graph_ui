@@ -79,7 +79,13 @@ las clases, que es la misma en ambos temas.
   se usa el orden del spec ni el plegado en filas (invierten las aristas de los
   clientes). Si el diagrama no se lee, ELK se reintenta sin reservar sitio a
   los rótulos de arista y luego reservándolo solo a los que no cupieron; un
-  rótulo encima de un nodo descarta al candidato.
+  rótulo encima de un nodo descarta al candidato. Si aun así un despliegue no
+  llega a 10 px (grande y anidado), usa su layout propio
+  (`notation-deployment.mjs`, `data-layout="deployment"`): cada contenedor
+  acomoda a sus hijos en columnas por flujo (de afuera hacia adentro) o en una
+  grilla, con la combinación que más zoom da en el lienzo, y las aristas se
+  rutean ortogonales con A* esquivando nodos y títulos. Un título de
+  contenedor reserva el sitio de su ícono.
   Requiere spec2viz instalado y modo
   local (en remote, 501). Solo lectura. Contrato:
   `spec2viz/docs/notation-contract.md`.

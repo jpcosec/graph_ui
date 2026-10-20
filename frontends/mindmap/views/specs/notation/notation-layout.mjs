@@ -10,6 +10,7 @@
 import {compartmentLine} from './notation.mjs';
 import {shapeBox, clipToContour} from './notation-style.mjs';
 import {swimlaneLayout} from './notation-swimlanes.mjs';
+import {deploymentLayout} from './notation-deployment.mjs';
 
 // Todo el texto del diagrama a 12.5 px: con el zoom de «Ver todo» por encima de 0.8 se lee a ≥10 px.
 export const FONT = {label: 12.5, small: 12.5, edge: 12.5, line: 1.3};
@@ -93,9 +94,12 @@ export function sizeGlyph(glyph, {measure = approximateMeasure, wrapWidth = 200}
 }
 
 // Cabecera de un contenedor: su rótulo (con keyword) envuelto; los hijos empiezan debajo (G2).
+// El ícono del estilo (§13) va antes del rótulo también en un contenedor: su sitio cuenta en el ancho.
 export function containerHeader(glyph, {measure = approximateMeasure, wrapWidth = 260} = {}) {
   const label = block(glyph.label, wrapWidth, FONT.label, measure);
-  return {lines: label.lines, width: Math.ceil(label.width + PAD_X * 2), height: Math.ceil((glyph.keyword ? KEYWORD : 0) + label.height + 12)};
+  const icon = glyph.style?.icon ? ICON_SPACE : 0;
+  const keyword = glyph.keyword ? measure(glyph.keyword, FONT.small) : 0;
+  return {lines: label.lines, width: Math.ceil(Math.max(label.width + icon, keyword) + PAD_X * 2), height: Math.ceil((glyph.keyword ? KEYWORD : 0) + label.height + 12)};
 }
 
 // Rótulo de arista envuelto en un ancho fijo: ELK le reserva su caja (G5).
@@ -416,6 +420,15 @@ export async function bestLayout(elk, scene, {measure = approximateMeasure, canv
         tried.push(...again);
       }
       for (const free of tried) if (better(free, best)) best = free;
+    }
+  }
+  // R8: un despliegue grande y anidado que ELK no deja legible usa su layout propio (empaque por flujo
+  // y ruteo ortogonal); los que ELK ya resuelve no cambian.
+  if (best && scene.diagramType === 'deployment' && (best.zoom < legibleZoom || best.issues.total)) {
+    for (const wrapWidth of [130, 150, 170]) {
+      const own = deploymentLayout(scene, {measure, wrapWidth, canvas, issues: layoutIssues});
+      Object.assign(own, {zoom: fitZoom(own, canvas), direction: scene.direction, candidate: {wrapWidth, deployment: true}});
+      if (better(own, best)) best = own;
     }
   }
   return best && clipEnds(best);

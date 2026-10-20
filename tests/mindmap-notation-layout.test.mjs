@@ -259,3 +259,11 @@ test('labelsOnNodes: un rótulo encima de un nodo o del encabezado de un contene
 test('buildScene lleva el tipo de diagrama (un despliegue no sigue el orden del spec)', () => {
   assert.equal(buildScene({diagram_type: 'deployment', layout: {kind: 'graph'}, nodes: [], links: []}).diagramType, 'deployment');
 });
+
+test('containerHeader reserva el sitio del ícono (§13) y del keyword en el ancho del título', () => {
+  const plain = containerHeader({label: 'Amazon Bedrock'}, {measure});
+  const icon = containerHeader({label: 'Amazon Bedrock', style: {icon: 'cloud'}}, {measure});
+  assert.equal(icon.width - plain.width, 20);
+  const keyword = containerHeader({label: 'S3', keyword: '«external» storage service'}, {measure});
+  assert.ok(keyword.width >= measure('«external» storage service', 12.5) + 28);
+});
