@@ -5,7 +5,7 @@ Capturas: /tmp/shots/jerarquia/*.png. Scripts: /tmp/shots-scr/pane.mjs, fit.mjs,
 
 R13 (obligatorio) El lienzo de React Flow crece con la leyenda del panel izquierdo y queda más alto que la
     ventana: con viewport 1800x1200, .react-flow mide top 113 / bottom 1705 en component.contexto (la
-    leyenda de componentes-antonia tiene 14 glifos + 8 links) y bottom 1516 en deployment.dev-aws;
+    leyenda de la notación de componentes tiene 14 glifos + 8 links) y bottom 1516 en deployment.dev-aws;
     document.scrollHeight sigue en 1200 (overflow oculto). "Ver todo" encuadra contra ese lienzo, así que la
     parte de abajo del diagrama queda fuera de la ventana (el nodo «system» del contexto y la capa Datos de
     kit-componentes se cortan). Mi aserción anterior de margen pasaba porque medía contra el lienzo, no contra
