@@ -73,6 +73,13 @@ las clases, que es la misma en ambos temas.
   bucles por el pasillo del carril y ruteo ortogonal. `data.notes` es una
   nota UML junto a su paso, unida por una línea punteada; `kind: merge` es un
   rombo sin rótulo. Sin partición, la activity sigue el layout ELK.
+  Deployment (§14): los nodos se anidan a cualquier profundidad con `contains`
+  (`draw: nest`); las communication paths van de nodo a nodo con su rótulo, y
+  «deploy»/«manifest» son punteadas con su estereotipo. En un despliegue no
+  se usa el orden del spec ni el plegado en filas (invierten las aristas de los
+  clientes). Si el diagrama no se lee, ELK se reintenta sin reservar sitio a
+  los rótulos de arista y luego reservándolo solo a los que no cupieron; un
+  rótulo encima de un nodo descarta al candidato.
   Requiere spec2viz instalado y modo
   local (en remote, 501). Solo lectura. Contrato:
   `spec2viz/docs/notation-contract.md`.

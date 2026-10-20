@@ -1,0 +1,100 @@
+"""E2E: deployment specs in the Specs view (spec2viz contract §14), in Chromium.
+
+tests/fixtures/notation-deployment/deployment-nested-paths.yml nests nodes four levels deep (account >
+network > cluster > service > artifact), joins nodes by communication paths with a label and a
+protocol, and has a «deploy» (artifact -> node) and a «manifest» (artifact -> artifact). It checks:
+
+- each element is drawn inside the box of the node that contains it, at every level;
+- each communication path is a solid line between its two nodes, labelled with its label and protocol,
+  the label nearer its own edge than any other;
+- «deploy» and «manifest» are dashed lines with an arrowhead, labelled with their stereotype;
+- the flow reads from the outside in: the client, the registry and the chart (sources of the paths,
+  the deploy and the manifest) are left of the account, so no edge has to come back around it;
+- the usual legibility rules hold after «Ver todo».
+"""
+import shutil
+import subprocess
+from pathlib import Path
+
+import pytest
+
+from e2e_notation_legibility import _measure, _round_two, _serve, sync_playwright
+
+ROOT = Path(__file__).resolve().parents[1]
+FIXTURES = ROOT / "tests" / "fixtures" / "notation-deployment"
+SPEC = "deployment.nested-paths"
+CONTAINS = {"network": "account", "cluster": "network", "db_host": "network", "api_node": "cluster", "worker_node": "cluster",
+            "api_container": "api_node", "worker_container": "worker_node", "orders_db": "db_host", "api_image": "registry"}
+
+DEPLOYMENT = r"""() => {
+  const rect = el => el.getBoundingClientRect();
+  const boxes = {};
+  for (const n of document.querySelectorAll('.notation-canvas .react-flow__node')) {
+    const r = rect(n.querySelector('.glyph')); boxes[n.dataset.id.split('.').pop()] = {left: r.left, right: r.right, top: r.top, bottom: r.bottom};
+  }
+  const labels = new Map([...document.querySelectorAll('.notation-canvas .notation-edge-label')].map(l => [l.dataset.edge, l]));
+  const edges = [...document.querySelectorAll('.notation-canvas .react-flow__edge')].map(e => {
+    const path = e.querySelector('.react-flow__edge-path'), ends = e.querySelector('.notation-edge-ends');
+    const label = labels.get(path.id);
+    return {source: ends.dataset.source.split('.').pop(), target: ends.dataset.target.split('.').pop(),
+            dash: getComputedStyle(path).strokeDasharray || '', marker: path.getAttribute('marker-end') || '',
+            label: label ? label.innerText.replace(/\s+/g, ' ').trim() : ''};
+  });
+  return {boxes, edges};
+}"""
+
+
+@pytest.fixture(scope="module")
+def store(tmp_path_factory):
+    if sync_playwright is None:
+        pytest.skip("playwright no está instalado")
+    if not shutil.which("spec2viz"):
+        pytest.skip("sin el CLI de spec2viz")
+    root = tmp_path_factory.mktemp("deployment")
+    specs = sorted(FIXTURES.glob("*.yml"))
+    for spec in specs:
+        shutil.copy(spec, root / spec.name)
+    subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
+    subprocess.run(["spec2viz", "diagram", "sync", *[s.name for s in specs], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
+    return root / ".sldb"
+
+
+def test_nested_nodes_paths_deploy_and_manifest(store):
+    process, base = _serve(store)
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1800, "height": 1200})
+            errors = []
+            page.on("pageerror", lambda e: errors.append(str(e)))
+            page.goto(f"{base}/specs/notation")
+            page.wait_for_selector(".notation-catalog button", timeout=30000)
+            result = _measure(page, SPEC)
+            assert result["minTextPx"] >= 10, result
+            assert result["labelOverlaps"] == 0 and result["spills"] == 0 and result["crossings"] == 0, result
+            _round_two(result)
+            drawn = page.evaluate(DEPLOYMENT)
+            boxes = drawn["boxes"]
+            # Anidado a cualquier profundidad: cada elemento dentro de la caja de su contenedor.
+            for child, parent in CONTAINS.items():
+                c, p = boxes[child], boxes[parent]
+                assert p["left"] - 1 <= c["left"] and c["right"] <= p["right"] + 1 and p["top"] - 1 <= c["top"] and c["bottom"] <= p["bottom"] + 1, (child, parent)
+            edges = {(e["source"], e["target"]): e for e in drawn["edges"]}
+            # Communication paths de nodo a nodo: línea sólida con su rótulo (label y protocolo).
+            for (source, target), text in {("users", "api_node"): "public API HTTPS", ("api_node", "worker_node"): "jobs AMQP",
+                                           ("api_node", "db_host"): "queries :5432", ("worker_node", "db_host"): ":5432"}.items():
+                edge = edges[(source, target)]
+                assert edge["dash"] in ("", "none") and edge["label"] == text, edge
+            # «deploy» y «manifest»: punteadas, con punta y su estereotipo.
+            for (source, target), stereotype in {("api_image", "api_node"): "«deploy»", ("api_chart", "api_container"): "«manifest»"}.items():
+                edge = edges[(source, target)]
+                assert edge["dash"] not in ("", "none") and edge["marker"] and edge["label"] == stereotype, edge
+            # De afuera hacia adentro: las fuentes externas a la izquierda de la cuenta.
+            for outside in ("users", "registry", "api_chart"):
+                assert boxes[outside]["right"] <= boxes["account"]["left"], (outside, boxes[outside], boxes["account"])
+            page.screenshot(path=str(store.parent / "deployment.png"))
+            assert not errors, errors
+            browser.close()
+    finally:
+        process.terminate()
+        process.wait()

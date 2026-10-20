@@ -140,7 +140,7 @@ export function buildScene(view) {
     const lane = laneOf.get(n.doc) || laneOf.get(n.data?.partition) || null;
     return {id: n.doc, parent: parentOf.get(n.doc) || null, container: containers.has(n.doc), width, height, glyph: n, lane};
   });
-  return {nodes, edges, notices, lanes, direction: layout.direction || 'TB'};
+  return {nodes, edges, notices, lanes, direction: layout.direction || 'TB', diagramType: view.diagram_type || ''};
 }
 
 // Profundidad de anidado: React Flow exige que un padre aparezca antes que sus hijos.

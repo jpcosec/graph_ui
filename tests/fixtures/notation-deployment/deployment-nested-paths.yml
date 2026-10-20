@@ -1,0 +1,63 @@
+# Test spec for the Specs view's deployment drawing (spec2viz contract §14): nodes nested four levels
+# deep (account > network > cluster > service > artifact), communication paths from node to node with
+# a label and a protocol, a «deploy» (artifact -> node) and a «manifest» (artifact -> artifact).
+id: deployment.nested-paths
+title: "Deployment: nesting, communication paths, deploy and manifest"
+type: deployment
+version: "0.1"
+data:
+  nodes:
+    account:
+      label: Cloud account
+      kind: account
+      contains: [network]
+    network:
+      label: Private network
+      kind: vpc
+      contains: [cluster, db_host]
+    cluster:
+      label: Container cluster
+      kind: cluster
+      contains: [api_node, worker_node]
+    api_node:
+      label: API service
+      kind: server
+      contains: [api_container]
+    worker_node:
+      label: Worker service
+      kind: server
+      contains: [worker_container]
+    db_host:
+      label: Database host
+      kind: database
+      contains: [orders_db]
+    users:
+      label: Users' browsers
+      kind: client
+    registry:
+      label: Image registry
+      kind: external
+      contains: [api_image]
+  artifacts:
+    api_container:
+      label: api container
+      kind: image
+    worker_container:
+      label: worker container
+      kind: image
+    orders_db:
+      label: orders database
+      kind: database
+    api_image:
+      label: api image
+      kind: image
+    api_chart:
+      label: api deployment chart
+      kind: config
+  connections:
+    - {from: users, to: api_node, label: public API, protocol: HTTPS}
+    - {from: api_node, to: worker_node, label: jobs, protocol: AMQP}
+    - {from: api_node, to: db_host, label: queries, protocol: ":5432"}
+    - {from: worker_node, to: db_host, protocol: ":5432"}
+    - {from: api_image, to: api_node, kind: deploy}
+    - {from: api_chart, to: api_container, kind: manifest}

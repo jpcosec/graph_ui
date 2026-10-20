@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {buildScene} from '../frontends/mindmap/views/specs/notation/notation.mjs';
 import {wrapText, sizeGlyph, containerHeader, edgeLabelBox, gridEdges, elkGraph, fromElk, bestLayout, fitZoom, legibleZoom,
   approximateMeasure, DIAMOND_RATIO, GRID_MIN, FONT, MIN_TEXT_PX, headerId, diamondPorts, routeOf, placeLabels, layoutIssues,
-  LABEL_MAX_DISTANCE, LABEL_MARGIN} from '../frontends/mindmap/views/specs/notation/notation-layout.mjs';
+  LABEL_MAX_DISTANCE, LABEL_MARGIN, labelsOnNodes} from '../frontends/mindmap/views/specs/notation/notation-layout.mjs';
 
 const measure = (text, size) => (text || '').length * size * 0.5;
 
@@ -231,4 +231,31 @@ test('§14: una nota de un paso es un nodo derivado justo después de él, unido
   assert.equal(link.dash, '2 3');
   assert.equal(link.targetEnd, null);
   assert.equal(link.sourceEnd, null);
+});
+
+test('elkGraph reserva sitio a los rótulos de arista que se le piden (todos, ninguno o un conjunto)', () => {
+  const scene = {direction: 'LR', diagramType: 'deployment', nodes: [{id: 'a', glyph: {shape: 'box', label: 'a'}}, {id: 'b', glyph: {shape: 'box', label: 'b'}}, {id: 'c', glyph: {shape: 'box', label: 'c'}}],
+    edges: [{id: 'ab', source: 'a', target: 'b', label: 'HTTPS'}, {id: 'bc', source: 'b', target: 'c', label: 'Postgres'}]};
+  const labelled = opts => elkGraph(scene, {measure, ...opts}).graph.edges.filter(e => e.labels?.length).map(e => e.id);
+  assert.deepEqual(labelled({}), ['ab', 'bc']);
+  assert.deepEqual(labelled({reserveLabels: false}), []);
+  assert.deepEqual(labelled({reserveLabels: new Set(['bc'])}), ['bc']);
+  // Sin reserva, el tamaño del rótulo se sigue midiendo para que placeLabels lo coloque.
+  assert.equal(elkGraph(scene, {measure, reserveLabels: false}).labels.size, 2);
+});
+
+test('labelsOnNodes: un rótulo encima de un nodo o del encabezado de un contenedor cuenta como problema', () => {
+  const layout = {width: 400, height: 200,
+    nodes: [{id: 'k', parent: null, x: 0, y: 0, width: 200, height: 120, container: true, header: {x: 0, y: 0, width: 200, height: 24}, glyph: {shape: 'node-box'}},
+            {id: 'a', parent: 'k', x: 10, y: 40, width: 80, height: 40, container: false, glyph: {shape: 'box'}},
+            {id: 'b', parent: null, x: 300, y: 40, width: 80, height: 40, container: false, glyph: {shape: 'box'}}],
+    edges: [{id: 'onNode', source: 'a', target: 'b', points: [{x: 90, y: 60}, {x: 300, y: 60}], labelBox: {x: 20, y: 50, width: 40, height: 14}},
+            {id: 'onHead', source: 'a', target: 'b', points: [{x: 90, y: 60}, {x: 300, y: 60}], labelBox: {x: 100, y: 4, width: 40, height: 14}},
+            {id: 'free', source: 'a', target: 'b', points: [{x: 90, y: 60}, {x: 300, y: 60}], labelBox: {x: 220, y: 44, width: 40, height: 14}}]};
+  assert.deepEqual(labelsOnNodes(layout).sort(), ['onHead', 'onNode']);
+  assert.equal(layoutIssues(layout).labelsOnNodes, 2);
+});
+
+test('buildScene lleva el tipo de diagrama (un despliegue no sigue el orden del spec)', () => {
+  assert.equal(buildScene({diagram_type: 'deployment', layout: {kind: 'graph'}, nodes: [], links: []}).diagramType, 'deployment');
 });

@@ -18,7 +18,7 @@ export const POINT_SHAPES = ['filled-circle', 'bullseye'];
 const POINT_SIZES = {'filled-circle': [22, 22], bullseye: [26, 26]};
 const FIXED = {'stick-figure': [90, 86]};
 const MIN = {box: [120, 40], 'rounded-box': [120, 40], 'class-box': [150, 40], 'lifeline': [150, 52], 'boundary-lifeline': [150, 52]};
-const PAD_X = 14, PAD_Y = 10, CONTAINER_SIDE = 10, ICON_SPACE = 20;
+const PAD_X = 14, PAD_Y = 10, CONTAINER_SIDE = 8, ICON_SPACE = 20;
 export const DIAMOND_RATIO = 2;
 
 // Ancho aproximado para los tests y para cuando no hay canvas: ~0.55 em por carácter.
@@ -164,7 +164,7 @@ export function diamondPorts(scene, direction = 'TB') {
 }
 
 // Grafo ELK de una escena (buildScene) con los tamaños medidos de un candidato.
-export function elkGraph(scene, {measure = approximateMeasure, wrapWidth = 200, options = {}} = {}) {
+export function elkGraph(scene, {measure = approximateMeasure, wrapWidth = 200, labelWrap = 130, reserveLabels = true, options = {}} = {}) {
   const kids = new Map();
   for (const n of scene.nodes) kids.set(n.parent || '', [...(kids.get(n.parent || '') || []), n]);
   const sizes = new Map();
@@ -177,7 +177,7 @@ export function elkGraph(scene, {measure = approximateMeasure, wrapWidth = 200, 
       // R5: el título es un nodo hijo en la primera capa del contenedor: ELK rutea las aristas
       // alrededor de él como de cualquier nodo, así que ninguna cruza el encabezado.
       const head = containerHeader(n.glyph, {measure, wrapWidth: wrapWidth + 60});
-      const inner = {'elk.layered.spacing.nodeNodeBetweenLayers': '10', 'elk.spacing.nodeNode': '12'};
+      const inner = {'elk.layered.spacing.nodeNodeBetweenLayers': '10', 'elk.spacing.nodeNode': '10'};
       if (!VERTICAL.has(direction)) {
         // En horizontal las aristas entran por los costados: el título va en el padding de arriba.
         sizes.set(n.id, {header: {...head, x: CONTAINER_SIDE, y: 0}});
@@ -212,11 +212,12 @@ export function elkGraph(scene, {measure = approximateMeasure, wrapWidth = 200, 
   };
   const labels = new Map();
   const edges = scene.edges.map(e => {
-    const box = edgeLabelBox(e.label, {measure});
+    const box = edgeLabelBox(e.label, {measure, wrapWidth: labelWrap});
     if (box) labels.set(e.id, box);
-    // Los rótulos los coloca placeLabels junto a su tramo (R3); ELK solo les reserva espacio.
+    // Los rótulos los coloca placeLabels junto a su tramo (R3); ELK solo les reserva espacio (si el
+    // candidato lo pide: sin reserva, el diagrama es más compacto y placeLabels busca hueco igual).
     return {id: e.id, sources: [ports.get(`${e.id}>source`) || e.source], targets: [ports.get(`${e.id}>target`) || e.target],
-      labels: box ? [{id: `${e.id}#label`, text: e.label, width: box.width, height: box.height}] : []};
+      labels: box && (reserveLabels === true || reserveLabels?.has?.(e.id)) ? [{id: `${e.id}#label`, text: e.label, width: box.width, height: box.height}] : []};
   });
   return {
     graph: {id: 'root', layoutOptions: {'elk.algorithm': 'layered', 'elk.direction': ELK_DIRECTION[scene.direction] || 'DOWN',
@@ -330,7 +331,7 @@ export function placeLabels(layout) {
     const guard = diamonds.has(e.source);
     const byLength = [...own].sort(([a1, b1], [a2, b2]) => Math.hypot(b2.x - a2.x, b2.y - a2.y) - Math.hypot(b1.x - a1.x, b1.y - a1.y));
     const near = length => [8, 16, 28].filter(d => d < length).map(d => d / length).concat(length > 0 ? [0.5] : []);
-    const spread = () => [0.5, 0.3, 0.7, 0.15, 0.85];
+    const spread = () => [0.5, 0.3, 0.7, 0.15, 0.85, 0.05, 0.95, 0.4, 0.6, 0.22, 0.78];
     const tries = [
       ...(guard ? labelCandidates(own[0], e.labelSize, near) : []),
       ...byLength.flatMap(seg => labelCandidates(seg, e.labelSize, spread)),
@@ -343,13 +344,22 @@ export function placeLabels(layout) {
   }
 }
 
+// Aristas cuyo rótulo quedó encima de un nodo (o del encabezado de un contenedor): tapa texto.
+export function labelsOnNodes(layout) {
+  const abs = absoluteBoxes(layout);
+  const covers = layout.nodes.flatMap(n => { const b = abs.get(n.id);
+    return n.container ? (n.header ? [{x: b.x + n.header.x, y: b.y + n.header.y, width: n.header.width, height: n.header.height}] : []) : [b]; });
+  return layout.edges.filter(e => e.labelBox && covers.some(b => intersects(e.labelBox, b, -1))).map(e => e.id);
+}
+
 // Problemas que hacen descartar un candidato: aristas sin ruta ortogonal o con un extremo al aire
 // (R2), rótulos lejos de su arista (R3) y aristas que cruzan el encabezado de un contenedor (R5).
 export function layoutIssues(layout) {
   const abs = absoluteBoxes(layout);
   const heads = layout.nodes.filter(n => n.container && n.header).map(n => { const c = abs.get(n.id);
     return {id: n.id, box: {x: c.x + n.header.x, y: c.y + n.header.y, width: n.header.width, height: n.header.height}}; });
-  const issues = {broken: 0, farLabels: 0, headerCrossings: 0, ambiguousGuards: 0};
+  const issues = {broken: 0, farLabels: 0, headerCrossings: 0, ambiguousGuards: 0, labelsOnNodes: 0};
+  const covering = new Set(labelsOnNodes(layout));
   const diamonds = new Set(layout.nodes.filter(n => n.glyph?.shape === 'diamond').map(n => n.id));
   const segs = new Map(layout.edges.map(e => [e.id, segmentsOf(e.points)]));
   const touches = (p, box) => box && p.x >= box.x - 1.5 && p.x <= box.x + box.width + 1.5 && p.y >= box.y - 1.5 && p.y <= box.y + box.height + 1.5
@@ -359,6 +369,7 @@ export function layoutIssues(layout) {
     const diagonal = pts.some((p, i) => i && Math.abs(p.x - pts[i - 1].x) > 0.5 && Math.abs(p.y - pts[i - 1].y) > 0.5);
     if (pts.length < 2 || diagonal || !touches(pts[0], abs.get(e.source)) || !touches(pts[pts.length - 1], abs.get(e.target))) issues.broken++;
     if (e.labelBox && Math.min(...pts.slice(1).map((p, i) => boxToSegment(e.labelBox, pts[i], p))) > LABEL_MAX_DISTANCE) issues.farLabels++;
+    if (covering.has(e.id)) issues.labelsOnNodes++;
     if (e.labelBox && diamonds.has(e.source)) {
       const others = layout.edges.filter(o => o.id !== e.id).flatMap(o => segs.get(o.id));
       if (distanceTo(e.labelBox, others) < distanceTo(e.labelBox, segs.get(e.id)) + LABEL_MARGIN) issues.ambiguousGuards++;
@@ -368,7 +379,7 @@ export function layoutIssues(layout) {
       if (heads.some(h => intersects(seg, {x: h.box.x + 1, y: h.box.y + 1, width: h.box.width - 2, height: h.box.height - 2}))) { issues.headerCrossings++; break; }
     }
   }
-  issues.total = issues.broken + issues.farLabels + issues.headerCrossings + issues.ambiguousGuards;
+  issues.total = issues.broken + issues.farLabels + issues.headerCrossings + issues.ambiguousGuards + issues.labelsOnNodes;
   return issues;
 }
 
@@ -385,9 +396,27 @@ export async function bestLayout(elk, scene, {measure = approximateMeasure, canv
   // Activity con particiones (§14) y sin anidado: carriles UML propios, no ELK.
   if (usesSwimlanes(scene)) return clipEnds(bestSwimlanes(scene, {measure, canvas}));
   let best = await bestIn(elk, scene, {measure, canvas, candidates});
+  const better = (a, b) => a && (!b || a.issues.total < b.issues.total || (a.issues.total === b.issues.total && a.zoom > b.zoom));
   if (best && (best.zoom < legibleZoom || best.issues.total)) {
     const turned = await bestIn(elk, {...scene, direction: PERPENDICULAR[scene.direction] || 'LR'}, {measure, canvas, candidates});
-    if (turned && (turned.issues.total < best.issues.total || (turned.issues.total === best.issues.total && turned.zoom > best.zoom))) best = turned;
+    if (better(turned, best)) best = turned;
+  }
+  // Si aún no se lee (un despliegue grande y anidado): ELK sin reservar sitio a los rótulos de arista,
+  // que en horizontal ensanchan cada capa; placeLabels los coloca igual junto a su tramo.
+  if (best && (best.zoom < legibleZoom || best.issues.total)) {
+    const loose = candidates.map(c => ({...c, reserveLabels: false}));
+    for (const direction of [scene.direction, PERPENDICULAR[scene.direction] || 'LR']) {
+      const tried = await allIn(elk, {...scene, direction}, {measure, canvas, candidates: loose});
+      // Los rótulos que no cupieron (encima de un nodo) piden su sitio a ELK en una segunda pasada,
+      // solo ellos: los tres candidatos que mejor caben.
+      const retry = tried.filter(l => l.issues.labelsOnNodes).sort((a, b) => b.zoom - a.zoom).slice(0, 3);
+      for (const layout of retry) {
+        const reserve = new Set(labelsOnNodes(layout));
+        const again = await allIn(elk, {...scene, direction}, {measure, canvas, candidates: [{...layout.candidate, reserveLabels: reserve}]});
+        tried.push(...again);
+      }
+      for (const free of tried) if (better(free, best)) best = free;
+    }
   }
   return best && clipEnds(best);
 }
@@ -419,9 +448,31 @@ export function clipEnds(layout) {
   return layout;
 }
 
+// Todos los candidatos con ELK, cada uno con su zoom y sus problemas.
+async function allIn(elk, scene, {measure, canvas, candidates}) {
+  const out = [];
+  for (const candidate of usable(scene, candidates)) {
+    const built = elkGraph(scene, {measure, ...candidate});
+    let result;
+    try { result = await elk.layout(built.graph); } catch { continue; }
+    const layout = fromElk(result, scene, built);
+    Object.assign(layout, {zoom: fitZoom(layout, canvas), candidate, direction: scene.direction});
+    layout.issues = layoutIssues(layout);
+    out.push(layout);
+  }
+  return out;
+}
+
+// El orden del spec es el del flujo en una activity o un statechart; en un despliegue, la lista de nodos
+// no dice hacia dónde van las flechas (los clientes y artefactos que la cierran apuntan a la
+// infraestructura de arriba) y seguirlo invierte esas aristas: ahí no se usa. Tampoco el plegado en
+// filas (wrapping): parte el despliegue y deja a los clientes del otro lado, con las aristas de vuelta.
+const usable = (scene, candidates) => (scene.diagramType === 'deployment'
+  ? candidates.filter(c => !c.ordered && !c.options?.['elk.layered.wrapping.strategy']) : candidates);
+
 async function bestIn(elk, scene, {measure, canvas, candidates}) {
   let best = null, bestOrdered = null;
-  for (const candidate of candidates) {
+  for (const candidate of usable(scene, candidates)) {
     const built = elkGraph(scene, {measure, ...candidate});
     let result;
     try { result = await elk.layout(built.graph); } catch { continue; }
