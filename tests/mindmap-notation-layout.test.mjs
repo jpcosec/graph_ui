@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {buildScene} from '../frontends/mindmap/views/specs/notation/notation.mjs';
 import {wrapText, sizeGlyph, containerHeader, edgeLabelBox, gridEdges, elkGraph, fromElk, bestLayout, fitZoom, legibleZoom,
   approximateMeasure, DIAMOND_RATIO, GRID_MIN, FONT, MIN_TEXT_PX, headerId, diamondPorts, routeOf, placeLabels, layoutIssues,
-  LABEL_MAX_DISTANCE, LABEL_MARGIN, labelsOnNodes} from '../frontends/mindmap/views/specs/notation/notation-layout.mjs';
+  LABEL_MAX_DISTANCE, LABEL_MARGIN, labelsOnNodes, placeEndLabels} from '../frontends/mindmap/views/specs/notation/notation-layout.mjs';
 
 const measure = (text, size) => (text || '').length * size * 0.5;
 
@@ -266,4 +266,21 @@ test('containerHeader reserva el sitio del ícono (§13) y del keyword en el anc
   assert.equal(icon.width - plain.width, 20);
   const keyword = containerHeader({label: 'S3', keyword: '«external» storage service'}, {measure});
   assert.ok(keyword.width >= measure('«external» storage service', 12.5) + 28);
+});
+
+test('R9: una multiplicidad va junto al extremo real de su arista, fuera de la caja, aunque entre de costado', () => {
+  const box = (id, x, y) => ({id, parent: null, x, y, width: 120, height: 80, container: false, glyph: {shape: 'class-box'}});
+  // La arista llega a «b» por su costado izquierdo (no por arriba, como suponía el desvío fijo de antes).
+  const layout = {width: 500, height: 200, nodes: [box('a', 0, 0), box('b', 300, 0)],
+    edges: [{id: 'ab', source: 'a', target: 'b', sourceLabel: '*', targetLabel: '0..1', points: [{x: 120, y: 40}, {x: 300, y: 40}]}]};
+  placeEndLabels(layout, {measure});
+  const inside = (l, n) => l.x < n.x + n.width && n.x < l.x + l.width && l.y < n.y + n.height && n.y < l.y + l.height;
+  for (const [key, end] of [['sourceLabelBox', {x: 120, y: 40}], ['targetLabelBox', {x: 300, y: 40}]]) {
+    const l = layout.edges[0][key];
+    assert.ok(l, key);
+    assert.ok(!layout.nodes.some(n => inside(l, n)), key + ' fuera de las cajas');
+    const dx = Math.max(l.x - end.x, 0, end.x - (l.x + l.width)), dy = Math.max(l.y - end.y, 0, end.y - (l.y + l.height));
+    assert.ok(Math.hypot(dx, dy) <= 24, key + ' pegada al extremo');
+  }
+  assert.equal(layout.edges[0].targetLabelBox.text, '0..1');
 });

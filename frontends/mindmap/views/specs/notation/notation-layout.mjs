@@ -348,6 +348,38 @@ export function placeLabels(layout) {
   }
 }
 
+// R9: rótulo de extremo (multiplicidad de una asociación UML): pegado al extremo real de su arista, a un
+// costado de su primer tramo y por fuera de la caja del nodo; esquiva nodos, títulos de contenedor,
+// rótulos de arista y otros rótulos de extremo. Se coloca sobre el recorrido final (tras clipEnds).
+export const END_LABEL = {height: 16, pad: 6, side: 3, steps: [5, 12, 22, 34]};
+export function placeEndLabels(layout, {measure = approximateMeasure} = {}) {
+  const abs = absoluteBoxes(layout);
+  const obstacles = layout.nodes.flatMap(n => { const b = abs.get(n.id);
+    return n.container ? (n.header ? [{x: b.x + n.header.x, y: b.y + n.header.y, width: n.header.width, height: n.header.height}] : []) : [b]; });
+  const placed = layout.edges.filter(e => e.labelBox).map(e => e.labelBox);
+  for (const e of layout.edges) {
+    for (const [end, key] of [['source', 'sourceLabel'], ['target', 'targetLabel']]) {
+      const text = e[key];
+      if (!text || !e.points || e.points.length < 2) continue;
+      const pts = end === 'source' ? e.points : [...e.points].reverse();
+      const p = pts[0], q = pts[1];
+      const len = Math.hypot(q.x - p.x, q.y - p.y) || 1;
+      const d = {x: (q.x - p.x) / len, y: (q.y - p.y) / len}, n = {x: -d.y, y: d.x};
+      const width = Math.ceil(measure(text, FONT.edge) + END_LABEL.pad), height = END_LABEL.height;
+      const along = Math.abs(d.x) > Math.abs(d.y) ? width / 2 : height / 2, across = Math.abs(n.x) > Math.abs(n.y) ? width / 2 : height / 2;
+      const candidates = END_LABEL.steps.flatMap(t => [1, -1].map(side => {
+        const cx = p.x + d.x * (t + along) + n.x * side * (across + END_LABEL.side), cy = p.y + d.y * (t + along) + n.y * side * (across + END_LABEL.side);
+        return {x: cx - width / 2, y: cy - height / 2, width, height};
+      }));
+      const free = box => !obstacles.some(o => intersects(box, o, 1)) && !placed.some(o => intersects(box, o, 1));
+      const box = candidates.find(free) || candidates[0];
+      placed.push(box);
+      e[key + 'Box'] = {...box, text};
+    }
+  }
+  return layout;
+}
+
 // Aristas cuyo rótulo quedó encima de un nodo (o del encabezado de un contenedor): tapa texto.
 export function labelsOnNodes(layout) {
   const abs = absoluteBoxes(layout);
@@ -398,7 +430,7 @@ const PERPENDICULAR = {TB: 'LR', BT: 'RL', LR: 'TB', RL: 'BT'};
 export const legibleZoom = MIN_TEXT_PX / FONT.label;
 export async function bestLayout(elk, scene, {measure = approximateMeasure, canvas = {width: 1200, height: 900}, candidates = LAYOUT_CANDIDATES} = {}) {
   // Activity con particiones (§14) y sin anidado: carriles UML propios, no ELK.
-  if (usesSwimlanes(scene)) return clipEnds(Object.assign(bestSwimlanes(scene, {measure, canvas}), {engine: 'swimlanes'}));
+  if (usesSwimlanes(scene)) return placeEndLabels(clipEnds(Object.assign(bestSwimlanes(scene, {measure, canvas}), {engine: 'swimlanes'})), {measure});
   let best = await bestIn(elk, scene, {measure, canvas, candidates});
   const better = (a, b) => a && (!b || a.issues.total < b.issues.total || (a.issues.total === b.issues.total && a.zoom > b.zoom));
   if (best && (best.zoom < legibleZoom || best.issues.total)) {
@@ -431,7 +463,7 @@ export async function bestLayout(elk, scene, {measure = approximateMeasure, canv
       if (better(own, best)) best = own;
     }
   }
-  return best && clipEnds(best);
+  return best && placeEndLabels(clipEnds(best), {measure});
 }
 
 export const usesSwimlanes = scene => Boolean(scene.lanes?.length) && scene.nodes.every(n => !n.parent && !n.container);

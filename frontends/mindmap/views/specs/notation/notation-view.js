@@ -170,8 +170,11 @@ function TerminalDefs() {
 // Rótulo de extremo: junto al puerto, desplazado hacia fuera del nodo según
 // el lado por el que sale la arista, para que no tape la punta.
 const END_OFFSET = {[Position.Bottom]: [12, 14], [Position.Top]: [12, -14], [Position.Right]: [16, -10], [Position.Left]: [-16, -10]};
-function endLabel(text, x, y, position, end) {
+function endLabel(text, x, y, position, end, box, edge) {
   if (!text) return '';
+  // R9: con la caja que le dio el layout (junto al extremo real, fuera del nodo); sin ella, el desvío de antes.
+  if (box) return html`<div className="notation-end-label nodrag nopan" data-end=${end} data-edge=${edge}
+    style=${{transform: `translate(${box.x}px, ${box.y}px)`, width: box.width + 'px', height: box.height + 'px'}}>${text}</div>`;
   const [dx, dy] = END_OFFSET[position] || [12, 14];
   return html`<div className="notation-end-label nodrag nopan" data-end=${end}
     style=${{transform: `translate(-50%, -50%) translate(${x + dx}px, ${y + dy}px)`}}>${text}</div>`;
@@ -189,8 +192,8 @@ function NotationEdge({id, source, target, sourceX, sourceY, targetX, targetY, s
       ${data?.labelBox ? html`<div className=${'notation-edge-label nodrag nopan' + (data.hovered ? ' is-hovered' : '')} data-edge=${id}
           onMouseEnter=${() => data.onHover?.(id)} onMouseLeave=${() => data.onHover?.(null)}
           style=${{transform: `translate(${data.labelBox.x}px, ${data.labelBox.y}px)`, width: data.labelBox.width + 'px'}}>${lineList(data.labelBox.lines)}</div>` : ''}
-      ${endLabel(data?.sourceLabel, ends[0].x, ends[0].y, sourcePosition, 'source')}
-      ${endLabel(data?.targetLabel, ends[1].x, ends[1].y, targetPosition, 'target')}
+      ${endLabel(data?.sourceLabel, ends[0].x, ends[0].y, sourcePosition, 'source', data?.sourceLabelBox, id)}
+      ${endLabel(data?.targetLabel, ends[1].x, ends[1].y, targetPosition, 'target', data?.targetLabelBox, id)}
     </${EdgeLabelRenderer}>`;
 }
 const edgeTypes = {notation: NotationEdge};
@@ -203,7 +206,7 @@ function edgesOf(edges, selected, hovered, setHovered, skin = 'light') {
     const active = focus ? e.id === focus : selected && (e.source === selected || e.target === selected);
     const dimmed = focus ? e.id !== focus : selected && !active;
     return {id: e.id, source: e.source, target: e.target, type: 'notation',
-      data: {relation: e.relation, link: e.link, sourceLabel: e.sourceLabel, targetLabel: e.targetLabel, points: e.points, labelBox: e.labelBox,
+      data: {relation: e.relation, link: e.link, sourceLabelBox: e.sourceLabelBox, targetLabelBox: e.targetLabelBox, sourceLabel: e.sourceLabel, targetLabel: e.targetLabel, points: e.points, labelBox: e.labelBox,
         hovered: focus === e.id, onHover: setHovered}, className: 'notation-edge' + (focus === e.id ? ' is-hovered' : ''),
       markerEnd: e.targetEnd ? 'nv-' + e.targetEnd : undefined, markerStart: e.sourceEnd ? 'nv-' + e.sourceEnd : undefined,
       style: {stroke: focus === e.id ? 'var(--accent)' : themed(e.color, skin) || 'var(--edge)', strokeWidth: focus === e.id ? 2.8 : active ? 2.2 : 1.4, strokeDasharray: e.dash, opacity: dimmed ? .2 : 1}};

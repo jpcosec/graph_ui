@@ -1,0 +1,85 @@
+# Test spec for the Specs view's class drawing (issue R9): records with attributes and associations
+# with multiplicities at both ends ("1", "*", "0..1"), several of them converging on one class, so edge
+# ends reach a box from any side. Every multiplicity must sit next to its edge's end, outside the box.
+id: class.records-multiplicities
+title: "Class: records with multiplicities"
+type: class
+version: "0.1"
+style:
+  kinds:
+    record: {fill: database-fill, stroke: database-stroke, icon: database}
+data:
+  direction: TB
+  classes:
+    accounts:
+      kind: record
+      attributes:
+        - {name: id, type: 'text, PK'}
+        - {name: name, type: text}
+        - {name: settings, type: jsonb}
+        - {name: created_at, type: timestamptz}
+        - {name: updated_at, type: timestamptz}
+    agent_versions:
+      kind: record
+      attributes:
+        - {name: id, type: 'int, PK'}
+        - {name: agent_id, type: text}
+        - {name: version, type: int}
+        - {name: bundle, type: jsonb}
+        - {name: label, type: text}
+    connections:
+      kind: record
+      attributes:
+        - {name: id, type: 'text, PK'}
+        - {name: account_id, type: text}
+        - {name: agent_id, type: text}
+        - {name: secret, type: text}
+        - {name: active, type: bool}
+        - {name: updated_at, type: timestamptz}
+    landings:
+      kind: record
+      attributes:
+        - {name: slug, type: 'text, PK'}
+        - {name: connection_id, type: text}
+        - {name: updated_at, type: timestamptz}
+    demos:
+      kind: record
+      attributes:
+        - {name: id, type: 'text, PK'}
+        - {name: agent_id, type: text}
+        - {name: requests_used, type: int}
+        - {name: updated_at, type: timestamptz}
+    launch_daily:
+      kind: record
+      attributes:
+        - {name: connection_id, type: 'text, PK'}
+        - {name: day, type: 'date, PK'}
+        - {name: messages, type: int}
+    launch_threads:
+      kind: record
+      attributes:
+        - {name: connection_id, type: 'text, PK'}
+        - {name: thread_id, type: 'text, PK'}
+        - {name: stage, type: text}
+    landing_consents:
+      kind: record
+      attributes:
+        - {name: code, type: 'text, PK'}
+        - {name: slug, type: text}
+        - {name: connection_id, type: text}
+    demo_images:
+      kind: record
+      attributes:
+        - {name: demo_id, type: 'text, PK'}
+        - {name: kind, type: 'text, PK'}
+        - {name: data, type: bytea}
+  relations:
+    - {from: connections, to: accounts, relation: association, label: account_id, from_multiplicity: '*', to_multiplicity: '1'}
+    - {from: connections, to: agent_versions, relation: association, label: agent_id, from_multiplicity: '*', to_multiplicity: '1'}
+    - {from: demos, to: agent_versions, relation: association, label: agent_id, from_multiplicity: '*', to_multiplicity: '1'}
+    - {from: landings, to: connections, relation: association, label: connection_id, from_multiplicity: '*', to_multiplicity: '1'}
+    - {from: launch_daily, to: connections, relation: association, label: connection_id, from_multiplicity: '*', to_multiplicity: '1'}
+    - {from: launch_threads, to: connections, relation: association, label: connection_id, from_multiplicity: '*', to_multiplicity: '1'}
+    - {from: landing_consents, to: connections, relation: association, label: connection_id, from_multiplicity: '*', to_multiplicity: '0..1'}
+    - {from: landing_consents, to: landings, relation: association, label: slug, from_multiplicity: '*', to_multiplicity: '1'}
+    - {from: demo_images, to: demos, relation: association, label: demo_id, from_multiplicity: '*', to_multiplicity: '1'}
