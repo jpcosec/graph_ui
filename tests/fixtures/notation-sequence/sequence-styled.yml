@@ -1,0 +1,31 @@
+# Test spec for the Specs view's sequence drawing (issue R14): participants that carry an icon and a fill
+# by kind (spec style.kinds), with names in the label's weight that are wider than the old estimate and one
+# name of a single word wider than a lane. Every participant head must hold its whole text.
+id: sequence.styled-heads
+title: "Sequence: styled participant heads"
+type: sequence
+version: "0.1"
+data:
+  participants:
+    - {id: Browser, kind: actor}
+    - {id: LB_Identity, kind: boundary}
+    - {id: S1_edge_router, kind: component}
+    - {id: S2_control, kind: component}
+    - {id: S4_model_gateway, kind: component}
+    - {id: DB_platform_store, kind: database}
+    - {id: NotificationDispatcherWithRetries, kind: component}
+  messages:
+    - {from: Browser, to: LB_Identity, message: "POST /agents/{slug}"}
+    - {from: LB_Identity, to: S1_edge_router, message: "forward with identity header"}
+    - {from: S1_edge_router, to: S2_control, message: "save draft"}
+    - {from: S2_control, to: S4_model_gateway, message: "validate models"}
+    - {from: S4_model_gateway, to: S2_control, message: "ok", kind: reply}
+    - {from: S2_control, to: DB_platform_store, message: "upsert draft"}
+    - {from: S2_control, to: NotificationDispatcherWithRetries, message: "draft saved", kind: async}
+    - {from: S2_control, to: Browser, message: "200 draft", kind: reply}
+style:
+  kinds:
+    actor: {fill: client-fill, stroke: client-stroke, icon: user}
+    boundary: {fill: external-fill, stroke: external-stroke, icon: globe}
+    component: {fill: backend-fill, stroke: backend-stroke, icon: server}
+    database: {fill: database-fill, stroke: database-stroke, icon: database}

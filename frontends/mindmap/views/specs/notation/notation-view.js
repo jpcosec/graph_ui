@@ -91,9 +91,10 @@ const tabWidth = text => Math.max(34, String(text || '').length * 7.6 + 14);
 
 function LanesDiagram({scene, scale = 1}) {
   const {lanes, messages, head, lifelineTop, width, height} = scene;
+  const icons = useIcons(lanes.map(l => l.glyph.style?.icon));
   const heads = lanes.map(l => html`<div key=${l.id} className="lane-head" data-lane=${l.id}
       style=${{left: (l.x - l.width / 2) + 'px', top: (LANE.top + head - l.height) + 'px', width: l.width + 'px', height: l.height + 'px'}}>
-    <${Glyph} glyph=${l.glyph}/></div>`);
+    <${Glyph} glyph=${l.glyph} lines=${l.lines} icons=${icons}/></div>`);
   const band = (LANE.top + head + 6) * scale;
   // R11: «Ver todo» escala el diagrama al lienzo; la caja exterior ocupa lo que se ve escalado. Los
   // participantes van en una banda fija arriba: si los mensajes siguen con scroll, siguen a la vista.
@@ -267,7 +268,7 @@ function NotationCanvas({skin}) {
   useEffect(() => { if (!fontsReady && document.fonts?.ready) document.fonts.ready.then(() => setFontsReady(true)); }, [fontsReady]);
   const isLanes = state.view?.layout?.kind === 'lanes';
   const laneCanvas = isLanes ? canvasSize : null;
-  const scene = useMemo(() => (state.view ? sceneFor(state.view, {measure: canvasMeasure(document.body, 400), canvas: laneCanvas}) : null),
+  const scene = useMemo(() => (state.view ? sceneFor(state.view, {measure: canvasMeasure(document.body, 400), headMeasure: canvasMeasure(document.body), canvas: laneCanvas}) : null),
     [state.view, laneCanvas?.width, laneCanvas?.height, isLanes && fontsReady]);
   const [flowNodes, setFlowNodes] = useState([]);
   const [flowEdges, setFlowEdges] = useState([]);

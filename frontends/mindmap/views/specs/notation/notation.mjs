@@ -162,6 +162,9 @@ export const LANE = {width: 200, gap: 24, row: 34, top: 24, loop: 34};
 // margin: holgura de un rótulo en su tramo (4 px por lado y los 14 de la punta, que el rótulo esquiva).
 export const LANE_TEXT = {size: 12.5, line: 15, frameGap: 8, margin: 22, head: 14, framePad: 30, wraps: [120, 150, 170, 190, 240], selfWrap: 280, aspect: 1.42};
 const approximate = (text, size) => (text || '').length * size * 0.56;
+// Cabecera de participante: chrome = 10 + 10 de padding, 1,5 + 1,5 de borde y holgura; ícono de 15 + 5 de hueco;
+// pad = 6 + 6 de padding, el borde y holgura; un renglón de 12,5 px × 1,3.
+const LANE_HEAD = {chrome: 28, icon: 20, pad: 20, line: 17};
 
 // Corte en palabras a un ancho; una palabra más ancha que el ancho va sola en su línea.
 export function wrapLabel(text, width, measure = approximate, size = LANE_TEXT.size) {
@@ -188,10 +191,10 @@ export function laneFitScale(scene, canvas) {
 
 // El ancho de corte de los rótulos: con un lienzo, el que da la escala más alta (a igualdad, el que
 // muestra más sin scroll); sin lienzo, el que más se acerca a su proporción típica.
-export function laneScene(view, {measure = approximate, canvas = null} = {}) {
+export function laneScene(view, {measure = approximate, headMeasure = measure, canvas = null} = {}) {
   let best = null;
   for (const wrap of LANE_TEXT.wraps) {
-    const scene = laneSceneAt(view, wrap, measure);
+    const scene = laneSceneAt(view, wrap, measure, headMeasure);
     const score = canvas
       ? [laneFitScale(scene, canvas), Math.min(canvas.width / scene.width, canvas.height / scene.height)]
       : [-Math.max(scene.width / LANE_TEXT.aspect, scene.height), 0];
@@ -200,13 +203,19 @@ export function laneScene(view, {measure = approximate, canvas = null} = {}) {
   return best.scene;
 }
 
-function laneSceneAt(view, wrap, measure) {
+function laneSceneAt(view, wrap, measure, headMeasure = measure) {
   const notices = [];
   const nodes = view.nodes || [];
   // La cabecera de un participante tiene el ancho de su nombre (no el mínimo de un lifeline); un actor, el de su figura.
+  // R14: el nombre se mide en el peso del rótulo y cuenta el ícono; si no cabe en LANE.width se parte en
+  // líneas, y una palabra más ancha hace crecer la cabecera en vez de cortarse.
   const heads = nodes.map(n => { const [width, height] = glyphSize(n);
-    const named = n.shape === 'stick-figure' ? width : Math.max(72, measure(n.label || '', LANE_TEXT.size) + 28);
-    return {width: Math.min(named, LANE.width - 16), height}; });
+    if (n.shape === 'stick-figure') return {width: Math.min(width, LANE.width - 16), height};
+    const icon = n.style?.icon ? LANE_HEAD.icon : 0;
+    const lines = wrapLabel(n.label || '', LANE.width - 16 - LANE_HEAD.chrome - icon, headMeasure);
+    const text = Math.max(...lines.map(t => headMeasure(t, LANE_TEXT.size)));
+    return {lines, width: Math.ceil(Math.max(72, text + icon + LANE_HEAD.chrome)),
+      height: Math.max(height, LANE_HEAD.pad + (n.keyword ? LANE_HEAD.line : 0) + lines.length * LANE_HEAD.line)}; });
   const index = new Map(nodes.map((n, i) => [n.doc, i]));
   const head = Math.max(0, ...heads.map(h => h.height));
   const offDraws = new Set();
@@ -224,7 +233,7 @@ function laneSceneAt(view, wrap, measure) {
   }
   const xs = [];
   nodes.forEach((_, i) => xs.push(i ? xs[i - 1] + gaps[i - 1] : LANE.gap + heads[0].width / 2));
-  const lanes = nodes.map((n, i) => ({id: n.doc, index: i, x: xs[i], width: heads[i].width, height: heads[i].height, glyph: n}));
+  const lanes = nodes.map((n, i) => ({id: n.doc, index: i, x: xs[i], width: heads[i].width, height: heads[i].height, lines: heads[i].lines, glyph: n}));
   const fragmentStart = new Set((view.fragments || []).map(f => Math.min(...(f.orders || [Infinity]))));
   let y = LANE.top + head, prevBottom = LANE.top + head;
   const messages = links.map((l, row) => {
@@ -339,9 +348,9 @@ export const cellKey = (row, col) => `${row}\u0000${col}`;
 
 // Qué escena toca según el layout de la vista. Una grilla sin columnas no es
 // dibujable como grilla: cae a grafo con aviso.
-export function sceneFor(view, {measure, canvas} = {}) {
+export function sceneFor(view, {measure, headMeasure, canvas} = {}) {
   const kind = view.layout?.kind;
-  if (kind === 'lanes') return laneScene(view, {...(measure ? {measure} : {}), canvas: canvas || null});
+  if (kind === 'lanes') return laneScene(view, {...(measure ? {measure} : {}), ...(headMeasure ? {headMeasure} : {}), canvas: canvas || null});
   if (kind === 'grid') {
     if ((view.nodes || []).some(n => n.collection === 'stages')) return gridScene(view);
     const scene = buildScene({...view, layout: {...view.layout, kind: 'graph'}});

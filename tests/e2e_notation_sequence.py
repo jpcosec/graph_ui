@@ -10,6 +10,9 @@ nine components), more than fit across the canvas at 100 %, grouped messages, se
   legible scale and scrolls down to its last message, with the participants fixed on top. Nothing
   overlaps: message labels, participant heads and fragment tabs keep clear of each other, and labels
   carry a halo so lifelines crossing behind them do not strike the text.
+- R14: a participant head holds its whole text — icon, keyword and every line of its name — inside its
+  box, in the label's weight; a name wider than a lane wraps, a single word wider than a lane widens the
+  head (sequence-styled.yml: icons and fills by kind).
 - each link's sample in the legend draws the same arrowheads and dash as a real message of that link
   (synchronous: filled arrow; asynchronous: open arrow; return: dashed, open arrow).
 """
@@ -23,7 +26,7 @@ from e2e_notation_legibility import _serve, sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "tests" / "fixtures" / "notation-sequence"
-SPEC, SHORT = "sequence.wide-request", "sequence.short-request"
+SPEC, SHORT, STYLED = "sequence.wide-request", "sequence.short-request", "sequence.styled-heads"
 
 # Lo que se ve de una secuencia en el lienzo: escala, tamaño efectivo del texto, participantes dentro
 # del lienzo, mensajes visibles y encimados entre rótulos, cabeceras y pestañas de fragmento.
@@ -186,6 +189,39 @@ def test_r11_view_all_frames_every_participant_legibly_and_scrolls_to_the_last_m
             else:
                 assert wide["visible"] == wide["labels"], wide
             assert not errors, errors
+            browser.close()
+    finally:
+        process.terminate()
+        process.wait()
+
+
+# R14: el texto de cada cabecera (ícono, keyword y cada renglón del nombre) dentro de su caja, sin el borde.
+HEADS = r"""() => [...document.querySelectorAll('.lane-head .glyph')].map(g => {
+  const box = g.getBoundingClientRect(), b = parseFloat(getComputedStyle(g).borderLeftWidth) || 0;
+  const parts = [...g.querySelectorAll('.glyph-line, .glyph-icon, .glyph-keyword, .glyph-label')].map(e => e.getBoundingClientRect()).filter(r => r.width > 0);
+  const range = document.createRange(); range.selectNodeContents(g.querySelector('.glyph-label'));
+  const text = range.getBoundingClientRect();
+  const out = [...parts, text].reduce((m, r) => Math.max(m, box.left + b - r.left, r.right - (box.right - b), box.top + b - r.top, r.bottom - (box.bottom - b)), -Infinity);
+  return {label: g.querySelector('.glyph-label').innerText, shape: [...g.classList].find(c => c.startsWith('shape-')), icon: Boolean(g.querySelector('svg.glyph-icon')),
+          out: +out.toFixed(2), lines: g.querySelectorAll('.glyph-line').length, width: box.width};
+})"""
+
+
+def test_r14_participant_heads_hold_their_whole_text(store):
+    process, base = _serve(store)
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1800, "height": 1200})
+            _open(page, base, STYLED)
+            page.wait_for_selector(".lane-head .glyph-icon", timeout=30000)
+            page.click(".notation-actual-size")
+            page.wait_for_timeout(1500)  # lucide carga aparte: el ícono pasa de hueco a SVG
+            heads = [h for h in page.evaluate(HEADS) if h["shape"] != "shape-stick-figure"]
+            assert len(heads) == 6 and all(h["out"] <= 0 for h in heads), [h for h in heads if h["out"] > 0]
+            assert all(h["icon"] for h in heads), heads
+            widest = next(h for h in heads if h["label"].startswith("Notification"))
+            assert widest["width"] > 184, widest  # una palabra más ancha que un carril ensancha la cabecera
             browser.close()
     finally:
         process.terminate()
