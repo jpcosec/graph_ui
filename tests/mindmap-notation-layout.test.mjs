@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {buildScene} from '../frontends/mindmap/views/specs/notation/notation.mjs';
 import {wrapText, sizeGlyph, containerHeader, edgeLabelBox, gridEdges, elkGraph, fromElk, bestLayout, fitZoom, legibleZoom,
   approximateMeasure, DIAMOND_RATIO, GRID_MIN, FONT, MIN_TEXT_PX, headerId, diamondPorts, routeOf, placeLabels, layoutIssues,
-  LABEL_MAX_DISTANCE} from '../frontends/mindmap/views/specs/notation/notation-layout.mjs';
+  LABEL_MAX_DISTANCE, LABEL_MARGIN} from '../frontends/mindmap/views/specs/notation/notation-layout.mjs';
 
 const measure = (text, size) => (text || '').length * size * 0.5;
 
@@ -187,4 +187,31 @@ test('bestLayout: prefiere el orden del spec mientras se lea; si no, el que mejo
   assert.ok(Math.abs(cramped.zoom - fitZoom({width: 700, height: 500}, canvas)) < 1e-9);
   assert.equal(MIN_TEXT_PX, 10);
   assert.ok(approximateMeasure('abc', 10) > 0);
+});
+
+
+test('R6: con dos ramas paralelas, cada guarda va a la salida de su vértice y más cerca de su rama que de la otra', () => {
+  // Rombo Q (100..180 x 0..40): [no] sale por E y sube por x=200; [sí] sale por S y corre por x=212.
+  const no = {id: 'no', source: 'Q', target: 'A', points: [{x: 180, y: 20}, {x: 200, y: 20}, {x: 200, y: 300}],
+    labelSize: {width: 30, height: 16, lines: ['[no]']}};
+  const yes = {id: 'si', source: 'Q', target: 'B', points: [{x: 140, y: 40}, {x: 140, y: 60}, {x: 212, y: 60}, {x: 212, y: 300}],
+    labelSize: {width: 30, height: 16, lines: ['[sí]']}};
+  const layout = plainLayout([no, yes], [['Q', 100, 0, 80, 40, {glyph: {shape: 'diamond'}}], ['A', 170, 300, 60, 30], ['B', 190, 330, 60, 30]]);
+  placeLabels(layout);
+  // Distancia de una caja a una polilínea ortogonal, muestreada cada 1 px.
+  const near = (box, pts) => Math.min(...pts.slice(1).flatMap((b, i) => {
+    const a = pts[i], n = Math.max(1, Math.ceil(Math.hypot(b.x - a.x, b.y - a.y)));
+    return Array.from({length: n + 1}, (_, k) => {
+      const x = a.x + (b.x - a.x) * k / n, y = a.y + (b.y - a.y) * k / n;
+      return Math.hypot(Math.max(box.x - x, 0, x - box.x - box.width), Math.max(box.y - y, 0, y - box.y - box.height));
+    });
+  }));
+  for (const [edge, other] of [[no, yes], [yes, no]]) {
+    const box = edge.labelBox;
+    assert.ok(near(box, other.points) >= near(box, edge.points) + LABEL_MARGIN, [edge.id, box]);
+    // En el primer tramo, junto al vértice por donde sale.
+    const [a] = edge.points;
+    assert.ok(Math.hypot(box.x + box.width / 2 - a.x, box.y + box.height / 2 - a.y) < 60, [edge.id, box]);
+  }
+  assert.equal(layoutIssues(layout).ambiguousGuards, 0);
 });

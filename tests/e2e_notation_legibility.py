@@ -11,7 +11,9 @@ containers) and spec2viz's activity pilot (decisions and a loop back). In Chromi
 - no edge passes through a node other than its two ends (G5, G6);
 - round 2: the initial node is above its first step (R1); every edge starts and ends on its source
   and target (R2); every edge label is within 20 px of its edge (R3); with the minimap shown, it
-  covers no node after «Ver todo» (R4); no edge crosses a container's title (R5).
+  covers no node after «Ver todo» (R4); no edge crosses a container's title (R5);
+- round 3: every guard (label of a branch leaving a decision) is at least 8 px closer to its own
+  branch than to any other edge, so parallel branches cannot swap their guards (R6).
 
 G1: with a model whose module does not import, the shell names the model and its error and the
 catalog still lists the specs; started with --pythonpath, the error is gone.
@@ -90,12 +92,23 @@ MEASURE = r"""() => {
   }
   // Cada rótulo contra el recorrido de SU arista (data-edge = id de la arista).
   const pathById = new Map([...document.querySelectorAll('.notation-canvas .react-flow__edge')].map(e => [e.querySelector('.react-flow__edge-path')?.id, e.querySelector('.react-flow__edge-path')]));
-  const labelDistances = [...document.querySelectorAll('.notation-canvas .notation-edge-label')].filter(visible).map(l => {
-    const path = pathById.get(l.dataset.edge); if (!path) return Infinity;
-    const ctm = path.getScreenCTM(), total = path.getTotalLength(), r = rect(l);
+  const distanceToPath = (path, r) => {
+    const ctm = path.getScreenCTM(), total = path.getTotalLength();
     let best = Infinity; for (let s = 0; s <= total; s += 2) { const p = path.getPointAtLength(s); best = Math.min(best, toRect({x: p.x * ctm.a + ctm.e, y: p.y * ctm.d + ctm.f}, r)); }
     return best;
+  };
+  const labelDistances = [...document.querySelectorAll('.notation-canvas .notation-edge-label')].filter(visible).map(l => {
+    const path = pathById.get(l.dataset.edge); return path ? distanceToPath(path, rect(l)) : Infinity;
   });
+  // R6: guardas = rótulos de aristas que salen de un rombo; margen = (otra arista más cercana) - (la propia).
+  const diamondIds = new Set([...document.querySelectorAll('.notation-canvas .glyph.shape-diamond')].map(g => g.closest('.react-flow__node').dataset.id));
+  const sourceOf = new Map([...document.querySelectorAll('.notation-canvas .react-flow__edge')].map(e => [e.querySelector('.react-flow__edge-path')?.id, e.querySelector('.notation-edge-ends')?.dataset.source]));
+  const guardMargins = [...document.querySelectorAll('.notation-canvas .notation-edge-label')].filter(visible)
+    .filter(l => diamondIds.has(sourceOf.get(l.dataset.edge))).map(l => {
+      const r = rect(l), own = distanceToPath(pathById.get(l.dataset.edge), r);
+      const other = Math.min(Infinity, ...[...pathById.entries()].filter(([id]) => id !== l.dataset.edge).map(([, path]) => distanceToPath(path, r)));
+      return other - own;
+    });
   const initial = document.querySelector('.notation-canvas .glyph.shape-filled-circle');
   let initialAbove = null;
   if (initial) {
@@ -107,7 +120,8 @@ MEASURE = r"""() => {
   const minimap = document.querySelector('.notation-canvas .react-flow__minimap');
   const minimapCovers = minimap ? [...allNodes.values()].filter(r => overlap(r, rect(minimap))).length : null;
   return {zoom, minTextPx, texts: texts.length, labelOverlaps, spills, containers, diamonds, crossings, looseEnds, headerCrossings,
-          maxLabelDistance: labelDistances.length ? Math.max(...labelDistances) : 0, labels: labelDistances.length, initialAbove, minimapCovers};
+          maxLabelDistance: labelDistances.length ? Math.max(...labelDistances) : 0, labels: labelDistances.length, initialAbove, minimapCovers,
+          guards: guardMargins.length, minGuardMargin: guardMargins.length ? Math.min(...guardMargins) : null};
 }"""
 
 
@@ -199,6 +213,8 @@ def test_specs_read_whole_after_fit(store):
             assert flow["crossings"] == 0, flow
             _round_two(flow)
             assert flow["labels"] >= 4 and flow["initialAbove"] is True, flow
+            # R6: every guard reads as its own branch's.
+            assert flow["guards"] >= 4 and flow["minGuardMargin"] >= 8, flow
 
             # Dense deployment (13 nodes, 18 artifacts, 21 labelled connections between nodes): with the
             # workers panel collapsed, as the Specs view starts, it still reads at >= 10 px.

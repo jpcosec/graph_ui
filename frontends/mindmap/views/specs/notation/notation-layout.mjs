@@ -286,35 +286,52 @@ function boxToSegment(box, a, b) {
 }
 export const LABEL_GAP = 4, LABEL_MAX_DISTANCE = 20;
 
-// R3: cada rótulo va pegado a un tramo de su arista (al costado de un tramo vertical, encima de uno
-// horizontal), probando tramos de más largo a más corto y deslizándose por el tramo hasta no pisar
-// nodos, encabezados ni otros rótulos.
+// R3: cada rótulo va pegado a un tramo de su arista (al costado de un tramo vertical, encima o debajo de
+// uno horizontal) sin pisar nodos, encabezados ni otros rótulos. R6: además tiene que estar al menos
+// LABEL_MARGIN px más cerca de su arista que de cualquier otra, para que no se lea como de la vecina; y
+// una guarda (rama que sale de un rombo) va en el primer tramo, justo a la salida del vértice.
+export const LABEL_MARGIN = 8;
+const segmentsOf = points => points.slice(1).map((b, i) => [points[i], b]);
+const distanceTo = (box, segments) => Math.min(Infinity, ...segments.map(([a, b]) => boxToSegment(box, a, b)));
+
+function labelCandidates(segment, {width, height}, offsets) {
+  const [a, b] = segment;
+  const vertical = Math.abs(a.x - b.x) < 0.5, length = Math.hypot(b.x - a.x, b.y - a.y);
+  return offsets(length).flatMap(t => {
+    const px = a.x + (b.x - a.x) * t, py = a.y + (b.y - a.y) * t;
+    return vertical ? [{x: px + LABEL_GAP, y: py - height / 2}, {x: px - LABEL_GAP - width, y: py - height / 2}]
+      : [{x: px - width / 2, y: py - LABEL_GAP - height}, {x: px - width / 2, y: py + LABEL_GAP}];
+  }).map(c => ({...c, width, height}));
+}
+
 export function placeLabels(layout) {
   const abs = absoluteBoxes(layout);
   const obstacles = layout.nodes.filter(n => !n.container).map(n => abs.get(n.id));
   for (const n of layout.nodes) if (n.container && n.header) { const c = abs.get(n.id); obstacles.push({x: c.x + n.header.x, y: c.y + n.header.y, width: n.header.width, height: n.header.height}); }
+  const diamonds = new Set(layout.nodes.filter(n => n.glyph?.shape === 'diamond').map(n => n.id));
+  const segs = new Map(layout.edges.map(e => [e.id, segmentsOf(e.points)]));
   const placed = [];
-  for (const e of layout.edges) {
+  const free = box => !obstacles.some(o => intersects(box, o, 1)) && !placed.some(o => intersects(box, o, 2));
+  // Guardas primero: son las que más se confunden con la rama vecina.
+  const ordered = [...layout.edges].sort((a, b) => diamonds.has(b.source) - diamonds.has(a.source));
+  for (const e of ordered) {
     if (!e.labelSize || e.points.length < 2) continue;
-    const {width, height} = e.labelSize;
-    const segments = e.points.slice(1).map((b, i) => [e.points[i], b]).sort(([a1, b1], [a2, b2]) => Math.hypot(b2.x - a2.x, b2.y - a2.y) - Math.hypot(b1.x - a1.x, b1.y - a1.y));
-    let chosen = null;
-    for (const [a, b] of segments) {
-      const vertical = Math.abs(a.x - b.x) < 0.5, length = Math.hypot(b.x - a.x, b.y - a.y);
-      for (const f of [0.5, 0.3, 0.7, 0.15, 0.85]) {
-        const px = a.x + (b.x - a.x) * f, py = a.y + (b.y - a.y) * f;
-        const sides = vertical ? [{x: px + LABEL_GAP, y: py - height / 2}, {x: px - LABEL_GAP - width, y: py - height / 2}]
-          : [{x: px - width / 2, y: py - LABEL_GAP - height}, {x: px - width / 2, y: py + LABEL_GAP}];
-        const box = sides.map(s => ({...s, width, height})).find(c => !obstacles.some(o => intersects(c, o, 1)) && !placed.some(o => intersects(c, o, 2)));
-        if (box) { chosen = box; break; }
-        if (length < height * 2) break;
-      }
-      if (chosen) break;
-    }
+    const own = segs.get(e.id);
+    const others = layout.edges.filter(o => o.id !== e.id).flatMap(o => segs.get(o.id));
+    const clear = box => distanceTo(box, others) >= distanceTo(box, own) + LABEL_MARGIN;
+    const guard = diamonds.has(e.source);
+    const byLength = [...own].sort(([a1, b1], [a2, b2]) => Math.hypot(b2.x - a2.x, b2.y - a2.y) - Math.hypot(b1.x - a1.x, b1.y - a1.y));
+    const near = length => [8, 16, 28].filter(d => d < length).map(d => d / length).concat(length > 0 ? [0.5] : []);
+    const spread = () => [0.5, 0.3, 0.7, 0.15, 0.85];
+    const tries = [
+      ...(guard ? labelCandidates(own[0], e.labelSize, near) : []),
+      ...byLength.flatMap(seg => labelCandidates(seg, e.labelSize, spread)),
+    ];
+    let chosen = tries.find(c => free(c) && clear(c)) || tries.find(free);
     // Sin hueco libre: en el centro del tramo más largo (pegado igual a su arista).
-    if (!chosen) { const [a, b] = segments[0]; chosen = {x: (a.x + b.x) / 2 + LABEL_GAP, y: (a.y + b.y) / 2 - height / 2, width, height}; }
+    if (!chosen) { const [a, b] = byLength[0]; chosen = {x: (a.x + b.x) / 2 + LABEL_GAP, y: (a.y + b.y) / 2 - e.labelSize.height / 2, ...e.labelSize}; }
     placed.push(chosen);
-    e.labelBox = {...chosen, lines: e.labelSize.lines};
+    e.labelBox = {x: chosen.x, y: chosen.y, width: chosen.width, height: chosen.height, lines: e.labelSize.lines};
   }
 }
 
@@ -324,7 +341,9 @@ export function layoutIssues(layout) {
   const abs = absoluteBoxes(layout);
   const heads = layout.nodes.filter(n => n.container && n.header).map(n => { const c = abs.get(n.id);
     return {id: n.id, box: {x: c.x + n.header.x, y: c.y + n.header.y, width: n.header.width, height: n.header.height}}; });
-  const issues = {broken: 0, farLabels: 0, headerCrossings: 0};
+  const issues = {broken: 0, farLabels: 0, headerCrossings: 0, ambiguousGuards: 0};
+  const diamonds = new Set(layout.nodes.filter(n => n.glyph?.shape === 'diamond').map(n => n.id));
+  const segs = new Map(layout.edges.map(e => [e.id, segmentsOf(e.points)]));
   const touches = (p, box) => box && p.x >= box.x - 1.5 && p.x <= box.x + box.width + 1.5 && p.y >= box.y - 1.5 && p.y <= box.y + box.height + 1.5
     && Math.min(Math.abs(p.x - box.x), Math.abs(p.x - box.x - box.width), Math.abs(p.y - box.y), Math.abs(p.y - box.y - box.height)) <= 1.5;
   for (const e of layout.edges) {
@@ -332,12 +351,16 @@ export function layoutIssues(layout) {
     const diagonal = pts.some((p, i) => i && Math.abs(p.x - pts[i - 1].x) > 0.5 && Math.abs(p.y - pts[i - 1].y) > 0.5);
     if (pts.length < 2 || diagonal || !touches(pts[0], abs.get(e.source)) || !touches(pts[pts.length - 1], abs.get(e.target))) issues.broken++;
     if (e.labelBox && Math.min(...pts.slice(1).map((p, i) => boxToSegment(e.labelBox, pts[i], p))) > LABEL_MAX_DISTANCE) issues.farLabels++;
+    if (e.labelBox && diamonds.has(e.source)) {
+      const others = layout.edges.filter(o => o.id !== e.id).flatMap(o => segs.get(o.id));
+      if (distanceTo(e.labelBox, others) < distanceTo(e.labelBox, segs.get(e.id)) + LABEL_MARGIN) issues.ambiguousGuards++;
+    }
     for (let i = 1; i < pts.length; i++) {
       const seg = segBox(pts[i - 1], pts[i]);
       if (heads.some(h => intersects(seg, {x: h.box.x + 1, y: h.box.y + 1, width: h.box.width - 2, height: h.box.height - 2}))) { issues.headerCrossings++; break; }
     }
   }
-  issues.total = issues.broken + issues.farLabels + issues.headerCrossings;
+  issues.total = issues.broken + issues.farLabels + issues.headerCrossings + issues.ambiguousGuards;
   return issues;
 }
 
