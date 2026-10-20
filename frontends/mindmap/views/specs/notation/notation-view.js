@@ -5,6 +5,8 @@ import {request} from '../../../shell/api.js';
 import {useSource} from '../../../source/source.js';
 import {specCatalog, sceneFor, compartmentLine, cellKey, LANE, TERMINALS} from './notation.mjs';
 import {bestLayout, pathOf, POINT_SHAPES} from './notation-layout.mjs';
+import {glyphVars, paletteInk, themed, SHAPE_PADDING_TOP} from './notation-style.mjs';
+import {GlyphIcon, ShapeOutline, NotationLegend, useIcons} from './notation-style.js';
 
 // Vista genérica de notación: dibuja un spec de spec2viz tal como lo resuelve
 // GET /api/notation/view (resolve_view de spec2viz). Nada aquí distingue UML,
@@ -50,25 +52,30 @@ async function layoutGraph(scene, element) {
 // cabeceras de carril (que no viven dentro de React Flow).
 const lineList = lines => lines.map((line, i) => html`<span key=${i} className="glyph-line">${line}</span>`);
 
-function Glyph({glyph: g, container, selected, children, style, lines, outside, header}) {
+function Glyph({glyph: g, container, selected, children, style, lines, outside, header, skin, ink, icons}) {
   const point = POINT_SHAPES.includes(g.shape);
   const text = lines && lines.length ? lineList(lines) : g.label;
   const label = html`<span className=${'glyph-label' + (g.label_style ? ' is-' + g.label_style : '')}>${text}</span>`;
   const compartments = (g.compartments || []).filter(c => c.items && c.items.length);
-  return html`<div className=${'glyph shape-' + g.shape + (container ? ' is-container' : '') + (selected ? ' selected' : '')} style=${style}
-      data-doc=${g.doc} data-glyph=${g.glyph} data-function=${g.function || ''} title=${g.doc}>
+  // Estilo resuelto por spec2viz (§13): relleno, trazo, texto e ícono; sin estilo, el de siempre.
+  const vars = {...glyphVars(g.style, skin, ink), ...(SHAPE_PADDING_TOP[g.shape] ? {'--glyph-pad-top': SHAPE_PADDING_TOP[g.shape] + 'px'} : {})};
+  return html`<div className=${'glyph shape-' + g.shape + (container ? ' is-container' : '') + (selected ? ' selected' : '') + (g.style?.fill || g.style?.stroke ? ' is-styled' : '')}
+      style=${{...style, ...vars}} data-doc=${g.doc} data-glyph=${g.glyph} data-function=${g.function || ''} title=${g.doc}
+      data-fill=${themed(g.style?.fill, skin) || ''} data-stroke=${themed(g.style?.stroke, skin) || ''} data-icon=${g.style?.icon || ''}>
+    <${ShapeOutline} shape=${g.shape}/>
     ${children}
     ${(g.markers || []).map(m => html`<span key=${m.id} className=${'glyph-marker marker-' + m.shape} title=${m.id} data-marker=${m.id}></span>`)}
     ${point ? (outside ? html`<span className="glyph-point-label" style=${{left: outside.x + 'px', top: outside.y + 'px', width: outside.width + 'px'}}>${lineList(outside.lines)}</span>` : '')
       : g.shape === 'diamond' ? html`<span className="glyph-diamond-label">${text}</span>`
-      : html`<header className="glyph-head" style=${container && header && header.x != null ? {position: 'absolute', left: header.x + 'px', top: header.y + 'px', width: header.width + 'px', height: header.height + 'px'} : undefined}>${g.keyword ? html`<small className="glyph-keyword">${g.keyword}</small>` : ''}${label}</header>
+      : html`<header className="glyph-head" style=${container && header && header.x != null ? {position: 'absolute', left: header.x + 'px', top: header.y + 'px', width: header.width + 'px', height: header.height + 'px'} : undefined}>${g.keyword ? html`<small className="glyph-keyword">${g.keyword}</small>` : ''}<span className="glyph-title-row">${g.style?.icon ? html`<${GlyphIcon} icons=${icons} name=${g.style.icon}/>` : ''}${label}</span></header>
         ${compartments.map(c => html`<ul key=${c.path} className="glyph-compartment" data-path=${c.path}>${c.items.map((item, i) => html`<li key=${i}>${compartmentLine(item)}</li>`)}</ul>`)}`}
   </div>`;
 }
 
 function GlyphNode({data, selected}) {
   const [inPos, outPos] = HANDLES[data.direction] || HANDLES.TB;
-  return html`<${Glyph} glyph=${data.glyph} container=${data.container} selected=${selected}
+  const icons = useIcons([data.glyph.style?.icon]);
+  return html`<${Glyph} glyph=${data.glyph} container=${data.container} selected=${selected} skin=${data.skin} ink=${data.ink} icons=${icons}
       lines=${data.container ? data.header?.lines : data.lines} outside=${data.outside} header=${data.container ? data.header : null}>
     <${Handle} type="target" position=${inPos}/><${Handle} type="source" position=${outPos}/>
   </${Glyph}>`;
@@ -177,7 +184,7 @@ const edgeTypes = {notation: NotationEdge};
 
 // R7: pasar el mouse por una arista o por su rótulo la resalta y atenúa las demás, para seguir una
 // línea dentro de un haz de paralelas (p. ej. varias «Service Connect»). Sin hover, manda la selección.
-function edgesOf(edges, selected, hovered, setHovered) {
+function edgesOf(edges, selected, hovered, setHovered, skin = 'light') {
   return edges.map(e => {
     const focus = hovered || null;
     const active = focus ? e.id === focus : selected && (e.source === selected || e.target === selected);
@@ -186,7 +193,7 @@ function edgesOf(edges, selected, hovered, setHovered) {
       data: {relation: e.relation, sourceLabel: e.sourceLabel, targetLabel: e.targetLabel, points: e.points, labelBox: e.labelBox,
         hovered: focus === e.id, onHover: setHovered}, className: 'notation-edge' + (focus === e.id ? ' is-hovered' : ''),
       markerEnd: e.targetEnd ? 'nv-' + e.targetEnd : undefined, markerStart: e.sourceEnd ? 'nv-' + e.sourceEnd : undefined,
-      style: {stroke: focus === e.id ? 'var(--accent)' : 'var(--edge)', strokeWidth: focus === e.id ? 2.8 : active ? 2.2 : 1.4, strokeDasharray: e.dash, opacity: dimmed ? .2 : 1}};
+      style: {stroke: focus === e.id ? 'var(--accent)' : themed(e.color, skin) || 'var(--edge)', strokeWidth: focus === e.id ? 2.8 : active ? 2.2 : 1.4, strokeDasharray: e.dash, opacity: dimmed ? .2 : 1}};
   });
 }
 
@@ -255,6 +262,8 @@ function NotationCanvas({skin}) {
     return () => { clearTimeout(timer); observer.disconnect(); };
   }, [extent]);
   const selected = flowNodes.find(n => n.selected)?.id || null;
+  const ink = paletteInk(kb.documents.working.documents, state.view?.palette);
+  const styledNodes = useMemo(() => flowNodes.map(n => ({...n, data: {...n.data, skin: skin || 'light', ink}})), [flowNodes, skin, ink]);
   const [hoveredEdge, setHoveredEdge] = useState(null);
 
   const choose = id => { setSpecId(id); try { localStorage.setItem(STORAGE_KEY, id); } catch {} };
@@ -265,6 +274,7 @@ function NotationCanvas({skin}) {
         ${group.specs.map(s => html`<li key=${s.id}><button type="button" className=${s.id === current ? 'active' : ''} aria-current=${s.id === current ? 'true' : undefined}
           title=${s.summary || s.title} data-spec=${s.id} onClick=${() => choose(s.id)}><strong>${s.nav}</strong><small>${s.diagramType}${s.notation ? '' : ' · sin notación'}</small></button></li>`)}
       </ul></section>`)}
+      ${state.view?.legend ? html`<${NotationLegend} legend=${state.view.legend} skin=${skin || 'light'} ink=${ink} notation=${state.view.notation}/>` : ''}
     </nav>
     <div className="notation-main">
       <div className="notation-bar" role="toolbar" aria-label="Herramientas de la vista">
@@ -282,7 +292,7 @@ function NotationCanvas({skin}) {
           : state.phase === 'loading' || !scene ? html`<div className="state"><p>Resolviendo la notación…</p></div>`
           : scene.kind === 'lanes' ? html`<div className="notation-scroll"><${LanesDiagram} scene=${scene}/></div>`
           : scene.kind === 'grid' ? html`<div className="notation-scroll"><${GridDiagram} scene=${scene}/></div>`
-          : html`<${ReactFlow} nodes=${flowNodes} edges=${edgesOf(flowEdges, selected, hoveredEdge, setHoveredEdge)}
+          : html`<${ReactFlow} nodes=${styledNodes} edges=${edgesOf(flowEdges, selected, hoveredEdge, setHoveredEdge, skin || 'light')}
               onEdgeMouseEnter=${(_, edge) => setHoveredEdge(edge.id)} onEdgeMouseLeave=${() => setHoveredEdge(null)} nodeTypes=${nodeTypes} edgeTypes=${edgeTypes}
               onNodesChange=${changes => setFlowNodes(ns => applyNodeChanges(changes, ns))}
               minZoom=${.08} maxZoom=${2} nodesConnectable=${false} deleteKeyCode=${null} colorMode=${skin || 'light'}>

@@ -60,6 +60,13 @@ las clases, que es la misma en ambos temas.
   `data.order`, filas = components indentados por `nest`, celda = link
   `cell` (fila → columna); una fila sin celdas se dibuja vacía. Lo que aún
   no tiene (`axis`, `draw: lane`) se dibuja como grafo y línea, con aviso.
+  Estilo (contrato §13): cada nodo usa el `style` ya resuelto por spec2viz
+  (relleno y trazo por tema, ícono de lucide junto al rótulo), las formas
+  `cylinder`, `queue`, `cloud`, `package` y `note` se dibujan como contorno, y
+  cada relación con `color` pinta su línea y su punta. El texto sobre un
+  relleno usa el ink de la paleta que más contrasta con ese relleno (un color
+  literal claro conserva texto oscuro en el tema oscuro). La leyenda
+  (`view.legend`: glifos, kinds y links) va al pie del catálogo.
   Requiere spec2viz instalado y modo
   local (en remote, 501). Solo lectura. Contrato:
   `spec2viz/docs/notation-contract.md`.

@@ -18,15 +18,16 @@
 .notation-notices p{margin:2px 0}
 .notation-canvas{position:relative;flex:1;min-height:0}
 .notation-defs{position:absolute;width:0;height:0;overflow:hidden}
-.notation-terminal path,.notation-terminal circle{stroke:var(--edge);stroke-width:1.3}
-.notation-terminal .solid{fill:var(--edge)}
+/* La punta toma el color de su línea (link.color o el del tema). */
+.notation-terminal path,.notation-terminal circle{stroke:context-stroke;stroke-width:1.3}
+.notation-terminal .solid{fill:context-stroke}
 .notation-terminal .hollow{fill:var(--surface-app)}
 
 /* Glifos: la clase sale de `shape` del GlyphDoc, nunca del `kind` del elemento. */
-.glyph{position:relative;box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;border:1.5px solid var(--ink);background:var(--surface-panel);color:var(--text);font-size:12.5px;box-shadow:var(--shadow-card)}
+.glyph{position:relative;box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;border:1.5px solid var(--glyph-stroke,var(--ink));background:var(--glyph-fill,var(--surface-panel));color:var(--glyph-ink,var(--text));font-size:12.5px;box-shadow:var(--shadow-card)}
 .glyph.selected{box-shadow:0 0 0 3px var(--focus-ring)}
 .glyph-head,.glyph-compartment{flex:none}
-.glyph-head{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:6px 10px;min-height:28px;text-align:center}
+.glyph-head{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:calc(6px + var(--glyph-pad-top,0px)) 10px 6px;min-height:28px;text-align:center}
 .glyph-keyword{font-size:12.5px;line-height:1.3;color:var(--text-muted)}
 .glyph-label{font-weight:600;line-height:1.3}
 .glyph-line{display:block;white-space:nowrap}
@@ -96,3 +97,28 @@
 .notation-bar .notation-minimap-toggle{margin-left:6px}
 /* Los rótulos de arista se dibujan sobre los nodos (no los tapa el velo de un contenedor); ya evitan los nodos hoja. */
 .notation-canvas .react-flow__edgelabel-renderer{z-index:5}
+
+/* Estilo de notación (spec2viz §13): ícono antes del rótulo y formas dibujadas como contorno. */
+.glyph-title-row{display:inline-flex;align-items:center;justify-content:center;gap:5px}
+.glyph-icon{flex:none;color:var(--glyph-stroke,currentColor)}
+/* Sobre un relleno declarado, el texto secundario usa el ink del relleno (legible en ambos temas). */
+.glyph[style*="--glyph-ink"] .glyph-keyword{color:var(--glyph-ink);opacity:.75}
+.glyph-icon.is-pending{display:inline-block;width:15px;height:15px}
+.glyph.shape-cylinder,.glyph.shape-queue,.glyph.shape-cloud,.glyph.shape-package,.glyph.shape-note{border:0;background:none;box-shadow:none;justify-content:center}
+.glyph-outline{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:0;pointer-events:none}
+.glyph-outline path{fill:var(--glyph-fill,var(--surface-panel));stroke:var(--glyph-stroke,var(--ink));stroke-width:1.5}
+.glyph.shape-queue .glyph-head{padding-right:22px}
+.glyph.shape-note .glyph-head{padding-right:18px}
+
+/* Leyenda de la notación, al pie del catálogo: nunca tapa el diagrama. */
+.notation-legend{margin:14px 10px 6px;padding-top:8px;border-top:1px solid var(--border)}
+.notation-legend h3{margin:0 4px 6px}
+.notation-legend ul{list-style:none;margin:0;padding:0}
+.notation-legend li{display:flex;align-items:center;gap:6px;padding:3px 4px;font-size:11.5px}
+.notation-legend .legend-title{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.notation-legend small{color:var(--text-muted);font-size:10px}
+.legend-swatch{position:relative;flex:none;width:28px;height:18px;box-shadow:none}
+.legend-swatch.glyph{min-height:0}
+.legend-line{flex:none}
+.legend-line line{stroke-width:2}
+.notation-canvas .react-flow__handle{opacity:0;pointer-events:none}

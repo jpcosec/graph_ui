@@ -8,6 +8,7 @@
 // la decisión fuera del rombo y bucles sobre el flujo.
 
 import {compartmentLine} from './notation.mjs';
+import {SHAPE_EXTRA} from './notation-style.mjs';
 
 // Todo el texto del diagrama a 12.5 px: con el zoom de «Ver todo» por encima de 0.8 se lee a ≥10 px.
 export const FONT = {label: 12.5, small: 12.5, edge: 12.5, line: 1.3};
@@ -16,7 +17,7 @@ export const POINT_SHAPES = ['filled-circle', 'bullseye'];
 const POINT_SIZES = {'filled-circle': [22, 22], bullseye: [26, 26]};
 const FIXED = {'stick-figure': [90, 86]};
 const MIN = {box: [120, 40], 'rounded-box': [120, 40], 'class-box': [150, 40], 'lifeline': [150, 52], 'boundary-lifeline': [150, 52]};
-const PAD_X = 14, PAD_Y = 10, CONTAINER_SIDE = 10;
+const PAD_X = 14, PAD_Y = 10, CONTAINER_SIDE = 10, ICON_SPACE = 20;
 export const DIAMOND_RATIO = 2;
 
 // Ancho aproximado para los tests y para cuando no hay canvas: ~0.55 em por carácter.
@@ -79,8 +80,11 @@ export function sizeGlyph(glyph, {measure = approximateMeasure, wrapWidth = 200}
   const itemWidth = Math.max(0, ...rows.flatMap(c => c.items.map(i => measure(compartmentLine(i), FONT.small))));
   const body = rows.reduce((h, c) => h + 8 + c.items.length * COMPARTMENT_ROW, 0);
   const [minW, minH] = MIN[shape] || [120, 40];
-  const width = Math.ceil(Math.max(minW, Math.max(label.width, itemWidth, glyph.keyword ? measure(glyph.keyword, FONT.small) : 0) + PAD_X * 2));
-  const height = Math.ceil(Math.max(minH, keyword + label.height + PAD_Y * 2 + body));
+  // Un ícono va antes del rótulo; las formas con tapa, pestaña o borde curvo piden su espacio.
+  const icon = glyph.style?.icon ? ICON_SPACE : 0;
+  const [extraW, extraH] = SHAPE_EXTRA[shape] || [0, 0];
+  const width = Math.ceil(Math.max(minW, Math.max(label.width + icon, itemWidth, glyph.keyword ? measure(glyph.keyword, FONT.small) : 0) + PAD_X * 2 + extraW));
+  const height = Math.ceil(Math.max(minH, keyword + label.height + PAD_Y * 2 + body + extraH));
   return {width, height, lines: label.lines};
 }
 

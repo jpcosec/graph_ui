@@ -94,6 +94,7 @@ export function buildScene(view) {
       // (p. ej. multiplicidades de una asociación UML).
       sourceLabel: link.source_label || '', targetLabel: link.target_label || '',
       dash: dash(link.line), sourceEnd: terminal(link.source_end), targetEnd: terminal(link.target_end), order: link.order || 0,
+      color: link.color || null,
     });
   }
   for (const draw of fallbackDraws) notices.push(`El dibujo «${draw}» todavía no está soportado: esas relaciones se dibujan como líneas.`);

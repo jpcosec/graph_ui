@@ -1,0 +1,28 @@
+# Test spec for the Specs view's glyph style: one element per shape/kind of tests/fixtures/notation-style/infra.yml,
+# plus a spec-level style.kinds entry (precedence layer 2) for a kind the notation does not style.
+id: component.style-infra
+title: "Style: shapes, palette, colours and icons"
+type: component
+version: "0.1"
+style:
+  kinds:
+    backend:
+      fill: "#e8f4e8"
+      stroke: "#2e7d32"
+      icon: cpu
+data:
+  nodes:
+    api: {label: API, kind: backend}
+    db: {label: Orders database, kind: database}
+    jobs: {label: Job queue, kind: queue}
+    payments: {label: Payments provider, kind: external}
+    shared: {label: Shared module, kind: module}
+    memo: {label: Retries are idempotent, kind: note}
+    checkout: {label: Checkout, kind: hot}
+    web: {label: Web, kind: frontend}
+  edges:
+    - {from: web, to: api, relation: calls}
+    - {from: api, to: db, relation: reads}
+    - {from: api, to: jobs, relation: publishes}
+    - {from: checkout, to: payments, relation: charges}
+    - {from: api, to: shared, relation: uses}

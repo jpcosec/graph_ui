@@ -78,15 +78,16 @@ def test_specs_view_draws_nest_markers_compartments_and_terminals():
             page.on("pageerror", lambda e: errors.append(str(e)))
             page.goto(f"http://127.0.0.1:{PORT}/specs/notation")
             page.wait_for_selector(".notation-catalog button", timeout=15000)
-            headings = page.locator(".notation-catalog h3").all_inner_texts()
+            # Las categorías del catálogo (la leyenda de la notación va aparte, al pie).
+            headings = page.locator(".notation-catalog section:not(.notation-legend) > h3").all_inner_texts()
             # `diagram sync` no escribe `category` (lo hace `catalog sync`): sin categoría.
             assert [h.lower() for h in headings] == ["sin categoría"], headings
             assert page.locator(".notation-catalog button").count() == 2
 
             page.click('[data-spec="state.diagram-sync-lifecycle"]')
-            page.wait_for_selector(".glyph", timeout=15000)
+            page.wait_for_selector(".notation-canvas .glyph", timeout=15000)
             page.wait_for_timeout(700)  # fitView anima el zoom: medir cajas a mitad mezcla escalas
-            assert page.locator(".glyph").count() == 7
+            assert page.locator(".notation-canvas .glyph").count() == 7
             # Los subestados son hijos del compuesto en React Flow (parentId).
             for child in ("validating", "writing", "indexing"):
                 node = page.locator(f'.react-flow__node[data-id="SpecNodeDoc:state.diagram-sync-lifecycle.{child}"]')
