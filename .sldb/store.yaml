@@ -170,7 +170,6 @@ include:
     name: ritual-testing
 - model: TaskDoc
   paths:
-  - desk/tasks/task-estilo-de-glifos-en-la-vista-specs-colores-íconos-formas-y-leyenda.md
   - desk/tasks/task-activity-en-la-vista-specs-carriles-por-partición-notas-y-merge.md
   - desk/tasks/task-deployment-en-la-vista-specs-nodos-anidados-communication-paths-y-deploy-manifest.md
   - desk/tasks/task-estilo-de-notación-en-las-vistas-viewdoc-de-review-workbench.md
