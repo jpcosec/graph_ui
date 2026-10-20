@@ -2,7 +2,7 @@
 title: "R12: El actor de la leyenda pisa el título de la leyenda"
 severity: low
 category: legibility
-status: open
+status: closed
 ---
 # R12: El actor de la leyenda pisa el título de la leyenda
 
@@ -18,3 +18,9 @@ frontends/mindmap/views/specs/notation/notation.css (muestra de la leyenda con s
 
 ## Evidence
 - assets/specs-legibility-r11-2026-10-20/sequence.mensaje-entrante.png (abajo a la izquierda).
+
+## Resolution
+
+Closed: 2026-10-20
+Reason: La figura de actor se escala al alto de la muestra; e2e de renglones de la leyenda
+Refs: 766eb09
