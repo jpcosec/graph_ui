@@ -1,0 +1,46 @@
+# Test spec for the Specs view's sequence drawing (issues R11, R12): eleven participants (an actor, a
+# boundary and nine components), more than fit across the canvas at 100 %, with grouped messages
+# (fragments), self calls, replies and long labels. «Ver todo» must frame every participant and every
+# message at >= 10 px, and the legend's actor must stay in its row.
+id: sequence.wide-request
+title: "Sequence: a request across eleven participants"
+type: sequence
+version: "0.1"
+data:
+  participants:
+    - {id: Client, kind: actor}
+    - {id: LoadBalancer, kind: boundary}
+    - {id: Edge}
+    - {id: Control}
+    - {id: RuntimeDB}
+    - {id: Queue}
+    - {id: Worker}
+    - {id: Runtime}
+    - {id: Gateway}
+    - {id: ModelProvider}
+    - {id: Storage}
+  messages:
+    - {from: Client, to: LoadBalancer, message: "POST /webhooks/basic/{id}/inbound"}
+    - {from: LoadBalancer, to: Edge, message: "forward (public route, no login)"}
+    - {from: Edge, to: Edge, message: "rate guard + request guards (csrf, path params)"}
+    - {from: Edge, to: Control, message: "GET /internal/connections/{id}", group: Authenticate}
+    - {from: Control, to: Edge, message: "connection (account, active)", kind: reply, group: Authenticate}
+    - {from: Edge, to: Edge, message: "signature_valid(header) or 403", group: Authenticate}
+    - {from: Edge, to: RuntimeDB, message: "inbound_seen(message id) - dedupe retries", group: Authenticate}
+    - {from: Edge, to: Runtime, message: "POST /internal/turns/daily-cap", group: Daily cap}
+    - {from: Runtime, to: Edge, message: "channel cap state (at the cap)", kind: reply, group: Daily cap}
+    - {from: Edge, to: Storage, message: "PUT attachments (photos and audio)", group: Attachments}
+    - {from: Storage, to: Edge, message: "attachment keys", kind: reply, group: Attachments}
+    - {from: Edge, to: RuntimeDB, message: "unit_of_work - store_inbound + buffer_push", group: Wait}
+    - {from: Edge, to: RuntimeDB, message: "outbox_add inbound.flush {key, seq, due_at}", group: Wait}
+    - {from: Edge, to: LoadBalancer, message: "200 empty reply", kind: reply}
+    - {from: LoadBalancer, to: Client, message: "200 empty reply", kind: reply}
+    - {from: Worker, to: RuntimeDB, message: "dispatcher - outbox_dispatch (skip locked)", group: Queue}
+    - {from: Worker, to: Queue, message: "transport.send(inbound.flush)", kind: async, group: Queue}
+    - {from: Queue, to: Worker, message: "worker.run_once - receive", group: Queue}
+    - {from: Worker, to: Worker, message: "inbound flush - deferred if it fails", group: Queue}
+    - {from: Worker, to: Runtime, message: "POST /internal/turns/inbound", group: Turn}
+    - {from: Runtime, to: Gateway, message: "chat completion (agent, tools)", group: Turn}
+    - {from: Gateway, to: ModelProvider, message: "invoke model (streaming)", group: Turn}
+    - {from: ModelProvider, to: Gateway, message: "tokens", kind: reply, group: Turn}
+    - {from: Gateway, to: Runtime, message: "reply + tool calls", kind: reply, group: Turn}
