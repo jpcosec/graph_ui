@@ -8,7 +8,7 @@
 // la decisión fuera del rombo y bucles sobre el flujo.
 
 import {compartmentLine} from './notation.mjs';
-import {shapeBox} from './notation-style.mjs';
+import {shapeBox, clipToContour} from './notation-style.mjs';
 
 // Todo el texto del diagrama a 12.5 px: con el zoom de «Ver todo» por encima de 0.8 se lee a ≥10 px.
 export const FONT = {label: 12.5, small: 12.5, edge: 12.5, line: 1.3};
@@ -386,7 +386,18 @@ export async function bestLayout(elk, scene, {measure = approximateMeasure, canv
     const turned = await bestIn(elk, {...scene, direction: PERPENDICULAR[scene.direction] || 'LR'}, {measure, canvas, candidates});
     if (turned && (turned.issues.total < best.issues.total || (turned.issues.total === best.issues.total && turned.zoom > best.zoom))) best = turned;
   }
-  return best;
+  return best && clipEnds(best);
+}
+
+// Un extremo que llega a (o sale de) una forma que no es una caja toca su contorno real, no su caja.
+// Va después de elegir el layout: los candidatos se juzgan con los extremos que ELK dejó en la caja.
+export function clipEnds(layout) {
+  const abs = absoluteBoxes(layout), shapeOf = new Map(layout.nodes.map(n => [n.id, n.glyph?.shape]));
+  for (const e of layout.edges) {
+    e.points = clipToContour(e.points, abs.get(e.target), shapeOf.get(e.target));
+    e.points = clipToContour(e.points, abs.get(e.source), shapeOf.get(e.source), true);
+  }
+  return layout;
 }
 
 async function bestIn(elk, scene, {measure, canvas, candidates}) {

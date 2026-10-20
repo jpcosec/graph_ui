@@ -21,6 +21,7 @@ data:
     memo: {label: Retries are idempotent, kind: note}
     checkout: {label: Checkout, kind: hot}
     web: {label: Web, kind: frontend}
+    gate: {label: Rate limit, kind: gate}
   edges:
     - {from: web, to: api, relation: calls}
     - {from: api, to: db, relation: reads}
@@ -28,3 +29,7 @@ data:
     - {from: checkout, to: payments, relation: charges}
     - {from: api, to: shared, relation: uses}
     - {from: jobs, to: mail, relation: sends}
+    - {from: checkout, to: memo, relation: documents}
+    - {from: web, to: gate, relation: passes}
+    - {from: gate, to: checkout, relation: allows}
+    - {from: shared, to: db, relation: migrates}

@@ -10,6 +10,8 @@ notation tests/fixtures/notation-style/infra.yml (palette `default`). In Chromiu
 - cylinder, queue, cloud, package and note are drawn as an outline, and their keyword, icon and label
   sit in the outline's inner area: every text corner is inside the drawn fill and no point of the
   outline (rims, caps, lobes, tab, folded corner) falls on the text;
+- every edge that meets one of those shapes, or a diamond, ends on the drawn outline (<= 2 px), not on
+  the shape's box;
 - a link with `color` draws its line in that colour;
 - the legend lists every glyph, kind and link of the view, with the same fill, shape, icon and colour,
   and does not cover the diagram.
@@ -79,6 +81,38 @@ INSIDE = r"""() => [...document.querySelectorAll('.notation-canvas .glyph')].fil
 })"""
 
 
+# Each end of an edge that meets a shape which is not a box touches the drawn outline (not its box):
+# distance from the end point to the outline's stroke (SVG path of cylinder, queue, cloud, package,
+# note; the four sides of the diamond), in screen px.
+ENDS = r"""() => {
+  const glyphOf = id => document.querySelector(`.notation-canvas .react-flow__node[data-id="${CSS.escape(id)}"] .glyph`);
+  const segDist = (p, a, b) => { const dx = b.x - a.x, dy = b.y - a.y, l = dx * dx + dy * dy;
+    const t = l ? Math.max(0, Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / l)) : 0; return Math.hypot(p.x - a.x - t * dx, p.y - a.y - t * dy); };
+  const toOutline = (g, p) => {
+    const path = g.querySelector(':scope > .glyph-outline path');
+    if (path) { const ctm = path.getScreenCTM(), total = path.getTotalLength(); let best = Infinity;
+      for (let s = 0; s <= total; s += 0.2) { const q = new DOMPoint(path.getPointAtLength(s).x, path.getPointAtLength(s).y).matrixTransform(ctm); best = Math.min(best, Math.hypot(q.x - p.x, q.y - p.y)); }
+      return best; }
+    const r = g.getBoundingClientRect(), cx = (r.left + r.right) / 2, cy = (r.top + r.bottom) / 2;
+    const v = [{x: cx, y: r.top}, {x: r.right, y: cy}, {x: cx, y: r.bottom}, {x: r.left, y: cy}];
+    return Math.min(...v.map((a, i) => segDist(p, a, v[(i + 1) % 4])));
+  };
+  const out = [];
+  for (const edge of document.querySelectorAll('.notation-canvas .react-flow__edge')) {
+    const path = edge.querySelector('.react-flow__edge-path'), ends = edge.querySelector('.notation-edge-ends');
+    if (!path || !ends) continue;
+    const ctm = path.getScreenCTM(), total = path.getTotalLength();
+    const at = s => { const p = path.getPointAtLength(s); return new DOMPoint(p.x, p.y).matrixTransform(ctm); };
+    for (const [end, id, p] of [['target', ends.dataset.target, at(total)], ['source', ends.dataset.source, at(0)]]) {
+      const g = glyphOf(id), shape = g && [...g.classList].find(c => c.startsWith('shape-'));
+      if (!['shape-cylinder', 'shape-queue', 'shape-cloud', 'shape-package', 'shape-note', 'shape-diamond'].includes(shape)) continue;
+      out.push({edge: id.split('.').pop(), end, shape, distance: +toOutline(g, p).toFixed(2)});
+    }
+  }
+  return out;
+}"""
+
+
 def _contrast(a, b):
     """WCAG contrast of two computed `rgb(r, g, b)` colours."""
     def lum(colour):
@@ -124,7 +158,7 @@ def _view(base):
 
 def _open(page, base):
     page.goto(f"{base}/specs/notation")
-    page.wait_for_function("() => document.querySelectorAll('.notation-canvas .react-flow__node').length >= 9"
+    page.wait_for_function("() => document.querySelectorAll('.notation-canvas .react-flow__node').length >= 10"
                            " && document.querySelectorAll('.notation-canvas svg.glyph-icon').length >= 7", timeout=60000)
     page.wait_for_timeout(800)
     return page.evaluate(COLOURS)
@@ -157,13 +191,18 @@ def test_glyphs_wear_the_resolved_style_and_the_legend_explains_it(store):
             assert {g["shape"] for g in inside} == {f"shape-{s}" for s in ("cylinder", "queue", "cloud", "package", "note")}, inside
             for g in inside:
                 assert g["parts"] >= 1 and not g["outside"] and g["touches"] == 0, g
+            # Cada extremo de arista en una forma que no es caja toca su contorno dibujado (≤ 2 px).
+            ends = page.evaluate(ENDS)
+            shapes = {f"shape-{s}" for s in ("cylinder", "queue", "cloud", "package", "note", "diamond")}
+            assert {e["shape"] for e in ends if e["end"] == "target"} == shapes, ends
+            assert all(e["distance"] <= 2 for e in ends), [e for e in ends if e["distance"] > 2]
             # Color de relación.
             assert light["readsStroke"] == _rgb("#0072b2"), light["readsStroke"]
             # Leyenda: todo glifo, kind y link de la vista, con el mismo estilo; no tapa el diagrama.
             legend = light["legend"]
             assert legend and not legend["overlapsCanvas"], legend
             expected = _view(base)["legend"]
-            assert len(legend["glyphs"]) == len(expected["glyphs"]) == 7, legend["glyphs"]
+            assert len(legend["glyphs"]) == len(expected["glyphs"]) == 8, legend["glyphs"]
             assert len(legend["kinds"]) == len(expected["kinds"]) == 2, legend["kinds"]
             assert len(legend["links"]) == len(expected["links"]) == 3, legend["links"]
             hot = next(g for g in legend["glyphs"] if g["glyph"].endswith("hot"))

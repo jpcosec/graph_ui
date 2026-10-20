@@ -93,3 +93,58 @@ export function glyphVars(style, skin = 'light', inks = null) {
 
 // Nombre de ícono de lucide (kebab-case, como lo declara la paleta) -> clave del objeto `icons`.
 export const iconKey = name => String(name || '').split('-').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join('');
+
+// ---- Contorno real, para que las aristas lleguen a la forma y no a su caja ----
+// El borde exterior de cada forma como polígono en las mismas unidades que su path (0..100, estirado a
+// la caja): las tapas del cilindro y de la cola, los lóbulos de la nube, la pestaña del paquete, la
+// esquina doblada de la nota y el rombo.
+const arc = (cx, cy, rx, ry, from, to, steps = 24) => Array.from({length: steps + 1}, (_, i) => {
+  const t = from + (to - from) * i / steps;
+  return [cx + rx * Math.cos(t), cy + ry * Math.sin(t)];
+});
+const bezier = ([x0, y0], [x1, y1], [x2, y2], [x3, y3], steps = 16) => Array.from({length: steps}, (_, i) => {
+  const t = (i + 1) / steps, u = 1 - t;
+  return [u * u * u * x0 + 3 * u * u * t * x1 + 3 * u * t * t * x2 + t * t * t * x3, u * u * u * y0 + 3 * u * u * t * y1 + 3 * u * t * t * y2 + t * t * t * y3];
+});
+const CLOUD = [[25, 90], [8, 90], [2, 72], [14, 62], [4, 48], [18, 30], [34, 36], [38, 16], [64, 12], [72, 30],
+  [88, 26], [100, 42], [92, 56], [102, 68], [94, 90], [78, 90]];
+export const CONTOURS = {
+  cylinder: [...arc(50, 10, 50, 10, Math.PI, 2 * Math.PI), ...arc(50, 90, 50, 10, 0, Math.PI)],
+  queue: [...arc(90, 50, 10, 50, -Math.PI / 2, Math.PI / 2), ...arc(10, 50, 10, 50, Math.PI / 2, 1.5 * Math.PI)],
+  cloud: [CLOUD[0], ...[1, 4, 7, 10, 13].flatMap(i => bezier(CLOUD[i - 1], CLOUD[i], CLOUD[i + 1], CLOUD[i + 2]))],
+  package: [[0, 0], [38, 0], [42, 14], [100, 14], [100, 100], [0, 100]],
+  note: [[0, 0], [86, 0], [100, 14], [100, 100], [0, 100]],
+  diamond: [[50, 0], [100, 50], [50, 100], [0, 50]],
+};
+
+// Primer punto del contorno (en la caja `box`) que toca el rayo que sale de `from` en la dirección
+// (dx, dy); null si no lo toca.
+function rayHit(polygon, box, from, dx, dy) {
+  const pts = polygon.map(([x, y]) => ({x: box.x + x / 100 * box.width, y: box.y + y / 100 * box.height}));
+  let best = null;
+  for (let i = 0; i < pts.length; i++) {
+    const a = pts[i], b = pts[(i + 1) % pts.length];
+    const ex = b.x - a.x, ey = b.y - a.y, den = dx * ey - dy * ex;
+    if (Math.abs(den) < 1e-9) continue;
+    const t = ((a.x - from.x) * ey - (a.y - from.y) * ex) / den;
+    const u = ((a.x - from.x) * dy - (a.y - from.y) * dx) / den;
+    if (t >= -1e-6 && u >= -1e-6 && u <= 1 + 1e-6 && (!best || t < best.t)) best = {t, x: from.x + t * dx, y: from.y + t * dy};
+  }
+  return best;
+}
+
+// Recorta (alarga) el extremo de un recorrido para que toque el contorno real de la forma: sigue la
+// dirección del último tramo, así un recorrido ortogonal sigue siéndolo. Los recorridos que salen de
+// una forma se tratan igual, desde su primer tramo.
+export function clipToContour(points, box, shape, atStart = false) {
+  const polygon = CONTOURS[shape];
+  if (!polygon || !box || !points || points.length < 2) return points;
+  const pts = atStart ? [...points].reverse() : [...points];
+  const end = pts[pts.length - 1], prev = pts[pts.length - 2];
+  const len = Math.hypot(end.x - prev.x, end.y - prev.y);
+  if (!len) return points;
+  const hit = rayHit(polygon, box, prev, (end.x - prev.x) / len, (end.y - prev.y) / len);
+  if (!hit) return points;
+  pts[pts.length - 1] = {x: hit.x, y: hit.y};
+  return atStart ? pts.reverse() : pts;
+}

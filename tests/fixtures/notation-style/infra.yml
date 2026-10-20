@@ -14,6 +14,7 @@ glyphs:
   - {id: external, title: External service, model: SpecNodeDoc, where: kind = "external", shape: cloud, kind: external, keyword: "«{kind}»", label: "{title}", function: external}
   - {id: module, title: Module, model: SpecNodeDoc, where: kind = "module", shape: package, keyword: "«module»", label: "{title}", function: module}
   - {id: note, title: Note, model: SpecNodeDoc, where: kind = "note", shape: note, label: "{title}", function: note}
+  - {id: gate, title: Gate, model: SpecNodeDoc, where: kind = "gate", shape: diamond, label: "{title}", function: gate}
   - {id: hot, title: Hot path, model: SpecNodeDoc, where: kind = "hot", shape: box, fill: "#fff1c2", stroke: "#b35900", icon: workflow, label: "{title}", function: hot}
   - {id: component, title: Component, model: SpecNodeDoc, shape: box, label: "{title}", function: component}
 

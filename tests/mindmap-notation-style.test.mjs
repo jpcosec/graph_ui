@@ -2,7 +2,8 @@
 // que el layout reserva para el ícono y las formas dibujadas como contorno.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {themed, paletteInk, glyphVars, readableInk, luminance, iconKey, OUTLINE_SHAPES, OUTLINES, SHAPE_INNER, shapeBox, innerVars} from '../frontends/mindmap/views/specs/notation/notation-style.mjs';
+import {themed, paletteInk, glyphVars, readableInk, luminance, iconKey, OUTLINE_SHAPES, OUTLINES, SHAPE_INNER, shapeBox, innerVars,
+  CONTOURS, clipToContour} from '../frontends/mindmap/views/specs/notation/notation-style.mjs';
 import {sizeGlyph} from '../frontends/mindmap/views/specs/notation/notation-layout.mjs';
 import {buildScene} from '../frontends/mindmap/views/specs/notation/notation.mjs';
 
@@ -82,4 +83,28 @@ test('buildScene pasa el color resuelto de cada relación y el estilo de cada el
   const scene = buildScene(view);
   assert.deepEqual(scene.edges.find(e => e.id === 'r').color, {light: '#0072b2', dark: '#56b4e9'});
   assert.equal(scene.nodes.find(n => n.id === 'a').glyph.style.icon, 'workflow');
+});
+
+test('clipToContour lleva el extremo de una arista al contorno real, siguiendo su último tramo', () => {
+  const box = {x: 100, y: 100, width: 200, height: 100};
+  // Nube: una arista que baja al centro llega a la nube más abajo que el borde de la caja.
+  const down = clipToContour([{x: 200, y: 0}, {x: 200, y: 100}], box, 'cloud');
+  assert.equal(down[1].x, 200);
+  assert.ok(down[1].y > 110 && down[1].y < 130, down[1]);
+  // Cola: entrando por la derecha, se detiene en la tapa (más adentro que el borde de la caja).
+  const left = clipToContour([{x: 400, y: 150}, {x: 300, y: 150}], box, 'queue');
+  assert.equal(left[1].y, 150);
+  assert.ok(left[1].x <= 300 && left[1].x > 290, left[1]);
+  // Paquete: entrando por arriba a la derecha de la pestaña, toca el cuerpo, no la caja.
+  const tab = clipToContour([{x: 280, y: 0}, {x: 280, y: 100}], box, 'package');
+  assert.ok(Math.abs(tab[1].y - 114) < 0.01, tab[1]);
+  // Rombo: entrando por un costado, a mitad de altura, toca el vértice.
+  const side = clipToContour([{x: 0, y: 150}, {x: 100, y: 150}], box, 'diamond');
+  assert.deepEqual(side[1], {x: 100, y: 150});
+  // Desde el origen (atStart) y con una caja normal no cambia nada que no deba.
+  const out = clipToContour([{x: 200, y: 200}, {x: 200, y: 300}], box, 'cylinder', true);
+  assert.ok(Math.abs(out[0].y - 200) < 0.6 && out[1].y === 300, out);
+  const plain = [{x: 200, y: 0}, {x: 200, y: 100}];
+  assert.deepEqual(clipToContour(plain, box, 'box'), plain);
+  for (const shape of [...OUTLINE_SHAPES, 'diamond']) assert.ok(CONTOURS[shape].length >= 4, shape);
 });
