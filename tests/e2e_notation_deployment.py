@@ -11,6 +11,11 @@ protocol, and has a «deploy» (artifact -> node) and a «manifest» (artifact -
 - the flow reads from the outside in: the client, the registry and the chart (sources of the paths,
   the deploy and the manifest) are left of the account, so no edge has to come back around it;
 - the usual legibility rules hold after «Ver todo».
+
+Small deployments must not get worse: this fixture and the dense one of the legibility e2e
+(tests/fixtures/notation-legibility/deployment-dense.yml) keep the ELK layout and at least the zoom
+they read at before the deployment layout existed (BASELINE). In every deployment, no container
+title touches its container's border.
 """
 import shutil
 import subprocess
@@ -22,7 +27,18 @@ from e2e_notation_legibility import _measure, _round_two, _serve, sync_playwrigh
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "tests" / "fixtures" / "notation-deployment"
+DENSE = ROOT / "tests" / "fixtures" / "notation-legibility" / "deployment-dense.yml"
 SPEC = "deployment.nested-paths"
+# Antes del layout propio de despliegues (commit 5576e23): motor y zoom tras «Ver todo» a 1800x1200.
+BASELINE = {"deployment.nested-paths": ("elk", 1.09), "deployment.legibility-dense": ("elk", 1.0)}
+
+# Cada título de contenedor queda dentro de su caja, con margen (no toca el borde).
+TITLES = r"""() => [...document.querySelectorAll('.notation-canvas .glyph.is-container')].map(g => {
+  const box = g.getBoundingClientRect(), head = g.querySelector(':scope > .glyph-head');
+  const texts = [...head.querySelectorAll('.glyph-keyword, .glyph-label, svg.glyph-icon')].map(t => t.getBoundingClientRect());
+  const margin = Math.min(...texts.map(t => Math.min(t.left - box.left, box.right - t.right, t.top - box.top)));
+  return {title: head.innerText.replace(/\s+/g, ' ').trim(), margin: +margin.toFixed(1)};
+})"""
 CONTAINS = {"network": "account", "cluster": "network", "db_host": "network", "api_node": "cluster", "worker_node": "cluster",
             "api_container": "api_node", "worker_container": "worker_node", "orders_db": "db_host", "api_image": "registry"}
 
@@ -51,7 +67,7 @@ def store(tmp_path_factory):
     if not shutil.which("spec2viz"):
         pytest.skip("sin el CLI de spec2viz")
     root = tmp_path_factory.mktemp("deployment")
-    specs = sorted(FIXTURES.glob("*.yml"))
+    specs = [*sorted(FIXTURES.glob("*.yml")), DENSE]
     for spec in specs:
         shutil.copy(spec, root / spec.name)
     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
@@ -94,6 +110,26 @@ def test_nested_nodes_paths_deploy_and_manifest(store):
                 assert boxes[outside]["right"] <= boxes["account"]["left"], (outside, boxes[outside], boxes["account"])
             page.screenshot(path=str(store.parent / "deployment.png"))
             assert not errors, errors
+            browser.close()
+    finally:
+        process.terminate()
+        process.wait()
+
+
+def test_small_deployments_do_not_get_worse_and_titles_stay_inside(store):
+    process, base = _serve(store)
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1800, "height": 1200})
+            page.goto(f"{base}/specs/notation")
+            page.wait_for_selector(".notation-catalog button", timeout=30000)
+            for spec, (engine, zoom) in BASELINE.items():
+                result = _measure(page, spec)
+                assert page.get_attribute(".notation-canvas", "data-layout") == engine, spec
+                assert result["zoom"] >= zoom and result["minTextPx"] >= 10, (spec, result)
+                titles = page.evaluate(TITLES)
+                assert titles and all(t["margin"] >= 4 for t in titles), (spec, [t for t in titles if t["margin"] < 4])
             browser.close()
     finally:
         process.terminate()

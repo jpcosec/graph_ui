@@ -45,7 +45,7 @@ async function layoutGraph(scene, element) {
     id: n.id, type: 'glyph', parentId: n.parent || undefined, zIndex: n.container ? 0 : 1,
     position: {x: n.x, y: n.y}, style: {width: n.width, height: n.height},
     data: {glyph: n.glyph, container: n.container, lines: n.lines, header: n.header, outside: n.outside, direction: best.direction}}));
-  return {nodes, edges: best.edges, zoom: best.zoom, width: best.width, height: best.height};
+  return {nodes, edges: best.edges, zoom: best.zoom, width: best.width, height: best.height, engine: best.engine || 'elk'};
 }
 
 // Cuerpo del glifo, sin handles: lo usan los nodos de React Flow y las
@@ -247,7 +247,7 @@ function NotationCanvas({skin}) {
     setFlowNodes([]); setFlowEdges([]); setExtent(null);
     if (!scene || scene.kind !== 'graph' || !canvasRef.current) return;
     layoutGraph(scene, canvasRef.current).then(result => {
-      if (!cancelled) { setFlowNodes(result.nodes); setFlowEdges(result.edges); setExtent({width: result.width, height: result.height}); }
+      if (!cancelled) { setFlowNodes(result.nodes); setFlowEdges(result.edges); setExtent({width: result.width, height: result.height, engine: result.engine}); }
     });
     return () => { cancelled = true; };
   }, [scene]);
@@ -284,7 +284,7 @@ function NotationCanvas({skin}) {
           <button type="button" className="notation-minimap-toggle" aria-pressed=${minimap ? 'true' : 'false'} onClick=${toggleMinimap}>${minimap ? 'Ocultar minimapa' : 'Minimapa'}</button>` : ''}
       </div>
       ${scene && scene.notices.length ? html`<div className="notation-notices" role="status">${scene.notices.map(n => html`<p key=${n}>${n}</p>`)}</div>` : ''}
-      <div className="notation-canvas" ref=${canvasRef}>
+      <div className="notation-canvas" ref=${canvasRef} data-layout=${extent?.engine || ''}>
         <${TerminalDefs}/>
         ${!current && kb.documents.status === 'error' ? html`<div className="state" role="alert"><h2>No se pudo leer el store</h2><p>${kb.documents.error}</p></div>`
           : !current ? html`<div className="state"><h2>Este store no tiene specs de spec2viz</h2><p>Sincroniza uno con <code>spec2viz diagram sync spec.yml --store .sldb</code>.</p></div>`

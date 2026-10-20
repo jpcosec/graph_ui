@@ -394,7 +394,7 @@ const PERPENDICULAR = {TB: 'LR', BT: 'RL', LR: 'TB', RL: 'BT'};
 export const legibleZoom = MIN_TEXT_PX / FONT.label;
 export async function bestLayout(elk, scene, {measure = approximateMeasure, canvas = {width: 1200, height: 900}, candidates = LAYOUT_CANDIDATES} = {}) {
   // Activity con particiones (§14) y sin anidado: carriles UML propios, no ELK.
-  if (usesSwimlanes(scene)) return clipEnds(bestSwimlanes(scene, {measure, canvas}));
+  if (usesSwimlanes(scene)) return clipEnds(Object.assign(bestSwimlanes(scene, {measure, canvas}), {engine: 'swimlanes'}));
   let best = await bestIn(elk, scene, {measure, canvas, candidates});
   const better = (a, b) => a && (!b || a.issues.total < b.issues.total || (a.issues.total === b.issues.total && a.zoom > b.zoom));
   if (best && (best.zoom < legibleZoom || best.issues.total)) {
