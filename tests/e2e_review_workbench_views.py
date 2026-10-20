@@ -12,7 +12,8 @@ build of review-workbench under ``vite preview``, whose proxy forwards both. In 
 3. the same view pointed at a second store draws that store's slice;
 4. a view's layout style places the nodes: ``rings`` by a payload field (every node of a ring at
    that ring's radius, inner ring first), ``layered`` top to bottom along the relations;
-5. a view with a ``notation`` (a third store, synced from tests/fixtures/notation-style with a
+5. (also: every default node is only its NodeShell body: React Flow's wrapper adds no frame, RW1)
+   a view with a ``notation`` (a third store, synced from tests/fixtures/notation-style with a
    styled notation) draws each node with its glyph's resolved style: the fill, stroke and icon the
    server resolved with spec2viz's ``resolve_documents``, painted on the node; each edge with its
    link's colour and dash; and the notation's legend in a canvas panel that covers no node.
@@ -267,6 +268,23 @@ NOTATION = r"""() => {
 }"""
 
 
+# RW1: un nodo por defecto es solo su cuerpo (NodeShell); el contenedor de React Flow no agrega borde,
+# sombra ni relleno, y su caja coincide con la del cuerpo.
+FRAMES = r"""() => [...document.querySelectorAll('.react-flow__node-default')].map((el) => {
+  const cs = getComputedStyle(el);
+  const a = el.getBoundingClientRect(), b = (el.querySelector('.rounded-lg.border') || el).getBoundingClientRect();
+  const border = ['Top', 'Right', 'Bottom', 'Left'].reduce((s, k) => s + parseFloat(cs[`border${k}Width`]), 0);
+  return {id: el.dataset.id, border, shadow: cs.boxShadow, padding: parseFloat(cs.paddingLeft) + parseFloat(cs.paddingTop),
+          offset: Math.max(Math.abs(a.left - b.left), Math.abs(a.right - b.right), Math.abs(a.top - b.top), Math.abs(a.bottom - b.bottom))};
+})"""
+
+
+def _no_foreign_frames(page) -> None:
+    frames = page.evaluate(FRAMES)
+    assert frames and all(f["border"] == 0 and f["shadow"] == "none" and f["padding"] == 0 and f["offset"] <= 1 for f in frames), \
+        [f for f in frames if f["border"] or f["shadow"] != "none" or f["padding"] or f["offset"] > 1][:3]
+
+
 def _rgb(hex_colour: str) -> str:
     h = hex_colour.lstrip("#")
     return "rgb({}, {}, {})".format(*(int(h[i:i + 2], 16) for i in (0, 2, 4)))
@@ -330,6 +348,9 @@ def test_a_view_with_a_notation_draws_glyph_styles_link_colours_and_the_legend(s
         assert hot["fill"] == "#fff1c2" and hot["icon"] == "workflow"
         assert next(l for l in legend["links"] if l["link"] == "LinkDoc:infra.reads")["color"] == "#0072b2"
         assert drawn["covers"] == 0, drawn["covers"]
+        _no_foreign_frames(page)
+        page.click(".react-flow__node-default >> nth=0")
+        _no_foreign_frames(page)  # también seleccionado
         page.click(".react-flow__controls-fitview")
         page.locator("[data-testid='view-legend']").scroll_into_view_if_needed()
         page.wait_for_timeout(600)

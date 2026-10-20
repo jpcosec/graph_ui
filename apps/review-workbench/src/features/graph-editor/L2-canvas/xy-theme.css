@@ -86,6 +86,20 @@
   border-color: var(--xy-theme-hover);
 }
 
+/* NodeShell draws the whole body of a default node (border, background, corners, selection ring):
+   the React Flow wrapper adds no frame of its own (xyflow's default node brings padding, a fixed
+   150px width and a border; the base rule above, a 2px border and a shadow). */
+.react-flow__node-default,
+.react-flow__node-default.selectable:hover,
+.react-flow__node-default.selectable.selected {
+  padding: 0;
+  width: auto;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
 /* ========== Edge Styles ========== */
 
 /* Default edge */
