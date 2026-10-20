@@ -2,7 +2,7 @@
 title: "R6: Las guardas de una decisión se leen invertidas entre ramas paralelas"
 severity: high
 category: layout
-status: open
+status: closed
 ---
 # R6: Las guardas de una decisión se leen invertidas entre ramas paralelas
 
@@ -22,3 +22,9 @@ Ronda 3 del reporte de legibilidad (2026-10-19), después de 3bfb7f5.
 ## Acceptance
 e2e: el rótulo de cada guarda está más cerca de su propia arista que de cualquier otra, con margen ≥ 8 px.
 Obligatorio.
+
+## Resolution
+
+Closed: 2026-10-19
+Reason: Las guardas van en el primer tramo junto a su vértice y todo rótulo queda >= 8 px más cerca de su arista que de cualquier otra; un candidato con guardas ambiguas se descarta. Captura del store de prueba en after/; e2e lo mide.
+Refs: 6a25566
