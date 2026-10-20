@@ -5,6 +5,11 @@ nine components), more than fit across the canvas at 100 %, grouped messages, se
 
 - R12: every sample of the notation's legend stays in its own row: inside the row's box, clear of the
   legend's title, and the actor figure no taller than its sample.
+- R11: «Ver todo» frames every participant across the canvas at >= 10 px. A sequence that fits whole
+  at that size shows every message without scrolling (sequence-short.yml); a longer one stays at the
+  legible scale and scrolls down to its last message, with the participants fixed on top. Nothing
+  overlaps: message labels, participant heads and fragment tabs keep clear of each other, and labels
+  carry a halo so lifelines crossing behind them do not strike the text.
 - each link's sample in the legend draws the same arrowheads and dash as a real message of that link
   (synchronous: filled arrow; asynchronous: open arrow; return: dashed, open arrow).
 """
@@ -18,7 +23,35 @@ from e2e_notation_legibility import _serve, sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "tests" / "fixtures" / "notation-sequence"
-SPEC = "sequence.wide-request"
+SPEC, SHORT = "sequence.wide-request", "sequence.short-request"
+
+# Lo que se ve de una secuencia en el lienzo: escala, tamaño efectivo del texto, participantes dentro
+# del lienzo, mensajes visibles y encimados entre rótulos, cabeceras y pestañas de fragmento.
+LANES = r"""() => {
+  const canvas = document.querySelector('.notation-canvas').getBoundingClientRect();
+  const scroll = document.querySelector('.notation-scroll');
+  const fit = document.querySelector('.notation-lanes-fit'), scale = Number(fit.dataset.scale);
+  const rect = (el) => el.getBoundingClientRect();
+  const within = (r) => r.left >= canvas.left - 0.5 && r.right <= canvas.right + 0.5 && r.top >= canvas.top - 0.5 && r.bottom <= canvas.bottom + 0.5;
+  const overlap = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+  const band = document.querySelector('.lane-heads-band');
+  const heads = [...band.querySelectorAll('.lane-head')].map(rect);
+  const labels = [...document.querySelectorAll('.notation-lanes:not(.lane-heads-band *) .message-label')];
+  const tabs = [...document.querySelectorAll('.lane-frame .frame-label')].map(rect);
+  const texts = [...labels, ...document.querySelectorAll('.lane-frame .frame-label'), ...band.querySelectorAll('.glyph-label')];
+  const minTextPx = Math.min(...texts.map((t) => parseFloat(getComputedStyle(t).fontSize) * scale));
+  const boxes = labels.map(rect);
+  let labelOverlaps = 0, onHeads = 0, onTabs = 0;
+  for (let i = 0; i < boxes.length; i++) {
+    for (let j = i + 1; j < boxes.length; j++) if (overlap(boxes[i], boxes[j])) labelOverlaps++;
+    if (heads.some((h) => overlap(h, boxes[i])) && boxes[i].top > rect(band).bottom) onHeads++;
+    if (tabs.some((t) => overlap(t, boxes[i]))) onTabs++;
+  }
+  const visible = boxes.filter((b) => within(b) && b.top >= rect(band).bottom - 1).length;
+  return {scale, minTextPx, participants: heads.length, headsInside: heads.every(within), labels: boxes.length, visible,
+    scrolls: scroll.scrollHeight > scroll.clientHeight + 1, labelOverlaps, onHeads, onTabs,
+    halo: labels.every((t) => getComputedStyle(t).paintOrder.startsWith('stroke'))};
+}"""
 
 # Muestra de cada link de la leyenda contra una arista real de ese link (mensaje de secuencia o arista
 # del grafo): misma punta en cada extremo y mismo trazo. Las muestras sin arista en el diagrama no cuentan.
@@ -73,11 +106,11 @@ def store(tmp_path_factory):
     return root / ".sldb"
 
 
-def _open(page, base):
+def _open(page, base, spec=SPEC):
     page.goto(f"{base}/specs/notation")
     page.wait_for_selector(".notation-catalog button", timeout=30000)
-    page.click(f'[data-spec="{SPEC}"]')
-    page.wait_for_selector(".notation-lanes", timeout=30000)
+    page.click(f'[data-spec="{spec}"]')
+    page.wait_for_selector(f'.lane-head[data-lane^="SpecNodeDoc:{spec}."]', timeout=30000)
     page.wait_for_timeout(600)
 
 
@@ -109,6 +142,48 @@ def test_legend_link_samples_draw_the_same_heads_and_dash_as_the_messages(store)
             assert compared["sync"]["end"] == "url(#nv-filled-arrow)" and compared["async"]["end"] == "url(#nv-open-arrow)", compared
             assert compared["return"]["end"] == "url(#nv-open-arrow)" and compared["return"]["dash"] not in ("none", ""), compared
             assert compared["sync"]["dash"] in ("none", "") and compared["async"]["dash"] in ("none", ""), compared
+            browser.close()
+    finally:
+        process.terminate()
+        process.wait()
+
+
+def test_r11_view_all_frames_every_participant_legibly_and_scrolls_to_the_last_message(store):
+    process, base = _serve(store)
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1800, "height": 1200})
+            errors = []
+            page.on("pageerror", lambda e: errors.append(str(e)))
+            # Corta: entra entera, sin scroll.
+            _open(page, base, SHORT)
+            short = page.evaluate(LANES)
+            assert short["participants"] == 4 and short["headsInside"] and not short["scrolls"], short
+            assert short["visible"] == short["labels"] == 6 and short["minTextPx"] >= 10, short
+            # Ancha: «Ver todo» (también tras «100 %») encuadra a los 11 participantes a >= 10 px.
+            _open(page, base)
+            page.click(".notation-actual-size")
+            page.get_by_role("button", name="⛶ Ver todo").click()
+            page.wait_for_timeout(300)
+            wide = page.evaluate(LANES)
+            assert wide["participants"] == 11 and wide["headsInside"] and wide["minTextPx"] >= 10, wide
+            assert wide["labels"] == 24 and wide["halo"], wide
+            assert wide["labelOverlaps"] == 0 and wide["onHeads"] == 0 and wide["onTabs"] == 0, wide
+            if wide["scrolls"]:
+                # Bajando se llega al último mensaje y los participantes siguen a la vista.
+                page.evaluate("() => { const s = document.querySelector('.notation-scroll'); s.scrollTop = s.scrollHeight; }")
+                page.wait_for_timeout(300)
+                bottom = page.evaluate(LANES)
+                last = page.evaluate("() => { const ls = [...document.querySelectorAll('.lane-message')]; return ls[ls.length - 1].dataset.order; }")
+                assert bottom["headsInside"], bottom
+                inside = page.evaluate("""(order) => { const c = document.querySelector('.notation-canvas').getBoundingClientRect();
+                  const r = document.querySelector(`.lane-message[data-order="${order}"] .message-label`).getBoundingClientRect();
+                  return r.top >= c.top && r.bottom <= c.bottom; }""", last)
+                assert inside, last
+            else:
+                assert wide["visible"] == wide["labels"], wide
+            assert not errors, errors
             browser.close()
     finally:
         process.terminate()

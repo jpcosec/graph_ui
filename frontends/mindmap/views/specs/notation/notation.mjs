@@ -154,33 +154,110 @@ export function byDepth(nodes) {
 // ---- Carriles (layout lanes, contrato §8c) ----
 // Un carril por nodo, en el orden de `nodes`; el tiempo baja por `order`.
 // Cada mensaje ocupa su fila, también una autollamada (bucle sobre su carril).
-export const LANE = {width: 200, gap: 24, row: 46, top: 24, loop: 34};
+// R11: el hueco entre dos carriles vecinos sale de sus cabeceras y de los rótulos que lo cruzan (no
+// un ancho fijo por carril), los rótulos largos se parten en líneas y cada fila crece con su rótulo;
+// antes de un fragmento queda aire para su pestaña. La vista encuadra el diagrama entero («Ver todo»).
+export const LANE = {width: 200, gap: 24, row: 34, top: 24, loop: 34};
+// selfWrap: el rótulo de una autollamada va a la derecha de su bucle y no condiciona ningún hueco: más ancho, menos líneas.
+// margin: holgura de un rótulo en su tramo (4 px por lado y los 14 de la punta, que el rótulo esquiva).
+export const LANE_TEXT = {size: 12.5, line: 15, frameGap: 8, margin: 22, head: 14, framePad: 30, wraps: [120, 150, 170, 190, 240], selfWrap: 280, aspect: 1.42};
+const approximate = (text, size) => (text || '').length * size * 0.56;
 
-export function laneScene(view) {
+// Corte en palabras a un ancho; una palabra más ancha que el ancho va sola en su línea.
+export function wrapLabel(text, width, measure = approximate, size = LANE_TEXT.size) {
+  const lines = [];
+  let line = '';
+  for (const word of String(text || '').split(/\s+/).filter(Boolean)) {
+    const next = line ? `${line} ${word}` : word;
+    if (line && measure(next, size) > width) { lines.push(line); line = word; } else line = next;
+  }
+  if (line || !lines.length) lines.push(line);
+  return lines;
+}
+
+// Escala de «Ver todo» de una secuencia en un lienzo: todos los participantes a lo ancho y, si el
+// diagrama entero cabe legible (texto >= 10 px), también a lo alto; si no, queda en la escala legible
+// y los mensajes se recorren con scroll vertical (los participantes quedan fijos arriba).
+export const LANE_LEGIBLE = 10 / LANE_TEXT.size;
+export function laneFitScale(scene, canvas) {
+  const whole = Math.min(canvas.width / scene.width, canvas.height / scene.height) * 0.995;
+  if (whole >= LANE_LEGIBLE) return Math.min(1.1, whole);
+  // Con scroll vertical, la barra le quita ancho al lienzo.
+  return Math.min(1.1, (canvas.width - 16) / scene.width, LANE_LEGIBLE);
+}
+
+// El ancho de corte de los rótulos: con un lienzo, el que da la escala más alta (a igualdad, el que
+// muestra más sin scroll); sin lienzo, el que más se acerca a su proporción típica.
+export function laneScene(view, {measure = approximate, canvas = null} = {}) {
+  let best = null;
+  for (const wrap of LANE_TEXT.wraps) {
+    const scene = laneSceneAt(view, wrap, measure);
+    const score = canvas
+      ? [laneFitScale(scene, canvas), Math.min(canvas.width / scene.width, canvas.height / scene.height)]
+      : [-Math.max(scene.width / LANE_TEXT.aspect, scene.height), 0];
+    if (!best || score[0] > best.score[0] + 1e-6 || (Math.abs(score[0] - best.score[0]) <= 1e-6 && score[1] > best.score[1])) best = {scene, score};
+  }
+  return best.scene;
+}
+
+function laneSceneAt(view, wrap, measure) {
   const notices = [];
-  const lanes = (view.nodes || []).map((n, i) => {
-    const [width, height] = glyphSize(n);
-    return {id: n.doc, index: i, x: LANE.gap + i * LANE.width + LANE.width / 2, width: Math.min(width, LANE.width - 16), height, glyph: n};
-  });
-  const lane = new Map(lanes.map(l => [l.id, l]));
-  const head = Math.max(0, ...lanes.map(l => l.height));
+  const nodes = view.nodes || [];
+  // La cabecera de un participante tiene el ancho de su nombre (no el mínimo de un lifeline); un actor, el de su figura.
+  const heads = nodes.map(n => { const [width, height] = glyphSize(n);
+    const named = n.shape === 'stick-figure' ? width : Math.max(72, measure(n.label || '', LANE_TEXT.size) + 28);
+    return {width: Math.min(named, LANE.width - 16), height}; });
+  const index = new Map(nodes.map((n, i) => [n.doc, i]));
+  const head = Math.max(0, ...heads.map(h => h.height));
   const offDraws = new Set();
-  const links = (view.links || []).map((link, index) => ({link, index}))
-    .filter(({link}) => lane.has(link.source) && lane.has(link.target) && link.draw !== 'nest')
+  const links = (view.links || []).map((link, i) => ({link, index: i}))
+    .filter(({link}) => index.has(link.source) && index.has(link.target) && link.draw !== 'nest')
     .sort((a, b) => (a.link.order || 0) - (b.link.order || 0) || a.index - b.index);
-  const messages = links.map(({link, index}, row) => {
+  const textOf = ({link}, row) => `${link.order || row + 1}. ${link.label || ''}`;
+  // Huecos entre carriles vecinos: las dos medias cabeceras y lo que pida cada rótulo que los cruza.
+  const gaps = nodes.slice(1).map((_, i) => heads[i].width / 2 + heads[i + 1].width / 2 + LANE.gap);
+  const spans = links.map((l, row) => ({a: Math.min(index.get(l.link.source), index.get(l.link.target)), b: Math.max(index.get(l.link.source), index.get(l.link.target)),
+    need: Math.min(measure(textOf(l, row), LANE_TEXT.size), wrap) + LANE_TEXT.margin})).filter(s => s.b > s.a).sort((x, y) => (x.b - x.a) - (y.b - y.a));
+  for (const {a, b, need} of spans) {
+    const have = gaps.slice(a, b).reduce((sum, g) => sum + g, 0);
+    if (have < need) for (let i = a; i < b; i++) gaps[i] += (need - have) / (b - a);
+  }
+  const xs = [];
+  nodes.forEach((_, i) => xs.push(i ? xs[i - 1] + gaps[i - 1] : LANE.gap + heads[0].width / 2));
+  const lanes = nodes.map((n, i) => ({id: n.doc, index: i, x: xs[i], width: heads[i].width, height: heads[i].height, glyph: n}));
+  const fragmentStart = new Set((view.fragments || []).map(f => Math.min(...(f.orders || [Infinity]))));
+  let y = LANE.top + head, prevBottom = LANE.top + head;
+  const messages = links.map((l, row) => {
+    const {link, index: i} = l;
     if (link.draw !== 'line') offDraws.add(link.draw);
-    const from = lane.get(link.source), to = lane.get(link.target);
-    return {id: link.doc || `${link.source}->${link.target}#${index}`, order: link.order || row + 1, row,
-      from: from.id, to: to.id, x1: from.x, x2: to.x, y: LANE.top + head + LANE.row * (row + 1), self: from.id === to.id,
+    const from = lanes[index.get(link.source)], to = lanes[index.get(link.target)];
+    const self = from.id === to.id, order = link.order || row + 1;
+    const lines = wrapLabel(textOf(l, row), self ? Math.max(wrap, LANE_TEXT.selfWrap) : Math.max(60, Math.abs(to.x - from.x) - LANE_TEXT.margin), measure);
+    const above = self ? LANE.row / 3 : lines.length * LANE_TEXT.line + 6;
+    // Un fragmento que empieza deja aire bajo todo lo anterior (otro marco incluido) para su pestaña.
+    y = fragmentStart.has(order)
+      ? Math.max(y + LANE.row, prevBottom + LANE_TEXT.frameGap + Math.max(LANE.row * .85, above + 22))
+      : Math.max(y + LANE.row, prevBottom + above + 10);
+    prevBottom = y + (self ? Math.max(LANE.row / 3, 4 + lines.length * LANE_TEXT.line) : 6);
+    const textW = Math.max(...lines.map(t => measure(t, LANE_TEXT.size)));
+    // El rótulo va centrado en el tramo libre de punta: se corre hacia el origen la mitad de la punta.
+    const mid = (from.x + to.x) / 2 - Math.sign(to.x - from.x) * (link.target_end ? LANE_TEXT.head / 2 : 0);
+    return {id: link.doc || `${link.source}->${link.target}#${i}`, order, row,
+      from: from.id, to: to.id, x1: from.x, x2: to.x, y, self, lines, labelTop: self ? y - LANE.row / 3 : y - above,
+      labelBottom: self ? prevBottom : y, labelLeft: self ? from.x : mid - textW / 2, labelRight: self ? from.x + LANE.loop + 6 + textW : mid + textW / 2,
+      labelX: self ? from.x + LANE.loop + 6 : mid,
       relation: link.relation, link: link.link || '', label: link.label || '', dash: dash(link.line),
       sourceEnd: terminal(link.source_end), targetEnd: terminal(link.target_end)};
   });
   for (const draw of offDraws) notices.push(`El dibujo «${draw}» no es un mensaje de secuencia: esas relaciones se dibujan como mensajes.`);
   if ((view.skipped || []).length) notices.push(`spec2viz omitió ${view.skipped.length} elemento(s) sin glifo ni link en la notación.`);
-  const bottom = LANE.top + head + LANE.row * (messages.length + 1);
-  return {kind: 'lanes', lanes, messages, frames: laneFrames(view.fragments, messages), notices, head,
-    lifelineTop: LANE.top + head, height: bottom + LANE.top, width: LANE.gap * 2 + lanes.length * LANE.width + LANE.loop};
+  const frames = laneFrames(view.fragments, messages);
+  const right = Math.max(...lanes.map(l => l.x + l.width / 2),
+    ...messages.filter(m => m.self).map(m => m.x1 + LANE.loop + 6 + Math.max(...m.lines.map(t => measure(t, LANE_TEXT.size)))),
+    ...frames.map(f => f.x + f.width));
+  const bottom = Math.max(prevBottom, ...frames.map(f => f.y + f.height)) + LANE.row / 2;
+  return {kind: 'lanes', lanes, messages, frames, notices, head, wrap,
+    lifelineTop: LANE.top + head, height: bottom + LANE.top, width: right + LANE.gap};
 }
 
 // Marcos de fragmento (§11 `fragments`: rachas de mensajes con el mismo
@@ -192,17 +269,21 @@ export function laneFrames(fragments, messages) {
     const orders = new Set(fragment.orders || []);
     const inside = messages.filter(m => orders.has(m.order));
     if (!inside.length) return [];
-    const xs = inside.flatMap(m => (m.self ? [m.x1, m.x1 + LANE.loop] : [m.x1, m.x2]));
+    // Lo que ocupa cada mensaje: su flecha y, si se conoce, la caja de su rótulo (varias líneas encima,
+    // o el bucle y el rótulo de una autollamada a la derecha y hacia abajo).
+    const xs = inside.flatMap(m => [...(m.self ? [m.x1, m.x1 + LANE.loop] : [m.x1, m.x2]), ...(m.labelLeft != null ? [m.labelLeft, m.labelRight] : [])]);
     const ys = inside.map(m => m.y);
-    const pad = LANE.width / 4;
+    const top = Math.min(...inside.map(m => Math.min(m.y - LANE.row * .85, m.labelTop != null ? m.labelTop - 22 : Infinity)));
+    const bottom = Math.max(...inside.map(m => Math.max(m.y + LANE.row * .12, m.labelBottom != null ? m.labelBottom + 6 : -Infinity)));
+    const pad = LANE_TEXT.framePad;
     // `kind` es el operador UML (alt, loop, opt…) o `group` si no lo hay;
     // la pestaña lleva el operador y el `label` va como condición al lado.
     const kind = fragment.kind || 'group';
     return [{id: `${kind}-${index}`, kind, operator: kind === 'group' ? '' : kind, label: fragment.label || '',
       // Arriba deja sitio para la pestaña sin pisar el rótulo del primer mensaje;
       // abajo cierra justo bajo el último, para que dos marcos seguidos no se monten.
-      orders: inside.map(m => m.order), x: Math.min(...xs) - pad, y: Math.min(...ys) - LANE.row * .85,
-      width: Math.max(...xs) - Math.min(...xs) + pad * 2, height: Math.max(...ys) - Math.min(...ys) + LANE.row * .97}];
+      orders: inside.map(m => m.order), x: Math.min(...xs) - pad, y: Math.min(top, Math.min(...ys) - LANE.row * .85),
+      width: Math.max(...xs) - Math.min(...xs) + pad * 2, height: bottom - Math.min(top, Math.min(...ys) - LANE.row * .85)}];
   });
 }
 
@@ -258,9 +339,9 @@ export const cellKey = (row, col) => `${row}\u0000${col}`;
 
 // Qué escena toca según el layout de la vista. Una grilla sin columnas no es
 // dibujable como grilla: cae a grafo con aviso.
-export function sceneFor(view) {
+export function sceneFor(view, {measure, canvas} = {}) {
   const kind = view.layout?.kind;
-  if (kind === 'lanes') return laneScene(view);
+  if (kind === 'lanes') return laneScene(view, {...(measure ? {measure} : {}), canvas: canvas || null});
   if (kind === 'grid') {
     if ((view.nodes || []).some(n => n.collection === 'stages')) return gridScene(view);
     const scene = buildScene({...view, layout: {...view.layout, kind: 'graph'}});

@@ -3,7 +3,7 @@ import {ReactFlow, ReactFlowProvider, Controls, MiniMap, Handle, Position, useRe
 import {html} from '../../../shared/html.js';
 import {request} from '../../../shell/api.js';
 import {useSource} from '../../../source/source.js';
-import {specCatalog, sceneFor, compartmentLine, cellKey, LANE, TERMINALS} from './notation.mjs';
+import {specCatalog, sceneFor, compartmentLine, cellKey, LANE, LANE_TEXT, TERMINALS, laneFitScale} from './notation.mjs';
 import {bestLayout, pathOf, POINT_SHAPES} from './notation-layout.mjs';
 import {glyphVars, paletteInk, themed, innerVars} from './notation-style.mjs';
 import {GlyphIcon, ShapeOutline, NotationLegend, useIcons} from './notation-style.js';
@@ -25,13 +25,13 @@ let elkInstance = null;
 const elkReady = () => (elkInstance ||= import('elkjs').then(m => new (m.default)()));
 
 // Medida real del texto con la misma fuente que el lienzo: la caja crece con su rótulo (G4).
-function canvasMeasure(element) {
+function canvasMeasure(element, weight = 600) {
   const ctx = document.createElement('canvas').getContext('2d');
   const family = getComputedStyle(element || document.body).fontFamily;
   const cache = new Map();
   return (text, size) => {
     const key = size + '\u0000' + text;
-    if (!cache.has(key)) { ctx.font = `600 ${size}px ${family}`; cache.set(key, ctx.measureText(text || '').width); }
+    if (!cache.has(key)) { ctx.font = `${weight} ${size}px ${family}`; cache.set(key, ctx.measureText(text || '').width); }
     return cache.get(key);
   };
 }
@@ -84,33 +84,46 @@ const nodeTypes = {glyph: GlyphNode};
 
 // Carriles: cabecera = glifo del participante, línea de vida vertical, un
 // mensaje por fila en orden de `order`. Una autollamada es un bucle.
-function LanesDiagram({scene}) {
+// La pestaña de un fragmento: su ancho sale del operador o del rótulo (12,5 px).
+const tabWidth = text => Math.max(34, String(text || '').length * 7.6 + 14);
+
+function LanesDiagram({scene, scale = 1}) {
   const {lanes, messages, head, lifelineTop, width, height} = scene;
-  return html`<div className="notation-lanes" style=${{width: width + 'px', height: height + 'px'}}>
-    ${lanes.map(l => html`<div key=${l.id} className="lane-head" data-lane=${l.id}
-        style=${{left: (l.x - l.width / 2) + 'px', top: (LANE.top + head - l.height) + 'px', width: l.width + 'px', height: l.height + 'px'}}>
-      <${Glyph} glyph=${l.glyph}/></div>`)}
+  const heads = lanes.map(l => html`<div key=${l.id} className="lane-head" data-lane=${l.id}
+      style=${{left: (l.x - l.width / 2) + 'px', top: (LANE.top + head - l.height) + 'px', width: l.width + 'px', height: l.height + 'px'}}>
+    <${Glyph} glyph=${l.glyph}/></div>`);
+  const band = (LANE.top + head + 6) * scale;
+  // R11: «Ver todo» escala el diagrama al lienzo; la caja exterior ocupa lo que se ve escalado. Los
+  // participantes van en una banda fija arriba: si los mensajes siguen con scroll, siguen a la vista.
+  return html`<div className="notation-lanes-fit" data-scale=${scale} style=${{width: width * scale + 'px', height: height * scale + 'px'}}>
+  <div className="lane-heads-band" style=${{height: band + 'px', marginBottom: -band + 'px', width: width * scale + 'px'}}>
+    <div className="notation-lanes" style=${{width: width + 'px', height: (LANE.top + head + 6) + 'px', transform: `scale(${scale})`, transformOrigin: '0 0'}}>${heads}</div>
+  </div>
+  <div className="notation-lanes" style=${{width: width + 'px', height: height + 'px', transform: `scale(${scale})`, transformOrigin: '0 0'}}>
     <svg className="lanes-svg" width=${width} height=${height} aria-label="Mensajes">
+      ${lanes.map(l => html`<line key=${l.id} className="lifeline" data-lifeline=${l.id} x1=${l.x} x2=${l.x} y1=${lifelineTop} y2=${height - LANE.top}/>`)}
       ${(scene.frames || []).map(f => html`<g key=${f.id} className="lane-frame" data-fragment=${f.id} data-orders=${f.orders.join(',')}>
         <rect x=${f.x} y=${f.y} width=${f.width} height=${f.height} className="frame-box"/>
-        <path d=${`M${f.x},${f.y + 16} h${Math.max(30, (f.operator || f.label).length * 6.5 + 12)} l6,-6 v-10`} className="frame-tab"/>
-        <text x=${f.x + 6} y=${f.y + 12} className="frame-label" data-operator=${f.operator}>${f.operator || f.label}</text>
-        ${f.operator && f.label ? html`<text x=${f.x + Math.max(30, f.operator.length * 6.5 + 12) + 14} y=${f.y + 12} className="frame-guard">[${f.label}]</text>` : ''}
+        <path d=${`M${f.x},${f.y + 18} h${tabWidth(f.operator || f.label)} l6,-6 v-12`} className="frame-tab"/>
+        <text x=${f.x + 6} y=${f.y + 14} className="frame-label" data-operator=${f.operator}>${f.operator || f.label}</text>
+        ${f.operator && f.label ? html`<text x=${f.x + tabWidth(f.operator) + 14} y=${f.y + 14} className="frame-guard">[${f.label}]</text>` : ''}
       </g>`)}
-      ${lanes.map(l => html`<line key=${l.id} className="lifeline" data-lifeline=${l.id} x1=${l.x} x2=${l.x} y1=${lifelineTop} y2=${height - LANE.top}/>`)}
       ${messages.map(m => {
         const ends = {markerEnd: m.targetEnd ? `url(#nv-${m.targetEnd})` : undefined, markerStart: m.sourceEnd ? `url(#nv-${m.sourceEnd})` : undefined};
         const path = m.self
           ? `M${m.x1},${m.y - LANE.row / 3} h${LANE.loop} v${LANE.row / 3 * 2} h${-LANE.loop}`
           : `M${m.x1},${m.y} L${m.x2},${m.y}`;
-        const tx = m.self ? m.x1 + LANE.loop + 6 : (m.x1 + m.x2) / 2, ty = m.self ? m.y + 4 : m.y - 6;
+        // Rótulo en líneas: encima de la flecha (la última pegada a ella) o, en una autollamada, a la derecha del bucle.
+        const lines = m.lines || [`${m.order}. ${m.label}`];
+        const tx = m.labelX ?? (m.self ? m.x1 + LANE.loop + 6 : (m.x1 + m.x2) / 2);
+        const lineY = i => (m.self ? m.y + 4 + i * LANE_TEXT.line : m.y - 6 - (lines.length - 1 - i) * LANE_TEXT.line);
         return html`<g key=${m.id} className="lane-message" data-link=${m.link || ''} data-message=${m.id} data-order=${m.order} data-from=${m.from} data-to=${m.to} data-y=${m.y}>
           <path d=${path} className="message-line" strokeDasharray=${m.dash} markerEnd=${ends.markerEnd} markerStart=${ends.markerStart}/>
-          <text x=${tx} y=${ty} textAnchor=${m.self ? 'start' : 'middle'} className="message-label">${m.order}. ${m.label}</text>
+          <text textAnchor=${m.self ? 'start' : 'middle'} className="message-label">${lines.map((t, i) => html`<tspan key=${i} x=${tx} y=${lineY(i)}>${t}</tspan>`)}</text>
         </g>`;
       })}
     </svg>
-  </div>`;
+  </div></div>`;
 }
 
 // Grilla: una tabla por vista; columnas = stages, filas = components
@@ -238,7 +251,13 @@ function NotationCanvas({skin}) {
     return () => { cancelled = true; };
   }, [current]);
 
-  const scene = useMemo(() => (state.view ? sceneFor(state.view) : null), [state.view]);
+  // R11: las secuencias se encuadran por escala (no viven en React Flow): «Ver todo» al abrir y a pedido.
+  // Se miden con la fuente real (rótulos en peso normal) y su ancho de corte depende del lienzo.
+  const [canvasSize, setCanvasSize] = useState(null);
+  const isLanes = state.view?.layout?.kind === 'lanes';
+  const laneCanvas = isLanes ? canvasSize : null;
+  const scene = useMemo(() => (state.view ? sceneFor(state.view, {measure: canvasMeasure(document.body, 400), canvas: laneCanvas}) : null),
+    [state.view, laneCanvas?.width, laneCanvas?.height]);
   const [flowNodes, setFlowNodes] = useState([]);
   const [flowEdges, setFlowEdges] = useState([]);
   const canvasRef = useRef(null);
@@ -261,6 +280,17 @@ function NotationCanvas({skin}) {
     observer.observe(el);
     return () => { clearTimeout(timer); observer.disconnect(); };
   }, [extent]);
+  const [laneFit, setLaneFit] = useState(true);
+  useEffect(() => { setLaneFit(true); }, [state.view]);
+  useEffect(() => {
+    const el = canvasRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return undefined;
+    const observer = new ResizeObserver(() => { const r = el.getBoundingClientRect(); setCanvasSize({width: r.width, height: r.height}); });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  // El diagrama de carriles ya trae su margen (LANE.gap, LANE.top): encuadrado, ocupa el lienzo entero.
+  const laneScale = scene?.kind === 'lanes' && laneFit && canvasSize ? laneFitScale(scene, canvasSize) : 1;
   const selected = flowNodes.find(n => n.selected)?.id || null;
   const ink = paletteInk(kb.documents.working.documents, state.view?.palette);
   const styledNodes = useMemo(() => flowNodes.map(n => ({...n, data: {...n.data, skin: skin || 'light', ink}})), [flowNodes, skin, ink]);
@@ -280,6 +310,8 @@ function NotationCanvas({skin}) {
       <div className="notation-bar" role="toolbar" aria-label="Herramientas de la vista">
         <strong>${view ? view.title : current || 'Specs'}</strong>
         ${view ? html`<span className="notation-meta">${view.notation.replace(/^NotationDoc:/, '')} · ${view.nodes.length} elementos · ${view.links.length} relaciones</span>` : ''}
+        ${scene?.kind === 'lanes' ? html`<button type="button" aria-pressed=${laneFit ? 'true' : 'false'} onClick=${() => setLaneFit(true)}>⛶ Ver todo</button>
+          <button type="button" className="notation-actual-size" aria-pressed=${laneFit ? 'false' : 'true'} onClick=${() => setLaneFit(false)}>100 %</button>` : ''}
         ${!scene || scene.kind === 'graph' ? html`<button type="button" onClick=${() => fitAll()}>⛶ Ver todo</button>
           <button type="button" className="notation-minimap-toggle" aria-pressed=${minimap ? 'true' : 'false'} onClick=${toggleMinimap}>${minimap ? 'Ocultar minimapa' : 'Minimapa'}</button>` : ''}
       </div>
@@ -290,7 +322,7 @@ function NotationCanvas({skin}) {
           : !current ? html`<div className="state"><h2>Este store no tiene specs de spec2viz</h2><p>Sincroniza uno con <code>spec2viz diagram sync spec.yml --store .sldb</code>.</p></div>`
           : state.phase === 'error' ? html`<div className="state" role="alert"><h2>No se pudo dibujar ${current}</h2><p>${state.error}</p></div>`
           : state.phase === 'loading' || !scene ? html`<div className="state"><p>Resolviendo la notación…</p></div>`
-          : scene.kind === 'lanes' ? html`<div className="notation-scroll"><${LanesDiagram} scene=${scene}/></div>`
+          : scene.kind === 'lanes' ? html`<div className=${'notation-scroll' + (laneFit ? ' is-fit' : '')}><${LanesDiagram} scene=${scene} scale=${laneScale}/></div>`
           : scene.kind === 'grid' ? html`<div className="notation-scroll"><${GridDiagram} scene=${scene}/></div>`
           : html`<${ReactFlow} nodes=${styledNodes} edges=${edgesOf(flowEdges, selected, hoveredEdge, setHoveredEdge, skin || 'light')}
               onEdgeMouseEnter=${(_, edge) => setHoveredEdge(edge.id)} onEdgeMouseLeave=${() => setHoveredEdge(null)} nodeTypes=${nodeTypes} edgeTypes=${edgeTypes}

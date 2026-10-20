@@ -67,12 +67,19 @@
 
 /* Carriles (layout lanes) y grilla (layout grid): fuera de React Flow, con scroll. */
 .notation-scroll{position:absolute;inset:0;overflow:auto;padding:12px}
+.notation-scroll.is-fit{padding:0;overflow-x:hidden;overflow-y:auto}
+/* R11: los participantes de una secuencia quedan fijos arriba mientras los mensajes se recorren. */
+.lane-heads-band{position:sticky;top:0;z-index:2;background:var(--surface-app);overflow:hidden}
 .notation-lanes{position:relative}
+.notation-lanes-fit{position:relative;margin:0 auto}
+.notation-bar .notation-actual-size{margin-left:6px}
 .lane-head{position:absolute;display:flex;align-items:flex-end;justify-content:center}
 .lanes-svg{position:absolute;inset:0;overflow:visible}
 .lifeline{stroke:var(--border-control);stroke-width:1.2;stroke-dasharray:5 4}
 .message-line{fill:none;stroke:var(--edge);stroke-width:1.4}
-.message-label{font-size:10.5px;fill:var(--text-secondary)}
+.message-label{font-size:12.5px;fill:var(--text-secondary)}
+/* Un halo del color del fondo: las líneas de vida que cruzan por detrás no tachan el texto. */
+.message-label,.lane-frame .frame-label,.lane-frame .frame-guard{paint-order:stroke;stroke:var(--surface-app);stroke-width:4px;stroke-linejoin:round}
 .lane-message:hover .message-line{stroke-width:2.2}
 .lane-message:hover .message-label{fill:var(--ink)}
 
@@ -92,8 +99,8 @@
 .notation-edge-label.is-hovered{color:var(--accent);font-weight:600;box-shadow:0 0 0 1.5px var(--accent)}
 .lane-frame .frame-box{fill:none;stroke:var(--text-muted);stroke-width:1.2}
 .lane-frame .frame-tab{fill:var(--surface-panel);stroke:var(--text-muted);stroke-width:1.2}
-.lane-frame .frame-label{font-size:10.5px;font-weight:600;fill:var(--text)}
-.lane-frame .frame-guard{font-size:10.5px;fill:var(--text-secondary)}
+.lane-frame .frame-label{font-size:12.5px;font-weight:600;fill:var(--text)}
+.lane-frame .frame-guard{font-size:12.5px;fill:var(--text-secondary)}
 .notation-bar .notation-minimap-toggle{margin-left:6px}
 /* Los rótulos de arista se dibujan sobre los nodos (no los tapa el velo de un contenedor); ya evitan los nodos hoja. */
 .notation-canvas .react-flow__edgelabel-renderer{z-index:5}

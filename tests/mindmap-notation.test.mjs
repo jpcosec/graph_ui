@@ -11,7 +11,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {laneFrames, LANE, specCatalog, buildScene, sceneFor, laneScene, gridScene, cellKey, byDepth, compartmentLine, glyphSize} from '../frontends/mindmap/views/specs/notation/notation.mjs';
+import {laneFrames, LANE, LANE_TEXT, LANE_LEGIBLE, laneFitScale, wrapLabel, specCatalog, buildScene, sceneFor, laneScene, gridScene, cellKey, byDepth, compartmentLine, glyphSize} from '../frontends/mindmap/views/specs/notation/notation.mjs';
 
 const fixture = name => JSON.parse(readFileSync(new URL(`./fixtures/notation-view-${name}.json`, import.meta.url)));
 const statechart = fixture('statechart'), sequence = fixture('sequence'), matrix = fixture('matrix'), coverage = fixture('matrix-coverage');
@@ -167,4 +167,30 @@ test('piloto real sequence.sync-pipeline: tres marcos con su operador y sus lín
   // El primer loop toca CLI, SpecSync y Loader: cubre esas tres líneas de vida y no la de User.
   for (const p of ['CLI', 'SpecSync', 'Loader']) assert.ok(loop.x < laneX[p] && laneX[p] < loop.x + loop.width, p);
   assert.ok(laneX.User < loop.x);
+});
+
+test('R11: «Ver todo» de una secuencia: entera si se lee; si no, legible a lo ancho y con scroll', () => {
+  const canvas = {width: 1500, height: 1000};
+  assert.ok(Math.abs(laneFitScale({width: 1000, height: 800}, canvas) - 1.1) < 1e-9, 'una chica no pasa de 1.1');
+  const whole = laneFitScale({width: 1700, height: 1100}, canvas);
+  assert.ok(whole >= LANE_LEGIBLE && whole * 1700 <= 1500 && whole * 1100 <= 1000, whole);
+  const tall = laneFitScale({width: 1400, height: 3000}, canvas);
+  assert.equal(tall, LANE_LEGIBLE, 'alta: queda en la escala legible y los mensajes siguen con scroll');
+  assert.ok(laneFitScale({width: 2600, height: 3000}, canvas) * 2600 <= 1500 - 16 + 1e-9, 'todos los participantes a lo ancho, con la barra de scroll');
+});
+
+test('R11: el rótulo de un mensaje se parte en palabras y el hueco entre carriles vecinos lo aloja', () => {
+  const measure = (t, size) => (t || '').length * size * 0.5;
+  const lines = wrapLabel('uno dos tres cuatro cinco seis', 60, measure, 10);
+  assert.ok(lines.length > 1 && lines.every(l => measure(l, 10) <= 60), lines);
+  const node = (id, label = id) => ({doc: `S.${id}`, label, shape: 'lifeline'});
+  const msg = (a, b, label, order) => ({doc: `R.${order}`, source: `S.${a}`, target: `S.${b}`, label, order, draw: 'line', relation: 'sends'});
+  const view = {spec: 'S', layout: {kind: 'lanes'}, nodes: [node('a'), node('b'), node('c')],
+    links: [msg('a', 'b', 'a long message label between two neighbours', 1), msg('b', 'c', 'x', 2)]};
+  const scene = laneScene(view, {measure});
+  const [a, b, c] = scene.lanes;
+  const first = scene.messages[0];
+  assert.ok(b.x - a.x >= Math.max(...first.lines.map(l => measure(l, LANE_TEXT.size))) + LANE_TEXT.margin - 1e-9, 'el hueco aloja el rótulo partido');
+  assert.ok(c.x - b.x < b.x - a.x, 'un hueco sin rótulo largo es más angosto');
+  assert.ok(scene.messages[1].y > first.y);
 });

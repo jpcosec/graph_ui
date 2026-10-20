@@ -1,0 +1,19 @@
+# Test spec for the Specs view's sequence drawing (issue R11): a short sequence that fits whole on the
+# canvas; «Ver todo» shows every participant and every message without scrolling.
+id: sequence.short-request
+title: "Sequence: a short request"
+type: sequence
+version: "0.1"
+data:
+  participants:
+    - {id: User, kind: actor}
+    - {id: Api}
+    - {id: Store}
+    - {id: Mailer}
+  messages:
+    - {from: User, to: Api, message: "POST /orders"}
+    - {from: Api, to: Api, message: "validate the order"}
+    - {from: Api, to: Store, message: "insert order", group: Persist}
+    - {from: Store, to: Api, message: "order id", kind: reply, group: Persist}
+    - {from: Api, to: Mailer, message: "send receipt", kind: async}
+    - {from: Api, to: User, message: "201 created", kind: reply}
