@@ -2,7 +2,7 @@
 title: "RW1: El nodo por defecto de review-workbench dibuja un marco ajeno, desplazado de su cuerpo"
 severity: medium
 category: rendering
-status: open
+status: closed
 ---
 # RW1: El nodo por defecto de review-workbench dibuja un marco ajeno, desplazado de su cuerpo
 
@@ -22,3 +22,9 @@ de 2 px y sombra para todo nodo) sumado a `.react-flow__node-default` de @xyflow
 ## Evidence
 Captura del e2e de vistas con notación (tests/e2e_review_workbench_views.py, 2026-10-20): cada nodo
 con un marco blanco de 150 px y el cuerpo coloreado, más ancho, desbordándolo a la derecha.
+
+## Resolution
+
+Closed: 2026-10-20
+Reason: El contenedor del nodo por defecto ya no agrega borde, sombra, relleno ni ancho; e2e de marcos ajenos
+Refs: 91192f9
