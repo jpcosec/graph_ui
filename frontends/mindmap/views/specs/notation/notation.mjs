@@ -64,7 +64,7 @@ export function glyphSize(node) {
   return [Math.min(Math.max(w, (node.label || '').length * 7.2 + 32), 320), h + (node.keyword ? 14 : 0)];
 }
 
-// Glifo de un nodo derivado (una nota): sin documento ni notación propia; su forma la fija §14.
+// Glifo de un nodo derivado (carril o nota): sin documento ni notación propia; su forma la fija §14.
 const derivedGlyph = (doc, label, fn) => ({doc, element: '', label, glyph: '', shape: fn, function: fn,
   label_style: '', keyword: '', compartments: [], markers: [], refs: [], data: {}, style: {}, derived: true});
 
@@ -111,26 +111,36 @@ export function buildScene(view) {
       seen.add(p);
     }
   }
-  // Activity (contrato §14): una nota UML por `data.notes`, unida a su paso por una línea punteada.
-  // Es un nodo derivado del spec, no un documento: vive solo en la escena, justo después de su paso
-  // (el orden del spec es el que ELK respeta).
-  const ordered = [];
+  // Activity (contrato §14): un carril por `data.partition`, en orden de aparición (el layout los
+  // dibuja como columnas, notation-swimlanes.mjs), y una nota UML por `data.notes`, unida a su paso por
+  // una línea punteada. Carriles y notas son nodos derivados del spec, no documentos: viven solo en la
+  // escena; la nota va justo después de su paso (el orden del spec es el que ELK respeta).
+  const ordered = [], lanes = [], laneOf = new Map();
+  const specId = String(view.spec || '').replace(/^SpecDoc:/, '');
   for (const n of view.nodes || []) {
+    const name = n.data?.partition;
+    if (name && !laneOf.has(name)) {
+      const id = `${specId}#partition:${lanes.length}`;
+      laneOf.set(name, id);
+      lanes.push({id, name: String(name), glyph: derivedGlyph(id, String(name), 'partition')});
+    }
     ordered.push(n);
     const text = n.data?.notes;
     if (!text) continue;
     const id = `${n.doc}#note`;
     ordered.push(derivedGlyph(id, String(text), 'note'));
     if (parentOf.has(n.doc)) parentOf.set(id, parentOf.get(n.doc));
+    if (name) laneOf.set(id, laneOf.get(name));
     edges.push({id: `${n.doc}#note-link`, source: n.doc, target: id, relation: 'note', label: '', sourceLabel: '', targetLabel: '',
       dash: dash('dotted'), sourceEnd: null, targetEnd: null, order: 0, color: null, note: true});
   }
   const containers = new Set(parentOf.values());
   const nodes = ordered.map(n => {
     const [width, height] = glyphSize(n);
-    return {id: n.doc, parent: parentOf.get(n.doc) || null, container: containers.has(n.doc), width, height, glyph: n};
+    const lane = laneOf.get(n.doc) || laneOf.get(n.data?.partition) || null;
+    return {id: n.doc, parent: parentOf.get(n.doc) || null, container: containers.has(n.doc), width, height, glyph: n, lane};
   });
-  return {nodes, edges, notices, direction: layout.direction || 'TB'};
+  return {nodes, edges, notices, lanes, direction: layout.direction || 'TB'};
 }
 
 // Profundidad de anidado: React Flow exige que un padre aparezca antes que sus hijos.

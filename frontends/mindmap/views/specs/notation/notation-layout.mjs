@@ -9,6 +9,7 @@
 
 import {compartmentLine} from './notation.mjs';
 import {shapeBox, clipToContour} from './notation-style.mjs';
+import {swimlaneLayout} from './notation-swimlanes.mjs';
 
 // Todo el texto del diagrama a 12.5 px: con el zoom de «Ver todo» por encima de 0.8 se lee a ≥10 px.
 export const FONT = {label: 12.5, small: 12.5, edge: 12.5, line: 1.3};
@@ -381,12 +382,30 @@ export const fitZoom = (layout, canvas, padding = FIT_PADDING) => Math.min(canva
 const PERPENDICULAR = {TB: 'LR', BT: 'RL', LR: 'TB', RL: 'BT'};
 export const legibleZoom = MIN_TEXT_PX / FONT.label;
 export async function bestLayout(elk, scene, {measure = approximateMeasure, canvas = {width: 1200, height: 900}, candidates = LAYOUT_CANDIDATES} = {}) {
+  // Activity con particiones (§14) y sin anidado: carriles UML propios, no ELK.
+  if (usesSwimlanes(scene)) return clipEnds(bestSwimlanes(scene, {measure, canvas}));
   let best = await bestIn(elk, scene, {measure, canvas, candidates});
   if (best && (best.zoom < legibleZoom || best.issues.total)) {
     const turned = await bestIn(elk, {...scene, direction: PERPENDICULAR[scene.direction] || 'LR'}, {measure, canvas, candidates});
     if (turned && (turned.issues.total < best.issues.total || (turned.issues.total === best.issues.total && turned.zoom > best.zoom))) best = turned;
   }
   return best && clipEnds(best);
+}
+
+export const usesSwimlanes = scene => Boolean(scene.lanes?.length) && scene.nodes.every(n => !n.parent && !n.container);
+
+// El ancho de corte de los rótulos que mejor cabe, como con ELK: menos problemas gana; a igualdad, más zoom.
+export function bestSwimlanes(scene, {measure = approximateMeasure, canvas}) {
+  let best = null;
+  for (const wrapWidth of [130, 170, 240]) {
+    const layout = swimlaneLayout(scene, {measure, wrapWidth});
+    layout.zoom = fitZoom(layout, canvas);
+    layout.issues = layoutIssues(layout);
+    layout.candidate = {wrapWidth, swimlanes: true};
+    layout.direction = 'TB';
+    if (!best || layout.issues.total < best.issues.total || (layout.issues.total === best.issues.total && layout.zoom > best.zoom + 1e-6)) best = layout;
+  }
+  return best;
 }
 
 // Un extremo que llega a (o sale de) una forma que no es una caja toca su contorno real, no su caja.

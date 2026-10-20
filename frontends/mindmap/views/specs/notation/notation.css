@@ -126,3 +126,6 @@
 /* Activity (spec2viz §14): nota UML con la esquina doblada, unida a su paso por una línea punteada. */
 .glyph[data-function="note"]:not(.is-styled) .glyph-outline path{fill:var(--warning-soft);stroke:var(--warning-border)}
 .glyph[data-function="note"] .glyph-label{font-weight:400}
+/* Carril UML (§14, data.partition): una columna por partición, recta, con su nombre arriba. */
+.glyph.shape-partition{border-radius:0;border-width:1px;border-color:var(--border-control-hover);background:var(--surface-panel-veil)}
+.glyph.shape-partition > .glyph-head{align-items:center;justify-content:center;border-bottom:1px solid var(--border-control-hover);background:var(--surface-muted)}

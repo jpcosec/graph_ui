@@ -67,6 +67,12 @@ las clases, que es la misma en ambos temas.
   relleno usa el ink de la paleta que más contrasta con ese relleno (un color
   literal claro conserva texto oscuro en el tema oscuro). La leyenda
   (`view.legend`: glifos, kinds y links) va al pie del catálogo.
+  Activity (contrato §14): con `data.partition`, carriles UML propios
+  (`notation-swimlanes.mjs`, no ELK): una columna por partición en orden de
+  aparición, el flujo bajando por filas (camino más largo desde el inicio),
+  bucles por el pasillo del carril y ruteo ortogonal. `data.notes` es una
+  nota UML junto a su paso, unida por una línea punteada; `kind: merge` es un
+  rombo sin rótulo. Sin partición, la activity sigue el layout ELK.
   Requiere spec2viz instalado y modo
   local (en remote, 501). Solo lectura. Contrato:
   `spec2viz/docs/notation-contract.md`.

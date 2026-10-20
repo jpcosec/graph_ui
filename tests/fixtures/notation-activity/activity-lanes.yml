@@ -1,0 +1,64 @@
+# Test spec for the Specs view's activity drawing (spec2viz contract §14): one partition (swimlane)
+# per actor in order of first appearance, a step that comes back to an earlier partition, UML notes
+# joined to their step by a dotted line, a decision whose two branches meet again at a merge
+# (a diamond with no label), and a step outside any partition.
+id: activity.lanes-notes-merge
+title: "Activity: partitions, notes and merge"
+type: activity
+version: "0.1"
+data:
+  start: write
+  steps:
+    write:
+      label: write the change and its tests
+      next: push
+      partition: Author
+    push:
+      label: push the branch
+      next: build
+      partition: Author
+      notes: "Never push straight to the main branch."
+    build:
+      label: build and run the whole test suite
+      next: green
+      partition: Build server
+    green:
+      label: ¿Is the suite green?
+      kind: decision
+      branches:
+        "yes": review
+        "no": fix
+      partition: Build server
+    fix:
+      label: fix the failing tests
+      next: push
+      partition: Author
+    review:
+      label: read the diff and decide
+      next: verdict
+      partition: Reviewer
+      notes: "A review looks at intent, not only at style."
+    verdict:
+      label: ¿Approved?
+      kind: decision
+      branches:
+        "yes": merge_now
+        later: queue
+      partition: Reviewer
+    merge_now:
+      label: merge the branch now
+      next: join
+      partition: Reviewer
+    queue:
+      label: put it in the merge queue
+      next: join
+      partition: Reviewer
+    join:
+      label: ""
+      kind: merge
+      next: announce
+    announce:
+      label: announce the release
+      next: end
+      partition: Author
+  end: end
