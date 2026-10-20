@@ -44,7 +44,13 @@ FIXTURE, DENSE = FIXTURES / "component-containers.yml", FIXTURES / "deployment-d
 ACTIVITY = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz/activity-render-error-handling.yml"
 COMPONENT, FLOW, DEPLOYMENT = "component.legibility-containers", "activity.render-error-handling", "deployment.legibility-dense"
 
+# R13: lo que se ve del lienzo es su caja recortada por la ventana; un lienzo más alto que la ventana
+# (estirado por la leyenda) deja fuera lo que pasa de window.innerHeight aunque «quepa» en el lienzo.
+VISIBLE_CANVAS = r"""const visibleCanvas = () => { const c = document.querySelector('.notation-canvas').getBoundingClientRect();
+    return {left: Math.max(c.left, 0), top: Math.max(c.top, 0), right: Math.min(c.right, window.innerWidth), bottom: Math.min(c.bottom, window.innerHeight)}; };"""
+
 MEASURE = r"""() => {
+  """ + VISIBLE_CANVAS + r"""
   const vp = document.querySelector('.react-flow__viewport');
   const zoom = Number((/scale\(([\d.]+)\)/.exec(vp.style.transform) || [0, 1])[1]);
   const visible = el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
@@ -119,7 +125,7 @@ MEASURE = r"""() => {
     initialAbove = Boolean(b) && (a.top + a.bottom) / 2 < (b.top + b.bottom) / 2;
   }
   // Encuadre: cada nodo (su caja y lo que dibuja dentro) completo en el lienzo, con margen.
-  const canvas = rect(document.querySelector('.notation-canvas'));
+  const canvas = visibleCanvas();
   const minMargin = Math.min(...[...document.querySelectorAll('.notation-canvas .react-flow__node')].map(n => {
     const boxes = [rect(n), ...[...n.querySelectorAll('.glyph, .glyph > *')].map(rect)];
     return Math.min(...boxes.map(b => Math.min(b.left - canvas.left, canvas.right - b.right, b.top - canvas.top, canvas.bottom - b.bottom)));
@@ -181,7 +187,8 @@ def _round_two(result):
 
 
 FRAMED = r"""() => {
-  const rect = (e) => e.getBoundingClientRect(), canvas = rect(document.querySelector('.notation-canvas'));
+  """ + VISIBLE_CANVAS + r"""
+  const rect = (e) => e.getBoundingClientRect(), canvas = visibleCanvas();
   const nodes = [...document.querySelectorAll('.notation-canvas .react-flow__node, .notation-canvas .lane-head, .notation-canvas .lane-message')];
   return nodes.length ? Math.min(...nodes.map((n) => [rect(n), ...[...n.querySelectorAll('.glyph, .glyph > *, .message-label')].map(rect)]
     .reduce((m, b) => Math.min(m, b.left - canvas.left, canvas.right - b.right, b.top - canvas.top, canvas.bottom - b.bottom), Infinity))) : null;
@@ -189,8 +196,11 @@ FRAMED = r"""() => {
 
 
 def assert_nodes_framed(page, margin=8):
-    """Every node (and what it draws inside) fully in the canvas with >= `margin` px: as the view stands
-    (its automatic framing) and again after «Ver todo»."""
+    """Every node (and what it draws inside) fully in the visible canvas — the canvas clipped by the window —
+    with >= `margin` px: as the view stands (its automatic framing) and again after «Ver todo». The canvas
+    itself ends inside the window (R13)."""
+    canvas_bottom = page.evaluate("() => document.querySelector('.notation-canvas').getBoundingClientRect().bottom - window.innerHeight")
+    assert canvas_bottom <= 0.5, canvas_bottom
     before = page.evaluate(FRAMED)
     page.get_by_role("button", name="⛶ Ver todo").click()
     page.wait_for_timeout(500)

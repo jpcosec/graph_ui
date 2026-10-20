@@ -214,6 +214,16 @@ def test_glyphs_wear_the_resolved_style_and_the_legend_explains_it(store):
             # «Ver todo» encuadra cada nodo completo (formas de contorno incluidas) con margen.
             from e2e_notation_legibility import assert_nodes_framed
             assert_nodes_framed(page)
+            # R13: en una ventana más baja que la leyenda, la leyenda hace scroll en su panel y el lienzo
+            # no se estira con ella: «Ver todo» sigue dejando cada nodo dentro de la ventana, con margen.
+            page.set_viewport_size({"width": 1800, "height": 340})
+            page.wait_for_timeout(300)
+            panel = page.evaluate("() => { const n = document.querySelector('.notation-catalog'), r = n.getBoundingClientRect();"
+                                  " return {scrolls: n.scrollHeight > n.clientHeight + 1, bottom: r.bottom, inner: window.innerHeight}; }")
+            assert panel["scrolls"] and panel["bottom"] <= panel["inner"] + 0.5, panel
+            assert_nodes_framed(page)
+            page.set_viewport_size({"width": 1800, "height": 1200})
+            page.wait_for_timeout(300)
             # La muestra de cada link dibuja la misma punta y el mismo trazo que una arista real de ese link.
             from e2e_notation_sequence import assert_legend_links_match
             assert_legend_links_match(page, 2)
