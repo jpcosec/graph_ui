@@ -29,3 +29,4 @@
 {"task_id": "task-estilo-de-glifos-en-la-vista-specs-colores-\u00edconos-formas-y-leyenda", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
 {"task_id": "task-activity-en-la-vista-specs-carriles-por-partici\u00f3n-notas-y-merge", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
 {"task_id": "task-deployment-en-la-vista-specs-nodos-anidados-communication-paths-y-deploy-manifest", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
+{"task_id": "task-estilo-de-notaci\u00f3n-en-las-vistas-viewdoc-de-review-workbench", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}

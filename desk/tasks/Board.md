@@ -4,8 +4,7 @@ id: board-graph-ui
 # Affected workspace or domain
 scope: graph_ui
 # List of task-xxx paths
-tasks:
-- desk/tasks/task-estilo-de-notación-en-las-vistas-viewdoc-de-review-workbench.md
+tasks: []
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -36,5 +35,3 @@ Phase B delivery tasks (adapter, encoding, layout, store, sidebar) are closed. k
 ## Task Details
 
 _Generated from the task references above._
-
-- Estilo de notación en las vistas (ViewDoc) de review-workbench [draft] - El servidor de graph_ui aplica la notación de la vista con resolve_documents y review-workbench dibuja cada nodo con el estilo de su glifo y la leyenda de la notación; e2e.
