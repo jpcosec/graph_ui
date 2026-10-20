@@ -14,8 +14,9 @@ data:
   nodes:
     api: {label: API, kind: backend}
     db: {label: Orders database, kind: database}
-    jobs: {label: Job queue, kind: queue}
-    payments: {label: Payments provider, kind: external}
+    jobs: {label: Job queue FIFO + dead letters, kind: queue}
+    payments: {label: Bedrock, kind: external}
+    mail: {label: Mail delivery service for receipts and alerts, kind: external}
     shared: {label: Shared module, kind: module}
     memo: {label: Retries are idempotent, kind: note}
     checkout: {label: Checkout, kind: hot}
@@ -26,3 +27,4 @@ data:
     - {from: api, to: jobs, relation: publishes}
     - {from: checkout, to: payments, relation: charges}
     - {from: api, to: shared, relation: uses}
+    - {from: jobs, to: mail, relation: sends}

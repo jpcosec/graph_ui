@@ -59,8 +59,9 @@ def test_every_var_reference_is_defined_in_the_skins():
         text = path.read_text(encoding="utf-8")
         used = set(VAR_USE_RE.findall(text))
         # --class-color and --idea-color are set inline (per-element style), not skin tokens; so are
-        # --glyph-* (the style spec2viz resolves for each glyph of the Specs view, always with a fallback).
-        used = {u for u in used if not u.startswith(("--class-color", "--glyph-")) and u != "--idea-color"}
+        # --glyph-* (the style spec2viz resolves for each glyph of the Specs view, always with a fallback)
+        # and --inner-* (the inner area of an outline shape, from notation-style.mjs).
+        used = {u for u in used if not u.startswith(("--class-color", "--glyph-", "--inner-")) and u != "--idea-color"}
         gap = used - light_tokens
         if gap:
             missing[str(path)] = gap

@@ -7,7 +7,9 @@ notation tests/fixtures/notation-style/infra.yml (palette `default`). In Chromiu
   with its label at WCAG AA contrast against that fill (a literal light fill keeps dark text in the
   dark theme), and the three precedence layers show: glyph style (hot), spec style.kinds (backend), palette kind;
 - each glyph with an icon draws that lucide icon next to its label;
-- cylinder, queue, cloud, package and note are drawn as an outline, with the label inside it;
+- cylinder, queue, cloud, package and note are drawn as an outline, and their keyword, icon and label
+  sit in the outline's inner area: every text corner is inside the drawn fill and no point of the
+  outline (rims, caps, lobes, tab, folded corner) falls on the text;
 - a link with `color` draws its line in that colour;
 - the legend lists every glyph, kind and link of the view, with the same fill, shape, icon and colour,
   and does not cover the diagram.
@@ -34,7 +36,7 @@ COLOURS = r"""() => {
             iconDrawn: (g.querySelector('svg.glyph-icon')?.children.length || 0) > 0, outline: Boolean(outline),
             ink: getComputedStyle(g.querySelector('.glyph-label')).color};
   };
-  const ids = ['api', 'db', 'jobs', 'payments', 'shared', 'memo', 'checkout', 'web'];
+  const ids = ['api', 'db', 'jobs', 'payments', 'mail', 'shared', 'memo', 'checkout', 'web'];
   const glyphs = Object.fromEntries(ids.map(id => [id, node(id) && paint(node(id))]));
   const rect = el => el.getBoundingClientRect();
   let spills = 0;
@@ -54,6 +56,27 @@ COLOURS = r"""() => {
         stroke: li.querySelector('line') && getComputedStyle(li.querySelector('line')).stroke})),
       overlapsCanvas: !(lr.right <= canvas.left || lr.left >= canvas.right)}};
 }"""
+
+
+# Text inside each outline shape, against the drawn geometry (not against the layout's numbers): every
+# corner of the keyword, icon and label is inside the outline's fill, and no point of the outline (its
+# rims, caps, lobes, tab or folded corner included) falls inside any of them.
+INSIDE = r"""() => [...document.querySelectorAll('.notation-canvas .glyph')].filter(g => g.querySelector(':scope > .glyph-outline')).map(g => {
+  const path = g.querySelector(':scope > .glyph-outline path');
+  const ctm = path.getScreenCTM(), inv = ctm.inverse();
+  const parts = [...g.querySelectorAll('.glyph-keyword, .glyph-label, svg.glyph-icon')].map(el => ({part: el.getAttribute('class'), r: el.getBoundingClientRect()}));
+  const toUser = (x, y) => new DOMPoint(x, y).matrixTransform(inv);
+  const corners = parts.flatMap(({part, r}) => [[r.left, r.top], [r.right, r.top], [r.left, r.bottom], [r.right, r.bottom]]
+    .filter(([x, y]) => !path.isPointInFill(toUser(x, y))).map(([x, y]) => ({part, x: Math.round(x), y: Math.round(y)})));
+  const total = path.getTotalLength();
+  let touches = 0;
+  for (let s = 0; s <= total; s += 0.25) {
+    const p = path.getPointAtLength(s), q = new DOMPoint(p.x, p.y).matrixTransform(ctm);
+    if (parts.some(({r}) => q.x > r.left + 0.5 && q.x < r.right - 0.5 && q.y > r.top + 0.5 && q.y < r.bottom - 0.5)) touches++;
+  }
+  return {id: g.closest('.react-flow__node').dataset.id.split('.').pop(), shape: [...g.classList].find(c => c.startsWith('shape-')),
+          parts: parts.length, outside: corners, touches};
+})"""
 
 
 def _contrast(a, b):
@@ -101,8 +124,8 @@ def _view(base):
 
 def _open(page, base):
     page.goto(f"{base}/specs/notation")
-    page.wait_for_function("() => document.querySelectorAll('.notation-canvas .react-flow__node').length >= 8"
-                           " && document.querySelectorAll('.notation-canvas svg.glyph-icon').length >= 6", timeout=60000)
+    page.wait_for_function("() => document.querySelectorAll('.notation-canvas .react-flow__node').length >= 9"
+                           " && document.querySelectorAll('.notation-canvas svg.glyph-icon').length >= 7", timeout=60000)
     page.wait_for_timeout(800)
     return page.evaluate(COLOURS)
 
@@ -129,6 +152,11 @@ def test_glyphs_wear_the_resolved_style_and_the_legend_explains_it(store):
                 assert glyphs[id_]["shape"] == f"shape-{shape}" and glyphs[id_]["outline"], (id_, glyphs[id_])
             assert light["spills"] == 0, light
             _legible(glyphs)
+            # Texto dentro del área interior de cada forma de contorno (las 5), contra la geometría dibujada.
+            inside = page.evaluate(INSIDE)
+            assert {g["shape"] for g in inside} == {f"shape-{s}" for s in ("cylinder", "queue", "cloud", "package", "note")}, inside
+            for g in inside:
+                assert g["parts"] >= 1 and not g["outside"] and g["touches"] == 0, g
             # Color de relación.
             assert light["readsStroke"] == _rgb("#0072b2"), light["readsStroke"]
             # Leyenda: todo glifo, kind y link de la vista, con el mismo estilo; no tapa el diagrama.

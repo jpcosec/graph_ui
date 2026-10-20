@@ -2,7 +2,7 @@
 // que el layout reserva para el ícono y las formas dibujadas como contorno.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {themed, paletteInk, glyphVars, readableInk, luminance, iconKey, OUTLINE_SHAPES, OUTLINES, SHAPE_EXTRA} from '../frontends/mindmap/views/specs/notation/notation-style.mjs';
+import {themed, paletteInk, glyphVars, readableInk, luminance, iconKey, OUTLINE_SHAPES, OUTLINES, SHAPE_INNER, shapeBox, innerVars} from '../frontends/mindmap/views/specs/notation/notation-style.mjs';
 import {sizeGlyph} from '../frontends/mindmap/views/specs/notation/notation-layout.mjs';
 import {buildScene} from '../frontends/mindmap/views/specs/notation/notation.mjs';
 
@@ -49,21 +49,28 @@ test('iconKey pasa el nombre kebab-case de lucide a la clave del objeto icons', 
   assert.equal(iconKey('key-round'), 'KeyRound');
 });
 
-test('cada forma de contorno tiene trazo y espacio propio', () => {
+test('cada forma de contorno tiene trazo y área interior', () => {
   for (const shape of OUTLINE_SHAPES) {
     assert.ok(OUTLINES[shape], shape);
-    assert.ok(SHAPE_EXTRA[shape], shape);
+    const [t, r, b, l] = SHAPE_INNER[shape];
+    assert.ok(t + b < 1 && l + r < 1, shape);
+    assert.deepEqual(Object.keys(innerVars(shape)), ['--inner-top', '--inner-right', '--inner-bottom', '--inner-left']);
   }
+  assert.deepEqual(innerVars('box'), {});
+  assert.deepEqual(shapeBox('box', 100, 40), [100, 40]);
 });
 
-test('el layout reserva sitio para el ícono y para la tapa o la pestaña de la forma', () => {
+test('el layout reserva sitio para el ícono, y una forma de contorno crece hasta que el texto quepa en su área interior', () => {
   const plain = sizeGlyph({shape: 'box', label: 'Orders database'}, {measure, wrapWidth: 200});
   const icon = sizeGlyph({shape: 'box', label: 'Orders database', style: {icon: 'database'}}, {measure, wrapWidth: 200});
   assert.ok(icon.width >= plain.width + 20, [plain.width, icon.width]);
   for (const shape of OUTLINE_SHAPES) {
-    const size = sizeGlyph({shape, label: 'Orders database'}, {measure, wrapWidth: 200});
-    const [w, h] = SHAPE_EXTRA[shape];
-    assert.ok((!w || size.width > plain.width) && (!h || size.height > plain.height), shape);
+    const glyph = {shape, label: 'Orders database with a long name', keyword: '«external»', style: {icon: 'database'}};
+    const size = sizeGlyph(glyph, {measure, wrapWidth: 200});
+    const [t, r, b, l] = SHAPE_INNER[shape];
+    const textW = Math.max(...size.lines.map(line => measure(line, 12.5))) + 20;
+    assert.ok(size.width * (1 - l - r) >= textW, [shape, size.width, textW]);
+    assert.ok(size.height * (1 - t - b) >= size.lines.length * 16 + 15, [shape, size.height]);
   }
 });
 

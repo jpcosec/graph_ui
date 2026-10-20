@@ -11,10 +11,34 @@ export const OUTLINES = {
   package: 'M0,14 L0,100 L100,100 L100,14 Z M0,14 L0,0 L38,0 L42,14',
   note: 'M0,0 L86,0 L100,14 L100,100 L0,100 Z M86,0 L86,14 L100,14',
 };
-// Espacio extra que la forma necesita además del texto (ancho, alto) y desde dónde empieza el
-// contenido (padding superior), para que el rótulo no pise la tapa o la pestaña.
-export const SHAPE_EXTRA = {cylinder: [0, 22], queue: [26, 0], cloud: [44, 26], package: [0, 14], note: [16, 0]};
-export const SHAPE_PADDING_TOP = {cylinder: 14, package: 14, cloud: 6};
+// Área interior de cada contorno, en fracciones de la caja (top, right, bottom, left): lo que queda
+// libre entre las tapas del cilindro y de la cola, los lóbulos de la nube, la pestaña del paquete y
+// la esquina doblada de la nota. El texto (keyword, ícono y rótulo) va ahí dentro; como el contorno
+// se estira con la caja, el área interior escala igual.
+export const SHAPE_INNER = {
+  cylinder: [0.22, 0.03, 0.12, 0.03],
+  queue: [0.04, 0.22, 0.04, 0.11],
+  cloud: [0.36, 0.14, 0.13, 0.18],
+  package: [0.17, 0.03, 0.04, 0.03],
+  note: [0.17, 0.03, 0.04, 0.03],
+};
+
+// Caja que necesita una forma para que su área interior mida (width, height).
+export function shapeBox(shape, width, height) {
+  const inner = SHAPE_INNER[shape];
+  if (!inner) return [width, height];
+  const [t, r, b, l] = inner;
+  return [width / (1 - l - r), height / (1 - t - b)];
+}
+
+// Variables CSS del área interior (porcentajes de la caja) para colocar la cabecera dentro.
+export function innerVars(shape) {
+  const inner = SHAPE_INNER[shape];
+  if (!inner) return {};
+  const pct = f => `${+(f * 100).toFixed(2)}%`;
+  const [t, r, b, l] = inner;
+  return {'--inner-top': pct(t), '--inner-right': pct(r), '--inner-bottom': pct(b), '--inner-left': pct(l)};
+}
 
 // Un valor resuelto por tema ({light, dark}) en el tema activo; un string vale para los dos.
 export function themed(value, skin = 'light') {

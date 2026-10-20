@@ -8,7 +8,7 @@
 // la decisión fuera del rombo y bucles sobre el flujo.
 
 import {compartmentLine} from './notation.mjs';
-import {SHAPE_EXTRA} from './notation-style.mjs';
+import {shapeBox} from './notation-style.mjs';
 
 // Todo el texto del diagrama a 12.5 px: con el zoom de «Ver todo» por encima de 0.8 se lee a ≥10 px.
 export const FONT = {label: 12.5, small: 12.5, edge: 12.5, line: 1.3};
@@ -80,11 +80,14 @@ export function sizeGlyph(glyph, {measure = approximateMeasure, wrapWidth = 200}
   const itemWidth = Math.max(0, ...rows.flatMap(c => c.items.map(i => measure(compartmentLine(i), FONT.small))));
   const body = rows.reduce((h, c) => h + 8 + c.items.length * COMPARTMENT_ROW, 0);
   const [minW, minH] = MIN[shape] || [120, 40];
-  // Un ícono va antes del rótulo; las formas con tapa, pestaña o borde curvo piden su espacio.
+  // Un ícono va antes del rótulo; en las formas de contorno, el texto va en su área interior y la caja
+  // crece hasta que quepa (shapeBox).
   const icon = glyph.style?.icon ? ICON_SPACE : 0;
-  const [extraW, extraH] = SHAPE_EXTRA[shape] || [0, 0];
-  const width = Math.ceil(Math.max(minW, Math.max(label.width + icon, itemWidth, glyph.keyword ? measure(glyph.keyword, FONT.small) : 0) + PAD_X * 2 + extraW));
-  const height = Math.ceil(Math.max(minH, keyword + label.height + PAD_Y * 2 + body + extraH));
+  const contentW = Math.max(label.width + icon, itemWidth, glyph.keyword ? measure(glyph.keyword, FONT.small) : 0) + PAD_X * 2;
+  const contentH = keyword + label.height + PAD_Y * 2 + body;
+  const [boxW, boxH] = shapeBox(shape, contentW, contentH);
+  const width = Math.ceil(Math.max(minW, boxW));
+  const height = Math.ceil(Math.max(minH, boxH));
   return {width, height, lines: label.lines};
 }
 

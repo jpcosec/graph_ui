@@ -27,7 +27,7 @@
 .glyph{position:relative;box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;border:1.5px solid var(--glyph-stroke,var(--ink));background:var(--glyph-fill,var(--surface-panel));color:var(--glyph-ink,var(--text));font-size:12.5px;box-shadow:var(--shadow-card)}
 .glyph.selected{box-shadow:0 0 0 3px var(--focus-ring)}
 .glyph-head,.glyph-compartment{flex:none}
-.glyph-head{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:calc(6px + var(--glyph-pad-top,0px)) 10px 6px;min-height:28px;text-align:center}
+.glyph-head{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:6px 10px;min-height:28px;text-align:center}
 .glyph-keyword{font-size:12.5px;line-height:1.3;color:var(--text-muted)}
 .glyph-label{font-weight:600;line-height:1.3}
 .glyph-line{display:block;white-space:nowrap}
@@ -107,8 +107,8 @@
 .glyph.shape-cylinder,.glyph.shape-queue,.glyph.shape-cloud,.glyph.shape-package,.glyph.shape-note{border:0;background:none;box-shadow:none;justify-content:center}
 .glyph-outline{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:0;pointer-events:none}
 .glyph-outline path{fill:var(--glyph-fill,var(--surface-panel));stroke:var(--glyph-stroke,var(--ink));stroke-width:1.5}
-.glyph.shape-queue .glyph-head{padding-right:22px}
-.glyph.shape-note .glyph-head{padding-right:18px}
+/* El texto de una forma de contorno va en su área interior (SHAPE_INNER en notation-style.mjs). */
+.glyph-outline ~ .glyph-head{position:absolute;top:var(--inner-top);right:var(--inner-right);bottom:var(--inner-bottom);left:var(--inner-left);min-height:0;padding:0 4px;box-sizing:border-box}
 
 /* Leyenda de la notación, al pie del catálogo: nunca tapa el diagrama. */
 .notation-legend{margin:14px 10px 6px;padding-top:8px;border-top:1px solid var(--border)}

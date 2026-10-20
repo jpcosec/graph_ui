@@ -5,7 +5,7 @@ import {request} from '../../../shell/api.js';
 import {useSource} from '../../../source/source.js';
 import {specCatalog, sceneFor, compartmentLine, cellKey, LANE, TERMINALS} from './notation.mjs';
 import {bestLayout, pathOf, POINT_SHAPES} from './notation-layout.mjs';
-import {glyphVars, paletteInk, themed, SHAPE_PADDING_TOP} from './notation-style.mjs';
+import {glyphVars, paletteInk, themed, innerVars} from './notation-style.mjs';
 import {GlyphIcon, ShapeOutline, NotationLegend, useIcons} from './notation-style.js';
 
 // Vista genérica de notación: dibuja un spec de spec2viz tal como lo resuelve
@@ -58,7 +58,7 @@ function Glyph({glyph: g, container, selected, children, style, lines, outside, 
   const label = html`<span className=${'glyph-label' + (g.label_style ? ' is-' + g.label_style : '')}>${text}</span>`;
   const compartments = (g.compartments || []).filter(c => c.items && c.items.length);
   // Estilo resuelto por spec2viz (§13): relleno, trazo, texto e ícono; sin estilo, el de siempre.
-  const vars = {...glyphVars(g.style, skin, ink), ...(SHAPE_PADDING_TOP[g.shape] ? {'--glyph-pad-top': SHAPE_PADDING_TOP[g.shape] + 'px'} : {})};
+  const vars = {...glyphVars(g.style, skin, ink), ...innerVars(g.shape)};
   return html`<div className=${'glyph shape-' + g.shape + (container ? ' is-container' : '') + (selected ? ' selected' : '') + (g.style?.fill || g.style?.stroke ? ' is-styled' : '')}
       style=${{...style, ...vars}} data-doc=${g.doc} data-glyph=${g.glyph} data-function=${g.function || ''} title=${g.doc}
       data-fill=${themed(g.style?.fill, skin) || ''} data-stroke=${themed(g.style?.stroke, skin) || ''} data-icon=${g.style?.icon || ''}>
