@@ -2,7 +2,7 @@
 title: "R7: Haces de aristas paralelas que no se pueden seguir"
 severity: low
 category: layout
-status: open
+status: closed
 ---
 # R7: Haces de aristas paralelas que no se pueden seguir
 
@@ -20,3 +20,9 @@ romper los criterios ya cumplidos. Si no sale limpio, se cierra explicando por q
 
 ## Acceptance
 Deseable.
+
+## Resolution
+
+Closed: 2026-10-19
+Reason: Resaltado al pasar el mouse por la arista o su rótulo (la arista en acento y gruesa, las demás atenuadas). Separar más las paralelas (16 px) se probó y se descartó: el despliegue bajaba a 10.0 px y el fixture denso quedaba bajo 10 px, rompiendo la legibilidad ya cumplida.
+Refs: 3eefb12
