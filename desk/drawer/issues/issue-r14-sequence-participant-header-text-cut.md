@@ -2,7 +2,7 @@
 title: "R14: En sequence, el texto del encabezado de un participante se corta a la derecha"
 severity: medium
 category: legibility
-status: open
+status: closed
 ---
 # R14: En sequence, el texto del encabezado de un participante se corta a la derecha
 
@@ -18,3 +18,9 @@ frontends/mindmap/views/specs/notation/ (medida de la cabecera de carril en sequ
 
 ## Evidence
 - assets/specs-legibility-r13-2026-10-20/sequence.publicar-agente.png
+
+## Resolution
+
+Closed: 2026-10-20
+Reason: La cabecera se mide en el peso del rótulo y cuenta el ícono; un nombre que no cabe se parte en líneas y una palabra larga la ensancha; e2e con sequence-styled.yml
+Refs: 1b9a862
