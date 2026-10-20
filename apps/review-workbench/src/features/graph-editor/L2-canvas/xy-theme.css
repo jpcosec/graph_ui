@@ -86,14 +86,23 @@
   border-color: var(--xy-theme-hover);
 }
 
-/* NodeShell draws the whole body of a default node (border, background, corners, selection ring):
-   the React Flow wrapper adds no frame of its own (xyflow's default node brings padding, a fixed
-   150px width and a border; the base rule above, a 2px border and a shadow). */
+/* NodeShell and GroupShell draw the whole body of their node (border, background, corners, selection
+   ring): the React Flow wrapper adds no frame of its own (xyflow's default and group nodes bring
+   padding, a fixed 150px width and a border; the base rule above, a 2px border and a shadow). A
+   group's size comes from its node style, so only the default node drops the width. */
 .react-flow__node-default,
 .react-flow__node-default.selectable:hover,
 .react-flow__node-default.selectable.selected {
-  padding: 0;
   width: auto;
+}
+
+.react-flow__node-default,
+.react-flow__node-default.selectable:hover,
+.react-flow__node-default.selectable.selected,
+.react-flow__node-group,
+.react-flow__node-group.selectable:hover,
+.react-flow__node-group.selectable.selected {
+  padding: 0;
   border: 0;
   border-radius: 0;
   box-shadow: none;

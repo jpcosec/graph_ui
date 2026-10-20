@@ -12,7 +12,8 @@ build of review-workbench under ``vite preview``, whose proxy forwards both. In 
 3. the same view pointed at a second store draws that store's slice;
 4. a view's layout style places the nodes: ``rings`` by a payload field (every node of a ring at
    that ring's radius, inner ring first), ``layered`` top to bottom along the relations;
-5. (also: every default node is only its NodeShell body: React Flow's wrapper adds no frame, RW1)
+5. (also: every default node is only its NodeShell body, and a group's wrapper (measured on a probe
+   with React Flow's classes, since no data path renders groups today) adds no frame either, RW1)
    a view with a ``notation`` (a third store, synced from tests/fixtures/notation-style with a
    styled notation) draws each node with its glyph's resolved style: the fill, stroke and icon the
    server resolved with spec2viz's ``resolve_documents``, painted on the node; each edge with its
@@ -279,6 +280,31 @@ FRAMES = r"""() => [...document.querySelectorAll('.react-flow__node-default')].m
 })"""
 
 
+# Los grupos (GroupShell, que también dibuja su marco) no los produce hoy ningún camino de datos de la
+# app: el marco del contenedor sale solo del CSS, así que se mide en una sonda con las mismas clases
+# que React Flow le pone al contenedor de un nodo de tipo group, dentro del lienzo real.
+GROUP_FRAME = r"""() => {
+  const probe = document.createElement('div');
+  probe.className = 'react-flow__node react-flow__node-group selectable';
+  probe.dataset.type = 'group';
+  probe.style.cssText = 'position:absolute;left:0;top:0;width:240px;height:160px;visibility:hidden';
+  const inner = document.createElement('div'); inner.style.cssText = 'width:100%;height:100%'; probe.appendChild(inner);
+  document.querySelector('.react-flow__nodes').appendChild(probe);
+  const read = () => { const cs = getComputedStyle(probe), a = probe.getBoundingClientRect(), b = inner.getBoundingClientRect();
+    return {border: ['Top', 'Right', 'Bottom', 'Left'].reduce((s, k) => s + parseFloat(cs[`border${k}Width`]), 0),
+            padding: parseFloat(cs.paddingLeft) + parseFloat(cs.paddingTop), shadow: cs.boxShadow, background: cs.backgroundImage,
+            offset: Math.max(Math.abs(a.left - b.left), Math.abs(a.right - b.right), Math.abs(a.top - b.top), Math.abs(a.bottom - b.bottom))}; };
+  const plain = read(); probe.classList.add('selected'); const selected = read(); probe.remove();
+  return [plain, selected];
+}"""
+
+
+def _no_foreign_group_frame(page) -> None:
+    for frame in page.evaluate(GROUP_FRAME):
+        assert frame["border"] == 0 and frame["padding"] == 0 and frame["shadow"] == "none" and frame["background"] == "none" \
+            and frame["offset"] <= 1, frame
+
+
 def _no_foreign_frames(page) -> None:
     frames = page.evaluate(FRAMES)
     assert frames and all(f["border"] == 0 and f["shadow"] == "none" and f["padding"] == 0 and f["offset"] <= 1 for f in frames), \
@@ -351,6 +377,7 @@ def test_a_view_with_a_notation_draws_glyph_styles_link_colours_and_the_legend(s
         _no_foreign_frames(page)
         page.click(".react-flow__node-default >> nth=0")
         _no_foreign_frames(page)  # también seleccionado
+        _no_foreign_group_frame(page)
         page.click(".react-flow__controls-fitview")
         page.locator("[data-testid='view-legend']").scroll_into_view_if_needed()
         page.wait_for_timeout(600)

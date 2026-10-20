@@ -28,3 +28,11 @@ con un marco blanco de 150 px y el cuerpo coloreado, más ancho, desbordándolo 
 Closed: 2026-10-20
 Reason: El contenedor del nodo por defecto ya no agrega borde, sombra, relleno ni ancho; e2e de marcos ajenos
 Refs: 91192f9
+
+## Grupos (revisado 2026-10-20)
+El contenedor de un nodo de tipo group tenía el mismo marco ajeno alrededor del marco propio de
+GroupShell: 10 px de padding y borde de xyflow, borde de 2 px y sombra de xy-theme.css, y un fondo en
+gradiente con `!important`, esquinas y sombra de styles.css (medido en Chromium: 8 px de borde en
+total, 20 px de padding, contenido corrido 24 px). Ningún camino de datos de la app produce grupos
+hoy, así que el e2e lo mide en una sonda con las clases que React Flow le pone a ese contenedor, en el
+lienzo real. Arreglado en el commit siguiente: el contenedor del grupo tampoco agrega marco.
