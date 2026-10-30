@@ -1,4 +1,9 @@
 ---
+sldb:
+  by: agent
+  at: '2026-10-30T14:11:06Z'
+  authority: generated
+  via: update_document
 # board-xxx
 id: board-graph-ui
 # Affected workspace or domain
@@ -30,7 +35,7 @@ Routes graph_ui delivery work. Phase A (tasks 001-006) resolved. Phase B built t
 
 _Add short operational notes about the current routed set._
 
-Fase activa: task-deskops-workflow-view, vista operativa Deskops en Mindmap. Dependencias existentes verificadas; implementación independiente de la tarea de closeout abierta en el repo deskops. Pruebas de mutación solo en desk temporal. La fase termina con validación integrada y conciliación de la pill no-mocks.
+Fase Deskops UI cerrada en daa6400f29ab. Vista /workflow/deskops entregada con API/gates reales, filtros, avance y WorkersPanel. Validación: 158 pruebas de suite general aprobadas; una expectativa vieja de pestañas corregida y revalidada (2/2); API 7/7, navegador 1/1, Node 3/3 y skins 4/4. No hay tareas activas. Pill no-mocks continúa reusable; conocimiento durable en atom-deskops-workflow-views-delegate-state-and-gates-to-deskops y docs/deskops-ui.md.
 
 ## Task Details
 
