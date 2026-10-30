@@ -1,0 +1,5 @@
+# Deskops: tablero operativo dentro de Mindmap
+
+Crear /workflow/deskops en la UI activa frontends/mindmap, reutilizando shell, temas y WorkersPanel. Mostrar solo tareas enrutadas por Board.md, sus objetivos, alcance, validaciones, evidencias declaradas y gates reales. Selección, búsqueda, filtros y refresco deben funcionar. Avanzar se delega a DeskopsOperations.advance_task sin target forzado, sin cierre ni commits desde HTTP. SLDB sigue siendo dueño de extracción/persistencia; no parser Markdown propio. Fuente local explícita DESKOPS_ROOT o padre del store local. En remote exigir DESKOPS_ROOT para el workflow, sin inferir el upstream remoto. Errores y referencias rotas se muestran; no equivalen a tablero vacío. Conflictos entre lectura y avance rechazan una revisión obsoleta. Interfaz en español, responsive, temas existentes, sin datos ficticios.
+
+Dependencias satisfechas: deskops, sldb y Mindmap ya disponibles. Fase independiente de la tarea abierta en deskops sobre closeout; solo se cambia graph_ui. Probar con desk temporal real y navegador, no mutar tareas del usuario para pruebas.
