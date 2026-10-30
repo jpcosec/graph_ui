@@ -168,7 +168,7 @@ include:
     name: ritual-execution
   - path: desk/rituals/testing.md
     name: ritual-testing
-- model: TaskDoc
+- model: BoardDoc
   paths:
-  - desk/tasks/task-deskops-workflow-view.md
+  - desk/tasks/Board.md
 policy: {}

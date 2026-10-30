@@ -1,0 +1,62 @@
+F
+=================================== FAILURES ===================================
+____________________ test_brainstorm_capture_and_conversion ____________________
+
+    def test_brainstorm_capture_and_conversion():
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-brainstorm-"))
+        store = tmp / ".sldb"
+        _compile(store)
+        server = _start_server(store)
+        try:
+            with sync_playwright() as pw:
+                browser = pw.chromium.launch()
+                page = browser.new_page()
+                errors = []
+                page.on("pageerror", lambda e: errors.append(str(e)))
+                page.goto(f"http://127.0.0.1:{PORT}/")
+>               page.wait_for_selector(".document-node", timeout=10000)  # KB con datos del fixture
+
+tests/e2e_mindmap_brainstorm.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:8182: in wait_for_selector
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_page.py:423: in wait_for_selector
+    return await self._main_frame.wait_for_selector(**locals_to_params(locals()))
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_frame.py:369: in wait_for_selector
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7a71a9075be0>
+cb = <function Channel.send.<locals>.<lambda> at 0x7a71a84cad40>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Page.wait_for_selector: Timeout 10000ms exceeded.
+E           Call log:
+E             - waiting for locator(".document-node") to be visible
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: TimeoutError
+=========================== short test summary info ============================
+FAILED tests/e2e_mindmap_brainstorm.py::test_brainstorm_capture_and_conversion
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed in 12.84s

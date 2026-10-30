@@ -1,0 +1,6 @@
+## master...origin/master [ahead 2]
+?? desk/inbox/20261020-113025-suggestion-sldb-cambia-la-salida-las-alertas-dejan-de-hacer-fallar-y-nunca-son-silenciosas.md
+?? desk/inbox/20261020-122513-suggestion-contrato-de-lectura-paquetes-uml-en-diagramas-de-clase-spec2viz-84686c3.md
+?? desk/inbox/20261020-135650-suggestion-sldb-en-main-procedencia-por-documento-pol-tica-por-store-y-alertas-que-no-fallan.md
+?? runs/subagents/20261030-deskops-ui/
+

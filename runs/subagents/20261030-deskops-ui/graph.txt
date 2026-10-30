@@ -1,0 +1,27 @@
+Missing graph references:
+- missing_declared_target: task:task-deskops-workflow-view -> doc:docs/deskops-ui.md
+  provenance: desk/tasks/task-deskops-workflow-view.md:line:24:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-deskops-workflow-view -> doc:docs/deskops-ui.md
+  provenance: desk/tasks/task-deskops-workflow-view.md:line:56:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-deskops-workflow-view -> test_file:tests/e2e_mindmap_deskops.py
+  provenance: desk/tasks/task-deskops-workflow-view.md:line:22:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-deskops-workflow-view -> test_file:tests/e2e_mindmap_deskops.py
+  provenance: desk/tasks/task-deskops-workflow-view.md:line:56:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-deskops-workflow-view -> test_file:tests/e2e_mindmap_deskops.py
+  provenance: desk/tasks/task-deskops-workflow-view.md:line:70:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-deskops-workflow-view -> test_file:tests/test_mindmap_deskops.py
+  provenance: desk/tasks/task-deskops-workflow-view.md:line:21:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-deskops-workflow-view -> test_file:tests/test_mindmap_deskops.py
+  provenance: desk/tasks/task-deskops-workflow-view.md:line:56:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-deskops-workflow-view -> test_file:tests/test_mindmap_deskops.py
+  provenance: desk/tasks/task-deskops-workflow-view.md:line:70:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+8 missing, 0 informational
+

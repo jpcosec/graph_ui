@@ -314,6 +314,8 @@ class ProxyHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         route = urlparse(self.path).path
+        if route.startswith('/api/desk/'):
+            return self.desk_routes.dispatch(self, 'GET')
         if route == '/api/workers':
             # Se resuelve ANTES del proxy remote: el estado de workers no
             # vive en sldb y no debe reenviarse.
@@ -370,6 +372,8 @@ class ProxyHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         route = urlparse(self.path).path
+        if route.startswith('/api/desk/'):
+            return self.desk_routes.dispatch(self, 'POST')
         if route.startswith('/api/views/'):
             origin = self.headers.get('Origin')
             if origin and urlparse(origin).netloc != self.headers.get('Host'):
@@ -494,11 +498,14 @@ def _build_local_handler(store):
 
 
 def make_server(port=8088, store=None):
+    from mindmap.deskops_routes import configured_routes
+    selected_store = store or os.environ.get('SLDB_STORE', str(MINDMAP_DIR.parent.parent / '.sldb'))
     if BACKEND_MODE == 'remote':
         handler = type('EditorHandler', (ProxyHandler,), {'backend_mode': 'remote'})
     else:
         handler = _build_local_handler(
             store or os.environ.get('SLDB_STORE', str(MINDMAP_DIR.parent.parent / '.sldb')))
+    handler.desk_routes = configured_routes(selected_store, BACKEND_MODE, os.environ.get('DESKOPS_ROOT'))
     return ThreadingHTTPServer(('127.0.0.1', port), handler)
 
 

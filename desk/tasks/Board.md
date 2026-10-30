@@ -1,16 +1,10 @@
 ---
-sldb:
-  by: agent
-  at: '2026-10-30T04:07:45Z'
-  authority: generated
-  via: update_document
 # board-xxx
 id: board-graph-ui
 # Affected workspace or domain
 scope: graph_ui
 # List of task-xxx paths
-tasks:
-- desk/tasks/task-deskops-workflow-view.md
+tasks: []
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -41,5 +35,3 @@ Fase activa: task-deskops-workflow-view, vista operativa Deskops en Mindmap. Dep
 ## Task Details
 
 _Generated from the task references above._
-
-- Deskops workflow view in Mindmap [active] - Entregar una vista funcional en español /workflow/deskops integrada en Mindmap sobre un desk real, con tareas enrutadas, inspección de contexto y gates y avance mediante deskops.

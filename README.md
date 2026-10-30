@@ -54,6 +54,8 @@ favorito; el tab de la barra superior solo navega entre ellas.
 - **📐 Editar clases** — diálogo (desde la barra lateral de KB o desde
   cualquier card del Schema) para editar el contrato de una clase:
   plantilla, altas/bajas de campos, validar el draft y promoverlo.
+- **Deskops** (`/workflow/deskops`) — tablero operativo del desk real, contexto,
+  gates y avance delegado a Deskops. [Configuración y límites](docs/deskops-ui.md).
 - **Importar JSON** — diálogo para traer un mapa declarativo (validar →
   calcular plan → aplicar) sin tocar el store hasta confirmar.
 

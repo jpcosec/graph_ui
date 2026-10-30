@@ -13,6 +13,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# Vista workflow/deskops: operaciones reales de workflow.
+deskops = ["deskops>=0.1.0"]
 # Vista Specs: /api/notation/view delega en spec2viz.notation_view.resolve_view.
 notation = ["spec2viz>=0.1.0"]
 test = [

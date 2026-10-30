@@ -1,0 +1,92 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.5, pytest-8.3.4, pluggy-1.5.0
+rootdir: /home/jp/proyectos/SLDB_1/UIs/graph_ui
+configfile: pyproject.toml
+plugins: pyfakefs-6.1.6, archon-0.0.7, cov-7.1.0, anyio-4.13.0, asyncio-1.2.0, syrupy-6.1.1, langsmith-0.7.22, timeout-2.4.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
+collected 159 items
+
+tests/e2e_mindmap_brainstorm.py .                                        [  0%]
+tests/e2e_mindmap_classes.py .                                           [  1%]
+tests/e2e_mindmap_compiler.py .                                          [  1%]
+tests/e2e_mindmap_deskops.py .                                           [  2%]
+tests/e2e_mindmap_doc_edit.py .                                          [  3%]
+tests/e2e_mindmap_flow.py F.                                             [  4%]
+tests/e2e_mindmap_keyboard.py .                                          [  5%]
+tests/e2e_mindmap_notation.py ..                                         [  6%]
+tests/e2e_mindmap_projections.py ...                                     [  8%]
+tests/e2e_mindmap_quick_capture.py .                                     [  8%]
+tests/e2e_mindmap_routes.py .                                            [  9%]
+tests/e2e_mindmap_schema.py ..                                           [ 10%]
+tests/e2e_notation_activity.py ..                                        [ 11%]
+tests/e2e_notation_class.py ...                                          [ 13%]
+tests/e2e_notation_deployment.py ...                                     [ 15%]
+tests/e2e_notation_legibility.py ...                                     [ 17%]
+tests/e2e_notation_sequence.py ....                                      [ 20%]
+tests/e2e_notation_style.py .                                            [ 20%]
+tests/e2e_review_workbench_views.py ...                                  [ 22%]
+tests/test_auditor.py ..                                                 [ 23%]
+tests/test_ci_workflow.py ......                                         [ 27%]
+tests/test_editor.py ..                                                  [ 28%]
+tests/test_mindmap_adapter.py .......                                    [ 33%]
+tests/test_mindmap_compiler.py ........                                  [ 38%]
+tests/test_mindmap_contract.py ..........                                [ 44%]
+tests/test_mindmap_deskops.py .......                                    [ 49%]
+tests/test_mindmap_endpoints.py ................................         [ 69%]
+tests/test_mindmap_notation.py .....                                     [ 72%]
+tests/test_mindmap_persistence.py ....                                   [ 74%]
+tests/test_mindmap_quick_capture.py ..                                   [ 76%]
+tests/test_mindmap_skin.py ....                                          [ 78%]
+tests/test_mindmap_workers.py ..........                                 [ 84%]
+tests/test_projection_views.py ..........                                [ 91%]
+tests/test_provider.py ..                                                [ 92%]
+tests/test_representacion_docs.py ....                                   [ 94%]
+tests/test_review_workbench.py ...                                       [ 96%]
+tests/test_sldb_end_to_end.py ....                                       [ 99%]
+tests/test_snapshot_adapter.py .                                         [100%]
+
+=================================== FAILURES ===================================
+______________ test_flow_view_draws_documents_as_a_directed_graph ______________
+
+    def test_flow_view_draws_documents_as_a_directed_graph():
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-flow-"))
+        store = tmp / ".sldb"
+        _compile(store)
+        server = _start_server(store)
+        try:
+            with sync_playwright() as pw:
+                browser = pw.chromium.launch()
+                page = browser.new_page(viewport={"width": 1400, "height": 900})
+                errors = []
+                page.on("pageerror", lambda e: errors.append(str(e)))
+                page.goto(f"http://127.0.0.1:{PORT}/documents/flow")
+                page.wait_for_selector(".flow-node", timeout=10000)
+    
+                # Pestaña activa y orden del topbar: KB, Flujo, Brainstorm, Schema, Specs.
+                tabs = page.locator("[role=tab]")
+>               expect(tabs).to_have_count(5)
+E               AssertionError: Locator expected to have count '5'
+E               Actual value: 6 
+E               Call log:
+E                 - Expect "to_have_count" with timeout 30000ms
+E                 - waiting for locator("[role=tab]")
+E                   34 × locator resolved to 6 elements
+E                      - unexpected value "6"
+
+tests/e2e_mindmap_flow.py:116: AssertionError
+=============================== warnings summary ===============================
+tests/test_editor.py::test_safe_node_update_flow
+  /home/jp/proyectos/SLDB_1/UIs/graph_ui/tests/test_editor.py:17: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    metadata=EditMetadata(author="operator-01", timestamp=datetime.utcnow(), reason="Update description"),
+
+tests/test_editor.py::test_node_deletion_cascade
+  /home/jp/proyectos/SLDB_1/UIs/graph_ui/tests/test_editor.py:41: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    metadata=EditMetadata(author="operator-01", timestamp=datetime.utcnow(), reason="Simulate catastrophe"),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/e2e_mindmap_flow.py::test_flow_view_draws_documents_as_a_directed_graph
+============ 1 failed, 158 passed, 2 warnings in 534.63s (0:08:54) =============

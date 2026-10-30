@@ -1,0 +1,27 @@
+REQUEST http://127.0.0.1:8091/api/desk/board
+REQUEST http://127.0.0.1:8091/api/desk/task?id=task-closeout-la-evidencia-exigida-depende-de-lo-que-la-tarea-toca-no-es-la-misma-para-todo
+WORKFLOW / DESKOPS
+El trabajo, en contexto.
+
+Tu tablero real. Sus próximos pasos y las condiciones para avanzar.
+
+Actualizar
+1
+Tareas enrutadas
+1
+Activa
+
+
+
+
+Buscar tareas
+Estado
+Todos los estados
+Activa
+Activa
+↗
+Closeout: la evidencia exigida depende de lo que la tarea toca, no es la misma para todo
+La evidencia de cierre se declara al crear la tarea y el closeout verifica exactamente eso. TaskDoc gana el campo closeout_evidence (lista con vocabulario cerrado: tests, commit, atom, materialization, document, external). deskops add task lo recibe con --evidence; si falta, lo rellena por task_type (code -> tests+commit+atom|materialization; docs|spec|design -> commit+document; external -> external); sin --evidence ni task_type falla con el mensaje de cómo declararla. closeout verify/commit comprueban solo lo declarado. Si el diff trae .py y la tarea no declaró tests, no bloquea: alerta visible (nunca silenciosa). La compuerta siempre imprime 'esta tarea declaró X; encontré Y'.
+
+Leyendo contexto y gates…
+<p role="status" class="desk-empty">Leyendo contexto y gates…</p>

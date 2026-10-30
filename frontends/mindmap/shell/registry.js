@@ -1,3 +1,4 @@
+import {deskopsView} from '../views/workflow/deskops/deskops-view.js';
 import {mapView} from '../views/documents/map/map-view.js';
 import {flowView} from '../views/documents/flow/flow-view.js';
 import {treeView} from '../views/draft/tree/tree-view.js';
@@ -11,7 +12,7 @@ import {notationView} from '../views/specs/notation/notation-view.js';
 // directory with a descriptor that includes `styles` — nothing else to wire
 // (shell.js and router.js already iterate VIEWS generically, never a fixed
 // set of ids).
-export const VIEWS=[mapView, flowView, treeView, diagramView, notationView];
+export const VIEWS=[mapView, flowView, treeView, diagramView, notationView, deskopsView];
 
 export function viewById(id) {
   return VIEWS.find(v=>v.id===id) || mapView;

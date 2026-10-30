@@ -1,0 +1,1365 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.5, pytest-8.3.4, pluggy-1.5.0
+rootdir: /home/jp/proyectos/SLDB_1/UIs/graph_ui
+configfile: pyproject.toml
+plugins: pyfakefs-6.1.6, archon-0.0.7, cov-7.1.0, anyio-4.13.0, asyncio-1.2.0, syrupy-6.1.1, langsmith-0.7.22, timeout-2.4.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
+collected 151 items
+
+tests/e2e_mindmap_brainstorm.py F                                        [  0%]
+tests/e2e_mindmap_classes.py F                                           [  1%]
+tests/e2e_mindmap_compiler.py F                                          [  1%]
+tests/e2e_mindmap_doc_edit.py F                                          [  2%]
+tests/e2e_mindmap_flow.py FF                                             [  3%]
+tests/e2e_mindmap_keyboard.py F                                          [  4%]
+tests/e2e_mindmap_notation.py FF                                         [  5%]
+tests/e2e_mindmap_projections.py FFF                                     [  7%]
+tests/e2e_mindmap_quick_capture.py F                                     [  8%]
+tests/e2e_mindmap_routes.py F                                            [  9%]
+tests/e2e_mindmap_schema.py FF                                           [ 10%]
+tests/e2e_notation_activity.py FF                                        [ 11%]
+tests/e2e_notation_class.py FFF                                          [ 13%]
+tests/e2e_notation_deployment.py FFF                                     [ 15%]
+tests/e2e_notation_legibility.py 
+
+=================================== FAILURES ===================================
+____________________ test_brainstorm_capture_and_conversion ____________________
+
+    def test_brainstorm_capture_and_conversion():
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-brainstorm-"))
+        store = tmp / ".sldb"
+        _compile(store)
+        server = _start_server(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_brainstorm.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c505630e0>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c505c7740>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+_______________ test_class_editor_add_field_validate_and_promote _______________
+
+    def test_class_editor_add_field_validate_and_promote():
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-classes-"))
+        store = tmp / ".sldb"
+        _compile(store)
+        server = _start_server(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_classes.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c505120d0>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4fa796c0>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+__________________ test_compiler_dialog_import_and_roundtrip ___________________
+
+    def test_compiler_dialog_import_and_roundtrip():
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-compiler-"))
+        store = tmp / ".sldb"
+        source = json.loads((MINDMAP / "fixtures/kb-small.json").read_text(encoding="utf-8"))
+        server = _start_server(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_compiler.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c50419a90>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4fa79760>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+_________________ test_reference_search_roundtrip_and_conflict _________________
+
+    def test_reference_search_roundtrip_and_conflict():
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-doc-"))
+        store = tmp / ".sldb"
+        _compile(store, tmp)
+        server = _start_server(store, tmp)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_doc_edit.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c505b8510>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c505c54e0>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+______________ test_flow_view_draws_documents_as_a_directed_graph ______________
+
+    def test_flow_view_draws_documents_as_a_directed_graph():
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-flow-"))
+        store = tmp / ".sldb"
+        _compile(store)
+        server = _start_server(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_flow.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c505b8b00>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4fa7b920>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+____________ test_flow_view_collapses_relation_documents_into_edges ____________
+
+    def test_flow_view_collapses_relation_documents_into_edges():
+        """sldb's RelationDoc convention (source_id/target_id string payload, no
+        __containment__/__references__ declared) collapses into one labeled edge
+        between its endpoints by default; `.flow-relations-as-nodes` opts back
+        into drawing it as its own node (see source/graph.mjs isRelationDocument
+        and views/documents/flow/projection.mjs flowGraph)."""
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-flow-link-"))
+        store = tmp / ".sldb"
+        _compile(store)
+        _compile_link(store)
+        server = _start_server(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_flow.py:174: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c505068d0>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4f8771a0>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+_______________________ test_keyboard_is_scoped_per_view _______________________
+
+    def test_keyboard_is_scoped_per_view():
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-keys-"))
+        store = tmp / ".sldb"
+        _compile(store)
+        server = _start_server(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_keyboard.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f8dfbd0>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c50444cc0>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+________ test_specs_view_draws_nest_markers_compartments_and_terminals _________
+
+    def test_specs_view_draws_nest_markers_compartments_and_terminals():
+        if sync_playwright is None:
+            pytest.skip("playwright no está instalado")
+        server = _start_server(_store())
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_notation.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c5056e030>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c505c5300>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+_______ test_specs_view_draws_sequences_in_lanes_and_matrices_in_a_grid ________
+
+    def test_specs_view_draws_sequences_in_lanes_and_matrices_in_a_grid():
+        if sync_playwright is None:
+            pytest.skip("playwright no está instalado")
+        server = _start_server(_store([PILOTS / "sequence-render-pipeline.yml", PILOTS / "sequence-sync-pipeline.yml",
+                                       MATRIX, PILOTS / "matrix-pipeline-coverage.yml"]), LANES_PORT)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_notation.py:135: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f80e350>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4f84a200>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+___________ test_projection_selector_absent_without_a_projection_doc ___________
+
+    def test_projection_selector_absent_without_a_projection_doc():
+        """El store del fixture, sin ProjectionDoc, no cambia de comportamiento:
+        cero selector en el topbar."""
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-proj-none-"))
+        store = tmp / ".sldb"
+        _compile(store)
+        server = _start_server(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_projections.py:122: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f80ef50>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4f876fc0>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+__________ test_projection_filters_kb_and_flow_and_highlights_schema ___________
+
+    def test_projection_filters_kb_and_flow_and_highlights_schema():
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-proj-"))
+        store = tmp / ".sldb"
+        _compile(store)
+        _compile_projection(store)
+        server = _start_server(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_projections.py:145: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f964850>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4f875f80>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+___________ test_projection_editor_stages_edits_live_before_any_save ___________
+
+    def test_projection_editor_stages_edits_live_before_any_save():
+        """El panel dedicado en Schema («🎛 Editar proyección», solo habilitado
+        con una proyección activa) edita el mismo documento ProjectionDoc que la
+        ficha genérica de KB — vía documents.edit(), igual que cualquier otra
+        mutación de la faceta documents (p. ej. applyConnection en map-view.js).
+        El cambio se ve de inmediato en Schema/KB porque ambos leen el mismo
+        working copy, sin necesidad de guardar en SLDB primero."""
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-proj-editor-"))
+        store = tmp / ".sldb"
+        _compile(store)
+        _compile_projection(store)
+        server = _start_server(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_projections.py:221: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f80ef50>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4ef20680>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+____________________________ test_e2e_quick_capture ____________________________
+
+    def test_e2e_quick_capture():
+        """Ejecuta el flujo E2E completo dentro de la suite de pytest."""
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+>       main()
+
+tests/e2e_mindmap_quick_capture.py:119: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/e2e_mindmap_quick_capture.py:53: in main
+    browser = pw.chromium.launch()
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f80fc50>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4f84a200>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+----------------------------- Captured stdout call -----------------------------
+store listo: /tmp/kb-e2e-06deurt_/.sldb
+________________________ test_url_drives_facet_and_view ________________________
+
+    def test_url_drives_facet_and_view():
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-routes-"))
+        store = tmp / ".sldb"
+        _compile(store)
+        server = _start_server(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_routes.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f965a50>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4ef22a20>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+________________ test_schema_view_draws_classes_and_containment ________________
+
+    def test_schema_view_draws_classes_and_containment():
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-schema-"))
+        store = tmp / ".sldb"
+        _compile(store)
+        server = _start_server(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_schema.py:112: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f966950>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4ef23b00>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+_ test_schema_view_draws_relation_and_reference_edges_from_relation_documents __
+
+    def test_schema_view_draws_relation_and_reference_edges_from_relation_documents():
+        """Sobre el mismo store, se agrega LinkDoc/link-1 (ver LINK_SOURCE arriba):
+        un documento-relación sldb sin RelationTypeDoc que lo declare. La Schema
+        view debe dibujar la relación observada (cabecera a cabecera, con su
+        conteo) aunque nadie la haya declarado, y seguir mostrando la referencia
+        inferida `blocks` (TaskDoc -> TaskDoc) del fixture base.
+    
+        Desviación esperada: LinkDoc es una clase registrada más (a diferencia de
+        la vista Flujo, que colapsa sus documentos en una arista y no le da
+        nodo), así que `.class-node` pasa de 2 a 3.
+        """
+        if sync_playwright is None:
+            import pytest
+            pytest.skip("playwright no está instalado")
+        tmp = Path(tempfile.mkdtemp(prefix="kb-e2e-schema-rel-"))
+        store = tmp / ".sldb"
+        _compile(store)
+        _compile_link(store)
+        server = _start_server(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_mindmap_schema.py:199: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f80d250>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4ef20040>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+__________ test_notes_and_merge_without_partitions_keep_the_elk_path ___________
+
+store = PosixPath('/tmp/pytest-of-jp/pytest-20/activity0/.sldb')
+
+    def test_notes_and_merge_without_partitions_keep_the_elk_path(store):
+        process, base = _serve(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_notation_activity.py:136: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f966350>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4ef237e0>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+______________________ test_partitions_are_uml_swimlanes _______________________
+
+store = PosixPath('/tmp/pytest-of-jp/pytest-20/activity0/.sldb')
+
+    def test_partitions_are_uml_swimlanes(store):
+        process, base = _serve(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_notation_activity.py:169: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f964e50>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c505c5300>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+________ test_r9_multiplicities_sit_at_their_edge_end_outside_the_boxes ________
+
+store = PosixPath('/tmp/pytest-of-jp/pytest-20/class0/.sldb')
+
+    def test_r9_multiplicities_sit_at_their_edge_end_outside_the_boxes(store):
+        process, base = _serve(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_notation_class.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f967e50>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c50444f40>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+_________ test_r10_unrelated_classes_go_in_a_grid_and_the_whole_reads __________
+
+store = PosixPath('/tmp/pytest-of-jp/pytest-20/class0/.sldb')
+
+    def test_r10_unrelated_classes_go_in_a_grid_and_the_whole_reads(store):
+        process, base = _serve(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_notation_class.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f966b50>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4ef23600>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+__________ test_opening_a_spec_frames_every_box_with_its_compartments __________
+
+store = PosixPath('/tmp/pytest-of-jp/pytest-20/class0/.sldb')
+
+    def test_opening_a_spec_frames_every_box_with_its_compartments(store):
+        process, base = _serve(store)
+        try:
+            with sync_playwright() as pw:
+>               browser = pw.chromium.launch()
+
+tests/e2e_notation_class.py:120: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:14502: in launch
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_browser_type.py:98: in launch
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f967a50>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4f1d58a0>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/jp/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell
+E           ╔════════════════════════════════════════════════════════════╗
+E           ║ Looks like Playwright was just installed or updated.       ║
+E           ║ Please run the following command to download new browsers: ║
+E           ║                                                            ║
+E           ║     playwright install                                     ║
+E           ║                                                            ║
+E           ║ <3 Playwright Team                                         ║
+E           ╚════════════════════════════════════════════════════════════╝
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: Error
+_________________ test_nested_nodes_paths_deploy_and_manifest __________________
+
+store = PosixPath('/tmp/pytest-of-jp/pytest-20/deployment0/.sldb')
+
+    def test_nested_nodes_paths_deploy_and_manifest(store):
+        process, base = _serve(store)
+        try:
+            with sync_playwright() as pw:
+                browser = pw.chromium.launch()
+                page = browser.new_page(viewport={"width": 1800, "height": 1200})
+                errors = []
+                page.on("pageerror", lambda e: errors.append(str(e)))
+                page.goto(f"{base}/specs/notation")
+>               page.wait_for_selector(".notation-catalog button", timeout=30000)
+
+tests/e2e_notation_deployment.py:105: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:8182: in wait_for_selector
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_page.py:423: in wait_for_selector
+    return await self._main_frame.wait_for_selector(**locals_to_params(locals()))
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_frame.py:369: in wait_for_selector
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c50555850>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4ef209a0>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Page.wait_for_selector: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for locator(".notation-catalog button") to be visible
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: TimeoutError
+________ test_small_deployments_do_not_get_worse_and_titles_stay_inside ________
+
+store = PosixPath('/tmp/pytest-of-jp/pytest-20/deployment0/.sldb')
+
+    def test_small_deployments_do_not_get_worse_and_titles_stay_inside(store):
+        process, base = _serve(store)
+        try:
+            with sync_playwright() as pw:
+                browser = pw.chromium.launch()
+                page = browser.new_page(viewport={"width": 1800, "height": 1200})
+                page.goto(f"{base}/specs/notation")
+>               page.wait_for_selector(".notation-catalog button", timeout=30000)
+
+tests/e2e_notation_deployment.py:144: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:8182: in wait_for_selector
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_page.py:423: in wait_for_selector
+    return await self._main_frame.wait_for_selector(**locals_to_params(locals()))
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_frame.py:369: in wait_for_selector
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f80f050>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c4fa79bc0>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Page.wait_for_selector: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for locator(".notation-catalog button") to be visible
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: TimeoutError
+________ test_a_large_nested_deployment_reads_whole_with_its_own_layout ________
+
+store = PosixPath('/tmp/pytest-of-jp/pytest-20/deployment0/.sldb')
+
+    def test_a_large_nested_deployment_reads_whole_with_its_own_layout(store):
+        process, base = _serve(store)
+        try:
+            with sync_playwright() as pw:
+                browser = pw.chromium.launch()
+                page = browser.new_page(viewport={"width": 1800, "height": 1200})
+                errors = []
+                page.on("pageerror", lambda e: errors.append(str(e)))
+                page.goto(f"{base}/specs/notation")
+>               page.wait_for_selector(".notation-catalog button", timeout=30000)
+
+tests/e2e_notation_deployment.py:166: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/sync_api/_generated.py:8182: in wait_for_selector
+    self._sync(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_page.py:423: in wait_for_selector
+    return await self._main_frame.wait_for_selector(**locals_to_params(locals()))
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_frame.py:369: in wait_for_selector
+    await self._channel.send(
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7c7c4f80e450>
+cb = <function Channel.send.<locals>.<lambda> at 0x7c7c50445300>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Page.wait_for_selector: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for locator(".notation-catalog button") to be visible
+
+/home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:558: TimeoutError
+=========================== short test summary info ============================
+FAILED tests/e2e_mindmap_brainstorm.py::test_brainstorm_capture_and_conversion
+FAILED tests/e2e_mindmap_classes.py::test_class_editor_add_field_validate_and_promote
+FAILED tests/e2e_mindmap_compiler.py::test_compiler_dialog_import_and_roundtrip
+FAILED tests/e2e_mindmap_doc_edit.py::test_reference_search_roundtrip_and_conflict
+FAILED tests/e2e_mindmap_flow.py::test_flow_view_draws_documents_as_a_directed_graph
+FAILED tests/e2e_mindmap_flow.py::test_flow_view_collapses_relation_documents_into_edges
+FAILED tests/e2e_mindmap_keyboard.py::test_keyboard_is_scoped_per_view - play...
+FAILED tests/e2e_mindmap_notation.py::test_specs_view_draws_nest_markers_compartments_and_terminals
+FAILED tests/e2e_mindmap_notation.py::test_specs_view_draws_sequences_in_lanes_and_matrices_in_a_grid
+FAILED tests/e2e_mindmap_projections.py::test_projection_selector_absent_without_a_projection_doc
+FAILED tests/e2e_mindmap_projections.py::test_projection_filters_kb_and_flow_and_highlights_schema
+FAILED tests/e2e_mindmap_projections.py::test_projection_editor_stages_edits_live_before_any_save
+FAILED tests/e2e_mindmap_quick_capture.py::test_e2e_quick_capture - playwrigh...
+FAILED tests/e2e_mindmap_routes.py::test_url_drives_facet_and_view - playwrig...
+FAILED tests/e2e_mindmap_schema.py::test_schema_view_draws_classes_and_containment
+FAILED tests/e2e_mindmap_schema.py::test_schema_view_draws_relation_and_reference_edges_from_relation_documents
+FAILED tests/e2e_notation_activity.py::test_notes_and_merge_without_partitions_keep_the_elk_path
+FAILED tests/e2e_notation_activity.py::test_partitions_are_uml_swimlanes - pl...
+FAILED tests/e2e_notation_class.py::test_r9_multiplicities_sit_at_their_edge_end_outside_the_boxes
+FAILED tests/e2e_notation_class.py::test_r10_unrelated_classes_go_in_a_grid_and_the_whole_reads
+FAILED tests/e2e_notation_class.py::test_opening_a_spec_frames_every_box_with_its_compartments
+FAILED tests/e2e_notation_deployment.py::test_nested_nodes_paths_deploy_and_manifest
+FAILED tests/e2e_notation_deployment.py::test_small_deployments_do_not_get_worse_and_titles_stay_inside
+FAILED tests/e2e_notation_deployment.py::test_a_large_nested_deployment_reads_whole_with_its_own_layout
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/home/jp/anaconda3/lib/python3.13/selectors.py:452: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+======================== 24 failed in 196.90s (0:03:16) ========================
+Future exception was never retrieved
+future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed')>
+playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed

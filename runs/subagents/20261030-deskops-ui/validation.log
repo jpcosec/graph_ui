@@ -1,0 +1,12 @@
+Executor focused validation:
+pytest tests/test_mindmap_deskops.py -q: 7 passed in 58.44s (stdout.log, stderr.log)
+node --test tests/mindmap-deskops.test.mjs: 3 passed (node-validation.log)
+pytest tests/test_mindmap_skin.py -q: 4 passed (skin-validation.log)
+Independent tester owns final targeted browser/backend run, full pytest and live read-only desktop/mobile evidence. See tester logs for final-tree results.
+
+Independent tester final focused checks:
+pytest tests/e2e_mindmap_deskops.py -xq: 1 passed in33.71s (deskops-e2e.log)
+pytest tests/test_mindmap_deskops.py -q:7 passed in62.85s (final-api.log)
+pytest tests/e2e_mindmap_flow.py -q:2 passed in7.94s after tab registration assertion update (flow-registration-retest.log)
+Full pytest:158 passed,1 failed,2 warnings in534.63s. Sole failure at tests/e2e_mindmap_flow.py:116 expected5 tabs; minimal new-view registration expectation corrected to6. Focused flow rerun2 passed. Combined coverage green; no full rerun claimed. See final-pytest.log, flow-registration-retest.log, testing-summary.md.
+Live real-desk desktop/mobile GET-only proof passes; screenshots live-desktop.png and live-mobile-detail.png.

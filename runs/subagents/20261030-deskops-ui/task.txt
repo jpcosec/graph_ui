@@ -1,0 +1,12 @@
+Task: task-deskops-workflow-view
+Title: Deskops workflow view in Mindmap
+Status: draft
+Current node: ritual-execution
+Task type: implementation
+From drawer: desk/drawer/tasks/task-deskops-workflow-view.md
+Closeout evidence: tests, commit, document
+Effective atoms:
+- desk/atoms/atom-deskops-workflow-views-delegate-state-and-gates-to-deskops.md
+Lifecycle gates:
+- task_activates -> ritual-testing: open [(none)]
+
