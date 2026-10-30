@@ -4,7 +4,8 @@ id: board-graph-ui
 # Affected workspace or domain
 scope: graph_ui
 # List of task-xxx paths
-tasks: []
+tasks:
+- desk/tasks/task-deskops-workflow-view.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
