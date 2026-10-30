@@ -1,4 +1,9 @@
 ---
+sldb:
+  by: agent
+  at: '2026-10-30T04:07:45Z'
+  authority: generated
+  via: update_document
 # board-xxx
 id: board-graph-ui
 # Affected workspace or domain
@@ -31,8 +36,10 @@ Routes graph_ui delivery work. Phase A (tasks 001-006) resolved. Phase B built t
 
 _Add short operational notes about the current routed set._
 
-Phase B delivery tasks (adapter, encoding, layout, store, sidebar) are closed. kgdb RelationFilter implemented and merged. The build-time node-type generator (sldb model -> NodeTypeDefinition) is closed (8123184, e6166d8). The sldb end-to-end proof is DONE and lives in this repo, not deferred: live Antonia flow over `sldb serve` with typed inspector save+reload, verified by Playwright (050a35e, ce01267; npm test 79/79; evidence in apps/review-workbench/auto_user_test/antonia_live/). No graph_ui delivery task is currently open; remaining roadmap items are cross-repo (see desk/drawer/DELEGATED_CROSS_REPO_WORK.md).
+Fase activa: task-deskops-workflow-view, vista operativa Deskops en Mindmap. Dependencias existentes verificadas; implementación independiente de la tarea de closeout abierta en el repo deskops. Pruebas de mutación solo en desk temporal. La fase termina con validación integrada y conciliación de la pill no-mocks.
 
 ## Task Details
 
 _Generated from the task references above._
+
+- Deskops workflow view in Mindmap [active] - Entregar una vista funcional en español /workflow/deskops integrada en Mindmap sobre un desk real, con tareas enrutadas, inspección de contexto y gates y avance mediante deskops.
