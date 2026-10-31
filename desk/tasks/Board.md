@@ -32,7 +32,7 @@ Routes graph_ui delivery work. Phase A (tasks 001-006) resolved. Phase B built t
 
 _Add short operational notes about the current routed set._
 
-DAG Knowledge Workspace UI enrutado en draft (3 tareas maduras ligadas a contratos acotados: task-workspace-multiproyeccion..., de la que dependen task-vista-changes... y task-edicion-contextual...). Candidatos dependientes de contratos externos no cerrados (anclas CST Tree-sitter, adaptador remoto C2 y prueba integral multiagente E01) registrados en desk/drawer/tasks/.
+DAG Knowledge Workspace UI: task-workspace-multiproyeccion integrada y cerrada. Tareas restantes en draft: task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento y task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia. Candidatos dependientes de contratos externos no cerrados (anclas CST Tree-sitter, adaptador remoto C2 y prueba integral multiagente E01) registrados en desk/drawer/tasks/.
 
 ## Task Details
 
