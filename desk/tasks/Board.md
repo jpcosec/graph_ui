@@ -5,7 +5,6 @@ id: board-graph-ui
 scope: graph_ui
 # List of task-xxx paths
 tasks:
-- desk/tasks/task-workspace-multiproyeccion-documento-grafo-local-codigo-y-contexto.md
 - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
 - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
 # List of pill-xxx paths
@@ -38,3 +37,6 @@ DAG Knowledge Workspace UI enrutado en draft (3 tareas maduras ligadas a contrat
 ## Task Details
 
 _Generated from the task references above._
+
+- Vista Changes: arbol de hashes, staleness e impacto en conocimiento [draft] - Añadir la vista/pestaña Changes en frontends/mindmap y la sección Integrity en el panel Context que consulten el estado real de verificación del store y crucen cada nodo o archivo mutado con sus dependientes a 1-2 hops en el grafo, señalando los artefactos potencialmente obsoletos (stale).
+- Edicion contextual de relaciones y campos con control de concurrencia [draft] - Habilitar en el panel Context y en la proyección Document del workspace el alta/baja de relaciones válidas según el modelo y la edición de campos vía pron.Store/sldb, exigiendo el hash de revisión previo y rechazando con 409 Conflict cualquier escritura obsoleta.
