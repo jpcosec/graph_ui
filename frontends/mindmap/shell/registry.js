@@ -4,6 +4,7 @@ import {flowView} from '../views/documents/flow/flow-view.js';
 import {treeView} from '../views/draft/tree/tree-view.js';
 import {diagramView} from '../views/models/diagram/diagram-view.js';
 import {notationView} from '../views/specs/notation/notation-view.js';
+import {workspaceView} from '../views/workspace/node/workspace-view.js';
 
 // Order here drives the tab order in the shell topbar (today: KB, Flujo,
 // Brainstorm, Schema, Specs) AND which stylesheets app.js injects, in this same
@@ -12,7 +13,7 @@ import {notationView} from '../views/specs/notation/notation-view.js';
 // directory with a descriptor that includes `styles` — nothing else to wire
 // (shell.js and router.js already iterate VIEWS generically, never a fixed
 // set of ids).
-export const VIEWS=[mapView, flowView, treeView, diagramView, notationView, deskopsView];
+export const VIEWS=[mapView, flowView, treeView, diagramView, notationView, deskopsView, workspaceView];
 
 export function viewById(id) {
   return VIEWS.find(v=>v.id===id) || mapView;

@@ -75,6 +75,7 @@ def write_local_view(view):
 class ProxyHandler(SimpleHTTPRequestHandler):
     editor_store = None
     compilation = None
+    workspace_routes = None
     backend_mode = BACKEND_MODE
     # Modo local: se reemplaza por persistence.SaveError al construir el handler.
     save_error = Exception
@@ -316,6 +317,10 @@ class ProxyHandler(SimpleHTTPRequestHandler):
         route = urlparse(self.path).path
         if route.startswith('/api/desk/'):
             return self.desk_routes.dispatch(self, 'GET')
+        if route.startswith('/api/workspace/'):
+            if self.backend_mode == 'remote':
+                return self.json_response({'ok': False, 'error': 'Workspace multi-proyección no disponible en modo remote.'}, 501)
+            return self.workspace_routes.dispatch(self, 'GET')
         if route == '/api/workers':
             # Se resuelve ANTES del proxy remote: el estado de workers no
             # vive en sldb y no debe reenviarse.
@@ -506,6 +511,8 @@ def make_server(port=8088, store=None):
         handler = _build_local_handler(
             store or os.environ.get('SLDB_STORE', str(MINDMAP_DIR.parent.parent / '.sldb')))
     handler.desk_routes = configured_routes(selected_store, BACKEND_MODE, os.environ.get('DESKOPS_ROOT'))
+    from mindmap.workspace_routes import configured_workspace_routes
+    handler.workspace_routes = configured_workspace_routes(selected_store, getattr(handler, 'editor_store', None))
     return ThreadingHTTPServer(('127.0.0.1', port), handler)
 
 

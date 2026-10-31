@@ -111,10 +111,10 @@ def test_flow_view_draws_documents_as_a_directed_graph():
             page.goto(f"http://127.0.0.1:{PORT}/documents/flow")
             page.wait_for_selector(".flow-node", timeout=10000)
 
-            # Pestaña activa y orden del topbar, incluyendo la vista Deskops.
+            # Pestaña activa y orden del topbar, incluyendo Deskops y Workspace.
             tabs = page.locator("[role=tab]")
-            expect(tabs).to_have_count(6)
-            assert [t.strip() for t in tabs.all_inner_texts()] == ["🗺 KB", "⇢ Flujo", "💡 Brainstorm", "📐 Schema", "🧩 Specs", "Deskops"]
+            expect(tabs).to_have_count(7)
+            assert [t.strip() for t in tabs.all_inner_texts()] == ["🗺 KB", "⇢ Flujo", "💡 Brainstorm", "📐 Schema", "🧩 Specs", "Deskops", "Workspace"]
             flow_tab = page.get_by_role("tab", name="Flujo")
             expect(flow_tab).to_have_attribute("aria-selected", "true")
 

@@ -67,9 +67,10 @@ _List the checks required before this task can close._
 
 - pytest -q tests/test_mindmap_workspace.py
 - node --test tests/mindmap-workspace.test.mjs
+- pytest -q tests/e2e_mindmap_workspace.py
 
 ## Done When
 
 _Name the observable condition that makes the task complete._
 
-Seleccionar un documento, átomo o tarea permite alternar entre Document, Graph (1-2 hops filtrable) y Code, inspeccionar su identidad, hash y relaciones en el panel Context y navegar a cualquier nodo vinculado, con suite pytest y node --test en verde.
+Seleccionar un documento, átomo o tarea permite alternar entre Document, Graph (1-2 hops filtrable) y Code, inspeccionar su identidad, hash y relaciones en el panel Context y navegar a cualquier nodo vinculado, con suite pytest, node --test y tests/e2e_mindmap_workspace.py en verde.
