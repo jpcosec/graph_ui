@@ -1,15 +1,13 @@
 ---
-sldb:
-  by: agent
-  at: '2026-10-30T14:11:06Z'
-  authority: generated
-  via: update_document
 # board-xxx
 id: board-graph-ui
 # Affected workspace or domain
 scope: graph_ui
 # List of task-xxx paths
-tasks: []
+tasks:
+- desk/tasks/task-workspace-multiproyeccion-documento-grafo-local-codigo-y-contexto.md
+- desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
+- desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -35,7 +33,7 @@ Routes graph_ui delivery work. Phase A (tasks 001-006) resolved. Phase B built t
 
 _Add short operational notes about the current routed set._
 
-Fase Deskops UI cerrada en daa6400f29ab. Vista /workflow/deskops entregada con API/gates reales, filtros, avance y WorkersPanel. Validación: 158 pruebas de suite general aprobadas; una expectativa vieja de pestañas corregida y revalidada (2/2); API 7/7, navegador 1/1, Node 3/3 y skins 4/4. No hay tareas activas. Pill no-mocks continúa reusable; conocimiento durable en atom-deskops-workflow-views-delegate-state-and-gates-to-deskops y docs/deskops-ui.md.
+DAG Knowledge Workspace UI enrutado en draft (3 tareas maduras ligadas a contratos acotados: task-workspace-multiproyeccion..., de la que dependen task-vista-changes... y task-edicion-contextual...). Candidatos dependientes de contratos externos no cerrados (anclas CST Tree-sitter, adaptador remoto C2 y prueba integral multiagente E01) registrados en desk/drawer/tasks/.
 
 ## Task Details
 

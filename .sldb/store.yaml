@@ -168,6 +168,11 @@ include:
     name: ritual-execution
   - path: desk/rituals/testing.md
     name: ritual-testing
+- model: TaskDoc
+  paths:
+  - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
+  - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
+  - desk/tasks/task-workspace-multiproyeccion-documento-grafo-local-codigo-y-contexto.md
 - model: BoardDoc
   paths:
   - desk/tasks/Board.md
