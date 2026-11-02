@@ -212,8 +212,21 @@ def test_workspace_node_success(test_env, server):
     assert context['problems_report']['ok'] is True
 
 
+def _store_snapshot(root):
+    import hashlib
+    return {
+        str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
+        for p in sorted((root / '.sldb').rglob('*')) if p.is_file()
+    }
+
+
 def test_workspace_cycle_and_2hops_real_edges(test_env, server):
     root, ops, task_a, task_b, task_c = test_env
+    # Conducta retirada: el GET ya no reconstruye el indice. La preparacion del store es
+    # explicita y externa al request (rebuild_edges publico), antes del GET.
+    from sldb.api import rebuild_edges
+    rebuild_edges(root / '.sldb', pythonpath=str(root), wait=True)
+    before = _store_snapshot(root)
     # A depth=2, el grafo recorre el ciclo completo A -> B -> C -> A
     status, data = http_get(server, f'/api/workspace/node?id=TaskDoc:{task_a}&depth=2')
     assert status == 200
@@ -232,6 +245,27 @@ def test_workspace_cycle_and_2hops_real_edges(test_env, server):
     assert any(e['source'] == f'TaskDoc:{task_a}' and e['target'] == f'TaskDoc:{task_b}' for e in graph_proj['edges'])
     assert any(e['source'] == f'TaskDoc:{task_b}' and e['target'] == f'TaskDoc:{task_c}' for e in graph_proj['edges'])
     assert any(e['source'] == f'TaskDoc:{task_c}' and e['target'] == f'TaskDoc:{task_a}' for e in graph_proj['edges'])
+    # preparado y canonico: la lectura no escribio nada
+    assert _store_snapshot(root) == before
+
+
+def test_workspace_cycle_on_unprepared_store_is_rejected_not_rebuilt(test_env, server):
+    root, ops, task_a, task_b, task_c = test_env
+    # Store sin preparar: el indice de aristas de un documento atrasado (shard ausente)
+    shard = root / '.sldb' / 'runtime' / 'edges' / 'TaskDoc' / f'{task_c}.yaml'
+    assert shard.is_file()
+    shard.unlink()
+    before = _store_snapshot(root)
+    status, data = http_get(server, f'/api/workspace/node?id=TaskDoc:{task_a}&depth=2')
+    assert status == 200
+    graph_proj = data['projections']['graph']
+    assert graph_proj['ok'] is False and graph_proj['estado'] == 'store_no_preparado'
+    assert f'TaskDoc:{task_c}' in graph_proj['stale'] and graph_proj['nodes'] == [] and graph_proj['edges'] == []
+    assert data['context']['relations_state']['estado'] == 'store_no_preparado'
+    assert data['context']['incoming_relations'] is None
+    # nada se escribio: ni el shard ni ningun otro archivo del store
+    assert not shard.exists()
+    assert _store_snapshot(root) == before
 
 
 def test_workspace_ambiguous_name_resolution(test_env, server):

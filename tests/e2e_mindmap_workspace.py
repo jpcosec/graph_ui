@@ -459,3 +459,244 @@ def test_reader_follows_model_link_from_reference_and_tracked_path(reader_e2e_se
         assert page.locator('[data-testid="focus-bar"]').count() == 0
         assert not errors, f"Errores de JS: {errors}"
         browser.close()
+
+
+# ---------------------------------------------------------------------------
+# Correccion WS13.1: estado ligado a la identidad, respuestas atrasadas, foco con dueño, anclas
+# ---------------------------------------------------------------------------
+
+import hashlib
+
+
+class HeldResponses:
+    """Retrasa de verdad respuestas GET reales: page.route retiene la peticion y, al liberarla,
+    route.continue_() la envia al servidor real, de modo que la respuesta (real) llega al
+    navegador cuando la prueba lo decide, despues de lo que haya pasado mientras tanto."""
+
+    def __init__(self, page, pattern):
+        self.held = []
+        self.requested = []
+        self.page = page
+        self.delivered = []
+        page.route(pattern, self._handle)
+        page.on('response', lambda r: self.delivered.append(r.url) if r.url in self.requested else None)
+
+    def _handle(self, route):
+        self.requested.append(route.request.url)
+        self.held.append(route)
+
+    def release(self):
+        held, self.held = self.held, []
+        for route in held:
+            route.continue_()
+        # espera a que la respuesta real haya llegado al navegador (no se da por hecha)
+        for _ in range(100):
+            if len(self.delivered) >= len(self.requested):
+                break
+            self.page.wait_for_timeout(100)
+        assert len(self.delivered) >= len(self.requested), 'la respuesta retenida nunca llego'
+
+
+def _sidebar(page):
+    return page.locator('.workspace-sidebar')
+
+
+def test_reader_late_node_response_of_previous_document_is_discarded(reader_e2e_server):
+    """A (modelado) -> B (modelado): la respuesta atrasada de /node de A llega con B abierto."""
+    url, source_id, target_id = reader_e2e_server
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        held = HeldResponses(page, f'**/api/workspace/node?id=TaskDoc%3A{source_id}*')
+        page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}&tab=code")
+        # /source de A llega; /node de A queda retenido: el panel Code muestra carga, no ausencia
+        expect(page.locator('.workspace-header-title h1')).to_have_text(f'TaskDoc:{source_id}')
+        expect(page.locator('.workspace-code-pane')).to_contain_text('Cargando código')
+        expect(_sidebar(page).locator('.workspace-identity-prop').filter(has_text='Estado')).to_contain_text('Cargando')
+        expect(page.locator('[data-testid="code-card"]')).to_have_count(0)
+        assert len(held.requested) == 1
+        # navegar a B (otro documento) mientras la respuesta de A sigue en el aire
+        page.get_by_label('Seleccionar nodo activo').select_option(f'TaskDoc:{target_id}')
+        expect(page.locator('.workspace-header-title h1')).to_have_text(f'TaskDoc:{target_id}')
+        assert f'id=TaskDoc%3A{target_id}' in page.url or f'id=TaskDoc:{target_id}' in page.url
+        # B carga con su propio /node (no retenido: patron de A)
+        expect(page.locator('.workspace-code-pane')).to_contain_text('no tiene archivos de código')
+        # ahora llega la respuesta ATRASADA de A
+        held.release()
+        page.wait_for_timeout(800)
+        # nada de A en B: ni su codigo, ni sus aristas, ni su estado
+        expect(page.locator('[data-testid="code-card"]')).to_have_count(0)
+        assert 'src/app.py' not in page.locator('.workspace-main').inner_text()
+        expect(page.locator('.workspace-header-title h1')).to_have_text(f'TaskDoc:{target_id}')
+        expect(page.locator('[data-testid="document-reader"]')).to_have_attribute('data-identity', f'TaskDoc:{target_id}')
+        page.get_by_role('button', name='Grafo Local', exact=True).click()
+        centers = page.locator('.workspace-graph-node-card.is-center')
+        expect(centers).to_have_count(1)
+        expect(centers).to_contain_text(target_id)
+        assert _reader_count(page) == 1
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()
+
+
+def test_reader_modeled_to_unmodeled_shows_loading_not_previous_data(reader_e2e_server):
+    """A (modelado) -> documento sin modelo con /source retenido y /node de A atrasado."""
+    url, source_id, target_id = reader_e2e_server
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}&tab=code")
+        expect(page.locator('[data-testid="code-card"]').first).to_be_visible()
+        # A cargado. Se retiene la lectura del documento sin modelo y se navega a el.
+        held_src = HeldResponses(page, '**/api/workspace/source?path=docs*')
+        page.evaluate("""() => { window.history.pushState(null, '', '/workspace/node?path=docs/guia.md&tab=code'); window.dispatchEvent(new PopStateEvent('popstate')); }""")
+        expect(page.locator('[data-testid="panel-loading"][data-panel="code"]')).to_be_visible()
+        # en carga: ninguno de los datos de A, ni valores de ausencia fabricados
+        assert page.locator('[data-testid="code-card"]').count() == 0
+        side = _sidebar(page).inner_text()
+        assert source_id not in side and 'src/app.py' not in page.locator('.workspace-main').inner_text()
+        assert 'Sin estado' not in side and 'Sin nodo' not in side
+        expect(_sidebar(page).locator('[data-testid="panel-loading"]').first).to_be_visible()
+        assert len(held_src.requested) == 1
+        _screenshot(page, "correccion-carga-sin-datos-del-anterior.png")
+        held_src.release()
+        expect(page.locator('[data-testid="no-code"]')).to_contain_text('Sin grafo ni referencias')
+        expect(page.locator('.workspace-doc-header h2')).to_have_text('Guia del lector')
+        assert source_id not in _sidebar(page).inner_text()
+        page.get_by_role('button', name='Grafo Local', exact=True).click()
+        expect(page.locator('[data-testid="no-graph"]')).to_be_visible()
+        assert page.locator('[data-testid="edge-item"]').count() == 0
+        assert _reader_count(page) == 1
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()
+
+
+def test_reader_late_node_response_does_not_repopulate_unmodeled_document(reader_e2e_server):
+    """A (modelado, /node retenido) -> sin modelo: la respuesta vieja de A no repuebla nada."""
+    url, source_id, target_id = reader_e2e_server
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        held = HeldResponses(page, f'**/api/workspace/node?id=TaskDoc%3A{source_id}*')
+        page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}&tab=code")
+        expect(page.locator('.workspace-code-pane')).to_contain_text('Cargando código')
+        page.evaluate("""() => { window.history.pushState(null, '', '/workspace/node?path=docs/otro.md&tab=code'); window.dispatchEvent(new PopStateEvent('popstate')); }""")
+        expect(page.locator('[data-testid="no-code"]')).to_be_visible()
+        held.release()
+        page.wait_for_timeout(800)
+        expect(page.locator('[data-testid="no-code"]')).to_be_visible()
+        assert page.locator('[data-testid="code-card"]').count() == 0
+        assert source_id not in page.locator('.workspace-sidebar').inner_text()
+        page.get_by_role('button', name='Grafo Local', exact=True).click()
+        expect(page.locator('[data-testid="no-graph"]')).to_be_visible()
+        assert page.locator('[data-testid="edge-item"]').count() == 0
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()
+
+
+def test_reader_warns_when_node_and_source_revisions_differ(reader_e2e_server, tmp_path):
+    url, source_id, target_id = reader_e2e_server
+    root = Path(os.environ['DESKOPS_ROOT'])
+    doc = root / 'desk' / 'tasks' / f'{source_id}.md'
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+
+        def edit_before_node(route):
+            # el archivo cambia entre la lectura de /source y la de /node (misma generacion)
+            doc.write_text(doc.read_text(encoding='utf-8') + '\nlinea añadida entre lecturas\n', encoding='utf-8')
+            route.continue_()
+        page.route(f'**/api/workspace/node?id=TaskDoc%3A{source_id}*', edit_before_node)
+        page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}&tab=document")
+        warning = page.locator('[data-testid="revision-mismatch"]').first
+        expect(warning).to_be_visible()
+        _screenshot(page, "correccion-aviso-revisiones.png")
+        revision = page.locator('[data-testid="document-reader"]').get_attribute('data-revision')
+        # no se unifican: /source conserva su revision y sigue siendo el sha256 de lo que devolvio
+        text = '\n'.join(page.locator('[data-testid="doc-source"] .workspace-code-line-text').all_text_contents())
+        assert revision != hashlib.sha256(doc.read_bytes()).hexdigest()
+        assert 'linea añadida entre lecturas' not in text
+        browser.close()
+
+
+def test_reader_unprepared_store_shows_rejection_in_graph_and_relations(reader_e2e_server):
+    url, source_id, target_id = reader_e2e_server
+    root = Path(os.environ['DESKOPS_ROOT'])
+    shard = root / '.sldb' / 'runtime' / 'edges' / 'TaskDoc' / f'{target_id}.yaml'
+    assert shard.is_file()
+    shard.unlink()
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}&tab=graph")
+        expect(page.locator('[data-testid="store-no-preparado"]')).to_contain_text(f'TaskDoc:{target_id}')
+        expect(page.locator('[data-testid="store-no-preparado-rel"]')).to_contain_text('Store no preparado')
+        assert page.locator('[data-testid="edge-item"]').count() == 0
+        _screenshot(page, "correccion-store-no-preparado.png")
+        # la fuente del documento autorizado sigue legible
+        page.get_by_role('button', name='Documento', exact=True).click()
+        expect(page.locator('[data-testid="doc-render"]')).to_contain_text('Objetivo del origen')
+        assert not shard.exists(), 'el GET reconstruyo el shard'
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()
+
+
+def test_reader_edge_focus_marks_only_fields_of_the_open_document(reader_e2e_server):
+    url, source_id, target_id = reader_e2e_server
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        # B (destino): la arista A->B la declara A. B tiene un campo depends_on propio: no se resalta.
+        page.goto(f"{url}/workspace/node?id=TaskDoc:{target_id}&tab=graph")
+        edge = page.locator('[data-testid="edge-item"]', has_text=source_id).first
+        expect(edge).to_be_visible()
+        edge.click()
+        expect(page.locator('[data-testid="focus-desc"]')).to_contain_text('arista')
+        assert 'Documento: 0' in page.locator('[data-testid="focus-corr"]').inner_text()
+        assert edge.get_attribute('data-fields') == ''
+        page.get_by_role('button', name='Documento', exact=True).click()
+        expect(page.locator('.workspace-payload-field.is-focused')).to_have_count(0)
+        # la entrante muestra la declaracion de su dueño, no la presenta como campo propio
+        expect(page.locator('[data-testid="rel-prov-in"]')).to_contain_text(f'{source_id}.depends_on')
+        # A (origen): la misma arista si resalta sus dos campos
+        page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}&tab=graph")
+        page.locator('[data-testid="edge-item"]', has_text=target_id).first.click()
+        page.get_by_role('button', name='Documento', exact=True).click()
+        expect(page.locator('.workspace-payload-field.is-focused')).to_have_count(2)
+        _screenshot(page, "correccion-foco-con-dueno.png")
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()
+
+
+def test_reader_missing_anchor_is_broken_not_navigable(reader_e2e_server):
+    url, source_id, target_id = reader_e2e_server
+    root = Path(os.environ['DESKOPS_ROOT'])
+    (root / 'docs' / 'anclas.md').write_text(
+        '# Anclas\n\n## Aqui\n\nValida [[otro.md#Segunda parte]], inexistente [[otro.md#Nada]], propia [[#Aqui]], propia falta [[#Falta]].\n',
+        encoding='utf-8')
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.goto(f"{url}/workspace/node?path=docs/anclas.md")
+        render = page.locator('[data-testid="doc-render"]')
+        expect(render.locator('a[data-status="ok"]')).to_have_count(2)
+        broken = render.locator('[data-status="roto"]')
+        expect(broken).to_have_count(2)
+        assert render.locator('a', has_text='Nada').count() == 0 and render.locator('a', has_text='Falta').count() == 0
+        # se informa antes de navegar: la URL no cambio
+        assert 'anclas.md' in page.url
+        expect(page.locator('[data-testid="link-item"][data-status="roto"]')).to_have_count(2)
+        _screenshot(page, "correccion-ancla-inexistente.png")
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()

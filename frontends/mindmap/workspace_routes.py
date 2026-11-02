@@ -1,6 +1,8 @@
 """Multi-projection workspace routes: document IR, neighborhood graph, and referenced code.
 
-Strictly read-only. Adheres to SLDB contracts, safe repo-bounded file inspection,
+Strictly read-only: ninguna ruta GET reconstruye indices (load_edge_index, nunca document_edges ni rebuild_edges;
+un store desactualizado responde store_no_preparado). Riesgo declarado: open_store, dentro de load_edge_index y
+doc_status, migra un layout no canonico y no hay consulta publica previa. Adheres to SLDB contracts, safe repo-bounded file inspection,
 and zero top-level SLDB imports to support remote/headless modes without regressions.
 """
 from __future__ import annotations
@@ -57,6 +59,8 @@ SOURCE_STATE_HTTP = {
     'error_lectura': 500,
     'ambiguous': 409,
 }
+STORE_NO_PREPARADO = 'store_no_preparado'
+ANCLA_INEXISTENTE = 'ancla_inexistente'
 _EXTERNAL_PREFIXES = ('http://', 'https://')
 _COLON_PREFIX = re.compile(r'^[A-Za-z0-9][A-Za-z0-9._-]*:')
 
@@ -80,6 +84,13 @@ class ResolvedNodeDoc:
         self.semantic_tags = semantic_tags or []
         self.is_degraded = is_degraded
         self.degraded_reason = degraded_reason
+        # Lectura única del documento autorizado (None si no se leyó ninguna fuente).
+        self.data: bytes | None = None
+        self.text: str | None = None
+        self.replaced = False
+        self.template: str | None = None
+        self.extract_error: str | None = None
+        self.store_path: Any = None  # para doc_version (hash de campos del índice)
 
 
 class WorkspaceRoutes:
@@ -126,31 +137,75 @@ class WorkspaceRoutes:
         except Exception as exc:
             return handler.json_response({'ok': False, 'error': str(exc)}, 500)
 
+    # ------------------------------------------------------------------
+    # Lectura sin mutación y guardias previas (WS13.1 corrección).
+    # Identidad y ruta salen de indexed_documents (solo índices); ninguna fuente se abre
+    # antes de pasar las guardias de §3.3, y solo se leen fuentes autorizadas, una a una.
+    # ------------------------------------------------------------------
+
+    def _indexed(self) -> list[dict[str, str]]:
+        from sldb.api.stores.indexed_documents import indexed_documents
+        return indexed_documents(self.store_path)
+
+    def _pythonpath(self) -> str | None:
+        return getattr(self.editor_store, 'pythonpath', None) if self.editor_store else None
+
+    @staticmethod
+    def _decode(data: bytes) -> tuple[str, bool]:
+        try:
+            return data.decode('utf-8'), False
+        except UnicodeDecodeError:
+            return data.decode('utf-8', errors='replace'), True
+
+    def _extract_payload(self, model_name: str, text: str, models: dict[str, Any] | None = None) -> tuple[dict[str, Any], str | None]:
+        """Payload del texto ya leído con la API pública (modelo registrado + extract_model_data).
+
+        Devuelve (payload, plantilla del modelo). No abre ningún otro documento."""
+        from sldb.api import load_registered_model
+        from sldb.runtime.validation import extract_model_data
+
+        cache = models if models is not None else {}
+        model_type = cache.get(model_name)
+        if model_type is None:
+            model_type = load_registered_model(self.store_path, model_name, self._pythonpath()).model_type
+            cache[model_name] = model_type
+        return extract_model_data(model_type, text), getattr(model_type, '__template__', None)
+
     def workspace_nodes(self) -> dict[str, Any]:
-        """Index of all documents in the store with canonical id Model:name."""
+        """Index of all documents in the store with canonical id Model:name.
+
+        Identidad y ruta salen de los índices. Cada documento pasa las guardias de ruta antes
+        de leerse; uno no autorizado aparece con su estado de guardia y su name como título,
+        y nunca se abre."""
         if not self.store_path or not self.store_path.exists() or not self.editor_store:
             raise WorkspaceError('El store no está disponible.', 503)
         try:
-            docs = self.editor_store.documents()
+            entries = self._indexed()
         except Exception as exc:
             raise WorkspaceError(f'Error al cargar documentos del store: {exc}', 500)
 
         nodes = []
-        for d in docs:
-            payload = getattr(d, 'payload', {}) or {}
-            title = payload.get('title') or payload.get('name') or getattr(d, 'name', '')
-            status = payload.get('status', '')
-            model_name = getattr(d, 'model_name', '')
-            name = getattr(d, 'name', '')
-            canon_id = f"{model_name}:{name}"
-            nodes.append({
-                'id': canon_id,
-                'name': name,
-                'model_name': model_name,
-                'title': title,
-                'status': status,
-                'path': str(getattr(d, 'path', ''))
-            })
+        models: dict[str, Any] = {}
+        for e in entries:
+            model_name, name, path = e['model'], e['name'], e['path']
+            node = {
+                'id': f'{model_name}:{name}', 'name': name, 'model_name': model_name,
+                'title': name, 'status': '', 'path': path, 'estado': 'ok',
+            }
+            try:
+                _, _, data = self._read_authorized(path, markdown_only=False)
+            except WorkspaceError as exc:
+                node['estado'] = exc.estado or 'error_lectura'
+                nodes.append(node)
+                continue
+            text, _ = self._decode(data)
+            try:
+                payload, _ = self._extract_payload(model_name, text, models)
+            except Exception as exc:
+                raise WorkspaceError(f'Error al cargar documentos del store: {exc}', 500)
+            node['title'] = payload.get('title') or payload.get('name') or name
+            node['status'] = payload.get('status', '')
+            nodes.append(node)
         return {'ok': True, 'nodes': nodes}
 
     def workspace_node(self, ident: str, depth: int = 1) -> dict[str, Any]:
@@ -163,35 +218,25 @@ class WorkspaceRoutes:
 
         from sldb.api.documents.document_serialization import doc_version
 
-        docs = []
-        documents_error = None
-        try:
-            docs = self.editor_store.documents()
-        except Exception as exc:
-            docs = []
-            documents_error = str(exc)
-
-        doc = self._resolve_document(ident, docs)
+        doc = self._resolve_document(ident, markdown_only=False)
         canon_id = f"{doc.model_name}:{doc.name}"
         payload = getattr(doc, 'payload', {}) or {}
 
-        # 1. Proyección Document (IR estructurado) usando Model/name para evitar ambigüedades
+        # 1. Proyección Document (IR estructurado) desde la lectura única del documento autorizado
         doc_proj = {'ok': True, 'ir': None, 'payload': payload, 'semantic_tags': getattr(doc, 'semantic_tags', []), 'error': None}
-        try:
-            # Pasar Model/name que sldb resuelve sin colisión de nombres
-            canonical_ref = f"{doc.model_name}/{doc.name}"
-            doc_ir = self.editor_store.document_ir(canonical_ref)
-            doc_proj['ir'] = doc_ir.get('ir')
-            if 'payload' in doc_ir:
-                doc_proj['payload'] = doc_ir['payload']
-            if 'semantic_tags' in doc_ir:
-                doc_proj['semantic_tags'] = doc_ir['semantic_tags']
-        except Exception as exc:
+        if doc.extract_error is not None:
             doc_proj['ok'] = False
-            doc_proj['error'] = str(exc)
+            doc_proj['error'] = doc.extract_error
+        else:
+            try:
+                doc_proj['ir'] = self._build_ir(doc)
+            except Exception as exc:
+                doc_proj['ok'] = False
+                doc_proj['error'] = str(exc)
 
-        # 2. Proyección Graph (vecindad a 1-2 hops con una sola llamada a document_edges)
-        graph_proj = self._build_graph_neighborhood(canon_id, docs, depth)
+        # 2. Proyección Graph: load_edge_index sin reconstruir; store no preparado => ok false
+        idx, idx_error = self._load_index()
+        graph_proj = self._build_graph_neighborhood(canon_id, idx, idx_error, depth)
 
         # 3. Proyección Code (archivos y fragmentos referenciados de forma segura)
         code_proj = self._build_code_projection(payload, doc)
@@ -204,30 +249,17 @@ class WorkspaceRoutes:
         except Exception as exc:
             content_hash_error = str(exc)
 
-        file_path = None
-        doc_path_raw = getattr(doc, 'path', None)
-        if self.repo_root and doc_path_raw:
-            try:
-                candidate = (self.repo_root / str(doc_path_raw).lstrip('/')).resolve()
-                if candidate.is_relative_to(self.repo_root) and candidate.is_file():
-                    is_ign, _ = self._is_gitignored(candidate)
-                    if not any(p == '.git' for p in candidate.parts) and not is_ign:
-                        file_path = candidate
-            except (ValueError, OSError):
-                file_path = None
+        file_revision = hashlib.sha256(doc.data).hexdigest() if doc.data is not None else ''
 
-        file_revision = ''
-        file_revision_error = None
-        if file_path and file_path.is_file():
-            try:
-                file_revision = hashlib.sha256(file_path.read_bytes()).hexdigest()
-            except OSError as exc:
-                file_revision_error = str(exc)
+        relations = self._relations_state(idx, idx_error)
+        if relations['ok']:
+            edges_all = graph_proj.get('edges', [])
+            incoming = [e for e in edges_all if e['target'] == canon_id]
+            outgoing = [e for e in edges_all if e['source'] == canon_id]
+        else:
+            incoming = outgoing = None
 
-        incoming = [e for e in graph_proj.get('edges', []) if e['target'] == canon_id]
-        outgoing = [e for e in graph_proj.get('edges', []) if e['source'] == canon_id]
-
-        problems_report = self._check_problems_for_node(canon_id)
+        problems_report = self._check_problems_for_node(canon_id, idx, idx_error)
 
         context = {
             'id': canon_id,
@@ -239,13 +271,14 @@ class WorkspaceRoutes:
             'content_hash': content_hash,
             'content_hash_error': content_hash_error,
             'file_revision': file_revision,
-            'file_revision_error': file_revision_error,
-            'documents_error': documents_error,
+            'file_revision_error': None,
+            'documents_error': None,
             'is_degraded': getattr(doc, 'is_degraded', False),
             'degraded_reason': getattr(doc, 'degraded_reason', None),
             'summary': payload.get('summary') or payload.get('rationale') or payload.get('goal') or '',
             'incoming_relations': incoming,
             'outgoing_relations': outgoing,
+            'relations_state': relations,
             'problems_report': problems_report,
             'metadata': {
                 'tags': getattr(doc, 'semantic_tags', []),
@@ -266,7 +299,7 @@ class WorkspaceRoutes:
                 'file_revision': file_revision,
                 'is_degraded': getattr(doc, 'is_degraded', False),
             },
-            'documents_error': documents_error,
+            'documents_error': None,
             'projections': {
                 'document': doc_proj,
                 'graph': graph_proj,
@@ -275,120 +308,163 @@ class WorkspaceRoutes:
             'context': context
         }
 
-    def _resolve_document(self, ident: str, docs: list[Any]) -> Any:
-        if docs:
-            if ':' in ident:
-                model_name, name = ident.split(':', 1)
-                match = next((d for d in docs if getattr(d, 'model_name') == model_name and getattr(d, 'name') == name), None)
-                if match is not None:
-                    return match
-            elif '/' in ident:
-                model_name, name = ident.split('/', 1)
-                match = next((d for d in docs if getattr(d, 'model_name') == model_name and getattr(d, 'name') == name), None)
-                if match is not None:
-                    return match
-            else:
-                matches = [d for d in docs if getattr(d, 'name') == ident]
-                if len(matches) > 1:
-                    models = [getattr(d, 'model_name') for d in matches]
-                    raise WorkspaceError(f'Identidad ambigua: {ident} existe en múltiples modelos ({", ".join(models)}). Use Model:name.', 400)
-                if matches:
-                    return matches[0]
+    def _build_ir(self, doc: Any) -> dict[str, Any]:
+        """IR del builder público sobre el texto ya leído de un documento autorizado."""
+        from sldb.api import build_document_ir_json
 
-        # Si docs está vacío o no lo encontró en caché, intentar resolución directa vía runtime_document
-        from sldb.api.records.resolve import resolve_runtime_doc
-        clean_ref = ident.replace(':', '/')
-        pythonpath = getattr(self.editor_store, 'pythonpath', None) if self.editor_store else None
+        runtime = {
+            'store': 'local', 'model': doc.model_name, 'name': doc.name, 'path': doc.path,
+            'payload': doc.payload, 'semantic_tags': doc.semantic_tags,
+        }
+        return build_document_ir_json(runtime, doc.text, doc.template)
+
+    @staticmethod
+    def _frontmatter_payload(text: str, name: str) -> tuple[dict[str, Any], bool]:
+        """(payload del frontmatter, degradado). Sano si el frontmatter lleva id == name."""
+        extracted: dict[str, Any] = {}
+        degraded = True
+        if text.startswith('---'):
+            parts = text.split('---', 2)
+            if len(parts) >= 3:
+                try:
+                    import yaml
+                    extracted = yaml.safe_load(parts[1]) or {}
+                    if isinstance(extracted, dict) and extracted.get('id') == name:
+                        degraded = False
+                except Exception:
+                    extracted = {}
+        return (extracted if isinstance(extracted, dict) else {}), degraded
+
+    def _materialize(self, model_name: str, name: str, rel: str, data: bytes, models: dict[str, Any] | None = None) -> ResolvedNodeDoc:
+        """Documento indexado a partir de sus bytes ya leídos (autorizados)."""
+        text, replaced = self._decode(data)
+        doc = ResolvedNodeDoc(model_name=model_name, name=name, path=rel)
+        doc.store_path = self.store_path
+        doc.data, doc.text, doc.replaced = data, text, replaced
         try:
-            rdoc = resolve_runtime_doc(str(self.store_path), clean_ref, pythonpath)
-            return ResolvedNodeDoc(
-                model_name=rdoc['model'],
-                name=rdoc['name'],
-                path=rdoc.get('path', ''),
-                payload=rdoc.get('payload', {}),
-                semantic_tags=rdoc.get('semantic_tags', [])
-            )
+            doc.payload, doc.template = self._extract_payload(model_name, text, models)
         except Exception as exc:
-            # Fallback seguro usando la API pública de load_edge_index (sin tocar YAMLs internos)
-            try:
-                from sldb.api.edges.edge_reading import load_edge_index
-                idx = load_edge_index(self.store_path, include_linked=False)
-                # En idx.nodes las claves son: sldb://document/Model:name
-                target_key = f"sldb://document/{ident}" if ':' in ident else None
-                m_name, d_name = ident.split(':', 1) if ':' in ident else (None, ident)
+            doc.extract_error = str(exc)
+            doc.payload, fm_degraded = self._frontmatter_payload(text, name)
+            doc.is_degraded = fm_degraded
+            doc.degraded_reason = f'Fallo al validar documento en disco ({exc})' if fm_degraded else None
+        return doc
 
-                resolved_target = None
-                if target_key and target_key in idx.nodes:
-                    resolved_target = (m_name, d_name)
-                elif not m_name:
-                    candidates = [k for k in idx.nodes if k.startswith('sldb://document/') and k.endswith(f":{d_name}")]
-                    if len(candidates) > 1:
-                        models = [c.replace('sldb://document/', '').split(':', 1)[0] for c in candidates]
-                        raise WorkspaceError(f'Identidad ambigua: {ident} existe en múltiples modelos ({", ".join(models)}). Use Model:name.', 400)
-                    elif len(candidates) == 1:
-                        found_canon = candidates[0].replace('sldb://document/', '')
-                        resolved_target = found_canon.split(':', 1)
+    def _match_indexed(self, ident: str, entries: list[dict[str, str]]) -> dict[str, str] | None:
+        if ':' in ident:
+            model_name, name = ident.split(':', 1)
+            return next((e for e in entries if e['model'] == model_name and e['name'] == name), None)
+        if '/' in ident:
+            model_name, name = ident.split('/', 1)
+            return next((e for e in entries if e['model'] == model_name and e['name'] == name), None)
+        matches = [e for e in entries if e['name'] == ident]
+        if len(matches) > 1:
+            models = [e['model'] for e in matches]
+            raise WorkspaceError(f'Identidad ambigua: {ident} existe en múltiples modelos ({", ".join(models)}). Use Model:name.', 400)
+        return matches[0] if matches else None
 
-                if resolved_target:
-                    found_model, found_name = resolved_target
-                    discovered_path = ''
-                    extracted_payload = {}
-                    is_degraded = True
-                    degraded_reason = f'Fallo al validar documento en disco ({exc})'
+    def _resolve_document(self, ident: str, markdown_only: bool = False) -> ResolvedNodeDoc:
+        """Resuelve la identidad por índices y lee solo el documento pedido, tras las guardias."""
+        try:
+            entries = self._indexed()
+        except Exception:
+            entries = []
+        entry = self._match_indexed(ident, entries)
+        if entry is not None:
+            _, rel, data = self._read_authorized(entry['path'], markdown_only)
+            return self._materialize(entry['model'], entry['name'], rel, data)
+        return self._resolve_document_fallback(ident, markdown_only)
 
-                    # Intentar rescatar frontmatter y código de archivos sanos en disco
-                    if self.repo_root:
-                        for cand in [
-                            self.repo_root / f"desk/tasks/{found_name}.md",
-                            self.repo_root / f"desk/contexts/{found_name}.md",
-                            self.repo_root / f"desk/rituals/{found_name}.md",
-                            self.repo_root / f"desk/roles/{found_name}.md",
-                            self.repo_root / f"desk/runs/{found_name}.md",
-                            self.repo_root / f"desk/relations/{found_name}.yaml",
-                            self.repo_root / f"desk/relations/{found_name}.md",
-                        ]:
-                            if cand.is_file():
-                                discovered_path = str(cand.relative_to(self.repo_root))
-                                try:
-                                    t = cand.read_text(encoding='utf-8')
-                                    if t.startswith('---'):
-                                        parts = t.split('---', 2)
-                                        if len(parts) >= 3:
-                                            import yaml
-                                            extracted_payload = yaml.safe_load(parts[1]) or {}
-                                            # Si tiene frontmatter válido con id coincidente, el documento físico es sano
-                                            if extracted_payload.get('id') == found_name:
-                                                is_degraded = False
-                                                degraded_reason = None
-                                except Exception:
-                                    pass
-                                break
+    def _resolve_document_fallback(self, ident: str, markdown_only: bool) -> ResolvedNodeDoc:
+        """Documento que los índices no listan: lo busca en el índice de aristas y rescata el
+        frontmatter de los candidatos fijos, cada uno tras las guardias de ruta."""
+        try:
+            from sldb.api.edges.edge_reading import load_edge_index
+            idx = load_edge_index(self.store_path, include_linked=False)
+            target_key = f"sldb://document/{ident}" if ':' in ident else None
+            m_name, d_name = ident.split(':', 1) if ':' in ident else (None, ident)
 
-                    return ResolvedNodeDoc(
-                        model_name=found_model,
-                        name=found_name,
-                        path=discovered_path,
-                        payload=extracted_payload,
-                        is_degraded=is_degraded,
-                        degraded_reason=degraded_reason
-                    )
-            except WorkspaceError:
-                raise
-            except Exception:
-                pass
-            raise WorkspaceError(f'Documento no encontrado: {ident}', 404)
+            resolved_target = None
+            if target_key and target_key in idx.nodes:
+                resolved_target = (m_name, d_name)
+            elif not m_name:
+                candidates = [k for k in idx.nodes if k.startswith('sldb://document/') and k.endswith(f":{d_name}")]
+                if len(candidates) > 1:
+                    models = [c.replace('sldb://document/', '').split(':', 1)[0] for c in candidates]
+                    raise WorkspaceError(f'Identidad ambigua: {ident} existe en múltiples modelos ({", ".join(models)}). Use Model:name.', 400)
+                elif len(candidates) == 1:
+                    resolved_target = candidates[0].replace('sldb://document/', '').split(':', 1)
 
-    def _document_edges(self) -> list[dict[str, Any]]:
-        """Aristas documento-a-documento del índice, sin reconstruir (load_edge_index).
+            if resolved_target:
+                found_model, found_name = resolved_target
+                doc = ResolvedNodeDoc(
+                    model_name=found_model, name=found_name, path='', payload={},
+                    is_degraded=True, degraded_reason='Documento no listado en los índices del store.',
+                )
+                doc.extract_error = doc.degraded_reason
+                doc.store_path = self.store_path
+                for rel in (
+                    f"desk/tasks/{found_name}.md",
+                    f"desk/contexts/{found_name}.md",
+                    f"desk/rituals/{found_name}.md",
+                    f"desk/roles/{found_name}.md",
+                    f"desk/runs/{found_name}.md",
+                    f"desk/relations/{found_name}.yaml",
+                    f"desk/relations/{found_name}.md",
+                ):
+                    try:
+                        _, crel, data = self._read_authorized(rel, markdown_only=False)
+                    except WorkspaceError as exc:
+                        if exc.estado == 'no_existe':
+                            continue
+                        raise
+                    text, replaced = self._decode(data)
+                    doc.path, doc.data, doc.text, doc.replaced = crel, data, text, replaced
+                    doc.payload, doc.is_degraded = self._frontmatter_payload(text, found_name)
+                    doc.degraded_reason = None if not doc.is_degraded else doc.degraded_reason
+                    if markdown_only and not crel.endswith('.md'):
+                        raise WorkspaceError('Solo se abren documentos Markdown (.md).', SOURCE_STATE_HTTP['no_markdown'], 'no_markdown')
+                    return doc
+                return doc
+        except WorkspaceError:
+            raise
+        except Exception:
+            pass
+        raise WorkspaceError(f'Documento no encontrado: {ident}', 404)
+
+    def _load_index(self) -> tuple[Any, str | None]:
+        """Índice de aristas sin reconstruir (load_edge_index, include_linked=False)."""
+        try:
+            from sldb.api.edges.edge_reading import load_edge_index
+            return load_edge_index(self.store_path, include_linked=False), None
+        except Exception as exc:
+            return None, str(exc)
+
+    @staticmethod
+    def _relations_state(idx: Any, idx_error: str | None) -> dict[str, Any]:
+        """Estado de las relaciones: ok, o store_no_preparado con la lista stale, o error."""
+        if idx is None:
+            return {'ok': False, 'estado': 'error_indice', 'stale': [], 'error': idx_error}
+        stale = list(getattr(idx, 'stale', []) or [])
+        if stale:
+            return {
+                'ok': False, 'estado': STORE_NO_PREPARADO, 'stale': stale,
+                'error': 'El store no está preparado: el índice de aristas está desactualizado. '
+                         'La preparación (rebuild_edges) es explícita y externa a la petición.',
+            }
+        return {'ok': True, 'estado': 'ok', 'stale': [], 'error': None}
+
+    @staticmethod
+    def _document_edges(idx: Any) -> list[dict[str, Any]]:
+        """Aristas documento-a-documento del índice, sin reconstruir.
 
         La deduplicación por (source, target, type, relation_doc) no descarta procedencias:
         cada arista conserva en `provenance` la metadata de todos los registros del índice
-        que la originan (origin, field, declared, source_field, ref_path, ref_index...).
+        que la originan. Cada procedencia lleva `owner`: el documento cuyo campo la declara
+        (el source del registro, para origen schema); relation_doc y structural no tienen
+        campo ni dueño (`owner` None).
         """
-        from sldb.api.edges.edge_reading import load_edge_index
-
         prefix = 'sldb://document/'
-        idx = load_edge_index(self.store_path, include_linked=False)
         merged: dict[tuple, dict[str, Any]] = {}
         for rec in idx.edges:
             if not (rec.source.startswith(prefix) and rec.target.startswith(prefix)):
@@ -409,32 +485,35 @@ class WorkspaceRoutes:
                 }
                 merged[key] = edge
             prov = {k: v for k, v in meta.items() if k != 'relation_doc'}
+            prov['owner'] = source if (meta.get('origin') == 'schema' and meta.get('field')) else None
             if prov not in edge['provenance']:
                 edge['provenance'].append(prov)
         return list(merged.values())
 
-    def _build_graph_neighborhood(self, root_id: str, docs: list[Any], depth: int) -> dict[str, Any]:
+    def _node_label(self, entry: dict[str, str] | None, fallback_name: str, models: dict[str, Any]) -> tuple[str, str, str]:
+        """(título, status, estado) de un vecino; lee solo si pasa las guardias de ruta."""
+        if entry is None:
+            return fallback_name, '', 'no_listado'
         try:
-            # /api/workspace/node conserva su lectura previa (document_edges reconstruye el
-            # índice); la procedencia se añade desde load_edge_index sin tocar esa llamada.
-            from sldb.api.edges.document_edges import document_edges
+            _, _, data = self._read_authorized(entry['path'], markdown_only=False)
+        except WorkspaceError as exc:
+            return fallback_name, '', exc.estado or 'error_lectura'
+        text, _ = self._decode(data)
+        try:
+            payload, _ = self._extract_payload(entry['model'], text, models)
+        except Exception:
+            return fallback_name, '', 'error_lectura'
+        return payload.get('title') or payload.get('name') or fallback_name, payload.get('status', ''), 'ok'
 
-            pythonpath = getattr(self.editor_store, 'pythonpath', None) if self.editor_store else None
-            raw_edges = document_edges(self.store_path, pythonpath=pythonpath)
-            provenance_by_key: dict[tuple, list[Any]] = {}
-            try:
-                for pe in self._document_edges():
-                    provenance_by_key[(pe['source'], pe['target'], pe['type'], pe['relationDoc'])] = pe['provenance']
-            except Exception:
-                provenance_by_key = {}
-            edges = [
-                {
-                    'source': e.source, 'target': e.target, 'type': e.type, 'origin': e.origin,
-                    'relationDoc': e.relation_doc,
-                    'provenance': provenance_by_key.get((e.source, e.target, e.type, e.relation_doc), []),
-                }
-                for e in raw_edges
-            ]
+    def _build_graph_neighborhood(self, root_id: str, idx: Any, idx_error: str | None, depth: int) -> dict[str, Any]:
+        state = self._relations_state(idx, idx_error)
+        if not state['ok']:
+            return {
+                'ok': False, 'depth': depth, 'nodes': [], 'edges': [],
+                'estado': state['estado'], 'stale': state['stale'], 'error': state['error'],
+            }
+        try:
+            edges = self._document_edges(idx)
             adj: dict[str, list[Any]] = {}
             for edge in edges:
                 adj.setdefault(edge['source'], []).append(edge)
@@ -464,23 +543,19 @@ class WorkspaceRoutes:
                             seen_edges.add(edge_key)
                             neighborhood_edges.append(edge)
 
-            doc_map = {f"{getattr(d, 'model_name')}:{getattr(d, 'name')}": d for d in docs}
+            by_id = {f"{e['model']}:{e['name']}": e for e in self._indexed()}
+            models: dict[str, Any] = {}
             nodes = []
             for nid, hop in visited_nodes.items():
-                d = doc_map.get(nid)
                 m_name, n_name = nid.split(':', 1) if ':' in nid else ('', nid)
-                title = ''
-                status = ''
-                if d:
-                    p = getattr(d, 'payload', {}) or {}
-                    title = p.get('title') or p.get('name') or n_name
-                    status = p.get('status', '')
+                title, status, estado = self._node_label(by_id.get(nid), n_name, models)
                 nodes.append({
                     'id': nid,
                     'name': n_name,
                     'model_name': m_name,
                     'title': title,
                     'status': status,
+                    'estado': estado,
                     'depth': hop
                 })
 
@@ -489,6 +564,8 @@ class WorkspaceRoutes:
                 'depth': depth,
                 'nodes': nodes,
                 'edges': neighborhood_edges,
+                'estado': 'ok',
+                'stale': [],
                 'error': None
             }
         except Exception as exc:
@@ -653,10 +730,11 @@ class WorkspaceRoutes:
     # WS13.1: lector de fuente (GET /api/workspace/source). Solo lectura.
     # ------------------------------------------------------------------
 
-    def _guard_markdown_file(self, path_str: str) -> tuple[Path, str]:
+    def _guard_path(self, path_str: str, markdown_only: bool = True) -> tuple[Path, str]:
         """Guardias generales de lectura de archivo (navegacion §3.3), mismos estados que
         _inspect_file_reference. Devuelve (ruta resuelta, ruta relativa con /) o lanza
-        WorkspaceError con `estado`."""
+        WorkspaceError con `estado`. No abre el archivo. `markdown_only` es el criterio de
+        /source y de los destinos de enlace; no se aplica a la identidad de /node ni /nodes."""
         def fail(estado: str, message: str):
             raise WorkspaceError(message, SOURCE_STATE_HTTP[estado], estado)
 
@@ -679,9 +757,18 @@ class WorkspaceRoutes:
             fail('protegido', ignore_msg)
         if resolved.is_dir():
             fail('directorio', 'Es un directorio, no un documento.')
-        if resolved.suffix.lower() != '.md':
+        if markdown_only and resolved.suffix.lower() != '.md':
             fail('no_markdown', 'Solo se abren documentos Markdown (.md).')
         return resolved, rel_str
+
+    def _guard_markdown_file(self, path_str: str) -> tuple[Path, str]:
+        return self._guard_path(path_str, True)
+
+    def _read_authorized(self, path_str: str, markdown_only: bool = True) -> tuple[Path, str, bytes]:
+        """Guardias de ruta y solo después la lectura única de los bytes."""
+        resolved, rel = self._guard_path(path_str, markdown_only)
+        data, _ = self._read_markdown_bytes(resolved)
+        return resolved, rel, data
 
     def _read_markdown_bytes(self, resolved: Path) -> tuple[bytes, int]:
         """Lee los bytes una sola vez, con tope y rechazo de binarios."""
@@ -709,16 +796,18 @@ class WorkspaceRoutes:
             return None
 
     def workspace_source(self, ident: str, path_param: str) -> dict[str, Any]:
-        """Render y fuente cruda del mismo origen para un Markdown modelado o no modelado."""
+        """Render y fuente cruda del mismo origen para un Markdown modelado o no modelado.
+
+        Orden: identidad desde índices, guardias de ruta, y solo entonces la lectura única de
+        los bytes del documento autorizado. No se abre ningún otro documento indexado."""
         if not self.store_path or not self.store_path.exists():
             raise WorkspaceError('El store no está disponible.', 503)
         if not self.repo_root:
             raise WorkspaceError('No se configuró repo_root.', 503, 'sin_repo_root')
 
         requested: dict[str, str] = {}
+        doc: ResolvedNodeDoc | None = None
         model_name = name = None
-        rel_hint = ''
-        degraded_doc = None
 
         if ident:
             if '..' in ident or ident.startswith(('/', '\\')):
@@ -726,62 +815,39 @@ class WorkspaceRoutes:
             if not self.editor_store:
                 raise WorkspaceError('El store no está disponible.', 503)
             requested['id'] = ident
-            try:
-                docs = self.editor_store.documents()
-            except Exception:
-                docs = []
-            doc = self._resolve_document(ident, docs)
+            doc = self._resolve_document(ident, markdown_only=True)
+            if doc.data is None or not doc.path:
+                raise WorkspaceError('El documento no tiene archivo en disco.', 404, 'no_existe')
             model_name, name = doc.model_name, doc.name
-            rel_hint = str(getattr(doc, 'path', '') or '')
-            if getattr(doc, 'is_degraded', False):
-                degraded_doc = doc
+            rel_str, data = doc.path, doc.data
         else:
             requested['path'] = path_param
-            _, rel_hint = self._guard_markdown_file(path_param)
-            status = self._tracked_status(rel_hint)
+            resolved, rel_str = self._guard_markdown_file(path_param)
+            status = self._tracked_status(rel_str)
             if status is not None and status.status == 'ambiguous':
-                raise WorkspaceError(f'La ruta {rel_hint} es ambigua en el store; use Model:name.', 409, 'ambiguous')
+                raise WorkspaceError(f'La ruta {rel_str} es ambigua en el store; use Model:name.', 409, 'ambiguous')
+            data, _ = self._read_markdown_bytes(resolved)
             if status is not None and status.status == 'ok':
                 model_name, name = status.model, status.name
+                doc = self._materialize(model_name, name, rel_str, data)
 
         modeled = model_name is not None
-        runtime_doc = None
-        runtime_error = None
-        if modeled and degraded_doc is None:
-            from sldb.api.records.resolve import resolve_runtime_doc
-            try:
-                runtime_doc = resolve_runtime_doc(str(self.store_path), f'{model_name}/{name}', getattr(self.editor_store, 'pythonpath', None))
-            except Exception as exc:
-                runtime_error = str(exc)
-                degraded_doc = ResolvedNodeDoc(model_name, name, rel_hint, degraded_reason=runtime_error, is_degraded=True)
-        if modeled and runtime_doc is not None:
-            read_path = runtime_doc.get('absolute_path') or rel_hint
-        else:
-            read_path = rel_hint
-        if not read_path:
-            raise WorkspaceError('El documento no tiene archivo en disco.', 404, 'no_existe')
-        resolved, rel_str = self._guard_markdown_file(str(read_path))
-        data, size = self._read_markdown_bytes(resolved)
+        size = len(data)
         revision = hashlib.sha256(data).hexdigest()
-        replaced = False
-        try:
-            text = data.decode('utf-8')
-        except UnicodeDecodeError:
-            text = data.decode('utf-8', errors='replace')
-            replaced = True
+        text, replaced = self._decode(data)
 
         ir = None
         ir_error = None
         fields: list[dict[str, Any]] = []
         sections: list[dict[str, Any]] = []
-        if modeled and runtime_doc is not None:
-            from sldb.api import build_document_ir_json
+        extracted = doc is not None and doc.extract_error is None
+        if extracted:
             try:
-                ir = build_document_ir_json(runtime_doc, text, runtime_doc.get('template'))
+                ir = self._build_ir(doc)
             except Exception as exc:
                 ir_error = str(exc)
         elif modeled:
-            ir_error = f'Documento degradado: {runtime_error or getattr(degraded_doc, "degraded_reason", "")}'
+            ir_error = f'Documento degradado: {doc.extract_error}'
         if ir is not None:
             sections = self._sections_from_ir(ir.get('structure') or [])
             for node in ir.get('nodes') or []:
@@ -801,11 +867,8 @@ class WorkspaceRoutes:
         context = self._source_context(canon_id, model_name, name, rel_str, revision)
 
         descriptor = None
-        if runtime_doc is not None:
-            descriptor = {
-                'payload': runtime_doc.get('payload') or {},
-                'semantic_tags': runtime_doc.get('semantic_tags') or [],
-            }
+        if extracted:
+            descriptor = {'payload': doc.payload or {}, 'semantic_tags': doc.semantic_tags or []}
         return {
             'ok': True,
             'identity': {
@@ -827,7 +890,7 @@ class WorkspaceRoutes:
             'ir': ir,
             'ir_error': ir_error,
             'descriptor': descriptor,
-            'degraded': bool(modeled and runtime_doc is None),
+            'degraded': bool(modeled and not extracted),
             'links': links,
             'context': context,
         }
@@ -867,13 +930,19 @@ class WorkspaceRoutes:
             'id': canon_id, 'name': name, 'model_name': model_name, 'repo': 'local',
             'path': rel, 'revision': revision,
             'incoming_relations': None, 'outgoing_relations': None, 'relations_error': None,
-            'relations_absent': None,
+            'relations_absent': None, 'relations_state': None,
         }
         if canon_id is None:
             context['relations_absent'] = 'Documento no modelado: no está en el store, sin relaciones.'
             return context
+        idx, idx_error = self._load_index()
+        state = self._relations_state(idx, idx_error)
+        context['relations_state'] = state
+        if not state['ok']:
+            context['relations_error'] = state['error']
+            return context
         try:
-            edges = self._document_edges()
+            edges = self._document_edges(idx)
             context['incoming_relations'] = [e for e in edges if e['target'] == canon_id]
             context['outgoing_relations'] = [e for e in edges if e['source'] == canon_id]
         except Exception as exc:
@@ -881,9 +950,11 @@ class WorkspaceRoutes:
         return context
 
     def _resolve_links(self, text: str, doc_rel: str, own_id: str | None, own_path: str) -> list[dict[str, Any]]:
-        """Resuelve los enlaces [[...]] del texto contra el desk propio, sin leer el destino.
+        """Resuelve los enlaces [[...]] del texto contra el desk propio.
 
-        Orden: parse_links, split_anchor, clasificar prefijo. `local:` se retira una vez.
+        Orden: parse_links, split_anchor, clasificar prefijo. `local:` se retira una vez. Un
+        destino con ancla se lee solo tras las guardias de su ruta (lectura autorizada) para
+        comprobar la sección con extract_section; el propio documento usa el texto ya leído.
         """
         from sldb.links import parse_links
         from sldb.links.sections import split_anchor
@@ -903,18 +974,35 @@ class WorkspaceRoutes:
             }
             base, anchor = split_anchor(pl.target)
             entry['anchor'] = anchor
-            self._classify_link(entry, base, doc_rel, own_id, own_path)
+            self._classify_link(entry, base, doc_rel, own_id, own_path, text)
             results.append(entry)
         return results
 
-    def _classify_link(self, entry: dict[str, Any], base: str, doc_rel: str, own_id: str | None, own_path: str) -> None:
+    def _check_anchor(self, entry: dict[str, Any], markdown: str | None, where: str) -> bool:
+        """Falso (y marca la referencia rota) si la sección no existe en el destino."""
+        from sldb.links.sections import extract_section
+
+        anchor = entry.get('anchor')
+        if anchor is None:
+            return True
+        if markdown is not None and extract_section(markdown, anchor) is not None:
+            return True
+        entry.update(
+            status='roto', estado=ANCLA_INEXISTENTE, open=None,
+            cause=f'La sección «{anchor}» no existe en {where}.',
+        )
+        return False
+
+    def _classify_link(self, entry: dict[str, Any], base: str, doc_rel: str, own_id: str | None, own_path: str, own_text: str = '') -> None:
         if base.startswith(_EXTERNAL_PREFIXES):
             entry.update(status='externo', cause='Enlace externo: se muestra, no se abre ni se lee.')
             return
         if base.startswith('local:'):
             base = base[len('local:'):]
         if base == '':
-            # ancla del propio documento
+            # ancla del propio documento: se comprueba sobre el texto ya leído
+            if not self._check_anchor(entry, own_text, 'el propio documento'):
+                return
             entry['status'] = 'ok'
             entry['open'] = {'id': own_id} if own_id else {'path': own_path}
             return
@@ -925,9 +1013,11 @@ class WorkspaceRoutes:
         if tracked is not None and tracked.status == 'ok':
             tpath = tracked.path or ''
             try:
-                self._guard_markdown_file(tpath)
+                _, _, tdata = self._read_destination(tpath, entry)
             except WorkspaceError as exc:
                 entry.update(status='roto', cause=str(exc), estado=exc.estado)
+                return
+            if not self._check_anchor(entry, tdata, tpath):
                 return
             entry['status'] = 'ok'
             entry['open'] = {'id': f'{tracked.model}:{tracked.name}'}
@@ -942,12 +1032,15 @@ class WorkspaceRoutes:
         last_exc: WorkspaceError | None = None
         for cand in candidates:
             try:
-                _, rel = self._guard_markdown_file(cand)
+                _, rel, tdata = self._read_destination(cand, entry)
             except WorkspaceError as exc:
                 if exc.estado == 'no_existe':
                     last_exc = last_exc or exc
                     continue
                 entry.update(status='no_markdown' if exc.estado == 'no_markdown' else 'roto', cause=str(exc), estado=exc.estado, path=cand)
+                return
+            if not self._check_anchor(entry, tdata, rel):
+                entry['path'] = rel
                 return
             again = self._tracked_status(rel)
             if again is not None and again.status == 'ok':
@@ -959,14 +1052,25 @@ class WorkspaceRoutes:
             return
         entry.update(status='roto', cause='El destino no existe en el desk.', estado='no_existe')
 
-    def _check_problems_for_node(self, canon_id: str) -> dict[str, Any]:
+    def _read_destination(self, path_str: str, entry: dict[str, Any]) -> tuple[Path, str, str | None]:
+        """Guardias del destino y, solo si el enlace lleva ancla, su lectura autorizada.
+
+        Sin ancla no se abre el destino (devuelve texto None). Con ancla, el texto decodificado
+        de la lectura protegida."""
+        resolved, rel = self._guard_markdown_file(path_str)
+        if entry.get('anchor') is None:
+            return resolved, rel, None
+        data, _ = self._read_markdown_bytes(resolved)
+        text, _ = self._decode(data)
+        return resolved, rel, text
+
+    def _check_problems_for_node(self, canon_id: str, idx: Any = None, idx_error: str | None = None) -> dict[str, Any]:
         """Comprueba problemas reportados por el índice de aristas de SLDB para este nodo."""
         if not self.store_path or not self.store_path.exists():
             return {'ok': False, 'problems': [], 'store_problems_count': 0, 'error': 'Store no disponible'}
+        if idx is None:
+            return {'ok': False, 'problems': [], 'store_problems_count': 0, 'error': idx_error or 'Índice de aristas no disponible'}
         try:
-            from sldb.api.edges.edge_reading import load_edge_index
-
-            idx = load_edge_index(self.store_path, include_linked=False)
             raw_problems = list(getattr(idx, 'problems', []) or [])
             node_name = canon_id.split(':', 1)[1] if ':' in canon_id else canon_id
 

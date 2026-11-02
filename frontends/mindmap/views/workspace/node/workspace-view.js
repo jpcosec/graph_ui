@@ -23,6 +23,7 @@ import {
   edgeFocus,
   edgeKey,
   edgeFields,
+  edgeDeclarations,
   referenceKey,
   sectionHighlighted,
   fieldHighlighted,
@@ -38,12 +39,12 @@ import {
   targetKey
 } from './reader.mjs';
 
-function CodeFileView({file, focus, onFocus, range, onRange, onOpenPath}) {
+function CodeFileView({file, focus, docId, onFocus, range, onRange, onOpenPath}) {
   const [showFull, setShowFull] = useState(false);
   const lineNum = file.fragment_line || file.line;
   const snippet = parseCodeSnippet(file.content, lineNum, 5);
   const key = referenceKey(file);
-  const highlighted = referenceHighlighted(file, focus);
+  const highlighted = referenceHighlighted(file, focus, docId);
   const fullLines = showFull && file.status === 'ok' && typeof file.content === 'string' ? file.content.split('\n') : [];
   if (fullLines.length && fullLines[fullLines.length - 1] === '') fullLines.pop();
   return html`
@@ -231,9 +232,9 @@ function WorkspaceView() {
   const [searchQuery, setSearchQuery] = useState('');
   const [modelFilter, setModelFilter] = useState('');
   const [edgeTypeFilter, setEdgeTypeFilter] = useState('');
-  const [source, setSource] = useState(null);
+  const [sourceRaw, setSource] = useState(null);
   const [sourceError, setSourceError] = useState('');
-  const [nodeData, setNodeData] = useState(null);
+  const [nodeRaw, setNodeData] = useState(null);
   const [nodeError, setNodeError] = useState('');
   const [loading, setLoading] = useState(true);
   const [focus, setFocus] = useState(null);
@@ -244,11 +245,19 @@ function WorkspaceView() {
   const sourceGen = useRef(0);
   const nodeGen = useRef(0);
   const catalogGen = useRef(0);
+  // Contador local del lector: se incrementa al navegar a OTRO documento. Cada estado cargado
+  // (fuente, nodo, codigo, relaciones) queda ligado a la identidad que lo pidio y a este
+  // contador; la respuesta de una generacion anterior se descarta en todos los paneles.
+  const navGen = useRef(0);
+  const tKeyRef = useRef(targetKey(targetFromSearch(window.location.search)));
   const pendingAnchor = useRef(new URLSearchParams(window.location.search).get('anchor'));
 
+  const tKey = targetKey(target);
+  // Solo se usa el estado ligado a la identidad vigente y a la generacion vigente.
+  const source = sourceRaw && sourceRaw._gen === navGen.current && sourceRaw._key === tKey ? sourceRaw : null;
   const selectedId = source?.identity?.id || target?.id || '';
   const modeledId = source?.identity?.kind === 'modeled' ? source.identity.id : '';
-  const tKey = targetKey(target);
+  const nodeData = nodeRaw && nodeRaw._gen === navGen.current && nodeRaw._id === modeledId ? nodeRaw : null;
 
   // La URL lleva id o path (excluyentes), depth, tab y, al seguir un enlace con ancla, anchor.
   const updateUrl = (nextTarget, newDepth, tab, {replace = false, anchor = null} = {}) => {
@@ -268,6 +277,22 @@ function WorkspaceView() {
     } catch {}
   };
 
+  const navigateTo = next => {
+    const key = targetKey(next);
+    if (key === tKeyRef.current) return false;
+    tKeyRef.current = key;
+    navGen.current += 1;
+    // Nada del documento anterior sobrevive: cada panel pasa a carga.
+    setSource(null);
+    setSourceError('');
+    setNodeData(null);
+    setNodeError('');
+    setAnchorNote('');
+    setFocus(null);
+    setTarget(next);
+    return true;
+  };
+
   const syncFromUrl = () => {
     try {
       const params = new URLSearchParams(window.location.search);
@@ -277,8 +302,7 @@ function WorkspaceView() {
       if (TABS.some(t => t.id === urlTab)) setActiveTab(urlTab);
       pendingAnchor.current = params.get('anchor');
       const next = targetFromSearch(window.location.search);
-      setTarget(prev => (targetKey(prev) === targetKey(next) ? prev : next));
-      if (next) setFocus(null);
+      if (next) navigateTo(next);
     } catch {}
   };
 
@@ -296,7 +320,7 @@ function WorkspaceView() {
       const nodes = res.nodes || [];
       setCatalog(nodes);
       if (!targetFromSearch(window.location.search)) {
-        if (nodes.length > 0) setTarget({id: nodes[0].id});
+        if (nodes.length > 0) navigateTo({id: nodes[0].id});
         else setLoading(false);
       }
     } catch (err) {
@@ -315,13 +339,16 @@ function WorkspaceView() {
       return;
     }
     const token = ++sourceGen.current;
+    const gen = navGen.current;
+    const askedKey = targetKey(currentTarget);
+    const stale = () => token !== sourceGen.current || gen !== navGen.current;
     setLoading(true);
     setSourceError('');
     try {
       const qs = currentTarget.id ? `id=${encodeURIComponent(currentTarget.id)}` : `path=${encodeURIComponent(currentTarget.path)}`;
       const res = await request(`/api/workspace/source?${qs}`);
-      if (token !== sourceGen.current) return;
-      setSource(res);
+      if (stale()) return;
+      setSource({...res, _gen: gen, _key: askedKey});
       if (pendingAnchor.current) {
         const sec = sectionForAnchor(res.sections, pendingAnchor.current);
         if (sec) {
@@ -335,12 +362,12 @@ function WorkspaceView() {
         setAnchorNote('');
       }
     } catch (err) {
-      if (token === sourceGen.current) {
+      if (!stale()) {
         setSource(null);
         setSourceError(describeSourceError(err));
       }
     } finally {
-      if (token === sourceGen.current) setLoading(false);
+      if (!stale()) setLoading(false);
     }
   };
 
@@ -351,14 +378,19 @@ function WorkspaceView() {
       return;
     }
     const token = ++nodeGen.current;
+    const gen = navGen.current;
+    const stale = () => token !== nodeGen.current || gen !== navGen.current;
     setNodeError('');
     try {
       const res = await request(`/api/workspace/node?id=${encodeURIComponent(id)}&depth=${currentDepth}`);
-      if (token !== nodeGen.current) return;
+      if (stale()) return;
       const node = res.node || {};
       const projections = res.projections || {};
       const context = res.context || {};
       setNodeData({
+        _gen: gen,
+        _id: id,
+        relations: context.relations_state || null,
         identity: {
           status: context.status || node.status || '',
           current_node: context.current_node || '',
@@ -377,7 +409,7 @@ function WorkspaceView() {
         problems: context.problems_report || {ok: true, problems: []}
       });
     } catch (err) {
-      if (token === nodeGen.current) {
+      if (!stale()) {
         setNodeData(null);
         setNodeError(err.message || 'Error al cargar datos del nodo');
       }
@@ -419,8 +451,7 @@ function WorkspaceView() {
       setReloadCount(c => c + 1);
       return;
     }
-    setFocus(null);
-    setTarget(nextTarget);
+    navigateTo(nextTarget);
   };
 
   const handleOpenLink = link => {
@@ -451,13 +482,21 @@ function WorkspaceView() {
 
   const modeled = source?.identity?.kind === 'modeled';
   const unmodeled = source?.identity?.kind === 'unmodeled';
+  const openDocId = modeled ? source.identity.id : '';
+  // Carga real por panel: nada de valores ausentes ni datos del documento anterior.
+  const sourceLoading = !!target && !source && !sourceError;
+  const nodeLoading = sourceLoading || (modeled && !nodeData && !nodeError);
+  const relationsState = source?.context?.relations_state || null;
+  const notReady = relationsState && relationsState.ok === false ? relationsState : (nodeData?.relations?.ok === false ? nodeData.relations : null);
+  // Un solo documento, dos lecturas (/source y /node): si la revision difiere, se avisa sin unificar.
+  const revisionMismatch = !!(modeled && nodeData && source.revision && nodeData.identity.file_revision && nodeData.identity.file_revision !== source.revision);
   const graphEdges = nodeData?.graph?.edges || [];
   const edgeTypes = distinctEdgeTypes(graphEdges);
   const visibleGraphEdges = filterGraphEdges(graphEdges, edgeTypeFilter);
   const codeFiles = nodeData?.code?.files || [];
   const sections = source?.sections || [];
   const fields = source?.fields || [];
-  const corr = correspondence(focus, {sections, fields, edges: graphEdges, files: codeFiles});
+  const corr = correspondence(focus, {sections, fields, edges: graphEdges, files: codeFiles, docId: openDocId});
   const outgoing = source?.context?.outgoing_relations || [];
   const incoming = source?.context?.incoming_relations || [];
   const docTitle = source
@@ -564,7 +603,7 @@ function WorkspaceView() {
 
       <div className="workspace-body">
         <main className="workspace-main" aria-label="Proyección activa">
-          ${loading && !source ? html`<p role="status" className="workspace-empty">Cargando nodo…</p>` : ''}
+          ${sourceLoading && activeTab === 'document' ? html`<p role="status" className="workspace-empty" data-testid="panel-loading" data-panel="document">Cargando documento…</p>` : ''}
           ${!loading && !target && !sourceError ? html`<p className="workspace-empty">Selecciona un nodo del catálogo para visualizar sus proyecciones.</p>` : ''}
 
           ${source ? html`
@@ -583,6 +622,7 @@ function WorkspaceView() {
                 </div>
               ` : ''}
 
+              ${revisionMismatch ? html`<div className="workspace-alert" role="status" data-testid="revision-mismatch">Aviso: la revisión de /node (${formatHash(nodeData.identity.file_revision, 12)}) difiere de la de /source (${formatHash(source.revision, 12)}) para este documento; no se unifican.</div>` : ''}
               <header className="workspace-doc-header">
                 <h2>${docTitle}</h2>
                 <div className="workspace-doc-meta">
@@ -640,7 +680,7 @@ function WorkspaceView() {
                       ${irFieldList.map((f, i) => html`
                         <div
                           key=${i}
-                          className=${'workspace-payload-field' + (fieldHighlighted(f.field_path, focus, graphEdges) ? ' is-focused' : '')}
+                          className=${'workspace-payload-field' + (fieldHighlighted(f.field_path, focus, graphEdges, openDocId) ? ' is-focused' : '')}
                           data-field-path=${f.field_path}
                         >
                           <h3>
@@ -675,15 +715,21 @@ function WorkspaceView() {
             </section>
           ` : ''}
 
+          ${sourceLoading && activeTab === 'graph' ? html`<p role="status" className="workspace-empty" data-testid="panel-loading" data-panel="graph">Cargando grafo…</p>` : ''}
+          ${sourceLoading && activeTab === 'code' ? html`<p role="status" className="workspace-empty" data-testid="panel-loading" data-panel="code">Cargando código…</p>` : ''}
+
           ${source && activeTab === 'graph' ? html`
             <section className="workspace-graph-pane" aria-label="Proyección de Grafo">
+              ${revisionMismatch ? html`<div className="workspace-alert" role="status" data-testid="revision-mismatch">Aviso: la revisión de /node (${formatHash(nodeData.identity.file_revision, 12)}) difiere de la de /source (${formatHash(source.revision, 12)}) para este documento; no se unifican.</div>` : ''}
               ${unmodeled ? html`
                 <div className="workspace-alert" role="status" data-testid="no-graph">
                   Sin grafo ni referencias: el documento no está en el store, no se inventan vínculos.
                 </div>
               ` : (nodeData?.graph?.ok === false || (!nodeData && nodeError)) ? html`
-                <div className="workspace-alert" role="alert">
-                  Error en grafo local: ${nodeData?.graph?.error || nodeError || 'No se pudo calcular la vecindad del grafo.'}
+                <div className="workspace-alert" role="alert" data-testid=${nodeData?.graph?.estado === 'store_no_preparado' ? 'store-no-preparado' : 'graph-error'}>
+                  ${nodeData?.graph?.estado === 'store_no_preparado'
+                    ? `Store no preparado: ${(nodeData.graph.stale || []).length} documento(s) con el índice de aristas atrasado (${(nodeData.graph.stale || []).join(', ')}). Se prepara fuera de la petición con rebuild_edges.`
+                    : `Error en grafo local: ${nodeData?.graph?.error || nodeError || 'No se pudo calcular la vecindad del grafo.'}`}
                 </div>
               ` : !nodeData ? html`<p role="status" className="workspace-empty">Cargando grafo…</p>` : html`
                 <div className="workspace-graph-filter-bar">
@@ -728,8 +774,8 @@ function WorkspaceView() {
                   <div className="workspace-graph-edges-list">
                     <h4>Aristas del vecindario</h4>
                     ${visibleGraphEdges.map((e, idx) => {
-                      const on = edgeHighlighted(e, focus);
-                      const fieldsOfEdge = edgeFields(e);
+                      const on = edgeHighlighted(e, focus, openDocId);
+                      const fieldsOfEdge = edgeFields(e, openDocId);
                       return html`
                         <div
                           key=${idx}
@@ -758,6 +804,7 @@ function WorkspaceView() {
 
           ${source && activeTab === 'code' ? html`
             <section className="workspace-code-pane" aria-label="Proyección de Código">
+              ${revisionMismatch ? html`<div className="workspace-alert" role="status" data-testid="revision-mismatch">Aviso: la revisión de /node (${formatHash(nodeData.identity.file_revision, 12)}) difiere de la de /source (${formatHash(source.revision, 12)}) para este documento; no se unifican.</div>` : ''}
               ${unmodeled ? html`
                 <div className="workspace-alert" role="status" data-testid="no-code">
                   Sin grafo ni referencias: el documento no está en el store, no se inventan vínculos.
@@ -775,6 +822,7 @@ function WorkspaceView() {
                       key=${referenceKey(file)}
                       file=${file}
                       focus=${focus}
+                      docId=${openDocId}
                       onFocus=${setFocus}
                       range=${ranges[referenceKey(file)] || null}
                       onRange=${handleRange}
@@ -794,27 +842,27 @@ function WorkspaceView() {
             <h3>Identidad Canónica</h3>
             <div className="workspace-identity-prop">
               <span className="workspace-identity-label">ID</span>
-              <strong className="workspace-identity-val">${source?.identity?.id || (unmodeled ? 'Sin modelo (ausente)' : '—')}</strong>
+              <strong className="workspace-identity-val">${source?.identity?.id || (unmodeled ? 'Sin modelo (ausente)' : (sourceLoading ? 'Cargando…' : '—'))}</strong>
             </div>
             <div className="workspace-identity-prop">
               <span className="workspace-identity-label">Modelo</span>
-              <span className="workspace-identity-val">${source?.identity?.model_name || (unmodeled ? 'Sin modelo (ausente)' : '—')}</span>
+              <span className="workspace-identity-val">${source?.identity?.model_name || (unmodeled ? 'Sin modelo (ausente)' : (sourceLoading ? 'Cargando…' : '—'))}</span>
             </div>
             <div className="workspace-identity-prop">
               <span className="workspace-identity-label">Estado</span>
-              <span className="workspace-identity-val">${nodeData?.identity?.status || (unmodeled ? 'Ausente' : 'Sin estado')}</span>
+              <span className="workspace-identity-val">${nodeData?.identity?.status || (unmodeled ? 'Ausente' : (nodeLoading ? 'Cargando…' : 'Sin estado'))}</span>
             </div>
             <div className="workspace-identity-prop">
               <span className="workspace-identity-label">Nodo Actual</span>
-              <span className="workspace-identity-val"><code>${nodeData?.identity?.current_node || (unmodeled ? 'Ausente' : 'Sin nodo')}</code></span>
+              <span className="workspace-identity-val"><code>${nodeData?.identity?.current_node || (unmodeled ? 'Ausente' : (nodeLoading ? 'Cargando…' : 'Sin nodo'))}</code></span>
             </div>
             <div className="workspace-identity-prop">
               <span className="workspace-identity-label">Path</span>
-              <span className="workspace-identity-val" data-testid="ctx-path">${source?.identity?.path || '—'}</span>
+              <span className="workspace-identity-val" data-testid="ctx-path">${source?.identity?.path || (sourceLoading ? 'Cargando…' : '—')}</span>
             </div>
             <div className="workspace-identity-prop">
               <span className="workspace-identity-label">Repo</span>
-              <span className="workspace-identity-val">${source?.identity?.repo || '—'}</span>
+              <span className="workspace-identity-val">${source?.identity?.repo || (sourceLoading ? 'Cargando…' : '—')}</span>
             </div>
             <div className="workspace-identity-prop">
               <span className="workspace-identity-label">Content Hash (SLDB)</span>
@@ -822,21 +870,25 @@ function WorkspaceView() {
                 <span className="workspace-alert">${nodeData.identity.content_hash_error}</span>
               ` : html`
                 <span className="workspace-identity-val" title=${nodeData?.identity?.content_hash}>
-                  ${nodeData?.identity?.content_hash ? formatHash(nodeData.identity.content_hash, 16) : (unmodeled ? 'Ausente' : '—')}
+                  ${nodeData?.identity?.content_hash ? formatHash(nodeData.identity.content_hash, 16) : (unmodeled ? 'Ausente' : (nodeLoading ? 'Cargando…' : '—'))}
                 </span>
               `}
             </div>
             <div className="workspace-identity-prop">
               <span className="workspace-identity-label">File Revision (Git/Disk)</span>
               <span className="workspace-identity-val" data-testid="ctx-revision" title=${source?.revision}>
-                ${source?.revision ? formatHash(source.revision, 16) : '—'}
+                ${source?.revision ? formatHash(source.revision, 16) : (sourceLoading ? 'Cargando…' : '—')}
               </span>
             </div>
           </section>
 
           <section className="workspace-sidebar-section">
-            <h3>Relaciones Salientes (${unmodeled ? 'ausentes' : outgoing.length})</h3>
-            ${unmodeled ? html`<p className="workspace-empty" data-testid="rel-absent">${source.context.relations_absent}</p>` : outgoing.length ? html`
+            <h3>Relaciones Salientes (${unmodeled ? 'ausentes' : (sourceLoading ? 'cargando' : (notReady ? 'no preparado' : outgoing.length))})</h3>
+            ${sourceLoading ? html`<p className="workspace-empty" data-testid="panel-loading" data-panel="relations">Cargando relaciones…</p>` : unmodeled ? html`<p className="workspace-empty" data-testid="rel-absent">${source.context.relations_absent}</p>` : notReady ? html`
+              <div className="workspace-alert" role="alert" data-testid="store-no-preparado-rel">
+                Store no preparado (${notReady.estado}): ${(notReady.stale || []).length} documento(s) atrasados${(notReady.stale || []).length ? ` (${notReady.stale.join(', ')})` : ''}. Sin relaciones ni procedencia hasta preparar el índice fuera de la petición.
+              </div>
+            ` : outgoing.length ? html`
               <ul className="workspace-rel-list">
                 ${outgoing.map((rel, idx) => html`
                   <li key=${idx}>
@@ -847,7 +899,7 @@ function WorkspaceView() {
                       <span className="workspace-edge-rel">${rel.type || rel.rel || 'rel'} →</span>
                       <span>${rel.target}</span>
                     </button>
-                    ${edgeFields(rel).length ? html`<small className="workspace-edge-prov" data-testid="rel-prov">campo: ${edgeFields(rel).join(', ')}</small>` : ''}
+                    ${edgeDeclarations(rel).length ? html`<small className="workspace-edge-prov" data-testid="rel-prov">declara: ${edgeDeclarations(rel).map(d => `${d.owner === openDocId ? 'este documento' : (d.owner || '?')}.${d.field}`).join(', ')}</small>` : ''}
                   </li>
                 `)}
               </ul>
@@ -855,8 +907,8 @@ function WorkspaceView() {
           </section>
 
           <section className="workspace-sidebar-section">
-            <h3>Relaciones Incidentes (${unmodeled ? 'ausentes' : incoming.length})</h3>
-            ${unmodeled ? html`<p className="workspace-empty">Ausentes: documento no modelado.</p>` : incoming.length ? html`
+            <h3>Relaciones Incidentes (${unmodeled ? 'ausentes' : (sourceLoading ? 'cargando' : (notReady ? 'no preparado' : incoming.length))})</h3>
+            ${sourceLoading ? html`<p className="workspace-empty" data-testid="panel-loading" data-panel="relations-in">Cargando relaciones…</p>` : unmodeled ? html`<p className="workspace-empty">Ausentes: documento no modelado.</p>` : notReady ? html`<p className="workspace-empty">Store no preparado: sin relaciones incidentes.</p>` : incoming.length ? html`
               <ul className="workspace-rel-list">
                 ${incoming.map((rel, idx) => html`
                   <li key=${idx}>
@@ -867,7 +919,7 @@ function WorkspaceView() {
                       <span className="workspace-edge-rel">← ${rel.type || rel.rel || 'rel'}</span>
                       <span>${rel.source}</span>
                     </button>
-                    ${edgeFields(rel).length ? html`<small className="workspace-edge-prov">campo: ${edgeFields(rel).join(', ')}</small>` : ''}
+                    ${edgeDeclarations(rel).length ? html`<small className="workspace-edge-prov" data-testid="rel-prov-in">declara: ${edgeDeclarations(rel).map(d => `${d.owner === openDocId ? 'este documento' : (d.owner || '?')}.${d.field}`).join(', ')}</small>` : ''}
                   </li>
                 `)}
               </ul>
@@ -876,8 +928,8 @@ function WorkspaceView() {
           </section>
 
           <section className="workspace-sidebar-section" data-testid="links-section">
-            <h3>Enlaces del documento (${(source?.links || []).length})</h3>
-            ${(source?.links || []).length ? html`
+            <h3>Enlaces del documento (${sourceLoading ? 'cargando' : (source?.links || []).length})</h3>
+            ${sourceLoading ? html`<p className="workspace-empty" data-testid="panel-loading" data-panel="links">Cargando enlaces…</p>` : (source?.links || []).length ? html`
               <ul className="workspace-rel-list">
                 ${source.links.map((l, idx) => html`
                   <li key=${idx} data-status=${l.status} data-testid="link-item">
@@ -900,6 +952,8 @@ function WorkspaceView() {
             <h3>Problemas de Integridad</h3>
             ${unmodeled ? html`
               <p className="workspace-empty">No aplica: el documento no está en el store.</p>
+            ` : nodeLoading ? html`
+              <p className="workspace-empty" data-testid="panel-loading" data-panel="problems">Cargando integridad…</p>
             ` : problemsInfo.state === 'error' ? html`
               <div className="workspace-problems-alert" role="alert">
                 <strong>Error al consultar integridad del store:</strong>

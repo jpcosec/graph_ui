@@ -110,44 +110,74 @@ export const edgeFocus = e => ({kind: 'edge', source: e.source, target: e.target
 export const edgeKey = e => [e.source, e.target, e.type, e.relationDoc ?? ''].join('|');
 export const referenceKey = f => `${f.doc ?? ''}|${f.field}|${f.position}`;
 
-/** Campos (field_path) de procedencia de una arista: field y, en composicion, source_field. */
-export function edgeFields(edge) {
+/**
+ * Procedencias de una arista que el documento abierto declara con un campo propio.
+ * Cada procedencia lleva `owner`: el documento cuyo campo la declara (lo fija el servidor desde
+ * el source del registro de arista). Sin propietario (relation_doc, structural) no hay campo
+ * que resaltar. Una arista de otro documento nunca resalta campos del documento abierto.
+ */
+export function ownedProvenance(edge, docId) {
+  if (!docId) return [];
+  return (edge?.provenance || []).filter(p => p && p.owner === docId && (p.field || p.source_field));
+}
+
+/** Campos (field_path) del documento abierto que declaran la arista: solo los que le pertenecen. */
+export function edgeFields(edge, docId) {
   const out = new Set();
-  for (const p of edge?.provenance || []) {
-    if (p?.field) out.add(p.field);
-    if (p?.source_field) out.add(p.source_field);
+  for (const p of ownedProvenance(edge, docId)) {
+    if (p.field) out.add(p.field);
+    if (p.source_field) out.add(p.source_field);
   }
   return Array.from(out);
+}
+
+/** Declaraciones de una arista, de cualquier dueño, para mostrarlas: {owner, field, declared}. */
+export function edgeDeclarations(edge) {
+  const out = [];
+  for (const p of edge?.provenance || []) {
+    if (!p || !p.field) continue;
+    const d = {owner: p.owner ?? null, field: p.field, declared: p.declared ?? null};
+    if (!out.some(x => x.owner === d.owner && x.field === d.field && x.declared === d.declared)) out.push(d);
+  }
+  return out;
 }
 
 export function sectionHighlighted(section, focus) {
   return !!focus && focus.kind === 'section' && !!section && (section.path ?? section.name) === focus.path;
 }
 
-/** Campo del documento: por field_path; la referencia de Code fija foco en su campo. */
-export function fieldHighlighted(fieldPath, focus, edges = []) {
+/** Campo del documento abierto: por field_path; la referencia de Code fija foco en su campo. */
+export function fieldHighlighted(fieldPath, focus, edges = [], docId = '') {
   if (!focus) return false;
   if (focus.kind === 'field') return focus.field_path === fieldPath;
-  if (focus.kind === 'reference') return focus.field === fieldPath;
+  if (focus.kind === 'reference') return !!docId && focus.doc === docId && focus.field === fieldPath;
   if (focus.kind === 'edge') {
     const edge = edges.find(e => edgeKey(e) === edgeKey(focus));
-    return edge ? edgeFields(edge).includes(fieldPath) : false;
+    return edge ? edgeFields(edge, docId).includes(fieldPath) : false;
   }
   return false;
 }
 
-export function edgeHighlighted(edge, focus) {
+/**
+ * Arista resaltada por el foco. Por campo o referencia solo cuentan las procedencias del
+ * documento abierto; una referencia exige ademas que la procedencia declare ese mismo valor,
+ * de modo que un campo propio que apunta a otro destino no cuenta.
+ */
+export function edgeHighlighted(edge, focus, docId = '') {
   if (!focus) return false;
   if (focus.kind === 'edge') return edgeKey(edge) === edgeKey(focus);
-  if (focus.kind === 'field') return edgeFields(edge).includes(focus.field_path);
-  if (focus.kind === 'reference') return edgeFields(edge).includes(focus.field);
+  if (focus.kind === 'field') return edgeFields(edge, docId).includes(focus.field_path);
+  if (focus.kind === 'reference') {
+    if (!docId || focus.doc !== docId) return false;
+    return ownedProvenance(edge, docId).some(p => p.field === focus.field && p.declared === focus.value);
+  }
   return false;
 }
 
-export function referenceHighlighted(file, focus) {
+export function referenceHighlighted(file, focus, docId = '') {
   if (!focus) return false;
   if (focus.kind === 'reference') return referenceKey(file) === referenceKey(focus);
-  if (focus.kind === 'field') return file.field === focus.field_path;
+  if (focus.kind === 'field') return !!docId && file.doc === docId && file.field === focus.field_path;
   return false;
 }
 
@@ -162,14 +192,14 @@ export function lineInFocus(line, focus, fields = []) {
 }
 
 /** Cuantos elementos de cada representacion corresponden al foco (solo procedencia real). */
-export function correspondence(focus, {sections = [], fields = [], edges = [], files = []} = {}) {
+export function correspondence(focus, {sections = [], fields = [], edges = [], files = [], docId = ''} = {}) {
   if (!focus) return null;
   return {
     document: focus.kind === 'section'
       ? sections.filter(s => sectionHighlighted(s, focus)).length
-      : fields.filter(f => fieldHighlighted(f.field_path, focus, edges)).length,
-    graph: edges.filter(e => edgeHighlighted(e, focus)).length,
-    code: files.filter(f => referenceHighlighted(f, focus)).length,
+      : fields.filter(f => fieldHighlighted(f.field_path, focus, edges, docId)).length,
+    graph: edges.filter(e => edgeHighlighted(e, focus, docId)).length,
+    code: files.filter(f => referenceHighlighted(f, focus, docId)).length,
   };
 }
 
