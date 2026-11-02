@@ -1,0 +1,18 @@
+## master...origin/master [ahead 26]
+?? desk/inbox/20261020-113025-suggestion-sldb-cambia-la-salida-las-alertas-dejan-de-hacer-fallar-y-nunca-son-silenciosas.md
+?? desk/inbox/20261020-122513-suggestion-contrato-de-lectura-paquetes-uml-en-diagramas-de-clase-spec2viz-84686c3.md
+?? desk/inbox/20261020-135650-suggestion-sldb-en-main-procedencia-por-documento-pol-tica-por-store-y-alertas-que-no-fallan.md
+?? runs/subagents/20261102-ws13-1-correccion/board.txt
+?? runs/subagents/20261102-ws13-1-correccion/cold-input.md
+?? runs/subagents/20261102-ws13-1-correccion/cold-receipt.json
+?? runs/subagents/20261102-ws13-1-correccion/cold.md
+?? runs/subagents/20261102-ws13-1-correccion/cold.stderr.log
+?? runs/subagents/20261102-ws13-1-correccion/git-status.txt
+?? runs/subagents/20261102-ws13-1-correccion/graph.txt
+?? runs/subagents/20261102-ws13-1-correccion/next.txt
+?? runs/subagents/20261102-ws13-1-correccion/preflight-disposition.md
+?? runs/subagents/20261102-ws13-1-correccion/preflight-input.md
+?? runs/subagents/20261102-ws13-1-correccion/preflight-receipt.json
+?? runs/subagents/20261102-ws13-1-correccion/preflight.md
+?? runs/subagents/20261102-ws13-1-correccion/preflight.stderr.log
+?? runs/subagents/20261102-ws13-1-correccion/task.txt
