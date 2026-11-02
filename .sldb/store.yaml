@@ -172,6 +172,7 @@ include:
   paths:
   - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
   - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
+  - desk/tasks/task-corregir-ws13-2-frontera-api-raíces-identidad-visible-y-estado-de-carga.md
 - model: BoardDoc
   paths:
   - desk/tasks/Board.md
