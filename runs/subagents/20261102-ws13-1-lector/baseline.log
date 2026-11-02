@@ -1,0 +1,14 @@
+........................................................................ [ 40%]
+........................................................................ [ 81%]
+.................................                                        [100%]
+=============================== warnings summary ===============================
+tests/test_editor.py::test_safe_node_update_flow
+  /home/jp/proyectos/SLDB_1/UIs/graph_ui/tests/test_editor.py:17: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    metadata=EditMetadata(author="operator-01", timestamp=datetime.utcnow(), reason="Update description"),
+
+tests/test_editor.py::test_node_deletion_cascade
+  /home/jp/proyectos/SLDB_1/UIs/graph_ui/tests/test_editor.py:41: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    metadata=EditMetadata(author="operator-01", timestamp=datetime.utcnow(), reason="Simulate catastrophe"),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+177 passed, 2 warnings in 553.13s (0:09:13)

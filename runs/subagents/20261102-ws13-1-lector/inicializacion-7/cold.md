@@ -1,0 +1,19 @@
+## REFORMULACION
+
+Objetivo: implementar WS13.1 en el host Mindmap (graph_ui, base a1b2b22 / HEAD 20e5797): lector de solo lectura con render y fuente cruda íntegra del mismo origen para Markdown modelado y no modelado, contexto real, seguimiento de enlaces del desk propio y foco interno solo con procedencia real (sección/span, field_path, referencia {doc,field,position,value}, arista schema con todas sus procedencias). Alcance cerrado: `workspace_routes.py` (ruta `GET /api/workspace/source`), `views/workspace/node/{workspace-view.js, workspace.mjs, workspace.css, módulos nuevos}`, `tests/test_mindmap_workspace_reader.py`, `tests/e2e_mindmap_workspace.py`; opcionales `sldb_adapter.py` (una función) y `serve.py` (dispatch), declarados antes en `declaracion-archivos.md`. Límites: sin escritura ni mutación, sin mocks, sin tocar 8090/8091, sin Changes/Integrity/Agents/multidesk, sin explorador WS13.2 ni tabs/split WS13.3, sin `shell/api.js`. Contratos WS11: navegacion sha256 `6a4f…`, operaciones solo como límite.
+
+## AMBIGUEDADES
+
+1. «con el mismo runtime_doc y template que hoy usa document_ir; no duplica su cuerpo ni relee el archivo»: `document_ir` y `resolve_runtime_doc` leen el archivo. No se dice de dónde salen `runtime_doc` y `template` sin releer; obligaría a inventar una vía o declarar bloqueo.
+2. «doc_status(<directorio .sldb del store>, "local:" + ruta)»: no se fija la forma de esa ruta (relativa al root del repo o al store, con o sin `.md`). Obligaría a inventar la cadena exacta.
+3. «Un destino existente que no sea .md… se informa como referencia no legible aquí» frente a «Sufijo distinto de .md: no_markdown» con 415: no se aclara si es el mismo estado ni su código. Tampoco se fijan códigos para `sin_repo_root` ni `error_lectura`, citados por remisión a `_inspect_file_reference`. Obligaría a inventar estados y códigos.
+4. «contenido completo del archivo de la tarjeta (campo content)»: `CodeFileView` hoy muestra solo fragmento ±5; no se dice si el rango local exige sustituir esa vista o añadir una completa. Obligaría a inventar la interacción.
+5. «seguir un enlace»: no se fija si el enlace se ofrece inline sobre el texto crudo, en panel aparte o sobre el render. La aceptación exige seguirlo, no la forma; obligaría a fijar un contrato de interacción no escrito.
+
+## DRY-RUN
+
+Leer bundle y contratos; comprobar tarea activa y línea base (pytest workspace ≈17 passed). Declarar opcionales si se usan. En `workspace_routes.py`: añadir `/api/workspace/source`, `id` xor `path` (400 si ambos/ninguno), identidad modelada vía `doc_status("local:"+resto)` y no modelada `(local, ruta)`, guardias equivalentes a `_inspect_file_reference`, una sola lectura de bytes, sha256, render modelado con `build_document_ir_json` y no modelado con `extract_sections`, enlaces con `parse_links`+`split_anchor`+clasificación, contexto con `load_edge_index(include_linked=False)` sin `document_edges`. En la vista: toggle render/fuente, foco por sección/campo/referencia/arista, rango de líneas en Code, una sola instancia por identidad en URL. Tests con store/desk temporales reales y e2e Playwright con `serve.py` temporal en puerto libre distinto de 8090/8091/8092. Verificar sha256 de `.sldb` y archivo antes/después de cada GET. Errores esperados: 400, 403, 404, 413, 415. Bloqueos (lectura única imposible, escrituras no evitables, CDN esm.sh sin dependencia local) se registran en `result-summary.md`, no se simulan. Resultado: pruebas verdes y resumen con forma de respuesta, sin commit.
+
+## FUTURO
+
+Tester independiente ejecuta y emite `tester-result-summary.md`; el Supervisor hace el commit atómico y la demo en 127.0.0.1:8092 sobre copia temporal; root revisa el checkpoint y decide WS13.2/WS13.3, que consumen la forma de respuesta documentada solo en `result-summary.md`; WS15.1 tipifica errores después. G_HUMAN_READ y WS16 siguen pendientes.
