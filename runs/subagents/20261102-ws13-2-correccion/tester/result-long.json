@@ -1,0 +1,60 @@
+{
+ "1440": {
+  "paths": 36,
+  "paths_bad": [],
+  "titles_bad": [],
+  "texts_complete": [
+   "bitacoras/b1.md",
+   "bitacoras/subcarpeta-profunda-con-nombre-largo/bitacora-con-un-identificador-larguisimo-yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy-alfa.md",
+   "bitacoras/subcarpeta-profunda-con-nombre-largo/bitacora-con-un-identificador-larguisimo-yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy-beta.md",
+   "desk/carpeta-muy-larga-numero-1/subcarpeta-con-un-nombre-igualmente-largo-numero-2/documento-con-un-nombre-extremadamente-largo-que-no-cabe-en-la-columna-alfa.md",
+   "desk/carpeta-muy-larga-numero-1/subcarpeta-con-un-nombre-igualmente-largo-numero-2/documento-con-un-nombre-extremadamente-largo-que-no-cabe-en-la-columna-beta.md",
+   "desk/seg/tituloMuyLargoSinSeparadoresNiEspaciostituloMuyLargoSinSeparadoresNiEspaciostituloMuyLargoSinSeparadoresNiEspacios.md",
+   "desk/seg/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxA.md",
+   "desk/seg/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxB.md"
+  ],
+  "pageerrors": [],
+  "unmodeled_expected_all_visible": true
+ },
+ "abre_origen": {
+  "alfa": true,
+  "beta": true,
+  "segA": true,
+  "segB": true,
+  "titulo": true
+ },
+ "360": {
+  "paths": 36,
+  "paths_bad": [],
+  "titles_bad": [],
+  "texts_complete": [
+   "bitacoras/b1.md",
+   "bitacoras/subcarpeta-profunda-con-nombre-largo/bitacora-con-un-identificador-larguisimo-yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy-alfa.md",
+   "bitacoras/subcarpeta-profunda-con-nombre-largo/bitacora-con-un-identificador-larguisimo-yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy-beta.md",
+   "desk/carpeta-muy-larga-numero-1/subcarpeta-con-un-nombre-igualmente-largo-numero-2/documento-con-un-nombre-extremadamente-largo-que-no-cabe-en-la-columna-alfa.md",
+   "desk/carpeta-muy-larga-numero-1/subcarpeta-con-un-nombre-igualmente-largo-numero-2/documento-con-un-nombre-extremadamente-largo-que-no-cabe-en-la-columna-beta.md",
+   "desk/seg/tituloMuyLargoSinSeparadoresNiEspaciostituloMuyLargoSinSeparadoresNiEspaciostituloMuyLargoSinSeparadoresNiEspacios.md",
+   "desk/seg/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxA.md",
+   "desk/seg/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxB.md"
+  ],
+  "pageerrors": [],
+  "unmodeled_expected_all_visible": true
+ },
+ "800": {
+  "paths": 36,
+  "paths_bad": [],
+  "titles_bad": [],
+  "texts_complete": [
+   "bitacoras/b1.md",
+   "bitacoras/subcarpeta-profunda-con-nombre-largo/bitacora-con-un-identificador-larguisimo-yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy-alfa.md",
+   "bitacoras/subcarpeta-profunda-con-nombre-largo/bitacora-con-un-identificador-larguisimo-yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy-beta.md",
+   "desk/carpeta-muy-larga-numero-1/subcarpeta-con-un-nombre-igualmente-largo-numero-2/documento-con-un-nombre-extremadamente-largo-que-no-cabe-en-la-columna-alfa.md",
+   "desk/carpeta-muy-larga-numero-1/subcarpeta-con-un-nombre-igualmente-largo-numero-2/documento-con-un-nombre-extremadamente-largo-que-no-cabe-en-la-columna-beta.md",
+   "desk/seg/tituloMuyLargoSinSeparadoresNiEspaciostituloMuyLargoSinSeparadoresNiEspaciostituloMuyLargoSinSeparadoresNiEspacios.md",
+   "desk/seg/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxA.md",
+   "desk/seg/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxB.md"
+  ],
+  "pageerrors": [],
+  "unmodeled_expected_all_visible": true
+ }
+}
