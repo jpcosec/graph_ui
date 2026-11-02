@@ -1,0 +1,21 @@
+A http://127.0.0.1:8123/workspace/node?id=TaskDoc%3Atask-tarea-a&depth=1&tab=document TaskDoc:task-tarea-a 1 Tarea A
+B rev==sha True src==file True doc-revision SHA256 51DC9E7245AA ctx-revision 51dc9e7245aa4e0a srcLinks 0 renderLinks 2
+headings ['Tarea A', 'Rationale', 'Goal', 'Scope', 'Implementation Path', 'Validation', 'Done When']
+J sec sección Goal (L33-L38) srcFocused 6
+J field campo depends_on fieldsFocused 1
+  after Grafo Local urlSame False readers 1 rev True focus campo depends_on edgeFocused 1 fieldFocused 1 codeFocused 0 corr Documento: 1 · Grafo: 1 · Código: 0
+  after Código urlSame False readers 1 rev True focus campo depends_on edgeFocused 0 fieldFocused 1 codeFocused 0 corr Documento: 1 · Grafo: 1 · Código: 0
+  after Documento urlSame False readers 1 rev True focus campo depends_on edgeFocused 0 fieldFocused 1 codeFocused 0 corr Documento: 1 · Grafo: 1 · Código: 0
+K desc arista TaskDoc:task-tarea-a ─[references]→ TaskDoc:task-tarea-b prov ['campo: depends_on, inherits_from', 'campo: current_node', 'campo: current_node'] focused edges 1
+K doc focused fields ['depends_on', 'inherits_from'] arista TaskDoc:task-tarea-a ─[references]→ TaskDoc:task-tarea-b
+K code focus corr Documento: 2 · Grafo: 1 · Código: 0 arista TaskDoc:task-tarea-a ─[references]→ TaskDoc:task-tarea-b
+I focus sección Primera (L5-L8) 4
+   Grafo Local urlSame False readers 1 rev True no-graph Sin grafo ni referencias: el documento no está en el store, no se inventan vínculos. focusdesc sección Primera (L5-L8) nocode ['Foco:\nsección Primera (L5-L8)\nDocumento: 1 · Grafo: sin grafo · Código: sin referencias\nLimpiar foco', 'Sin grafo ni referencias: el documento no está en el store, no se inventan vínculos.', 'Documento no modelado: no está en el store, sin relaciones.']
+   Código urlSame False readers 1 rev True no-graph None focusdesc sección Primera (L5-L8) nocode ['Foco:\nsección Primera (L5-L8)\nDocumento: 1 · Grafo: sin grafo · Código: sin referencias\nLimpiar foco', 'Sin grafo ni referencias: el documento no está en el store, no se inventan vínculos.', 'Documento no modelado: no está en el store, sin relaciones.']
+   Documento urlSame False readers 1 rev True no-graph None focusdesc sección Primera (L5-L8) nocode ['Foco:\nsección Primera (L5-L8)\nDocumento: 1 · Grafo: sin grafo · Código: sin referencias\nLimpiar foco', 'Documento no modelado: no está en el store, sin relaciones.', 'Ausentes: documento no modelado.']
+invalid body Cafe|SIN MODELO|invalido.md|SHA256 D04AE22F1CB3|UTF-8-REPLACED|Render|Cafe||caf�||Fuente 3 LÍNEAS|1	# Cafe|2	|3	caf�|Secciones (sin modelo)|CafeL1-3
+invalid enc visible False
+refresh readers 1
+NON-GET []
+CONS []
+PERR []

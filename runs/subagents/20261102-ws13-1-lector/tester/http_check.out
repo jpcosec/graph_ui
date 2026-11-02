@@ -1,0 +1,63 @@
+200 STORE_SAME /api/workspace/source?id=TaskDoc:task-tarea-a
+    {'ok': True, 'revision': '51dc9e7245aa4e0a510153b617807aabce9538cd9027f6d3bf402f3a913687a5', 'encoding': 'utf-8'}
+   keys ['ok', 'identity', 'revision', 'size', 'encoding', 'line_count', 'text', 'sections', 'fields', 'ir', 'ir_error', 'descriptor', 'degraded', 'links', 'context']
+   sha file 51dc9e7245aa4e0a510153b617807aabce9538cd9027f6d3bf402f3a913687a5
+   text==file bytes: True text
+400 STORE_SAME /api/workspace/source?id=TaskDoc:task-tarea-a&path=guia.md
+400 STORE_SAME /api/workspace/source
+400 STORE_SAME /api/workspace/source?id=
+400 STORE_SAME /api/workspace/source?path=
+200 STORE_SAME /api/workspace/source?path=guia.md
+    {'ok': True, 'revision': '12131a4b74cad118cd43247c9e9bc270f1cf3a784c534c8b8c470b5700e9ea30', 'encoding': 'utf-8'}
+   keys ['ok', 'identity', 'revision', 'size', 'encoding', 'line_count', 'text', 'sections', 'fields', 'ir', 'ir_error', 'descriptor', 'degraded', 'links', 'context']
+200 STORE_SAME /api/workspace/source?path=notes/otro.md
+    {'ok': True, 'revision': 'e1ff333f1be0367ff01597feef525b7c3bc2eb87f022e9bf311cfe4d16c19bdb', 'encoding': 'utf-8'}
+   keys ['ok', 'identity', 'revision', 'size', 'encoding', 'line_count', 'text', 'sections', 'fields', 'ir', 'ir_error', 'descriptor', 'degraded', 'links', 'context']
+415 STORE_SAME /api/workspace/source?path=data.txt
+    {'ok': False, 'error': 'Solo se abren documentos Markdown (.md).', 'estado': 'no_markdown'}
+403 STORE_SAME /api/workspace/source?path=oculto.md
+    {'ok': False, 'error': 'Archivo ignorado por .gitignore.', 'estado': 'protegido'}
+403 STORE_SAME /api/workspace/source?path=.env
+    {'ok': False, 'error': 'Archivo ignorado por .gitignore.', 'estado': 'protegido'}
+403 STORE_SAME /api/workspace/source?path=escape.md
+    {'ok': False, 'error': 'La ruta o enlace simbólico escapa del repositorio.', 'estado': 'fuera_del_repo'}
+200 STORE_SAME /api/workspace/source?path=invalido.md
+    {'ok': True, 'revision': 'd04ae22f1cb3ef97b36cbea82120d0d808e5047de1e75986ca476b2f06d52026', 'encoding': 'utf-8-replaced'}
+   keys ['ok', 'identity', 'revision', 'size', 'encoding', 'line_count', 'text', 'sections', 'fields', 'ir', 'ir_error', 'descriptor', 'degraded', 'links', 'context']
+413 STORE_SAME /api/workspace/source?path=grande.md
+    {'ok': False, 'error': 'Excede el límite de 256 KB.', 'estado': 'demasiado_grande'}
+415 STORE_SAME /api/workspace/source?path=d.md
+    {'ok': False, 'error': 'Es un directorio, no un documento.', 'estado': 'directorio'}
+404 STORE_SAME /api/workspace/source?path=no-existe.md
+    {'ok': False, 'error': 'El archivo no existe.', 'estado': 'no_existe'}
+403 STORE_SAME /api/workspace/source?path=.git/config
+    {'ok': False, 'error': 'Ruta interna de control de versiones .git.', 'estado': 'protegido'}
+403 STORE_SAME /api/workspace/source?path=../fuera.md
+    {'ok': False, 'error': 'La ruta o enlace simbólico escapa del repositorio.', 'estado': 'fuera_del_repo'}
+403 STORE_SAME /api/workspace/source?path=/etc/passwd
+    {'ok': False, 'error': 'La ruta o enlace simbólico escapa del repositorio.', 'estado': 'fuera_del_repo'}
+200 STORE_SAME /api/workspace/source?path=notes/../guia.md
+    {'ok': True, 'revision': '12131a4b74cad118cd43247c9e9bc270f1cf3a784c534c8b8c470b5700e9ea30', 'encoding': 'utf-8'}
+   keys ['ok', 'identity', 'revision', 'size', 'encoding', 'line_count', 'text', 'sections', 'fields', 'ir', 'ir_error', 'descriptor', 'degraded', 'links', 'context']
+403 STORE_SAME /api/workspace/source?path=notes/../../fuera.md
+    {'ok': False, 'error': 'La ruta o enlace simbólico escapa del repositorio.', 'estado': 'fuera_del_repo'}
+200 STORE_SAME /api/workspace/source?path=desk/tasks/task-tarea-a.md
+    {'ok': True, 'revision': '51dc9e7245aa4e0a510153b617807aabce9538cd9027f6d3bf402f3a913687a5', 'encoding': 'utf-8'}
+   keys ['ok', 'identity', 'revision', 'size', 'encoding', 'line_count', 'text', 'sections', 'fields', 'ir', 'ir_error', 'descriptor', 'degraded', 'links', 'context']
+200 STORE_SAME /api/workspace/source?path=desk/rituals/testing.md
+    {'ok': True, 'revision': '2b17495a3c750d05389dd6c524ab4e647bf5424a50d3b29567ea3873aa86137b', 'encoding': 'utf-8'}
+   keys ['ok', 'identity', 'revision', 'size', 'encoding', 'line_count', 'text', 'sections', 'fields', 'ir', 'ir_error', 'descriptor', 'degraded', 'links', 'context']
+415 STORE_SAME /api/workspace/source?path=src/a.py
+    {'ok': False, 'error': 'Solo se abren documentos Markdown (.md).', 'estado': 'no_markdown'}
+404 STORE_SAME /api/workspace/source?path=%252e%252e/fuera.md
+    {'ok': False, 'error': 'El archivo no existe.', 'estado': 'no_existe'}
+200 STORE_SAME /api/workspace/source?path=notes//otro.md
+    {'ok': True, 'revision': 'e1ff333f1be0367ff01597feef525b7c3bc2eb87f022e9bf311cfe4d16c19bdb', 'encoding': 'utf-8'}
+   keys ['ok', 'identity', 'revision', 'size', 'encoding', 'line_count', 'text', 'sections', 'fields', 'ir', 'ir_error', 'descriptor', 'degraded', 'links', 'context']
+200 STORE_SAME /api/workspace/source?path=./guia.md
+    {'ok': True, 'revision': '12131a4b74cad118cd43247c9e9bc270f1cf3a784c534c8b8c470b5700e9ea30', 'encoding': 'utf-8'}
+   keys ['ok', 'identity', 'revision', 'size', 'encoding', 'line_count', 'text', 'sections', 'fields', 'ir', 'ir_error', 'descriptor', 'degraded', 'links', 'context']
+200 STORE_SAME /api/workspace/node?id=TaskDoc:task-tarea-a
+200 STORE_SAME /api/workspace/node?id=TaskDoc:task-tarea-b
+200 STORE_SAME /api/workspace/nodes
+400 STORE_SAME /api/workspace/node?path=guia.md
