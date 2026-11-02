@@ -1,0 +1,134 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_explorer_long_paths_differing_only_at_the_end_are_fully_readable_and_open_their_origin _
+
+explorer_e2e_server = ('http://127.0.0.1:33099', PosixPath('/tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e'), 'task-tarea-sana')
+
+    def test_explorer_long_paths_differing_only_at_the_end_are_fully_readable_and_open_their_origin(explorer_e2e_server):
+        url, root, task_id = explorer_e2e_server
+        folder = 'desk/carpeta-muy-larga-numero-1/subcarpeta-con-un-nombre-igualmente-largo-numero-2'
+        stem = 'documento-con-un-nombre-extremadamente-largo-que-no-cabe-en-la-columna'
+        rels = {f'{folder}/{stem}-{tail}.md': tail for tail in ('alfa', 'beta')}
+        (root / folder).mkdir(parents=True)
+        for rel, tail in rels.items():
+            (root / rel).write_text(f'# Largo\n\nContenido final {tail}.\n', encoding='utf-8')
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1440, "height": 900})
+            errors = []
+            page.on("pageerror", lambda error: errors.append(str(error)))
+            page.goto(f"{url}/workspace/node?path=docs/faq.md")
+            for part in ('desk/carpeta-muy-larga-numero-1', folder):
+                page.locator(f'[data-testid="explorer-folder"][data-path="{part}"] > button').click()
+            aside = page.locator('[data-testid="explorer"]')
+            abox = aside.bounding_box()
+            for rel, tail in rels.items():
+                item = page.locator(f'[data-testid="explorer-unmodeled"][data-path="{rel}"]')
+                path_el = item.locator('[data-testid="explorer-item-path"]')
+                path_el.scroll_into_view_if_needed()
+                expect(path_el).to_be_visible()
+                # la ruta completa esta en el texto visible (sin tooltip) y no hay desbordamiento horizontal
+                assert path_el.inner_text() == rel
+                over = path_el.evaluate('(e) => { const b = e.closest("button"); return [e.scrollWidth - e.clientWidth, b.scrollWidth - b.clientWidth]; }')
+>               assert over[0] <= 0 and over[1] <= 0, over
+E               AssertionError: [754, 748]
+E               assert (754 <= 0)
+
+tests/e2e_mindmap_workspace.py:1147: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Linked /home/jp/proyectos/SLDB_1/deskops/.sldb as deskops in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb.
+Inheriting CrossroadDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Inheriting AtomDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Inheriting BoardDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Inheriting DeskFAQDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Inheriting InboxNoteDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Inheriting MaterializationContractDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Inheriting PillDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Inheriting ProtoAtomDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Inheriting RepositoryDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Inheriting RitualDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Inheriting RoleDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Inheriting RunDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Inheriting RuntimeProfileDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Inheriting StepDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+Inheriting TaskDoc in /tmp/pytest-of-jp/pytest-289/test_explorer_long_paths_diffe0/explorer-e2e/.sldb...
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /workspace/node?path=docs/faq.md HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:13] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:16] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:16] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:16] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:16] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:16] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:16] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:16] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:16] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:16] "GET /api/workspace/source?path=docs%2Ffaq.md HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:16] "GET /api/workspace/explorer HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 09:46:16] "GET /api/workspace/nodes HTTP/1.1" 200 -
+=========================== short test summary info ============================
+FAILED tests/e2e_mindmap_workspace.py::test_explorer_long_paths_differing_only_at_the_end_are_fully_readable_and_open_their_origin
+1 failed, 18 deselected in 8.65s

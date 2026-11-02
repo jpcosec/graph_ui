@@ -1,4 +1,4 @@
-# validacion final (ajustes: insignia sin recorte y docstring) 2026-11-02T09:16:41-03:00 HEAD 15bf3d628c96332e3abe33364840ab967b83e3cd
+# validacion final (ajuste rutas largas) 2026-11-02T09:46:38-03:00 HEAD b4111466064613bc2ea3140c4d7a0ba0e043b944
 ## $ python3 -m pytest -q -p no:cacheprovider tests/test_mindmap_workspace_explorer.py
 exit=0
 ## $ python3 -m pytest -q -p no:cacheprovider tests/e2e_mindmap_workspace.py

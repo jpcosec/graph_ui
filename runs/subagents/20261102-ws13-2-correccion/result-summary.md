@@ -33,5 +33,9 @@ Capturas revisadas a ojo: `correccion-modelo-sin-confirmar-pendiente.png`, `corr
 2. Docstring de `workspace_routes.py` líneas 3-6: describe open_store(readonly) en los listados sobre store canónico preparado fuera del request, sin afirmar nada del layout no canónico.
 Repetidos (`validation.log`, HEAD 15bf3d6): explorer 40 passed; e2e 18 passed; node 13 pass, 0 fail.
 
+## Ajuste final 2: rutas largas
+Causa: el botón del ítem conservaba `white-space: nowrap` con `overflow: hidden`, así que el span de ruta se cortaba. Cambio en `workspace.css`: `.workspace-explorer-item { white-space: normal }` y en `.workspace-explorer-item-path` `white-space: normal; word-break: break-all` (sin tocar explorer-view.js). Prueba nueva e2e `test_explorer_long_paths_differing_only_at_the_end_are_fully_readable_and_open_their_origin`: dos rutas largas que solo difieren en el final; `inner_text` igual a la ruta completa (sin tooltip), scrollWidth - clientWidth <= 0 en el span y en su botón, y todos los rects de texto dentro del explorador; cada una abre su origen. Fallo previo contra el CSS anterior: `AssertionError: [754, 748]` (`evidencia-base/rutas-largas-css-previo.log`). Pasa con el CSS corregido. Captura revisada: `capturas/correccion-rutas-largas.png`.
+Repetidos sobre los bytes finales (`validation.log`; HEAD en esa corrida b4111466064613bc2ea3140c4d7a0ba0e043b944, ya avanzó desde 15bf3d6 por commits ajenos): explorer 40 passed; e2e 19 passed; node 13 pass, 0 fail.
+
 ## No verifiqué
-Suite general; layout no canónico con open_store; Tester independiente (queda el suyo, con control positivo propio); otros navegadores/viewports; en la captura, una ruta secundaria muy larga queda cortada al borde de la lista con scroll (no medida); `demo 8092` y otros puertos no usados; Los `__pycache__`/node_modules con mayúsculas o variantes no se probaron.
+Suite general; layout no canónico con open_store; Tester independiente (queda el suyo, con control positivo propio); otros navegadores/viewports; `demo 8092` y otros puertos no usados; Los `__pycache__`/node_modules con mayúsculas o variantes no se probaron.
