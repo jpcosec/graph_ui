@@ -16,3 +16,11 @@ FAILED tests/test_mindmap_workspace.py::test_workspace_broken_doc_catalog_return
 1 failed, 238 passed, 2 warnings in 825.94s (0:13:45)
 == correccion autorizada: pytest -q tests/test_mindmap_workspace.py ==
 15 passed in 49.39s
+
+== renovacion-1 (correccion de H1, H2, symlink de archivo) ==
+Fallos observados ANTES de corregir (pytest -k "another_process or file_symlink or node_is_200"):
+  - alta por otro proceso: assert 'TaskDoc:task-alta-externa' in {ids de /explorer.modeled}  -> fallaba (H1)
+  - assert 'desk/interno.md' not in [...paths no modelados...]  -> fallaba (symlink listado)
+  - /node de modelo que no carga: assert node.is_degraded is True -> assert False is True (H2)
+Tras corregir: pytest -q test_mindmap_workspace_explorer.py test_mindmap_workspace_reader.py test_mindmap_workspace.py e2e_mindmap_workspace.py: 80 passed (6m08s);
+node --test explorer/reader/workspace/document-ir: 29 pass, 0 fail. Detalle: validation-renovacion-1.log. Suite general no corrida (la corre el Supervisor).
