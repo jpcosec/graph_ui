@@ -700,3 +700,289 @@ def test_reader_missing_anchor_is_broken_not_navigable(reader_e2e_server):
         _screenshot(page, "correccion-ancla-inexistente.png")
         assert not errors, f"Errores de JS: {errors}"
         browser.close()
+
+
+# ---------------------------------------------------------------- WS13.2: explorador
+
+BAD_MODEL_SRC = '''from __future__ import annotations
+from pydantic import Field
+from sldb.models.structured_doc import StructuredNLDoc
+
+
+class Bitacora(StructuredNLDoc):
+    __semantics__ = {"type": ["log"], "layer": ["notes"]}
+    __template__ = """---
+id: ⸢rev•id⸥
+---
+
+# ⸢rev•title⸥
+
+## Entrada
+
+⸢rev•entry⸥
+""".strip()
+
+    id: str = Field(description="Id.")
+    title: str = Field(description="Titulo.")
+    entry: str = Field(description="Entrada.")
+'''
+PREPARE_BAD = '''
+import sys
+from pathlib import Path
+from sldb.api.model_registry.add_model import add_model
+from sldb.api.documents.create_document import create_document
+root, models = Path(sys.argv[1]), sys.argv[2]
+add_model(root / '.sldb', 'ws132_bitacora:Bitacora', pythonpath=models)
+create_document(root / '.sldb', 'Bitacora', 'bitacoras/b1.md',
+                {'id': 'b1', 'title': 'Bitacora uno', 'entry': 'Texto de la entrada.'}, pythonpath=models)
+'''
+
+
+def _explorer_repo(tmp_path, name):
+    root = tmp_path / name
+    root.mkdir()
+    subprocess.run(['git', 'init', str(root)], check=True, capture_output=True)
+    subprocess.run(['git', '-C', str(root), 'config', 'user.name', 'test'], check=True)
+    subprocess.run(['git', '-C', str(root), 'config', 'user.email', 'test@example.com'], check=True)
+    (root / '.gitignore').write_text('desk/privado/\n', encoding='utf-8')
+    assert SLDBBootstrap().init_local_store(root) == 0
+    scaffold_desk(root)
+    ensure_lifecycle_graph(root)
+    return root
+
+
+@pytest.fixture
+def explorer_e2e_server(tmp_path, monkeypatch):
+    root = _explorer_repo(tmp_path, 'explorer-e2e')
+    ops = DeskopsOperations(root)
+    task = ops.create_task_bundle({
+        'title': 'Tarea sana', 'goal': 'Objetivo sano', 'scope': 'Scope temporal',
+        'validation': ['pytest'], 'done_when': 'Completada',
+    })
+    models = tmp_path / 'modelos'
+    models.mkdir()
+    (models / 'ws132_bitacora.py').write_text(BAD_MODEL_SRC, encoding='utf-8')
+    res = subprocess.run([sys.executable, '-c', PREPARE_BAD, str(root), str(models)], capture_output=True, text=True)
+    assert res.returncode == 0, res.stderr
+    (root / 'docs').mkdir()
+    (root / 'docs' / 'faq.md').write_text('# FAQ\n\n## Pregunta\n\nRespuesta visible.\n', encoding='utf-8')
+    (root / 'desk' / 'notas' / 'sub').mkdir(parents=True)
+    (root / 'desk' / 'notas' / 'uno.md').write_text('# Uno\n\nTexto uno.\n', encoding='utf-8')
+    (root / 'desk' / 'notas' / 'sub' / 'dos.md').write_text('# Dos\n', encoding='utf-8')
+    (root / 'desk' / 'privado').mkdir()
+    (root / 'desk' / 'privado' / 'secreto.md').write_text('# secreto\n', encoding='utf-8')
+
+    monkeypatch.setenv('DESKOPS_ROOT', str(root))
+    monkeypatch.delenv('WORKSPACE_EXPLORER_ROOTS', raising=False)
+    server = make_server(0, root / '.sldb')
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        yield f"http://127.0.0.1:{server.server_port}", root, task.task_id
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=5)
+
+
+def test_explorer_opens_modeled_and_unmodeled_without_ids_and_refreshes(explorer_e2e_server):
+    url, root, task_id = explorer_e2e_server
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        requests = []
+        page.on("request", lambda r: requests.append((r.method, r.url)))
+
+        page.goto(f"{url}/workspace/node")
+        explorer = page.locator('[data-testid="explorer"]')
+        expect(explorer).to_be_visible()
+        refresh = page.locator('[data-testid="explorer-refresh"]')
+        expect(refresh).to_be_visible()
+        expect(refresh).to_have_text('Refrescar catálogo')
+        expect(page.locator('[data-testid="explorer-modeled-item"]').first).to_be_visible()
+
+        # modelados por modelo; el que no carga lleva su estado y causa, el sano no
+        expect(page.locator('[data-testid="explorer-model"][data-model="TaskDoc"]')).to_be_visible()
+        bad = page.locator('[data-testid="explorer-modeled-item"][data-id="Bitacora:b1"]')
+        expect(bad).to_have_attribute('data-estado', 'modelo_no_carga')
+        expect(bad.locator('[data-testid="explorer-estado"]')).to_have_text('modelo_no_carga')
+        assert 'ws132_bitacora' in bad.get_attribute('title')
+        good = page.locator(f'[data-testid="explorer-modeled-item"][data-id="TaskDoc:{task_id}"]')
+        expect(good).to_have_attribute('data-estado', 'ok')
+        _screenshot(page, "explorer-inicial.png")
+
+        # abrir un no modelado sin conocer ID: arbol por carpetas
+        expect(page.locator('[data-testid="explorer-folder"][data-path="docs"]')).to_be_visible()
+        page.locator('[data-testid="explorer-unmodeled"][data-path="docs/faq.md"]').click()
+        expect(page.locator('[data-testid="ctx-path"]')).to_have_text('docs/faq.md')
+        expect(page.locator('[data-testid="doc-render"]')).to_contain_text('Respuesta visible')
+        assert 'path=docs%2Ffaq.md' in page.url or 'path=docs/faq.md' in page.url
+        # carpetas anidadas colapsadas hasta abrirlas
+        assert page.locator('[data-testid="explorer-unmodeled"][data-path="desk/notas/uno.md"]').count() == 0
+        page.locator('[data-testid="explorer-folder"][data-path="desk/notas"] > button').click()
+        expect(page.locator('[data-testid="explorer-unmodeled"][data-path="desk/notas/uno.md"]')).to_be_visible()
+        assert page.locator('[data-path="desk/privado/secreto.md"]').count() == 0
+        page.locator('[data-testid="explorer-unmodeled"][data-path="desk/notas/uno.md"]').click()
+        expect(page.locator('[data-testid="ctx-path"]')).to_have_text('desk/notas/uno.md')
+
+        # abrir un modelado sano
+        good.click()
+        expect(page.locator('[data-testid="document-reader"]')).to_have_attribute('data-identity', f'TaskDoc:{task_id}')
+        expect(page.locator('[data-testid="doc-render"]')).to_contain_text('Objetivo sano')
+
+        # abrir el modelado cuyo modelo no importa: fuente legible y causa visible
+        bad.click()
+        expect(page.locator('[data-testid="document-reader"]')).to_have_attribute('data-identity', 'Bitacora:b1')
+        expect(page.locator('.workspace-degraded-banner').first).to_contain_text('ws132_bitacora')
+        expect(page.locator('[data-testid="doc-source"]')).to_contain_text('Texto de la entrada.')
+        _screenshot(page, "explorer-modelo-no-carga.png")
+
+        # filtro local
+        page.locator('[data-testid="explorer-filter"]').fill('faq')
+        expect(page.locator('[data-testid="explorer-unmodeled"]')).to_have_count(1)
+        expect(page.locator('[data-testid="explorer-modeled-item"]')).to_have_count(0)
+        page.locator('[data-testid="explorer-filter"]').fill('')
+
+        # alta de un modelado y de un .md fuera del request, sin reiniciar: aparecen tras refrescar
+        new_task = DeskopsOperations(root).create_task_bundle({
+            'title': 'Tarea nueva', 'goal': 'Objetivo nuevo', 'scope': 'Scope temporal',
+            'validation': ['pytest'], 'done_when': 'Completada',
+        })
+        (root / 'docs' / 'nuevo.md').write_text('# Nuevo\n\nContenido nuevo.\n', encoding='utf-8')
+        assert page.locator(f'[data-id="TaskDoc:{new_task.task_id}"]').count() == 0
+        assert page.locator('[data-path="docs/nuevo.md"]').count() == 0
+        before = len(requests)
+        refresh.click()
+        expect(page.locator(f'[data-id="TaskDoc:{new_task.task_id}"]')).to_be_visible()
+        expect(page.locator('[data-path="docs/nuevo.md"]')).to_be_visible()
+        refreshed = [u for m, u in requests[before:]]
+        assert any(u.endswith('/api/workspace/nodes') for u in refreshed), refreshed
+        assert any(u.endswith('/api/workspace/explorer') for u in refreshed), refreshed
+        _screenshot(page, "explorer-tras-refrescar.png")
+        page.locator('[data-path="docs/nuevo.md"]').click()
+        expect(page.locator('[data-testid="doc-render"]')).to_contain_text('Contenido nuevo')
+
+        # ninguna peticion de escritura, y el listado no recibe ruta del cliente
+        assert all(m == 'GET' for m, u in requests if '/api/' in u), [r for r in requests if r[0] != 'GET']
+        for m, u in requests:
+            if u.split('?')[0].endswith('/api/workspace/explorer'):
+                assert '?' not in u, u
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()
+
+
+def test_explorer_relations_notice_is_visible_in_graph_and_context_not_explorer(explorer_e2e_server):
+    url, root, task_id = explorer_e2e_server
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.goto(f"{url}/workspace/node?id=TaskDoc:{task_id}&tab=graph")
+        graph_notice = page.locator('[data-testid="relations-notice"][data-where="graph"]')
+        expect(graph_notice).to_be_visible()
+        expect(graph_notice).to_contain_text('índice')
+        expect(graph_notice).to_contain_text('no certifican cambios externos')
+        expect(graph_notice).to_contain_text('fuera de la UI')
+        expect(graph_notice).to_contain_text('rebuild_edges')
+        context_notice = page.locator('.workspace-sidebar [data-testid="relations-notice"][data-where="context"]')
+        expect(context_notice).to_be_visible()
+        # ni en el explorador ni como afirmacion de frescura
+        assert page.locator('[data-testid="explorer"] [data-testid="relations-notice"]').count() == 0
+        body = page.locator('.workspace-view').inner_text().lower()
+        assert 'al día' not in body and 'actualizadas' not in body
+        _screenshot(page, "explorer-aviso-relaciones-grafo.png")
+        # un no modelado no tiene relaciones: no hay aviso que mostrar
+        page.goto(f"{url}/workspace/node?path=docs/faq.md&tab=graph")
+        expect(page.locator('[data-testid="no-graph"]')).to_be_visible()
+        assert page.locator('[data-testid="relations-notice"]').count() == 0
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()
+
+
+def test_explorer_shows_truncation_and_invalid_roots(tmp_path, monkeypatch):
+    root = _explorer_repo(tmp_path, 'explorer-trunc')
+    (root / 'docs').mkdir()
+    for i in range(5001):
+        d = root / 'docs' / f'd{i // 500}'
+        d.mkdir(exist_ok=True)
+        (d / f'f{i:05d}.md').write_text('#\n', encoding='utf-8')
+    (root / 'enlace').symlink_to(root / 'docs', target_is_directory=True)
+    monkeypatch.setenv('DESKOPS_ROOT', str(root))
+    monkeypatch.setenv('WORKSPACE_EXPLORER_ROOTS', 'docs,/etc,../fuera,enlace,ausente')
+    server = make_server(0, root / '.sldb')
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1440, "height": 900})
+            errors = []
+            page.on("pageerror", lambda error: errors.append(str(error)))
+            page.goto(f"http://127.0.0.1:{server.server_port}/workspace/node")
+            expect(page.locator('[data-testid="explorer-truncado"]')).to_contain_text('5000')
+            invalid = page.locator('[data-testid="explorer-roots-invalid"]')
+            expect(invalid).to_contain_text('/etc (ruta absoluta)')
+            expect(invalid).to_contain_text('../fuera (contiene ..)')
+            expect(invalid).to_contain_text('enlace (es un enlace simbólico)')
+            assert 'ausente' not in invalid.inner_text()
+            _screenshot(page, "explorer-truncado-y-rutas-invalidas.png")
+            assert not errors, f"Errores de JS: {errors}"
+            browser.close()
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=5)
+
+
+OTHER_PROCESS = '''
+import sys
+from pathlib import Path
+root, action, arg = Path(sys.argv[1]), sys.argv[2], sys.argv[3]
+if action == 'create':
+    from deskops.operations import DeskopsOperations
+    print(DeskopsOperations(root).create_task_bundle(dict(
+        title=arg, goal='Meta', scope='S', implementation_path='P', validation=['pytest'], done_when='ok')).task_id)
+elif action == 'untrack':
+    from sldb.api import untrack_document
+    untrack_document(root / '.sldb', arg)
+'''
+
+
+def _other_process(root, action, arg):
+    res = subprocess.run([sys.executable, '-c', OTHER_PROCESS, str(root), action, arg], capture_output=True, text=True)
+    assert res.returncode == 0, res.stderr
+    return res.stdout.strip().splitlines()[-1] if res.stdout.strip() else ''
+
+
+def test_explorer_refresh_shows_changes_made_by_another_process(explorer_e2e_server):
+    url, root, task_id = explorer_e2e_server
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.goto(f"{url}/workspace/node")
+        expect(page.locator('[data-testid="explorer-modeled-item"]').first).to_be_visible()
+        new_id = _other_process(root, 'create', 'Alta de otro proceso')
+        modeled = page.locator(f'[data-testid="explorer-modeled-item"][data-id="TaskDoc:{new_id}"]')
+        assert modeled.count() == 0
+        page.locator('[data-testid="explorer-refresh"]').click()
+        expect(modeled).to_be_visible()
+        assert page.locator(f'[data-testid="explorer-unmodeled"][data-path="desk/tasks/{new_id}.md"]').count() == 0
+        _screenshot(page, "explorer-alta-otro-proceso.png")
+        # destrackeo (el archivo queda): sale de Modelados y pasa a la carpeta de no modelados
+        _other_process(root, 'untrack', new_id)
+        page.locator('[data-testid="explorer-refresh"]').click()
+        expect(modeled).to_have_count(0)
+        page.locator('[data-testid="explorer-folder"][data-path="desk/tasks"] > button').click()
+        expect(page.locator(f'[data-testid="explorer-unmodeled"][data-path="desk/tasks/{new_id}.md"]')).to_be_visible()
+        # borrado del archivo: desaparece de ambos
+        (root / 'desk' / 'tasks' / f'{new_id}.md').unlink()
+        page.locator('[data-testid="explorer-refresh"]').click()
+        expect(page.locator(f'[data-path="desk/tasks/{new_id}.md"]')).to_have_count(0)
+        expect(modeled).to_have_count(0)
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()

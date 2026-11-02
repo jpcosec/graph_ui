@@ -770,3 +770,67 @@ def test_focus_uses_only_fields_owned_by_the_open_document(owner_env, server):
     assert result['ownedIn'] == [] and result['ownedOut'] == ['depends_on']
     # la declaracion de otro documento se conserva y se atribuye a su dueño
     assert result['decl'] == [{'owner': f'TaskDoc:{s}', 'field': 'depends_on', 'declared': p}]
+
+
+# ---------------------------------------------------------------- WS13.2: modelo no importable en /source
+
+BAD_MODEL_SRC = '''from __future__ import annotations
+from pydantic import Field
+from sldb.models.structured_doc import StructuredNLDoc
+
+
+class Bitacora(StructuredNLDoc):
+    __semantics__ = {"type": ["log"], "layer": ["notes"]}
+    __template__ = """---
+id: ⸢rev•id⸥
+---
+
+# ⸢rev•title⸥
+
+## Entrada
+
+⸢rev•entry⸥
+""".strip()
+
+    id: str = Field(description="Id.")
+    title: str = Field(description="Titulo.")
+    entry: str = Field(description="Entrada.")
+'''
+PREPARE_BAD = '''
+import sys
+from pathlib import Path
+from sldb.api.model_registry.add_model import add_model
+from sldb.api.documents.create_document import create_document
+root, models = Path(sys.argv[1]), sys.argv[2]
+add_model(root / '.sldb', 'ws132_bitacora:Bitacora', pythonpath=models)
+create_document(root / '.sldb', 'Bitacora', 'bitacoras/b1.md',
+                {'id': 'b1', 'title': 'Bitacora uno', 'entry': 'Texto [[guia.md]] de la entrada.'}, pythonpath=models)
+'''
+
+
+def test_source_of_a_document_whose_model_does_not_import_is_safe_with_cause(committed, tmp_path, server):
+    """El modelo se registra desde un directorio que ni este proceso ni el servidor tienen en
+    su ruta de importacion: no es importable de verdad, junto a TaskDoc sano."""
+    root, task_a, task_b = committed
+    models = tmp_path / 'modelos'
+    models.mkdir()
+    (models / 'ws132_bitacora.py').write_text(BAD_MODEL_SRC, encoding='utf-8')
+    res = subprocess.run([sys.executable, '-c', PREPARE_BAD, str(root), str(models)], capture_output=True, text=True)
+    assert res.returncode == 0, res.stderr
+    assert subprocess.run([sys.executable, '-c', 'import ws132_bitacora'], capture_output=True).returncode != 0
+
+    before = full_state(root)
+    status, src = get(server, src_id('Bitacora:b1'))
+    assert full_state(root) == before
+    assert status == 200 and src['ok'] is True
+    raw = (root / 'bitacoras' / 'b1.md').read_bytes()
+    assert src['text'].encode() == raw and src['revision'] == sha(raw)
+    assert src['identity']['kind'] == 'modeled' and src['identity']['id'] == 'Bitacora:b1'
+    assert src['degraded'] is True and 'ws132_bitacora' in src['degraded_reason']
+    assert 'ws132_bitacora' in src['ir_error'] and src['ir'] is None and src['descriptor'] is None
+    expected = [(s.title, s.level, s.line_start, s.line_end) for s in extract_sections(src['text'])]
+    assert [(s['title'], s['level'], s['line_start'], s['line_end']) for s in src['sections']] == expected
+    assert [l['raw'] for l in src['links']] == ['[[guia.md]]'] and src['links'][0]['status'] == 'ok'
+    # el documento sano de TaskDoc sigue entero en el mismo store
+    status, ok = get(server, src_id(f'TaskDoc:{task_a}'))
+    assert status == 200 and ok['degraded'] is False and ok['ir'] is not None

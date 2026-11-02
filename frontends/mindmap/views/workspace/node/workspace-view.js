@@ -38,6 +38,20 @@ import {
   targetFromSearch,
   targetKey
 } from './reader.mjs';
+import {ExplorerPanel} from '../explorer/explorer-view.js';
+
+// Aviso fijo de las relaciones: salen del indice preparado, no certifican cambios externos.
+// No afirma frescura ni se calcula a partir de stale vacio.
+function RelationsNotice({where}) {
+  return html`
+    <div className="workspace-degraded-banner workspace-relations-notice" role="note" data-testid="relations-notice" data-where=${where}>
+      <strong>Relaciones del índice preparado.</strong>
+      Salen del índice de relaciones preparado antes de esta lectura y no certifican cambios externos.
+      Si sabes que un documento o un contrato cambió después de prepararlo, hay que preparar las relaciones de nuevo
+      fuera de la UI, con la operación pública (rebuild_edges), antes de considerarlas vigentes.
+    </div>
+  `;
+}
 
 function CodeFileView({file, focus, docId, onFocus, range, onRange, onOpenPath}) {
   const [showFull, setShowFull] = useState(false);
@@ -241,10 +255,14 @@ function WorkspaceView() {
   const [ranges, setRanges] = useState({});
   const [anchorNote, setAnchorNote] = useState('');
   const [reloadCount, setReloadCount] = useState(0);
+  const [explorer, setExplorer] = useState(null);
+  const [explorerError, setExplorerError] = useState('');
+  const [explorerLoading, setExplorerLoading] = useState(false);
 
   const sourceGen = useRef(0);
   const nodeGen = useRef(0);
   const catalogGen = useRef(0);
+  const explorerGen = useRef(0);
   // Contador local del lector: se incrementa al navegar a OTRO documento. Cada estado cargado
   // (fuente, nodo, codigo, relaciones) queda ligado a la identidad que lo pidio y a este
   // contador; la respuesta de una generacion anterior se descarta en todos los paneles.
@@ -329,6 +347,31 @@ function WorkspaceView() {
         if (!targetFromSearch(window.location.search)) setLoading(false);
       }
     }
+  };
+
+  // Explorador (WS13.2): solo GET /api/workspace/explorer, sin parametros de ruta del cliente.
+  const loadExplorer = async () => {
+    const token = ++explorerGen.current;
+    setExplorerLoading(true);
+    setExplorerError('');
+    try {
+      const res = await request('/api/workspace/explorer');
+      if (token !== explorerGen.current) return;
+      setExplorer(res);
+    } catch (err) {
+      if (token === explorerGen.current) {
+        setExplorer(null);
+        setExplorerError(err.message || 'Error al cargar el explorador');
+      }
+    } finally {
+      if (token === explorerGen.current) setExplorerLoading(false);
+    }
+  };
+
+  // Refresco explicito: recarga /nodes y /explorer. No relee el documento abierto ("Actualizar" ya lo hace).
+  const refreshCatalogs = () => {
+    loadCatalog();
+    loadExplorer();
   };
 
   // Un solo lector: la fuente, el render y el contexto salen de una unica respuesta de /source.
@@ -418,10 +461,12 @@ function WorkspaceView() {
 
   useEffect(() => {
     loadCatalog();
+    loadExplorer();
     const onPopState = () => syncFromUrl();
     window.addEventListener('popstate', onPopState);
     return () => {
       ++catalogGen.current;
+      ++explorerGen.current;
       ++sourceGen.current;
       ++nodeGen.current;
       window.removeEventListener('popstate', onPopState);
@@ -602,6 +647,17 @@ function WorkspaceView() {
       ` : ''}
 
       <div className="workspace-body">
+        <${ExplorerPanel}
+          explorer=${explorer}
+          catalog=${catalog}
+          error=${explorerError}
+          loading=${explorerLoading}
+          selectedId=${openDocId}
+          selectedPath=${source?.identity?.path || target?.path || ''}
+          onOpenId=${id => handleSelectNode(id)}
+          onOpenPath=${path => openTarget({path})}
+          onRefresh=${refreshCatalogs}
+        />
         <main className="workspace-main" aria-label="Proyección activa">
           ${sourceLoading && activeTab === 'document' ? html`<p role="status" className="workspace-empty" data-testid="panel-loading" data-panel="document">Cargando documento…</p>` : ''}
           ${!loading && !target && !sourceError ? html`<p className="workspace-empty">Selecciona un nodo del catálogo para visualizar sus proyecciones.</p>` : ''}
@@ -720,6 +776,7 @@ function WorkspaceView() {
 
           ${source && activeTab === 'graph' ? html`
             <section className="workspace-graph-pane" aria-label="Proyección de Grafo">
+              ${modeled ? html`<${RelationsNotice} where="graph" />` : ''}
               ${revisionMismatch ? html`<div className="workspace-alert" role="status" data-testid="revision-mismatch">Aviso: la revisión de /node (${formatHash(nodeData.identity.file_revision, 12)}) difiere de la de /source (${formatHash(source.revision, 12)}) para este documento; no se unifican.</div>` : ''}
               ${unmodeled ? html`
                 <div className="workspace-alert" role="status" data-testid="no-graph">
@@ -883,6 +940,7 @@ function WorkspaceView() {
           </section>
 
           <section className="workspace-sidebar-section">
+            ${modeled ? html`<${RelationsNotice} where="context" />` : ''}
             <h3>Relaciones Salientes (${unmodeled ? 'ausentes' : (sourceLoading ? 'cargando' : (notReady ? 'no preparado' : outgoing.length))})</h3>
             ${sourceLoading ? html`<p className="workspace-empty" data-testid="panel-loading" data-panel="relations">Cargando relaciones…</p>` : unmodeled ? html`<p className="workspace-empty" data-testid="rel-absent">${source.context.relations_absent}</p>` : notReady ? html`
               <div className="workspace-alert" role="alert" data-testid="store-no-preparado-rel">

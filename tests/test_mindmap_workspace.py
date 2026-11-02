@@ -424,17 +424,28 @@ def test_workspace_rejected_relation_reported_in_problems(test_env, server):
     assert data_a['context']['problems_report']['store_problems_count'] >= 1
 
 
-def test_workspace_broken_doc_catalog_returns_500(test_env, server):
+def test_workspace_broken_doc_catalog_degrades_that_entry_and_keeps_healthy_ones(test_env, server):
     root, ops, task_a, task_b, task_c = test_env
     # Corromper task_c eliminando sus campos para romper la validación pydantic del store
     broken_doc = root / f'desk/tasks/{task_c}.md'
     broken_doc.write_text('---\nid: invalid\nstatus: active\n---\nSin titulo requerido\n', encoding='utf-8')
 
-    # El catálogo debe fallar explícitamente a 500 informando el error de carga, sin enmascararlo
+    # El catálogo responde 200: la entrada corrupta conserva identidad y ruta, con estado y causa recibida
     status, data = http_get(server, '/api/workspace/nodes')
-    assert status == 500
-    assert data['ok'] is False
-    assert 'error' in data
+    assert status == 200
+    assert data['ok'] is True
+    by_id = {n['id']: n for n in data['nodes']}
+    broken = by_id[f'TaskDoc:{task_c}']
+    assert broken['estado'] == 'modelo_no_carga'
+    assert broken['causa'] and isinstance(broken['causa'], str)
+    assert broken['name'] == task_c and broken['model_name'] == 'TaskDoc'
+    assert broken['path'] == f'desk/tasks/{task_c}.md'
+    # los documentos sanos siguen intactos en el catálogo
+    for healthy in (task_a, task_b):
+        entry = by_id[f'TaskDoc:{healthy}']
+        assert entry['estado'] == 'ok'
+        assert 'causa' not in entry
+        assert entry['title']
 
 
 def test_workspace_broken_and_healthy_docs_coexistence(test_env, server):

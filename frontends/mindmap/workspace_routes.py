@@ -60,6 +60,11 @@ SOURCE_STATE_HTTP = {
     'ambiguous': 409,
 }
 STORE_NO_PREPARADO = 'store_no_preparado'
+MODELO_NO_CARGA = 'modelo_no_carga'
+EXPLORER_DEFAULT_ROOTS = ('desk', 'docs')
+EXPLORER_MAX_FILES = 5000
+EXPLORER_MAX_CANDIDATES = 20000
+EXPLORER_SKIP_PARTS = ('__pycache__', 'node_modules')
 ANCLA_INEXISTENTE = 'ancla_inexistente'
 _EXTERNAL_PREFIXES = ('http://', 'https://')
 _COLON_PREFIX = re.compile(r'^[A-Za-z0-9][A-Za-z0-9._-]*:')
@@ -98,6 +103,12 @@ class WorkspaceRoutes:
         self.store_path = Path(store_path).resolve() if store_path else None
         self.repo_root = Path(repo_root).resolve() if repo_root else (self.store_path.parent if self.store_path else None)
         self.editor_store = editor_store
+        # Lista de permitidos del explorador (H-02): configuracion confiable del operador, leida una vez.
+        raw = os.environ.get('WORKSPACE_EXPLORER_ROOTS')
+        if raw is None:
+            self.explorer_entries = list(EXPLORER_DEFAULT_ROOTS)
+        else:
+            self.explorer_entries = [e.strip() for e in raw.split(',') if e.strip()]
 
     def dispatch(self, handler: BaseHTTPRequestHandler, method: str) -> None:
         if method != 'GET':
@@ -121,6 +132,8 @@ class WorkspaceRoutes:
                 return handler.json_response(self.workspace_node(ident, depth))
             elif route == '/api/workspace/nodes':
                 return handler.json_response(self.workspace_nodes())
+            elif route == '/api/workspace/explorer':
+                return handler.json_response(self.workspace_explorer())
             elif route == '/api/workspace/source':
                 ident = (query.get('id') or [''])[0]
                 path_param = (query.get('path') or [''])[0]
@@ -146,6 +159,15 @@ class WorkspaceRoutes:
     def _indexed(self) -> list[dict[str, str]]:
         from sldb.api.stores.indexed_documents import indexed_documents
         return indexed_documents(self.store_path)
+
+    def _fresh_listing(self) -> None:
+        """Inicio de operacion para un listado: el catalogo ve altas y bajas hechas por otros
+        procesos. `new_operation` y `new_documents_hash_operation` solo invalidan caches en
+        memoria (no escriben, no migran); no se llama open_store, que puede migrar."""
+        from sldb.store.documents_hash import new_operation as new_documents_hash_operation
+        from sldb.store.runtime_cache_signature import new_operation
+        new_operation(self.store_path)
+        new_documents_hash_operation(self.store_path)
 
     def _pythonpath(self) -> str | None:
         return getattr(self.editor_store, 'pythonpath', None) if self.editor_store else None
@@ -179,6 +201,7 @@ class WorkspaceRoutes:
         y nunca se abre."""
         if not self.store_path or not self.store_path.exists() or not self.editor_store:
             raise WorkspaceError('El store no está disponible.', 503)
+        self._fresh_listing()
         try:
             entries = self._indexed()
         except Exception as exc:
@@ -202,11 +225,176 @@ class WorkspaceRoutes:
             try:
                 payload, _ = self._extract_payload(model_name, text, models)
             except Exception as exc:
-                raise WorkspaceError(f'Error al cargar documentos del store: {exc}', 500)
+                # El modelo de un documento autorizado no carga (load_registered_model o
+                # extract_model_data, sin distinguirlos): conserva identidad y ruta, causa = str(exc).
+                node['estado'] = MODELO_NO_CARGA
+                node['causa'] = str(exc)
+                nodes.append(node)
+                continue
             node['title'] = payload.get('title') or payload.get('name') or name
             node['status'] = payload.get('status', '')
             nodes.append(node)
         return {'ok': True, 'nodes': nodes}
+
+    # ------------------------------------------------------------------
+    # WS13.2: explorador (GET /api/workspace/explorer). Solo lectura, sin cache, sin parametros
+    # de ruta del cliente, sin abrir archivos para listar.
+    # ------------------------------------------------------------------
+
+    def _explorer_roots(self) -> tuple[list[str], list[dict[str, str]]]:
+        """(raices validas y existentes, raices invalidas) de la configuracion del operador.
+
+        Invalida: absoluta, con .., con un componente symlink o que no resuelve dentro de la
+        raiz. Valida pero inexistente: se omite sin error."""
+        valid: list[str] = []
+        invalid: list[dict[str, str]] = []
+        for entry in self.explorer_entries:
+            def bad(reason: str, entry: str = entry) -> None:
+                invalid.append({'entry': entry, 'reason': reason})
+            if entry.startswith(('/', '\\')) or Path(entry).is_absolute() or re.match(r'^[A-Za-z]:', entry):
+                bad('ruta_absoluta')
+                continue
+            parts = [p for p in re.split(r'[\\/]+', entry) if p not in ('', '.')]
+            if not parts:
+                bad('vacia')
+                continue
+            if '..' in parts or '\x00' in entry:
+                bad('contiene_..')
+                continue
+            cur = self.repo_root
+            symlink = False
+            for part in parts:
+                cur = cur / part
+                if cur.is_symlink():
+                    symlink = True
+                    break
+            if symlink:
+                bad('symlink')
+                continue
+            if not cur.resolve().is_relative_to(self.repo_root):
+                bad('fuera_del_repo')
+                continue
+            rel = '/'.join(parts)
+            if cur.is_dir() and rel not in valid:
+                valid.append(rel)
+        return valid, invalid
+
+    def _check_ignore_batch(self, rels: list[str]) -> tuple[set[str], str | None]:
+        """Una sola invocacion `git check-ignore --stdin -z` (argv fijo, sin shell, cwd en la raiz).
+
+        Devuelve (ignorados, error). Con error, el llamador falla cerrado. Sin repo git no hay
+        comprobacion: (vacio, None)."""
+        if not rels:
+            return set(), None
+        try:
+            res = subprocess.run(
+                ['git', 'check-ignore', '--stdin', '-z'],
+                input=b'\x00'.join(r.encode('utf-8') for r in rels) + b'\x00',
+                capture_output=True, timeout=30, cwd=str(self.repo_root),
+            )
+        except Exception as exc:
+            return set(), f'error al ejecutar git check-ignore ({exc})'
+        if res.returncode not in (0, 1):
+            return set(), f'verificacion git fallo (codigo {res.returncode})'
+        return {p.decode('utf-8', errors='replace') for p in res.stdout.split(b'\x00') if p}, None
+
+    def _walk_candidates(self, roots: list[str]) -> tuple[list[tuple[str, str]], bool]:
+        """(ruta, ruta resuelta) de los .md que pasan los filtros estaticos; tope duro de candidatos."""
+        out: list[tuple[str, str]] = []
+        seen: set[str] = set()
+        capped = False
+        for root_rel in roots:
+            for dirpath, dirnames, filenames in os.walk(self.repo_root / root_rel, followlinks=False):
+                dirnames[:] = sorted(
+                    d for d in dirnames
+                    if not d.startswith('.') and d not in EXPLORER_SKIP_PARTS and not (Path(dirpath) / d).is_symlink()
+                )
+                for fname in sorted(filenames):
+                    if fname.startswith('.') or not fname.lower().endswith('.md'):
+                        continue
+                    full = Path(dirpath) / fname
+                    rel = full.relative_to(self.repo_root).as_posix()
+                    if rel in seen:
+                        continue
+                    if full.is_symlink():
+                        # Un archivo symlink daria una segunda identidad al mismo archivo (§2.2):
+                        # solo se lista el destino real, por su propia ruta.
+                        continue
+                    seen.add(rel)
+                    out.append((rel, rel))
+                    if len(out) >= EXPLORER_MAX_CANDIDATES:
+                        return out, True
+        return out, capped
+
+    def workspace_explorer(self) -> dict[str, Any]:
+        """Catalogo de documentos modelados (todos, desde los indices) y Markdown no modelado de
+        las rutas permitidas. Sin parametros del cliente, sin cache, sin abrir ningun archivo."""
+        if not self.store_path or not self.store_path.exists():
+            raise WorkspaceError('El store no está disponible.', 503)
+        if not self.repo_root:
+            raise WorkspaceError('No se configuró repo_root.', 503, 'sin_repo_root')
+        self._fresh_listing()
+        try:
+            entries = self._indexed()
+        except Exception as exc:
+            raise WorkspaceError(f'Error al cargar documentos del store: {exc}', 500)
+
+        sin_git = not (self.repo_root / '.git').exists()
+        roots, roots_invalid = self._explorer_roots()
+        candidates, capped = self._walk_candidates(roots)
+
+        # Rutas resueltas de los modelados: un archivo rastreado no se repite como no modelado (§2.2).
+        tracked: set[str] = set()
+        modeled_rels: list[tuple[dict[str, str], str]] = []
+        for e in entries:
+            resolved = (self.repo_root / e['path']).resolve()
+            tracked.add(resolved.as_posix())
+            rel = resolved.relative_to(self.repo_root).as_posix() if resolved.is_relative_to(self.repo_root) else ''
+            modeled_rels.append((e, rel))
+        candidates = [(r, rr) for r, rr in candidates if (self.repo_root / rr).resolve().as_posix() not in tracked]
+
+        ignored_set: set[str] = set()
+        ignore_error: str | None = None
+        if not sin_git:
+            to_check = sorted({rr for _, rr in candidates} | {rel for _, rel in modeled_rels if rel})
+            ignored_set, ignore_error = self._check_ignore_batch(to_check)
+        batch = (ignored_set, ignore_error) if not sin_git else (set(), None)
+
+        modeled = []
+        for e, _ in sorted(modeled_rels, key=lambda item: (item[0]['model'], item[0]['name'])):
+            estado = 'ok'
+            try:
+                self._guard_path(e['path'], markdown_only=False, ignored=batch)
+            except WorkspaceError as exc:
+                estado = exc.estado or 'error_lectura'
+            modeled.append({
+                'id': f"{e['model']}:{e['name']}", 'name': e['name'], 'model_name': e['model'],
+                'title': e['name'], 'path': e['path'], 'estado': estado,
+            })
+
+        unmodeled = []
+        truncado = capped
+        if ignore_error is None:
+            for rel, rr in sorted(candidates, key=lambda c: c[0]):
+                if rr in ignored_set:
+                    continue
+                if len(unmodeled) >= EXPLORER_MAX_FILES:
+                    truncado = True
+                    break
+                unmodeled.append({'path': rel, 'name': rel.rsplit('/', 1)[-1]})
+
+        return {
+            'ok': True,
+            'repo': 'local',
+            'roots': roots,
+            'roots_invalid': roots_invalid,
+            'sin_git': sin_git,
+            'truncado': truncado,
+            'limite': EXPLORER_MAX_FILES,
+            'ignorados_error': ignore_error,
+            'modeled': modeled,
+            'unmodeled': unmodeled,
+        }
 
     def workspace_node(self, ident: str, depth: int = 1) -> dict[str, Any]:
         """Multi-projection data for a selected node."""
@@ -346,8 +534,10 @@ class WorkspaceRoutes:
         except Exception as exc:
             doc.extract_error = str(exc)
             doc.payload, fm_degraded = self._frontmatter_payload(text, name)
-            doc.is_degraded = fm_degraded
-            doc.degraded_reason = f'Fallo al validar documento en disco ({exc})' if fm_degraded else None
+            # El modelo no carga o no valida: el documento esta degradado aunque el frontmatter
+            # rescate un payload. La causa es la recibida (str de la excepcion), sin renombrarla.
+            doc.is_degraded = True
+            doc.degraded_reason = f'Fallo al validar documento en disco ({exc})'
         return doc
 
     def _match_indexed(self, ident: str, entries: list[dict[str, str]]) -> dict[str, str] | None:
@@ -730,7 +920,7 @@ class WorkspaceRoutes:
     # WS13.1: lector de fuente (GET /api/workspace/source). Solo lectura.
     # ------------------------------------------------------------------
 
-    def _guard_path(self, path_str: str, markdown_only: bool = True) -> tuple[Path, str]:
+    def _guard_path(self, path_str: str, markdown_only: bool = True, ignored: tuple[set[str], str | None] | None = None) -> tuple[Path, str]:
         """Guardias generales de lectura de archivo (navegacion §3.3), mismos estados que
         _inspect_file_reference. Devuelve (ruta resuelta, ruta relativa con /) o lanza
         WorkspaceError con `estado`. No abre el archivo. `markdown_only` es el criterio de
@@ -752,7 +942,13 @@ class WorkspaceRoutes:
             fail('protegido', 'Ruta interna de control de versiones .git.')
         if not resolved.exists():
             fail('no_existe', 'El archivo no existe.')
-        is_ignored, ignore_msg = self._is_gitignored(resolved)
+        if ignored is None:
+            is_ignored, ignore_msg = self._is_gitignored(resolved)
+        else:
+            # Resultado de la unica invocacion de check-ignore del listado (fallo cerrado).
+            ignored_set, ignore_error = ignored
+            is_ignored = ignore_error is not None or rel_str in ignored_set
+            ignore_msg = f'Acceso restringido: {ignore_error}' if ignore_error else 'Archivo ignorado por .gitignore.'
         if is_ignored:
             fail('protegido', ignore_msg)
         if resolved.is_dir():
@@ -891,6 +1087,7 @@ class WorkspaceRoutes:
             'ir_error': ir_error,
             'descriptor': descriptor,
             'degraded': bool(modeled and not extracted),
+            'degraded_reason': doc.extract_error if (modeled and not extracted) else None,
             'links': links,
             'context': context,
         }

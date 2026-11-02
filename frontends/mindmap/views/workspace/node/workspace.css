@@ -710,3 +710,123 @@
 .workspace-view pre {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', 'Noto Sans Mono', 'Liberation Mono', monospace;
 }
+
+/* Explorer (WS13.2) */
+.workspace-explorer {
+  width: 280px;
+  min-width: 220px;
+  border-right: 1px solid var(--border);
+  background: var(--surface-panel);
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.workspace-explorer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.workspace-explorer-head h3,
+.workspace-explorer h4 {
+  margin: 0;
+}
+
+.workspace-explorer h4 {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.workspace-explorer-filter {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px solid var(--border-input);
+  border-radius: 4px;
+  background: var(--surface-app);
+  color: var(--text);
+}
+
+.workspace-explorer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 42vh;
+  overflow-y: auto;
+}
+
+.workspace-explorer-list {
+  list-style: none;
+  margin: 0;
+  padding-left: 12px;
+}
+
+.workspace-explorer-section > .workspace-explorer-group > .workspace-explorer-list,
+.workspace-explorer-section > .workspace-explorer-list {
+  padding-left: 0;
+}
+
+.workspace-explorer-group-title {
+  font-weight: 600;
+  margin: 6px 0 2px;
+  color: var(--text);
+}
+
+.workspace-explorer-item,
+.workspace-explorer-folder-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  padding: 3px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.workspace-explorer-item:hover,
+.workspace-explorer-folder-btn:hover {
+  background: var(--surface-muted);
+}
+
+.workspace-explorer-item.is-selected {
+  background: var(--primary-soft);
+  outline: 1px solid var(--primary);
+}
+
+.workspace-explorer-roots {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.workspace-badge-warn {
+  background: var(--warning-soft);
+  color: var(--warning-strong);
+  border: 1px solid var(--warning-border);
+}
+
+.workspace-relations-notice {
+  margin-bottom: 12px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+@media (max-width: 800px) {
+  .workspace-explorer {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    max-height: 280px;
+  }
+}
