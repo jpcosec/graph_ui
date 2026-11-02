@@ -1,0 +1,20 @@
+Missing graph references:
+- missing_declared_target: task:task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia -> desk/tasks/task-workspace-multiproyeccion-documento-grafo-local-codigo-y-contexto.md
+  provenance: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md:line:12:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia -> test_file:tests/test_mindmap_workspace_edit.py
+  provenance: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md:line:21:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia -> test_file:tests/test_mindmap_workspace_edit.py
+  provenance: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md:line:64:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento -> desk/tasks/task-workspace-multiproyeccion-documento-grafo-local-codigo-y-contexto.md
+  provenance: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md:line:12:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento -> test_file:tests/test_mindmap_changes.py
+  provenance: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md:line:21:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento -> test_file:tests/test_mindmap_changes.py
+  provenance: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md:line:64:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+6 missing, 0 informational
