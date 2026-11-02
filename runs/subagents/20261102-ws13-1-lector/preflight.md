@@ -1,0 +1,15 @@
+REFORMULACION (encargo: objetivo, alcance, repo, límites)
+Objetivo: implementar en el host Mindmap de graph_ui un lector de solo lectura que, desde una única lectura de bytes, entregue render y fuente cruda del mismo origen para Markdown modelado y no modelado, contexto real, seguimiento de enlaces y foco compartido donde WS11 defina correspondencia. Alcance: ruta GET /api/workspace/source en WorkspaceRoutes, UI en frontends/mindmap/views/workspace/node/, pruebas unitarias y e2e con stores/desks temporales reales. Repo: /home/jp/proyectos/SLDB_1 (UIs/graph_ui), base a1b2b22 sobre HEAD de main; mandan review-source.md, review-source-2.md, contratos navegacion/operaciones y suplemento-8090. Límites: lista cerrada de archivos; opcionales (sldb_adapter.py, serve.py) solo con motivo en declaracion-archivos.md; sin edición, commit, Board ni rutas de mutación; sin mocks; puertos propios distintos de 8090/8091/8092; /api/workspace/node no cambia ni recibe path.
+
+AMBIGUEDADES
+1. «ambiguous se informa como error visible y no se abre»: no fija estado ni código HTTP; obliga a inventar ese par (el resto sí está tasado).
+2. «Autorizar y contener antes de leer»: «autorizar» no se define en la TaskDoc; si navegacion §5.2 no lo concreta, hay que inventar el paso.
+3. «El payload del descriptor se usa solo para campos y se muestra como tal»: no aclara si se muestra en UI o solo se usa; «como tal» es ambiguo.
+4. Modelado: «los bytes de la revisión declarada» frente a «lee los bytes una sola vez»: no define qué hacer si el archivo no coincide con la revisión declarada.
+5. No modelado: «se usa extract_sections» y «los enlaces se ofrecen como vínculos dentro del render» no definen cómo producir render clicable desde esa misma lectura; el «render propio» deja el mecanismo abierto.
+
+DRY-RUN
+1. Leer review-source*, contratos y suplemento; localizar _inspect_file_reference, build_document_ir_json, load_edge_index, parse_links, split_anchor, doc_status y extract_sections. 2. Línea base pytest. 3. Ruta: id/path excluyentes (400), guardias con estados y códigos, lectura única, sha256, builder solo modelados, extract_sections no modelados, enlaces con doc_status y contención, respuesta con identidad, ruta, revisión, texto y secciones con span. 4. UI: Document con render y fuente literal, enlaces, contexto, foco por procedencia, rango Code con Shift+clic e instancia única; Graph/Code con estado explícito en no modelados. 5. Pruebas: crear tests/test_mindmap_workspace_reader.py y ampliar e2e con store/desk temporales, Playwright y serve temporal; aserciones de inmutabilidad sha256. 6. Errores: 400/403/404/413/415/503 y ambiguous; si esm.sh falla, diagnosticar y usar dependencia local existente. 7. Entregar result-summary.md, validation.log y handoff, sin commit.
+
+FUTURO
+El Tester independiente ejecuta y deja tester-result-summary.md. El Supervisor hace el commit y levanta la demo 8092 sobre copia temporal. WS13.2, WS13.3, WS15.1 y WS16 consumen la forma de respuesta documentada. G_HUMAN_READ y WS16 siguen pendientes.

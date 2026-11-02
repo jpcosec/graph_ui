@@ -18,12 +18,12 @@ Missing graph references:
   provenance: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md:line:64:source-file-reference
   reason: declared target was not found among extracted graph nodes
 - missing_declared_target: task:task-ws13-1-lector-de-documento-fuente-contexto-enlaces-y-foco -> test_file:tests/test_mindmap_workspace_reader.py
-  provenance: desk/tasks/task-ws13-1-lector-de-documento-fuente-contexto-enlaces-y-foco.md:line:27:source-file-reference
+  provenance: desk/tasks/task-ws13-1-lector-de-documento-fuente-contexto-enlaces-y-foco.md:line:28:source-file-reference
   reason: declared target was not found among extracted graph nodes
 - missing_declared_target: task:task-ws13-1-lector-de-documento-fuente-contexto-enlaces-y-foco -> test_file:tests/test_mindmap_workspace_reader.py
-  provenance: desk/tasks/task-ws13-1-lector-de-documento-fuente-contexto-enlaces-y-foco.md:line:60:source-file-reference
+  provenance: desk/tasks/task-ws13-1-lector-de-documento-fuente-contexto-enlaces-y-foco.md:line:61:source-file-reference
   reason: declared target was not found among extracted graph nodes
 - missing_declared_target: task:task-ws13-1-lector-de-documento-fuente-contexto-enlaces-y-foco -> test_file:tests/test_mindmap_workspace_reader.py
-  provenance: desk/tasks/task-ws13-1-lector-de-documento-fuente-contexto-enlaces-y-foco.md:line:86:source-file-reference
+  provenance: desk/tasks/task-ws13-1-lector-de-documento-fuente-contexto-enlaces-y-foco.md:line:94:source-file-reference
   reason: declared target was not found among extracted graph nodes
 9 missing, 0 informational
