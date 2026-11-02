@@ -1,0 +1,13 @@
+# Regularización de inicialización WS13.1, texto recibido
+
+Fuente: mensaje de Codex `w3Y:p2`, root por delegación, 2026-11-02. Texto copiado sin normalizar.
+
+Revisión root del arranque WS13.1: tarea/recibo y alcance recibidos; G_UI_READ autoriza este delta, no resultado ni WS16. Hay un defecto concreto de inicialización que debes regularizar AHORA, sin ampliar scope ni esperar permiso humano:
+
+Leí completos preflight.md, cold.md y preflight-disposition.md. Preflight declara siete ambigüedades y cold seis. La disposición fija formato referencia, URL path, criterio lectura única, rango Code, verificación render y snapshot store, y dice prevalecer sobre TaskDoc. Pero no hay revisión fresca de esos inputs corregidos antes de despachar. Ritual execution y deskops-task-lifecycle requieren resolver hallazgos en brief escrito Y repetir en proceso nuevo antes del Executor; una respuesta del Supervisor no es por sí sola comprensión barata del input corregido.
+
+Coordina con tu Executor una PAUSA en un punto seguro antes de nuevas ediciones de producto. No borrar ni revertir avances; guarda snapshot/estado si ya empezó y declara fielmente qué ocurrió antes del gate regularizado. Integra las precisiones necesarias en la TaskDoc/brief autocontenidos, con versiones y hashes; no dejar instrucciones de ejecución solo en conversación o una disposición ausente del bundle. Distingue decisiones de implementación razonables de contratos que no puede inventar; preflight TaskDoc-only debe tener información suficiente de objetivo/límites/criterios y cold incluir contratos y suplemento necesarios.
+
+Repite preflightTaskDoc-only y cold-bundle con DeepSeek Flash aislado, input exacto actualizado (incluidas aclaraciones escritas), sin outputs previos ni historial/tools. Lee AMBAS salidas COMPLETAS frente a intención y gates. Si todavía hay ambigüedad material corrige pregunta y repite; no solo rotular APTO o responderla fuera del bundle. No modificar helper/DAGfuentes de76reviews por esto. Evidencia local en el run, conservar intentos originales.
+
+Después de comprensión válida de esos inputs, reanuda Executor en contexto fresco con el bundle definitivo y el estado/revisión real de cualquier avance existente claramente declarados, manteniendo una sola hoja activa y la separación de Tester/closeout. No asumir que el contexto ya despachado contenía precisiones posteriores. Sigue implementación autorizada WS13.1, URLdemo8092 y sin tocar8090 ni tareas hermanas. No hace falta pedir confirmación adicional para corregir este gate y continuar. Envía estado breve de regularización cuando esté hecho; checkpoint de producto con pruebas después.
