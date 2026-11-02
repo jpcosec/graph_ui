@@ -1,0 +1,29 @@
+{
+ "argv": [
+  "pi",
+  "--provider",
+  "deepseek",
+  "--model",
+  "deepseek-flash",
+  "--thinking",
+  "low",
+  "--offline",
+  "--no-session",
+  "--no-context-files",
+  "--no-skills",
+  "--no-extensions",
+  "--no-prompt-templates",
+  "--no-tools",
+  "--system-prompt",
+  "Revisor barato aislado de este encargo. Solo texto explícito, sin herramientas ni historial. No ejecutas nada. Responde en español con secciones exactas: REFORMULACION (encargo: objetivo, alcance, repo, límites), AMBIGUEDADES (numeradas, con cita textual y qué obligaría a inventar; \"ninguna\" si no hay), DRY-RUN (cómo lo ejecutaría un ejecutor futuro: archivos, cambios concretos, errores y resultado esperado; tú no ejecutas nada), FUTURO (qué produce otro nodo o decide otra persona). Máximo 450 palabras.",
+  "--print",
+  "@runs/subagents/20261102-ws13-1-lector/cold-input.md"
+ ],
+ "pid": 3243420,
+ "input_sha256": "e39dd64a0ca1c2b25b41e808b772d5128b4bb916276c80deb0d1132f2119d267",
+ "output_sha256": "c6eae5591e290906dc0e2ede57ae3f088155631e5ca46a71cda1eaecf9c09446",
+ "returncode": 0,
+ "fresh_process": true,
+ "stdin": "devnull",
+ "at": "2026-11-02T07:18:25.982588+00:00"
+}
