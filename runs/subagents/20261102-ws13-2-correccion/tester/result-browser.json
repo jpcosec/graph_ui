@@ -1,0 +1,686 @@
+{
+ "p3_modeled": {
+  "items": [
+   {
+    "text": "ActionsSection MODELO_NO_CARGA\nbitacoras/ActionsSection.md",
+    "title_attr": "Bitacora:ActionsSection — Failed to import module 'ws132_bitacora'.",
+    "data-id": "Bitacora:ActionsSection"
+   },
+   {
+    "text": "ActionsSection\ndesk/tasks/task-actionssection.md",
+    "title_attr": "TaskDoc:task-actionssection",
+    "data-id": "TaskDoc:task-actionssection"
+   }
+  ],
+  "Bitacora:ActionsSection": {
+   "ctx-path": "bitacoras/ActionsSection.md",
+   "goal_in_body": [
+    true,
+    false
+   ]
+  },
+  "TaskDoc:task-actionssection": {
+   "ctx-path": "desk/tasks/task-actionssection.md",
+   "goal_in_body": [
+    false,
+    true
+   ]
+  }
+ },
+ "p3_unmodeled": {
+  "n": 1,
+  "desk/notas/Repetido.md": {
+   "visible_text": "Repetido.md\ndesk/notas/Repetido.md",
+   "title_attr": "desk/notas/Repetido.md",
+   "opens_right": true
+  },
+  "docs/Repetido.md": {
+   "visible_text": "Repetido.md\ndocs/Repetido.md",
+   "title_attr": "docs/Repetido.md",
+   "opens_right": true
+  }
+ },
+ "long_path_clip": [
+  {
+   "t": "documento-con-un-nombre-extremadamente-largo-para-probar-el-recorte-visual-del-explorador.md",
+   "scrollW": 187,
+   "clientW": 187,
+   "right": 257,
+   "boxRight": 280,
+   "btnRight": 263,
+   "ellipsis": "clip",
+   "wsp": "normal",
+   "btnOverflow": "hidden",
+   "btnEllipsis": "ellipsis",
+   "cut": false
+  },
+  {
+   "t": "desk/carpeta-muy-larga-numero-1/carpeta-muy-larga-numero-2/carpeta-muy-larga-numero-3/documento-con-un-nombre-extremadamente-largo-para-probar-el-recorte-visual",
+   "scrollW": 1030,
+   "clientW": 187,
+   "right": 257,
+   "boxRight": 280,
+   "btnRight": 263,
+   "ellipsis": "clip",
+   "wsp": "nowrap",
+   "btnOverflow": "hidden",
+   "btnEllipsis": "ellipsis",
+   "cut": true
+  }
+ ],
+ "all_clip_candidates": [
+  {
+   "t": "desk/lifecycle/testing-task_hands_to_closeout.md",
+   "scrollW": 259,
+   "clientW": 235,
+   "right": 257,
+   "boxRight": 280,
+   "btnRight": 263,
+   "ellipsis": "clip",
+   "wsp": "nowrap",
+   "btnOverflow": "hidden",
+   "btnEllipsis": "ellipsis",
+   "cut": true
+  },
+  {
+   "t": "desk/lifecycle/type-task_hands_to_closeout.md",
+   "scrollW": 247,
+   "clientW": 235,
+   "right": 257,
+   "boxRight": 280,
+   "btnRight": 263,
+   "ellipsis": "clip",
+   "wsp": "nowrap",
+   "btnOverflow": "hidden",
+   "btnEllipsis": "ellipsis",
+   "cut": true
+  }
+ ],
+ "p1_browser_steps": {
+  "antes_de_refrescar_no_aparece": true,
+  "alta": true,
+  "untrack": [
+   true,
+   true
+  ],
+  "track": [
+   true,
+   true
+  ],
+  "baja": [
+   true,
+   true,
+   true
+  ]
+ },
+ "p1_browser_pure_refresh": {
+  "writes": [],
+  "files_changed": [],
+  "git_equal": true
+ },
+ "p1_browser_all_server_writes": [],
+ "p1_browser_requests": {
+  "non_get": [],
+  "workspace_reqs": [
+   "/api/graph",
+   "/api/schema",
+   "/api/workspace/explorer",
+   "/api/workspace/node",
+   "/api/workspace/nodes",
+   "/api/workspace/source"
+  ],
+  "pageerrors": [],
+  "n_readers": 1
+ },
+ "p4": {
+  "nodes_retenido": true,
+  "retenida": {
+   "n": 27,
+   "estados": [
+    "modelo_sin_confirmar"
+   ],
+   "alguno_ok": false,
+   "bitacora": "b1 MODELO SIN CONFIRMAR\nbitacoras/b1.md",
+   "badges": [
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 196,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 195,
+     "btnRight": 263,
+     "rectH": 20,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 236,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 256,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 179,
+     "btnRight": 263,
+     "rectH": 20,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 241,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 256,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 216,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 205,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 201,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 242,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 207,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 219,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 225,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 198,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 193,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 219,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 256,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 254,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 216,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 224,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 232,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 179,
+     "btnRight": 263,
+     "rectH": 20,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 193,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 200,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 182,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 224,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    }
+   ],
+   "texto_explorador_con_carg": [
+    "ActionsSection MODELO SIN CONFIRMAR",
+    "b1 MODELO SIN CONFIRMAR",
+    "closeout-task_completes MODELO SIN CONFIRMAR",
+    "execution-task_activates MODELO SIN CONFIRMAR",
+    "testing-task_hands_to_closeout MODELO SIN CONFIRMAR",
+    "reltype-applies_to_source MODELO SIN CONFIRMAR"
+   ],
+   "title_attr_task": "TaskDoc:task-actionssection — la carga del modelo no se ha confirmado",
+   "alerts": []
+  },
+  "resuelto": {
+   "status_nodes": 200,
+   "estados": {
+    "Bitacora:ActionsSection": "modelo_no_carga",
+    "Bitacora:b1": "modelo_no_carga"
+   },
+   "n_ok": 25,
+   "n_sin_confirmar": 0,
+   "bitacora": "b1 MODELO_NO_CARGA\nbitacoras/b1.md",
+   "bit_title_attr": "Bitacora:b1 — Failed to import module 'ws132_bitacora'.",
+   "alerts": []
+  },
+  "falla_nodes": {
+   "status_real": 503,
+   "body": "{\"ok\": false, \"error\": \"El store no está disponible.\"}",
+   "alerts": [
+    "1 modelo(s) del store no se pueden importar: Bitacora (ws132_bitacora:Bitacora): Failed to import module 'ws132_bitacora'. (No module named 'ws132_bitacora'). Si viven fuera del entorno, arranca graph-ui con --pythonpath <dir> (o SLDB_PYTHONPATH).\nRecargar SLDB\n×",
+    "Error de catálogo: El store no está disponible."
+   ],
+   "estados": [
+    "modelo_sin_confirmar"
+   ],
+   "badges": [
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 196,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 195,
+     "btnRight": 263,
+     "rectH": 20,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 236,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 256,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 179,
+     "btnRight": 263,
+     "rectH": 20,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 241,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 256,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 216,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 205,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 201,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 242,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 207,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 219,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 225,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 198,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 193,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 219,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 256,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 254,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 216,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 224,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 232,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 179,
+     "btnRight": 263,
+     "rectH": 20,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 193,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 200,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 182,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    },
+    {
+     "text": "MODELO SIN CONFIRMAR",
+     "scrollW": 0,
+     "clientW": 0,
+     "rectRight": 224,
+     "btnRight": 263,
+     "rectH": 36,
+     "cut": false
+    }
+   ],
+   "bitacora": "b1 MODELO SIN CONFIRMAR\nbitacoras/b1.md"
+  },
+  "falla_tras_refrescar_sin_store": {
+   "alerts": [
+    "1 modelo(s) del store no se pueden importar: Bitacora (ws132_bitacora:Bitacora): Failed to import module 'ws132_bitacora'. (No module named 'ws132_bitacora'). Si viven fuera del entorno, arranca graph-ui con --pythonpath <dir> (o SLDB_PYTHONPATH).\nRecargar SLDB\n×",
+    "Error de catálogo: El store no está disponible.",
+    "Error del explorador: El store no está disponible."
+   ],
+   "estados": "sin items"
+  },
+  "recuperado_con_store": {
+   "alerts": [
+    "1 modelo(s) del store no se pueden importar: Bitacora (ws132_bitacora:Bitacora): Failed to import module 'ws132_bitacora'. (No module named 'ws132_bitacora'). Si viven fuera del entorno, arranca graph-ui con --pythonpath <dir> (o SLDB_PYTHONPATH).\nRecargar SLDB\n×"
+   ],
+   "bitacora_estado": "modelo_no_carga",
+   "n_sin_confirmar": 0
+  },
+  "pageerrors": []
+ }
+}

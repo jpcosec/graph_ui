@@ -1,0 +1,27 @@
+{
+ "sldb_creado_por_arranque_de_serve": true,
+ "responses": {
+  "/api/workspace/explorer": [
+   503,
+   "El store no está disponible.",
+   []
+  ],
+  "/api/workspace/nodes": [
+   503,
+   "El store no está disponible.",
+   []
+  ],
+  "/api/workspace/node?id=X:y": [
+   503,
+   "El store no está disponible.",
+   []
+  ],
+  "/api/workspace/source?path=desk/a.md": [
+   503,
+   "El store no está disponible.",
+   []
+  ]
+ },
+ "diff": [],
+ "sldb_existe_despues": false
+}

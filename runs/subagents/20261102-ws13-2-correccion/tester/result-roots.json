@@ -1,0 +1,902 @@
+{
+ "cases": [
+  {
+   "git": true,
+   "entry": ".git",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": ".git",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": ".hidden",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": ".hidden",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": "__pycache__",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "__pycache__",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": "node_modules",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "node_modules",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": ".venv",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": ".venv",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": "desk/.hidden",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk/.hidden",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": "desk/__pycache__",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk/__pycache__",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": "desk/node_modules",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk/node_modules",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": "docs/.cache",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "docs/.cache",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": "docs/node_modules/pkg",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "docs/node_modules/pkg",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": "desk/notas/.x/y",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk/notas/.x/y",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": "desk/.hidden/sub",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk/.hidden/sub",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": ".git/",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": ".git/",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": "desk/.hidden/",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk/.hidden/",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": "./desk/.hidden",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "./desk/.hidden",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": "desk//.hidden",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk//.hidden",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": ".GIT",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": ".GIT",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": "desk/..hidden",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk/..hidden",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": ".hidden/sub",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": ".hidden/sub",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": "node_modules/",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "node_modules/",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": true,
+   "entry": ".git/refs",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": ".git/refs",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": ".hidden",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": ".hidden",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": "__pycache__",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "__pycache__",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": "node_modules",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "node_modules",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": ".venv",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": ".venv",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": "desk/.hidden",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk/.hidden",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": "desk/__pycache__",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk/__pycache__",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": "desk/node_modules",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk/node_modules",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": "docs/.cache",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "docs/.cache",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": "docs/node_modules/pkg",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "docs/node_modules/pkg",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": "desk/notas/.x/y",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk/notas/.x/y",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": "desk/.hidden/sub",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk/.hidden/sub",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": "desk/.hidden/",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk/.hidden/",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": "./desk/.hidden",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "./desk/.hidden",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": "desk//.hidden",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk//.hidden",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": "desk/..hidden",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "desk/..hidden",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": ".hidden/sub",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": ".hidden/sub",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": "node_modules/",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": "node_modules/",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  },
+  {
+   "git": false,
+   "entry": ".git",
+   "code": 200,
+   "roots": [],
+   "roots_invalid": [
+    {
+     "entry": ".git",
+     "reason": "componente_prohibido"
+    }
+   ],
+   "unmodeled_n": 0,
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "ok": true
+  }
+ ],
+ "mixed": {
+  "True": {
+   "code": 200,
+   "roots": [
+    "desk/notas",
+    "docs",
+    "desk/mis notas",
+    "docs/ñandú",
+    "desk/v1.2 notas"
+   ],
+   "invalid": [
+    ".git",
+    ".hidden",
+    ".venv",
+    "__pycache__",
+    "desk/.hidden",
+    "desk/.hidden/sub",
+    "desk/__pycache__",
+    "desk/node_modules",
+    "desk/notas/.x/y",
+    "docs/.cache",
+    "docs/node_modules/pkg",
+    "node_modules"
+   ],
+   "invalid_expected": [
+    ".git",
+    ".hidden",
+    ".venv",
+    "__pycache__",
+    "desk/.hidden",
+    "desk/.hidden/sub",
+    "desk/__pycache__",
+    "desk/node_modules",
+    "desk/notas/.x/y",
+    "docs/.cache",
+    "docs/node_modules/pkg",
+    "node_modules"
+   ],
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "paths": [
+    "desk/mis notas/ñandú día.md",
+    "desk/notas/uno.md",
+    "desk/v1.2 notas/a.md",
+    "docs/a.b/c.md",
+    "docs/faq.md",
+    "docs/ñandú/guía rápida.md"
+   ]
+  },
+  "False": {
+   "code": 200,
+   "roots": [
+    "desk/notas",
+    "docs",
+    "desk/mis notas",
+    "docs/ñandú",
+    "desk/v1.2 notas"
+   ],
+   "invalid": [
+    ".hidden",
+    ".venv",
+    "__pycache__",
+    "desk/.hidden",
+    "desk/.hidden/sub",
+    "desk/__pycache__",
+    "desk/node_modules",
+    "desk/notas/.x/y",
+    "docs/.cache",
+    "docs/node_modules/pkg",
+    "node_modules"
+   ],
+   "invalid_expected": [
+    ".hidden",
+    ".venv",
+    "__pycache__",
+    "desk/.hidden",
+    "desk/.hidden/sub",
+    "desk/__pycache__",
+    "desk/node_modules",
+    "desk/notas/.x/y",
+    "docs/.cache",
+    "docs/node_modules/pkg",
+    "node_modules"
+   ],
+   "leak": [],
+   "read_sentinel": [],
+   "enum_forbidden": [],
+   "writes": [],
+   "paths": [
+    "desk/mis notas/ñandú día.md",
+    "desk/notas/uno.md",
+    "desk/v1.2 notas/a.md",
+    "docs/a.b/c.md",
+    "docs/faq.md",
+    "docs/ñandú/guía rápida.md"
+   ]
+  }
+ },
+ "legit": {
+  "True": {
+   "roots": [
+    "desk/mis notas",
+    "docs/ñandú",
+    "desk/v1.2 notas",
+    "docs/a.b",
+    "desk/notas.d",
+    "desk/node_modules_docs",
+    "desk/my__pycache__"
+   ],
+   "invalid": [],
+   "paths": [
+    "desk/mis notas/ñandú día.md",
+    "desk/my__pycache__/g.md",
+    "desk/node_modules_docs/f.md",
+    "desk/notas.d/e.md",
+    "desk/v1.2 notas/a.md",
+    "docs/a.b/c.md",
+    "docs/ñandú/guía rápida.md"
+   ],
+   "leak": []
+  },
+  "True_desk_docs_leak": [],
+  "True_root_dot": {
+   "roots": [],
+   "invalid": [
+    {
+     "entry": ".",
+     "reason": "vacia"
+    }
+   ],
+   "leak": [],
+   "n": 0,
+   "read_sentinel": []
+  },
+  "False": {
+   "roots": [
+    "desk/mis notas",
+    "docs/ñandú",
+    "desk/v1.2 notas",
+    "docs/a.b",
+    "desk/notas.d",
+    "desk/node_modules_docs",
+    "desk/my__pycache__"
+   ],
+   "invalid": [],
+   "paths": [
+    "desk/mis notas/ñandú día.md",
+    "desk/my__pycache__/g.md",
+    "desk/node_modules_docs/f.md",
+    "desk/notas.d/e.md",
+    "desk/v1.2 notas/a.md",
+    "docs/a.b/c.md",
+    "docs/ñandú/guía rápida.md"
+   ],
+   "leak": []
+  },
+  "False_desk_docs_leak": [],
+  "False_root_dot": {
+   "roots": [],
+   "invalid": [
+    {
+     "entry": ".",
+     "reason": "vacia"
+    }
+   ],
+   "leak": [],
+   "n": 0,
+   "read_sentinel": []
+  }
+ },
+ "client": {
+  "True": {
+   "roots": [
+    "desk/notas"
+   ],
+   "paths": [
+    "desk/notas/uno.md"
+   ],
+   "leak": []
+  },
+  "False": {
+   "roots": [
+    "desk/notas"
+   ],
+   "paths": [
+    "desk/notas/uno.md"
+   ],
+   "leak": []
+  }
+ },
+ "summary": {
+  "cases": 39,
+  "failed": []
+ }
+}

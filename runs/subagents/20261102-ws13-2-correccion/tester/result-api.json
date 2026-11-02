@@ -1,0 +1,521 @@
+{
+ "calibration": {
+  "detected": {
+   "open_w": [
+    "open_write"
+   ],
+   "open_a": [
+    "open_write"
+   ],
+   "open_r+": [
+    "open_write"
+   ],
+   "open_x": [
+    "open_write"
+   ],
+   "os.open_WRONLY_CREAT": [
+    "open_write"
+   ],
+   "os.open_RDWR": [
+    "open_write"
+   ],
+   "os.open_O_TRUNC_RDONLY": [
+    "open_write"
+   ],
+   "os.open_O_APPEND": [
+    "open_write"
+   ],
+   "Path.write_text": [
+    "open_write"
+   ],
+   "Path.write_bytes": [
+    "open_write"
+   ],
+   "Path.touch": [
+    "open_write",
+    "os.utime"
+   ],
+   "write_same_content_restore": [
+    "open_write"
+   ],
+   "write_same_content_only": [
+    "open_write"
+   ],
+   "io.open_w": [
+    "open_write"
+   ],
+   "tempfile.NamedTemporaryFile": [
+    "open_write",
+    "os.remove"
+   ],
+   "os.fdopen_via_fd_w": [
+    "open_write"
+   ],
+   "os.rename": [
+    "os.rename"
+   ],
+   "os.replace": [
+    "os.rename"
+   ],
+   "os.remove": [
+    "os.remove"
+   ],
+   "os.unlink": [
+    "os.remove"
+   ],
+   "Path.unlink": [
+    "os.remove"
+   ],
+   "os.mkdir": [
+    "os.mkdir"
+   ],
+   "os.makedirs": [
+    "os.mkdir"
+   ],
+   "os.rmdir": [
+    "os.rmdir"
+   ],
+   "os.removedirs": [
+    "os.rmdir"
+   ],
+   "os.link": [
+    "os.link"
+   ],
+   "os.symlink": [
+    "os.symlink"
+   ],
+   "os.unlink_symlink": [
+    "os.remove"
+   ],
+   "os.truncate_path": [
+    "os.truncate"
+   ],
+   "os.ftruncate_fd": [
+    "open_write",
+    "os.truncate"
+   ],
+   "os.chmod": [
+    "os.chmod"
+   ],
+   "os.fchmod_fd": [
+    "os.chmod"
+   ],
+   "os.utime_path": [
+    "os.utime"
+   ],
+   "os.utime_fd": [
+    "os.utime"
+   ],
+   "os.chown_self": [
+    "os.chown"
+   ],
+   "Path.chmod": [
+    "os.chmod"
+   ],
+   "shutil.copyfile": [
+    "open_write",
+    "shutil.copyfile"
+   ],
+   "shutil.copy": [
+    "open_write",
+    "os.chmod",
+    "shutil.copyfile",
+    "shutil.copymode"
+   ],
+   "shutil.copy2": [
+    "open_write",
+    "os.chmod",
+    "os.utime",
+    "shutil.copyfile",
+    "shutil.copystat"
+   ],
+   "shutil.copytree": [
+    "open_write",
+    "os.chmod",
+    "os.mkdir",
+    "os.utime",
+    "shutil.copyfile",
+    "shutil.copystat",
+    "shutil.copytree"
+   ],
+   "shutil.move": [
+    "os.rename",
+    "shutil.move"
+   ],
+   "shutil.rmtree": [
+    "os.remove",
+    "os.rmdir",
+    "shutil.rmtree"
+   ],
+   "shutil.make_archive": [
+    "open_write",
+    "shutil.make_archive"
+   ],
+   "GAP_write_through_open_fd": [
+    "open_write"
+   ],
+   "GAP_os.write_on_prev_fd": [
+    "open_write"
+   ],
+   "GAP_mmap_write": [
+    "open_write"
+   ]
+  },
+  "NOT_detected": [
+   "GAP_sqlite3_write",
+   "GAP_subprocess_touch",
+   "GAP_rename_via_subprocess_mv"
+  ],
+  "control_error": []
+ },
+ "canonical_gets": {
+  "/api/workspace/explorer#0": {
+   "code": 200,
+   "writes": [],
+   "pipe_writes": 1
+  },
+  "/api/workspace/explorer#1": {
+   "code": 200,
+   "writes": [],
+   "pipe_writes": 1
+  },
+  "/api/workspace/nodes#0": {
+   "code": 200,
+   "writes": [],
+   "pipe_writes": 0
+  },
+  "/api/workspace/nodes#1": {
+   "code": 200,
+   "writes": [],
+   "pipe_writes": 0
+  },
+  "/api/workspace/node?id=TaskDoc%3Atask-tarea-sana#0": {
+   "code": 200,
+   "writes": [],
+   "pipe_writes": 0
+  },
+  "/api/workspace/node?id=TaskDoc%3Atask-tarea-sana#1": {
+   "code": 200,
+   "writes": [],
+   "pipe_writes": 0
+  },
+  "/api/workspace/node?id=TaskDoc%3Atask-tarea-sana&depth=2#0": {
+   "code": 200,
+   "writes": [],
+   "pipe_writes": 0
+  },
+  "/api/workspace/node?id=TaskDoc%3Atask-tarea-sana&depth=2#1": {
+   "code": 200,
+   "writes": [],
+   "pipe_writes": 0
+  },
+  "/api/workspace/source?id=TaskDoc%3Atask-tarea-sana#0": {
+   "code": 200,
+   "writes": [],
+   "pipe_writes": 0
+  },
+  "/api/workspace/source?id=TaskDoc%3Atask-tarea-sana#1": {
+   "code": 200,
+   "writes": [],
+   "pipe_writes": 0
+  },
+  "/api/workspace/source?path=desk/notas/uno.md#0": {
+   "code": 200,
+   "writes": [],
+   "pipe_writes": 0
+  },
+  "/api/workspace/source?path=desk/notas/uno.md#1": {
+   "code": 200,
+   "writes": [],
+   "pipe_writes": 0
+  },
+  "/api/workspace/source?path=docs/faq.md#0": {
+   "code": 200,
+   "writes": [],
+   "pipe_writes": 0
+  },
+  "/api/workspace/source?path=docs/faq.md#1": {
+   "code": 200,
+   "writes": [],
+   "pipe_writes": 0
+  }
+ },
+ "canonical_diff": {
+  "files_changed": [],
+  "git_equal": true,
+  "head": "0289590de212e94fa1d2c8d4bb7486f63b79a27e"
+ },
+ "canonical_total_writes_in_window": 0,
+ "cross_process": {
+  "alta": [
+   true,
+   true,
+   0
+  ],
+  "untrack": [
+   true,
+   true,
+   true,
+   0
+  ],
+  "track": [
+   true,
+   true,
+   0
+  ],
+  "baja": [
+   true,
+   true,
+   true,
+   true,
+   0
+  ]
+ },
+ "cross_process_pure_gets_diff": {
+  "files_changed": [],
+  "git_equal": true
+ },
+ "explorer_sample": {
+  "roots": [
+   "desk",
+   "docs"
+  ],
+  "roots_invalid": [],
+  "modeled": [
+   {
+    "id": "Bitacora:b1",
+    "name": "b1",
+    "model_name": "Bitacora",
+    "title": "b1",
+    "path": "bitacoras/b1.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationDoc:closeout-task_completes",
+    "name": "closeout-task_completes",
+    "model_name": "RelationDoc",
+    "title": "closeout-task_completes",
+    "path": "desk/lifecycle/closeout-task_completes.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationDoc:execution-task_activates",
+    "name": "execution-task_activates",
+    "model_name": "RelationDoc",
+    "title": "execution-task_activates",
+    "path": "desk/lifecycle/execution-task_activates.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationDoc:testing-task_hands_to_closeout",
+    "name": "testing-task_hands_to_closeout",
+    "model_name": "RelationDoc",
+    "title": "testing-task_hands_to_closeout",
+    "path": "desk/lifecycle/testing-task_hands_to_closeout.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-applies_to_source",
+    "name": "reltype-applies_to_source",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-applies_to_source",
+    "path": "sldb/relation_types/applies_to_source.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-applies_to_target",
+    "name": "reltype-applies_to_target",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-applies_to_target",
+    "path": "sldb/relation_types/applies_to_target.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-composes",
+    "name": "reltype-composes",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-composes",
+    "path": "sldb/relation_types/composes.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-contains",
+    "name": "reltype-contains",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-contains",
+    "path": "sldb/relation_types/contains.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-extends",
+    "name": "reltype-extends",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-extends",
+    "path": "sldb/relation_types/extends.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-has_document",
+    "name": "reltype-has_document",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-has_document",
+    "path": "sldb/relation_types/has_document.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-has_field",
+    "name": "reltype-has_field",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-has_field",
+    "path": "sldb/relation_types/has_field.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-has_model",
+    "name": "reltype-has_model",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-has_model",
+    "path": "sldb/relation_types/has_model.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-has_section",
+    "name": "reltype-has_section",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-has_section",
+    "path": "sldb/relation_types/has_section.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-links_to",
+    "name": "reltype-links_to",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-links_to",
+    "path": "sldb/relation_types/links_to.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-names",
+    "name": "reltype-names",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-names",
+    "path": "sldb/relation_types/names.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-references",
+    "name": "reltype-references",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-references",
+    "path": "sldb/relation_types/references.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-semantic_equivalent",
+    "name": "reltype-semantic_equivalent",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-semantic_equivalent",
+    "path": "sldb/relation_types/semantic_equivalent.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-semantic_parent",
+    "name": "reltype-semantic_parent",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-semantic_parent",
+    "path": "sldb/relation_types/semantic_parent.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:reltype-tagged_as",
+    "name": "reltype-tagged_as",
+    "model_name": "RelationTypeDoc",
+    "title": "reltype-tagged_as",
+    "path": "sldb/relation_types/tagged_as.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:type-task_activates",
+    "name": "type-task_activates",
+    "model_name": "RelationTypeDoc",
+    "title": "type-task_activates",
+    "path": "desk/lifecycle/type-task_activates.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:type-task_completes",
+    "name": "type-task_completes",
+    "model_name": "RelationTypeDoc",
+    "title": "type-task_completes",
+    "path": "desk/lifecycle/type-task_completes.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RelationTypeDoc:type-task_hands_to_closeout",
+    "name": "type-task_hands_to_closeout",
+    "model_name": "RelationTypeDoc",
+    "title": "type-task_hands_to_closeout",
+    "path": "desk/lifecycle/type-task_hands_to_closeout.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RitualDoc:ritual-closeout",
+    "name": "ritual-closeout",
+    "model_name": "RitualDoc",
+    "title": "ritual-closeout",
+    "path": "desk/rituals/closeout.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RitualDoc:ritual-execution",
+    "name": "ritual-execution",
+    "model_name": "RitualDoc",
+    "title": "ritual-execution",
+    "path": "desk/rituals/execution.md",
+    "estado": "ok"
+   },
+   {
+    "id": "RitualDoc:ritual-testing",
+    "name": "ritual-testing",
+    "model_name": "RitualDoc",
+    "title": "ritual-testing",
+    "path": "desk/rituals/testing.md",
+    "estado": "ok"
+   },
+   {
+    "id": "TaskDoc:task-tarea-sana",
+    "name": "task-tarea-sana",
+    "model_name": "TaskDoc",
+    "title": "task-tarea-sana",
+    "path": "desk/tasks/task-tarea-sana.md",
+    "estado": "ok"
+   }
+  ]
+ },
+ "store_missing": {
+  "responses": {
+   "/api/workspace/explorer": [
+    200,
+    null,
+    []
+   ],
+   "/api/workspace/nodes": [
+    200,
+    null,
+    []
+   ],
+   "/api/workspace/node?id=X:y": [
+    404,
+    "Documento no encontrado: X:y",
+    []
+   ],
+   "/api/workspace/source?path=desk/a.md": [
+    200,
+    null,
+    []
+   ]
+  },
+  "diff": [],
+  "sldb_exists": true
+ }
+}

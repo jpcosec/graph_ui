@@ -1,0 +1,19 @@
+== python -m pytest -q tests/test_mindmap_workspace_explorer.py
+........................................                                 [100%]
+40 passed in 133.66s (0:02:13)
+== python -m pytest -q tests/e2e_mindmap_workspace.py
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+== node --test tests/mindmap-workspace-explorer.test.mjs
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 86.771555
+== python -m pytest -q tests/test_mindmap_workspace_reader.py
+...............................                                          [100%]
+31 passed in 124.31s (0:02:04)
+== python -m pytest -q tests/test_mindmap_workspace.py
+...............                                                          [100%]
+15 passed in 54.70s
