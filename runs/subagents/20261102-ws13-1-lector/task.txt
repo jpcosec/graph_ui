@@ -1,0 +1,13 @@
+Task: task-ws13-1-lector-de-documento-fuente-contexto-enlaces-y-foco
+Title: WS13.1: lector de documento, fuente, contexto, enlaces y foco
+Status: draft
+Current node: ritual-execution
+Task type: code
+From drawer: desk/drawer/tasks/task-ws13-1-lector-documento-contexto-enlaces-foco.md
+Closeout evidence: tests, commit
+Effective pills:
+- desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md
+Effective atoms:
+- atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node
+Lifecycle gates:
+- task_activates -> ritual-testing: open [(none)]

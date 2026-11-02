@@ -1,0 +1,97 @@
+FILE:desk/tasks/task-ws13-1-lector-de-documento-fuente-contexto-enlaces-y-foco.md
+---
+id: task-ws13-1-lector-de-documento-fuente-contexto-enlaces-y-foco
+status: draft
+summary: ''
+tags:
+- workspace:desk
+- artifact:task
+current_node: ritual-execution
+history: []
+references:
+- runs/subagents/20261102-ws13-1-lector/review-source.md
+- runs/subagents/20261102-ws13-1-lector/suplemento-8090.md
+- runs/subagents/workspace-documental-acceptance/ws13-1-g-ui-read.md
+- ../../deskops/desk/drawer/plans/workspace-documental/contratos/navegacion.md
+- ../../deskops/desk/drawer/plans/workspace-documental/contratos/navegacion-aprobacion.md
+- ../../deskops/desk/drawer/plans/workspace-documental/contratos/operaciones.md
+- ../../deskops/desk/drawer/plans/workspace-documental/contratos/operaciones-aprobacion.md
+- ../../deskops/desk/drawer/plans/workspace-documental/dag.yaml
+- ../../deskops/desk/drawer/plans/workspace-documental/borradores/vistas.md
+- ../../deskops/desk/drawer/plans/workspace-documental/borradores/user-flows.md
+depends_on: []
+pills:
+- desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md
+files:
+- frontends/mindmap/workspace_routes.py
+- frontends/mindmap/views/workspace/node/
+- tests/test_mindmap_workspace_reader.py
+- tests/e2e_mindmap_workspace.py
+task_type: code
+inherits_from: []
+inherit_acceptance_context: false
+atoms:
+- atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node
+from_drawer: desk/drawer/tasks/task-ws13-1-lector-documento-contexto-enlaces-foco.md
+closeout_evidence:
+- tests
+- commit
+---
+
+# WS13.1: lector de documento, fuente, contexto, enlaces y foco
+
+## Rationale
+
+_Explain why this task exists or the business driver behind it._
+
+El usuario pidió implementar aprovechando lo reutilizable de 8090. El workspace de Mindmap no entrega fuente propia, no lee Markdown no modelado, no sigue enlaces y no tiene foco interno.
+
+## Goal
+
+_Describe the concrete result this task must produce._
+
+Entregar en el host Mindmap un lector de solo lectura con render y fuente cruda íntegra del mismo origen para Markdown modelado y no modelado, contexto real, seguimiento de enlaces y foco compartido donde WS11 defina correspondencia.
+
+## Scope
+
+_State what is in scope and what is out of scope._
+
+Autoridad: runs/subagents/20261102-ws13-1-lector/review-source.md. Nodo WS13.1 de ../../deskops/desk/drawer/plans/workspace-documental/dag.yaml revisión 10. Contrato fuente: contratos/navegacion.md sha256 6a4f8518f3d69de6118550b3077921db4bbb46bc9123c26980c6c8fc5f62361e con su nota de aprobación. contratos/operaciones.md sha256 754546d60c5ec47b369c8a8b3d47124615659481403939855bb1ff76b4ce9f39 solo como límite: nada de escritura.
+
+Archivos del delta, lista cerrada: frontends/mindmap/workspace_routes.py; frontends/mindmap/views/workspace/node/ (workspace-view.js, workspace.mjs, workspace.css y módulos nuevos ahí); tests/test_mindmap_workspace_reader.py; tests/e2e_mindmap_workspace.py. Solo si hace falta y se declara antes de editar: frontends/mindmap/sldb_adapter.py para una lectura única, frontends/mindmap/serve.py para despachar la ruta.
+
+Resultado:
+1. Fuente propia (H-01): ruta de lectura en WorkspaceRoutes que entrega el texto íntegro del archivo propio, modelado o no, con las guardias generales de navegacion §3.3. No modelado: identidad (repo, ruta) §2.2, solo .md, modelo opcional; si el store lo rastrea, Model:name prevalece.
+2. Mismo origen §4: render y fuente salen de una sola lectura de bytes o llevan la misma revisión; la respuesta lo hace observable.
+3. Render de lectura de Markdown no modelado sin inventar modelo: C5b. Reutiliza extract_sections o el builder solo si se verifica; si no, render propio de la misma lectura.
+4. Contexto: identidad, ruta de origen y relaciones reales, para modelado y no modelado.
+5. Enlaces (H-06) en el desk propio con el tratamiento obligatorio de navegacion §5.2: sin recover_links; referencia rota visible con origen y causa. Entre desks es WS41: no se implementa.
+6. Foco interno §6.1: sección y span de la misma fuente; campo; referencia de archivo por documento, campo, posición y valor (H-03, preservar antes de concatenar); arista schema con todas sus procedencias (H-03b). Cada representación muestra solo la correspondencia que existe. C7, C11b, C12 y C14b no se implementan. Rango local de Code C14a dentro del delta. Alternar Document, Graph y Code conserva foco y origen en la misma instancia.
+7. Apertura sin conocer ID: catálogo actual para modelados; no modelado desde enlaces, referencias y URL. Explorador completo es WS13.2 y pestañas o split WS13.3: transferencia explícita en result-summary.md.
+8. Sin mutación en lectura, navegacion §5.4 y H-14: la lectura de este delta no reconstruye ni migra; los stores se preparan fuera del request y la prueba comprueba que el store no cambió.
+
+Fuera de alcance: edición, commit, transición de workflow, rutas de mutación, shell/api.js (WS15.1), frontends/workspace/ (referencia, no destino), Changes, Integrity, Agents, explorador, pestañas, split, multidesk WS41, WS19, WS45-48, Scion, Kimun, push, 8090 y su store. Referencia reutilizable y límites: suplemento-8090.md.
+
+Si una condición no cabe en el alcance o requiere otro productor: bloqueo concreto en result-summary.md con el avance hecho, sin inventar comportamiento. El Executor no cierra la tarea ni avanza el Board. Sin preguntar al solicitante.
+
+## Implementation Path
+
+_Outline the expected implementation route or affected surface._
+
+1. Recuperar estado y leer el bundle. 2. Línea base de pruebas. 3. Implementar ruta de lectura y foco. 4. Implementar UI en views/workspace/node. 5. Pruebas con store y desk temporales reales. 6. result-summary.md, validation.log, handoff al Tester.
+
+## Validation
+
+_List the checks required before this task can close._
+
+- python -m pytest -q tests/test_mindmap_workspace_reader.py
+- python -m pytest -q tests/test_mindmap_workspace.py tests/test_parallel_workspace_serve.py
+- python tests/e2e_mindmap_workspace.py
+- Tester independiente con ejecución deja runs/subagents/20261102-ws13-1-lector/tester-result-summary.md
+
+## Done When
+
+_Name the observable condition that makes the task complete._
+
+Acceptance: la del nodo WS13.1 sobre stores temporales reales; Markdown no modelado con render y fuente íntegra del mismo origen; contexto real; enlaces y alternancia preservan origen y foco sin abrir copia; Tester independiente con ejecución verifica comportamiento y DOM o píxeles en navegador real; pytest del repo comparado con la línea base; G_HUMAN_READ y WS16 siguen pendientes.
+

@@ -1,0 +1,18 @@
+## master...origin/master [ahead 4]
+?? desk/inbox/20261020-113025-suggestion-sldb-cambia-la-salida-las-alertas-dejan-de-hacer-fallar-y-nunca-son-silenciosas.md
+?? desk/inbox/20261020-122513-suggestion-contrato-de-lectura-paquetes-uml-en-diagramas-de-clase-spec2viz-84686c3.md
+?? desk/inbox/20261020-135650-suggestion-sldb-en-main-procedencia-por-documento-pol-tica-por-store-y-alertas-que-no-fallan.md
+?? runs/subagents/20261102-ws13-1-lector/board.txt
+?? runs/subagents/20261102-ws13-1-lector/cold-input.md
+?? runs/subagents/20261102-ws13-1-lector/cold-receipt.json
+?? runs/subagents/20261102-ws13-1-lector/cold.md
+?? runs/subagents/20261102-ws13-1-lector/cold.stderr.log
+?? runs/subagents/20261102-ws13-1-lector/git-status.txt
+?? runs/subagents/20261102-ws13-1-lector/graph.txt
+?? runs/subagents/20261102-ws13-1-lector/next.txt
+?? runs/subagents/20261102-ws13-1-lector/preflight-disposition.md
+?? runs/subagents/20261102-ws13-1-lector/preflight-input.md
+?? runs/subagents/20261102-ws13-1-lector/preflight-receipt.json
+?? runs/subagents/20261102-ws13-1-lector/preflight.md
+?? runs/subagents/20261102-ws13-1-lector/preflight.stderr.log
+?? runs/subagents/20261102-ws13-1-lector/task.txt
