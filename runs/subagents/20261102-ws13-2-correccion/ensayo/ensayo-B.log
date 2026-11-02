@@ -1,0 +1,27 @@
+Initializing local store at /tmp/ws132c-ensayo-B/repo/.sldb...
+Linked /home/jp/proyectos/SLDB_1/deskops/.sldb as deskops in /tmp/ws132c-ensayo-B/repo/.sldb.
+=== MODO B (open_store(readonly)) puerto 49609 pid 3575992
+repo: /tmp/ws132c-ensayo-B/repo
+GET /api/workspace/explorer: HTTP 200; open_store llamado 1x; eventos de escritura a archivo 0 (pipes a subprocesos 1); difs sha/mtime/dirs/git 0
+GET /api/workspace/nodes: HTTP 200; open_store llamado 1x; eventos de escritura a archivo 0 (pipes a subprocesos 0); difs sha/mtime/dirs/git 0
+GET /api/workspace/explorer: HTTP 200; open_store llamado 1x; eventos de escritura a archivo 0 (pipes a subprocesos 1); difs sha/mtime/dirs/git 0
+GET /api/workspace/nodes: HTTP 200; open_store llamado 1x; eventos de escritura a archivo 0 (pipes a subprocesos 0); difs sha/mtime/dirs/git 0
+GET /api/workspace/node?id=TaskDoc:task-tarea-sana: HTTP 200; open_store llamado 0x; eventos de escritura a archivo 0 (pipes a subprocesos 0); difs sha/mtime/dirs/git 0
+GET /api/workspace/source?path=docs/faq.md: HTTP 200; open_store llamado 0x; eventos de escritura a archivo 0 (pipes a subprocesos 0); difs sha/mtime/dirs/git 0
+CONTROL POSITIVO (fuera de GET, mismo proceso): 9 eventos: ['os.remove', 'os.mkdir', 'open_write', 'os.rename', 'shutil.copyfile', 'open_write', 'os.remove', 'os.remove', 'os.rmdir']
+GET explorer(refresco): HTTP 200; open_store llamado 1x; eventos de escritura a archivo 0 (pipes a subprocesos 1); difs sha/mtime/dirs/git 0
+GET nodes(refresco): HTTP 200; open_store llamado 1x; eventos de escritura a archivo 0 (pipes a subprocesos 0); difs sha/mtime/dirs/git 0
+GET explorer(refresco): HTTP 200; open_store llamado 1x; eventos de escritura a archivo 0 (pipes a subprocesos 1); difs sha/mtime/dirs/git 0
+GET nodes(refresco): HTTP 200; open_store llamado 1x; eventos de escritura a archivo 0 (pipes a subprocesos 0); difs sha/mtime/dirs/git 0
+GET explorer(refresco): HTTP 200; open_store llamado 1x; eventos de escritura a archivo 0 (pipes a subprocesos 1); difs sha/mtime/dirs/git 0
+GET nodes(refresco): HTTP 200; open_store llamado 1x; eventos de escritura a archivo 0 (pipes a subprocesos 0); difs sha/mtime/dirs/git 0
+GET explorer(refresco): HTTP 200; open_store llamado 1x; eventos de escritura a archivo 0 (pipes a subprocesos 1); difs sha/mtime/dirs/git 0
+GET nodes(refresco): HTTP 200; open_store llamado 1x; eventos de escritura a archivo 0 (pipes a subprocesos 0); difs sha/mtime/dirs/git 0
+REFRESCO ENTRE PROCESOS: {'alta': True, 'untrack': True, 'track': True, 'baja': True}
+TOTAL escrituras/difs observadas durante GET: 0
+stderr servidor: 27.0.0.1 - - [02/Nov/2026 08:40:47] "GET /api/workspace/nodes HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 08:40:48] "GET /api/workspace/explorer HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 08:40:48] "GET /api/workspace/nodes HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 08:40:48] "GET /api/workspace/explorer HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 08:40:48] "GET /api/workspace/nodes HTTP/1.1" 200 -
+

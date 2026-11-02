@@ -1,0 +1,2 @@
+.sldb vacio -> devuelve /tmp/ws132c-vacio/a/.sldb | eventos escritura: [] | arbol cambio: False
+.sldb inexistente -> devuelve /tmp/ws132c-vacio/b/.sldb | eventos escritura: [] | arbol cambio: False

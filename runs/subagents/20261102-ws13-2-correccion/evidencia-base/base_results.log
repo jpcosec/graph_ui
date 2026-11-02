@@ -1,0 +1,36 @@
+BASE HEAD 15bf3d628c96332e3abe33364840ab967b83e3cd con los 3 archivos de prueba nuevos copiados
+FAILED tests/test_mindmap_workspace_explorer.py::test_refresh_path_has_no_sldb_store_import
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[True-.git]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[True-desk/.hidden]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[True-desk/__pycache__]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[True-node_modules]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[True-.git/hooks]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[True-desk/.hidden/sub]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[True-desk/node_modules/pkg/lib]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[True-docs/__pycache__/x]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[True-desk/notas/.cache/deep]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[False-desk/.hidden]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[False-desk/__pycache__]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[False-node_modules]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[False-desk/.hidden/sub]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[False-desk/node_modules/pkg/lib]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[False-docs/__pycache__/x]
+FAILED tests/test_mindmap_workspace_explorer.py::test_forbidden_root_is_rejected_before_listing_direct_and_nested[False-desk/notas/.cache/deep]
+FAILED tests/test_mindmap_workspace_explorer.py::test_mixed_roots_keep_valid_diagnose_forbidden_and_never_open_sentinels[con-git]
+FAILED tests/test_mindmap_workspace_explorer.py::test_mixed_roots_keep_valid_diagnose_forbidden_and_never_open_sentinels[sin-git]
+19 failed, 2 passed, 19 deselected in 64.78s (0:01:04)
+--- node
+# SyntaxError: The requested module '../frontends/mindmap/views/workspace/explorer/explorer.mjs' does not provide an export named 'MODELO_SIN_CONFIRMAR'
+# pass 0
+# fail 1
+--- e2e base
+E               AssertionError: Locator expected to contain text 'ActionsSection'
+E               AssertionError: Locator expected to have attribute 'modelo_sin_confirmar'
+E                     - unexpected value "ok"
+ERROR    asyncio:base_events.py:1871 Exception in callback Connection.dispatch.<locals>._done_callback() at /home/jp/anaconda3/lib/python3.13/site-packages/playwright/_impl/_connection.py:465
+E               AssertionError: Locator expected to have attribute 'modelo_sin_confirmar'
+E                     - unexpected value "ok"
+FAILED tests/e2e_mindmap_workspace.py::test_explorer_equal_titles_show_distinct_visible_paths_and_open_their_origin
+FAILED tests/e2e_mindmap_workspace.py::test_explorer_does_not_claim_model_loaded_while_nodes_is_held_then_updates
+FAILED tests/e2e_mindmap_workspace.py::test_explorer_keeps_unconfirmed_state_and_catalog_error_when_nodes_fails
+3 failed, 15 deselected in 37.99s

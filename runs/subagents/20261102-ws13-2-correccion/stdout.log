@@ -1,0 +1,92 @@
+........................................                                 [100%]
+40 passed in 134.31s (0:02:14)
+..................                                                       [100%]
+18 passed in 164.82s (0:02:44)
+TAP version 13
+# Subtest: modeledGroups agrupa por modelo y ordena por titulo del catalogo
+ok 1 - modeledGroups agrupa por modelo y ordena por titulo del catalogo
+  ---
+  duration_ms: 6.288816
+  type: 'test'
+  ...
+# Subtest: modeledGroups conserva el estado y la causa recibidos
+ok 2 - modeledGroups conserva el estado y la causa recibidos
+  ---
+  duration_ms: 0.316483
+  type: 'test'
+  ...
+# Subtest: modeledGroups sin catalogo no inventa titulos ni causas ni afirma carga
+ok 3 - modeledGroups sin catalogo no inventa titulos ni causas ni afirma carga
+  ---
+  duration_ms: 0.139497
+  type: 'test'
+  ...
+# Subtest: mientras /nodes esta pendiente o fallo, ningun modelado queda ok ni modelo_no_carga; la guardia prevalece
+ok 4 - mientras /nodes esta pendiente o fallo, ningun modelado queda ok ni modelo_no_carga; la guardia prevalece
+  ---
+  duration_ms: 0.183378
+  type: 'test'
+  ...
+# Subtest: con /nodes recibido, una entrada ausente del catalogo sigue sin confirmar
+ok 5 - con /nodes recibido, una entrada ausente del catalogo sigue sin confirmar
+  ---
+  duration_ms: 0.154411
+  type: 'test'
+  ...
+# Subtest: al llegar /nodes se actualizan titulo y diagnostico
+ok 6 - al llegar /nodes se actualizan titulo y diagnostico
+  ---
+  duration_ms: 0.089429
+  type: 'test'
+  ...
+# Subtest: etiquetas visibles: modelo sin confirmar y ruta nunca vacia
+ok 7 - etiquetas visibles: modelo sin confirmar y ruta nunca vacia
+  ---
+  duration_ms: 0.114426
+  type: 'test'
+  ...
+# Subtest: dos titulos iguales conservan rutas distintas en sus entradas
+ok 8 - dos titulos iguales conservan rutas distintas en sus entradas
+  ---
+  duration_ms: 0.13096
+  type: 'test'
+  ...
+# Subtest: el filtro local mira id, titulo, ruta y modelo
+ok 9 - el filtro local mira id, titulo, ruta y modelo
+  ---
+  duration_ms: 0.263183
+  type: 'test'
+  ...
+# Subtest: buildTree arma carpetas antes que archivos, ambos por nombre
+ok 10 - buildTree arma carpetas antes que archivos, ambos por nombre
+  ---
+  duration_ms: 0.395086
+  type: 'test'
+  ...
+# Subtest: buildTree filtra por ruta y no deja carpetas vacias con coincidencias
+ok 11 - buildTree filtra por ruta y no deja carpetas vacias con coincidencias
+  ---
+  duration_ms: 0.18455
+  type: 'test'
+  ...
+# Subtest: describeInvalidRoots nombra la entrada y la razon recibida
+ok 12 - describeInvalidRoots nombra la entrada y la razon recibida
+  ---
+  duration_ms: 0.089742
+  type: 'test'
+  ...
+# Subtest: describeInvalidRoots etiqueta el componente prohibido
+ok 13 - describeInvalidRoots etiqueta el componente prohibido
+  ---
+  duration_ms: 0.047757
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 54.709879
