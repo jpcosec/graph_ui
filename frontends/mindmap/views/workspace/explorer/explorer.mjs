@@ -12,8 +12,25 @@ export function matches(query, ...fields) {
   return fields.some(f => String(f || '').toLowerCase().includes(q));
 }
 
-/** Modelados agrupados por modelo (orden alfabetico de modelo, y de titulo dentro del grupo). */
-export function modeledGroups(modeled = [], catalog = [], query = '') {
+export const MODELO_SIN_CONFIRMAR = 'modelo_sin_confirmar';
+export const ESTADO_LABELS = {[MODELO_SIN_CONFIRMAR]: 'modelo sin confirmar'};
+
+export function estadoLabel(estado) {
+  return ESTADO_LABELS[estado] || estado;
+}
+
+/** Ruta relativa visible de una entrada: identificador secundario, nunca vacio. */
+export function pathLabel(path) {
+  return path ? String(path) : 'sin ruta';
+}
+
+/**
+ * Modelados agrupados por modelo (orden alfabetico de modelo, y de titulo dentro del grupo).
+ * catalogStatus: 'pending' | 'error' | 'ok', estado de GET /nodes. El `ok` de /explorer es de
+ * guardia y listado, no prueba de que el modelo cargue: solo una entrada presente en un /nodes
+ * recibido confirma su estado; si no, la entrada queda en modelo_sin_confirmar.
+ */
+export function modeledGroups(modeled = [], catalog = [], query = '', catalogStatus = 'ok') {
   const byId = new Map((catalog || []).map(n => [n.id, n]));
   const groups = new Map();
   for (const m of modeled || []) {
@@ -25,8 +42,9 @@ export function modeledGroups(modeled = [], catalog = [], query = '') {
       path: m.path,
       title: (node && node.title) || m.title || m.name,
       // /nodes sabe si el modelo carga; /explorer solo conoce la guardia de ruta.
-      estado: m.estado !== 'ok' ? m.estado : ((node && node.estado) || 'ok'),
-      causa: (node && node.causa) || null,
+      estado: m.estado !== 'ok' ? m.estado
+        : (catalogStatus === 'ok' && node ? (node.estado || 'ok') : MODELO_SIN_CONFIRMAR),
+      causa: (catalogStatus === 'ok' && node && node.causa) || null,
     };
     if (!matches(query, entry.id, entry.title, entry.path, entry.model_name)) continue;
     if (!groups.has(entry.model_name)) groups.set(entry.model_name, []);
@@ -68,6 +86,7 @@ export function countFiles(tree) {
 export const REASON_LABELS = {
   ruta_absoluta: 'ruta absoluta',
   'contiene_..': 'contiene ..',
+  componente_prohibido: 'componente prohibido (punto, __pycache__ o node_modules)',
   symlink: 'es un enlace simbólico',
   fuera_del_repo: 'fuera del repositorio',
   vacia: 'vacía',

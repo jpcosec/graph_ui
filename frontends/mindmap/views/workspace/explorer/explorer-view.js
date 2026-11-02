@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {html} from '../../../shared/html.js';
-import {modeledGroups, buildTree, countFiles, describeInvalidRoots} from './explorer.mjs';
+import {modeledGroups, buildTree, countFiles, describeInvalidRoots, estadoLabel, pathLabel, MODELO_SIN_CONFIRMAR} from './explorer.mjs';
 
 function TreeFolder({node, depth, forceOpen, selectedPath, onOpenPath}) {
   const [open, setOpen] = useState(depth < 1);
@@ -31,7 +31,7 @@ function TreeChildren({node, depth, forceOpen, selectedPath, onOpenPath}) {
             data-path=${f.path}
             title=${f.path}
             onClick=${() => onOpenPath(f.path)}
-          >${f.name}</button>
+          ><span className="workspace-explorer-item-title">${f.name}</span><span className="workspace-explorer-item-path" data-testid="explorer-item-path">${pathLabel(f.path)}</span></button>
         </li>
       `)}
     </ul>
@@ -42,9 +42,9 @@ function TreeChildren({node, depth, forceOpen, selectedPath, onOpenPath}) {
  * Explorador de documentos: modelados por modelo y Markdown no modelado por carpetas, con filtro
  * local y refresco explicito. Presentacional: los datos y la apertura (lector WS13.1) vienen de la vista.
  */
-export function ExplorerPanel({explorer, catalog, error, loading, selectedId, selectedPath, onOpenId, onOpenPath, onRefresh}) {
+export function ExplorerPanel({explorer, catalog, catalogStatus = 'ok', error, loading, selectedId, selectedPath, onOpenId, onOpenPath, onRefresh}) {
   const [query, setQuery] = useState('');
-  const groups = explorer ? modeledGroups(explorer.modeled, catalog, query) : [];
+  const groups = explorer ? modeledGroups(explorer.modeled, catalog, query, catalogStatus) : [];
   const tree = explorer ? buildTree(explorer.unmodeled, query) : null;
   const filtering = query.trim() !== '';
   const shownModeled = groups.reduce((acc, g) => acc + g.entries.length, 0);
@@ -93,9 +93,9 @@ export function ExplorerPanel({explorer, catalog, error, loading, selectedId, se
                       data-testid="explorer-modeled-item"
                       data-id=${e.id}
                       data-estado=${e.estado}
-                      title=${e.causa ? `${e.id} — ${e.causa}` : e.id}
+                      title=${e.causa ? `${e.id} — ${e.causa}` : (e.estado === MODELO_SIN_CONFIRMAR ? `${e.id} — la carga del modelo no se ha confirmado` : e.id)}
                       onClick=${() => onOpenId(e.id)}
-                    >${e.title}${e.estado !== 'ok' ? html` <span className="workspace-badge workspace-badge-warn" data-testid="explorer-estado">${e.estado}</span>` : ''}</button>
+                    ><span className="workspace-explorer-item-title">${e.title}${e.estado !== 'ok' ? html` <span className="workspace-badge workspace-badge-warn" data-testid="explorer-estado">${estadoLabel(e.estado)}</span>` : ''}</span><span className="workspace-explorer-item-path" data-testid="explorer-item-path">${pathLabel(e.path)}</span></button>
                   </li>
                 `)}
               </ul>

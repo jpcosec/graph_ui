@@ -240,6 +240,8 @@ function describeSourceError(err) {
 function WorkspaceView() {
   const [catalog, setCatalog] = useState([]);
   const [catalogError, setCatalogError] = useState('');
+  // Estado de GET /nodes para el explorador: 'pending' | 'error' | 'ok'. Solo 'ok' confirma la carga de modelos.
+  const [catalogStatus, setCatalogStatus] = useState('pending');
   const [target, setTarget] = useState(() => targetFromSearch(window.location.search));
   const [depth, setDepth] = useState(1);
   const [activeTab, setActiveTab] = useState('document');
@@ -327,6 +329,7 @@ function WorkspaceView() {
   const loadCatalog = async () => {
     const token = ++catalogGen.current;
     setCatalogError('');
+    setCatalogStatus('pending');
     const params = new URLSearchParams(window.location.search);
     const urlDepth = parseInt(params.get('depth') || '1', 10);
     const urlTab = params.get('tab') || 'document';
@@ -337,6 +340,7 @@ function WorkspaceView() {
       if (token !== catalogGen.current) return;
       const nodes = res.nodes || [];
       setCatalog(nodes);
+      setCatalogStatus('ok');
       if (!targetFromSearch(window.location.search)) {
         if (nodes.length > 0) navigateTo({id: nodes[0].id});
         else setLoading(false);
@@ -344,6 +348,7 @@ function WorkspaceView() {
     } catch (err) {
       if (token === catalogGen.current) {
         setCatalogError(err.message || 'Error al cargar catálogo de nodos');
+        setCatalogStatus('error');
         if (!targetFromSearch(window.location.search)) setLoading(false);
       }
     }
@@ -650,6 +655,7 @@ function WorkspaceView() {
         <${ExplorerPanel}
           explorer=${explorer}
           catalog=${catalog}
+          catalogStatus=${catalogStatus}
           error=${explorerError}
           loading=${explorerLoading}
           selectedId=${openDocId}

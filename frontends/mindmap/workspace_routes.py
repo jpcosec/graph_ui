@@ -1,8 +1,9 @@
 """Multi-projection workspace routes: document IR, neighborhood graph, and referenced code.
 
 Strictly read-only: ninguna ruta GET reconstruye indices (load_edge_index, nunca document_edges ni rebuild_edges;
-un store desactualizado responde store_no_preparado). Riesgo declarado: open_store, dentro de load_edge_index y
-doc_status, migra un layout no canonico y no hay consulta publica previa. Adheres to SLDB contracts, safe repo-bounded file inspection,
+un store desactualizado responde store_no_preparado). Los listados (/nodes, /explorer) inician operacion con
+sldb.api.open_store(readonly) sobre un store canonico preparado fuera del request; no se afirma nada sobre un layout
+no canonico. Adheres to SLDB contracts, safe repo-bounded file inspection,
 and zero top-level SLDB imports to support remote/headless modes without regressions.
 """
 from __future__ import annotations
@@ -161,13 +162,13 @@ class WorkspaceRoutes:
         return indexed_documents(self.store_path)
 
     def _fresh_listing(self) -> None:
-        """Inicio de operacion para un listado: el catalogo ve altas y bajas hechas por otros
-        procesos. `new_operation` y `new_documents_hash_operation` solo invalidan caches en
-        memoria (no escriben, no migran); no se llama open_store, que puede migrar."""
-        from sldb.store.documents_hash import new_operation as new_documents_hash_operation
-        from sldb.store.runtime_cache_signature import new_operation
-        new_operation(self.store_path)
-        new_documents_hash_operation(self.store_path)
+        """Inicio de operacion de un listado por la via publica: el catalogo ve altas y bajas hechas
+        por otros procesos. El store ya existe (lo comprueban los llamadores) y es canonico y esta
+        preparado fuera del request; sobre ese supuesto open_store(readonly) no escribio nada en el
+        ensayo del 2026-11-02 (runs/subagents/20261102-ws13-2-correccion/ensayo/). No habilita un
+        layout no canonico, que open_store migraria, ni afirma que readonly lo proteja."""
+        from sldb.api import open_store
+        open_store(self.store_path, mode='readonly')
 
     def _pythonpath(self) -> str | None:
         return getattr(self.editor_store, 'pythonpath', None) if self.editor_store else None
@@ -244,8 +245,8 @@ class WorkspaceRoutes:
     def _explorer_roots(self) -> tuple[list[str], list[dict[str, str]]]:
         """(raices validas y existentes, raices invalidas) de la configuracion del operador.
 
-        Invalida: absoluta, con .., con un componente symlink o que no resuelve dentro de la
-        raiz. Valida pero inexistente: se omite sin error."""
+        Invalida: absoluta, con .., con un componente prohibido (empieza por punto, __pycache__,
+        node_modules), con un componente symlink o que no resuelve dentro de la raiz. Valida pero inexistente: se omite sin error."""
         valid: list[str] = []
         invalid: list[dict[str, str]] = []
         for entry in self.explorer_entries:
@@ -260,6 +261,11 @@ class WorkspaceRoutes:
                 continue
             if '..' in parts or '\x00' in entry:
                 bad('contiene_..')
+                continue
+            if any(p.startswith('.') or p in EXPLORER_SKIP_PARTS for p in parts):
+                # Mismo criterio que la poda bajo la raiz: un componente con punto, __pycache__ o
+                # node_modules prohibe el arbol entero, directo o anidado, antes de enumerarlo.
+                bad('componente_prohibido')
                 continue
             cur = self.repo_root
             symlink = False

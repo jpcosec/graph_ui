@@ -549,3 +549,291 @@ def test_internal_file_symlink_is_not_listed_as_unmodeled(env, server):
     assert 'docs/faq.md' in got                      # el destino real si
     assert 'desk/interno.md' not in got              # su symlink no: una sola identidad por archivo
     assert not any((root / p).is_symlink() for p in got)
+
+
+# ---------------------------------------------------------------- frontera API (punto 1 de la correccion)
+#
+# Proceso REAL de serve.py con sys.addaudithook. El hook registra efectos (escrituras, borrados,
+# renombres, mkdir...) y las aperturas de .md; no ve llamadas a funciones, solo efectos. Su
+# calibracion positiva se hace en el mismo proceso, fuera de los GET, con escrituras conocidas.
+
+HOOK_LAUNCHER = r'''
+import os, sys, json, threading, time, shutil
+from pathlib import Path
+
+LOG = os.environ['HOOK_LOG']
+REPO = os.environ['HOOK_REPO']
+fd = os.open(LOG, os.O_WRONLY | os.O_CREAT | os.O_APPEND, 0o644)
+WRITE_FLAGS = os.O_WRONLY | os.O_RDWR | os.O_CREAT | os.O_TRUNC | os.O_APPEND
+EVENTS = {'os.remove', 'os.rename', 'os.mkdir', 'os.rmdir', 'os.truncate', 'os.chmod', 'os.utime', 'os.link',
+          'os.symlink', 'os.chown', 'shutil.copyfile', 'shutil.copymode', 'shutil.copystat', 'shutil.copytree',
+          'shutil.move', 'shutil.rmtree', 'shutil.make_archive', 'shutil.unpack_archive'}
+
+def emit(kind, detail):
+    os.write(fd, (json.dumps({'k': kind, 'd': detail}, default=str) + '\n').encode())
+
+def hook(event, args):
+    if event == 'open':
+        path, mode, flags = args
+        m = mode or ''
+        is_write = any(c in m for c in 'wax+') or (isinstance(flags, int) and flags & WRITE_FLAGS)
+        if is_write and isinstance(path, int):
+            try:
+                target = os.readlink('/proc/self/fd/%d' % path)
+            except OSError:
+                target = '?'
+            emit('open_write_pipe' if target.startswith('pipe:') else 'open_write', [str(path), m, flags, target])
+        elif is_write:
+            emit('open_write', [str(path), m, flags])
+        elif isinstance(path, (str, bytes, os.PathLike)) and str(path).endswith('.md'):
+            emit('open_read_md', str(path))
+    elif event in EVENTS:
+        emit(event, [str(a) for a in args])
+
+sys.addaudithook(hook)
+
+def control():
+    trig, sandbox = Path(os.environ['CONTROL_TRIGGER']), Path(os.environ['CONTROL_DIR'])
+    while True:
+        if trig.exists():
+            os.remove(trig)
+            emit('CONTROL_BEGIN', '')
+            sandbox.mkdir(exist_ok=True)
+            with open(sandbox / 'a.txt', 'w') as f:
+                f.write('x')
+            os.rename(sandbox / 'a.txt', sandbox / 'b.txt')
+            shutil.copyfile(sandbox / 'b.txt', sandbox / 'c.txt')
+            os.remove(sandbox / 'b.txt')
+            os.remove(sandbox / 'c.txt')
+            os.rmdir(sandbox)
+            emit('CONTROL_END', '')
+        time.sleep(0.05)
+
+threading.Thread(target=control, daemon=True).start()
+sys.path.insert(0, os.environ['HOOK_FRONTENDS'])
+from mindmap import serve
+emit('SERVER_START', '')
+serve.main([sys.argv[1]])
+'''
+
+
+class RealServer:
+    """serve.py real en un proceso aparte, con el hook de auditoria. Puerto libre propio."""
+
+    def __init__(self, root: Path, tmp: Path, extra_env: dict | None = None):
+        import socket
+        import time
+        self.root, self.tmp = root, tmp
+        s = socket.socket()
+        s.bind(('127.0.0.1', 0))
+        port = s.getsockname()[1]
+        s.close()
+        assert port not in (8090, 8091, 8092)
+        self.log = tmp / 'hook.jsonl'
+        self.log.write_text('')
+        self.trigger = tmp / 'control.trigger'
+        launcher = tmp / 'hook_serve.py'
+        launcher.write_text(HOOK_LAUNCHER, encoding='utf-8')
+        env = dict(os.environ, HOOK_LOG=str(self.log), HOOK_REPO=str(root), HOOK_FRONTENDS=_frontends_dir,
+                   CONTROL_TRIGGER=str(self.trigger), CONTROL_DIR=str(tmp / 'control'), SLDB_STORE=str(root / '.sldb'))
+        env.pop('DESKOPS_ROOT', None)
+        env.update(extra_env or {})
+        self.proc = subprocess.Popen([sys.executable, str(launcher), str(port)], env=env, cwd=str(tmp),
+                                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        self.url = f'http://127.0.0.1:{port}'
+        for _ in range(150):
+            if any(e['k'] == 'SERVER_START' for e in self.events()):
+                try:
+                    urlopen(self.url + '/', timeout=5).read()
+                    break
+                except Exception:
+                    pass
+            time.sleep(0.2)
+        else:
+            raise AssertionError('serve.py no arranco')
+
+    def events(self) -> list:
+        return [json.loads(line) for line in self.log.read_text().splitlines() if line]
+
+    def get_observed(self, path: str):
+        """(status, json, eventos registrados durante ese GET). Peticiones en serie."""
+        n0 = len(self.events())
+        status, body = get(self.url, path)
+        return status, body, self.events()[n0:]
+
+    def control(self) -> list:
+        import time
+        n0 = len(self.events())
+        self.trigger.write_text('1')
+        for _ in range(100):
+            if any(e['k'] == 'CONTROL_END' for e in self.events()[n0:]):
+                break
+            time.sleep(0.05)
+        return [e for e in self.events()[n0:] if e['k'] not in ('CONTROL_BEGIN', 'CONTROL_END')]
+
+    def close(self):
+        self.proc.terminate()
+        self.proc.wait(timeout=20)
+
+
+def file_effects(events: list) -> list:
+    """Efectos sobre archivos y directorios; los pipes a subprocesos (git) no lo son."""
+    ignore = {'open_write_pipe', 'open_read_md', 'SERVER_START', 'CONTROL_BEGIN', 'CONTROL_END'}
+    return [e for e in events if e['k'] not in ignore]
+
+
+def mtime_state(root: Path) -> dict:
+    """sha256 y mtime_ns de todo archivo (salvo .git), mas directorios y estado git."""
+    state = {}
+    for p in sorted(root.rglob('*')):
+        rel = p.relative_to(root)
+        if rel.parts[0] == '.git' or p.is_symlink():
+            continue
+        state[str(rel)] = 'dir' if p.is_dir() else (sha(p.read_bytes()), p.stat().st_mtime_ns)
+    return state
+
+
+def test_refresh_path_has_no_sldb_store_import():
+    """El camino del refresco usa la API publica: ningun import de sldb.store en el modulo."""
+    import ast
+    src = (Path(_frontends_dir) / 'mindmap' / 'workspace_routes.py').read_text(encoding='utf-8')
+    mods = []
+    for node in ast.walk(ast.parse(src)):
+        if isinstance(node, ast.ImportFrom) and node.module:
+            mods.append(node.module)
+        elif isinstance(node, ast.Import):
+            mods += [a.name for a in node.names]
+    assert not [m for m in mods if m == 'sldb.store' or m.startswith('sldb.store.')], mods
+    assert 'sldb.api' in mods  # open_store llega por sldb.api
+
+
+def test_real_process_listing_get_writes_nothing_and_sees_other_process_changes(env, tmp_path):
+    root, task = env
+    commit_all(root)
+    work = tmp_path / 'work'
+    work.mkdir()
+    srv = RealServer(root, work)
+    try:
+        # calibracion positiva: el hook de ESTE proceso detecta escrituras conocidas hechas fuera de un GET
+        control = srv.control()
+        kinds = {e['k'] for e in control}
+        assert {'os.mkdir', 'open_write', 'os.rename', 'shutil.copyfile', 'os.remove', 'os.rmdir'} <= kinds, control
+
+        urls = ['/api/workspace/explorer', '/api/workspace/nodes', f'/api/workspace/node?id=TaskDoc:{task}',
+                '/api/workspace/source?path=docs/faq.md', '/api/workspace/explorer', '/api/workspace/nodes']
+        for url in urls:
+            before = mtime_state(root)
+            status, _, events = srv.get_observed(url)
+            assert status == 200, url
+            assert file_effects(events) == [], (url, file_effects(events))
+            assert mtime_state(root) == before, f'GET {url} cambio archivos, mtimes o directorios'
+
+        # otro proceso, servidor vivo y caches calientes: alta, untrack, track y baja
+        def seen():
+            before = mtime_state(root)
+            _, exp, ev1 = srv.get_observed('/api/workspace/explorer')
+            _, nodes, ev2 = srv.get_observed('/api/workspace/nodes')
+            assert file_effects(ev1 + ev2) == [] and mtime_state(root) == before
+            return {m['id'] for m in exp['modeled']}, set(paths(exp)), {n['id'] for n in nodes['nodes']}
+
+        new_id = other_process(root, 'create', 'Alta entre procesos')
+        ident, rel = f'TaskDoc:{new_id}', f'desk/tasks/{new_id}.md'
+        m, u, n = seen()
+        assert ident in m and ident in n and rel not in u
+        other_process(root, 'untrack', new_id)
+        m, u, n = seen()
+        assert ident not in m and ident not in n and rel in u
+        other_process(root, 'track', rel)
+        m, u, n = seen()
+        assert ident in m and ident in n and rel not in u
+        other_process(root, 'delete', new_id)
+        m, u, n = seen()
+        assert ident not in m and ident not in n and rel not in u
+    finally:
+        srv.close()
+
+
+# ---------------------------------------------------------------- raices prohibidas (punto 2)
+
+FORBIDDEN_DIRECT = ['.git', 'desk/.hidden', 'desk/__pycache__', 'node_modules']
+FORBIDDEN_NESTED = ['.git/hooks', 'desk/.hidden/sub', 'desk/node_modules/pkg/lib', 'docs/__pycache__/x', 'desk/notas/.cache/deep']
+
+
+def forbidden_entries(with_git: bool) -> list:
+    # Sin git no hay .git: un directorio .git inventado seria un repo roto (git fallaria, y cerraria).
+    return [e for e in FORBIDDEN_DIRECT + FORBIDDEN_NESTED if with_git or not e.startswith('.git')]
+
+
+def forbidden_repo(tmp_path: Path, with_git: bool) -> Path:
+    root = tmp_path / ('con-git' if with_git else 'sin-git')
+    root.mkdir()
+    if with_git:
+        git_init(root)   # sin .gitignore: git no oculta ningun centinela
+    prepare_store(root)
+    for rel in forbidden_entries(with_git):
+        write(root, f'{rel}/CENTINELA.md', f'# centinela {rel}\n')
+    write(root, 'desk/notas/uno.md', '# Uno\n')
+    write(root, 'docs/faq.md', '# FAQ\n')
+    write(root, 'desk/mis notas/ñandú día.md', '# Ñandú\n')
+    write(root, 'docs/ñandú/guía rápida.md', '# Guía\n')
+    return root
+
+
+def sentinel_paths(data) -> list:
+    return [p for p in paths(data) if 'CENTINELA' in p]
+
+
+@pytest.mark.parametrize('with_git, entry', [(g, e) for g in (True, False) for e in forbidden_entries(g)],
+                         ids=lambda v: str(v))
+def test_forbidden_root_is_rejected_before_listing_direct_and_nested(tmp_path_factory, monkeypatch, entry, with_git):
+    monkeypatch.delenv('DESKOPS_ROOT', raising=False)
+    root = forbidden_repo(tmp_path_factory.mktemp('r'), with_git)
+    monkeypatch.setenv('WORKSPACE_EXPLORER_ROOTS', entry)
+    srv = Srv(root)
+    try:
+        status, data = get(srv.url, '/api/workspace/explorer')
+    finally:
+        srv.close()
+    assert status == 200
+    assert data['roots'] == [] and data['unmodeled'] == []
+    assert data['roots_invalid'] == [{'entry': entry, 'reason': 'componente_prohibido'}]
+    assert sentinel_paths(data) == []
+
+
+@pytest.mark.parametrize('with_git', [True, False], ids=['con-git', 'sin-git'])
+def test_mixed_roots_keep_valid_diagnose_forbidden_and_never_open_sentinels(tmp_path_factory, with_git):
+    root = forbidden_repo(tmp_path_factory.mktemp('r'), with_git)
+    work = tmp_path_factory.mktemp('w')
+    forbidden = forbidden_entries(with_git)
+    entries = ['desk/notas'] + forbidden + ['docs', 'desk/mis notas', 'docs/ñandú']
+    srv = RealServer(root, work, {'WORKSPACE_EXPLORER_ROOTS': ','.join(entries)})
+    try:
+        status, data, events = srv.get_observed('/api/workspace/explorer')
+        _, _, events_nodes = srv.get_observed('/api/workspace/nodes')
+        opened = [e['d'] for e in srv.events() if e['k'] == 'open_read_md' and e['d'].startswith(str(root))]
+    finally:
+        srv.close()
+    assert status == 200
+    assert data['roots'] == ['desk/notas', 'docs', 'desk/mis notas', 'docs/ñandú']
+    assert {(e['entry'], e['reason']) for e in data['roots_invalid']} == {(f, 'componente_prohibido') for f in forbidden}
+    assert sentinel_paths(data) == []
+    got = set(paths(data))
+    assert {'desk/notas/uno.md', 'docs/faq.md', 'desk/mis notas/ñandú día.md', 'docs/ñandú/guía rápida.md'} <= got
+    assert not [p for p in opened if 'CENTINELA' in p], 'el servidor abrio un centinela'
+    assert file_effects(events + events_nodes) == []
+    # ningun metadato del listado sale de los arboles prohibidos
+    blob = json.dumps({k: data[k] for k in ('roots', 'modeled', 'unmodeled')}, ensure_ascii=False)
+    assert 'CENTINELA' not in blob and '.hidden' not in blob and '__pycache__' not in blob and 'node_modules' not in blob
+
+
+def test_legit_roots_with_spaces_and_unicode_are_preserved(tmp_path_factory, monkeypatch):
+    monkeypatch.delenv('DESKOPS_ROOT', raising=False)
+    root = forbidden_repo(tmp_path_factory.mktemp('r'), True)
+    monkeypatch.setenv('WORKSPACE_EXPLORER_ROOTS', 'desk/mis notas, docs/ñandú')
+    srv = Srv(root)
+    try:
+        _, data = get(srv.url, '/api/workspace/explorer')
+    finally:
+        srv.close()
+    assert data['roots'] == ['desk/mis notas', 'docs/ñandú'] and data['roots_invalid'] == []
+    assert set(paths(data)) == {'desk/mis notas/ñandú día.md', 'docs/ñandú/guía rápida.md'}

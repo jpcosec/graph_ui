@@ -794,6 +794,10 @@
   text-overflow: ellipsis;
 }
 
+.workspace-explorer-item {
+  white-space: normal;
+}
+
 .workspace-explorer-item:hover,
 .workspace-explorer-folder-btn:hover {
   background: var(--surface-muted);
@@ -802,6 +806,26 @@
 .workspace-explorer-item.is-selected {
   background: var(--primary-soft);
   outline: 1px solid var(--primary);
+}
+
+.workspace-explorer-item-title {
+  display: block;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.workspace-explorer-item-title .workspace-badge {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.workspace-explorer-item-path {
+  display: block;
+  white-space: normal;
+  word-break: break-all;
+  color: var(--text-muted);
+  font-size: 11px;
+  overflow-wrap: anywhere;
 }
 
 .workspace-explorer-roots {

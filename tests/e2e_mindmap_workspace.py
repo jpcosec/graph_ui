@@ -986,3 +986,173 @@ def test_explorer_refresh_shows_changes_made_by_another_process(explorer_e2e_ser
         expect(modeled).to_have_count(0)
         assert not errors, f"Errores de JS: {errors}"
         browser.close()
+
+
+# ---------------------------------------------------------------- WS13.2 correccion: identidad visible y estado de carga
+
+def test_explorer_equal_titles_show_distinct_visible_paths_and_open_their_origin(explorer_e2e_server):
+    url, root, task_id = explorer_e2e_server
+    ops = DeskopsOperations(root)
+    # Dos documentos modelados REALES con el mismo titulo y modelos, ids y rutas distintos
+    task = ops.create_task_bundle({
+        'title': 'ActionsSection', 'goal': 'Objetivo de la tarea', 'scope': 'Scope temporal',
+        'validation': ['pytest'], 'done_when': 'Completada',
+    })
+    atom = ops.create_artifact('artifact.atom', {
+        'title': 'ActionsSection', 'five_wh_one_plus': 'what', 'answer': 'Respuesta del atom.',
+    })
+    expected = {
+        f'TaskDoc:{task.task_id}': task.task_path.relative_to(root).as_posix(),
+        'AtomDoc:' + atom.doc_id: atom.path.relative_to(root).as_posix(),
+    }
+    assert len(set(expected.values())) == 2
+    for d in ('desk/notas/alfa', 'desk/notas/beta'):
+        (root / d).mkdir(parents=True, exist_ok=True)
+        (root / d / 'LEEME.md').write_text(f'# LEEME\n\nContenido de {d}.\n', encoding='utf-8')
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.goto(f"{url}/workspace/node?path=docs/faq.md")
+        # modelados con el mismo titulo: cada uno muestra, visible en el DOM, su ruta relativa
+        entries = page.locator('[data-testid="explorer-modeled-item"]', has_text='ActionsSection')
+        expect(entries).to_have_count(2)
+        for ident, rel in expected.items():
+            item = page.locator(f'[data-testid="explorer-modeled-item"][data-id="{ident}"]')
+            expect(item.locator('.workspace-explorer-item-title')).to_contain_text('ActionsSection')
+            path_el = item.locator('[data-testid="explorer-item-path"]')
+            expect(path_el).to_be_visible()
+            expect(path_el).to_have_text(rel)
+        _screenshot(page, "correccion-titulos-repetidos.png")
+        # abrir cada uno lleva a su origen (en ambos ordenes)
+        for ident in list(expected) + list(reversed(list(expected))):
+            page.locator(f'[data-testid="explorer-modeled-item"][data-id="{ident}"]').click()
+            expect(page.locator('[data-testid="document-reader"]')).to_have_attribute('data-identity', ident)
+            expect(page.locator('[data-testid="ctx-path"]')).to_have_text(expected[ident])
+            expect(page.locator('[data-testid="doc-render"]')).to_contain_text(
+                'Objetivo de la tarea' if ident.startswith('TaskDoc') else 'Respuesta del atom')
+        # no modelados con el mismo nombre: la ruta completa es visible aunque el nombre coincida con el titulo
+        page.locator('[data-testid="explorer-folder"][data-path="desk/notas"] > button').click()
+        for d in ('alfa', 'beta'):
+            page.locator(f'[data-testid="explorer-folder"][data-path="desk/notas/{d}"] > button').click()
+            item = page.locator(f'[data-testid="explorer-unmodeled"][data-path="desk/notas/{d}/LEEME.md"]')
+            expect(item.locator('[data-testid="explorer-item-path"]')).to_have_text(f'desk/notas/{d}/LEEME.md')
+        page.locator('[data-testid="explorer-unmodeled"][data-path="desk/notas/beta/LEEME.md"]').click()
+        expect(page.locator('[data-testid="ctx-path"]')).to_have_text('desk/notas/beta/LEEME.md')
+        expect(page.locator('[data-testid="doc-render"]')).to_contain_text('Contenido de desk/notas/beta')
+        page.locator('[data-testid="explorer-unmodeled"][data-path="desk/notas/alfa/LEEME.md"]').click()
+        expect(page.locator('[data-testid="ctx-path"]')).to_have_text('desk/notas/alfa/LEEME.md')
+        expect(page.locator('[data-testid="doc-render"]')).to_contain_text('Contenido de desk/notas/alfa')
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()
+
+
+def test_explorer_does_not_claim_model_loaded_while_nodes_is_held_then_updates(explorer_e2e_server):
+    """GET /nodes real retenido con page.route; el modelo Bitacora de verdad no es importable."""
+    url, root, task_id = explorer_e2e_server
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        held = []
+        page.route('**/api/workspace/nodes', lambda route: held.append(route))   # no se contesta: pendiente
+        page.goto(f"{url}/workspace/node?path=docs/faq.md")
+        bad = page.locator('[data-testid="explorer-modeled-item"][data-id="Bitacora:b1"]')
+        good = page.locator(f'[data-testid="explorer-modeled-item"][data-id="TaskDoc:{task_id}"]')
+        expect(bad).to_be_visible()
+        assert len(held) == 1
+        for item in (bad, good):
+            expect(item).to_have_attribute('data-estado', 'modelo_sin_confirmar')
+            expect(item.locator('[data-testid="explorer-estado"]')).to_have_text('modelo sin confirmar')
+        assert page.locator('[data-estado="ok"]').count() == 0 and page.locator('[data-estado="modelo_no_carga"]').count() == 0
+        # la insignia se lee completa: ni la insignia ni el boton que la contiene se recortan
+        for item in (bad, good):
+            badge = item.locator('[data-testid="explorer-estado"]')
+            overflow = badge.evaluate('(b) => { const i = b.closest("button"); return [b.scrollWidth - b.clientWidth, i.scrollWidth - i.clientWidth]; }')
+            assert overflow[0] <= 0 and overflow[1] <= 0, overflow
+            box, ibox = badge.bounding_box(), item.bounding_box()
+            assert box['x'] + box['width'] <= ibox['x'] + ibox['width'] + 0.5, (box, ibox)
+        _screenshot(page, "correccion-modelo-sin-confirmar-pendiente.png")
+        # llega la respuesta real: se actualizan titulo y diagnostico
+        held.pop().continue_()
+        expect(bad).to_have_attribute('data-estado', 'modelo_no_carga')
+        expect(bad.locator('[data-testid="explorer-estado"]')).to_have_text('modelo_no_carga')
+        assert 'ws132_bitacora' in bad.get_attribute('title')
+        expect(good).to_have_attribute('data-estado', 'ok')
+        expect(good.locator('.workspace-explorer-item-title')).to_have_text('Tarea sana')
+        expect(page.locator('[data-testid="explorer-estado"]', has_text='modelo sin confirmar')).to_have_count(0)
+        _screenshot(page, "correccion-modelo-sin-confirmar-resuelto.png")
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()
+
+
+def test_explorer_keeps_unconfirmed_state_and_catalog_error_when_nodes_fails(explorer_e2e_server):
+    url, root, task_id = explorer_e2e_server
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.route('**/api/workspace/nodes', lambda route: route.abort())   # fallo de red real de /nodes
+        page.goto(f"{url}/workspace/node?path=docs/faq.md")
+        alert = page.get_by_role('alert').filter(has_text='Error de catálogo')
+        expect(alert).to_be_visible()
+        bad = page.locator('[data-testid="explorer-modeled-item"][data-id="Bitacora:b1"]')
+        good = page.locator(f'[data-testid="explorer-modeled-item"][data-id="TaskDoc:{task_id}"]')
+        for item in (bad, good):
+            expect(item).to_have_attribute('data-estado', 'modelo_sin_confirmar')
+            expect(item.locator('[data-testid="explorer-estado"]')).to_have_text('modelo sin confirmar')
+        expect(page.locator('[data-testid="explorer-error"]')).to_have_count(0)   # /explorer si llego
+        # el error de /nodes no se borra por haber llegado /explorer ni por refrescar solo el explorador
+        expect(alert).to_be_visible()
+        _screenshot(page, "correccion-modelo-sin-confirmar-nodes-fallo.png")
+        # recuperacion: se quita el fallo, se refresca, llega /nodes real
+        page.unroute('**/api/workspace/nodes')
+        page.locator('[data-testid="explorer-refresh"]').click()
+        expect(bad).to_have_attribute('data-estado', 'modelo_no_carga')
+        expect(good).to_have_attribute('data-estado', 'ok')
+        expect(page.get_by_role('alert').filter(has_text='Error de catálogo')).to_have_count(0)
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()
+
+
+def test_explorer_long_paths_differing_only_at_the_end_are_fully_readable_and_open_their_origin(explorer_e2e_server):
+    url, root, task_id = explorer_e2e_server
+    folder = 'desk/carpeta-muy-larga-numero-1/subcarpeta-con-un-nombre-igualmente-largo-numero-2'
+    stem = 'documento-con-un-nombre-extremadamente-largo-que-no-cabe-en-la-columna'
+    rels = {f'{folder}/{stem}-{tail}.md': tail for tail in ('alfa', 'beta')}
+    (root / folder).mkdir(parents=True)
+    for rel, tail in rels.items():
+        (root / rel).write_text(f'# Largo\n\nContenido final {tail}.\n', encoding='utf-8')
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.goto(f"{url}/workspace/node?path=docs/faq.md")
+        for part in ('desk/carpeta-muy-larga-numero-1', folder):
+            page.locator(f'[data-testid="explorer-folder"][data-path="{part}"] > button').click()
+        aside = page.locator('[data-testid="explorer"]')
+        abox = aside.bounding_box()
+        for rel, tail in rels.items():
+            item = page.locator(f'[data-testid="explorer-unmodeled"][data-path="{rel}"]')
+            path_el = item.locator('[data-testid="explorer-item-path"]')
+            path_el.scroll_into_view_if_needed()
+            expect(path_el).to_be_visible()
+            # la ruta completa esta en el texto visible (sin tooltip) y no hay desbordamiento horizontal
+            assert path_el.inner_text() == rel
+            over = path_el.evaluate('(e) => { const b = e.closest("button"); return [e.scrollWidth - e.clientWidth, b.scrollWidth - b.clientWidth]; }')
+            assert over[0] <= 0 and over[1] <= 0, over
+            # y el ultimo tramo (lo unico que distingue las rutas) cae dentro del explorador, sin recortar
+            rects = path_el.evaluate('''(e) => { const r = document.createRange(); r.selectNodeContents(e);
+                return Array.from(r.getClientRects()).map(x => [x.left, x.right]); }''')
+            assert rects and all(l >= abox['x'] - 0.5 and r_ <= abox['x'] + abox['width'] + 0.5 for l, r_ in rects), (rects, abox)
+        _screenshot(page, "correccion-rutas-largas.png")
+        for rel, tail in rels.items():
+            page.locator(f'[data-testid="explorer-unmodeled"][data-path="{rel}"]').click()
+            expect(page.locator('[data-testid="ctx-path"]')).to_have_text(rel)
+            expect(page.locator('[data-testid="doc-render"]')).to_contain_text(f'Contenido final {tail}')
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()
