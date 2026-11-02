@@ -1,0 +1,84 @@
+=== $ python -m pytest -q tests/test_mindmap_workspace_reader.py  (2026-11-02T04:44:33-03:00)
+........................                                                 [100%]
+24 passed in 87.06s (0:01:27)
+=== exit 0
+=== $ python -m pytest -q tests/test_mindmap_workspace.py tests/test_parallel_workspace_serve.py  (2026-11-02T04:46:01-03:00)
+.................                                                        [100%]
+17 passed in 58.05s
+=== exit 0
+=== $ python tests/e2e_mindmap_workspace.py  (2026-11-02T04:46:59-03:00)
+=== exit 0
+=== $ python -m pytest -q tests/e2e_mindmap_workspace.py  (2026-11-02T04:47:00-03:00)
+....                                                                     [100%]
+4 passed in 46.94s
+=== exit 0
+=== $ node --test tests/mindmap-workspace.test.mjs  (2026-11-02T04:47:48-03:00)
+TAP version 13
+# Subtest: TABS contains document, graph, and code projections
+ok 1 - TABS contains document, graph, and code projections
+  ---
+  duration_ms: 0.783652
+  type: 'test'
+  ...
+# Subtest: filterCatalog filters by query and model without modifying input
+ok 2 - filterCatalog filters by query and model without modifying input
+  ---
+  duration_ms: 0.205418
+  type: 'test'
+  ...
+# Subtest: formatHash formats hashes safely
+ok 3 - formatHash formats hashes safely
+  ---
+  duration_ms: 0.578197
+  type: 'test'
+  ...
+# Subtest: parseCodeSnippet slices content with target line highlighted
+ok 4 - parseCodeSnippet slices content with target line highlighted
+  ---
+  duration_ms: 0.308893
+  type: 'test'
+  ...
+# Subtest: formatProblems distinguishes clean, node problems, store problems, and errors
+ok 5 - formatProblems distinguishes clean, node problems, store problems, and errors
+  ---
+  duration_ms: 0.14673
+  type: 'test'
+  ...
+# Subtest: filterGraphEdges and distinctEdgeTypes filter and extract relation types
+ok 6 - filterGraphEdges and distinctEdgeTypes filter and extract relation types
+  ---
+  duration_ms: 0.168636
+  type: 'test'
+  ...
+# Subtest: irSectionsWithCleanMeta extracts hierarchical IR structure with line spans
+ok 7 - irSectionsWithCleanMeta extracts hierarchical IR structure with line spans
+  ---
+  duration_ms: 0.217736
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 46.102768
+=== exit 0
+=== $ python -m pytest -q tests  (2026-11-02T04:47:48-03:00)
+........................................................................ [ 35%]
+........................................................................ [ 70%]
+............................................................             [100%]
+=============================== warnings summary ===============================
+tests/test_editor.py::test_safe_node_update_flow
+  /home/jp/proyectos/SLDB_1/UIs/graph_ui/tests/test_editor.py:17: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    metadata=EditMetadata(author="operator-01", timestamp=datetime.utcnow(), reason="Update description"),
+
+tests/test_editor.py::test_node_deletion_cascade
+  /home/jp/proyectos/SLDB_1/UIs/graph_ui/tests/test_editor.py:41: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    metadata=EditMetadata(author="operator-01", timestamp=datetime.utcnow(), reason="Simulate catastrophe"),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+204 passed, 2 warnings in 658.71s (0:10:58)
+=== exit 0
