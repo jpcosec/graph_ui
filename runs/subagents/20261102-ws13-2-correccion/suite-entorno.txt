@@ -1,0 +1,10 @@
+server
+7.0.0-38-generic
+Python 3.13.11
+v24.14.1
+/home/dios/proyectos/SLDB_1-wip/deskops/deskops/__init__.py /home/dios/proyectos/SLDB_1-wip/sldb/src/sldb/__init__.py /home/dios/proyectos/SLDB_1-wip/spec2viz/spec2viz/__init__.py
+58e2304c6bc9c1188c14c3f8d6e7b9efe8d57692
+77bd6d0097f46efdec5e7eeb0e58d71d70b98be5
+f819510ce630de21490e59fbd7bd7af880d1233d
+10df4f0893efde77fdd0e1d5794644e95a723731
+e1e9df0caf7ade40fcc3d8bbebe0d3fa4ab0d339
