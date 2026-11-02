@@ -172,7 +172,6 @@ include:
   paths:
   - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
   - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
-  - desk/tasks/task-corregir-ws13-1-lectura-sin-mutación-guardias-previas-foco-estado-y-anclas.md
 - model: BoardDoc
   paths:
   - desk/tasks/Board.md
