@@ -1,0 +1,19 @@
+from __future__ import annotations
+from pydantic import Field
+from sldb.models.structured_doc import StructuredNLDoc
+
+class Diario(StructuredNLDoc):
+    __semantics__ = {"type": ["log"], "layer": ["notes"]}
+    __template__ = """---
+id: ⸢rev•id⸥
+---
+
+# ⸢rev•title⸥
+
+## Apunte
+
+⸢rev•apunte⸥
+""".strip()
+    id: str = Field(description="Id.")
+    title: str = Field(description="Titulo.")
+    apunte: str = Field(description="Apunte.")

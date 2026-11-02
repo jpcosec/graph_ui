@@ -11,3 +11,7 @@ Claude Opus 5.5, pane `w3Y:p1`, 2026-11-02. Leí preflight y cold completos fren
 ## Adenda del Supervisor
 
 La suite general mostró que `test_workspace_broken_doc_catalog_returns_500` afirma el 500 que el punto 4 retira. Root ya dispuso que las pruebas de conducta retirada se corrigen de forma explícita (`review-source-final.md`, y la revisión anterior). Amplié `files` y el scope solo a esa prueba. No repetí preflight ni cold: es un archivo más, sin cambio de objetivo, límites ni criterios.
+
+## Adenda del Supervisor tras Tester v1 FAIL
+
+Evidencia en `renovacion-1/`. Correcciones dentro del alcance y de `done_when`, sin cambio de contrato: H1, alta de modelado sin reflejar; H2, `/node` sin `is_degraded`; symlink interno listado junto a su destino, contra §2.2. No hace falta repetir preflight ni cold: no cambia objetivo, límites ni criterios.
