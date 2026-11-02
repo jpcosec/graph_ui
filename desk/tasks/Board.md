@@ -7,6 +7,7 @@ scope: graph_ui
 tasks:
 - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
 - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
+- desk/tasks/task-ws13-1-lector-de-documento-fuente-contexto-enlaces-y-foco.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -40,3 +41,4 @@ _Generated from the task references above._
 
 - Vista Changes: arbol de hashes, staleness e impacto en conocimiento [draft] - Añadir la vista/pestaña Changes en frontends/mindmap y la sección Integrity en el panel Context que consulten el estado real de verificación del store y crucen cada nodo o archivo mutado con sus dependientes a 1-2 hops en el grafo, señalando los artefactos potencialmente obsoletos (stale).
 - Edicion contextual de relaciones y campos con control de concurrencia [draft] - Habilitar en el panel Context y en la proyección Document del workspace el alta/baja de relaciones válidas según el modelo y la edición de campos vía pron.Store/sldb, exigiendo el hash de revisión previo y rechazando con 409 Conflict cualquier escritura obsoleta.
+- WS13.1: lector de documento, fuente, contexto, enlaces y foco [draft] - Entregar en el host Mindmap un lector de solo lectura con render y fuente cruda íntegra del mismo origen para Markdown modelado y no modelado, contexto real, seguimiento de enlaces y foco compartido donde WS11 defina correspondencia.
