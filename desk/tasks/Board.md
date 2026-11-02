@@ -7,7 +7,6 @@ scope: graph_ui
 tasks:
 - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
 - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
-- desk/tasks/task-corregir-ws13-2-frontera-api-raíces-identidad-visible-y-estado-de-carga.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -41,4 +40,3 @@ _Generated from the task references above._
 
 - Vista Changes: arbol de hashes, staleness e impacto en conocimiento [draft] - Añadir la vista/pestaña Changes en frontends/mindmap y la sección Integrity en el panel Context que consulten el estado real de verificación del store y crucen cada nodo o archivo mutado con sus dependientes a 1-2 hops en el grafo, señalando los artefactos potencialmente obsoletos (stale).
 - Edicion contextual de relaciones y campos con control de concurrencia [draft] - Habilitar en el panel Context y en la proyección Document del workspace el alta/baja de relaciones válidas según el modelo y la edición de campos vía pron.Store/sldb, exigiendo el hash de revisión previo y rechazando con 409 Conflict cualquier escritura obsoleta.
-- Corregir WS13.2: frontera API, raíces, identidad visible y estado de carga [draft] - Corregir los cuatro puntos en el explorador de graph_ui con pruebas reales y calibrar el hook de escrituras, sin iniciar WS13.3.
