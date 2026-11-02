@@ -1,0 +1,11 @@
+Task: task-ws13-2-explorador-de-documentos-modelados-y-no-modelados
+Title: WS13.2: explorador de documentos modelados y no modelados
+Status: draft
+Current node: ritual-execution
+Task type: code
+From drawer: desk/drawer/tasks/task-ws13-2-explorador-modelados-y-no-modelados.md
+Closeout evidence: tests, commit
+Effective pills:
+- desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md
+Lifecycle gates:
+- task_activates -> ritual-testing: open [(none)]
