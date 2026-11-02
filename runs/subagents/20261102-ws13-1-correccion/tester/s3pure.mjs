@@ -1,0 +1,11 @@
+import * as r from '/home/jp/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/views/workspace/node/reader.mjs';
+const A='TaskDoc:a';
+const e1={source:A,target:'TaskDoc:c',type:'references',provenance:[{owner:A,field:'references',declared:'c'}]};
+const e2={source:A,target:'TaskDoc:z',type:'references',provenance:[{owner:A,field:'references',declared:'z'},{owner:'TaskDoc:q',field:'references',declared:'z'}]};
+const rel={source:A,target:'TaskDoc:c',type:'x',relationDoc:'R',provenance:[{origin:'relation_doc'}]};
+const f={kind:'reference',doc:A,field:'references',position:0,value:'z'};
+console.log('mismo campo, otro destino NO resalta e1:',r.edgeHighlighted(e1,f,A)===false);
+console.log('mismo campo, mismo destino SI resalta e2:',r.edgeHighlighted(e2,f,A)===true);
+console.log('relation_doc no resalta campo:',r.edgeHighlighted(rel,{kind:'field',field_path:'references'},A)===false);
+console.log('doc ajeno (q) con focus de otro doc no cuenta:',r.edgeHighlighted(e2,{...f,doc:'TaskDoc:q'},A)===false);
+console.log('correspondence:',JSON.stringify(r.correspondence(f,{edges:[e1,e2,rel],fields:[{field_path:'references'}],files:[],docId:A})));
