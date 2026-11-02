@@ -14,3 +14,5 @@ exit 1
 2026-11-02T07:35:15-03:00
 FAILED tests/test_mindmap_workspace.py::test_workspace_broken_doc_catalog_returns_500
 1 failed, 238 passed, 2 warnings in 825.94s (0:13:45)
+== correccion autorizada: pytest -q tests/test_mindmap_workspace.py ==
+15 passed in 49.39s

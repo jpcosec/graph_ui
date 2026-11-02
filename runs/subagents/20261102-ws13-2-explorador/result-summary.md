@@ -36,6 +36,9 @@ Modelo no importable real: su modulo se registra con `add_model`/`create_documen
 ## UI (Chromium, 1440x900)
 DOM y capturas: explorador, boton de refresco, estado `modelo_no_carga`, arbol, aviso de relaciones en Grafo y panel de contexto (ausente en el explorador y en no modelados), truncado y rutas invalidas. Revise visualmente `explorer-tras-refrescar.png` y `explorer-aviso-relaciones-grafo.png`. Alta de un modelado y un .md aparecen tras refrescar sin reiniciar; todas las peticiones /api son GET; `/explorer` sin query. Ajuste visual posterior (`max-height` de secciones) no tiene captura nueva distinta de la ya generada en e2e final.
 
+## Prueba previa modificada (autorizada por el coordinador)
+`tests/test_mindmap_workspace.py::test_workspace_broken_doc_catalog_returns_500` renombrada a `test_workspace_broken_doc_catalog_degrades_that_entry_and_keeps_healthy_ones`: ahora exige 200, la entrada corrupta con `estado:'modelo_no_carga'`, `causa` no vacia, identidad y ruta conservadas, y las sanas con `estado:'ok'`. Resultado real: `pytest -q tests/test_mindmap_workspace.py` 15 passed. La suite completa no se repitio; total esperado 239 pruebas (238 que pasaron + esta corregida). El bloqueo 1 de abajo queda resuelto.
+
 ## Bloqueos
 1. `tests/test_mindmap_workspace.py::test_workspace_broken_doc_catalog_returns_500` afirma `/nodes` 500 para un documento con frontmatter corrupto; la TaskDoc exige degradar tambien `extract_model_data`, asi que ahora da 200 con `modelo_no_carga`. El archivo esta fuera de la lista cerrada y no lo edite. Hace falta que el Supervisor autorice reemplazar esa asercion (200, `estado:'modelo_no_carga'`, el resto del catalogo sano). Cobertura equivalente ya existe en mis pruebas nuevas.
 2. Ninguno de contrato o API nueva.
