@@ -343,7 +343,7 @@
 .workspace-edge-rel {
   font-weight: 600;
   color: var(--primary);
-  font-family: monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', 'Noto Sans Mono', 'Liberation Mono', monospace;
 }
 
 /* Code Projection */
@@ -370,7 +370,7 @@
 }
 
 .workspace-code-filename {
-  font-family: monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', 'Noto Sans Mono', 'Liberation Mono', monospace;
   font-weight: 600;
   font-size: 13px;
   color: var(--ink);
@@ -379,7 +379,7 @@
 .workspace-code-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', 'Noto Sans Mono', 'Liberation Mono', monospace;
   font-size: 12px;
   line-height: 1.5;
 }
@@ -438,7 +438,7 @@
 }
 
 .workspace-identity-val {
-  font-family: monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', 'Noto Sans Mono', 'Liberation Mono', monospace;
   word-break: break-all;
 }
 
@@ -534,4 +534,179 @@
     border-left: none;
     border-top: 1px solid var(--border);
   }
+}
+
+/* ------------------------------------------------------------------
+   WS13.1: lector (render + fuente), enlaces, foco y rango local de Code
+   ------------------------------------------------------------------ */
+
+.workspace-view [hidden] {
+  display: none !important;
+}
+
+.workspace-reader-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 900px) {
+  .workspace-reader-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.workspace-reader-col {
+  min-width: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  background: var(--surface-panel);
+  padding: 8px 12px;
+  overflow: auto;
+  max-height: 70vh;
+}
+
+.workspace-reader-col h3 {
+  margin: 4px 0 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.workspace-render h2,
+.workspace-render h3,
+.workspace-render h4,
+.workspace-render h5,
+.workspace-render h6 {
+  margin: 12px 0 6px;
+  color: var(--ink);
+}
+
+.workspace-render p,
+.workspace-render ul {
+  margin: 6px 0;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.workspace-render-block.is-focused,
+.workspace-ir-section.is-focused,
+.workspace-payload-field.is-focused,
+.workspace-edge-item.is-focused,
+.workspace-code-file-card.is-focused,
+.workspace-outline li.is-focused {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  background: var(--surface-muted);
+}
+
+.workspace-render-frontmatter,
+.workspace-render-code {
+  background: var(--surface-sunken);
+  padding: 8px;
+  border-radius: 4px;
+  overflow: auto;
+  font-size: 12px;
+}
+
+.workspace-source {
+  font-size: 12px;
+  overflow: auto;
+}
+
+.workspace-src-line.is-focused td,
+.workspace-code-line.in-range td {
+  background: var(--surface-muted);
+  box-shadow: inset 2px 0 0 var(--primary);
+}
+
+.workspace-code-line.selectable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.workspace-doc-link {
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.workspace-link-broken {
+  color: var(--warning-strong);
+  text-decoration: line-through;
+}
+
+.workspace-link-external,
+.workspace-link-unresolved {
+  color: var(--text-muted);
+}
+
+.workspace-link-btn,
+.workspace-ir-focus-btn,
+.workspace-code-ref-btn {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0 2px;
+  text-align: left;
+}
+
+.workspace-link-btn {
+  color: var(--primary);
+  text-decoration: underline;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+.workspace-ir-focus-btn:disabled {
+  cursor: default;
+}
+
+.workspace-focus-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 6px 20px;
+  background: var(--surface-muted);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+
+.workspace-edge-item {
+  cursor: pointer;
+}
+
+.workspace-edge-prov {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.workspace-code-range-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  margin: 8px 0 4px;
+}
+
+.workspace-code-full {
+  margin-top: 8px;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.workspace-outline {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* El monospace genérico del navegador puede resolver a una fuente sin métricas (texto de
+   alto cero: código e identificadores en blanco); se fija una pila con fuentes concretas. */
+.workspace-view code,
+.workspace-view pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', 'Noto Sans Mono', 'Liberation Mono', monospace;
 }

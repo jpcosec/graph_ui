@@ -38,9 +38,27 @@ TEXT_EXTENSIONS = {
 
 
 class WorkspaceError(Exception):
-    def __init__(self, message: str, status: int = 400):
+    def __init__(self, message: str, status: int = 400, estado: str | None = None):
         super().__init__(message)
         self.status = status
+        self.estado = estado
+
+
+# Estado de guardia de lectura de archivo -> estado HTTP (navegacion §3.3, WS13.1).
+SOURCE_STATE_HTTP = {
+    'no_existe': 404,
+    'fuera_del_repo': 403,
+    'protegido': 403,
+    'binario': 415,
+    'directorio': 415,
+    'no_markdown': 415,
+    'demasiado_grande': 413,
+    'sin_repo_root': 503,
+    'error_lectura': 500,
+    'ambiguous': 409,
+}
+_EXTERNAL_PREFIXES = ('http://', 'https://')
+_COLON_PREFIX = re.compile(r'^[A-Za-z0-9][A-Za-z0-9._-]*:')
 
 
 class ResolvedNodeDoc:
@@ -92,10 +110,19 @@ class WorkspaceRoutes:
                 return handler.json_response(self.workspace_node(ident, depth))
             elif route == '/api/workspace/nodes':
                 return handler.json_response(self.workspace_nodes())
+            elif route == '/api/workspace/source':
+                ident = (query.get('id') or [''])[0]
+                path_param = (query.get('path') or [''])[0]
+                if bool(ident) == bool(path_param):
+                    raise WorkspaceError('Se requiere exactamente uno de id o path.', 400, 'seleccion_invalida')
+                return handler.json_response(self.workspace_source(ident, path_param))
             else:
                 raise WorkspaceError(f'Ruta desconocida: {route}', 404)
         except WorkspaceError as exc:
-            return handler.json_response({'ok': False, 'error': str(exc)}, exc.status)
+            body = {'ok': False, 'error': str(exc)}
+            if exc.estado:
+                body['estado'] = exc.estado
+            return handler.json_response(body, exc.status)
         except Exception as exc:
             return handler.json_response({'ok': False, 'error': str(exc)}, 500)
 
@@ -351,16 +378,67 @@ class WorkspaceRoutes:
                 pass
             raise WorkspaceError(f'Documento no encontrado: {ident}', 404)
 
+    def _document_edges(self) -> list[dict[str, Any]]:
+        """Aristas documento-a-documento del índice, sin reconstruir (load_edge_index).
+
+        La deduplicación por (source, target, type, relation_doc) no descarta procedencias:
+        cada arista conserva en `provenance` la metadata de todos los registros del índice
+        que la originan (origin, field, declared, source_field, ref_path, ref_index...).
+        """
+        from sldb.api.edges.edge_reading import load_edge_index
+
+        prefix = 'sldb://document/'
+        idx = load_edge_index(self.store_path, include_linked=False)
+        merged: dict[tuple, dict[str, Any]] = {}
+        for rec in idx.edges:
+            if not (rec.source.startswith(prefix) and rec.target.startswith(prefix)):
+                continue
+            meta = dict(rec.metadata or {})
+            relation_doc = meta.get('relation_doc')
+            source, target = rec.source[len(prefix):], rec.target[len(prefix):]
+            key = (source, target, rec.relation, relation_doc)
+            edge = merged.get(key)
+            if edge is None:
+                edge = {
+                    'source': source,
+                    'target': target,
+                    'type': rec.relation,
+                    'origin': str(meta.get('origin', '')),
+                    'relationDoc': relation_doc,
+                    'provenance': [],
+                }
+                merged[key] = edge
+            prov = {k: v for k, v in meta.items() if k != 'relation_doc'}
+            if prov not in edge['provenance']:
+                edge['provenance'].append(prov)
+        return list(merged.values())
+
     def _build_graph_neighborhood(self, root_id: str, docs: list[Any], depth: int) -> dict[str, Any]:
         try:
+            # /api/workspace/node conserva su lectura previa (document_edges reconstruye el
+            # índice); la procedencia se añade desde load_edge_index sin tocar esa llamada.
             from sldb.api.edges.document_edges import document_edges
 
             pythonpath = getattr(self.editor_store, 'pythonpath', None) if self.editor_store else None
-            edges = document_edges(self.store_path, pythonpath=pythonpath)
+            raw_edges = document_edges(self.store_path, pythonpath=pythonpath)
+            provenance_by_key: dict[tuple, list[Any]] = {}
+            try:
+                for pe in self._document_edges():
+                    provenance_by_key[(pe['source'], pe['target'], pe['type'], pe['relationDoc'])] = pe['provenance']
+            except Exception:
+                provenance_by_key = {}
+            edges = [
+                {
+                    'source': e.source, 'target': e.target, 'type': e.type, 'origin': e.origin,
+                    'relationDoc': e.relation_doc,
+                    'provenance': provenance_by_key.get((e.source, e.target, e.type, e.relation_doc), []),
+                }
+                for e in raw_edges
+            ]
             adj: dict[str, list[Any]] = {}
             for edge in edges:
-                adj.setdefault(edge.source, []).append(edge)
-                adj.setdefault(edge.target, []).append(edge)
+                adj.setdefault(edge['source'], []).append(edge)
+                adj.setdefault(edge['target'], []).append(edge)
 
             visited_nodes: dict[str, int] = {root_id: 0}
             current_level = {root_id}
@@ -369,7 +447,7 @@ class WorkspaceRoutes:
                 next_level = set()
                 for nid in current_level:
                     for edge in adj.get(nid, []):
-                        neighbor = edge.target if edge.source == nid else edge.source
+                        neighbor = edge['target'] if edge['source'] == nid else edge['source']
                         if neighbor not in visited_nodes:
                             visited_nodes[neighbor] = current_depth
                             next_level.add(neighbor)
@@ -380,17 +458,11 @@ class WorkspaceRoutes:
             neighborhood_edges = []
             for nid in visited_nodes:
                 for edge in adj.get(nid, []):
-                    if edge.source in visited_nodes and edge.target in visited_nodes:
-                        edge_key = (edge.source, edge.target, edge.type, edge.relation_doc)
+                    if edge['source'] in visited_nodes and edge['target'] in visited_nodes:
+                        edge_key = (edge['source'], edge['target'], edge['type'], edge['relationDoc'])
                         if edge_key not in seen_edges:
                             seen_edges.add(edge_key)
-                            neighborhood_edges.append({
-                                'source': edge.source,
-                                'target': edge.target,
-                                'type': edge.type,
-                                'origin': edge.origin,
-                                'relationDoc': edge.relation_doc
-                            })
+                            neighborhood_edges.append(edge)
 
             doc_map = {f"{getattr(d, 'model_name')}:{getattr(d, 'name')}": d for d in docs}
             nodes = []
@@ -438,17 +510,20 @@ class WorkspaceRoutes:
                 'error': f'Código no disponible: {reason}'
             }
 
-        raw_refs = []
-        if isinstance(payload.get('files'), list):
-            raw_refs.extend(payload['files'])
-        if isinstance(payload.get('references'), list):
-            raw_refs.extend(payload['references'])
-
+        # Cada referencia conserva campo y posición 0-based en la lista original del campo
+        # (contando los elementos omitidos) antes de concatenar files y references.
+        doc_id = f"{getattr(doc, 'model_name', '')}:{getattr(doc, 'name', '')}" if doc is not None else ''
         inspected = []
-        for ref in raw_refs:
-            if not isinstance(ref, str) or not ref.strip():
+        for field in ('files', 'references'):
+            values = payload.get(field)
+            if not isinstance(values, list):
                 continue
-            inspected.append(self._inspect_file_reference(ref.strip()))
+            for position, ref in enumerate(values):
+                if not isinstance(ref, str) or not ref.strip():
+                    continue
+                item = self._inspect_file_reference(ref.strip())
+                item.update({'doc': doc_id, 'field': field, 'position': position, 'value': ref})
+                inspected.append(item)
 
         return {
             'ok': True,
@@ -573,6 +648,316 @@ class WorkspaceRoutes:
             return res_dict
         except Exception as exc:
             return {'reference': ref, 'status': 'error_lectura', 'message': str(exc)}
+
+    # ------------------------------------------------------------------
+    # WS13.1: lector de fuente (GET /api/workspace/source). Solo lectura.
+    # ------------------------------------------------------------------
+
+    def _guard_markdown_file(self, path_str: str) -> tuple[Path, str]:
+        """Guardias generales de lectura de archivo (navegacion §3.3), mismos estados que
+        _inspect_file_reference. Devuelve (ruta resuelta, ruta relativa con /) o lanza
+        WorkspaceError con `estado`."""
+        def fail(estado: str, message: str):
+            raise WorkspaceError(message, SOURCE_STATE_HTTP[estado], estado)
+
+        if not self.repo_root:
+            fail('sin_repo_root', 'No se configuró repo_root.')
+        if not path_str or '\x00' in path_str:
+            raise WorkspaceError('Ruta inválida.', 400, 'ruta_invalida')
+        candidate = Path(path_str)
+        resolved = candidate.resolve() if candidate.is_absolute() else (self.repo_root / candidate).resolve()
+        if not resolved.is_relative_to(self.repo_root):
+            fail('fuera_del_repo', 'La ruta o enlace simbólico escapa del repositorio.')
+        rel = resolved.relative_to(self.repo_root)
+        rel_str = rel.as_posix()
+        if '.git' in rel.parts:
+            fail('protegido', 'Ruta interna de control de versiones .git.')
+        if not resolved.exists():
+            fail('no_existe', 'El archivo no existe.')
+        is_ignored, ignore_msg = self._is_gitignored(resolved)
+        if is_ignored:
+            fail('protegido', ignore_msg)
+        if resolved.is_dir():
+            fail('directorio', 'Es un directorio, no un documento.')
+        if resolved.suffix.lower() != '.md':
+            fail('no_markdown', 'Solo se abren documentos Markdown (.md).')
+        return resolved, rel_str
+
+    def _read_markdown_bytes(self, resolved: Path) -> tuple[bytes, int]:
+        """Lee los bytes una sola vez, con tope y rechazo de binarios."""
+        try:
+            size = resolved.stat().st_size
+            if size > MAX_CODE_BYTES:
+                raise WorkspaceError(f'Excede el límite de {MAX_CODE_BYTES // 1024} KB.', 413, 'demasiado_grande')
+            data = resolved.read_bytes()
+        except WorkspaceError:
+            raise
+        except OSError as exc:
+            raise WorkspaceError(f'Fallo de lectura: {exc}', 500, 'error_lectura')
+        if len(data) > MAX_CODE_BYTES:
+            raise WorkspaceError(f'Excede el límite de {MAX_CODE_BYTES // 1024} KB.', 413, 'demasiado_grande')
+        if b'\x00' in data:
+            raise WorkspaceError('Archivo binario no visualizable como texto.', 415, 'binario')
+        return data, len(data)
+
+    def _tracked_status(self, rel_or_ref: str):
+        """doc_status del store para 'local:'+ref. None si la consulta falla (no rastreado)."""
+        from sldb.api.stores.doc_status import doc_status
+        try:
+            return doc_status(self.store_path, 'local:' + rel_or_ref)
+        except Exception:
+            return None
+
+    def workspace_source(self, ident: str, path_param: str) -> dict[str, Any]:
+        """Render y fuente cruda del mismo origen para un Markdown modelado o no modelado."""
+        if not self.store_path or not self.store_path.exists():
+            raise WorkspaceError('El store no está disponible.', 503)
+        if not self.repo_root:
+            raise WorkspaceError('No se configuró repo_root.', 503, 'sin_repo_root')
+
+        requested: dict[str, str] = {}
+        model_name = name = None
+        rel_hint = ''
+        degraded_doc = None
+
+        if ident:
+            if '..' in ident or ident.startswith(('/', '\\')):
+                raise WorkspaceError('Identificador inválido o con intento de escape.', 400)
+            if not self.editor_store:
+                raise WorkspaceError('El store no está disponible.', 503)
+            requested['id'] = ident
+            try:
+                docs = self.editor_store.documents()
+            except Exception:
+                docs = []
+            doc = self._resolve_document(ident, docs)
+            model_name, name = doc.model_name, doc.name
+            rel_hint = str(getattr(doc, 'path', '') or '')
+            if getattr(doc, 'is_degraded', False):
+                degraded_doc = doc
+        else:
+            requested['path'] = path_param
+            _, rel_hint = self._guard_markdown_file(path_param)
+            status = self._tracked_status(rel_hint)
+            if status is not None and status.status == 'ambiguous':
+                raise WorkspaceError(f'La ruta {rel_hint} es ambigua en el store; use Model:name.', 409, 'ambiguous')
+            if status is not None and status.status == 'ok':
+                model_name, name = status.model, status.name
+
+        modeled = model_name is not None
+        runtime_doc = None
+        runtime_error = None
+        if modeled and degraded_doc is None:
+            from sldb.api.records.resolve import resolve_runtime_doc
+            try:
+                runtime_doc = resolve_runtime_doc(str(self.store_path), f'{model_name}/{name}', getattr(self.editor_store, 'pythonpath', None))
+            except Exception as exc:
+                runtime_error = str(exc)
+                degraded_doc = ResolvedNodeDoc(model_name, name, rel_hint, degraded_reason=runtime_error, is_degraded=True)
+        if modeled and runtime_doc is not None:
+            read_path = runtime_doc.get('absolute_path') or rel_hint
+        else:
+            read_path = rel_hint
+        if not read_path:
+            raise WorkspaceError('El documento no tiene archivo en disco.', 404, 'no_existe')
+        resolved, rel_str = self._guard_markdown_file(str(read_path))
+        data, size = self._read_markdown_bytes(resolved)
+        revision = hashlib.sha256(data).hexdigest()
+        replaced = False
+        try:
+            text = data.decode('utf-8')
+        except UnicodeDecodeError:
+            text = data.decode('utf-8', errors='replace')
+            replaced = True
+
+        ir = None
+        ir_error = None
+        fields: list[dict[str, Any]] = []
+        sections: list[dict[str, Any]] = []
+        if modeled and runtime_doc is not None:
+            from sldb.api import build_document_ir_json
+            try:
+                ir = build_document_ir_json(runtime_doc, text, runtime_doc.get('template'))
+            except Exception as exc:
+                ir_error = str(exc)
+        elif modeled:
+            ir_error = f'Documento degradado: {runtime_error or getattr(degraded_doc, "degraded_reason", "")}'
+        if ir is not None:
+            sections = self._sections_from_ir(ir.get('structure') or [])
+            for node in ir.get('nodes') or []:
+                if node.get('kind') == 'field':
+                    span = node.get('span') or {}
+                    has_span = span.get('line_start') is not None or span.get('line_end') is not None
+                    fields.append({
+                        'field_path': node.get('field_path') or node.get('name'),
+                        'value': node.get('value'),
+                        'span': {'line_start': span.get('line_start'), 'line_end': span.get('line_end')} if has_span else None,
+                    })
+        else:
+            sections = self._sections_from_text(text)
+
+        canon_id = f'{model_name}:{name}' if modeled else None
+        links = self._resolve_links(text, rel_str, canon_id, rel_str)
+        context = self._source_context(canon_id, model_name, name, rel_str, revision)
+
+        descriptor = None
+        if runtime_doc is not None:
+            descriptor = {
+                'payload': runtime_doc.get('payload') or {},
+                'semantic_tags': runtime_doc.get('semantic_tags') or [],
+            }
+        return {
+            'ok': True,
+            'identity': {
+                'kind': 'modeled' if modeled else 'unmodeled',
+                'id': canon_id,
+                'model_name': model_name,
+                'name': name,
+                'repo': 'local',
+                'path': rel_str,
+                'requested': requested,
+            },
+            'revision': revision,
+            'size': size,
+            'encoding': 'utf-8-replaced' if replaced else 'utf-8',
+            'line_count': len(text.splitlines()),
+            'text': text,
+            'sections': sections,
+            'fields': fields,
+            'ir': ir,
+            'ir_error': ir_error,
+            'descriptor': descriptor,
+            'degraded': bool(modeled and runtime_doc is None),
+            'links': links,
+            'context': context,
+        }
+
+    @staticmethod
+    def _sections_from_ir(structure: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        out: list[dict[str, Any]] = []
+
+        def walk(items: list[dict[str, Any]]) -> None:
+            for item in items:
+                meta = item.get('metadata') or {}
+                span = item.get('span') or {}
+                out.append({
+                    'title': item.get('title') or item.get('name') or '',
+                    'slug': meta.get('slug') or '',
+                    'level': meta.get('level'),
+                    'path': item.get('name') or '',
+                    'line_start': span.get('line_start'),
+                    'line_end': span.get('line_end'),
+                })
+                walk(item.get('children') or [])
+        walk(structure)
+        return out
+
+    @staticmethod
+    def _sections_from_text(text: str) -> list[dict[str, Any]]:
+        """Secciones de un Markdown no modelado con extract_sections de sldb, sobre la misma lectura."""
+        from sldb.api.records.extract import extract_sections
+        return [
+            {'title': s.title, 'slug': s.slug, 'level': s.level, 'path': s.path,
+             'line_start': s.line_start, 'line_end': s.line_end}
+            for s in extract_sections(text)
+        ]
+
+    def _source_context(self, canon_id: str | None, model_name: str | None, name: str | None, rel: str, revision: str) -> dict[str, Any]:
+        context: dict[str, Any] = {
+            'id': canon_id, 'name': name, 'model_name': model_name, 'repo': 'local',
+            'path': rel, 'revision': revision,
+            'incoming_relations': None, 'outgoing_relations': None, 'relations_error': None,
+            'relations_absent': None,
+        }
+        if canon_id is None:
+            context['relations_absent'] = 'Documento no modelado: no está en el store, sin relaciones.'
+            return context
+        try:
+            edges = self._document_edges()
+            context['incoming_relations'] = [e for e in edges if e['target'] == canon_id]
+            context['outgoing_relations'] = [e for e in edges if e['source'] == canon_id]
+        except Exception as exc:
+            context['relations_error'] = str(exc)
+        return context
+
+    def _resolve_links(self, text: str, doc_rel: str, own_id: str | None, own_path: str) -> list[dict[str, Any]]:
+        """Resuelve los enlaces [[...]] del texto contra el desk propio, sin leer el destino.
+
+        Orden: parse_links, split_anchor, clasificar prefijo. `local:` se retira una vez.
+        """
+        from sldb.links import parse_links
+        from sldb.links.sections import split_anchor
+
+        lines = text.splitlines()
+        results: list[dict[str, Any]] = []
+        seen: set[str] = set()
+        for pl in parse_links(text):
+            if pl.raw in seen:
+                continue
+            seen.add(pl.raw)
+            line = next((i + 1 for i, l in enumerate(lines) if pl.raw in l), None)
+            entry = {
+                'raw': pl.raw, 'target': pl.target, 'kind': pl.kind, 'predicate': pl.predicate,
+                'line': line, 'anchor': None, 'status': 'roto', 'cause': '', 'open': None,
+                'origin': {'doc': own_id or own_path, 'path': doc_rel, 'line': line},
+            }
+            base, anchor = split_anchor(pl.target)
+            entry['anchor'] = anchor
+            self._classify_link(entry, base, doc_rel, own_id, own_path)
+            results.append(entry)
+        return results
+
+    def _classify_link(self, entry: dict[str, Any], base: str, doc_rel: str, own_id: str | None, own_path: str) -> None:
+        if base.startswith(_EXTERNAL_PREFIXES):
+            entry.update(status='externo', cause='Enlace externo: se muestra, no se abre ni se lee.')
+            return
+        if base.startswith('local:'):
+            base = base[len('local:'):]
+        if base == '':
+            # ancla del propio documento
+            entry['status'] = 'ok'
+            entry['open'] = {'id': own_id} if own_id else {'path': own_path}
+            return
+        tracked = self._tracked_status(base)
+        if tracked is not None and tracked.status == 'ambiguous':
+            entry.update(status='roto', cause='Destino ambiguo en el store; use Model/name.', estado='ambiguous')
+            return
+        if tracked is not None and tracked.status == 'ok':
+            tpath = tracked.path or ''
+            try:
+                self._guard_markdown_file(tpath)
+            except WorkspaceError as exc:
+                entry.update(status='roto', cause=str(exc), estado=exc.estado)
+                return
+            entry['status'] = 'ok'
+            entry['open'] = {'id': f'{tracked.model}:{tracked.name}'}
+            entry['path'] = tpath
+            return
+        # No modelado: relativo al directorio del documento y luego al root del repo.
+        doc_dir = Path(doc_rel).parent.as_posix()
+        candidates = []
+        if doc_dir not in ('', '.'):
+            candidates.append(f'{doc_dir}/{base}')
+        candidates.append(base)
+        last_exc: WorkspaceError | None = None
+        for cand in candidates:
+            try:
+                _, rel = self._guard_markdown_file(cand)
+            except WorkspaceError as exc:
+                if exc.estado == 'no_existe':
+                    last_exc = last_exc or exc
+                    continue
+                entry.update(status='no_markdown' if exc.estado == 'no_markdown' else 'roto', cause=str(exc), estado=exc.estado, path=cand)
+                return
+            again = self._tracked_status(rel)
+            if again is not None and again.status == 'ok':
+                entry['open'] = {'id': f'{again.model}:{again.name}'}
+            else:
+                entry['open'] = {'path': rel}
+            entry['status'] = 'ok'
+            entry['path'] = rel
+            return
+        entry.update(status='roto', cause='El destino no existe en el desk.', estado='no_existe')
 
     def _check_problems_for_node(self, canon_id: str) -> dict[str, Any]:
         """Comprueba problemas reportados por el índice de aristas de SLDB para este nodo."""
