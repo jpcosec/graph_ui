@@ -1,0 +1,92 @@
+### BASE (HEAD 4fdaf05 sin la correccion) pytest reader nuevos
+E       KeyError: 'stale'
+E           AssertionError: GET modifico el store desactualizado: /api/workspace/node?id=TaskDoc:task-tarea-a&depth=1
+E           assert {'docs': {'.g...b49453', ...}} == {'docs': {'.g...b49453', ...}}
+E             
+E             Omitting 1 identical items, use -vv to show
+E             Differing items:
+E             {'store': {'.sldb/core/documents/RelationDoc/closeout-task_completes.yaml': '84da759d2bf0c25f518bd40a260681e91b50dd059...ationTypeDoc/reltype-applies_to_source.yaml': '1bb54098f081a931f50d8e569110a06fa563a5
+E             {'git': ('?? notes/sin-rastrear.m...
+E             
+E             ...Full output truncated (2 lines hidden), use '-vv' to show
+E               AssertionError: ('/api/workspace/source?id=TaskDoc%3Atask-protegido-p', {'/tmp/pytest-of-jp/pytest-229/test_no_file_is_opened_before_0...repo/desk/tasks/task-symlink-s.md', '/tmp/pytest-of-jp/pytest-229/t
+E               assert not ({'/home/jp/.cache/sldb/runtime-cache-extracted/7e3f31f85e1d5440c79bdad3f8ec5da489801cc83acd74e505806b46b6a26de5.json',...ycache__/index.cpython-313.pyc', '/home/jp/proyectos/SLDB_1/deskops/des
+E                +  where {'/home/jp/.cache/sldb/runtime-cache-extracted/7e3f31f85e1d5440c79bdad3f8ec5da489801cc83acd74e505806b46b6a26de5.json',...ycache__/index.cpython-313.pyc', '/home/jp/proyectos/SLDB_1/deskops/desko
+E                +    where opened_since = <test_mindmap_workspace_reader.AuditedServer object at 0x72c7041d17f0>.opened_since
+E           AssertionError: ('[[#Falta]]', {'anchor': 'Falta', 'cause': '', 'kind': 'link', 'line': 5, ...})
+E           assert ('ok' == 'roto'
+E             
+E             - roto
+E             + ok)
+E       KeyError: 'owner'
+E       AssertionError: file:///tmp/ws131-base/[eval1]:16
+E               out.decl = R.edgeDeclarations(edge(D.s, D.docId));
+E                            ^
+E         
+E         TypeError: R.edgeDeclarations is not a function
+E             at file:///tmp/ws131-base/[eval1]:16:20
+E             at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+E         
+E         Node.js v22.22.2
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', '--input-type=module', '-e', 'import * as R from "file:///tmp/ws131-base/frontends/mind...val1]:16:20\n    at process.processTicksAndRejections (node:internal/process/
+FAILED tests/test_mindmap_workspace_reader.py::test_get_leaves_store_documents_and_git_unchanged_canonical
+FAILED tests/test_mindmap_workspace_reader.py::test_get_on_stale_store_rejects_observably_and_never_rebuilds
+FAILED tests/test_mindmap_workspace_reader.py::test_no_file_is_opened_before_or_instead_of_its_guards
+FAILED tests/test_mindmap_workspace_reader.py::test_anchor_must_exist_in_own_modeled_and_unmodeled_targets
+FAILED tests/test_mindmap_workspace_reader.py::test_edge_provenance_carries_owner_document
+FAILED tests/test_mindmap_workspace_reader.py::test_focus_uses_only_fields_owned_by_the_open_document
+6 failed, 1 passed, 23 deselected in 30.18s
+### BASE pytest test_mindmap_workspace nuevo
+E       assert (True is False)
+FAILED tests/test_mindmap_workspace.py::test_workspace_cycle_on_unprepared_store_is_rejected_not_rebuilt
+1 failed, 1 passed, 13 deselected in 8.90s
+### BASE e2e nuevos
+E           AssertionError: Locator expected to contain text 'Cargando'
+E           Actual value: EstadoSin estado 
+E           Call log:
+E             - Expect "to_contain_text" with timeout 5000ms
+E             - waiting for locator(".workspace-sidebar").locator(".workspace-identity-prop").filter(has_text="Estado")
+E               9 × locator resolved to <div class="workspace-identity-prop">…</div>
+E                 - unexpected value "EstadoSin estado"
+E           AssertionError: Locator expected to be visible
+E           Actual value: <element(s) not found> 
+E           Call log:
+E             - Expect "to_be_visible" with timeout 5000ms
+E             - waiting for locator("[data-testid=\"panel-loading\"][data-panel=\"code\"]")
+E           AssertionError: Locator expected to be visible
+E           Actual value: <element(s) not found> 
+E           Call log:
+E             - Expect "to_be_visible" with timeout 5000ms
+E             - waiting for locator("[data-testid=\"revision-mismatch\"]").first
+E           AssertionError: Locator expected to contain text 'TaskDoc:task-tarea-destino'
+E           Actual value: <element(s) not found> 
+E           Call log:
+E             - Expect "to_contain_text" with timeout 5000ms
+E             - waiting for locator("[data-testid=\"store-no-preparado\"]")
+E           assert 'Documento: 0' in 'Documento: 2 · Grafo: 1 · Código: 0'
+E            +  where 'Documento: 2 · Grafo: 1 · Código: 0' = inner_text()
+E            +    where inner_text = <Locator frame=<Frame name= url='http://127.0.0.1:40323/workspace/node?id=TaskDoc:task-tarea-destino&tab=graph'> selector='[data-testid="focus-corr"]'>.inner_text
+E            +      where <Locator frame=<Frame name= url='http://127.0.0.1:40323/workspace/node?id=TaskDoc:task-tarea-destino&tab=graph'> selector='[data-testid="focus-corr"]'> = locator('[data-testid="focus-corr"]')
+E            +        where locator = <Page url='http://127.0.0.1:40323/workspace/node?id=TaskDoc:task-tarea-destino&tab=graph'>.locator
+E           AssertionError: Locator expected to have count '2'
+E           Actual value: 4 
+E           Call log:
+E             - Expect "to_have_count" with timeout 5000ms
+E             - waiting for locator("[data-testid=\"doc-render\"]").locator("a[data-status=\"ok\"]")
+E               4 × locator resolved to 0 elements
+E                 - unexpected value "0"
+E               5 × locator resolved to 4 elements
+E                 - unexpected value "4"
+FAILED tests/e2e_mindmap_workspace.py::test_reader_late_node_response_of_previous_document_is_discarded
+FAILED tests/e2e_mindmap_workspace.py::test_reader_modeled_to_unmodeled_shows_loading_not_previous_data
+FAILED tests/e2e_mindmap_workspace.py::test_reader_warns_when_node_and_source_revisions_differ
+FAILED tests/e2e_mindmap_workspace.py::test_reader_unprepared_store_shows_rejection_in_graph_and_relations
+FAILED tests/e2e_mindmap_workspace.py::test_reader_edge_focus_marks_only_fields_of_the_open_document
+FAILED tests/e2e_mindmap_workspace.py::test_reader_missing_anchor_is_broken_not_navigable
+6 failed, 2 passed, 3 deselected in 94.11s (0:01:34)
+### BASE node --test nuevo
+# SyntaxError: The requested module '../frontends/mindmap/views/workspace/node/reader.mjs' does not provide an export named 'edgeDeclarations'
+# pass 0
+# fail 1

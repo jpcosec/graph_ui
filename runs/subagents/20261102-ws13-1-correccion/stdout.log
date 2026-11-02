@@ -1,0 +1,176 @@
+### python -m pytest -q tests/test_mindmap_workspace_reader.py tests/test_mindmap_workspace.py
+.............................................                            [100%]
+45 passed in 158.96s (0:02:38)
+### env WORKSPACE_SCREENSHOT_DIR=/home/jp/proyectos/SLDB_1/UIs/graph_ui/runs/subagents/20261102-ws13-1-correccion/capturas python -m pytest -q tests/e2e_mindmap_workspace.py
+...........                                                              [100%]
+11 passed in 95.65s (0:01:35)
+### node --test tests/mindmap-workspace-reader.test.mjs
+TAP version 13
+# Subtest: la arista saliente resalta el campo del documento abierto
+ok 1 - la arista saliente resalta el campo del documento abierto
+  ---
+  duration_ms: 1.023783
+  type: 'test'
+  ...
+# Subtest: la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+ok 2 - la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+  ---
+  duration_ms: 0.7605
+  type: 'test'
+  ...
+# Subtest: el vecino a dos saltos tampoco resalta campos del documento abierto
+ok 3 - el vecino a dos saltos tampoco resalta campos del documento abierto
+  ---
+  duration_ms: 0.109684
+  type: 'test'
+  ...
+# Subtest: el foco de campo solo resalta las aristas que declara el documento abierto
+ok 4 - el foco de campo solo resalta las aristas que declara el documento abierto
+  ---
+  duration_ms: 0.143288
+  type: 'test'
+  ...
+# Subtest: correspondence cuenta solo elementos del documento abierto
+ok 5 - correspondence cuenta solo elementos del documento abierto
+  ---
+  duration_ms: 0.223618
+  type: 'test'
+  ...
+# Subtest: un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+ok 6 - un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+  ---
+  duration_ms: 0.229252
+  type: 'test'
+  ...
+# Subtest: relation_doc y structural no tienen campo: no resaltan ninguno
+ok 7 - relation_doc y structural no tienen campo: no resaltan ninguno
+  ---
+  duration_ms: 0.086653
+  type: 'test'
+  ...
+# Subtest: se conservan todas las procedencias reales: varias del dueño correcto
+ok 8 - se conservan todas las procedencias reales: varias del dueño correcto
+  ---
+  duration_ms: 0.103535
+  type: 'test'
+  ...
+# Subtest: sin identidad abierta no se resalta nada por propiedad
+ok 9 - sin identidad abierta no se resalta nada por propiedad
+  ---
+  duration_ms: 0.185353
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 45.120802
+### node --test tests/mindmap-workspace.test.mjs tests/document-ir.test.mjs
+TAP version 13
+# Subtest: irSections devuelve las secciones reales del documento con su span
+ok 1 - irSections devuelve las secciones reales del documento con su span
+  ---
+  duration_ms: 0.472879
+  type: 'test'
+  ...
+# Subtest: irSectionsWithCleanMeta conserva span y children, sin inventar
+ok 2 - irSectionsWithCleanMeta conserva span y children, sin inventar
+  ---
+  duration_ms: 0.476028
+  type: 'test'
+  ...
+# Subtest: irSpanOf: span solo con líneas reales; null no fabrica span
+ok 3 - irSpanOf: span solo con líneas reales; null no fabrica span
+  ---
+  duration_ms: 0.082351
+  type: 'test'
+  ...
+# Subtest: irFields: lista de campos con field_path; value del nodo o del payload; span null queda null
+ok 4 - irFields: lista de campos con field_path; value del nodo o del payload; span null queda null
+  ---
+  duration_ms: 0.660446
+  type: 'test'
+  ...
+# Subtest: irMeta: modelo y path desde el IR (context) con fallback al doc
+ok 5 - irMeta: modelo y path desde el IR (context) con fallback al doc
+  ---
+  duration_ms: 0.224233
+  type: 'test'
+  ...
+# Subtest: irRefFields: filtra por campos de referencia/contención, mismo shape que irFields
+ok 6 - irRefFields: filtra por campos de referencia/contención, mismo shape que irFields
+  ---
+  duration_ms: 0.196224
+  type: 'test'
+  ...
+# Subtest: TABS contains document, graph, and code projections
+ok 7 - TABS contains document, graph, and code projections
+  ---
+  duration_ms: 0.796209
+  type: 'test'
+  ...
+# Subtest: filterCatalog filters by query and model without modifying input
+ok 8 - filterCatalog filters by query and model without modifying input
+  ---
+  duration_ms: 0.223638
+  type: 'test'
+  ...
+# Subtest: formatHash formats hashes safely
+ok 9 - formatHash formats hashes safely
+  ---
+  duration_ms: 0.724441
+  type: 'test'
+  ...
+# Subtest: parseCodeSnippet slices content with target line highlighted
+ok 10 - parseCodeSnippet slices content with target line highlighted
+  ---
+  duration_ms: 0.326563
+  type: 'test'
+  ...
+# Subtest: formatProblems distinguishes clean, node problems, store problems, and errors
+ok 11 - formatProblems distinguishes clean, node problems, store problems, and errors
+  ---
+  duration_ms: 0.14926
+  type: 'test'
+  ...
+# Subtest: filterGraphEdges and distinctEdgeTypes filter and extract relation types
+ok 12 - filterGraphEdges and distinctEdgeTypes filter and extract relation types
+  ---
+  duration_ms: 0.183501
+  type: 'test'
+  ...
+# Subtest: irSectionsWithCleanMeta extracts hierarchical IR structure with line spans
+ok 13 - irSectionsWithCleanMeta extracts hierarchical IR structure with line spans
+  ---
+  duration_ms: 0.234319
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 46.616351
+### python -m pytest -q tests
+........................................................................ [ 33%]
+........................................................................ [ 66%]
+........................................................................ [ 99%]
+..                                                                       [100%]
+=============================== warnings summary ===============================
+tests/test_editor.py::test_safe_node_update_flow
+  /home/jp/proyectos/SLDB_1/UIs/graph_ui/tests/test_editor.py:17: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    metadata=EditMetadata(author="operator-01", timestamp=datetime.utcnow(), reason="Update description"),
+
+tests/test_editor.py::test_node_deletion_cascade
+  /home/jp/proyectos/SLDB_1/UIs/graph_ui/tests/test_editor.py:41: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    metadata=EditMetadata(author="operator-01", timestamp=datetime.utcnow(), reason="Simulate catastrophe"),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+218 passed, 2 warnings in 739.73s (0:12:19)

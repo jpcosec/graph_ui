@@ -1,0 +1,296 @@
+.FF.FFF                                                                  [100%]
+=================================== FAILURES ===================================
+_________ test_get_leaves_store_documents_and_git_unchanged_canonical __________
+
+committed = (PosixPath('/tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo'), 'task-tarea-a', 'task-tarea-b')
+server = 'http://127.0.0.1:33437'
+
+    def test_get_leaves_store_documents_and_git_unchanged_canonical(committed, server):
+        root, task_a, task_b = committed
+        for url in READ_URLS(task_a, task_b):
+            before = full_state(root)
+            status, data = get(server, url)
+            assert full_state(root) == before, f'GET modifico store, documentos o git: {url}'
+        # canonico: el grafo responde
+        status, node = get(server, f'/api/workspace/node?id=TaskDoc:{task_a}&depth=1')
+>       assert node['projections']['graph']['ok'] is True and node['projections']['graph']['stale'] == []
+E       KeyError: 'stale'
+
+tests/test_mindmap_workspace_reader.py:471: KeyError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Linked /home/jp/proyectos/SLDB_1/deskops/.sldb as deskops in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb.
+Inheriting CrossroadDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Inheriting AtomDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Inheriting BoardDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Inheriting DeskFAQDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Inheriting InboxNoteDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Inheriting MaterializationContractDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Inheriting PillDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Inheriting ProtoAtomDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Inheriting RepositoryDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Inheriting RitualDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Inheriting RoleDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Inheriting RunDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Inheriting StepDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+Inheriting TaskDoc in /tmp/pytest-of-jp/pytest-210/test_get_leaves_store_document0/repo/.sldb...
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [02/Nov/2026 05:48:07] "GET /api/workspace/nodes HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 05:48:07] "GET /api/workspace/source?id=TaskDoc%3Atask-tarea-a HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 05:48:07] "GET /api/workspace/source?id=TaskDoc%3Atask-tarea-b HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 05:48:07] "GET /api/workspace/source?path=guia.md HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 05:48:07] "GET /api/workspace/source?path=notes/otro.md HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 05:48:07] "GET /api/workspace/source?path=escape.md HTTP/1.1" 403 -
+127.0.0.1 - - [02/Nov/2026 05:48:07] "GET /api/workspace/source?path=ignorado.md HTTP/1.1" 403 -
+127.0.0.1 - - [02/Nov/2026 05:48:07] "GET /api/workspace/node?id=TaskDoc:task-tarea-a&depth=1 HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 05:48:08] "GET /api/workspace/node?id=TaskDoc:task-tarea-a&depth=2 HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 05:48:08] "GET /api/workspace/node?id=TaskDoc:task-tarea-b&depth=2 HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 05:48:08] "GET /api/workspace/node?id=TaskDoc:task-tarea-a&depth=1 HTTP/1.1" 200 -
+------------------------------ Captured log call -------------------------------
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•from_drawer⸥' references unknown field 'from_drawer'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev,list•closeout_evidence⸥' references unknown field 'closeout_evidence'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•from_drawer⸥' references unknown field 'from_drawer'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev,list•closeout_evidence⸥' references unknown field 'closeout_evidence'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•from_drawer⸥' references unknown field 'from_drawer'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev,list•closeout_evidence⸥' references unknown field 'closeout_evidence'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•from_drawer⸥' references unknown field 'from_drawer'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev,list•closeout_evidence⸥' references unknown field 'closeout_evidence'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•from_drawer⸥' references unknown field 'from_drawer'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev,list•closeout_evidence⸥' references unknown field 'closeout_evidence'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•from_drawer⸥' references unknown field 'from_drawer'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev,list•closeout_evidence⸥' references unknown field 'closeout_evidence'
+________ test_get_on_stale_store_rejects_observably_and_never_rebuilds _________
+
+committed = (PosixPath('/tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo'), 'task-tarea-a', 'task-tarea-b')
+server = 'http://127.0.0.1:38051'
+
+    def test_get_on_stale_store_rejects_observably_and_never_rebuilds(committed, server):
+        root, task_a, task_b = committed
+        shard = make_stale(root, task_b)
+        expected_stale = f'TaskDoc:{task_b}'
+        for url in READ_URLS(task_a, task_b):
+            before = full_state(root)
+            status, data = get(server, url)
+>           assert full_state(root) == before, f'GET modifico el store desactualizado: {url}'
+E           AssertionError: GET modifico el store desactualizado: /api/workspace/node?id=TaskDoc:task-tarea-a&depth=1
+E           assert {'docs': {'.g...ad9375', ...}} == {'docs': {'.g...ad9375', ...}}
+E             
+E             Omitting 1 identical items, use -vv to show
+E             Differing items:
+E             {'store': {'.sldb/core/documents/RelationDoc/closeout-task_completes.yaml': '84da759d2bf0c25f518bd40a260681e91b50dd059...ationTypeDoc/reltype-applies_to_source.yaml': '41ef4f8a0a3371d707e0cbf5fa30ecb307d5cdf42ef6aca2beb1364e9ead9375', ...}} != {'store': {'.sldb/core/documents/RelationDoc/closeout-task_completes.yaml': '84da759d2bf0c25f518bd40a260681e91b50dd059...ationTypeDoc/reltype-applies_to_source.yaml': '41ef4f8a0a3371d707e0cbf5fa30ecb307d5cdf42ef6aca2beb1364e9ead9375', ...}}
+E             {'git': ('?? notes/sin-rastrear.m...
+E             
+E             ...Full output truncated (2 lines hidden), use '-vv' to show
+
+tests/test_mindmap_workspace_reader.py:491: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Linked /home/jp/proyectos/SLDB_1/deskops/.sldb as deskops in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb.
+Inheriting CrossroadDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Inheriting AtomDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Inheriting BoardDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Inheriting DeskFAQDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Inheriting InboxNoteDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Inheriting MaterializationContractDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Inheriting PillDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Inheriting ProtoAtomDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Inheriting RepositoryDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Inheriting RitualDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Inheriting RoleDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Inheriting RunDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Inheriting StepDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+Inheriting TaskDoc in /tmp/pytest-of-jp/pytest-210/test_get_on_stale_store_reject0/repo/.sldb...
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [02/Nov/2026 05:48:11] "GET /api/workspace/nodes HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 05:48:11] "GET /api/workspace/source?id=TaskDoc%3Atask-tarea-a HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 05:48:12] "GET /api/workspace/source?id=TaskDoc%3Atask-tarea-b HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 05:48:12] "GET /api/workspace/source?path=guia.md HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 05:48:12] "GET /api/workspace/source?path=notes/otro.md HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 05:48:12] "GET /api/workspace/source?path=escape.md HTTP/1.1" 403 -
+127.0.0.1 - - [02/Nov/2026 05:48:12] "GET /api/workspace/source?path=ignorado.md HTTP/1.1" 403 -
+127.0.0.1 - - [02/Nov/2026 05:48:12] "GET /api/workspace/node?id=TaskDoc:task-tarea-a&depth=1 HTTP/1.1" 200 -
+------------------------------ Captured log call -------------------------------
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•from_drawer⸥' references unknown field 'from_drawer'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev,list•closeout_evidence⸥' references unknown field 'closeout_evidence'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•from_drawer⸥' references unknown field 'from_drawer'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev,list•closeout_evidence⸥' references unknown field 'closeout_evidence'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•from_drawer⸥' references unknown field 'from_drawer'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev,list•closeout_evidence⸥' references unknown field 'closeout_evidence'
+_________ test_anchor_must_exist_in_own_modeled_and_unmodeled_targets __________
+
+env = (PosixPath('/tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo'), 'task-tarea-a', 'task-tarea-b')
+server = 'http://127.0.0.1:38097'
+
+    def test_anchor_must_exist_in_own_modeled_and_unmodeled_targets(env, server):
+        root, task_a, task_b = env
+        (root / 'notes' / 'anclas.md').write_text(
+            '# Anclas\n\n## Propia\n\n'
+            'Propio ok [[#Propia]] y propio inexistente [[#Falta]].\n'
+            f'No modelado ok [[notes/otro.md#Segunda parte]] e inexistente [[notes/otro.md#Nada]].\n'
+            f'Modelado ok [[desk/tasks/{task_b}.md#Goal]] e inexistente [[desk/tasks/{task_b}.md#Nada]].\n'
+            f'Por nombre ok [[{task_b}#Goal]] e inexistente [[{task_b}#Nada]].\n', encoding='utf-8')
+        status, data = get(server, src_path('notes/anclas.md'))
+        assert status == 200
+        links = link_by_raw(data)
+        ok_raws = ['[[#Propia]]', '[[notes/otro.md#Segunda parte]]', f'[[desk/tasks/{task_b}.md#Goal]]', f'[[{task_b}#Goal]]']
+        for raw in ok_raws:
+            assert links[raw]['status'] == 'ok' and links[raw]['open'] is not None, (raw, links[raw])
+        bad_raws = ['[[#Falta]]', '[[notes/otro.md#Nada]]', f'[[desk/tasks/{task_b}.md#Nada]]', f'[[{task_b}#Nada]]']
+        for raw in bad_raws:
+            link = links[raw]
+>           assert link['status'] == 'roto' and link['estado'] == 'ancla_inexistente', (raw, link)
+E           AssertionError: ('[[#Falta]]', {'anchor': 'Falta', 'cause': '', 'kind': 'link', 'line': 5, ...})
+E           assert ('ok' == 'roto'
+E             
+E             - roto
+E             + ok)
+
+tests/test_mindmap_workspace_reader.py:684: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Linked /home/jp/proyectos/SLDB_1/deskops/.sldb as deskops in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb.
+Inheriting CrossroadDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Inheriting AtomDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Inheriting BoardDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Inheriting DeskFAQDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Inheriting InboxNoteDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Inheriting MaterializationContractDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Inheriting PillDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Inheriting ProtoAtomDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Inheriting RepositoryDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Inheriting RitualDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Inheriting RoleDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Inheriting RunDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Inheriting StepDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+Inheriting TaskDoc in /tmp/pytest-of-jp/pytest-210/test_anchor_must_exist_in_own_0/repo/.sldb...
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [02/Nov/2026 05:48:20] "GET /api/workspace/source?path=notes/anclas.md HTTP/1.1" 200 -
+_________________ test_edge_provenance_carries_owner_document __________________
+
+owner_env = ('task-doc-p', 'task-dest-q', 'task-dest-r', 'task-doc-s', 'task-doc-u')
+server = 'http://127.0.0.1:37955'
+
+    def test_edge_provenance_carries_owner_document(owner_env, server):
+        p, q, r, s, u = owner_env
+        status, node = get(server, f'/api/workspace/node?id=TaskDoc:{p}&depth=2')
+        edges = node['projections']['graph']['edges']
+        by = {(e['source'], e['target']): e for e in edges}
+        out = by[(f'TaskDoc:{p}', f'TaskDoc:{q}')]
+>       assert [pr['owner'] for pr in out['provenance'] if pr.get('field') == 'depends_on'] == [f'TaskDoc:{p}']
+E       KeyError: 'owner'
+
+tests/test_mindmap_workspace_reader.py:725: KeyError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Linked /home/jp/proyectos/SLDB_1/deskops/.sldb as deskops in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb.
+Inheriting CrossroadDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Inheriting AtomDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Inheriting BoardDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Inheriting DeskFAQDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Inheriting InboxNoteDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Inheriting MaterializationContractDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Inheriting PillDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Inheriting ProtoAtomDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Inheriting RepositoryDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Inheriting RitualDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Inheriting RoleDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Inheriting RunDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Inheriting StepDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+Inheriting TaskDoc in /tmp/pytest-of-jp/pytest-210/test_edge_provenance_carries_o0/repo/.sldb...
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [02/Nov/2026 05:48:24] "GET /api/workspace/node?id=TaskDoc:task-doc-p&depth=2 HTTP/1.1" 200 -
+------------------------------ Captured log call -------------------------------
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•from_drawer⸥' references unknown field 'from_drawer'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev,list•closeout_evidence⸥' references unknown field 'closeout_evidence'
+____________ test_focus_uses_only_fields_owned_by_the_open_document ____________
+
+owner_env = ('task-doc-p', 'task-dest-q', 'task-dest-r', 'task-doc-s', 'task-doc-u')
+server = 'http://127.0.0.1:46121'
+
+    def test_focus_uses_only_fields_owned_by_the_open_document(owner_env, server):
+        p, q, r, s, u = owner_env
+        pid = f'TaskDoc:{p}'
+        status, node = get(server, f'/api/workspace/node?id={pid}&depth=2')
+        status, src = get(server, src_id(pid))
+        payload = {'edges': node['projections']['graph']['edges'], 'fields': src['fields'], 'docId': pid,
+                   'q': f'TaskDoc:{q}', 'r': f'TaskDoc:{r}', 's': f'TaskDoc:{s}', 'u': f'TaskDoc:{u}'}
+>       result = run_node('''
+          const key = e => `${e.source}>${e.target}`;
+          const edge = (a, b) => D.edges.find(e => e.source === a && e.target === b);
+          const hl = (focus) => D.edges.filter(e => R.edgeHighlighted(e, focus, D.docId)).map(key).sort();
+          const out = {};
+          out.fieldFocus = hl(R.fieldFocus('depends_on'));
+          out.edgeOut = R.correspondence(R.edgeFocus(edge(D.docId, D.q)), {fields: D.fields, edges: D.edges, docId: D.docId});
+          out.edgeIn = R.correspondence(R.edgeFocus(edge(D.s, D.docId)), {fields: D.fields, edges: D.edges, docId: D.docId});
+          out.edgeTwo = R.correspondence(R.edgeFocus(edge(D.u, D.s)), {fields: D.fields, edges: D.edges, docId: D.docId});
+          out.fieldsHlIn = D.fields.filter(f => R.fieldHighlighted(f.field_path, R.edgeFocus(edge(D.s, D.docId)), D.edges, D.docId)).map(f => f.field_path);
+          out.fieldsHlOut = D.fields.filter(f => R.fieldHighlighted(f.field_path, R.edgeFocus(edge(D.docId, D.q)), D.edges, D.docId)).map(f => f.field_path);
+          out.ownedIn = R.edgeFields(edge(D.s, D.docId), D.docId);
+          out.ownedOut = R.edgeFields(edge(D.docId, D.q), D.docId);
+          out.decl = R.edgeDeclarations(edge(D.s, D.docId));
+          console.log(JSON.stringify(out));
+        ''', payload)
+
+tests/test_mindmap_workspace_reader.py:744: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+script = '\n      const key = e => `${e.source}>${e.target}`;\n      const edge = (a, b) => D.edges.find(e => e.source === a &&...q), D.docId);\n      out.decl = R.edgeDeclarations(edge(D.s, D.docId));\n      console.log(JSON.stringify(out));\n    '
+payload = {'docId': 'TaskDoc:task-doc-p', 'edges': [{'origin': 'schema', 'provenance': [{'allowed_models': ['TaskDoc'], 'declare...k']}, {'field_path': 'current_node', 'span': None, 'value': 'ritual-execution'}, ...], 'q': 'TaskDoc:task-dest-q', ...}
+
+    def run_node(script: str, payload) -> dict:
+        """Ejecuta reader.mjs real (node) sobre datos reales de la API."""
+        reader = Path(serve.__file__).resolve().parent / 'views' / 'workspace' / 'node' / 'reader.mjs'
+        code = f"import * as R from {json.dumps(reader.as_uri())};\nconst D = JSON.parse(await new Response(process.stdin).text());\n{script}"
+        res = subprocess.run(['node', '--input-type=module', '-e', code], input=json.dumps(payload), capture_output=True, text=True, timeout=60)
+>       assert res.returncode == 0, res.stderr
+E       AssertionError: file:///tmp/ws131-base/[eval1]:16
+E               out.decl = R.edgeDeclarations(edge(D.s, D.docId));
+E                            ^
+E         
+E         TypeError: R.edgeDeclarations is not a function
+E             at file:///tmp/ws131-base/[eval1]:16:20
+E             at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+E         
+E         Node.js v22.22.2
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', '--input-type=module', '-e', 'import * as R from "file:///tmp/ws131-base/frontends/mind...val1]:16:20\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n\nNode.js v22.22.2\n').returncode
+
+tests/test_mindmap_workspace_reader.py:715: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Linked /home/jp/proyectos/SLDB_1/deskops/.sldb as deskops in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb.
+Inheriting CrossroadDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Inheriting AtomDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Inheriting BoardDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Inheriting DeskFAQDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Inheriting InboxNoteDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Inheriting MaterializationContractDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Inheriting PillDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Inheriting ProtoAtomDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Inheriting RepositoryDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Inheriting RitualDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Inheriting RoleDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Inheriting RunDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Inheriting StepDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+Inheriting TaskDoc in /tmp/pytest-of-jp/pytest-210/test_focus_uses_only_fields_ow0/repo/.sldb...
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [02/Nov/2026 05:48:28] "GET /api/workspace/node?id=TaskDoc:task-doc-p&depth=2 HTTP/1.1" 200 -
+127.0.0.1 - - [02/Nov/2026 05:48:28] "GET /api/workspace/source?id=TaskDoc%3Atask-doc-p HTTP/1.1" 200 -
+------------------------------ Captured log call -------------------------------
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•from_drawer⸥' references unknown field 'from_drawer'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev,list•closeout_evidence⸥' references unknown field 'closeout_evidence'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•from_drawer⸥' references unknown field 'from_drawer'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev,list•closeout_evidence⸥' references unknown field 'closeout_evidence'
+=========================== short test summary info ============================
+FAILED tests/test_mindmap_workspace_reader.py::test_get_leaves_store_documents_and_git_unchanged_canonical
+FAILED tests/test_mindmap_workspace_reader.py::test_get_on_stale_store_rejects_observably_and_never_rebuilds
+FAILED tests/test_mindmap_workspace_reader.py::test_anchor_must_exist_in_own_modeled_and_unmodeled_targets
+FAILED tests/test_mindmap_workspace_reader.py::test_edge_provenance_carries_owner_document
+FAILED tests/test_mindmap_workspace_reader.py::test_focus_uses_only_fields_owned_by_the_open_document
+5 failed, 2 passed, 23 deselected in 30.05s

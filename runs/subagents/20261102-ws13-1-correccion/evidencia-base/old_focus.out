@@ -1,0 +1,3 @@
+BASE fieldHighlighted(depends_on de A) con foco en arista entrante B->A = true
+BASE correspondence(foco B->A) = {"document":1,"graph":1,"code":0}
+BASE edgeHighlighted(B->A) con foco de campo depends_on = true
