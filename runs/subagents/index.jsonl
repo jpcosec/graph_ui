@@ -32,3 +32,4 @@
 {"task_id": "task-estilo-de-notaci\u00f3n-en-las-vistas-viewdoc-de-review-workbench", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
 {"task_id": "task-deskops-workflow-view", "run_id": null, "run_dir": "runs/subagents/20261030-deskops-ui", "session_sha256": null, "commit": null}
 {"task_id": "task-workspace-multiproyeccion-documento-grafo-local-codigo-y-contexto", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
+{"task_id": "task-ws13-1-lector-de-documento-fuente-contexto-enlaces-y-foco", "run_id": null, "run_dir": "runs/subagents/20261102-ws13-1-lector", "session_sha256": null, "commit": null}
