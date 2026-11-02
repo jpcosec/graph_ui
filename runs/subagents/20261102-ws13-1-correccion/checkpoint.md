@@ -29,3 +29,7 @@ Tiempos en copia real, 307 nodos: `/nodes` 0.3-0.8 s, `/node` 0.47 s la primera 
 5. Sin verificar: otros navegadores, CDN caída, otros orígenes de stale, un campo propio que apunte a otro destino con datos reales (solo función pura).
 6. Render básico: tarea en drawer, `task-render-markdown-legible-del-lector`, sin nodo en el DAG; anotado en deskops.
 7. El proceso de 8088, ajeno, sirve estáticos nuevos con backend anterior hasta reiniciarse.
+
+## Adenda 2026-11-02, sin borrar lo anterior
+
+El límite 1 decía que el intake de `stale` faltaba: se envió después del checkpoint, `sldb/desk/inbox/20261102-065705-unclear-edgeindex-stale-no-marca-una-edicion-externa-ni-un-campo-nuevo-de-references.md`. El de layout es `sldb/desk/inbox/20261102-051843-unclear-falta-lectura-publica-de-store-preparado-sin-open-store-ni-migracion.md`; el de `/save`, `sldb/desk/inbox/20261102-011823-unclear-post-save-no-rechaza-payload-invalido-de-update-antes-de-aplicar-y-el-lote-no-es-atomico.md`. Enviados, sin commit en sldb, sin solución. Aceptación técnica de root con sus condiciones: `runs/subagents/workspace-documental-acceptance/ws13-1-aceptacion-tecnica-root.md`.

@@ -9,3 +9,7 @@ En el render del lector, citas, énfasis, código inline y enlaces Markdown est�
 ## Alcance propuesto
 
 Render Markdown usual legible con pruebas sobre README y manual reales. Fuente siempre literal e íntegra. Enlaces locales bajo guardias, externos según política, sin HTML activo inesperado. Reutilizar un motor real antes que regex ad hoc: verificar cuál es dependencia declarada, no solo instalada. No escribir un parser de documentos SLDB. Sin migración a Kimun.
+
+## Dependencia
+
+Bloquea la aceptación humana de lectura: se resuelve antes de WS16. La aceptación técnica de WS13.1 no lo resuelve.
