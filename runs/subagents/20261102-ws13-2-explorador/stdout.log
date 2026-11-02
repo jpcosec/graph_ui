@@ -1,0 +1,55 @@
+........................................................................ [ 30%]
+........................................................................ [ 60%]
+..................F..................................................... [ 90%]
+.......................                                                  [100%]
+=================================== FAILURES ===================================
+________________ test_workspace_broken_doc_catalog_returns_500 _________________
+
+test_env = (PosixPath('/tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo'), <deskops.operations.DeskopsOperations object at 0x78049f3482d0>, 'task-tarea-a', 'task-tarea-b', 'task-tarea-c')
+server = 'http://127.0.0.1:45993'
+
+    def test_workspace_broken_doc_catalog_returns_500(test_env, server):
+        root, ops, task_a, task_b, task_c = test_env
+        # Corromper task_c eliminando sus campos para romper la validación pydantic del store
+        broken_doc = root / f'desk/tasks/{task_c}.md'
+        broken_doc.write_text('---\nid: invalid\nstatus: active\n---\nSin titulo requerido\n', encoding='utf-8')
+    
+        # El catálogo debe fallar explícitamente a 500 informando el error de carga, sin enmascararlo
+        status, data = http_get(server, '/api/workspace/nodes')
+>       assert status == 500
+E       assert 200 == 500
+
+tests/test_mindmap_workspace.py:435: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Linked /home/jp/proyectos/SLDB_1/deskops/.sldb as deskops in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb.
+Inheriting CrossroadDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Inheriting AtomDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Inheriting BoardDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Inheriting DeskFAQDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Inheriting InboxNoteDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Inheriting MaterializationContractDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Inheriting PillDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Inheriting ProtoAtomDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Inheriting RepositoryDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Inheriting RitualDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Inheriting RoleDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Inheriting RunDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Inheriting StepDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+Inheriting TaskDoc in /tmp/pytest-of-jp/pytest-252/test_workspace_broken_doc_cata0/repo/.sldb...
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [02/Nov/2026 07:31:14] "GET /api/workspace/nodes HTTP/1.1" 200 -
+=============================== warnings summary ===============================
+tests/test_editor.py::test_safe_node_update_flow
+  /home/jp/proyectos/SLDB_1/UIs/graph_ui/tests/test_editor.py:17: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    metadata=EditMetadata(author="operator-01", timestamp=datetime.utcnow(), reason="Update description"),
+
+tests/test_editor.py::test_node_deletion_cascade
+  /home/jp/proyectos/SLDB_1/UIs/graph_ui/tests/test_editor.py:41: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    metadata=EditMetadata(author="operator-01", timestamp=datetime.utcnow(), reason="Simulate catastrophe"),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_mindmap_workspace.py::test_workspace_broken_doc_catalog_returns_500
+1 failed, 238 passed, 2 warnings in 825.94s (0:13:45)

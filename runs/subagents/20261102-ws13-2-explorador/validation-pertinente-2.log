@@ -1,0 +1,244 @@
+............Traceback (most recent call last):
+  File "/home/jp/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/workspace_routes.py", line 134, in dispatch
+    return handler.json_response(self.workspace_nodes())
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jp/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/jp/anaconda3/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jp/anaconda3/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jp/anaconda3/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jp/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jp/anaconda3/lib/python3.13/http/server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/jp/anaconda3/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/jp/anaconda3/lib/python3.13/http/server.py", line 436, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/jp/anaconda3/lib/python3.13/http/server.py", line 424, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/home/jp/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 323, in do_GET
+    return self.workspace_routes.dispatch(self, 'GET')
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/jp/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/workspace_routes.py", line 151, in dispatch
+    return handler.json_response({'ok': False, 'error': str(exc)}, 500)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jp/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 92, in json_response
+    self.end_headers()
+    ~~~~~~~~~~~~~~~~^^
+  File "/home/jp/anaconda3/lib/python3.13/http/server.py", line 538, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/jp/anaconda3/lib/python3.13/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jp/anaconda3/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+..                                                           [100%]
+14 passed in 125.42s (0:02:05)
+exit 0
+TAP version 13
+# Subtest: irSections devuelve las secciones reales del documento con su span
+ok 1 - irSections devuelve las secciones reales del documento con su span
+  ---
+  duration_ms: 0.512908
+  type: 'test'
+  ...
+# Subtest: irSectionsWithCleanMeta conserva span y children, sin inventar
+ok 2 - irSectionsWithCleanMeta conserva span y children, sin inventar
+  ---
+  duration_ms: 0.511013
+  type: 'test'
+  ...
+# Subtest: irSpanOf: span solo con líneas reales; null no fabrica span
+ok 3 - irSpanOf: span solo con líneas reales; null no fabrica span
+  ---
+  duration_ms: 0.089472
+  type: 'test'
+  ...
+# Subtest: irFields: lista de campos con field_path; value del nodo o del payload; span null queda null
+ok 4 - irFields: lista de campos con field_path; value del nodo o del payload; span null queda null
+  ---
+  duration_ms: 0.719805
+  type: 'test'
+  ...
+# Subtest: irMeta: modelo y path desde el IR (context) con fallback al doc
+ok 5 - irMeta: modelo y path desde el IR (context) con fallback al doc
+  ---
+  duration_ms: 0.244804
+  type: 'test'
+  ...
+# Subtest: irRefFields: filtra por campos de referencia/contención, mismo shape que irFields
+ok 6 - irRefFields: filtra por campos de referencia/contención, mismo shape que irFields
+  ---
+  duration_ms: 0.213541
+  type: 'test'
+  ...
+# Subtest: modeledGroups agrupa por modelo y ordena por titulo del catalogo
+ok 7 - modeledGroups agrupa por modelo y ordena por titulo del catalogo
+  ---
+  duration_ms: 6.059954
+  type: 'test'
+  ...
+# Subtest: modeledGroups conserva el estado y la causa recibidos
+ok 8 - modeledGroups conserva el estado y la causa recibidos
+  ---
+  duration_ms: 0.20868
+  type: 'test'
+  ...
+# Subtest: modeledGroups sin catalogo no inventa titulos ni causas
+ok 9 - modeledGroups sin catalogo no inventa titulos ni causas
+  ---
+  duration_ms: 0.138323
+  type: 'test'
+  ...
+# Subtest: el filtro local mira id, titulo, ruta y modelo
+ok 10 - el filtro local mira id, titulo, ruta y modelo
+  ---
+  duration_ms: 0.273468
+  type: 'test'
+  ...
+# Subtest: buildTree arma carpetas antes que archivos, ambos por nombre
+ok 11 - buildTree arma carpetas antes que archivos, ambos por nombre
+  ---
+  duration_ms: 0.394634
+  type: 'test'
+  ...
+# Subtest: buildTree filtra por ruta y no deja carpetas vacias con coincidencias
+ok 12 - buildTree filtra por ruta y no deja carpetas vacias con coincidencias
+  ---
+  duration_ms: 0.194641
+  type: 'test'
+  ...
+# Subtest: describeInvalidRoots nombra la entrada y la razon recibida
+ok 13 - describeInvalidRoots nombra la entrada y la razon recibida
+  ---
+  duration_ms: 0.108316
+  type: 'test'
+  ...
+# Subtest: la arista saliente resalta el campo del documento abierto
+ok 14 - la arista saliente resalta el campo del documento abierto
+  ---
+  duration_ms: 1.059146
+  type: 'test'
+  ...
+# Subtest: la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+ok 15 - la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+  ---
+  duration_ms: 0.809638
+  type: 'test'
+  ...
+# Subtest: el vecino a dos saltos tampoco resalta campos del documento abierto
+ok 16 - el vecino a dos saltos tampoco resalta campos del documento abierto
+  ---
+  duration_ms: 0.121425
+  type: 'test'
+  ...
+# Subtest: el foco de campo solo resalta las aristas que declara el documento abierto
+ok 17 - el foco de campo solo resalta las aristas que declara el documento abierto
+  ---
+  duration_ms: 0.153523
+  type: 'test'
+  ...
+# Subtest: correspondence cuenta solo elementos del documento abierto
+ok 18 - correspondence cuenta solo elementos del documento abierto
+  ---
+  duration_ms: 0.234703
+  type: 'test'
+  ...
+# Subtest: un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+ok 19 - un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+  ---
+  duration_ms: 0.26106
+  type: 'test'
+  ...
+# Subtest: relation_doc y structural no tienen campo: no resaltan ninguno
+ok 20 - relation_doc y structural no tienen campo: no resaltan ninguno
+  ---
+  duration_ms: 0.099757
+  type: 'test'
+  ...
+# Subtest: se conservan todas las procedencias reales: varias del dueño correcto
+ok 21 - se conservan todas las procedencias reales: varias del dueño correcto
+  ---
+  duration_ms: 0.195544
+  type: 'test'
+  ...
+# Subtest: sin identidad abierta no se resalta nada por propiedad
+ok 22 - sin identidad abierta no se resalta nada por propiedad
+  ---
+  duration_ms: 0.203054
+  type: 'test'
+  ...
+# Subtest: TABS contains document, graph, and code projections
+ok 23 - TABS contains document, graph, and code projections
+  ---
+  duration_ms: 0.830832
+  type: 'test'
+  ...
+# Subtest: filterCatalog filters by query and model without modifying input
+ok 24 - filterCatalog filters by query and model without modifying input
+  ---
+  duration_ms: 0.230038
+  type: 'test'
+  ...
+# Subtest: formatHash formats hashes safely
+ok 25 - formatHash formats hashes safely
+  ---
+  duration_ms: 0.709681
+  type: 'test'
+  ...
+# Subtest: parseCodeSnippet slices content with target line highlighted
+ok 26 - parseCodeSnippet slices content with target line highlighted
+  ---
+  duration_ms: 0.360533
+  type: 'test'
+  ...
+# Subtest: formatProblems distinguishes clean, node problems, store problems, and errors
+ok 27 - formatProblems distinguishes clean, node problems, store problems, and errors
+  ---
+  duration_ms: 0.149265
+  type: 'test'
+  ...
+# Subtest: filterGraphEdges and distinctEdgeTypes filter and extract relation types
+ok 28 - filterGraphEdges and distinctEdgeTypes filter and extract relation types
+  ---
+  duration_ms: 0.176031
+  type: 'test'
+  ...
+# Subtest: irSectionsWithCleanMeta extracts hierarchical IR structure with line spans
+ok 29 - irSectionsWithCleanMeta extracts hierarchical IR structure with line spans
+  ---
+  duration_ms: 0.246827
+  type: 'test'
+  ...
+1..29
+# tests 29
+# suites 0
+# pass 29
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 55.468789
+node exit 0

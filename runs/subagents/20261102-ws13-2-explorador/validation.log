@@ -1,0 +1,16 @@
+== pertinentes 1 (explorer + reader) ==
+................................................                         [100%]
+48 passed in 177.19s (0:02:57)
+exit 0
+== e2e + node ==
+14 passed in 125.42s (0:02:05)
+exit 0
+# pass 29
+# fail 0
+node exit 0
+== suite general ==
+2026-11-02T07:21:22-03:00
+exit 1
+2026-11-02T07:35:15-03:00
+FAILED tests/test_mindmap_workspace.py::test_workspace_broken_doc_catalog_returns_500
+1 failed, 238 passed, 2 warnings in 825.94s (0:13:45)

@@ -28,6 +28,7 @@ files:
 - tests/test_mindmap_workspace_reader.py
 - tests/e2e_mindmap_workspace.py
 - tests/mindmap-workspace-explorer.test.mjs
+- tests/test_mindmap_workspace.py
 task_type: code
 inherits_from: []
 inherit_acceptance_context: false
@@ -58,7 +59,7 @@ _State what is in scope and what is out of scope._
 
 Autoridad: runs/subagents/20261102-ws13-1-correccion/review-source-final.md. Nodo WS13.2 de dag.yaml revisión 10. Contrato: contratos/navegacion.md sha256 6a4f8518f3d69de6118550b3077921db4bbb46bc9123c26980c6c8fc5f62361e, §2.2, §3.2, §3.3, §5.4, H-02, con su nota de aprobación. Aceptación técnica de WS13.1 y sus límites: runs/subagents/workspace-documental-acceptance/ws13-1-aceptacion-tecnica-root.md. Referencia reutilizable: runs/subagents/20261102-ws13-1-lector/suplemento-8090.md. La tarea está activa y enrutada; status draft es el campo del modelo. Base: HEAD de main al despacho, posterior al commit citado en el recibo.
 
-Archivos, lista cerrada: frontends/mindmap/views/workspace/explorer/ nuevo; frontends/mindmap/views/workspace/node/workspace-view.js y workspace.css, solo para montar el explorador y el aviso de relaciones de la pestaña Grafo y del panel de contexto; frontends/mindmap/workspace_routes.py; tests/test_mindmap_workspace_explorer.py nuevo; tests/test_mindmap_workspace_reader.py, para el modelo no importable en /source; tests/e2e_mindmap_workspace.py; tests/mindmap-workspace-explorer.test.mjs nuevo. Archivos de evidencia del run: libres.
+Archivos, lista cerrada: frontends/mindmap/views/workspace/explorer/ nuevo; frontends/mindmap/views/workspace/node/workspace-view.js y workspace.css, solo para montar el explorador y el aviso de relaciones de la pestaña Grafo y del panel de contexto; frontends/mindmap/workspace_routes.py; tests/test_mindmap_workspace_explorer.py nuevo; tests/test_mindmap_workspace_reader.py, para el modelo no importable en /source; tests/test_mindmap_workspace.py, solo test_workspace_broken_doc_catalog_returns_500, que describe la conducta retirada por el punto 4: se reemplaza por la nueva, sin relajarla; tests/e2e_mindmap_workspace.py; tests/mindmap-workspace-explorer.test.mjs nuevo. Archivos de evidencia del run: libres.
 
 1. Lista de permitidos (H-02 y navegacion §3.3). Raíz: repo_root del store que el operador configuró al arrancar. Rutas: variable de entorno WORKSPACE_EXPLORER_ROOTS leída una vez en WorkspaceRoutes.__init__, lista separada por comas de rutas relativas a esa raíz; si no está definida, desk y docs. Una entrada absoluta, con .., que sea symlink o que no resuelva dentro de la raíz se ignora y se informa en el campo roots_invalid. Una entrada válida que no exista, incluidas desk y docs por defecto, se omite sin error. El listado no recibe ningún parámetro de ruta del cliente; abrir un resultado usa path= del lector WS13.1, con sus guardias. Solo sufijo .md. Se excluye toda ruta con una parte que empiece por punto y las partes __pycache__ y node_modules. Symlinks: no se siguen directorios; un archivo symlink que resuelva fuera de la raíz se excluye. Ignorados por git: excluidos, con fallo cerrado si la comprobación falla, con una sola invocación git check-ignore --stdin -z por listado, argv fijo y sin shell. Sin repo git no hay esa protección: campo sin_git true. Tope de 5000 archivos: campo truncado true e indicador visible.
 
