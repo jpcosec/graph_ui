@@ -127,8 +127,17 @@ function renderCatalog() {
     );
   });
 
-  document.getElementById('catalog-category-title').textContent =
-    catFilter === 'all' ? 'All Nodes' : catFilter.toUpperCase();
+  const labels = {
+    all: 'All nodes',
+    tasks: 'Tasks',
+    documents: 'Documents',
+    atoms: 'Atoms & contracts',
+    code: 'Code & symbols',
+    graph: 'Graph & schema',
+    runs: 'Runs',
+    agents: 'Agents',
+  };
+  document.getElementById('catalog-category-title').textContent = labels[catFilter] || 'Nodes';
   document.getElementById('catalog-filtered-count').textContent = filtered.length;
 
   const listEl = document.getElementById('catalog-list');
@@ -185,9 +194,9 @@ function renderContextSidebar() {
 
   el.innerHTML = `
     <div class="ctx-block">
-      <div class="ctx-title">Selected Node</div>
-      <div style="font-weight:600; margin-bottom:4px;">${esc(d.projections?.document?.payload?.title || ctx.name)}</div>
-      <div style="font-family:var(--mono); font-size:11px; color:var(--accent); word-break:break-all;">${esc(ctx.id)}</div>
+      <div class="ctx-title">Selected node</div>
+      <div style="font-weight:500; margin-bottom:4px; color:var(--content-primary);">${esc(d.projections?.document?.payload?.title || ctx.name)}</div>
+      <div style="font-family:var(--mono); font-size:11px; color:var(--content-accent); word-break:break-all;">${esc(ctx.id)}</div>
     </div>
 
     <div class="ctx-block">
@@ -340,8 +349,9 @@ function renderGraphProjection(d) {
     .map((e) => {
       const p1 = coords.get(e.source);
       const p2 = coords.get(e.target);
-      const stroke = e.source === rootId ? '#6ee7b7' : e.target === rootId ? '#7aa2f7' : '#f6c177';
-      return `<line x1="${p1.x}%" y1="${p1.y}%" x2="${p2.x}%" y2="${p2.y}%" stroke="${stroke}" stroke-width="1.8" stroke-opacity="0.7" />`;
+      const isDirect = e.source === rootId || e.target === rootId;
+      const stroke = isDirect ? 'var(--edge-primary)' : 'var(--edge-secondary)';
+      return `<line x1="${p1.x}%" y1="${p1.y}%" x2="${p2.x}%" y2="${p2.y}%" stroke="${stroke}" stroke-width="${isDirect ? '1.75' : '1.25'}" stroke-opacity="${isDirect ? '0.65' : '0.4'}" />`;
     })
     .join('');
 
@@ -923,6 +933,30 @@ function wireEvents() {
       searchInput.blur();
     }
   });
+
+  // Theme toggle (Editorial Light from ibelick/ui-skills DESIGN.md <-> Carbon Dark)
+  const themeBtn = document.getElementById('theme-toggle-btn');
+  const themeLabel = document.getElementById('theme-toggle-label');
+  const applyTheme = (theme) => {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (themeLabel) {
+      themeLabel.textContent = theme === 'dark' ? '☀ Light' : '☾ Dark';
+    }
+    try {
+      localStorage.setItem('kimun_theme', theme);
+    } catch (_) {}
+  };
+  let savedTheme = 'light';
+  try {
+    savedTheme = localStorage.getItem('kimun_theme') || 'light';
+  } catch (_) {}
+  applyTheme(savedTheme);
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  }
 }
 
 async function boot() {

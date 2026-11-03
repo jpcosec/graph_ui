@@ -1,21 +1,22 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KIMUN — Knowledge Workspace</title>
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=2" />
 </head>
 <body>
   <div class="app">
     <header class="topbar">
       <div class="brand">
-        <span class="brand-mark">◈</span>
-        <span>KIMUN</span>
-        <span class="pill">Knowledge Workspace</span>
+        <span class="brand-mark" aria-hidden="true">◈</span>
+        <span class="brand-name">Kimun</span>
+        <span class="pill">Knowledge workspace</span>
         <span class="pill" id="top-store-pill">.sldb</span>
       </div>
       <div class="search-wrap">
+        <label for="global-search" class="sr-only">Buscar en el store</label>
         <input
           type="text"
           id="global-search"
@@ -23,58 +24,61 @@
           placeholder="⌘K  Buscar nodos, tareas, átomos, símbolos o rutas…"
           autocomplete="off"
         />
-        <div id="global-search-results" class="search-results"></div>
+        <div id="global-search-results" class="search-results" role="listbox"></div>
       </div>
       <div class="topbar-right">
         <span class="pill" id="top-nodes-pill">— nodes</span>
         <span class="pill" id="top-agents-pill">● 0 agents</span>
+        <button type="button" class="theme-btn" id="theme-toggle-btn" aria-label="Cambiar tema claro u oscuro">
+          <span id="theme-toggle-label">☾ Dark</span>
+        </button>
       </div>
     </header>
 
     <aside class="sidebar-left">
       <div class="nav-sections">
         <div class="section-label">Workspace</div>
-        <div class="nav-item" data-nav="overview">
+        <div class="nav-item" data-nav="overview" tabindex="0">
           <span>⌂ Overview</span>
           <span class="nav-badge" id="badge-overview"></span>
         </div>
-        <div class="nav-item active" data-nav="tasks">
+        <div class="nav-item active" data-nav="tasks" tabindex="0">
           <span>✓ Tasks</span>
           <span class="nav-badge" id="badge-tasks">0</span>
         </div>
-        <div class="nav-item" data-nav="documents">
+        <div class="nav-item" data-nav="documents" tabindex="0">
           <span>▤ Documents</span>
           <span class="nav-badge" id="badge-documents">0</span>
         </div>
-        <div class="nav-item" data-nav="atoms">
-          <span>◇ Atoms / Contracts</span>
+        <div class="nav-item" data-nav="atoms" tabindex="0">
+          <span>◇ Atoms &amp; contracts</span>
           <span class="nav-badge" id="badge-atoms">0</span>
         </div>
-        <div class="nav-item" data-nav="code">
-          <span>⌘ Code / Symbols</span>
+        <div class="nav-item" data-nav="code" tabindex="0">
+          <span>⌘ Code &amp; symbols</span>
           <span class="nav-badge" id="badge-code">0</span>
         </div>
-        <div class="nav-item" data-nav="graph">
-          <span>⌬ Graph / Schema</span>
+        <div class="nav-item" data-nav="graph" tabindex="0">
+          <span>⌬ Graph &amp; schema</span>
           <span class="nav-badge" id="badge-graph">0</span>
         </div>
 
         <div class="section-label">Runtime</div>
-        <div class="nav-item" data-nav="agents">
+        <div class="nav-item" data-nav="agents" tabindex="0">
           <span>◎ Agents</span>
           <span class="nav-badge" id="badge-agents">0</span>
         </div>
-        <div class="nav-item" data-nav="runs">
+        <div class="nav-item" data-nav="runs" tabindex="0">
           <span>▶ Runs</span>
           <span class="nav-badge" id="badge-runs">0</span>
         </div>
 
         <div class="section-label">Knowledge</div>
-        <div class="nav-item" data-nav="changes">
+        <div class="nav-item" data-nav="changes" tabindex="0">
           <span>⇄ Changes</span>
           <span class="nav-badge warn" id="badge-changes">0</span>
         </div>
-        <div class="nav-item" data-nav="history">
+        <div class="nav-item" data-nav="history" tabindex="0">
           <span>◷ History</span>
           <span class="nav-badge" id="badge-history">0</span>
         </div>
@@ -85,6 +89,7 @@
           <span id="catalog-category-title">Tasks</span>
           <span id="catalog-filtered-count">0</span>
         </div>
+        <label for="catalog-filter-input" class="sr-only">Filtrar lista de nodos</label>
         <input
           type="text"
           id="catalog-filter-input"
@@ -97,21 +102,21 @@
     </aside>
 
     <section class="workspace">
-      <div class="tabs">
+      <div class="tabs" role="tablist">
         <div class="tabs-left">
-          <div class="tab active" data-tab="document">
+          <div class="tab active" data-tab="document" role="tab" tabindex="0">
             <span>Document</span>
           </div>
-          <div class="tab" data-tab="graph">
+          <div class="tab" data-tab="graph" role="tab" tabindex="0">
             <span>Graph</span>
             <span class="tab-count" id="tab-count-graph">0</span>
           </div>
-          <div class="tab" data-tab="code">
+          <div class="tab" data-tab="code" role="tab" tabindex="0">
             <span>Code</span>
             <span class="tab-count" id="tab-count-code">0</span>
           </div>
-          <div class="tab" data-tab="changes">
-            <span>Changes (Merkle)</span>
+          <div class="tab" data-tab="changes" role="tab" tabindex="0">
+            <span>Changes</span>
             <span class="tab-count" id="tab-count-changes">0</span>
           </div>
         </div>
@@ -119,20 +124,25 @@
       </div>
 
       <div class="content" id="workspace-content">
-        <div class="doc-card">Cargando Knowledge Workspace…</div>
+        <div class="doc-card">
+          <div class="skeleton-line" style="width: 30%; height: 12px; margin-bottom: 12px;"></div>
+          <div class="skeleton-line" style="width: 65%; height: 24px; margin-bottom: 18px;"></div>
+          <div class="skeleton-line" style="width: 90%; height: 14px; margin-bottom: 8px;"></div>
+          <div class="skeleton-line" style="width: 80%; height: 14px;"></div>
+        </div>
       </div>
     </section>
 
     <section class="context" id="context-sidebar">
       <div class="ctx-block">
         <div class="ctx-title">Context</div>
-        <div style="color: var(--muted);">Selecciona un nodo para inspeccionar su identidad, hashes y relaciones.</div>
+        <div style="color: var(--content-secondary);">Selecciona un nodo del catálogo para inspeccionar su identidad, hashes y relaciones.</div>
       </div>
     </section>
 
     <footer>
       <div class="footer-group">
-        <span id="footer-store-status"><span class="status-dot-ok">◉</span> sldb connected</span>
+        <span id="footer-store-status"><span class="status-dot-ok">●</span> sldb connected</span>
         <span id="footer-counts">0 nodes · 0 edges · 0 problems</span>
       </div>
       <div class="footer-group">
@@ -142,6 +152,6 @@
     </footer>
   </div>
 
-  <script type="module" src="/app.js"></script>
+  <script type="module" src="/app.js?v=2"></script>
 </body>
 </html>
