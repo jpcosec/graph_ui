@@ -912,6 +912,17 @@ function wireEvents() {
       resultsBox.classList.remove('open');
     }
   });
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    } else if (e.key === 'Escape' && resultsBox.classList.contains('open')) {
+      resultsBox.classList.remove('open');
+      searchInput.blur();
+    }
+  });
 }
 
 async function boot() {
