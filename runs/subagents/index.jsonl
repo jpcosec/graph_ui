@@ -39,3 +39,4 @@
 {"task_id": "task-ui02-servidor-y-shell-de-la-ui-de-deskops-en-graph-ui", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
 {"task_id": "task-ui03-pantalla-board", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
 {"task_id": "task-ui04-pantalla-tarea-documento", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
+{"task_id": "task-ui05-pantallas-drawer-e-inbox", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
