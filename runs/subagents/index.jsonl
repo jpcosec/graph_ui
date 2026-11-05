@@ -38,3 +38,4 @@
 {"task_id": "task-corregir-ws13-2-frontera-api-ra\u00edces-identidad-visible-y-estado-de-carga", "run_id": null, "run_dir": "runs/subagents/20261102-ws13-2-correccion", "session_sha256": null, "commit": null}
 {"task_id": "task-ui02-servidor-y-shell-de-la-ui-de-deskops-en-graph-ui", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
 {"task_id": "task-ui03-pantalla-board", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
+{"task_id": "task-ui04-pantalla-tarea-documento", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
