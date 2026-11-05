@@ -36,3 +36,4 @@
 {"task_id": "task-corregir-ws13-1-lectura-sin-mutaci\u00f3n-guardias-previas-foco-estado-y-anclas", "run_id": null, "run_dir": "runs/subagents/20261102-ws13-1-correccion", "session_sha256": null, "commit": null}
 {"task_id": "task-ws13-2-explorador-de-documentos-modelados-y-no-modelados", "run_id": null, "run_dir": "runs/subagents/20261102-ws13-2-explorador", "session_sha256": null, "commit": null}
 {"task_id": "task-corregir-ws13-2-frontera-api-ra\u00edces-identidad-visible-y-estado-de-carga", "run_id": null, "run_dir": "runs/subagents/20261102-ws13-2-correccion", "session_sha256": null, "commit": null}
+{"task_id": "task-ui02-servidor-y-shell-de-la-ui-de-deskops-en-graph-ui", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}

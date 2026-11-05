@@ -172,6 +172,10 @@ include:
   paths:
   - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
   - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
+  - desk/tasks/task-ui03-pantalla-board.md
+  - desk/tasks/task-ui04-pantalla-tarea-documento.md
+  - desk/tasks/task-ui05-pantallas-drawer-e-inbox.md
+  - desk/tasks/task-ui06-pantalla-agentes-y-corridas.md
 - model: BoardDoc
   paths:
   - desk/tasks/Board.md
