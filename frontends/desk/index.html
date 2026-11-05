@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>deskops</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Navegación">
+      <div class="brand"><span class="brand-dot" aria-hidden="true"></span><span>deskops</span></div>
+      <nav class="nav" id="nav">
+        <a class="nav-item" href="#/board" data-screen="board">
+          <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2h5v5H2zM9 2h5v5H9zM2 9h5v5H2zM9 9h5v5H9z"/></svg>
+          <span>Board</span><span class="nav-count" data-count="tasks"></span>
+        </a>
+        <a class="nav-item" href="#/drawer" data-screen="drawer">
+          <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h12v3H2zM3 6h10v7H3zM6 8h4"/></svg>
+          <span>Drawer</span><span class="nav-count" data-count="drawer"></span>
+        </a>
+        <a class="nav-item" href="#/inbox" data-screen="inbox">
+          <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 9l2-6h8l2 6v4H2zM2 9h4l1 2h2l1-2h4"/></svg>
+          <span>Inbox</span><span class="nav-count" data-count="inbox"></span>
+        </a>
+        <a class="nav-item" href="#/agents" data-screen="agents">
+          <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M9 1L3 9h4l-1 6 6-8H8z"/></svg>
+          <span>Agentes</span><span class="nav-count" data-count="workers"></span>
+        </a>
+        <div class="nav-sep" role="separator"></div>
+        <a class="nav-item" id="inspect-link" href="http://127.0.0.1:8090/" target="_blank" rel="noopener">
+          <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+          <span>Inspeccionar</span><span class="nav-ext" aria-hidden="true">↗</span>
+        </a>
+      </nav>
+      <p class="sidebar-foot">Datos de <code>deskops view</code>. Inspeccionar abre el visor de nodos (:8090).</p>
+    </aside>
+
+    <header class="topbar">
+      <div class="crumbs">
+        <label class="sr-only" for="desk-select">Desk activo</label>
+        <select id="desk-select" class="desk-select" aria-label="Desk activo"></select>
+        <code class="desk-path" id="desk-path"></code>
+      </div>
+      <div class="top-actions">
+        <a class="top-chip" href="#/drawer" id="chip-drawer" hidden></a>
+        <a class="top-chip" href="#/inbox" id="chip-inbox" hidden></a>
+        <button type="button" class="top-chip" id="refresh">Actualizar</button>
+      </div>
+    </header>
+
+    <main class="main" id="main" tabindex="-1"></main>
+  </div>
+
+  <dialog class="confirm" id="confirm" aria-labelledby="confirm-title">
+    <form method="dialog">
+      <h2 id="confirm-title">Avanzar tarea</h2>
+      <p id="confirm-body"></p>
+      <div class="confirm-actions">
+        <button type="submit" value="cancel" class="btn">Cancelar</button>
+        <button type="submit" value="ok" class="btn btn-primary" id="confirm-ok">Avanzar</button>
+      </div>
+    </form>
+  </dialog>
+  <script src="/app.js"></script>
+  <script src="/board.js"></script>
+  <script src="/task.js"></script>
+  <script src="/drawer.js"></script>
+  <script src="/inbox.js"></script>
+  <script src="/agents.js"></script>
+  <script src="/main.js"></script>
+</body>
+</html>
