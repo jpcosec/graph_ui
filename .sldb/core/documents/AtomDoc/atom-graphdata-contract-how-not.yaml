@@ -1,0 +1,20 @@
+name: atom-graphdata-contract-how-not
+path: desk/atoms/atom-graphdata-contract-how-not.md
+source_hash: 0aa8fce0263bdff0fa69cbc4641865f39c84defe994345e78ac5d56e3a03fac8
+content_hash: 87d49823b25e7e3ad89add9be462f0328fd9c183ce627c013dae4b3f3d931f25
+field_hashes:
+  id: 80c315b366c4b151a8c99958c8657764eb6d05ad468bfd731b065a341ddd93ed
+  title: 63cd18bff0bf3d7a287fe34b7730380c8959516c0f7dcefba6396bae78795db1
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: 0b343ad86c1d31f21cd854a58ce5d4267a45627175d2e9ddeee92707a67b8a48
+  tags: 6fcf0756b1f96b9ee0392fe4061fb1c26da197c5553b585957875985ab68feaa
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:contracts
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

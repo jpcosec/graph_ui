@@ -1,0 +1,20 @@
+name: atom-creationsection-for-whom
+path: desk/atoms/atom-creationsection-for-whom.md
+source_hash: 841b2fc1a2e2111b063b38638272f6a850a253aad33b292c9fca1c90520d2822
+content_hash: b34ad44ab362fc8ac1b4a29ff63ebf36f4d4d835c1b7b77ddc5cd33923d47bf7
+field_hashes:
+  id: 0ccdca032c51c5d8aebe0bec04b46d923f1427790266ff57b2e329db64f77b5f
+  title: 6f7d43e64c7bb680965ee1334b6950a96bba0577a02c51c4ae695e4fe34b2c3c
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: 0947e55dcea2b5494a2d514332259161ec5bab01f0d505f3db659084e24dae05
+  tags: c55db97557317b3c74a0cecbdaeae907835b89d653d0cef84b54260927fe74ef
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:creation
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

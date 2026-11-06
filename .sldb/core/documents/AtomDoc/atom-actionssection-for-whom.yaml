@@ -1,0 +1,20 @@
+name: atom-actionssection-for-whom
+path: desk/atoms/atom-actionssection-for-whom.md
+source_hash: 684acea46fc1a48635403955124ae5555724979472b3dfcc3624272249d3b231
+content_hash: a4d4dfe9d07061de676990c9e5f031376fe72dbf84dc0662632921e376b44731
+field_hashes:
+  id: cc3099c5f9b4df27c43e9c27a1c9e867e1edd1e3f7d3f3565b9d8498d2178395
+  title: bce94eb1f02611a903fcc52ef6813061352195142db9dded21d4b43fbfe76e5b
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: 5f142f3365cc6b24c9190cba30e0d99eb3835bfb08485117c10cc75bc54b8c7f
+  tags: da029b11abafec3c253b63f80e1167637c23a5d0ad5bc6e967822c425f75fa2b
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

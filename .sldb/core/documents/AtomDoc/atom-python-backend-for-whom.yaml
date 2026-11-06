@@ -1,0 +1,20 @@
+name: atom-python-backend-for-whom
+path: desk/atoms/atom-python-backend-for-whom.md
+source_hash: 010d094c333ceaa97454d40d2d9cb0594a77efe9a91fd223b6c82ed9f4139301
+content_hash: e6139409186c3114a26844fbd87047a895acf02879475b60dca09c5c8c9d56fc
+field_hashes:
+  id: 567f58e13a2243b7beb4f58c697a28fa50612f75e59871906703156640bb98fe
+  title: e53c86fc0212e56ba3fc178e27e0fdbeafcafa01206736127c9d12eb840e079c
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: 191875a005c868dc43f4611352cb787471a48b8a33ef321742a6a8fef2db3812
+  tags: c25c231416bd5e7a77c73aa56cefe2e97aa6dd31c3c887ec594ea603c2c95180
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:architecture
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

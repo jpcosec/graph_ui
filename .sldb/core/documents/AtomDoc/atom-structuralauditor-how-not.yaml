@@ -1,0 +1,20 @@
+name: atom-structuralauditor-how-not
+path: desk/atoms/atom-structuralauditor-how-not.md
+source_hash: a5d165e704f1c4167a385a7c8e8628e189e57d643198f51b717b4fec2ffe768f
+content_hash: a7eb3bfa01b0bfc50ae7a2275015a0cabad134ea8ba714bd9230669b4ac0931f
+field_hashes:
+  id: 5e71f1b86e5920e93d18642c6433b5cbb7291797239c090754f01cd6806bde2b
+  title: 7faef7d43b38efc1a2ac319a4d179db0fbeb3922fc755ebbe2fb87c7d47a4a01
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: a53675304cfd541f468d4fb27b794470a851e5eb590b96d700d2f0b811a6cca7
+  tags: 5f753985c54f6a9c870db586e0f8f8f015e95680b589e3938651e333aa1aabf8
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:backend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:auditing
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

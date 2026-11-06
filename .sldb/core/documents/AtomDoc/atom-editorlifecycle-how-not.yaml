@@ -1,0 +1,20 @@
+name: atom-editorlifecycle-how-not
+path: desk/atoms/atom-editorlifecycle-how-not.md
+source_hash: b66ba652e5d1574f6510221d0d4b5dc5e5269a584df014fed86de9c9042a166c
+content_hash: 21264383ad46ace00f2483643f1603f4eb56431e793ffdad52bb45e6bcf647ed
+field_hashes:
+  id: 38e9755dcfd3398f921396de68b6112d02b31ae3bbbcae963d65c975c2be9488
+  title: 47eded60b78e35a419a815fcf5d6b66e1f82da9f3afd9d5e8c40f13f77772899
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: 5ecd80825a96f455ba49a405606ea9d6db8f7f86ce32871785f4905b91153524
+  tags: 5cf60d69b3308b3be9a6645e503b1ed4d56b2a857aa689234f6fa9b985928553
+  provenance: 0083d8568157d7b95e2b466b4bda4c09be4f98501554b0267cfccb652f53a201
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

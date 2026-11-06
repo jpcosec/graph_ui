@@ -1,0 +1,20 @@
+name: atom-filterssection-for-whom
+path: desk/atoms/atom-filterssection-for-whom.md
+source_hash: 676eafac1a7b55efb23e1afd042ac15215d1d33e06a34c8ac6ee8f5f861fd952
+content_hash: 7c7a06e70561da18e5fee29da69acc9a6839388214168e12e0eec055dd753b93
+field_hashes:
+  id: c54e8276eae6f63a8e0229f01b2cc41b105daac420901cd57f1ea95cca1f58bb
+  title: ee6ee1017bec870d3accd15be32f7359a41a1c1e895dec0916a14855a4da1675
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: a1068832cf9a2709ffce7c66a45e4fb182d585cc9f4c9e7d3e771bd00d5f5189
+  tags: a817f68b476c13baac25486db0a090ef3a8db039e07023f4fe2ae4c2ad3f3588
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:filtering
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

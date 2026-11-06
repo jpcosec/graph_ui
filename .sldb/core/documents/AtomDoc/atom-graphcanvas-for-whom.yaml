@@ -1,0 +1,20 @@
+name: atom-graphcanvas-for-whom
+path: desk/atoms/atom-graphcanvas-for-whom.md
+source_hash: 90ca1d7c2fabf0cfdaace5bd6ddef442d6df2580d848375eb7a67388bd6d65b4
+content_hash: 5910998ded1c870f0a4b5d7e74349d710144af6305b92e48b26a2a521d43a721
+field_hashes:
+  id: 0dceda52490163680226ee04187a1a03be7d4f475e88218eeb5d612882bef6cf
+  title: 16a14c8eacd8eb7475187df33db8d31f1aa9626f633425faac7eab2f0a2e5ea8
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: bf9a277131a945d2146f09c98301d9d8c787add542d8d57fcb58212ede86cf64
+  tags: a4a473b6b74ffec7629166b0e792d1cd8db6b50b71a03e35ae0ec15b120ec2d2
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:canvas
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

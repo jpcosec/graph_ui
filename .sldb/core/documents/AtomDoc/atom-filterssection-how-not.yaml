@@ -1,0 +1,20 @@
+name: atom-filterssection-how-not
+path: desk/atoms/atom-filterssection-how-not.md
+source_hash: 70438ff82f9d2026a13051eae99369ffa141a10d268c7e0a4ec4baa77e916a29
+content_hash: 603d945614b9d9081212628457fcfd3d6e34a36919b916e6de6db10021bfc2ba
+field_hashes:
+  id: 8ae6e09ae1286cd368028052af7d8b8cb4f48833684e65efd6b3a4eee9b0316e
+  title: ee6ee1017bec870d3accd15be32f7359a41a1c1e895dec0916a14855a4da1675
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: d43c8c91732f0d360c3e7a0a039185fd14564e8d7bf7237cf1f89070cb3f56cf
+  tags: a817f68b476c13baac25486db0a090ef3a8db039e07023f4fe2ae4c2ad3f3588
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:filtering
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

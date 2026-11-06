@@ -1,0 +1,20 @@
+name: atom-commandmenu-for-whom
+path: desk/atoms/atom-commandmenu-for-whom.md
+source_hash: 2e6f8b4233f356c6e889fe04e2bd32b3471e18cfe5695bd8c101f8b8fc873438
+content_hash: 3686c83feb81a714376bad16d6eea1611ad55e1b648c8a75e1789da8cc02cee9
+field_hashes:
+  id: 118e0e762731d62e790f09887ca2b5b6e13a99896275e73f0035c62c1cadeafe
+  title: e3c54f0d3001e4f6c9157f22041ef508967a4f24d2c20f8829734aa7f8ad4067
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: f5ad025e32c1e0508f2f8b7265d29990071eadcec1bb72f7bec4ccbf64b017ee
+  tags: 2f48679c9429c8e50e00843c7c82c35d5bee97bdb233b6ca7fec5b020b571ec0
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:commands
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

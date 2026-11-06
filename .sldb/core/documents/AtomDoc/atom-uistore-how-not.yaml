@@ -1,0 +1,20 @@
+name: atom-uistore-how-not
+path: desk/atoms/atom-uistore-how-not.md
+source_hash: 6aecb037e1a1cd601c0de09996e056e833b52df66584245505e78a8a21560a12
+content_hash: e157192214fb18f6f287cf158f5500bceabfcb53cb0aa8300c04215c2948df9a
+field_hashes:
+  id: f197ff8f8aa3c75fc030ba16ce96ff9f30fc4ed73758710a5fdba32245404ef9
+  title: eadaf1555afa76adf298d00361ed110ebae3fdf4ced8dc46549bb1b13f4f940d
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: e40cacacd61643612204b7f0124d712277490803bbee7dc28f6f5ffe143f25f2
+  tags: e72d9d060036260f2eaf04f9f2ef71b0daa38fde4b297f17c35885182248ff2d
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:stores
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

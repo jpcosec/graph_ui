@@ -1,0 +1,20 @@
+name: atom-encodingrules-for-whom
+path: desk/atoms/atom-encodingrules-for-whom.md
+source_hash: 222aee9f9ff230c84025954eb4ca5a7d379d00096a4c25fa10f97ab29c70d5f7
+content_hash: f754bc4a4292373e50acb8965ccee0dbe382f00258e641d1899119a5045bea52
+field_hashes:
+  id: 281d6077bdeb3fbbfc2593a3cdb7489956c27a498724f585a4f573663d7ef5ec
+  title: 0e8f0de99fc7741025d852511fc30bf67b2da607945dacb88704b90ab0b8f3d4
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: 4700cb02f7b9e119059346dc3ceb3118eb288b959bc1603fd4e72550a92d29b6
+  tags: f1ce33a93edd4606403bb3657c7de7487714c8aa6fdf0dd2888a05d60c242574
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:encoding
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

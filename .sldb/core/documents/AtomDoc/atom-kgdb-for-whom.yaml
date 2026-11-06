@@ -1,0 +1,20 @@
+name: atom-kgdb-for-whom
+path: desk/atoms/atom-kgdb-for-whom.md
+source_hash: f62190e8c9abb1a5fba7e3f170379dcc0ad1cf79a343e56fb4d1490f2e6afc7e
+content_hash: cf62a56300c109ce3dee58158d574beecd160084a972efcd0d9fa5d499bcf15e
+field_hashes:
+  id: 6bcbf1c449f7cbba72d13ffb30cf2e7d375b281d3eac83c51760943e7fbb33ed
+  title: 8d6486e7ec6448eeaf91fe62cc9c4309d3b5dfabb047aed41181eff35f0367fd
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: afa69bb6faf0bf96111943b8e5bb6f5fd337b69fcf6b0290f3fcc0130ba4652f
+  tags: 4b535fb25963f289e66fadb3d2673fbdfe267de1e7c06f7340a9855d8d6884e4
+  provenance: dc66e4b71fc7e3ffc25767387da7c3c4c47754fb17a38e7bb62d7415a91be0da
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:data-loading
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

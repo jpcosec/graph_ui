@@ -1,0 +1,20 @@
+name: atom-editorlifecycle-for-whom
+path: desk/atoms/atom-editorlifecycle-for-whom.md
+source_hash: 0f63f8a2b018ce3b518505d081715ef9ac361b9f0c504b4f7ec451a528af8ead
+content_hash: aaf0299af25591c569682fced2c81a4a2bcc28ca1c9add22c7acce1e50a7aea0
+field_hashes:
+  id: c1d39c1891457b84dead1e4a09f1d0b53e261cc667cbe0038f39072d945d10a0
+  title: 47eded60b78e35a419a815fcf5d6b66e1f82da9f3afd9d5e8c40f13f77772899
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: f50daf848d6fe8b6e37b8d7b782ca85d49b1ab5c4e69f42313c4f50bc475d8ea
+  tags: 5cf60d69b3308b3be9a6645e503b1ed4d56b2a857aa689234f6fa9b985928553
+  provenance: 0083d8568157d7b95e2b466b4bda4c09be4f98501554b0267cfccb652f53a201
+semantic_tags:
+- layer:runtime
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

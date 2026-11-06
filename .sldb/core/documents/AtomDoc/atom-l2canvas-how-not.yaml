@@ -1,0 +1,20 @@
+name: atom-l2canvas-how-not
+path: desk/atoms/atom-l2canvas-how-not.md
+source_hash: b665f994911780b2b54477a31c3da68bc5a18744cb67d99faf9322064f7261b4
+content_hash: b8961d498c4bd44f7f7a4be4a6f6cbd5d89dc97c5ffa7fccdf353dc2b6aa5fd6
+field_hashes:
+  id: 1775f804f40a865c6586ad8d376a1441e3ea364f1a5f7978f27391e9708f3146
+  title: 6ff1cfdf40d7206f2256e0cd84d9a2ce40a2716207eb339d4aa7cf0d2b068e9c
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: 41b358a3eb764d9d1e65ff26aa5b8a87472bf6c09d623164b74b79884f3049a5
+  tags: 8ec857b0ed26bf5492f223bf4956bd538e6874c7160e8d0b2d023fad44e624e0
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:canvas
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

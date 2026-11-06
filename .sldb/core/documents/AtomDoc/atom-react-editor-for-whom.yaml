@@ -1,0 +1,20 @@
+name: atom-react-editor-for-whom
+path: desk/atoms/atom-react-editor-for-whom.md
+source_hash: 9bc0e4b11313c6ad9ac97d928fe2c55f3e19aa01823b853e24c4a44c8f9f0e77
+content_hash: b552da82c72f30e3a34e3fd34be01101ffef531be73e8d555cf8a42a619245fc
+field_hashes:
+  id: e9bf4618e1f4c79d76d91210b65d90384db56b11f7423e4614c52cc504bc5b8d
+  title: dda6fab7b4977280221d52e4e3669877e2d247f5a5256c7a76a65a4b8f582138
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: 924f44bce275c595d5e904ed6f82b342b4ea7fa42c3a876c283f521c142a5da7
+  tags: 96ae24cb2eb0c9a8464b35b201d8adaf7f10090ea00f46a66d17caab080c069f
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:architecture
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

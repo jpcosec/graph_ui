@@ -1,0 +1,20 @@
+name: atom-edgeinspector-how-not
+path: desk/atoms/atom-edgeinspector-how-not.md
+source_hash: 805d6a75915686ed57ade9ff7eefb6319b410c5f434b115deddc82f677a4f62c
+content_hash: 0f6c6f7b32111b78cbd5063b841846b5b08059c602c47f74f9430fb894b1acb5
+field_hashes:
+  id: 02d8df339b257a0c4d6cce765858271146735e7c25c49155d67ebfc31f4d31db
+  title: cb38487f734322598f33a54bff00892db3fc6f24eca97f46023f3319e86ccd58
+  five_wh_one_plus: c7d4bb6c4e85ef7f9bf7592aeecd1d09dd38adc39afd1ffb3908b19e689040ad
+  answer: 444ffd128a3fef62f329f4438ee993ab4b587ffb5c36296c287e837b2cdde355
+  tags: da029b11abafec3c253b63f80e1167637c23a5d0ad5bc6e967822c425f75fa2b
+  provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+semantic_tags:
+- layer:canvas
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:editing
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

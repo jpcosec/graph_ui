@@ -1,0 +1,20 @@
+name: atom-l3content-for-whom
+path: desk/atoms/atom-l3content-for-whom.md
+source_hash: 53ac3884f48741fae02b8e9a3331c724a86873d3f7fcc408ba3c9a523971cede
+content_hash: deaa964c10d89983813da698f92cdf404131a900aac930b11b9c6a057221cbfd
+field_hashes:
+  id: f199f876b13098fe8e928111007da48b159248b252614da64d4763d3956327ce
+  title: 19f33969f9c1db28be4c50f083047f8064d0300d85aadd86bd32ea1874823378
+  five_wh_one_plus: 8305e718bedf31054e243769182ea271c5448239cf1d4479bcbbc3dc97307915
+  answer: 2163fa8fa9bed55c94e709f990e2d61c238d5be3ccd4f8f0cb40025cad800809
+  tags: ea84455200fa4623fe1555dc540cc16d3069426b710043d92096f3778091cc06
+  provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+semantic_tags:
+- layer:frontend
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:rendering
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null
