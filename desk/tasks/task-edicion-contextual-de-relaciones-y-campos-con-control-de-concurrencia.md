@@ -20,7 +20,7 @@ files:
 - frontends/mindmap/views/workspace/
 - tests/test_mindmap_workspace_edit.py
 - docs/workspace-ui.md
-task_type: code
+task_type: task.code
 inherits_from: []
 inherit_acceptance_context: false
 atoms:

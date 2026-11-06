@@ -161,6 +161,78 @@ models:
   family: null
   semantics: []
   origin: deskops
+- name: ReviewDoc
+  model_ref: deskops.models:ReviewDoc
+  path: ''
+  models_index: .sldb/core/models/ReviewDoc.yaml
+  version: 1
+  canonical: false
+  family: null
+  semantics: []
+  origin: deskops
+- name: TaskAggregateDoc
+  model_ref: deskops.models:TaskAggregateDoc
+  path: ''
+  models_index: .sldb/core/models/TaskAggregateDoc.yaml
+  version: 1
+  canonical: false
+  family: null
+  semantics: []
+  origin: deskops
+- name: TaskCodeDoc
+  model_ref: deskops.models:TaskCodeDoc
+  path: ''
+  models_index: .sldb/core/models/TaskCodeDoc.yaml
+  version: 1
+  canonical: false
+  family: null
+  semantics: []
+  origin: deskops
+- name: TaskDebugDoc
+  model_ref: deskops.models:TaskDebugDoc
+  path: ''
+  models_index: .sldb/core/models/TaskDebugDoc.yaml
+  version: 1
+  canonical: false
+  family: null
+  semantics: []
+  origin: deskops
+- name: TaskDecisionDoc
+  model_ref: deskops.models:TaskDecisionDoc
+  path: ''
+  models_index: .sldb/core/models/TaskDecisionDoc.yaml
+  version: 1
+  canonical: false
+  family: null
+  semantics: []
+  origin: deskops
+- name: TaskDocsDoc
+  model_ref: deskops.models:TaskDocsDoc
+  path: ''
+  models_index: .sldb/core/models/TaskDocsDoc.yaml
+  version: 1
+  canonical: false
+  family: null
+  semantics: []
+  origin: deskops
+- name: TaskExternalDoc
+  model_ref: deskops.models:TaskExternalDoc
+  path: ''
+  models_index: .sldb/core/models/TaskExternalDoc.yaml
+  version: 1
+  canonical: false
+  family: null
+  semantics: []
+  origin: deskops
+- name: TaskRefactorDoc
+  model_ref: deskops.models:TaskRefactorDoc
+  path: ''
+  models_index: .sldb/core/models/TaskRefactorDoc.yaml
+  version: 1
+  canonical: false
+  family: null
+  semantics: []
+  origin: deskops
 predicates:
 - name: applies_to_source
   axis: WHAT
@@ -217,4 +289,4 @@ predicates:
 - name: tagged_as
   axis: WHAT
   description: The model, document or section carries this semantic tag.
-store_hash: 921cb241f25003cc5ec135e13c6a4f9307aa0564b7ea2f361feb227176e7bb30
+store_hash: a3e62e73b75392b0c9b84f52c4ebdea0435e6689d42087f3017ce2c9d3eb0744
