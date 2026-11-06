@@ -80,8 +80,12 @@ PROSE_FIELD_ORDER = [
 ]
 
 
-def classify_model_category(model_name: str) -> str:
-    return CATEGORY_BY_MODEL.get(model_name, 'documents')
+def classify_model_category(model_name: str, bases: list[str] | tuple[str, ...] = ()) -> str:
+    """La categoría del modelo, o la de su base más cercana que tenga una (TaskCodeDoc <= TaskDoc)."""
+    for name in (model_name, *bases):
+        if name in CATEGORY_BY_MODEL:
+            return CATEGORY_BY_MODEL[name]
+    return 'documents'
 
 
 def _strip_template_hint(text: str) -> str:
@@ -119,9 +123,10 @@ class WorkspaceService:
             'agents': 0,
         }
         model_counts: dict[str, int] = {}
+        bases = self._model_bases()
         for node in nodes:
             m = node.get('model_name', '')
-            cat = classify_model_category(m)
+            cat = classify_model_category(m, bases.get(m, ()))
             node['category'] = cat
             counts[cat] = counts.get(cat, 0) + 1
             model_counts[m] = model_counts.get(m, 0) + 1
@@ -132,6 +137,13 @@ class WorkspaceService:
             'category_counts': counts,
             'model_counts': model_counts,
         }
+
+    def _model_bases(self) -> dict[str, list[str]]:
+        """Las bases de cada modelo según los índices del store (sldb), para contar por familia."""
+        if not self.store_path:
+            return {}
+        from sldb.api import indexed_model_bases
+        return indexed_model_bases(self.store_path)
 
     def node_detail(self, ident: str, depth: int = 1) -> dict[str, Any]:
         data = self.workspace_routes.workspace_node(ident, depth)

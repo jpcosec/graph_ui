@@ -102,14 +102,15 @@ def test_workspace_projections_navigation_and_responsiveness(workspace_e2e_serve
         errors = []
         page.on("pageerror", lambda error: (errors.append(str(error)), print("Browser error:", error)))
 
-        # 1. Navegación directa con deep link al source
+        # 1. Navegación directa con deep link al source, pedido por su base (TaskDoc); se muestra
+        # con su identidad canónica (TaskCodeDoc)
         page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}&depth=1&tab=document")
 
         # Verificar encabezado y vista activa
         expect(page.locator(".workspace-header-title h1")).to_contain_text(source_id)
         expect(page.locator(".workspace-tab-btn.active")).to_have_text("Documento")
         expect(page.locator(".workspace-doc-header h2")).to_have_text("Tarea Origen")
-        expect(page.locator(".workspace-doc-meta")).to_contain_text("TaskDoc")
+        expect(page.locator(".workspace-doc-meta")).to_contain_text("TaskCodeDoc")
 
         # Proyección documental (IR / campos)
         expect(page.locator(".workspace-doc-content").first).to_be_visible()
@@ -120,7 +121,7 @@ def test_workspace_projections_navigation_and_responsiveness(workspace_e2e_serve
 
         # Sidebar identidad, status y hashes separados
         expect(page.locator(".workspace-sidebar")).to_contain_text(source_id)
-        expect(page.locator(".workspace-sidebar")).to_contain_text("TaskDoc")
+        expect(page.locator(".workspace-sidebar")).to_contain_text("TaskCodeDoc")
         expect(page.locator(".workspace-identity-prop").filter(has_text="Estado")).to_contain_text("draft")
         expect(page.locator(".workspace-identity-prop").filter(has_text="Content Hash (SLDB)")).to_be_visible()
         expect(page.locator(".workspace-identity-prop").filter(has_text="File Revision (Git/Disk)")).to_be_visible()
@@ -166,12 +167,12 @@ def test_workspace_projections_navigation_and_responsiveness(workspace_e2e_serve
 
         # El nodo activo ahora es Tarea Destino
         expect(page.locator(".workspace-header-title h1")).to_contain_text(target_id)
-        expect(page).to_have_url(re.compile(rf"id=TaskDoc(%3A|:){re.escape(target_id)}"))
+        expect(page).to_have_url(re.compile(rf"id=TaskCodeDoc(%3A|:){re.escape(target_id)}"))
 
         # 5. Probar el botón ATRÁS del navegador (B10)
         page.go_back()
         expect(page.locator(".workspace-header-title h1")).to_contain_text(source_id)
-        expect(page).to_have_url(re.compile(rf"id=TaskDoc(%3A|:){re.escape(source_id)}"))
+        expect(page).to_have_url(re.compile(rf"id=Task(Code)?Doc(%3A|:){re.escape(source_id)}"))
 
         # Volver a pestaña Documento para verificar los datos
         page.get_by_role("button", name="Documento", exact=True).click()
@@ -350,12 +351,12 @@ def test_reader_modeled_focus_survives_tab_toggles_and_code_range(reader_e2e_ser
         errors = []
         page.on("pageerror", lambda error: errors.append(str(error)))
 
-        page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}&tab=document")
+        page.goto(f"{url}/workspace/node?id=TaskCodeDoc:{source_id}&tab=document")
         reader = page.locator('[data-testid="document-reader"]')
         expect(reader).to_be_visible()
         revision = reader.get_attribute('data-revision')
         start_url = page.url
-        id_param = re.compile(rf"id=TaskDoc(%3A|:){re.escape(source_id)}")
+        id_param = re.compile(rf"id=TaskCodeDoc(%3A|:){re.escape(source_id)}")
         assert id_param.search(page.url)
         # render y fuente del mismo origen
         expect(page.locator('[data-testid="doc-render"]')).to_contain_text('Objetivo del origen')
@@ -444,7 +445,7 @@ def test_reader_follows_model_link_from_reference_and_tracked_path(reader_e2e_se
         page.on("pageerror", lambda error: errors.append(str(error)))
         # un path que el store rastrea se abre con identidad Model:name, sin redireccion
         page.goto(f"{url}/workspace/node?path=desk/tasks/{source_id}.md")
-        expect(page.locator(".workspace-header-title h1")).to_have_text(f"TaskDoc:{source_id}")
+        expect(page.locator(".workspace-header-title h1")).to_have_text(f"TaskCodeDoc:{source_id}")
         assert 'path=' in page.url and 'id=' not in page.url
         expect(page.locator('.workspace-identity-prop').filter(has_text='Path')).to_contain_text(f"desk/tasks/{source_id}.md")
         # una referencia de Code a un .md se abre como documento no modelado
@@ -453,7 +454,7 @@ def test_reader_follows_model_link_from_reference_and_tracked_path(reader_e2e_se
         expect(page.locator('.workspace-doc-header h2')).to_have_text('Guia del lector')
         assert 'path=docs' in page.url and _reader_count(page) == 1
         # relacion del documento modelado: navegar a otro documento no es foco
-        page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}")
+        page.goto(f"{url}/workspace/node?id=TaskCodeDoc:{source_id}")
         page.locator(".workspace-rel-item-btn").filter(has_text=target_id).first.click()
         expect(page.locator(".workspace-header-title h1")).to_contain_text(target_id)
         assert page.locator('[data-testid="focus-bar"]').count() == 0
@@ -509,18 +510,18 @@ def test_reader_late_node_response_of_previous_document_is_discarded(reader_e2e_
         page = browser.new_page(viewport={"width": 1440, "height": 900})
         errors = []
         page.on("pageerror", lambda error: errors.append(str(error)))
-        held = HeldResponses(page, f'**/api/workspace/node?id=TaskDoc%3A{source_id}*')
-        page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}&tab=code")
+        held = HeldResponses(page, f'**/api/workspace/node?id=TaskCodeDoc%3A{source_id}*')
+        page.goto(f"{url}/workspace/node?id=TaskCodeDoc:{source_id}&tab=code")
         # /source de A llega; /node de A queda retenido: el panel Code muestra carga, no ausencia
-        expect(page.locator('.workspace-header-title h1')).to_have_text(f'TaskDoc:{source_id}')
+        expect(page.locator('.workspace-header-title h1')).to_have_text(f'TaskCodeDoc:{source_id}')
         expect(page.locator('.workspace-code-pane')).to_contain_text('Cargando código')
         expect(_sidebar(page).locator('.workspace-identity-prop').filter(has_text='Estado')).to_contain_text('Cargando')
         expect(page.locator('[data-testid="code-card"]')).to_have_count(0)
         assert len(held.requested) == 1
         # navegar a B (otro documento) mientras la respuesta de A sigue en el aire
-        page.get_by_label('Seleccionar nodo activo').select_option(f'TaskDoc:{target_id}')
-        expect(page.locator('.workspace-header-title h1')).to_have_text(f'TaskDoc:{target_id}')
-        assert f'id=TaskDoc%3A{target_id}' in page.url or f'id=TaskDoc:{target_id}' in page.url
+        page.get_by_label('Seleccionar nodo activo').select_option(f'TaskCodeDoc:{target_id}')
+        expect(page.locator('.workspace-header-title h1')).to_have_text(f'TaskCodeDoc:{target_id}')
+        assert f'id=TaskCodeDoc%3A{target_id}' in page.url or f'id=TaskCodeDoc:{target_id}' in page.url
         # B carga con su propio /node (no retenido: patron de A)
         expect(page.locator('.workspace-code-pane')).to_contain_text('no tiene archivos de código')
         # ahora llega la respuesta ATRASADA de A
@@ -529,8 +530,8 @@ def test_reader_late_node_response_of_previous_document_is_discarded(reader_e2e_
         # nada de A en B: ni su codigo, ni sus aristas, ni su estado
         expect(page.locator('[data-testid="code-card"]')).to_have_count(0)
         assert 'src/app.py' not in page.locator('.workspace-main').inner_text()
-        expect(page.locator('.workspace-header-title h1')).to_have_text(f'TaskDoc:{target_id}')
-        expect(page.locator('[data-testid="document-reader"]')).to_have_attribute('data-identity', f'TaskDoc:{target_id}')
+        expect(page.locator('.workspace-header-title h1')).to_have_text(f'TaskCodeDoc:{target_id}')
+        expect(page.locator('[data-testid="document-reader"]')).to_have_attribute('data-identity', f'TaskCodeDoc:{target_id}')
         page.get_by_role('button', name='Grafo Local', exact=True).click()
         centers = page.locator('.workspace-graph-node-card.is-center')
         expect(centers).to_have_count(1)
@@ -548,7 +549,7 @@ def test_reader_modeled_to_unmodeled_shows_loading_not_previous_data(reader_e2e_
         page = browser.new_page(viewport={"width": 1440, "height": 900})
         errors = []
         page.on("pageerror", lambda error: errors.append(str(error)))
-        page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}&tab=code")
+        page.goto(f"{url}/workspace/node?id=TaskCodeDoc:{source_id}&tab=code")
         expect(page.locator('[data-testid="code-card"]').first).to_be_visible()
         # A cargado. Se retiene la lectura del documento sin modelo y se navega a el.
         held_src = HeldResponses(page, '**/api/workspace/source?path=docs*')
@@ -582,8 +583,8 @@ def test_reader_late_node_response_does_not_repopulate_unmodeled_document(reader
         page = browser.new_page(viewport={"width": 1440, "height": 900})
         errors = []
         page.on("pageerror", lambda error: errors.append(str(error)))
-        held = HeldResponses(page, f'**/api/workspace/node?id=TaskDoc%3A{source_id}*')
-        page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}&tab=code")
+        held = HeldResponses(page, f'**/api/workspace/node?id=TaskCodeDoc%3A{source_id}*')
+        page.goto(f"{url}/workspace/node?id=TaskCodeDoc:{source_id}&tab=code")
         expect(page.locator('.workspace-code-pane')).to_contain_text('Cargando código')
         page.evaluate("""() => { window.history.pushState(null, '', '/workspace/node?path=docs/otro.md&tab=code'); window.dispatchEvent(new PopStateEvent('popstate')); }""")
         expect(page.locator('[data-testid="no-code"]')).to_be_visible()
@@ -611,8 +612,8 @@ def test_reader_warns_when_node_and_source_revisions_differ(reader_e2e_server, t
             # el archivo cambia entre la lectura de /source y la de /node (misma generacion)
             doc.write_text(doc.read_text(encoding='utf-8') + '\nlinea añadida entre lecturas\n', encoding='utf-8')
             route.continue_()
-        page.route(f'**/api/workspace/node?id=TaskDoc%3A{source_id}*', edit_before_node)
-        page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}&tab=document")
+        page.route(f'**/api/workspace/node?id=TaskCodeDoc%3A{source_id}*', edit_before_node)
+        page.goto(f"{url}/workspace/node?id=TaskCodeDoc:{source_id}&tab=document")
         warning = page.locator('[data-testid="revision-mismatch"]').first
         expect(warning).to_be_visible()
         _screenshot(page, "correccion-aviso-revisiones.png")
@@ -627,7 +628,8 @@ def test_reader_warns_when_node_and_source_revisions_differ(reader_e2e_server, t
 def test_reader_unprepared_store_shows_rejection_in_graph_and_relations(reader_e2e_server):
     url, source_id, target_id = reader_e2e_server
     root = Path(os.environ['DESKOPS_ROOT'])
-    shard = root / '.sldb' / 'runtime' / 'edges' / 'TaskDoc' / f'{target_id}.yaml'
+    from sldb.store.layout import edges_shards_dir
+    shard = edges_shards_dir(root / '.sldb', 'TaskCodeDoc') / f'{target_id}.yaml'
     assert shard.is_file()
     shard.unlink()
     with sync_playwright() as pw:
@@ -635,8 +637,8 @@ def test_reader_unprepared_store_shows_rejection_in_graph_and_relations(reader_e
         page = browser.new_page(viewport={"width": 1440, "height": 900})
         errors = []
         page.on("pageerror", lambda error: errors.append(str(error)))
-        page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}&tab=graph")
-        expect(page.locator('[data-testid="store-no-preparado"]')).to_contain_text(f'TaskDoc:{target_id}')
+        page.goto(f"{url}/workspace/node?id=TaskCodeDoc:{source_id}&tab=graph")
+        expect(page.locator('[data-testid="store-no-preparado"]')).to_contain_text(f'TaskCodeDoc:{target_id}')
         expect(page.locator('[data-testid="store-no-preparado-rel"]')).to_contain_text('Store no preparado')
         assert page.locator('[data-testid="edge-item"]').count() == 0
         _screenshot(page, "correccion-store-no-preparado.png")
@@ -656,7 +658,7 @@ def test_reader_edge_focus_marks_only_fields_of_the_open_document(reader_e2e_ser
         errors = []
         page.on("pageerror", lambda error: errors.append(str(error)))
         # B (destino): la arista A->B la declara A. B tiene un campo depends_on propio: no se resalta.
-        page.goto(f"{url}/workspace/node?id=TaskDoc:{target_id}&tab=graph")
+        page.goto(f"{url}/workspace/node?id=TaskCodeDoc:{target_id}&tab=graph")
         edge = page.locator('[data-testid="edge-item"]', has_text=source_id).first
         expect(edge).to_be_visible()
         edge.click()
@@ -668,7 +670,7 @@ def test_reader_edge_focus_marks_only_fields_of_the_open_document(reader_e2e_ser
         # la entrante muestra la declaracion de su dueño, no la presenta como campo propio
         expect(page.locator('[data-testid="rel-prov-in"]')).to_contain_text(f'{source_id}.depends_on')
         # A (origen): la misma arista si resalta sus dos campos
-        page.goto(f"{url}/workspace/node?id=TaskDoc:{source_id}&tab=graph")
+        page.goto(f"{url}/workspace/node?id=TaskCodeDoc:{source_id}&tab=graph")
         page.locator('[data-testid="edge-item"]', has_text=target_id).first.click()
         page.get_by_role('button', name='Documento', exact=True).click()
         expect(page.locator('.workspace-payload-field.is-focused')).to_have_count(2)
@@ -804,12 +806,12 @@ def test_explorer_opens_modeled_and_unmodeled_without_ids_and_refreshes(explorer
         expect(page.locator('[data-testid="explorer-modeled-item"]').first).to_be_visible()
 
         # modelados por modelo; el que no carga lleva su estado y causa, el sano no
-        expect(page.locator('[data-testid="explorer-model"][data-model="TaskDoc"]')).to_be_visible()
+        expect(page.locator('[data-testid="explorer-model"][data-model="TaskCodeDoc"]')).to_be_visible()
         bad = page.locator('[data-testid="explorer-modeled-item"][data-id="Bitacora:b1"]')
         expect(bad).to_have_attribute('data-estado', 'modelo_no_carga')
         expect(bad.locator('[data-testid="explorer-estado"]')).to_have_text('modelo_no_carga')
         assert 'ws132_bitacora' in bad.get_attribute('title')
-        good = page.locator(f'[data-testid="explorer-modeled-item"][data-id="TaskDoc:{task_id}"]')
+        good = page.locator(f'[data-testid="explorer-modeled-item"][data-id="TaskCodeDoc:{task_id}"]')
         expect(good).to_have_attribute('data-estado', 'ok')
         _screenshot(page, "explorer-inicial.png")
 
@@ -829,7 +831,7 @@ def test_explorer_opens_modeled_and_unmodeled_without_ids_and_refreshes(explorer
 
         # abrir un modelado sano
         good.click()
-        expect(page.locator('[data-testid="document-reader"]')).to_have_attribute('data-identity', f'TaskDoc:{task_id}')
+        expect(page.locator('[data-testid="document-reader"]')).to_have_attribute('data-identity', f'TaskCodeDoc:{task_id}')
         expect(page.locator('[data-testid="doc-render"]')).to_contain_text('Objetivo sano')
 
         # abrir el modelado cuyo modelo no importa: fuente legible y causa visible
@@ -851,11 +853,11 @@ def test_explorer_opens_modeled_and_unmodeled_without_ids_and_refreshes(explorer
             'validation': ['pytest'], 'done_when': 'Completada',
         })
         (root / 'docs' / 'nuevo.md').write_text('# Nuevo\n\nContenido nuevo.\n', encoding='utf-8')
-        assert page.locator(f'[data-id="TaskDoc:{new_task.task_id}"]').count() == 0
+        assert page.locator(f'[data-id="TaskCodeDoc:{new_task.task_id}"]').count() == 0
         assert page.locator('[data-path="docs/nuevo.md"]').count() == 0
         before = len(requests)
         refresh.click()
-        expect(page.locator(f'[data-id="TaskDoc:{new_task.task_id}"]')).to_be_visible()
+        expect(page.locator(f'[data-id="TaskCodeDoc:{new_task.task_id}"]')).to_be_visible()
         expect(page.locator('[data-path="docs/nuevo.md"]')).to_be_visible()
         refreshed = [u for m, u in requests[before:]]
         assert any(u.endswith('/api/workspace/nodes') for u in refreshed), refreshed
@@ -880,7 +882,7 @@ def test_explorer_relations_notice_is_visible_in_graph_and_context_not_explorer(
         page = browser.new_page(viewport={"width": 1440, "height": 900})
         errors = []
         page.on("pageerror", lambda error: errors.append(str(error)))
-        page.goto(f"{url}/workspace/node?id=TaskDoc:{task_id}&tab=graph")
+        page.goto(f"{url}/workspace/node?id=TaskCodeDoc:{task_id}&tab=graph")
         graph_notice = page.locator('[data-testid="relations-notice"][data-where="graph"]')
         expect(graph_notice).to_be_visible()
         expect(graph_notice).to_contain_text('índice')
@@ -967,7 +969,7 @@ def test_explorer_refresh_shows_changes_made_by_another_process(explorer_e2e_ser
         page.goto(f"{url}/workspace/node")
         expect(page.locator('[data-testid="explorer-modeled-item"]').first).to_be_visible()
         new_id = _other_process(root, 'create', 'Alta de otro proceso')
-        modeled = page.locator(f'[data-testid="explorer-modeled-item"][data-id="TaskDoc:{new_id}"]')
+        modeled = page.locator(f'[data-testid="explorer-modeled-item"][data-id="TaskCodeDoc:{new_id}"]')
         assert modeled.count() == 0
         page.locator('[data-testid="explorer-refresh"]').click()
         expect(modeled).to_be_visible()
@@ -1002,7 +1004,7 @@ def test_explorer_equal_titles_show_distinct_visible_paths_and_open_their_origin
         'title': 'ActionsSection', 'five_wh_one_plus': 'what', 'answer': 'Respuesta del atom.',
     })
     expected = {
-        f'TaskDoc:{task.task_id}': task.task_path.relative_to(root).as_posix(),
+        f'TaskCodeDoc:{task.task_id}': task.task_path.relative_to(root).as_posix(),
         'AtomDoc:' + atom.doc_id: atom.path.relative_to(root).as_posix(),
     }
     assert len(set(expected.values())) == 2
@@ -1031,7 +1033,7 @@ def test_explorer_equal_titles_show_distinct_visible_paths_and_open_their_origin
             expect(page.locator('[data-testid="document-reader"]')).to_have_attribute('data-identity', ident)
             expect(page.locator('[data-testid="ctx-path"]')).to_have_text(expected[ident])
             expect(page.locator('[data-testid="doc-render"]')).to_contain_text(
-                'Objetivo de la tarea' if ident.startswith('TaskDoc') else 'Respuesta del atom')
+                'Objetivo de la tarea' if ident.startswith('TaskCodeDoc') else 'Respuesta del atom')
         # no modelados con el mismo nombre: la ruta completa es visible aunque el nombre coincida con el titulo
         page.locator('[data-testid="explorer-folder"][data-path="desk/notas"] > button').click()
         for d in ('alfa', 'beta'):
@@ -1060,7 +1062,7 @@ def test_explorer_does_not_claim_model_loaded_while_nodes_is_held_then_updates(e
         page.route('**/api/workspace/nodes', lambda route: held.append(route))   # no se contesta: pendiente
         page.goto(f"{url}/workspace/node?path=docs/faq.md")
         bad = page.locator('[data-testid="explorer-modeled-item"][data-id="Bitacora:b1"]')
-        good = page.locator(f'[data-testid="explorer-modeled-item"][data-id="TaskDoc:{task_id}"]')
+        good = page.locator(f'[data-testid="explorer-modeled-item"][data-id="TaskCodeDoc:{task_id}"]')
         expect(bad).to_be_visible()
         assert len(held) == 1
         for item in (bad, good):
@@ -1100,7 +1102,7 @@ def test_explorer_keeps_unconfirmed_state_and_catalog_error_when_nodes_fails(exp
         alert = page.get_by_role('alert').filter(has_text='Error de catálogo')
         expect(alert).to_be_visible()
         bad = page.locator('[data-testid="explorer-modeled-item"][data-id="Bitacora:b1"]')
-        good = page.locator(f'[data-testid="explorer-modeled-item"][data-id="TaskDoc:{task_id}"]')
+        good = page.locator(f'[data-testid="explorer-modeled-item"][data-id="TaskCodeDoc:{task_id}"]')
         for item in (bad, good):
             expect(item).to_have_attribute('data-estado', 'modelo_sin_confirmar')
             expect(item.locator('[data-testid="explorer-estado"]')).to_have_text('modelo sin confirmar')

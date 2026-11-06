@@ -475,7 +475,8 @@ def test_get_leaves_store_documents_and_git_unchanged_canonical(committed, serve
 def make_stale(root: Path, task_b: str) -> Path:
     """Deja el indice de aristas de un documento atrasado (el shard de su documento falta),
     que es como sldb documenta un store al que se escribio desde fuera."""
-    shard = root / '.sldb' / 'runtime' / 'edges' / 'TaskCodeDoc' / f'{task_b}.yaml'
+    from sldb.store.layout import edges_shards_dir
+    shard = edges_shards_dir(root / '.sldb', 'TaskCodeDoc') / f'{task_b}.yaml'
     assert shard.is_file()
     shard.unlink()
     return shard

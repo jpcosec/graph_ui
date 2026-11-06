@@ -85,7 +85,7 @@ def test_parallel_workspace_overview_and_catalog(parallel_env, parallel_server):
     assert status_cat == 200
     assert cat['ok'] is True
     ids = {n['id'] for n in cat['nodes']}
-    assert f'TaskDoc:{t1}' in ids
+    assert f'TaskCodeDoc:{t1}' in ids
 
 
 def test_parallel_workspace_node_prose_and_changes(parallel_env, parallel_server):
@@ -101,7 +101,7 @@ def test_parallel_workspace_node_prose_and_changes(parallel_env, parallel_server
 
     changes_proj = data['projections']['changes']
     assert changes_proj['ok'] is True
-    assert changes_proj['node_id'] == f'TaskDoc:{t1}'
+    assert changes_proj['node_id'] == f'TaskCodeDoc:{t1}'
     assert changes_proj['content_hash'] is not None
 
 

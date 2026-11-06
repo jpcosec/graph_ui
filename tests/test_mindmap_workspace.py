@@ -252,7 +252,8 @@ def test_workspace_cycle_and_2hops_real_edges(test_env, server):
 def test_workspace_cycle_on_unprepared_store_is_rejected_not_rebuilt(test_env, server):
     root, ops, task_a, task_b, task_c = test_env
     # Store sin preparar: el indice de aristas de un documento atrasado (shard ausente)
-    shard = root / '.sldb' / 'runtime' / 'edges' / 'TaskCodeDoc' / f'{task_c}.yaml'
+    from sldb.store.layout import edges_shards_dir
+    shard = edges_shards_dir(root / '.sldb', 'TaskCodeDoc') / f'{task_c}.yaml'
     assert shard.is_file()
     shard.unlink()
     before = _store_snapshot(root)
