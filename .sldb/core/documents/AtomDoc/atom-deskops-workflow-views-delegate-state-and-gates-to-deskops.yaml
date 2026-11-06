@@ -1,0 +1,18 @@
+name: atom-deskops-workflow-views-delegate-state-and-gates-to-deskops
+path: desk/atoms/atom-deskops-workflow-views-delegate-state-and-gates-to-deskops.md
+source_hash: 29dc72847329f9dd1e2c849d83a2d09dbe8892e9972a3783aa39fab9779c7af2
+content_hash: d6e33d1976e97e969afa2f06a5180415b7f00c408ae2e0bbd43c4735f3719d47
+field_hashes:
+  id: be9b7db833dc0b6e4db97410f664fbb9b00537deb77062e4887ac819de55dc05
+  title: e5e1f16dad95d783f0bd51f8ebaec2f3b8cbd1282280761adef3a02a7fc278f7
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 16ddea7e7ab12e3579f7c9617575b337599fc7797e2a66ad916bfbb264472b74
+  tags: 1617d84400e2576d1cce0f4e810404ed53c1a0f20d4bce70d93b72ea0d164b42
+  provenance: 77be7bb12e15a09d49e33c903c3106254e14b32393f81de92a1ec0eaf1d71833
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

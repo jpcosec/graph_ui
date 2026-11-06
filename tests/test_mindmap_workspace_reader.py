@@ -170,7 +170,7 @@ def test_modeled_source_is_byte_exact_and_same_origin(env, server):
     assert data['revision'] == sha(raw)
     assert data['encoding'] == 'utf-8'
     assert data['identity'] == {
-        'kind': 'modeled', 'id': f'TaskDoc:{task_a}', 'model_name': 'TaskDoc', 'name': task_a,
+        'kind': 'modeled', 'id': f'TaskCodeDoc:{task_a}', 'model_name': 'TaskCodeDoc', 'name': task_a,
         'repo': 'local', 'path': f'desk/tasks/{task_a}.md', 'requested': {'id': f'TaskDoc:{task_a}'},
     }
     # render (IR del builder publico) y fuente salen de los mismos bytes: los spans de seccion
@@ -221,7 +221,7 @@ def test_tracked_path_prevails_as_model_identity(env, server):
     status, by_path = get(server, src_path(rel))
     assert status == 200
     assert by_path['identity']['kind'] == 'modeled'
-    assert by_path['identity']['id'] == f'TaskDoc:{task_a}'
+    assert by_path['identity']['id'] == f'TaskCodeDoc:{task_a}'
     assert by_path['identity']['path'] == rel
     assert by_path['identity']['requested'] == {'path': rel}
     status, by_id = get(server, src_id(f'TaskDoc:{task_a}'))
@@ -243,11 +243,11 @@ def test_modeled_context_has_real_relations_with_provenance(env, server):
     root, task_a, task_b = env
     status, a = get(server, src_id(f'TaskDoc:{task_a}'))
     ctx = a['context']
-    assert ctx['id'] == f'TaskDoc:{task_a}' and ctx['path'] == f'desk/tasks/{task_a}.md'
+    assert ctx['id'] == f'TaskCodeDoc:{task_a}' and ctx['path'] == f'desk/tasks/{task_a}.md'
     out_targets = {e['target'] for e in ctx['outgoing_relations']}
-    assert f'TaskDoc:{task_b}' in out_targets
+    assert f'TaskCodeDoc:{task_b}' in out_targets
     status, b = get(server, src_id(f'TaskDoc:{task_b}'))
-    assert any(e['source'] == f'TaskDoc:{task_a}' for e in b['context']['incoming_relations'])
+    assert any(e['source'] == f'TaskCodeDoc:{task_a}' for e in b['context']['incoming_relations'])
     # misma regla de vecindad que /node: id/sources de la proyeccion de contexto
     status, node = get(server, f'/api/workspace/node?id=TaskDoc:{task_a}&depth=1')
     node_out = {(e['target'], e['type']) for e in node['context']['outgoing_relations']}
@@ -258,7 +258,7 @@ def test_modeled_context_has_real_relations_with_provenance(env, server):
 def test_edge_provenance_keeps_every_field(env, server):
     root, task_a, task_b = env
     status, a = get(server, src_id(f'TaskDoc:{task_a}'))
-    edges = [e for e in a['context']['outgoing_relations'] if e['target'] == f'TaskDoc:{task_b}']
+    edges = [e for e in a['context']['outgoing_relations'] if e['target'] == f'TaskCodeDoc:{task_b}']
     # depends_on e inherits_from dan la misma (source, target, type): una arista, dos procedencias
     assert len(edges) == 1
     fields = {p['field'] for p in edges[0]['provenance'] if p.get('origin') == 'schema'}
@@ -268,7 +268,7 @@ def test_edge_provenance_keeps_every_field(env, server):
             assert prov['declared'] == task_b
     # el grafo de /node conserva las mismas procedencias
     status, node = get(server, f'/api/workspace/node?id=TaskDoc:{task_a}&depth=1')
-    gedges = [e for e in node['projections']['graph']['edges'] if e['source'] == f'TaskDoc:{task_a}' and e['target'] == f'TaskDoc:{task_b}']
+    gedges = [e for e in node['projections']['graph']['edges'] if e['source'] == f'TaskCodeDoc:{task_a}' and e['target'] == f'TaskCodeDoc:{task_b}']
     assert gedges and {p['field'] for p in gedges[0]['provenance'] if p.get('origin') == 'schema'} >= {'depends_on', 'inherits_from'}
 
 
@@ -279,7 +279,7 @@ def test_code_references_keep_field_and_position(env, server):
     got = [(f['field'], f['position'], f['value']) for f in files]
     # files: ['src/a.py:3', '', 'src/b.py'] -> la posicion de src/b.py es 2 (cuenta el omitido)
     assert got == [('files', 0, 'src/a.py:3'), ('files', 2, 'src/b.py'), ('references', 0, 'src/b.py:2')]
-    assert all(f['doc'] == f'TaskDoc:{task_a}' for f in files)
+    assert all(f['doc'] == f'TaskCodeDoc:{task_a}' for f in files)
     assert files[0]['content'].startswith('l1\n')  # archivo completo para el rango local
 
 
@@ -321,19 +321,19 @@ def test_links_relative_first_then_root_and_model_targets(env, server):
     assert links['[[guia.md]]']['open'] == {'path': 'guia.md'}
     status, otro = get(server, src_path('notes/otro.md'))
     l = link_by_raw(otro)[f'[[{task_b}]]']
-    assert l['status'] == 'ok' and l['open'] == {'id': f'TaskDoc:{task_b}'}
+    assert l['status'] == 'ok' and l['open'] == {'id': f'TaskCodeDoc:{task_b}'}
     # seguir el enlace abre ese documento por la misma ruta de lectura
     status, followed = get(server, src_id(l['open']['id']))
-    assert status == 200 and followed['identity']['id'] == f'TaskDoc:{task_b}'
+    assert status == 200 and followed['identity']['id'] == f'TaskCodeDoc:{task_b}'
 
 
 def test_modeled_links_with_anchor_resolve_to_identity(env, server):
     root, task_a, task_b = env
     status, data = get(server, src_id(f'TaskDoc:{task_a}'))
     links = link_by_raw(data)
-    assert links[f'[[{task_b}]]']['open'] == {'id': f'TaskDoc:{task_b}'}
+    assert links[f'[[{task_b}]]']['open'] == {'id': f'TaskCodeDoc:{task_b}'}
     anchored = links[f'[[desk/tasks/{task_b}.md#Goal]]']
-    assert anchored['anchor'] == 'Goal' and anchored['open'] == {'id': f'TaskDoc:{task_b}'}
+    assert anchored['anchor'] == 'Goal' and anchored['open'] == {'id': f'TaskCodeDoc:{task_b}'}
 
 
 # ---------------------------------------------------------------- guardias
@@ -475,7 +475,7 @@ def test_get_leaves_store_documents_and_git_unchanged_canonical(committed, serve
 def make_stale(root: Path, task_b: str) -> Path:
     """Deja el indice de aristas de un documento atrasado (el shard de su documento falta),
     que es como sldb documenta un store al que se escribio desde fuera."""
-    shard = root / '.sldb' / 'runtime' / 'edges' / 'TaskDoc' / f'{task_b}.yaml'
+    shard = root / '.sldb' / 'runtime' / 'edges' / 'TaskCodeDoc' / f'{task_b}.yaml'
     assert shard.is_file()
     shard.unlink()
     return shard
@@ -484,7 +484,7 @@ def make_stale(root: Path, task_b: str) -> Path:
 def test_get_on_stale_store_rejects_observably_and_never_rebuilds(committed, server):
     root, task_a, task_b = committed
     shard = make_stale(root, task_b)
-    expected_stale = f'TaskDoc:{task_b}'
+    expected_stale = f'TaskCodeDoc:{task_b}'
     for url in READ_URLS(task_a, task_b):
         before = full_state(root)
         status, data = get(server, url)
@@ -508,13 +508,13 @@ def test_get_on_stale_store_rejects_observably_and_never_rebuilds(committed, ser
     assert sctx['incoming_relations'] is None and sctx['outgoing_relations'] is None and sctx['relations_error']
     # /nodes no depende del indice de aristas ni cambia con stale
     status, nodes = get(server, '/api/workspace/nodes')
-    assert status == 200 and any(n['id'] == f'TaskDoc:{task_a}' and n['title'] == 'Tarea A' for n in nodes['nodes'])
+    assert status == 200 and any(n['id'] == f'TaskCodeDoc:{task_a}' and n['title'] == 'Tarea A' for n in nodes['nodes'])
     # la preparacion es explicita y externa al request: despues de ella el grafo responde
     rebuild_edges(root / '.sldb', pythonpath=str(root), wait=True)
     assert shard.exists()
     status, node = get(server, f'/api/workspace/node?id=TaskDoc:{task_a}&depth=1')
     assert node['projections']['graph']['ok'] is True and node['projections']['graph']['stale'] == []
-    assert any(e['target'] == f'TaskDoc:{task_b}' for e in node['context']['outgoing_relations'])
+    assert any(e['target'] == f'TaskCodeDoc:{task_b}' for e in node['context']['outgoing_relations'])
 
 
 # ---------------------------------------------------------------- guardias antes de leer (E/S observada)
@@ -640,10 +640,10 @@ def test_no_file_is_opened_before_or_instead_of_its_guards(guard_env, tmp_path):
         assert status == 200
         assert not (srv.opened_since(mark) & forbidden), srv.opened_since(mark) & forbidden
         by_id = {n['id']: n for n in data['nodes']}
-        assert by_id[f'TaskDoc:{prot}']['estado'] == 'protegido' and by_id[f'TaskDoc:{prot}']['title'] == prot
-        assert by_id[f'TaskDoc:{prot_q}']['estado'] == 'protegido'
-        assert by_id[f'TaskDoc:{sym}']['estado'] == 'fuera_del_repo' and by_id[f'TaskDoc:{sym}']['title'] == sym
-        assert by_id[f'TaskDoc:{a}']['estado'] == 'ok' and by_id[f'TaskDoc:{a}']['title'] == 'Tarea A'
+        assert by_id[f'TaskCodeDoc:{prot}']['estado'] == 'protegido' and by_id[f'TaskCodeDoc:{prot}']['title'] == prot
+        assert by_id[f'TaskCodeDoc:{prot_q}']['estado'] == 'protegido'
+        assert by_id[f'TaskCodeDoc:{sym}']['estado'] == 'fuera_del_repo' and by_id[f'TaskCodeDoc:{sym}']['title'] == sym
+        assert by_id[f'TaskCodeDoc:{a}']['estado'] == 'ok' and by_id[f'TaskCodeDoc:{a}']['title'] == 'Tarea A'
         # 5. /node de A a dos saltos: ningun no autorizado se abre
         mark = srv.mark()
         status, data = get(srv.url, f'/api/workspace/node?id=TaskDoc:{a}&depth=2')
@@ -723,12 +723,12 @@ def test_edge_provenance_carries_owner_document(owner_env, server):
     status, node = get(server, f'/api/workspace/node?id=TaskDoc:{p}&depth=2')
     edges = node['projections']['graph']['edges']
     by = {(e['source'], e['target']): e for e in edges}
-    out = by[(f'TaskDoc:{p}', f'TaskDoc:{q}')]
-    assert [pr['owner'] for pr in out['provenance'] if pr.get('field') == 'depends_on'] == [f'TaskDoc:{p}']
-    inc = by[(f'TaskDoc:{s}', f'TaskDoc:{p}')]
-    assert [(pr['owner'], pr['field']) for pr in inc['provenance'] if pr.get('field') == 'depends_on'] == [(f'TaskDoc:{s}', 'depends_on')]
-    two = by[(f'TaskDoc:{u}', f'TaskDoc:{s}')]
-    assert two['provenance'][0]['owner'] == f'TaskDoc:{u}'
+    out = by[(f'TaskCodeDoc:{p}', f'TaskCodeDoc:{q}')]
+    assert [pr['owner'] for pr in out['provenance'] if pr.get('field') == 'depends_on'] == [f'TaskCodeDoc:{p}']
+    inc = by[(f'TaskCodeDoc:{s}', f'TaskCodeDoc:{p}')]
+    assert [(pr['owner'], pr['field']) for pr in inc['provenance'] if pr.get('field') == 'depends_on'] == [(f'TaskCodeDoc:{s}', 'depends_on')]
+    two = by[(f'TaskCodeDoc:{u}', f'TaskCodeDoc:{s}')]
+    assert two['provenance'][0]['owner'] == f'TaskCodeDoc:{u}'
     # relation_doc y structural no tienen campo ni dueño
     for e in edges:
         for pr in e['provenance']:
@@ -738,11 +738,11 @@ def test_edge_provenance_carries_owner_document(owner_env, server):
 
 def test_focus_uses_only_fields_owned_by_the_open_document(owner_env, server):
     p, q, r, s, u = owner_env
-    pid = f'TaskDoc:{p}'
+    pid = f'TaskCodeDoc:{p}'
     status, node = get(server, f'/api/workspace/node?id={pid}&depth=2')
     status, src = get(server, src_id(pid))
     payload = {'edges': node['projections']['graph']['edges'], 'fields': src['fields'], 'docId': pid,
-               'q': f'TaskDoc:{q}', 'r': f'TaskDoc:{r}', 's': f'TaskDoc:{s}', 'u': f'TaskDoc:{u}'}
+               'q': f'TaskCodeDoc:{q}', 'r': f'TaskCodeDoc:{r}', 's': f'TaskCodeDoc:{s}', 'u': f'TaskCodeDoc:{u}'}
     result = run_node('''
       const key = e => `${e.source}>${e.target}`;
       const edge = (a, b) => D.edges.find(e => e.source === a && e.target === b);
@@ -759,7 +759,7 @@ def test_focus_uses_only_fields_owned_by_the_open_document(owner_env, server):
       out.decl = R.edgeDeclarations(edge(D.s, D.docId));
       console.log(JSON.stringify(out));
     ''', payload)
-    key = lambda a, b: f'TaskDoc:{a}>TaskDoc:{b}'  # noqa: E731
+    key = lambda a, b: f'TaskCodeDoc:{a}>TaskCodeDoc:{b}'  # noqa: E731
     # el campo depends_on de P resalta solo las aristas que P declara; la entrante de S (mismo nombre) no
     assert result['fieldFocus'] == sorted([key(p, q), key(p, r)])
     assert result['edgeOut'] == {'document': 1, 'graph': 1, 'code': 0}
@@ -769,7 +769,7 @@ def test_focus_uses_only_fields_owned_by_the_open_document(owner_env, server):
     assert result['fieldsHlIn'] == [] and result['fieldsHlOut'] == ['depends_on']
     assert result['ownedIn'] == [] and result['ownedOut'] == ['depends_on']
     # la declaracion de otro documento se conserva y se atribuye a su dueño
-    assert result['decl'] == [{'owner': f'TaskDoc:{s}', 'field': 'depends_on', 'declared': p}]
+    assert result['decl'] == [{'owner': f'TaskCodeDoc:{s}', 'field': 'depends_on', 'declared': p}]
 
 
 # ---------------------------------------------------------------- WS13.2: modelo no importable en /source

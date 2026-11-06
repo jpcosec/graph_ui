@@ -1,0 +1,18 @@
+name: atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node
+path: desk/atoms/atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node.md
+source_hash: 2eb6472f8d65175fcf9904eadcd4276cbbe3b759223ef13d40f426b0e1614549
+content_hash: 15a3ac5beb820fc3e959c755a54054437efa1dc2f6ae72192144b43d76ddf61e
+field_hashes:
+  id: 9a5bc36278048373694340d72a427c9b91f224453336b9413c68cc2376dbc560
+  title: 436ac9be3961c147f3f3349d85ac7beffc86252aa40b6392162c09166fb86130
+  five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
+  answer: e3343f8c3a23b0fcb99b1348b141304863324ecc48b60256263d8b617039e5f2
+  tags: 4fe6eb5cd3345ff0974785f00a78a1e982fcaad7c2d0f878c2702b0e66ca010c
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:workspace
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance: null

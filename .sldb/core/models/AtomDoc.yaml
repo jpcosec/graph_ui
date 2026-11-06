@@ -1,0 +1,18 @@
+name: AtomDoc
+model_ref: deskops.models:AtomDoc
+path: ''
+documents_index: .sldb/core/documents/AtomDoc.yaml
+sections_index: .sldb/runtime/sections/AtomDoc.yaml
+model_hash: bd9111a9a4299c1cb915d4a9fdb797fe66baa50152a0484fa7e5c1511c60b12a
+roster_hash: 565fba9ec86e3c05c1c16404f84334fb865c8f121719fffcce1a0c834e1672ee
+contract_hash: ee1a85c1da9ee8ba88d3094404d7771d03e738aad81a0995067fd55369e8b939
+documents_count: 265
+version: 1
+canonical: false
+family: null
+semantics:
+- representation.markdown
+- source.document.markdown
+- type.knowledge.atom
+- workspace.desk.atoms
+base_models: []

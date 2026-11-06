@@ -150,8 +150,8 @@ def test_workspace_node_success(test_env, server):
 
     # Nodo
     node = data['node']
-    assert node['id'] == f'TaskDoc:{task_a}'
-    assert node['model_name'] == 'TaskDoc'
+    assert node['id'] == f'TaskCodeDoc:{task_a}'
+    assert node['model_name'] == 'TaskCodeDoc'
     assert node['name'] == task_a
     assert node['content_hash'] is not None
 
@@ -165,9 +165,9 @@ def test_workspace_node_success(test_env, server):
     assert graph_proj['ok'] is True
     assert graph_proj['depth'] == 1
     node_ids = {n['id'] for n in graph_proj['nodes']}
-    assert f'TaskDoc:{task_a}' in node_ids
-    assert f'TaskDoc:{task_b}' in node_ids  # Outgoing relation
-    assert f'TaskDoc:{task_c}' in node_ids  # Incoming relation
+    assert f'TaskCodeDoc:{task_a}' in node_ids
+    assert f'TaskCodeDoc:{task_b}' in node_ids  # Outgoing relation
+    assert f'TaskCodeDoc:{task_c}' in node_ids  # Incoming relation
 
     # Proyección Code
     code_proj = data['projections']['code']
@@ -204,8 +204,8 @@ def test_workspace_node_success(test_env, server):
 
     # Contexto
     context = data['context']
-    assert context['id'] == f'TaskDoc:{task_a}'
-    assert context['model_name'] == 'TaskDoc'
+    assert context['id'] == f'TaskCodeDoc:{task_a}'
+    assert context['model_name'] == 'TaskCodeDoc'
     assert context['content_hash'] == node['content_hash']
     assert len(context['incoming_relations']) >= 1
     assert len(context['outgoing_relations']) >= 1
@@ -234,17 +234,17 @@ def test_workspace_cycle_and_2hops_real_edges(test_env, server):
     node_ids = [n['id'] for n in graph_proj['nodes']]
     # Sin duplicados en nodos
     assert len(node_ids) == len(set(node_ids))
-    assert f'TaskDoc:{task_a}' in node_ids
-    assert f'TaskDoc:{task_b}' in node_ids
-    assert f'TaskDoc:{task_c}' in node_ids
+    assert f'TaskCodeDoc:{task_a}' in node_ids
+    assert f'TaskCodeDoc:{task_b}' in node_ids
+    assert f'TaskCodeDoc:{task_c}' in node_ids
 
     # Sin duplicados en aristas
     edge_keys = [(e['source'], e['target'], e['type']) for e in graph_proj['edges']]
     assert len(edge_keys) == len(set(edge_keys))
     # Comprobar que existen las aristas reales
-    assert any(e['source'] == f'TaskDoc:{task_a}' and e['target'] == f'TaskDoc:{task_b}' for e in graph_proj['edges'])
-    assert any(e['source'] == f'TaskDoc:{task_b}' and e['target'] == f'TaskDoc:{task_c}' for e in graph_proj['edges'])
-    assert any(e['source'] == f'TaskDoc:{task_c}' and e['target'] == f'TaskDoc:{task_a}' for e in graph_proj['edges'])
+    assert any(e['source'] == f'TaskCodeDoc:{task_a}' and e['target'] == f'TaskCodeDoc:{task_b}' for e in graph_proj['edges'])
+    assert any(e['source'] == f'TaskCodeDoc:{task_b}' and e['target'] == f'TaskCodeDoc:{task_c}' for e in graph_proj['edges'])
+    assert any(e['source'] == f'TaskCodeDoc:{task_c}' and e['target'] == f'TaskCodeDoc:{task_a}' for e in graph_proj['edges'])
     # preparado y canonico: la lectura no escribio nada
     assert _store_snapshot(root) == before
 
@@ -252,7 +252,7 @@ def test_workspace_cycle_and_2hops_real_edges(test_env, server):
 def test_workspace_cycle_on_unprepared_store_is_rejected_not_rebuilt(test_env, server):
     root, ops, task_a, task_b, task_c = test_env
     # Store sin preparar: el indice de aristas de un documento atrasado (shard ausente)
-    shard = root / '.sldb' / 'runtime' / 'edges' / 'TaskDoc' / f'{task_c}.yaml'
+    shard = root / '.sldb' / 'runtime' / 'edges' / 'TaskCodeDoc' / f'{task_c}.yaml'
     assert shard.is_file()
     shard.unlink()
     before = _store_snapshot(root)
@@ -260,7 +260,7 @@ def test_workspace_cycle_on_unprepared_store_is_rejected_not_rebuilt(test_env, s
     assert status == 200
     graph_proj = data['projections']['graph']
     assert graph_proj['ok'] is False and graph_proj['estado'] == 'store_no_preparado'
-    assert f'TaskDoc:{task_c}' in graph_proj['stale'] and graph_proj['nodes'] == [] and graph_proj['edges'] == []
+    assert f'TaskCodeDoc:{task_c}' in graph_proj['stale'] and graph_proj['nodes'] == [] and graph_proj['edges'] == []
     assert data['context']['relations_state']['estado'] == 'store_no_preparado'
     assert data['context']['incoming_relations'] is None
     # nada se escribio: ni el shard ni ningun otro archivo del store
@@ -279,7 +279,7 @@ def test_workspace_ambiguous_name_resolution(test_env, server):
     # Pedir con Model:name debe resolver limpiamente a 200
     status_task, data_task = http_get(server, f'/api/workspace/node?id=TaskDoc:{task_a}')
     assert status_task == 200
-    assert data_task['node']['model_name'] == 'TaskDoc'
+    assert data_task['node']['model_name'] == 'TaskCodeDoc'
 
     status_pill, data_pill = http_get(server, f'/api/workspace/node?id=PillDoc:{task_a}')
     assert status_pill == 200
@@ -307,7 +307,7 @@ No headings here
     # Pero el grafo y el contexto siguen vivos
     assert data['projections']['graph']['ok'] is True
     assert len(data['projections']['graph']['nodes']) >= 1
-    assert data['context']['id'] == f'TaskDoc:{task_b}'
+    assert data['context']['id'] == f'TaskCodeDoc:{task_b}'
 
 
 def test_workspace_canonical_identity(test_env, server):
@@ -315,7 +315,7 @@ def test_workspace_canonical_identity(test_env, server):
     status1, data1 = http_get(server, f'/api/workspace/node?id=TaskDoc:{task_b}')
     status2, data2 = http_get(server, f'/api/workspace/node?id={task_b}')
     assert status1 == 200 and status2 == 200
-    assert data1['node']['id'] == data2['node']['id'] == f'TaskDoc:{task_b}'
+    assert data1['node']['id'] == data2['node']['id'] == f'TaskCodeDoc:{task_b}'
 
 
 def test_workspace_node_not_found(server):
@@ -340,7 +340,7 @@ def test_workspace_nodes_catalog(test_env, server):
     assert data['ok'] is True
     assert 'nodes' in data
     ids = [n['id'] for n in data['nodes']]
-    assert f'TaskDoc:{task_a}' in ids
+    assert f'TaskCodeDoc:{task_a}' in ids
 
 
 def test_workspace_remote_mode_returns_501():
@@ -403,7 +403,7 @@ def test_workspace_rejected_relation_reported_in_problems(test_env, server):
             'id': 'bad-rel-test',
             'title': 'Bad Relation Test',
             'status': 'active',
-            'source_id': f'TaskDoc:{task_a}',
+            'source_id': f'TaskCodeDoc:{task_a}',
             'target_id': 'TaskDoc:no-existe',
             'relation_type': 'type-task_activates'
         }
@@ -435,14 +435,14 @@ def test_workspace_broken_doc_catalog_degrades_that_entry_and_keeps_healthy_ones
     assert status == 200
     assert data['ok'] is True
     by_id = {n['id']: n for n in data['nodes']}
-    broken = by_id[f'TaskDoc:{task_c}']
+    broken = by_id[f'TaskCodeDoc:{task_c}']
     assert broken['estado'] == 'modelo_no_carga'
     assert broken['causa'] and isinstance(broken['causa'], str)
-    assert broken['name'] == task_c and broken['model_name'] == 'TaskDoc'
+    assert broken['name'] == task_c and broken['model_name'] == 'TaskCodeDoc'
     assert broken['path'] == f'desk/tasks/{task_c}.md'
     # los documentos sanos siguen intactos en el catálogo
     for healthy in (task_a, task_b):
-        entry = by_id[f'TaskDoc:{healthy}']
+        entry = by_id[f'TaskCodeDoc:{healthy}']
         assert entry['estado'] == 'ok'
         assert 'causa' not in entry
         assert entry['title']
@@ -465,15 +465,15 @@ def test_workspace_broken_and_healthy_docs_coexistence(test_env, server):
     assert 'no disponible' in data_broken['projections']['code']['error'].lower()
     # Grafo y contexto siguen vivos
     assert data_broken['projections']['graph']['ok'] is True
-    assert data_broken['context']['id'] == f'TaskDoc:{task_c}'
+    assert data_broken['context']['id'] == f'TaskCodeDoc:{task_c}'
 
     # 2. Documento sano task_a: conserva Code, Graph y metadata
     status_sano, data_sano = http_get(server, f'/api/workspace/node?id=TaskDoc:{task_a}&depth=1')
     assert status_sano == 200
     assert data_sano['ok'] is True
-    assert data_sano['node']['id'] == f'TaskDoc:{task_a}'
+    assert data_sano['node']['id'] == f'TaskCodeDoc:{task_a}'
     assert data_sano['projections']['graph']['ok'] is True
     assert data_sano['projections']['code']['ok'] is True
-    assert data_sano['context']['id'] == f'TaskDoc:{task_a}'
+    assert data_sano['context']['id'] == f'TaskCodeDoc:{task_a}'
 
 

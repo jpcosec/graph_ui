@@ -547,12 +547,15 @@ class WorkspaceRoutes:
         return doc
 
     def _match_indexed(self, ident: str, entries: list[dict[str, str]]) -> dict[str, str] | None:
-        if ':' in ident:
-            model_name, name = ident.split(':', 1)
-            return next((e for e in entries if e['model'] == model_name and e['name'] == name), None)
-        if '/' in ident:
-            model_name, name = ident.split('/', 1)
-            return next((e for e in entries if e['model'] == model_name and e['name'] == name), None)
+        if ':' in ident or '/' in ident:
+            # Model:name también encuentra la instancia de un submodelo (TaskDoc:x → TaskCodeDoc:x);
+            # la familia la resuelve sldb, no esta capa.
+            from sldb.api import AmbiguousDocument, resolve_indexed_document
+            model_name, name = re.split(r'[:/]', ident, maxsplit=1)
+            try:
+                return resolve_indexed_document(self.store_path, model_name, name)
+            except AmbiguousDocument as exc:
+                raise WorkspaceError(str(exc), 400) from exc
         matches = [e for e in entries if e['name'] == ident]
         if len(matches) > 1:
             models = [e['model'] for e in matches]

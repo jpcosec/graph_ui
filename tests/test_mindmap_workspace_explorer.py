@@ -208,8 +208,8 @@ def test_explorer_lists_modeled_and_unmodeled_without_knowing_ids(env, server):
     assert data['repo'] == 'local' and data['roots'] == ['desk', 'docs']
     assert data['roots_invalid'] == [] and data['sin_git'] is False and data['truncado'] is False
     modeled = {m['id']: m for m in data['modeled']}
-    assert modeled[f'TaskDoc:{task}']['path'] == f'desk/tasks/{task}.md'
-    assert modeled[f'TaskDoc:{task}']['estado'] == 'ok'
+    assert modeled[f'TaskCodeDoc:{task}']['path'] == f'desk/tasks/{task}.md'
+    assert modeled[f'TaskCodeDoc:{task}']['estado'] == 'ok'
     # los modelados salen de los indices aunque esten fuera de las rutas permitidas
     assert modeled['Bitacora:b1']['path'] == 'bitacoras/b1.md' and modeled['Bitacora:b1']['model_name'] == 'Bitacora'
     # orden: modelo y nombre
@@ -230,7 +230,7 @@ def test_explorer_open_results_with_the_reader(env, server):
     status, src = get(server, f'/api/workspace/source?path={quote(entry["path"])}')
     assert status == 200 and src['identity']['kind'] == 'unmodeled'
     assert src['text'].encode() == (root / 'docs/faq.md').read_bytes()
-    mod = next(m for m in data['modeled'] if m['id'] == f'TaskDoc:{task}')
+    mod = next(m for m in data['modeled'] if m['id'] == f'TaskCodeDoc:{task}')
     status, src = get(server, f'/api/workspace/source?id={quote(mod["id"])}')
     assert status == 200 and src['identity']['kind'] == 'modeled'
 
@@ -320,13 +320,13 @@ def test_refresh_shows_new_modeled_and_unmodeled_without_restart(env, server, tm
     )).task_id
     write(root, 'docs/nuevo.md', '# Nuevo\n')
     _, after = get(server, '/api/workspace/explorer')
-    assert f'TaskDoc:{new_task}' not in {m['id'] for m in before['modeled']}
-    assert f'TaskDoc:{new_task}' in {m['id'] for m in after['modeled']}
+    assert f'TaskCodeDoc:{new_task}' not in {m['id'] for m in before['modeled']}
+    assert f'TaskCodeDoc:{new_task}' in {m['id'] for m in after['modeled']}
     assert 'docs/nuevo.md' not in paths(before) and 'docs/nuevo.md' in paths(after)
     assert f'desk/tasks/{new_task}.md' not in paths(after)
     # y el catalogo /nodes tambien
     _, nodes = get(server, '/api/workspace/nodes')
-    assert f'TaskDoc:{new_task}' in {n['id'] for n in nodes['nodes']}
+    assert f'TaskCodeDoc:{new_task}' in {n['id'] for n in nodes['nodes']}
 
 
 def test_without_git_repo_reports_sin_git_and_lists(tmp_path, monkeypatch):
@@ -418,7 +418,7 @@ def test_unimportable_model_does_not_take_down_the_catalog(env, server):
     assert bad['model_name'] == 'Bitacora' and bad['name'] == 'b1'
     # la causa recibida, tal cual: texto de la excepcion, no una etiqueta inventada
     assert 'ws132_bitacora' in bad['causa']
-    good = by_id[f'TaskDoc:{task}']
+    good = by_id[f'TaskCodeDoc:{task}']
     assert good['estado'] == 'ok' and good['title'] == 'Tarea sana' and 'causa' not in good
 
 
@@ -494,7 +494,7 @@ elif action == 'untrack':
     untrack_document(root / '.sldb', arg)
 elif action == 'track':
     from sldb.api import track_document_file
-    track_document_file(root / '.sldb', 'TaskDoc', arg)
+    track_document_file(root / '.sldb', 'TaskCodeDoc', arg)
 elif action == 'delete':
     from sldb.api import delete_document
     delete_document(root / '.sldb', arg)
@@ -514,7 +514,7 @@ def test_modeled_created_and_removed_by_another_process_show_after_refresh(env, 
     _, warm = get(server, '/api/workspace/explorer')
     get(server, '/api/workspace/nodes')
     new_id = other_process(root, 'create', 'Alta externa')
-    ident, rel = f'TaskDoc:{new_id}', f'desk/tasks/{new_id}.md'
+    ident, rel = f'TaskCodeDoc:{new_id}', f'desk/tasks/{new_id}.md'
 
     _, exp = get(server, '/api/workspace/explorer')
     _, nodes = get(server, '/api/workspace/nodes')
@@ -737,7 +737,7 @@ def test_real_process_listing_get_writes_nothing_and_sees_other_process_changes(
             return {m['id'] for m in exp['modeled']}, set(paths(exp)), {n['id'] for n in nodes['nodes']}
 
         new_id = other_process(root, 'create', 'Alta entre procesos')
-        ident, rel = f'TaskDoc:{new_id}', f'desk/tasks/{new_id}.md'
+        ident, rel = f'TaskCodeDoc:{new_id}', f'desk/tasks/{new_id}.md'
         m, u, n = seen()
         assert ident in m and ident in n and rel not in u
         other_process(root, 'untrack', new_id)
