@@ -21,7 +21,7 @@ pytest.importorskip('deskops.services.desk_view', reason='this deskops has no `d
 
 from deskops.bootstrap import SLDBBootstrap  # noqa: E402
 from deskops.cli.main import main as deskops_main  # noqa: E402
-from deskops.lifecycle import ensure_lifecycle_graph  # noqa: E402
+from deskops.lifecycle import write_lifecycle_graph  # noqa: E402
 from deskops.operations import DeskopsOperations  # noqa: E402
 from deskops.services.desk_view import DeskView  # noqa: E402
 from deskops.workspace import scaffold_desk  # noqa: E402
@@ -44,7 +44,7 @@ def desk(tmp_path, monkeypatch):
         subprocess.run(['git', *argv], cwd=root, check=True, capture_output=True)
     assert SLDBBootstrap().init_local_store(root) == 0
     scaffold_desk(root)
-    ensure_lifecycle_graph(root)
+    write_lifecycle_graph(root)
     ops = DeskopsOperations(root)
 
     def task(title, **extra):

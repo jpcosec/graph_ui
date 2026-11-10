@@ -18,7 +18,7 @@ for _mod in list(sys.modules):
 
 import pytest
 from deskops.bootstrap import SLDBBootstrap
-from deskops.lifecycle import ensure_lifecycle_graph
+from deskops.lifecycle import write_lifecycle_graph
 from deskops.models import PillDoc, TaskDoc
 from deskops.operations import DeskopsOperations
 from deskops.workspace import scaffold_desk
@@ -42,7 +42,7 @@ def test_env(tmp_path, monkeypatch):
 
     assert SLDBBootstrap().init_local_store(root) == 0
     scaffold_desk(root)
-    ensure_lifecycle_graph(root)
+    write_lifecycle_graph(root)
     ops = DeskopsOperations(root)
 
     # Archivo de código real y archivo sin extensión

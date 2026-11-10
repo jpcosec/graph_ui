@@ -23,7 +23,7 @@ pytest.importorskip('deskops.services.desk_view', reason='this deskops has no `d
 
 import deskops  # noqa: E402
 from deskops.bootstrap import SLDBBootstrap  # noqa: E402
-from deskops.lifecycle import ensure_lifecycle_graph  # noqa: E402
+from deskops.lifecycle import write_lifecycle_graph  # noqa: E402
 from deskops.operations import DeskopsOperations  # noqa: E402
 from deskops.workspace import scaffold_desk  # noqa: E402
 from desk import serve as desk_serve  # noqa: E402
@@ -43,7 +43,7 @@ def _make_desk(root, titles):
     _git(root, 'config', 'user.email', 'test@example.com')
     assert SLDBBootstrap().init_local_store(root) == 0
     scaffold_desk(root)
-    ensure_lifecycle_graph(root)
+    write_lifecycle_graph(root)
     ops = DeskopsOperations(root)
     ids = [ops.create_task_bundle({
         'title': title, 'goal': f'Objetivo de {title}', 'scope': 's', 'implementation_path': 'i',

@@ -7,7 +7,7 @@ import pytest
 from playwright.sync_api import expect, sync_playwright
 
 from deskops.bootstrap import SLDBBootstrap
-from deskops.lifecycle import ensure_lifecycle_graph
+from deskops.lifecycle import write_lifecycle_graph
 from deskops.models import BoardDoc
 from deskops.operations import DeskopsOperations
 from deskops.workspace import scaffold_desk
@@ -20,7 +20,7 @@ def workflow_server(tmp_path, monkeypatch):
     root.mkdir()
     assert SLDBBootstrap().init_local_store(root) == 0
     scaffold_desk(root)
-    ensure_lifecycle_graph(root)
+    write_lifecycle_graph(root)
     ops = DeskopsOperations(root)
     ids = []
     for title in ("Revisar el contexto", "Preparar la entrega"):
