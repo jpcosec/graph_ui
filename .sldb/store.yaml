@@ -76,6 +76,8 @@ models:
 - name: TaskRefactorDoc
   model_ref: deskops.models:TaskRefactorDoc
   origin: deskops
+- name: RuleDoc
+  model_ref: sldb.models.rule_doc:RuleDoc
 predicates:
   applies_to_source:
     axis: WHAT
@@ -192,6 +194,8 @@ include:
     name: ritual-execution
   - path: desk/rituals/testing.md
     name: ritual-testing
+  - path: desk/rituals/phase.md
+    name: ritual-phase
 - model: BoardDoc
   paths:
   - desk/tasks/Board.md
@@ -199,5 +203,14 @@ include:
   paths:
   - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
   - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
+- model: RuleDoc
+  paths:
+  - desk/lifecycle/rule-activation-task-aggregate.md
+  - desk/lifecycle/rule-activation-task-code.md
+  - desk/lifecycle/rule-activation-task-debug.md
+  - desk/lifecycle/rule-activation-task-decision.md
+  - desk/lifecycle/rule-activation-task-docs.md
+  - desk/lifecycle/rule-activation-task-external.md
+  - desk/lifecycle/rule-activation-task-refactor.md
 graph_backend: networkx
 policy: {}

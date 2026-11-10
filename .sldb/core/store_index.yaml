@@ -233,6 +233,18 @@ models:
   family: null
   semantics: []
   origin: deskops
+- name: RuleDoc
+  model_ref: sldb.models.rule_doc:RuleDoc
+  path: /dev/shm/gui/venv/lib/python3.12/site-packages/sldb/models/rule_doc.py
+  models_index: .sldb/core/models/RuleDoc.yaml
+  version: 1
+  canonical: false
+  family: rule
+  semantics:
+  - layer.governance
+  - representation.markdown
+  - source.document.markdown
+  - type.rule
 predicates:
 - name: applies_to_source
   axis: WHAT
@@ -289,4 +301,4 @@ predicates:
 - name: tagged_as
   axis: WHAT
   description: The model, document or section carries this semantic tag.
-store_hash: 06840dd9c6a234e10ee0549a38ba816c4ed44397a2f051cd1fe04a50b0da2b65
+store_hash: ab57e3ef363e7c4a934f79465c77494b6c4c9e49913788c7f5973e8bb566e3e4
