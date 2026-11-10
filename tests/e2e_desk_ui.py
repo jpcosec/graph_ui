@@ -24,7 +24,7 @@ from deskops.cli.main import main as deskops_main  # noqa: E402
 from deskops.lifecycle import write_lifecycle_graph  # noqa: E402
 from deskops.operations import DeskopsOperations  # noqa: E402
 from deskops.services.desk_view import DeskView  # noqa: E402
-from deskops.workspace import scaffold_desk  # noqa: E402
+from deskops.workspace import seed_desk  # noqa: E402
 from desk import serve as desk_serve  # noqa: E402
 
 STITCH_STRINGS = (
@@ -43,7 +43,7 @@ def desk(tmp_path, monkeypatch):
     for argv in (('init', '-q'), ('config', 'user.name', 'test'), ('config', 'user.email', 'test@example.com')):
         subprocess.run(['git', *argv], cwd=root, check=True, capture_output=True)
     assert SLDBBootstrap().init_local_store(root) == 0
-    scaffold_desk(root)
+    seed_desk(root)
     write_lifecycle_graph(root)
     ops = DeskopsOperations(root)
 

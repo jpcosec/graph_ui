@@ -20,7 +20,7 @@ from playwright.sync_api import expect, sync_playwright
 from deskops.bootstrap import SLDBBootstrap
 from deskops.lifecycle import write_lifecycle_graph
 from deskops.operations import DeskopsOperations
-from deskops.workspace import scaffold_desk
+from deskops.workspace import seed_desk
 from mindmap.serve import make_server
 
 
@@ -37,7 +37,7 @@ def workspace_e2e_server(tmp_path, monkeypatch):
     (root / '.gitignore').write_text('secrets.env\n', encoding='utf-8')
 
     assert SLDBBootstrap().init_local_store(root) == 0
-    scaffold_desk(root)
+    seed_desk(root)
     write_lifecycle_graph(root)
     ops = DeskopsOperations(root)
 
@@ -226,7 +226,7 @@ def reader_e2e_server(tmp_path, monkeypatch):
     subprocess.run(['git', '-C', str(root), 'config', 'user.email', 'test@example.com'], check=True)
 
     assert SLDBBootstrap().init_local_store(root) == 0
-    scaffold_desk(root)
+    seed_desk(root)
     write_lifecycle_graph(root)
     ops = DeskopsOperations(root)
 
@@ -748,7 +748,7 @@ def _explorer_repo(tmp_path, name):
     subprocess.run(['git', '-C', str(root), 'config', 'user.email', 'test@example.com'], check=True)
     (root / '.gitignore').write_text('desk/privado/\n', encoding='utf-8')
     assert SLDBBootstrap().init_local_store(root) == 0
-    scaffold_desk(root)
+    seed_desk(root)
     write_lifecycle_graph(root)
     return root
 

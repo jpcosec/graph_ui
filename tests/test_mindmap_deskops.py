@@ -10,7 +10,7 @@ from deskops.bootstrap import SLDBBootstrap
 from deskops.lifecycle import write_lifecycle_graph
 from deskops.models import BoardDoc, TaskDoc
 from deskops.operations import DeskopsOperations
-from deskops.workspace import scaffold_desk
+from deskops.workspace import seed_desk
 from mindmap import serve
 from mindmap.deskops_routes import configured_routes
 
@@ -21,7 +21,7 @@ def desk(tmp_path, monkeypatch):
     root = tmp_path / 'repo'
     root.mkdir()
     assert SLDBBootstrap().init_local_store(root) == 0
-    scaffold_desk(root)
+    seed_desk(root)
     write_lifecycle_graph(root)
     ops = DeskopsOperations(root)
     task = ops.create_task_bundle(dict(title='Revisar contrato real', goal='Comprobar rutas', scope='Desk temporal', implementation_path='Operaciones reales', validation=['pytest'], done_when='Rutas verificadas')).task_id
