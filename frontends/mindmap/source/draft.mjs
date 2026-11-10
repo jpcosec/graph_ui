@@ -2,7 +2,7 @@
 // documents until an explicit conversion validates and applies them via
 // /api/plan + /api/compile. Pure logic + localStorage access; no React.
 import {childOptions} from './graph.mjs';
-import {slugify, quickPayload, quickCapturable} from '../shared/documents.mjs';
+import {slugify, quickPayload, quickCapturable, quickId} from '../shared/documents.mjs';
 
 export const DRAFT_KEY = 'kb-brainstorm-draft-v1';
 
@@ -48,7 +48,7 @@ export function brainstormToSource(ideas, models, reservedIds=[]) {
   const valid=ideas.filter(i=>i.title?.trim()&&i.className&&quickCapturable(models.find(m=>m.id===i.className)));
   const usedIds=new Set(reservedIds);
   for(const idea of valid){
-    const base=slugify(idea.title);let candidate=base,n=2;
+    const base=quickId(models.find(m=>m.id===idea.className),slugify(idea.title));let candidate=base,n=2;
     while(usedIds.has(candidate)){candidate=`${base}-${n++}`;}
     usedIds.add(candidate);docIds.set(idea.id,candidate);
   }

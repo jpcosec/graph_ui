@@ -18,8 +18,14 @@ export function quickPayload(model,title,rawId) {
   const payload={...defaultsFor(model)};
   const titleField=fields.some(f=>f.name==='name')&&!fields.some(f=>f.name==='title')?'name':'title';
   payload[titleField]=String(title||'').trim()||'Sin título';
-  payload.id=rawId||slugify(payload[titleField]);
+  payload.id=rawId||quickId(model,slugify(payload[titleField]));
   return payload;
+}
+// Id for a captured document. The adapter publishes id_prefix when the model only
+// accepts ids like `atom-<slug>` (its real validator decided it, not graph_ui).
+export function quickId(model,slug) {
+  const prefix=model?.id_prefix||'';
+  return prefix&&!slug.startsWith(prefix)?prefix+slug:slug;
 }
 // The server marks models whose title-only payload fails SLDB's round-trip
 // (patterns, non-empty validators the schema does not expose). A descriptor

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {brainstormToSource,brainstormIssues} from '../frontends/mindmap/source/draft.mjs';
 import {appendChild,removeDocument,hierarchy,relationships,graphMaps,localIdOf,isRelationDocument} from '../frontends/mindmap/source/graph.mjs';
 import {changesBetween,conflictsBetween} from '../frontends/mindmap/source/batch.mjs';
-import {defaultsFor,quickPayload,searchDocuments,referenceFieldsOf} from '../frontends/mindmap/shared/documents.mjs';
+import {defaultsFor,quickPayload,quickId,searchDocuments,referenceFieldsOf} from '../frontends/mindmap/shared/documents.mjs';
 import {project} from '../frontends/mindmap/views/documents/map/projection.mjs';
 import * as history from '../frontends/mindmap/source/history.mjs';
 const board={id:'board',model_name:'BoardDoc',payload:{title:'Board',tasks:[]}};
@@ -68,6 +68,16 @@ test('quickPayload builds a complete payload from just a title',()=>{
   assert.equal(quickPayload(model,'').title,'Sin título');
   assert.equal(quickPayload(model,'Same Title').id,quickPayload(model,'Same Title').id);
   assert.equal(quickPayload(model,'Custom','manual-id').id,'manual-id');
+});
+
+test('quickPayload prefixes the id when the model publishes id_prefix',()=>{
+  const atom={id:'AtomDoc',id_prefix:'atom-',fields:[
+    {name:'id',kind:'string',required:true},
+    {name:'title',kind:'string',required:true},
+  ]};
+  assert.equal(quickPayload(atom,'Captura rápida').id,'atom-captura-rapida');
+  assert.equal(quickId(atom,'atom-ya-prefijado'),'atom-ya-prefijado');
+  assert.equal(quickId({id:'TaskDoc',fields:[]},'sin-prefijo'),'sin-prefijo');
 });
 
 test('reference edges are labeled and dashed to differ from containment groups',()=>{

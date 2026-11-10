@@ -34,7 +34,17 @@ VIEW_FILENAME = "mindmap-view.json"
 QUICK_CAPTURE_TITLE = "Captura rápida"
 
 
-def quick_payload(fields: list[dict[str, Any]]) -> dict[str, Any]:
+def id_prefix_candidate(model_name: str) -> str:
+    """Prefijo de id que se prueba cuando un modelo rechaza el id sin prefijo.
+
+    Convención de los modelos de deskops (``AtomDoc`` -> ``atom-``, ``CrossroadDoc`` ->
+    ``crossroad-``). Es solo un candidato: el validador real del modelo decide si vale.
+    """
+    base = model_name[:-3] if model_name.endswith("Doc") else model_name
+    return f"{base.lower()}-"
+
+
+def quick_payload(fields: list[dict[str, Any]], id_prefix: str = "") -> dict[str, Any]:
     """Espejo de ``defaultsFor``/``quickPayload`` (shared/documents.mjs): título + defaults."""
     payload: dict[str, Any] = {}
     for field in fields:
@@ -53,7 +63,7 @@ def quick_payload(fields: list[dict[str, Any]]) -> dict[str, Any]:
             payload[name] = ""
     names = {f.get("name") for f in fields}
     payload["name" if "name" in names and "title" not in names else "title"] = QUICK_CAPTURE_TITLE
-    payload["id"] = "captura-rapida"
+    payload["id"] = f"{id_prefix}captura-rapida"
     return payload
 
 
@@ -128,10 +138,20 @@ class SldbAdapter:
                 # La UI no ve validadores (patrones, no-vacío): se le dice si un
                 # payload de solo título pasa el round-trip real, para no ofrecer
                 # una captura rápida que acabaría en 422 al guardar.
-                try:
-                    model_dict["quick_capture"] = bool(self.validate_payload(entry.name, quick_payload(fields))[0])
-                except Exception:  # noqa: BLE001
-                    model_dict["quick_capture"] = False
+                # Un modelo puede exigir un prefijo en el id (deskops: ``atom-<slug>``); si el id
+                # sin prefijo no pasa, se prueba el candidato y, si el modelo lo acepta, la UI
+                # recibe ``id_prefix`` para construir ids que validen.
+                model_dict["quick_capture"] = False
+                for prefix in ("", id_prefix_candidate(entry.name)):
+                    try:
+                        valid = bool(self.validate_payload(entry.name, quick_payload(fields, prefix))[0])
+                    except Exception:  # noqa: BLE001
+                        valid = False
+                    if valid:
+                        model_dict["quick_capture"] = True
+                        if prefix:
+                            model_dict["id_prefix"] = prefix
+                        break
                 out.append(model_dict)
             return out
 

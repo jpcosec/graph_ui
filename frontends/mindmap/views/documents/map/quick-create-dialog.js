@@ -1,6 +1,6 @@
 import {useState, useEffect, useRef} from 'react';
 import {html} from '../../../shared/html.js';
-import {titleOf, quickPayload, quickCapturable, slugify} from '../../../shared/documents.mjs';
+import {titleOf, quickPayload, quickCapturable, quickId, slugify} from '../../../shared/documents.mjs';
 import {classStyle, classVar} from '../../../shared/classes.mjs';
 
 export function QuickCreateDialog({spec,models,documents,onClose,onApply}) {
@@ -15,7 +15,7 @@ export function QuickCreateDialog({spec,models,documents,onClose,onApply}) {
   useEffect(()=>{const d=ref.current;d.showModal();inputRef.current?.focus();return()=>d.close();},[]);
   const create=()=>{
     if(!descriptor)return setError('No hay clases disponibles.');
-    const id=slugify(title)||'nuevo-'+crypto.randomUUID().slice(0,8);
+    const id=quickId(descriptor,slugify(title)||'nuevo-'+crypto.randomUUID().slice(0,8));
     if(documents.some(d=>d.id===id))return setError(`Ya existe el documento ${id}; cambia el título.`);
     onApply({id,model_name:model,payload:quickPayload(descriptor,title,id)},option?.field||spec.field);
   };

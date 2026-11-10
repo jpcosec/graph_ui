@@ -57,7 +57,8 @@ def test_quick_capture_payload_passes_sldb_roundtrip():
     adapter = SldbAdapter(DEV_STORE)
     mismatches = []
     for descriptor in adapter.schema():
-        doc_id = "qc-" + slugify(descriptor["id"]).lower()
+        # Mismo id que arma quickId en el frontend: el prefijo que el adaptador publica.
+        doc_id = descriptor.get("id_prefix", "") + "qc-" + slugify(descriptor["id"]).lower()
         payload = quick_payload(descriptor, "Captura rápida de prueba", doc_id)
         try:
             valid, details = adapter.validate_payload(descriptor["id"], payload)
@@ -77,3 +78,17 @@ def test_models_with_validators_beyond_the_title_are_not_offered():
     flags = {d["id"]: d["quick_capture"] for d in SldbAdapter(DEV_STORE).schema()}
     assert flags["CrossroadDoc"] is False
     assert flags["AtomDoc"] is True
+
+
+def test_atom_quick_capture_builds_an_atomdoc():
+    """deskops (CC38) exige ids ``atom-<slug>`` en el propio AtomDoc: la captura los genera."""
+    if not DEV_STORE.exists():
+        import pytest
+        pytest.skip("no dev store available")
+    adapter = SldbAdapter(DEV_STORE)
+    descriptor = next(d for d in adapter.schema() if d["id"] == "AtomDoc")
+    assert descriptor["id_prefix"] == "atom-"
+    payload = adapter_mod.quick_payload(descriptor["fields"], descriptor["id_prefix"])
+    assert payload["id"] == "atom-captura-rapida"
+    atom = adapter.model_for("AtomDoc")(**payload)
+    assert atom.id == "atom-captura-rapida"
