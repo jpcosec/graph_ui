@@ -1,6 +1,6 @@
 import {useState, useEffect, useRef} from 'react';
 import {html} from '../../../shared/html.js';
-import {titleOf, defaultsFor, quickPayload, slugify, searchDocuments, referenceFieldsOf, labelFor, isList} from '../../../shared/documents.mjs';
+import {titleOf, defaultsFor, quickPayload, slugify, newDocumentId, searchDocuments, referenceFieldsOf, labelFor, isList} from '../../../shared/documents.mjs';
 import {classStyle, classVar} from '../../../shared/classes.mjs';
 import {DocumentFicha} from './document-ficha.js';
 
@@ -36,8 +36,10 @@ export function DocumentDialog({spec,models,documents,onClose,onApply}) {
   const [model,setModel]=useState(existing?.model_name||spec.model||models[0]?.id);
   const [values,setValues]=useState(existing?.payload||defaultsFor(models.find(m=>m.id===existing?.model_name||m.id===spec.model)||models[0])),[error,setError]=useState('');
   const [ficha,setFicha]=useState(false);
-  const ref=useRef(null),newId=useRef('mm-'+crypto.randomUUID()),isNew=!existing;
+  const ref=useRef(null),seed=useRef(crypto.randomUUID()),isNew=!existing;
   const descriptor=models.find(m=>m.id===model),style=classStyle(model);
+  // El auto-id lleva el id_prefix del modelo elegido (AtomDoc: atom-mm-<uuid>), como quickId.
+  const newId=newDocumentId(descriptor,seed.current);
   const refFields=referenceFieldsOf(descriptor);
   const selectedOption=spec.options?.find(o=>o.model===model);
   const parent=documents.find(d=>d.id===spec.parentId);
@@ -54,7 +56,7 @@ export function DocumentDialog({spec,models,documents,onClose,onApply}) {
       const payload={...values};
       if(isNew&&!payload.id)payload.id=slugify(payload.title||payload.name);
       for(const f of descriptor.fields) {
-        if(f.name==='id'){payload.id=existing?.payload.id||newId.current;continue;}
+        if(f.name==='id'){payload.id=existing?.payload.id||newId;continue;}
         if(payload[f.name]===undefined)continue;
         if(['object','list','enumlist'].includes(f.kind)&&typeof payload[f.name]==='string')payload[f.name]=payload[f.name].trim()?JSON.parse(payload[f.name]):(f.kind==='object'?{}:[]);
         if(f.kind==='stringlist'&&!refFields.has(f.name))payload[f.name]=payload[f.name].map(v=>v.trim()).filter(Boolean);
@@ -65,7 +67,7 @@ export function DocumentDialog({spec,models,documents,onClose,onApply}) {
       if(missing.length)return setError('Faltan campos obligatorios: '+missing.map(f=>labelFor(f.name)).join(', ')+'.');
       const badEnum=descriptor.fields.find(f=>f.enum&&payload[f.name]!==''&&payload[f.name]!=null&&!f.enum.includes(payload[f.name]));
       if(badEnum)return setError(labelFor(badEnum.name)+` debe ser uno de: ${badEnum.enum.join(', ')}.`);
-      const doc={...(existing||{}),id:existing?.id||newId.current,model_name:model,payload};
+      const doc={...(existing||{}),id:existing?.id||newId,model_name:model,payload};
       onApply(doc,selectedOption?.field||spec.field);
     } catch(e){setError('Revisa los campos JSON: '+e.message);}
   };
@@ -78,7 +80,7 @@ export function DocumentDialog({spec,models,documents,onClose,onApply}) {
       <div className="quick-create-note">${isNew?'Alta rápida: solo necesitas el título. Los demás campos parten vacíos y puedes completarlos después desde Editar.':'Los campos esenciales aparecen primero. El resto está en «Más campos».'}</div>
       ${primary.map(f=>refFields.has(f.name)?html`<${ReferenceField} key=${model+f.name} field=${f} value=${values[f.name]} documents=${documents} onChange=${v=>change(f.name,v)}/>`:html`<${Field} key=${model+f.name} field=${f} value=${values[f.name]} onChange=${v=>change(f.name,v)} isNew=${isNew}/>`) }
       ${secondary.length?html`<details><summary>Más campos (${secondary.length})</summary>${secondary.map(f=>refFields.has(f.name)?html`<${ReferenceField} key=${model+f.name} field=${f} value=${values[f.name]} documents=${documents} onChange=${v=>change(f.name,v)}/>`:html`<${Field} key=${model+f.name} field=${f} value=${values[f.name]} onChange=${v=>change(f.name,v)} isNew=${isNew}/>`)}</details>`:''}
-      <div className="doc-meta"><span>ID</span><code>${existing?.id||newId.current}</code>${existing?.path?html`<span>Archivo</span><code>${existing.path}</code>`:''}</div>
+      <div className="doc-meta"><span>ID</span><code>${existing?.id||newId}</code>${existing?.path?html`<span>Archivo</span><code>${existing.path}</code>`:''}</div>
       ${error?html`<p className="form-error" role="alert">${error}</p>`:''}
       `}
     </div><footer className="dialog-footer"><span>* Campos obligatorios del modelo</span><button type="button" onClick=${onClose}>Cancelar</button>${ficha?html`<button type="button" onClick=${()=>setFicha(false)}>Editar campos</button>`:html`<button className="primary" type="submit">${existing?'Aplicar cambios':'Añadir documento'}</button>`}</footer>

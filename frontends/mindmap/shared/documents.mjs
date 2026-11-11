@@ -5,7 +5,7 @@ export const slugify = value => String(value||'nuevo-documento').normalize('NFKD
 // Valid defaults from the schema (adapter exposes the model's real defaults).
 export function defaultsFor(model) {
   return Object.fromEntries((model?.fields||[]).map(f=>[f.name,
-    f.name==='id'?slugify('nuevo-documento')+'-'+Math.random().toString(36).slice(2,6):
+    f.name==='id'?quickId(model,slugify('nuevo-documento')+'-'+Math.random().toString(36).slice(2,6)):
     f.default!==undefined?f.default:
     f.kind==='enum'?(f.enum&&f.enum.length?f.enum[0]:''):
     ['stringlist','list','enumlist'].includes(f.kind)?[]:
@@ -26,6 +26,11 @@ export function quickPayload(model,title,rawId) {
 export function quickId(model,slug) {
   const prefix=model?.id_prefix||'';
   return prefix&&!slug.startsWith(prefix)?prefix+slug:slug;
+}
+// Auto-id of a document created from the document dialog: `mm-<seed>` with the
+// model's id_prefix, as quickId does for captures (AtomDoc only accepts atom-<slug>).
+export function newDocumentId(model,seed) {
+  return quickId(model,'mm-'+seed);
 }
 // The server marks models whose title-only payload fails SLDB's round-trip
 // (patterns, non-empty validators the schema does not expose). A descriptor

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {brainstormToSource,brainstormIssues} from '../frontends/mindmap/source/draft.mjs';
 import {appendChild,removeDocument,hierarchy,relationships,graphMaps,localIdOf,isRelationDocument} from '../frontends/mindmap/source/graph.mjs';
 import {changesBetween,conflictsBetween} from '../frontends/mindmap/source/batch.mjs';
-import {defaultsFor,quickPayload,quickId,searchDocuments,referenceFieldsOf} from '../frontends/mindmap/shared/documents.mjs';
+import {defaultsFor,quickPayload,quickId,newDocumentId,searchDocuments,referenceFieldsOf} from '../frontends/mindmap/shared/documents.mjs';
 import {project} from '../frontends/mindmap/views/documents/map/projection.mjs';
 import * as history from '../frontends/mindmap/source/history.mjs';
 const board={id:'board',model_name:'BoardDoc',payload:{title:'Board',tasks:[]}};
@@ -78,6 +78,19 @@ test('quickPayload prefixes the id when the model publishes id_prefix',()=>{
   assert.equal(quickPayload(atom,'Captura rápida').id,'atom-captura-rapida');
   assert.equal(quickId(atom,'atom-ya-prefijado'),'atom-ya-prefijado');
   assert.equal(quickId({id:'TaskDoc',fields:[]},'sin-prefijo'),'sin-prefijo');
+});
+
+test('the document dialog auto-id carries the model id_prefix like quickId',()=>{
+  const atom={id:'AtomDoc',id_prefix:'atom-',fields:[
+    {name:'id',kind:'string',required:true},
+    {name:'title',kind:'string',required:true},
+  ]};
+  assert.equal(newDocumentId(atom,'1234'),'atom-mm-1234');
+  assert.equal(newDocumentId({id:'TaskDoc',fields:[]},'1234'),'mm-1234');
+  assert.equal(newDocumentId(undefined,'1234'),'mm-1234');
+  // Los defaults del diálogo también: el id que muestra antes de enviar ya es válido.
+  assert.match(defaultsFor(atom).id,/^atom-nuevo-documento-/);
+  assert.match(defaultsFor({id:'TaskDoc',fields:[{name:'id',kind:'string'}]}).id,/^nuevo-documento-/);
 });
 
 test('reference edges are labeled and dashed to differ from containment groups',()=>{
