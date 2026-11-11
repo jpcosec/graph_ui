@@ -26,6 +26,11 @@ def test_mindmap_job_runs_pytest_without_e2e_and_every_node_test():
     runs = _runs(_jobs()["mindmap"])
     assert any("pytest tests" in r and "--ignore-glob='tests/e2e_*'" in r for r in runs)
     assert "node --test tests/*.test.mjs" in runs
+    # tests/test_review_workbench.py fails without node_modules: npm ci comes before pytest.
+    pytest_step = next(i for i, r in enumerate(runs) if "pytest tests" in r)
+    assert "npm ci" in runs[:pytest_step]
+    npm_ci = next(s for s in _jobs()["mindmap"]["steps"] if s.get("run") == "npm ci")
+    assert npm_ci["working-directory"] == "UIs/graph_ui/apps/review-workbench"
 
 
 def test_review_workbench_job_runs_the_toolchain_the_local_tests_run():
@@ -34,7 +39,7 @@ def test_review_workbench_job_runs_the_toolchain_the_local_tests_run():
     runs = _runs(job)
     local = (ROOT / "tests" / "test_review_workbench.py").read_text(encoding="utf-8")
     assert runs[0] == "npm ci"
-    # Same commands as tests/test_review_workbench.py, which skips without node_modules.
+    # Same commands as tests/test_review_workbench.py, which fails without node_modules.
     for command, local_args in [
         ("npx tsc -p tsconfig.app.json --noEmit", '"npx", "tsc", "-p", "tsconfig.app.json", "--noEmit"'),
         ("npx vitest run", '"npx", "vitest", "run"'),

@@ -15,10 +15,12 @@ import pytest
 
 APP = Path(__file__).resolve().parents[1] / "apps" / "review-workbench"
 
-pytestmark = pytest.mark.skipif(
-    shutil.which("npx") is None or not (APP / "node_modules").is_dir(),
-    reason="review-workbench needs node and `npm install` in apps/review-workbench",
-)
+
+@pytest.fixture(autouse=True)
+def _toolchain_installed():
+    """No silent skip: without node or node_modules these tests fail and say how to fix it."""
+    if shutil.which("npx") is None or not (APP / "node_modules").is_dir():
+        pytest.fail("review-workbench needs node and `npm ci` in apps/review-workbench")
 
 
 def _run(*cmd: str, timeout: int = 600) -> None:
