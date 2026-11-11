@@ -1,6 +1,7 @@
 """Real temporary desks and HTTP servers: no service replacements."""
 import json
 import threading
+from contextlib import contextmanager
 from concurrent.futures import ThreadPoolExecutor
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
@@ -17,30 +18,53 @@ from mindmap import serve
 from mindmap.deskops_routes import configured_routes
 
 
-@pytest.fixture
-def desk(tmp_path, monkeypatch):
+def make_desk(tmp_path, monkeypatch, *, lifecycle=True):
     monkeypatch.delenv('DESKOPS_ROOT', raising=False)
     root = tmp_path / 'repo'
-    root.mkdir()
+    root.mkdir(parents=True)
     assert SLDBBootstrap().init_local_store(root) == 0
     seed_desk(root)
-    write_lifecycle_graph(root)
+    if lifecycle:
+        write_lifecycle_graph(root)
     ops = DeskopsOperations(root)
     task = ops.create_task_bundle(dict(title='Revisar contrato real', goal='Comprobar rutas', scope='Desk temporal', implementation_path='Operaciones reales', validation=['pytest'], done_when='Rutas verificadas')).task_id
-    accept_activation_receipts(root, task)
+    if lifecycle:
+        accept_activation_receipts(root, task)
     return root, ops, task
+
+
+@contextmanager
+def serving(root):
+    instance = serve.make_server(0, root / '.sldb')
+    thread = threading.Thread(target=instance.serve_forever, daemon=True)
+    thread.start()
+    try:
+        yield 'http://127.0.0.1:' + str(instance.server_port)
+    finally:
+        instance.shutdown()
+        instance.server_close()
+        thread.join()
+
+
+@pytest.fixture
+def desk(tmp_path, monkeypatch):
+    return make_desk(tmp_path, monkeypatch)
 
 
 @pytest.fixture
 def server(desk):
-    root, _, _ = desk
-    instance = serve.make_server(0, root / '.sldb')
-    thread = threading.Thread(target=instance.serve_forever, daemon=True)
-    thread.start()
-    yield 'http://127.0.0.1:' + str(instance.server_port)
-    instance.shutdown()
-    instance.server_close()
-    thread.join()
+    with serving(desk[0]) as address:
+        yield address
+
+
+def advance_to(ops, ident, node):
+    """Move the task along the lifecycle with deskops itself until it reaches ``node``.
+
+    The lifecycle fields (current_node, history, status) are deskops' to write: the
+    TaskDoc validator rejects a current_node without the history that leads to it."""
+    while ops.show_task(ident)[0].current_node != node:
+        _, transition = ops.advance_task(ident)
+        assert transition.progressed, transition
 
 
 def http(server, path, body=None, origin=None):
@@ -109,19 +133,22 @@ def test_serialized_advances_and_board_revision(desk, server):
     assert http(server, '/api/desk/advance', {'id': ident, 'revision': detail['revision']})[0] == 409
 
 
-def test_blocked_and_missing_lifecycle(desk, server):
+def test_blocked_and_missing_lifecycle(desk, server, tmp_path, monkeypatch):
     root, ops, ident = desk
     path = root / f'desk/tasks/{ident}.md'
+    advance_to(ops, ident, 'ritual-testing')
     payload = doc_access.read_doc(path, TaskDoc)
-    payload.update(current_node='ritual-testing', validation=[])
+    payload['validation'] = []
     doc_access.write_doc(ops.root, path, TaskDoc, payload)
     detail = http(server, '/api/desk/task?id='+ident)[1]
     assert not any(g['holds'] for g in detail['gates'])
     status, blocked = http(server, '/api/desk/advance', {'id':ident,'revision':detail['revision']})
     assert status == 409 and blocked['transition']['blocked']
-    payload['current_node'] = 'ritual-unknown'
-    doc_access.write_doc(ops.root, path, TaskDoc, payload)
-    status, error = http(server, '/api/desk/task?id='+ident)
+    # A desk whose store holds no lifecycle graph (seeded, never written): the task sits
+    # at the entry node, a valid state, and no transition leaves it.
+    bare_root, _, bare = make_desk(tmp_path / 'bare', monkeypatch, lifecycle=False)
+    with serving(bare_root) as bare_server:
+        status, error = http(bare_server, '/api/desk/task?id='+bare)
     assert status == 503 and error['error']
 
 
@@ -139,9 +166,7 @@ def test_duplicate_routes_and_configuration(desk, server):
 def test_terminal_cannot_close_and_path_escape(desk, server, tmp_path):
     root, ops, ident = desk
     path = root / f'desk/tasks/{ident}.md'
-    payload = doc_access.read_doc(path, TaskDoc)
-    payload['current_node'] = 'ritual-closeout'
-    doc_access.write_doc(ops.root, path, TaskDoc, payload)
+    advance_to(ops, ident, 'ritual-closeout')
     detail = http(server, '/api/desk/task?id='+ident)[1]
     status, result = http(server, '/api/desk/advance', {'id': ident, 'revision': detail['revision']})
     assert status == 409
