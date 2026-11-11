@@ -402,10 +402,16 @@ class SldbAdapter:
 
 
 def runtime_documents(store: str | Path, pythonpath: str | None = None) -> list[Any]:
-    """Todos los documentos del store (``model_name``, ``name``, ``payload``)."""
-    from sldb.api import load_runtime_documents
+    """Todos los documentos del store (``model_name``, ``name``, ``payload``).
 
-    return load_runtime_documents(Path(store), pythonpath)
+    Cada lectura abre el store con ``open_store``, como toda operación de sldb: empieza una
+    operación nueva y los cachés de sldb se revalidan contra el disco. Sin eso, un proceso de
+    larga vida (el servidor, o un test) seguía sirviendo el roster de un modelo cacheado antes de
+    que otro proceso escribiera en él (visto con ViewDoc desde sldb GO04 d7eefdeb).
+    """
+    from sldb.api import load_runtime_documents, open_store
+
+    return load_runtime_documents(open_store(Path(store)).store_path, pythonpath)
 
 
 def where_holds(expression: str, payload: dict[str, Any]) -> bool:

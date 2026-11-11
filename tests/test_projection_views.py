@@ -176,3 +176,26 @@ def test_a_saved_view_is_a_viewdoc_of_the_store_and_evaluates_by_ref(server, sto
     resaved = _call(f"{server}/api/views/save", {"name": "herencia", "view": {**view, "relations": ["uses"]}})[1]
     assert resaved["view"]["relations"] == ["uses"]
     assert _call(f"{server}/api/views/save", {"name": "rota", "view": {**view, "direction": "up"}})[0] == 422
+
+
+def test_a_view_another_process_saves_is_seen_by_the_next_read_of_this_one(tmp_path):
+    """A long-lived reader (the server, a test) sees a ViewDoc another process wrote after its
+    first read. Each read opens the store (``sldb.api.open_store``), as every sldb operation
+    does; without it, the roster of ViewDoc cached by the first read (sldb GO04's
+    ``live_stale`` composes every model's entries) hid the new document from this process."""
+    import sys
+
+    from mindmap.projection_views import find_view, list_views
+
+    store = _store(tmp_path, ["component-exception-hierarchy.yml", "component-type-system.yml"])
+    evaluate_view(store, INHERITS)
+    assert list_views(store) == []
+
+    writer = (
+        "import sys; from pathlib import Path; "
+        "from mindmap.views_routes import save_view; "
+        "save_view(Path(sys.argv[1]), {'name': 'herencia', 'view': {'nodes': [{'model': 'SpecNodeDoc', 'where': ''}], 'relations': ['inherits']}})"
+    )
+    subprocess.run([sys.executable, "-c", writer, str(store)], check=True, capture_output=True,
+                   cwd=MINDMAP.parent)
+    assert find_view(store, "ViewDoc:herencia")["relations"] == ["inherits"]
