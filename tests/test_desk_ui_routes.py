@@ -19,7 +19,7 @@ _frontends_dir = str(Path(__file__).resolve().parent.parent / 'frontends')
 if _frontends_dir not in sys.path:
     sys.path.insert(0, _frontends_dir)
 
-pytest.importorskip('deskops.services.desk_view', reason='this deskops has no `deskops view` (deskops UI01)')
+pytest.importorskip('deskops.cli.commands.view', reason='this deskops has no `deskops view` (deskops UI01)')
 
 import deskops  # noqa: E402
 from deskops.bootstrap import SLDBBootstrap  # noqa: E402
@@ -28,6 +28,7 @@ from deskops.operations import DeskopsOperations  # noqa: E402
 from deskops.workspace import seed_desk  # noqa: E402
 from desk import serve as desk_serve  # noqa: E402
 from desk_receipts import accept_activation_receipts  # noqa: E402
+from deskops_viewdocs import install_views  # noqa: E402
 
 DESK_DIR = Path(desk_serve.__file__).resolve().parent
 MISSING_HERDR = 'herdr-missing-for-tests'
@@ -52,6 +53,7 @@ def _make_desk(root, titles):
     }).task_id for title in titles]
     for ident in ids:
         accept_activation_receipts(root, ident)
+    install_views(root)
     return ops, ids
 
 
@@ -167,6 +169,65 @@ def test_advance_delegates_to_desk_routes_with_revision_guard(desk_env, server):
     assert status == 200 and data['task']['current_node'] == 'ritual-testing'
     task, _ = DeskopsOperations(root).show_task(ids[0])
     assert task.current_node == 'ritual-testing'
+
+
+def test_board_comes_from_sldb_serve_and_projects_to_deskops_view(desk_env, server):
+    """c6: GET /views/board of the desk's sldb serve is run_view's result (`sldb views run`,
+    in its own process like the CLI: the process that wrote the store keeps sldb caches that
+    give another revision for the same rows), and deskops' projection of it is
+    `deskops view board`."""
+    from deskops.cli.commands.view import project
+
+    root, _, _ = desk_env
+    instance, base = server
+    url = instance.RequestHandlerClass.views.serves.url(root)
+    with urlopen(f'{url}/views/board', timeout=60) as resp:
+        etag = resp.headers.get('ETag')
+        raw = json.loads(resp.read())
+    run = subprocess.run([sys.executable, '-m', 'sldb', 'views', 'run', 'board', '--store', str(root / '.sldb'), '--format', 'json'],
+                         capture_output=True, text=True, check=True)
+    assert raw == json.loads(run.stdout)
+    assert etag == f'"{raw["revision"]}"'
+    assert project('board', raw, root) == _cli_view(root, 'board')
+    status, data = _request(f'{base}/api/view/board')
+    assert status == 200 and data == _cli_view(root, 'board')
+
+
+def test_advance_with_the_etag_read_before_an_edit_is_409(desk_env, server):
+    from deskops.cli.main import main as deskops_main
+
+    root, _, ids = desk_env
+    _, base = server
+    _, view = _request(f'{base}/api/view/task?id={ids[0]}')
+    assert deskops_main(['edit', 'task', ids[0], 'goal', 'Objetivo cambiado', '--root', str(root)]) == 0
+    status, data = _request(f'{base}/api/desk/advance', 'POST', {'id': ids[0], 'revision': view['revision']})
+    assert status == 409 and 'cambió' in data['error']
+    assert DeskopsOperations(root).show_task(ids[0])[0].current_node == 'ritual-execution'
+    _, fresh = _request(f'{base}/api/view/task?id={ids[0]}')
+    assert fresh['revision'] != view['revision'] and fresh['task']['goal'] == 'Objetivo cambiado'
+    # With the fresh ETag the guard lets the advance through; the edit changed the task's
+    # contract, so its activation receipts are no longer intact and the rule holds it back.
+    status, data = _request(f'{base}/api/desk/advance', 'POST', {'id': ids[0], 'revision': fresh['revision']})
+    assert status == 409 and 'cambió' not in data['error'] and 'rule-activation' in data['error']
+
+
+def test_sldb_serve_down_is_a_502_with_its_cause(desk_env):
+    import socket
+
+    root, _, _ = desk_env
+    with socket.socket() as probe:
+        probe.bind(('127.0.0.1', 0))
+        port = probe.getsockname()[1]
+    instance = desk_serve.make_server(0, root, herdr=MISSING_HERDR, sldb_url=f'http://127.0.0.1:{port}')
+    thread = threading.Thread(target=instance.serve_forever, daemon=True)
+    thread.start()
+    try:
+        status, data = _request(f'http://127.0.0.1:{instance.server_port}/api/view/board')
+        assert status == 502 and 'sldb serve' in data['error']
+    finally:
+        instance.shutdown()
+        instance.server_close()
+        thread.join()
 
 
 def test_server_binds_loopback_only(server):

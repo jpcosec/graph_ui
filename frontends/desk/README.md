@@ -16,6 +16,9 @@ Opciones:
   (por defecto, el de `--root`). Solo se ofrecen los repos con `desk/tasks/Board.md`.
 - `--pythonpath <dir>`: antepone un directorio a `sys.path`; sirve mientras el deskops
   instalado no traiga `deskops view` (por ejemplo, un worktree de deskops).
+- `--sldb-url <url>` (o `DESK_UI_SLDB_URL`): un `sldb serve` ya levantado sobre el store del
+  desk de `--root`. Sin él, el servidor levanta un `sldb serve` por desk (solo en `127.0.0.1`)
+  la primera vez que lo necesita y lo detiene al cerrar.
 - `DESK_UI_HERDR=<ejecutable>`: el Herdr que consulta la pantalla Agentes.
 - `DESK_UI_LOG=1`: registra cada petición en stderr.
 
@@ -25,8 +28,8 @@ Escucha solo en `127.0.0.1` (puerto por defecto 8091). Sin CDN ni fuentes extern
 
 | Pantalla | Fuente | Acciones |
 |---|---|---|
-| Board | `deskops view board` (+ `task` para el panel) | Avanzar (`POST /api/desk/advance`, guarda de revisión de Board + tarea) |
-| Tarea (`#/task?id=`) | `deskops view task` | Avanzar desde el pie; herencia y dependencias navegables |
+| Board | ViewDoc `board` de deskops vía `GET /views/board` de `sldb serve` (+ `task` para el panel) | Avanzar (`POST /api/desk/advance`, guarda con el ETag de la vista `task`) |
+| Tarea (`#/task?id=`) | ViewDoc `task` vía `GET /views/task?id=` de `sldb serve` | Avanzar desde el pie; herencia y dependencias navegables |
 | Drawer | `deskops view drawer` | Copiar el comando `deskops add task --from-drawer`; no hay botón que escriba |
 | Inbox | `deskops view inbox` | Reconocer (`deskops message ack`) y Pasar al drawer (`deskops promote inbox-to-drawer-task`), con confirmación y guarda de revisión de la nota |
 | Agentes | `deskops view agents` | ninguna; si Herdr no responde se muestra la causa |
@@ -52,4 +55,9 @@ python3 -m pytest -q tests/test_desk_ui_routes.py   # rutas contra desks tempora
 python3 -m pytest -q tests/e2e_desk_ui.py           # navegador real (Playwright)
 ```
 
-Ambos se saltan si el deskops importable no trae `deskops.services.desk_view`.
+Ambos se saltan si el deskops importable no trae `deskops.cli.commands.view`. Board y Tarea
+salen de `sldb serve` y se proyectan al contrato con `deskops.cli.commands.view.project` en el
+mismo proceso; Drawer, Inbox y Agentes los da `deskops view` en proceso (lo que deskops lee
+fuera de su store). Mientras sldb no resuelva una ViewDoc de un store enlazado (H9), un desk
+cuyo store no trackea las ViewDoc responde 502 con `Unknown view: board`; los tests las
+trackean en el store del desk temporal (`tests/deskops_viewdocs.py`).

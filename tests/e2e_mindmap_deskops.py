@@ -12,6 +12,7 @@ from deskops.models import BoardDoc
 from deskops.operations import DeskopsOperations
 from deskops.workspace import seed_desk
 from desk_receipts import accept_activation_receipts
+from deskops_viewdocs import install_views
 from mindmap.serve import make_server
 
 
@@ -33,6 +34,7 @@ def workflow_server(tmp_path, monkeypatch):
         })
         ids.append(bundle.task_id)
         accept_activation_receipts(root, bundle.task_id)
+    install_views(root)
     monkeypatch.setenv("DESKOPS_ROOT", str(root))
     server = make_server(0, root / ".sldb")
     thread = threading.Thread(target=server.serve_forever, daemon=True)

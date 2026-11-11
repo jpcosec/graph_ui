@@ -14,6 +14,7 @@ from deskops.models import BoardDoc, TaskDoc
 from deskops.operations import DeskopsOperations
 from deskops.workspace import seed_desk
 from desk_receipts import accept_activation_receipts
+from deskops_viewdocs import install_views
 from mindmap import serve
 from mindmap.deskops_routes import configured_routes
 
@@ -30,6 +31,7 @@ def make_desk(tmp_path, monkeypatch, *, lifecycle=True):
     task = ops.create_task_bundle(dict(title='Revisar contrato real', goal='Comprobar rutas', scope='Desk temporal', implementation_path='Operaciones reales', validation=['pytest'], done_when='Rutas verificadas')).task_id
     if lifecycle:
         accept_activation_receipts(root, task)
+    install_views(root)
     return root, ops, task
 
 

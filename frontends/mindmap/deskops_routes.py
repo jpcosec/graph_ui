@@ -1,11 +1,23 @@
-"""Board-scoped workflow projection; persistence and gates belong to Deskops/SLDB."""
+"""Board-scoped workflow projection; persistence and gates belong to Deskops/SLDB.
+
+The task view (gates and its revision, the advance guard) is the deskops `task` ViewDoc
+read from `sldb serve` (`GET /views/task?id=...`, with ETag) and projected to the
+deskops contract by `deskops.cli.commands.view.project` in process (deskops CC34);
+the actions still go through deskops in process.
+"""
+import atexit
 from dataclasses import asdict
-import hashlib
 import json
 from pathlib import Path
 import re
+import socket
+import subprocess
+import sys
+import time
 from threading import RLock
-from urllib.parse import parse_qs, urlparse
+from urllib.error import HTTPError, URLError
+from urllib.parse import parse_qs, urlencode, urlparse
+from urllib.request import Request, urlopen
 
 
 class DeskError(Exception):
@@ -14,10 +26,117 @@ class DeskError(Exception):
         self.status = status
 
 
+class SldbServes:
+    """One `sldb serve` per desk store, bound to 127.0.0.1 and started on first use.
+
+    `urls` maps a desk root to an already running `sldb serve` for its store; any other desk
+    gets its own process (`python -m sldb serve --store <root>/.sldb`), stopped by `close`.
+    Each GET carries the last ETag of the same request; a 304 answers with the kept body."""
+
+    def __init__(self, urls=None, startup_timeout=60.0):
+        self.urls = {Path(root).resolve(): url.rstrip('/') for root, url in (urls or {}).items()}
+        self.startup_timeout = startup_timeout
+        self.processes = {}
+        self.cache = {}
+        self.lock = RLock()
+
+    def url(self, root):
+        root = Path(root).resolve()
+        with self.lock:
+            if root not in self.urls:
+                self.urls[root] = self._start(root)
+            return self.urls[root]
+
+    def _start(self, root):
+        with socket.socket() as probe:
+            probe.bind(('127.0.0.1', 0))
+            port = probe.getsockname()[1]
+        process = subprocess.Popen(
+            [sys.executable, '-m', 'sldb', 'serve', '--host', '127.0.0.1', '--port', str(port), '--store', str(root / '.sldb')],
+            cwd=root, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+        self.processes[root] = process
+        url = f'http://127.0.0.1:{port}'
+        deadline = time.monotonic() + self.startup_timeout
+        while time.monotonic() < deadline:
+            if process.poll() is not None:
+                raise DeskError(f'sldb serve no arrancó para {root}: {process.stderr.read().decode(errors="replace").strip()}', 502)
+            try:
+                with urlopen(f'{url}/views', timeout=5):
+                    return url
+            except (URLError, OSError):
+                time.sleep(0.2)
+        raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+
+    def view(self, root, name, params=None):
+        """The `run_view` result `GET /views/<name>` answers for the desk at `root`."""
+        query = urlencode(sorted((params or {}).items()))
+        target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+        key = (Path(root).resolve(), target)
+        cached = self.cache.get(key)
+        headers = {'If-None-Match': cached[0]} if cached else {}
+        try:
+            with urlopen(Request(target, headers=headers), timeout=120) as resp:
+                result = json.loads(resp.read())
+                self.cache[key] = (resp.headers.get('ETag'), result)
+                return result
+        except HTTPError as exc:
+            if exc.code == 304 and cached:
+                return cached[1]
+            try:
+                message = json.loads(exc.read()).get('error') or str(exc)
+            except ValueError:
+                message = str(exc)
+            raise DeskError(f'sldb serve /views/{name}: {message}', 502)
+        except (URLError, OSError) as exc:
+            raise DeskError(f'sldb serve no responde ({target}): {exc}', 502)
+
+    def close(self):
+        with self.lock:
+            for process in self.processes.values():
+                process.terminate()
+            for process in self.processes.values():
+                try:
+                    process.wait(timeout=10)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+            for root in self.processes:
+                self.urls.pop(root, None)
+            self.processes.clear()
+
+
+class DeskopsViews:
+    """The deskops views of a desk: `board`/`task` from `sldb serve` projected by deskops."""
+
+    def __init__(self, serves=None):
+        self.serves = serves or SldbServes()
+
+    def view(self, root, name, params=None):
+        from deskops.cli.commands.view import ViewError, project
+        result = self.serves.view(root, name, params)
+        try:
+            return project(name, result, root)
+        except ViewError as exc:
+            # The store does not track the Board or the task yet: the desk is not ready.
+            raise DeskError(str(exc), 503)
+
+    def task(self, root, selector):
+        from deskops.cli.commands.view import ViewError, task_params
+        try:
+            params = task_params(root, selector)
+        except ViewError as exc:
+            raise DeskError(str(exc), 404)
+        return self.view(root, 'task', params)
+
+
+DEFAULT_VIEWS = DeskopsViews()
+atexit.register(DEFAULT_VIEWS.serves.close)
+
+
 class DeskRoutes:
-    def __init__(self, root=None, error=None):
+    def __init__(self, root=None, error=None, views=None):
         self.root = root
         self.error = error
+        self.views = views or DEFAULT_VIEWS
         self.lock = RLock()
 
     def operations(self):
@@ -66,20 +185,19 @@ class DeskRoutes:
         ops = self.operations()
         path = self.root / entry['path']
         payload = doc_access.read_doc(path, TaskDoc)
-        task, gates = ops.show_task(ident)
-        if task is None:
-            raise DeskError('No se pudo resolver la tarea.', 404)
-        # show_task suppresses graph errors. Check empty nonterminal gates, without
-        # rebuilding the graph twice for a successful evaluation.
+        view = self.views.task(self.root, ident)
+        gates = view['task']['gates']
+        # The view lists no gate out of a non-final node when the graph does not cover it;
+        # say why instead of offering an advance with no condition.
         node = payload.get('current_node')
         if not gates and node != lifecycle.COMPLETE:
             if not node:
                 raise DeskError('La tarea no declara current_node; gates no disponibles.')
             lifecycle.transitions_from(self.root, node)
             raise DeskError(f"Gates no disponibles: el lifecycle no cubre {node}.")
-        revision = hashlib.sha256((self.root / 'desk/tasks/Board.md').read_bytes() + b'\0' + path.read_bytes()).hexdigest()
+        # The revision is the ETag of the deskops task view (GD25): the advance guard.
         return {'task': entry, 'payload': payload, 'gates': gates,
-                'next': ops.next_action_report(ident), 'revision': revision}
+                'next': ops.next_action_report(ident), 'revision': view['revision']}
 
     def dispatch(self, handler, method):
         route = urlparse(handler.path).path
