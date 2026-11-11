@@ -1,6 +1,6 @@
 # deskops-ui: informe de integración y verificación (PAUSADO)
 
-Estado: **pausado por orden del coordinador (2026-11-11)**. Rama `wt/deskops-ui` sobre origin/master `62bc9f8`. La verificación está incompleta: abajo quedan los pasos corridos, los fallos resueltos y los que faltan.
+Estado: **pausado por segunda vez (2026-11-11, decisión del overlord)**: el cupo pasa al arreglo de seguridad de sldb (nota b, 9c9dac6b). Se retoma cuando ese arreglo esté en sldb main con CI verde. Primera pausa: 2026-11-11, por orden del coordinador. Rama `wt/deskops-ui` sobre origin/master `62bc9f8`. La verificación está incompleta: abajo quedan los pasos corridos, los fallos resueltos y los que faltan.
 
 Commits de la rama (encima de 62bc9f8):
 
@@ -12,7 +12,10 @@ Commits de la rama (encima de 62bc9f8):
 | 341886c | tests: `seed_desk(root)` en vez de `scaffold_desk` (deskops CC36 d4b49ff6) |
 | 2f8a1e0 | mindmap: `runtime_documents` abre el store con `sldb.api.open_store` (sldb GO04 d7eefdeb) + test rojo/verde |
 | 12bfedb | deskops CC30/CC32: `deskops.doc_access` en vez de alias privados; recibos de activación en fixtures (**parcial**) |
-| (este) | informe |
+| 0bad252 | informe (primera pausa) |
+| 16ac77a | tests: mindmap_deskops lleva la tarea por `ops.advance_task` (reanudación, paso 1) |
+| 3b15fb6 | workspace: un stale ajeno a la vecindad no bloquea el grafo (a1, reanudación, paso 2) |
+| (este) | informe (segunda pausa) |
 
 ## 1. Los 7 commits de `rescate/deskops-ui-detached`
 
@@ -42,6 +45,14 @@ Commits de la rama (encima de 62bc9f8):
 - **test_mindmap_workspace**: 2 failed, 13 passed. En `test_workspace_broken_ir_keeps_graph` y `test_workspace_broken_and_healthy_docs_coexistence`, `projections.graph.ok` es False. Sin investigar.
 - **test_mindmap_workspace_reader**: 1 failed, 30 passed. En `test_no_file_is_opened_before_or_instead_of_its_guards`, el conjunto de archivos abiertos antes de las guardas incluye los del test (`task-protegido-p.md`, `task-symlink-s.md`, `secreto-externo.md`). Sin investigar: puede venir de la validación o lectura nueva de deskops.
 - **e2e_desk_ui, e2e_mindmap_deskops**: no se volvieron a correr después de 12bfedb (la pausa cortó la corrida).
+
+## 3b. Reanudación (2026-11-11): causas y arreglos
+
+| # | síntoma | causa raíz | arreglo | estado |
+|---|---|---|---|---|
+| 7 | test_mindmap_deskops: `test_blocked_and_missing_lifecycle` y `test_terminal_cannot_close_and_path_escape` (write_doc rechaza «current_node … needs a history») | El fixture escribía `current_node` a mano con `history` vacía. El validador de ciclo de vida de TaskDoc en deskops (`models/task_lifecycle.lifecycle_errors`) lo rechaza. Un `ritual-unknown` con history tampoco pasa («does not follow history») | 16ac77a: `advance_to()` lleva la tarea a testing/closeout con `ops.advance_task` y los recibos de `tests/desk_receipts.py`; `validation=[]` se escribe ya con la history en su lugar. El 503 «el lifecycle no cubre» pasa a un desk temporal sin `write_lifecycle_graph`: la tarea queda en el nodo de entrada (estado válido) y gates `[]`. Comprobado con sondas sin pytest sobre deskops f21ab5c8 | **sin correr en pytest**: la guarda esperaba a la suite de `/dev/shm/integ-deskops` cuando llegó la pausa. 797b89fe aún no estaba en deskops origin/main (punta f21ab5c8) |
+| 8 | test_mindmap_workspace: `test_workspace_broken_ir_keeps_graph`, `test_workspace_broken_and_healthy_docs_coexistence` (`graph.ok` False) | sldb GO04 d7eefdeb (06-11): `EdgeIndex.stale` ve la edición externa (`live_stale` compara el archivo con el `source_hash` del shard). El test escribe a mano un TaskDoc roto, el índice queda stale y `_relations_state`, que es global, devolvía `store_no_preparado` para todo nodo, sanos incluidos. `rebuild_edges` no lo resuelve (`docs_written=0`; compara con el hash registrado del store), tampoco para una edición externa válida | 3b15fb6 (a1, aprobado por coord2): `_build_graph_neighborhood` bloquea solo si un stale cae dentro de la vecindad; si no, sale ok con `stale` como aviso (`data-testid="stale-outside"` en la vista). Los tests afirman: el roto y su vecino quedan `store_no_preparado`; una tarea D fuera del ciclo conserva el grafo con `stale == [task_c]`. Lo de que rebuild no resuelve el stale queda en el inbox de sldb: nota a2, commit 9c9dac6b | **sin correr en pytest** |
+| 9 | test_mindmap_workspace_reader: `test_no_file_is_opened_before_or_instead_of_its_guards` | sldb GO04 d7eefdeb: `live_stale._file_hash` lee y hashea cada archivo trackeado y sigue symlinks fuera de la raíz, todo dentro de `load_edge_index` y antes de cualquier guarda de graph_ui. En un proceso nuevo abrió las 28 md del desk de prueba. Es un problema de seguridad | Ninguno en graph_ui: no se puede evitar sin dejar de usar el índice. Nota (b) en el inbox de sldb, commit 9c9dac6b, promovida a task.debug en sldb con prioridad. El test lleva un comentario con la causa; sin skip ni xfail | **rojo con causa conocida**. Por regla del dueño, la rama no se integra a master mientras siga rojo |
 
 ## 4. `deskops desk update` (commit d98fcea)
 
@@ -228,7 +239,15 @@ Los 6 rojos de esta corrida son los fallos #5 y #6, que antes tapaba el ImportEr
 | pytest-test_mindmap_workspace | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_workspace.py` | 1 | 128s |
 | pytest-test_mindmap_workspace_reader | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_workspace_reader.py` | 1 | 212s |
 
-### Sin correr sobre el estado actual
+### Sin correr sobre el estado actual (segunda pausa)
+
+Ningún pytest corrió sobre 16ac77a/3b15fb6. Corrió `node --test tests/*.test.mjs` (rc 0) en el clon con esos cambios. Falta todo esto:
+- test_mindmap_deskops, test_mindmap_workspace y test_mindmap_workspace_reader sobre la punta;
+- e2e_desk_ui y e2e_mindmap_deskops (después de 12bfedb);
+- e2e_mindmap_workspace (toca la vista del grafo de a1), los 6 e2e_notation_* y e2e_review_workbench_views;
+- la corrida completa del CI desde clones limpios de la punta, contra deskops origin/main con 797b89fe y sldb main con el arreglo de (b).
+
+### Sin correr sobre el estado anterior (primera pausa)
 
 - Los e2e que la corrida 3 no alcanzó: e2e_mindmap_workspace, e2e_notation_activity, e2e_notation_class, e2e_notation_deployment, e2e_notation_legibility, e2e_notation_sequence, e2e_notation_style y e2e_review_workbench_views. Los 7 de notation pasaron en la corrida 2 (d98fcea). e2e_review_workbench_views falló en la corrida 2 (fallo #4).
 - e2e_desk_ui y e2e_mindmap_deskops después de 12bfedb.
@@ -240,6 +259,8 @@ Los 6 rojos de esta corrida son los fallos #5 y #6, que antes tapaba el ImportEr
 - `document-dialog.js` genera su auto-id sin `id_prefix`; solo se arregló la captura rápida.
 - 3 skips en test_review_workbench, iguales a los del CI de GitHub (el job mindmap no corre `npm ci`).
 - Python 3.13 sin verificar.
+- `relations_state` del contexto (incoming/outgoing) sigue siendo global: a1 cambió solo el grafo.
+- Las copias de `/dev/shm/gui` se borraron en la pausa: al retomar hay que recrear los clones y el venv.
 
 ## 7. Incidentes
 
