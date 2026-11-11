@@ -6,11 +6,13 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 import pytest
+from deskops import doc_access
 from deskops.bootstrap import SLDBBootstrap
 from deskops.lifecycle import write_lifecycle_graph
 from deskops.models import BoardDoc, TaskDoc
 from deskops.operations import DeskopsOperations
 from deskops.workspace import seed_desk
+from desk_receipts import accept_activation_receipts
 from mindmap import serve
 from mindmap.deskops_routes import configured_routes
 
@@ -25,6 +27,7 @@ def desk(tmp_path, monkeypatch):
     write_lifecycle_graph(root)
     ops = DeskopsOperations(root)
     task = ops.create_task_bundle(dict(title='Revisar contrato real', goal='Comprobar rutas', scope='Desk temporal', implementation_path='Operaciones reales', validation=['pytest'], done_when='Rutas verificadas')).task_id
+    accept_activation_receipts(root, task)
     return root, ops, task
 
 
@@ -55,9 +58,9 @@ def http(server, path, body=None, origin=None):
 
 def edit_board(root, ops, refs):
     path = root / 'desk/tasks/Board.md'
-    payload = ops._read_doc(path, BoardDoc)
+    payload = doc_access.read_doc(path, BoardDoc)
     payload['tasks'] = refs
-    ops._write_doc(path, BoardDoc, payload)
+    doc_access.write_doc(ops.root, path, BoardDoc, payload)
 
 
 def test_board_routing_errors_empty_and_orphans(desk, server):
@@ -100,24 +103,24 @@ def test_serialized_advances_and_board_revision(desk, server):
     assert sorted(statuses) == [200, 409]
     detail = http(server, '/api/desk/task?id='+ident)[1]
     path = root / 'desk/tasks/Board.md'
-    payload = ops._read_doc(path, BoardDoc)
+    payload = doc_access.read_doc(path, BoardDoc)
     payload['notes'] = 'Cambio concurrente del Board'
-    ops._write_doc(path, BoardDoc, payload)
+    doc_access.write_doc(ops.root, path, BoardDoc, payload)
     assert http(server, '/api/desk/advance', {'id': ident, 'revision': detail['revision']})[0] == 409
 
 
 def test_blocked_and_missing_lifecycle(desk, server):
     root, ops, ident = desk
     path = root / f'desk/tasks/{ident}.md'
-    payload = ops._read_doc(path, TaskDoc)
+    payload = doc_access.read_doc(path, TaskDoc)
     payload.update(current_node='ritual-testing', validation=[])
-    ops._write_doc(path, TaskDoc, payload)
+    doc_access.write_doc(ops.root, path, TaskDoc, payload)
     detail = http(server, '/api/desk/task?id='+ident)[1]
     assert not any(g['holds'] for g in detail['gates'])
     status, blocked = http(server, '/api/desk/advance', {'id':ident,'revision':detail['revision']})
     assert status == 409 and blocked['transition']['blocked']
     payload['current_node'] = 'ritual-unknown'
-    ops._write_doc(path, TaskDoc, payload)
+    doc_access.write_doc(ops.root, path, TaskDoc, payload)
     status, error = http(server, '/api/desk/task?id='+ident)
     assert status == 503 and error['error']
 
@@ -136,9 +139,9 @@ def test_duplicate_routes_and_configuration(desk, server):
 def test_terminal_cannot_close_and_path_escape(desk, server, tmp_path):
     root, ops, ident = desk
     path = root / f'desk/tasks/{ident}.md'
-    payload = ops._read_doc(path, TaskDoc)
+    payload = doc_access.read_doc(path, TaskDoc)
     payload['current_node'] = 'ritual-closeout'
-    ops._write_doc(path, TaskDoc, payload)
+    doc_access.write_doc(ops.root, path, TaskDoc, payload)
     detail = http(server, '/api/desk/task?id='+ident)[1]
     status, result = http(server, '/api/desk/advance', {'id': ident, 'revision': detail['revision']})
     assert status == 409

@@ -29,21 +29,22 @@ class DeskRoutes:
         return DeskopsOperations(self.root)
 
     def board(self):
+        from deskops import doc_access
         from deskops.models import BoardDoc, TaskDoc
         ops = self.operations()
-        board = ops._read_doc(self.root / 'desk/tasks/Board.md', BoardDoc)
+        board = doc_access.read_doc(self.root / 'desk/tasks/Board.md', BoardDoc)
         entries, errors = [], []
         for ref in board.get('tasks') or []:
             try:
                 path = (self.root / ref).resolve()
                 if not path.is_relative_to(self.root) or not path.is_relative_to((self.root / 'desk/tasks').resolve()) or path.suffix != '.md' or path.name == 'Board.md':
                     raise ValueError('Referencia fuera del directorio de tareas.')
-                payload = ops._read_doc(path, TaskDoc)
+                payload = doc_access.read_doc(path, TaskDoc)
                 ident = payload.get('id')
                 if not isinstance(ident, str) or not re.fullmatch(r'[\w-]+', ident):
                     raise ValueError('Identidad de tarea inválida.')
                 # Use the same selector as Deskops, and prove it selects this exact route.
-                if ops._resolve_glob(ops.desk_root / 'tasks', ident).resolve() != path:
+                if doc_access.resolve_glob(ops.root, ops.desk_root / 'tasks', ident).resolve() != path:
                     raise ValueError('Identidad ambigua o distinta de la referencia del Board.')
                 entries.append({'id': ident, 'path': str(path.relative_to(self.root)),
                                 **{key: payload.get(key, '') for key in ('title', 'status', 'current_node', 'goal')}})
@@ -56,7 +57,7 @@ class DeskRoutes:
         return {'root': str(self.root), 'board': board, 'tasks': entries, 'errors': errors}
 
     def detail(self, ident):
-        from deskops import lifecycle
+        from deskops import doc_access, lifecycle
         from deskops.models import TaskDoc
         board = self.board()
         entry = next((entry for entry in board['tasks'] if entry['id'] == ident), None)
@@ -64,7 +65,7 @@ class DeskRoutes:
             raise DeskError('La tarea no está enrutada de forma válida en este Board.', 404)
         ops = self.operations()
         path = self.root / entry['path']
-        payload = ops._read_doc(path, TaskDoc)
+        payload = doc_access.read_doc(path, TaskDoc)
         task, gates = ops.show_task(ident)
         if task is None:
             raise DeskError('No se pudo resolver la tarea.', 404)

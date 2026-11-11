@@ -27,6 +27,7 @@ from deskops.lifecycle import write_lifecycle_graph  # noqa: E402
 from deskops.operations import DeskopsOperations  # noqa: E402
 from deskops.workspace import seed_desk  # noqa: E402
 from desk import serve as desk_serve  # noqa: E402
+from desk_receipts import accept_activation_receipts  # noqa: E402
 
 DESK_DIR = Path(desk_serve.__file__).resolve().parent
 MISSING_HERDR = 'herdr-missing-for-tests'
@@ -49,6 +50,8 @@ def _make_desk(root, titles):
         'title': title, 'goal': f'Objetivo de {title}', 'scope': 's', 'implementation_path': 'i',
         'validation': ['pytest'], 'done_when': 'd', 'task_type': 'code',
     }).task_id for title in titles]
+    for ident in ids:
+        accept_activation_receipts(root, ident)
     return ops, ids
 
 
@@ -57,7 +60,7 @@ def desk_env(tmp_path, monkeypatch):
     monkeypatch.delenv('DESKOPS_ROOT', raising=False)
     root = tmp_path / 'repo'
     ops, ids = _make_desk(root, ['Primera tarea', 'Segunda tarea'])
-    ops.advance_task(ids[1])
+    assert ops.advance_task(ids[1])[1].progressed
     other = tmp_path / 'other'
     _make_desk(other, ['Tarea del otro desk'])
     (tmp_path / 'nodesk').mkdir()

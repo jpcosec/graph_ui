@@ -26,6 +26,7 @@ from deskops.operations import DeskopsOperations  # noqa: E402
 from deskops.services.desk_view import DeskView  # noqa: E402
 from deskops.workspace import seed_desk  # noqa: E402
 from desk import serve as desk_serve  # noqa: E402
+from desk_receipts import accept_activation_receipts  # noqa: E402
 
 STITCH_STRINGS = (
     'TASK-104', 'TASK-108', 'TASK-112', '85.7%', 'draft_spec_v2_syntax', 'atom-sldb-is-read-write-edit-surface',
@@ -55,8 +56,14 @@ def desk(tmp_path, monkeypatch):
         }).task_id
 
     first = task('Preparar la vista', pills=['pill-que-no-existe'])
-    second = task('Probar la vista', depends_on=[first])
-    ops.advance_task(second)
+    second = task('Probar la vista')
+    for ident in (first, second):
+        accept_activation_receipts(root, ident)
+    # Since deskops CC32 a task activates only with its dependencies closed, so `second`
+    # reaches ritual-testing first and gets its still-open dependency afterwards: the board
+    # shows a tested task whose dependency is in execution.
+    assert ops.advance_task(second)[1].progressed
+    ops.edit_artifact_field('task', second, 'depends_on', json.dumps([first]))
     for title in ('Idea diferida', 'Pregunta abierta', 'Nota que cambia'):
         assert deskops_main(['message', 'send', '--root', str(root), '--title', title, '--kind', 'suggestion', f'Cuerpo de {title}.']) == 0
     deferred = next(p for p in (root / 'desk/inbox').glob('*idea-diferida.md'))
@@ -153,6 +160,9 @@ def test_board_columns_gates_advance_conflict_focus(desk, browser_page):
     _confirm(page)
     expect(page.get_by_test_id('action-status')).to_contain_text('Conflicto')
     assert ops.show_task(first)[0].current_node == 'ritual-execution'
+    # The edit changed the contract the receipts were taken over: they are no longer
+    # intact, so the operator reviews it again before advancing.
+    accept_activation_receipts(root, first)
 
     page.locator('#refresh').click()
     expect(page.get_by_test_id('action-status')).to_have_count(0)

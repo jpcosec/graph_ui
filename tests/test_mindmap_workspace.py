@@ -17,6 +17,7 @@ for _mod in list(sys.modules):
         del sys.modules[_mod]
 
 import pytest
+from deskops import doc_access
 from deskops.bootstrap import SLDBBootstrap
 from deskops.lifecycle import write_lifecycle_graph
 from deskops.models import PillDoc, TaskDoc
@@ -96,9 +97,9 @@ def test_env(tmp_path, monkeypatch):
 
     # Cerrar el ciclo: task_c depende de task_a
     c_path = root / 'desk' / 'tasks' / f'{task_c}.md'
-    c_payload = ops._read_doc(c_path, TaskDoc)
+    c_payload = doc_access.read_doc(c_path, TaskDoc)
     c_payload['depends_on'] = [task_a]
-    ops._write_doc(c_path, TaskDoc, c_payload)
+    doc_access.write_doc(ops.root, c_path, TaskDoc, c_payload)
 
     # Crear una PillDoc con el MISMO id y filename que task_a para probar colisión / ambigüedad
     pill_path = root / 'desk' / 'contexts' / f'{task_a}.md'
@@ -113,8 +114,8 @@ def test_env(tmp_path, monkeypatch):
         'how': 'Aplicar reglas',
         'how_not': 'No omitir verificaciones'
     }
-    ops._write_new_doc(pill_path, PillDoc, pill_payload)
-    ops._track_created_document(PillDoc, pill_path, task_a)
+    doc_access.write_new_doc(ops.root, pill_path, PillDoc, pill_payload)
+    doc_access.track_created_document(ops.root, PillDoc, pill_path, task_a)
 
     return root, ops, task_a, task_b, task_c
 

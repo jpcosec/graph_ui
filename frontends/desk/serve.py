@@ -63,16 +63,17 @@ class DeskCatalog:
         desks: list[dict[str, Any]] = []
         default_id = None
         try:
+            from deskops import doc_access
             from deskops.operations import DeskopsOperations
 
             ops = DeskopsOperations(self.registry)
-            repositories = ops._registered_repositories()
+            repositories = doc_access.registered_repositories(ops.root)
         except Exception as exc:
             repositories = []
             errors.append({'reference': str(self.registry / 'desk/registry'), 'cause': f'Registry unreadable: {exc}'})
         for repository in repositories:
             try:
-                path = ops._repository_root(repository)
+                path = doc_access.repository_root(ops.root, repository)
             except Exception as exc:
                 errors.append({'reference': str(repository.get('id')), 'cause': f'Repository path does not resolve: {exc}'})
                 continue

@@ -21,6 +21,7 @@ for _mod in list(sys.modules):
         del sys.modules[_mod]
 
 import pytest
+from deskops import doc_access
 from deskops.bootstrap import SLDBBootstrap
 from deskops.lifecycle import write_lifecycle_graph
 from deskops.models import TaskDoc
@@ -103,9 +104,9 @@ def env(tmp_path, monkeypatch):
     )).task_id
     # Un elemento omitido (cadena vacia) entre dos referencias: la posicion cuenta los omitidos.
     a_path = root / 'desk' / 'tasks' / f'{task_a}.md'
-    payload = ops._read_doc(a_path, TaskDoc)
+    payload = doc_access.read_doc(a_path, TaskDoc)
     payload['files'] = ['src/a.py:3', '', 'src/b.py']
-    ops._write_doc(a_path, TaskDoc, payload)
+    doc_access.write_doc(ops.root, a_path, TaskDoc, payload)
 
     # Markdown real sin modelo, fuera de .sldb
     notes = root / 'notes'

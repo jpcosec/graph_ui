@@ -5,12 +5,13 @@ from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect, sync_playwright
-
+from deskops import doc_access
 from deskops.bootstrap import SLDBBootstrap
 from deskops.lifecycle import write_lifecycle_graph
 from deskops.models import BoardDoc
 from deskops.operations import DeskopsOperations
 from deskops.workspace import seed_desk
+from desk_receipts import accept_activation_receipts
 from mindmap.serve import make_server
 
 
@@ -31,6 +32,7 @@ def workflow_server(tmp_path, monkeypatch):
             "validation": ["pytest"], "done_when": "Avance persistido y comprobado.",
         })
         ids.append(bundle.task_id)
+        accept_activation_receipts(root, bundle.task_id)
     monkeypatch.setenv("DESKOPS_ROOT", str(root))
     server = make_server(0, root / ".sldb")
     thread = threading.Thread(target=server.serve_forever, daemon=True)
@@ -105,16 +107,16 @@ def test_workflow_board_context_filters_advance_and_real_empty_error(workflow_se
 
         # Change the actual disposable Board through the document operations layer.
         board_path = ops.root / "desk/tasks/Board.md"
-        board = ops._read_doc(board_path, BoardDoc)
+        board = doc_access.read_doc(board_path, BoardDoc)
         board["tasks"] = []
-        ops._write_doc(board_path, BoardDoc, board)
+        doc_access.write_doc(ops.root, board_path, BoardDoc, board)
         page.get_by_role("button", name="Actualizar", exact=True).click()
         expect(page.get_by_text("Este Board todavía no tiene tareas enrutadas.")).to_be_visible()
         expect(page.locator(".desk-task")).to_have_count(0)
         # Existing files are now unrouted and must remain absent from the board.
         assert all((ops.root / "desk/tasks" / f"{ident}.md").exists() for ident in ids)
         board["tasks"] = ["desk/tasks/task-does-not-exist.md"]
-        ops._write_doc(board_path, BoardDoc, board)
+        doc_access.write_doc(ops.root, board_path, BoardDoc, board)
         page.get_by_role("button", name="Actualizar", exact=True).click()
         expect(page.get_by_role("alert")).to_contain_text("task-does-not-exist.md")
         expect(page.get_by_text("Este Board todavía no tiene tareas enrutadas.")).to_have_count(0)
