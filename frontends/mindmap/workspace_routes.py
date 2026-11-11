@@ -445,9 +445,10 @@ class WorkspaceRoutes:
 
         file_revision = hashlib.sha256(doc.data).hexdigest() if doc.data is not None else ''
 
-        relations = self._relations_state(idx, idx_error)
+        relations, edges_all = self._document_relations_state(canon_id, idx, idx_error)
         if relations['ok']:
-            edges_all = graph_proj.get('edges', [])
+            # Del índice, no del grafo: el grafo puede bloquearse por un stale a dos saltos
+            # que no toca las relaciones directas.
             incoming = [e for e in edges_all if e['target'] == canon_id]
             outgoing = [e for e in edges_all if e['source'] == canon_id]
         else:
@@ -654,6 +655,44 @@ class WorkspaceRoutes:
         return {'ok': True, 'estado': 'ok', 'stale': [], 'error': None}
 
     @staticmethod
+    def _blocking_stale(stale: list[str], idx: Any, nodes: Any) -> list[str]:
+        """Los stale que bloquean un recorte del índice que cubre `nodes`.
+
+        Bloquea un stale dentro del recorte (sus aristas no son confiables ahí) o uno cuyo nodo
+        falta del índice: sin shard, sldb descarta como colgantes las aristas hacia él, así que
+        no se puede probar que esté fuera. Ante la duda, se bloquea.
+        """
+        unplaced = [sid for sid in stale if f'sldb://document/{sid}' not in idx.nodes]
+        touched = [sid for sid in stale if sid in nodes]
+        return touched + [sid for sid in unplaced if sid not in touched]
+
+    def _document_relations_state(self, canon_id: str, idx: Any, idx_error: str | None) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+        """Estado de las relaciones directas de un documento y las aristas del índice.
+
+        Mismo criterio que el grafo de la vecindad: un stale bloquea si toca al documento o a
+        sus vecinos directos, o si su nodo falta del índice. Si queda fuera, las relaciones
+        salen ok con `stale` como aviso. Un stale ajeno ya no tumba las relaciones de los sanos.
+        """
+        state = self._relations_state(idx, idx_error)
+        if idx is None:
+            return state, []
+        try:
+            edges = self._document_edges(idx)
+        except Exception as exc:
+            return {'ok': False, 'estado': 'error_indice', 'stale': state['stale'], 'error': str(exc)}, []
+        if state['ok']:
+            return state, edges
+        nodes = {canon_id}
+        for edge in edges:
+            if edge['source'] == canon_id:
+                nodes.add(edge['target'])
+            elif edge['target'] == canon_id:
+                nodes.add(edge['source'])
+        if self._blocking_stale(state['stale'], idx, nodes):
+            return state, []
+        return {'ok': True, 'estado': 'ok', 'stale': state['stale'], 'error': None}, edges
+
+    @staticmethod
     def _document_edges(idx: Any) -> list[dict[str, Any]]:
         """Aristas documento-a-documento del índice, sin reconstruir.
 
@@ -742,12 +781,9 @@ class WorkspaceRoutes:
                             next_level.add(neighbor)
                 current_level = next_level
 
-            # Un stale sin nodo en el índice (su shard falta) no se puede ubicar: sldb descarta
-            # como colgantes las aristas hacia él, así que nunca aparece en la vecindad aunque
-            # esté en ella. Ante la duda, se bloquea, como antes de a1.
-            unplaced = [sid for sid in stale if f'sldb://document/{sid}' not in idx.nodes]
-            touched = [sid for sid in stale if sid in visited_nodes]
-            if touched or unplaced:
+            # Un stale sin nodo en el índice (su shard falta) no se puede ubicar: se bloquea,
+            # como antes de a1 (ver _blocking_stale).
+            if self._blocking_stale(stale, idx, visited_nodes):
                 return {
                     'ok': False, 'depth': depth, 'nodes': [], 'edges': [],
                     'estado': state['estado'], 'stale': stale, 'error': state['error'],
@@ -1164,17 +1200,13 @@ class WorkspaceRoutes:
             context['relations_absent'] = 'Documento no modelado: no está en el store, sin relaciones.'
             return context
         idx, idx_error = self._load_index()
-        state = self._relations_state(idx, idx_error)
+        state, edges = self._document_relations_state(canon_id, idx, idx_error)
         context['relations_state'] = state
         if not state['ok']:
             context['relations_error'] = state['error']
             return context
-        try:
-            edges = self._document_edges(idx)
-            context['incoming_relations'] = [e for e in edges if e['target'] == canon_id]
-            context['outgoing_relations'] = [e for e in edges if e['source'] == canon_id]
-        except Exception as exc:
-            context['relations_error'] = str(exc)
+        context['incoming_relations'] = [e for e in edges if e['target'] == canon_id]
+        context['outgoing_relations'] = [e for e in edges if e['source'] == canon_id]
         return context
 
     def _resolve_links(self, text: str, doc_rel: str, own_id: str | None, own_path: str) -> list[dict[str, Any]]:

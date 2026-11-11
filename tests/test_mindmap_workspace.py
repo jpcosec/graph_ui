@@ -288,6 +288,12 @@ def test_workspace_stale_without_shard_blocks_even_outside_the_neighborhood(test
     graph = data['projections']['graph']
     assert graph['ok'] is False and graph['estado'] == 'store_no_preparado'
     assert f'TaskCodeDoc:{task_d}' in graph['stale'] and graph['nodes'] == [] and graph['edges'] == []
+    # Las relaciones del contexto aplican el mismo criterio: un stale sin nodo bloquea
+    relations = data['context']['relations_state']
+    assert relations['ok'] is False and relations['estado'] == 'store_no_preparado'
+    assert data['context']['incoming_relations'] is None
+    status, src = http_get(server, f'/api/workspace/source?id=TaskDoc:{task_a}')
+    assert src['context']['relations_state']['estado'] == 'store_no_preparado'
     assert not shard.exists()
     assert _store_snapshot(root) == before
 
@@ -518,3 +524,49 @@ def test_workspace_broken_and_healthy_docs_coexistence(test_env, server):
     assert graph_d['stale'] == [f'TaskCodeDoc:{task_c}']
 
 
+def test_workspace_relations_state_scoped_like_the_graph(test_env, server):
+    root, ops, task_a, task_b, task_c = test_env
+    # task_d depende de task_a: el stale task_c (vecino de task_a) queda a dos saltos de task_d.
+    task_d = ops.create_task_bundle(dict(
+        title='Tarea D', goal='Fuera del ciclo', scope='Desk temporal',
+        implementation_path='D', validation=['pytest'], done_when='D lista',
+        depends_on=[task_a])).task_id
+    # Edición externa de task_c: desde sldb GO04 deja stale su documento (su nodo sigue en el índice).
+    broken_doc = root / f'desk/tasks/{task_c}.md'
+    broken_doc.write_text('---\nid: invalid\nstatus: active\n---\nSin titulo\n', encoding='utf-8')
+    stale_c = f'TaskCodeDoc:{task_c}'
+    before = _store_snapshot(root)
+
+    # El stale no toca a task_d ni a sus vecinos: las relaciones de task_d siguen vivas, con aviso.
+    status, data = http_get(server, f'/api/workspace/node?id=TaskDoc:{task_d}&depth=1')
+    assert status == 200
+    ctx = data['context']
+    assert ctx['relations_state']['ok'] is True and ctx['relations_state']['estado'] == 'ok'
+    assert ctx['relations_state']['stale'] == [stale_c]
+    assert any(e['source'] == f'TaskCodeDoc:{task_d}' and e['target'] == f'TaskCodeDoc:{task_a}'
+               for e in ctx['outgoing_relations'])
+    assert ctx['incoming_relations'] is not None
+    # A depth=2 el grafo alcanza el stale y se bloquea; las relaciones directas no dependen de eso.
+    status, data2 = http_get(server, f'/api/workspace/node?id=TaskDoc:{task_d}&depth=2')
+    assert data2['projections']['graph']['ok'] is False
+    assert data2['context']['relations_state']['ok'] is True
+    assert any(e['target'] == f'TaskCodeDoc:{task_a}' for e in data2['context']['outgoing_relations'])
+    # Lo mismo en el contexto de /source.
+    status, src = http_get(server, f'/api/workspace/source?id=TaskDoc:{task_d}')
+    assert status == 200
+    sctx = src['context']
+    assert sctx['relations_state']['ok'] is True and sctx['relations_state']['stale'] == [stale_c]
+    assert sctx['relations_error'] is None
+    assert any(e['target'] == f'TaskCodeDoc:{task_a}' for e in sctx['outgoing_relations'])
+
+    # task_a es vecino del stale y task_c es el stale: sus relaciones siguen bloqueadas.
+    for ident in (task_a, task_c):
+        status, data = http_get(server, f'/api/workspace/node?id=TaskDoc:{ident}&depth=1')
+        ctx = data['context']
+        assert ctx['relations_state']['ok'] is False and ctx['relations_state']['estado'] == 'store_no_preparado'
+        assert stale_c in ctx['relations_state']['stale']
+        assert ctx['incoming_relations'] is None and ctx['outgoing_relations'] is None
+    status, src = http_get(server, f'/api/workspace/source?id=TaskDoc:{task_a}')
+    assert src['context']['relations_state']['estado'] == 'store_no_preparado'
+    assert src['context']['incoming_relations'] is None and src['context']['relations_error']
+    assert _store_snapshot(root) == before
