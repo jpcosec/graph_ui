@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 """deskops UI server: the work surface of the factory, on 127.0.0.1 only.
 
-Serves the shell (index.html, app.js, styles.css) and the read-only views that
-deskops itself composes (``deskops.services.desk_view.DeskView``, the same data as
-``deskops view ... --format json``). The only write is ``POST /api/desk/advance``,
-delegated to graph_ui's ``DeskRoutes`` with its revision guard.
+Serves the shell (index.html, app.js, styles.css) and the read-only views of
+``deskops view ... --format json``: ``board`` and ``task`` are the deskops ViewDocs read
+from ``sldb serve`` (``GET /views/<view>`` with ETag, one ``sldb serve`` per desk store,
+started on first use unless ``--sldb-url`` names the default desk's) and projected to the
+deskops contract in process (``deskops.cli.commands.view.project``); ``drawer``,
+``inbox`` and ``agents`` are what deskops reads outside its store, asked to the deskops
+CLI in process, like the actions. If ``sldb serve`` does not answer, the view is a 502
+with its message. The only writes are ``POST /api/desk/advance``, delegated to graph_ui's
+``DeskRoutes`` with its revision guard (the task view's ETag), and the inbox actions.
 
 Usage:
-  python frontends/desk/serve.py [port] --root <repo with desk/> [--registry <repo>] [--pythonpath <dir>]
+  python frontends/desk/serve.py [port] --root <repo with desk/> [--registry <repo>] [--pythonpath <dir>] [--sldb-url <url>]
 
 ``--root`` is the default desk. ``--registry`` is the repo whose
 ``desk/registry/repo-*.md`` lists the desks the selector offers (default: ``--root``);
@@ -35,6 +40,7 @@ FRONTENDS_DIR = DESK_DIR.parent
 DEFAULT_PORT = 8091
 HOST = '127.0.0.1'
 VIEWS = ('board', 'task', 'drawer', 'inbox', 'agents')
+SLDB_VIEWS = ('board', 'task')
 STATIC_SUFFIXES = {'.html', '.js', '.css'}
 INBOX_ACTIONS = {'/api/inbox/ack': 'ack', '/api/inbox/promote': 'promote'}
 MAX_BODY = 8192
@@ -101,8 +107,12 @@ class DeskCatalog:
 
 class DeskUIHandler(SimpleHTTPRequestHandler):
     catalog: DeskCatalog
+    views: Any
     herdr = 'herdr'
     advance_lock = RLock()
+    # deskops' CLI writes to sys.stdout, which redirect_stdout swaps for the whole process:
+    # one in-process deskops call at a time, whatever thread serves the request.
+    deskops_lock = RLock()
     server_version = 'deskops-ui'
 
     def __init__(self, *args, **kwargs):
@@ -157,20 +167,30 @@ class DeskUIHandler(SimpleHTTPRequestHandler):
             return self.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
 
     def view(self, root: Path, view: str, query: dict[str, list[str]]) -> dict[str, Any]:
+        if view == 'task':
+            ids = query.get('id') or []
+            if len(ids) != 1 or not ids[0]:
+                raise DeskUIError('Se requiere un id de tarea.', 400)
+            return self.views.task(root, ids[0])
+        if view in SLDB_VIEWS:
+            return self.views.view(root, view)
+        argv = ['view', view, '--root', str(root), '--format', 'json'] + (['--herdr', self.herdr] if view == 'agents' else [])
+        return self._deskops_json(argv, 404)
+
+    def _deskops_json(self, argv: list[str], status: int) -> dict[str, Any]:
+        """``deskops <argv>`` run in process through its CLI entry point, its JSON output."""
+        from deskops.cli.main import main as deskops_main
+
+        out, err = io.StringIO(), io.StringIO()
+        with self.deskops_lock, contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
+            code = deskops_main(argv)
         try:
-            from deskops.services.desk_view import DeskView, DeskViewError
-        except ImportError as exc:
-            raise DeskUIError(f'Esta instalación de deskops no trae deskops view ({exc}). Use --pythonpath con un deskops que lo tenga.', 503)
-        try:
-            desk = DeskView(root, herdr=self.herdr)
-            if view == 'task':
-                ids = query.get('id') or []
-                if len(ids) != 1 or not ids[0]:
-                    raise DeskUIError('Se requiere un id de tarea.', 400)
-                return desk.task(ids[0])
-            return getattr(desk, view)()
-        except DeskViewError as exc:
-            raise DeskUIError(str(exc), 404)
+            payload = json.loads(out.getvalue())
+        except ValueError:
+            raise DeskUIError(f"deskops {' '.join(argv[:2])} falló: {err.getvalue().strip() or out.getvalue().strip()}", status)
+        if code != 0:
+            raise DeskUIError(str((payload.get('error') or {}).get('message') or payload), status)
+        return payload
 
     def do_POST(self) -> None:
         parsed = urlparse(self.path)
@@ -190,7 +210,7 @@ class DeskUIHandler(SimpleHTTPRequestHandler):
         from mindmap.deskops_routes import DeskRoutes
 
         with self.advance_lock:
-            return DeskRoutes(root).dispatch(self, 'POST')
+            return DeskRoutes(root, views=self.views).dispatch(self, 'POST')
 
 
     # ------------------------------------------------------------ inbox actions (UI05)
@@ -231,7 +251,7 @@ class DeskUIHandler(SimpleHTTPRequestHandler):
         from deskops.cli.main import main as deskops_main
 
         out, err = io.StringIO(), io.StringIO()
-        with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
+        with self.deskops_lock, contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
             code = deskops_main(argv)
         output = out.getvalue().strip()
         if code != 0:
@@ -239,28 +259,42 @@ class DeskUIHandler(SimpleHTTPRequestHandler):
         return {'ok': True, 'action': action, 'note': path.stem, 'command': 'deskops ' + ' '.join(argv), 'output': output}
 
 
+class DeskUIServer(ThreadingHTTPServer):
+    """The HTTP server; closing it stops the ``sldb serve`` processes it started."""
+
+    def server_close(self) -> None:
+        super().server_close()
+        self.RequestHandlerClass.views.serves.close()
+
+
 def make_server(
     port: int = DEFAULT_PORT,
     root: Path | str | None = None,
     registry: Path | str | None = None,
     herdr: str | None = None,
+    sldb_url: str | None = None,
 ) -> ThreadingHTTPServer:
     _ensure_frontends_on_path()
+    from mindmap.deskops_routes import DeskopsViews, SldbServes
+
     if root is None:
         root = os.environ.get('DESKOPS_ROOT') or Path.cwd()
     catalog = DeskCatalog(Path(root), Path(registry) if registry else None)
-    handler = type('BoundDeskUIHandler', (DeskUIHandler,), {'catalog': catalog, 'herdr': herdr or os.environ.get('DESK_UI_HERDR', 'herdr')})
-    return ThreadingHTTPServer((HOST, port), handler)
+    sldb_url = sldb_url or os.environ.get('DESK_UI_SLDB_URL')
+    views = DeskopsViews(SldbServes({catalog.root: sldb_url} if sldb_url else None))
+    handler = type('BoundDeskUIHandler', (DeskUIHandler,), {
+        'catalog': catalog, 'views': views, 'herdr': herdr or os.environ.get('DESK_UI_HERDR', 'herdr')})
+    return DeskUIServer((HOST, port), handler)
 
 
-def _parse(argv: list[str]) -> tuple[int, str | None, str | None, list[str]]:
-    port, root, registry, paths = DEFAULT_PORT, None, None, []
+def _parse(argv: list[str]) -> tuple[int, str | None, str | None, list[str], str | None]:
+    port, root, registry, paths, sldb_url = DEFAULT_PORT, None, None, [], None
     args = list(argv)
     while args:
         arg = args.pop(0)
-        if arg in ('--root', '--registry', '--pythonpath') and args:
+        if arg in ('--root', '--registry', '--pythonpath', '--sldb-url') and args:
             value = args.pop(0)
-        elif arg.startswith(('--root=', '--registry=', '--pythonpath=')):
+        elif arg.startswith(('--root=', '--registry=', '--pythonpath=', '--sldb-url=')):
             arg, value = arg.split('=', 1)
         elif arg.isdigit():
             port = int(arg)
@@ -271,18 +305,20 @@ def _parse(argv: list[str]) -> tuple[int, str | None, str | None, list[str]]:
             root = value
         elif arg == '--registry':
             registry = value
+        elif arg == '--sldb-url':
+            sldb_url = value
         else:
             paths.append(str(Path(value).expanduser().resolve()))
-    return port, root, registry, paths
+    return port, root, registry, paths, sldb_url
 
 
 def main(argv: list[str] | None = None) -> None:
-    port, root, registry, paths = _parse(sys.argv[1:] if argv is None else argv)
+    port, root, registry, paths, sldb_url = _parse(sys.argv[1:] if argv is None else argv)
     for path in reversed(paths):
         if path not in sys.path:
             sys.path.insert(0, path)
     try:
-        server = make_server(port, root, registry)
+        server = make_server(port, root, registry, sldb_url=sldb_url)
     except OSError as exc:
         if exc.errno != errno.EADDRINUSE:
             raise
