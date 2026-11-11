@@ -667,8 +667,17 @@ def test_reader_edge_focus_marks_only_fields_of_the_open_document(reader_e2e_ser
         assert edge.get_attribute('data-fields') == ''
         page.get_by_role('button', name='Documento', exact=True).click()
         expect(page.locator('.workspace-payload-field.is-focused')).to_have_count(0)
-        # la entrante muestra la declaracion de su dueño, no la presenta como campo propio
-        expect(page.locator('[data-testid="rel-prov-in"]')).to_contain_text(f'{source_id}.depends_on')
+        # la entrante A->B muestra la declaracion de su dueño, no la presenta como campo propio
+        prov_in = page.locator('[data-testid="rel-prov-in"]')
+        from_a = page.locator('li').filter(has=prov_in).filter(has_text=f'TaskCodeDoc:{source_id}')
+        expect(from_a).to_have_count(1)
+        expect(from_a.locator('[data-testid="rel-prov-in"]')).to_contain_text(f'{source_id}.depends_on')
+        # las entrantes del Board (Board.tasks y task_summaries nombran a B) son referencias
+        # reales: se muestran con su dueño BoardDoc:Board, nunca como 'este documento'
+        from_board = prov_in.filter(has_text='BoardDoc:Board.')
+        expect(from_board.first).to_be_visible()
+        for text in from_board.all_inner_texts():
+            assert 'este documento' not in text, text
         # A (origen): la misma arista si resalta sus dos campos
         page.goto(f"{url}/workspace/node?id=TaskCodeDoc:{source_id}&tab=graph")
         page.locator('[data-testid="edge-item"]', has_text=target_id).first.click()
