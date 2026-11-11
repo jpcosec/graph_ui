@@ -705,12 +705,22 @@ class WorkspaceRoutes:
         return payload.get('title') or payload.get('name') or fallback_name, payload.get('status', ''), 'ok'
 
     def _build_graph_neighborhood(self, root_id: str, idx: Any, idx_error: str | None, depth: int) -> dict[str, Any]:
+        """Vecindad del nodo a `depth` saltos, leída del índice sin reconstruirlo.
+
+        Un documento atrasado (stale) bloquea el grafo solo si cae dentro de la vecindad:
+        sus aristas no son confiables ahí. Si está fuera, la vecindad se entrega con `stale`
+        como aviso, porque las aristas que declaran esos documentos (por ejemplo, una nueva
+        hacia este nodo) pueden faltar. Desde sldb GO04 (d7eefdeb), cualquier edición
+        externa deja stale su documento, y un documento roto no se prepara; bloquear todo el
+        grafo por uno ajeno tumbaba el de los sanos.
+        """
         state = self._relations_state(idx, idx_error)
-        if not state['ok']:
+        if idx is None:
             return {
                 'ok': False, 'depth': depth, 'nodes': [], 'edges': [],
                 'estado': state['estado'], 'stale': state['stale'], 'error': state['error'],
             }
+        stale = state['stale']
         try:
             edges = self._document_edges(idx)
             adj: dict[str, list[Any]] = {}
@@ -730,6 +740,13 @@ class WorkspaceRoutes:
                             visited_nodes[neighbor] = current_depth
                             next_level.add(neighbor)
                 current_level = next_level
+
+            touched = [sid for sid in stale if sid in visited_nodes]
+            if touched:
+                return {
+                    'ok': False, 'depth': depth, 'nodes': [], 'edges': [],
+                    'estado': state['estado'], 'stale': stale, 'error': state['error'],
+                }
 
             # Filtrar aristas cuyos dos extremos estén en visited_nodes
             seen_edges = set()
@@ -764,7 +781,7 @@ class WorkspaceRoutes:
                 'nodes': nodes,
                 'edges': neighborhood_edges,
                 'estado': 'ok',
-                'stale': [],
+                'stale': stale,
                 'error': None
             }
         except Exception as exc:

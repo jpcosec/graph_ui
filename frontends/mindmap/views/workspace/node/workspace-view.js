@@ -783,6 +783,7 @@ function WorkspaceView() {
           ${source && activeTab === 'graph' ? html`
             <section className="workspace-graph-pane" aria-label="Proyección de Grafo">
               ${modeled ? html`<${RelationsNotice} where="graph" />` : ''}
+              ${nodeData?.graph?.ok && (nodeData.graph.stale || []).length ? html`<div className="workspace-alert" role="status" data-testid="stale-outside">Aviso: ${nodeData.graph.stale.length} documento(s) fuera de esta vecindad tienen el índice de aristas atrasado (${nodeData.graph.stale.join(', ')}); las aristas que declaran pueden faltar aquí. Se prepara fuera de la petición con rebuild_edges.</div>` : ''}
               ${revisionMismatch ? html`<div className="workspace-alert" role="status" data-testid="revision-mismatch">Aviso: la revisión de /node (${formatHash(nodeData.identity.file_revision, 12)}) difiere de la de /source (${formatHash(source.revision, 12)}) para este documento; no se unifican.</div>` : ''}
               ${unmodeled ? html`
                 <div className="workspace-alert" role="status" data-testid="no-graph">

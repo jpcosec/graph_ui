@@ -610,6 +610,10 @@ def _files(root, *ids):
     return {str((root / 'desk' / 'tasks' / f'{i}.md').resolve()) for i in ids}
 
 
+# ROJO con causa conocida (2026-11-11): desde sldb GO04 (d7eefdeb), load_edge_index ->
+# live_stale lee y hashea cada archivo trackeado, siguiendo symlinks fuera de la raíz, antes
+# de cualquier guarda de graph_ui. Nota (b) en el inbox de sldb, commit 9c9dac6b, promovida
+# a task.debug en sldb. Este test no se relaja: vuelve a verde cuando sldb lo arregle.
 def test_no_file_is_opened_before_or_instead_of_its_guards(guard_env, tmp_path):
     root, a, free, prot, prot_q, sym, outside = guard_env
     srv = AuditedServer(root, tmp_path)

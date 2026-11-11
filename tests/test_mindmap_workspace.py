@@ -306,9 +306,11 @@ No headings here
     # La proyección document debe fallar de forma aislada
     assert data['projections']['document']['ok'] is False
     assert data['projections']['document']['error'] is not None
-    # Pero el grafo y el contexto siguen vivos
-    assert data['projections']['graph']['ok'] is True
-    assert len(data['projections']['graph']['nodes']) >= 1
+    # El contexto sigue vivo. El grafo no: desde sldb GO04 (d7eefdeb) la escritura externa deja
+    # stale el documento, y un stale dentro de la vecindad no se presenta como grafo vigente
+    graph = data['projections']['graph']
+    assert graph['ok'] is False and graph['estado'] == 'store_no_preparado'
+    assert f'TaskCodeDoc:{task_b}' in graph['stale']
     assert data['context']['id'] == f'TaskCodeDoc:{task_b}'
 
 
@@ -452,6 +454,10 @@ def test_workspace_broken_doc_catalog_degrades_that_entry_and_keeps_healthy_ones
 
 def test_workspace_broken_and_healthy_docs_coexistence(test_env, server):
     root, ops, task_a, task_b, task_c = test_env
+    # Una tarea sana sin relaciones con el ciclo c -> b -> a -> c
+    task_d = ops.create_task_bundle(dict(
+        title='Tarea D', goal='Fuera del ciclo', scope='Desk temporal',
+        implementation_path='D', validation=['pytest'], done_when='D lista')).task_id
     # Corromper task_c en disco
     broken_doc = root / f'desk/tasks/{task_c}.md'
     broken_doc.write_text('---\nid: invalid\nstatus: active\n---\nSin titulo\n', encoding='utf-8')
@@ -465,17 +471,28 @@ def test_workspace_broken_and_healthy_docs_coexistence(test_env, server):
     # Código debe indicar no disponible explícitamente
     assert data_broken['projections']['code']['ok'] is False
     assert 'no disponible' in data_broken['projections']['code']['error'].lower()
-    # Grafo y contexto siguen vivos
-    assert data_broken['projections']['graph']['ok'] is True
+    # El contexto sigue vivo; el grafo del roto, stale desde sldb GO04, no se da por vigente
+    assert data_broken['projections']['graph']['ok'] is False
+    assert data_broken['projections']['graph']['estado'] == 'store_no_preparado'
     assert data_broken['context']['id'] == f'TaskCodeDoc:{task_c}'
 
-    # 2. Documento sano task_a: conserva Code, Graph y metadata
+    # 2. Documento sano task_a, vecino de task_c: conserva Code, pero su grafo toca el stale
     status_sano, data_sano = http_get(server, f'/api/workspace/node?id=TaskDoc:{task_a}&depth=1')
     assert status_sano == 200
     assert data_sano['ok'] is True
     assert data_sano['node']['id'] == f'TaskCodeDoc:{task_a}'
-    assert data_sano['projections']['graph']['ok'] is True
+    assert data_sano['projections']['graph']['ok'] is False
+    assert f'TaskCodeDoc:{task_c}' in data_sano['projections']['graph']['stale']
     assert data_sano['projections']['code']['ok'] is True
     assert data_sano['context']['id'] == f'TaskCodeDoc:{task_a}'
+
+    # 3. Documento sano task_d, fuera de la vecindad del roto: su grafo sigue vivo y avisa
+    status_d, data_d = http_get(server, f'/api/workspace/node?id=TaskDoc:{task_d}&depth=1')
+    assert status_d == 200
+    graph_d = data_d['projections']['graph']
+    assert graph_d['ok'] is True and graph_d['estado'] == 'ok'
+    assert f'TaskCodeDoc:{task_d}' in {n['id'] for n in graph_d['nodes']}
+    assert f'TaskCodeDoc:{task_c}' not in {n['id'] for n in graph_d['nodes']}
+    assert graph_d['stale'] == [f'TaskCodeDoc:{task_c}']
 
 
