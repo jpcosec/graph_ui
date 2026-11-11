@@ -707,8 +707,9 @@ class WorkspaceRoutes:
     def _build_graph_neighborhood(self, root_id: str, idx: Any, idx_error: str | None, depth: int) -> dict[str, Any]:
         """Vecindad del nodo a `depth` saltos, leída del índice sin reconstruirlo.
 
-        Un documento atrasado (stale) bloquea el grafo solo si cae dentro de la vecindad:
-        sus aristas no son confiables ahí. Si está fuera, la vecindad se entrega con `stale`
+        Un documento atrasado (stale) bloquea el grafo si cae dentro de la vecindad (sus
+        aristas no son confiables ahí) o si su nodo falta del índice (sin shard no se puede
+        probar que esté fuera). Si está fuera, la vecindad se entrega con `stale`
         como aviso, porque las aristas que declaran esos documentos (por ejemplo, una nueva
         hacia este nodo) pueden faltar. Desde sldb GO04 (d7eefdeb), cualquier edición
         externa deja stale su documento, y un documento roto no se prepara; bloquear todo el
@@ -741,8 +742,12 @@ class WorkspaceRoutes:
                             next_level.add(neighbor)
                 current_level = next_level
 
+            # Un stale sin nodo en el índice (su shard falta) no se puede ubicar: sldb descarta
+            # como colgantes las aristas hacia él, así que nunca aparece en la vecindad aunque
+            # esté en ella. Ante la duda, se bloquea, como antes de a1.
+            unplaced = [sid for sid in stale if f'sldb://document/{sid}' not in idx.nodes]
             touched = [sid for sid in stale if sid in visited_nodes]
-            if touched:
+            if touched or unplaced:
                 return {
                     'ok': False, 'depth': depth, 'nodes': [], 'edges': [],
                     'estado': state['estado'], 'stale': stale, 'error': state['error'],

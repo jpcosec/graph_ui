@@ -270,6 +270,28 @@ def test_workspace_cycle_on_unprepared_store_is_rejected_not_rebuilt(test_env, s
     assert _store_snapshot(root) == before
 
 
+def test_workspace_stale_without_shard_blocks_even_outside_the_neighborhood(test_env, server):
+    root, ops, task_a, task_b, task_c = test_env
+    # Una tarea sin relaciones con el ciclo c -> b -> a -> c, con su shard ausente. sldb no
+    # tiene su nodo y descarta como colgantes las aristas hacia ella: no se puede probar que
+    # esté fuera de la vecindad, así que el grafo se bloquea (el lado seguro).
+    task_d = ops.create_task_bundle(dict(
+        title='Tarea D', goal='Fuera del ciclo', scope='Desk temporal',
+        implementation_path='D', validation=['pytest'], done_when='D lista')).task_id
+    from sldb.store.layout import edges_shards_dir
+    shard = edges_shards_dir(root / '.sldb', 'TaskCodeDoc') / f'{task_d}.yaml'
+    assert shard.is_file()
+    shard.unlink()
+    before = _store_snapshot(root)
+    status, data = http_get(server, f'/api/workspace/node?id=TaskDoc:{task_a}&depth=1')
+    assert status == 200
+    graph = data['projections']['graph']
+    assert graph['ok'] is False and graph['estado'] == 'store_no_preparado'
+    assert f'TaskCodeDoc:{task_d}' in graph['stale'] and graph['nodes'] == [] and graph['edges'] == []
+    assert not shard.exists()
+    assert _store_snapshot(root) == before
+
+
 def test_workspace_ambiguous_name_resolution(test_env, server):
     root, ops, task_a, task_b, task_c = test_env
     # Pedir el nombre bare {task_a} debe rechazar con 400 por ser ambiguo (TaskDoc y PillDoc)
