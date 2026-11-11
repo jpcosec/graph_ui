@@ -1,6 +1,6 @@
-# deskops-ui: informe de integración y verificación (PAUSADO)
+# deskops-ui: informe de integración y verificación
 
-Estado: **pausado por segunda vez (2026-11-11, decisión del overlord)**: el cupo pasa al arreglo de seguridad de sldb (nota b, 9c9dac6b). Se retoma cuando ese arreglo esté en sldb main con CI verde. Primera pausa: 2026-11-11, por orden del coordinador. Rama `wt/deskops-ui` sobre origin/master `62bc9f8`. La verificación está incompleta: abajo quedan los pasos corridos, los fallos resueltos y los que faltan.
+Estado: **verificación completa en verde (2026-11-11, segunda reanudación)**. Corrida 4: clones limpios de 94f4fc3, deskops origin/main `0eb4f36b`, sldb origin/main `23e4c2b2` (contiene el arreglo de seguridad 39221856), Python 3.12. Hubo dos pausas el mismo día: la primera por orden del coordinador y la segunda por decisión del overlord, para dar el cupo al arreglo de seguridad de sldb. Rama `wt/deskops-ui` sobre origin/master `62bc9f8`.
 
 Commits de la rama (encima de 62bc9f8):
 
@@ -15,7 +15,10 @@ Commits de la rama (encima de 62bc9f8):
 | 0bad252 | informe (primera pausa) |
 | 16ac77a | tests: mindmap_deskops lleva la tarea por `ops.advance_task` (reanudación, paso 1) |
 | 3b15fb6 | workspace: un stale ajeno a la vecindad no bloquea el grafo (a1, reanudación, paso 2) |
-| (este) | informe (segunda pausa) |
+| 12c4076 | informe (segunda pausa) |
+| 01aa0e8 | workspace: un stale sin nodo en el índice bloquea el grafo (corrige a1; segunda reanudación) |
+| 94f4fc3 | tests: e2e del foco con dueño acota la entrante A->B; las del Board se muestran con su dueño |
+| (este) | informe final |
 
 ## 1. Los 7 commits de `rescate/deskops-ui-detached`
 
@@ -26,6 +29,7 @@ Commits de la rama (encima de 62bc9f8):
 - Layout del CI en clones limpios: `/dev/shm/gui/UIs/graph_ui` (clon de la rama) y `/dev/shm/gui/deskops`, con deskops fijo en origin/main `5ccc29a3`. origin/main avanzó 7 commits durante la sesión; en código solo agregan los alias de b11a5282, que no uso.
 - venv `/dev/shm/gui/venv`: el python3.12 del sistema no trae ensurepip, así que se creó con `uv venv --seed -p 3.12`. pip instaló de GitHub deskops 5ccc29a3, sldb 84eb7f7, pron 7f2e308 y spec2viz b16c021. Python 3.13 (la otra versión del CI) **no se verificó**.
 - Cada archivo de test corre en su propio proceso: `TMPDIR=/dev/shm timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs <archivo>`. Desde la corrida 3, la guarda espera solo los pytest cuyo cwd está en `proyectos/SLDB_1` o en `/dev/shm` (antes esperaba también los de mepu y AntonIA de otros panes; por eso el panel no avanzaba).
+- Corrida 4 (segunda reanudación): clones nuevos en `/dev/shm/gui`, venv nuevo con `uv venv --seed -p 3.12`. pip instaló de GitHub (`-r .github/requirements-suite.txt -e ".[test]"`) deskops 0eb4f36b, sldb 23e4c2b2, pron 7f2e308 y spec2viz b16c021. La guarda de pytest espera solo los pytest de graph_ui ajenos (cwd con `graph_ui` que no sea este worktree ni `/dev/shm/gui`).
 - El CI de master pasó por última vez en 3ea45bc (2026-11-06 18:22Z, con opsys 7f4be3a y sldb 8b60e88). Todos los fallos de abajo vienen de cambios posteriores de deskops o sldb, ninguno de graph_ui.
 
 ## 3. Fallos: causa raíz y arreglo
@@ -50,9 +54,16 @@ Commits de la rama (encima de 62bc9f8):
 
 | # | síntoma | causa raíz | arreglo | estado |
 |---|---|---|---|---|
-| 7 | test_mindmap_deskops: `test_blocked_and_missing_lifecycle` y `test_terminal_cannot_close_and_path_escape` (write_doc rechaza «current_node … needs a history») | El fixture escribía `current_node` a mano con `history` vacía. El validador de ciclo de vida de TaskDoc en deskops (`models/task_lifecycle.lifecycle_errors`) lo rechaza. Un `ritual-unknown` con history tampoco pasa («does not follow history») | 16ac77a: `advance_to()` lleva la tarea a testing/closeout con `ops.advance_task` y los recibos de `tests/desk_receipts.py`; `validation=[]` se escribe ya con la history en su lugar. El 503 «el lifecycle no cubre» pasa a un desk temporal sin `write_lifecycle_graph`: la tarea queda en el nodo de entrada (estado válido) y gates `[]`. Comprobado con sondas sin pytest sobre deskops f21ab5c8 | **sin correr en pytest**: la guarda esperaba a la suite de `/dev/shm/integ-deskops` cuando llegó la pausa. 797b89fe aún no estaba en deskops origin/main (punta f21ab5c8) |
-| 8 | test_mindmap_workspace: `test_workspace_broken_ir_keeps_graph`, `test_workspace_broken_and_healthy_docs_coexistence` (`graph.ok` False) | sldb GO04 d7eefdeb (06-11): `EdgeIndex.stale` ve la edición externa (`live_stale` compara el archivo con el `source_hash` del shard). El test escribe a mano un TaskDoc roto, el índice queda stale y `_relations_state`, que es global, devolvía `store_no_preparado` para todo nodo, sanos incluidos. `rebuild_edges` no lo resuelve (`docs_written=0`; compara con el hash registrado del store), tampoco para una edición externa válida | 3b15fb6 (a1, aprobado por coord2): `_build_graph_neighborhood` bloquea solo si un stale cae dentro de la vecindad; si no, sale ok con `stale` como aviso (`data-testid="stale-outside"` en la vista). Los tests afirman: el roto y su vecino quedan `store_no_preparado`; una tarea D fuera del ciclo conserva el grafo con `stale == [task_c]`. Lo de que rebuild no resuelve el stale queda en el inbox de sldb: nota a2, commit 9c9dac6b | **sin correr en pytest** |
-| 9 | test_mindmap_workspace_reader: `test_no_file_is_opened_before_or_instead_of_its_guards` | sldb GO04 d7eefdeb: `live_stale._file_hash` lee y hashea cada archivo trackeado y sigue symlinks fuera de la raíz, todo dentro de `load_edge_index` y antes de cualquier guarda de graph_ui. En un proceso nuevo abrió las 28 md del desk de prueba. Es un problema de seguridad | Ninguno en graph_ui: no se puede evitar sin dejar de usar el índice. Nota (b) en el inbox de sldb, commit 9c9dac6b, promovida a task.debug en sldb con prioridad. El test lleva un comentario con la causa; sin skip ni xfail | **rojo con causa conocida**. Por regla del dueño, la rama no se integra a master mientras siga rojo |
+| 7 | test_mindmap_deskops: `test_blocked_and_missing_lifecycle` y `test_terminal_cannot_close_and_path_escape` (write_doc rechaza «current_node … needs a history») | El fixture escribía `current_node` a mano con `history` vacía. El validador de ciclo de vida de TaskDoc en deskops (`models/task_lifecycle.lifecycle_errors`) lo rechaza. Un `ritual-unknown` con history tampoco pasa («does not follow history») | 16ac77a: `advance_to()` lleva la tarea a testing/closeout con `ops.advance_task` y los recibos de `tests/desk_receipts.py`; `validation=[]` se escribe ya con la history en su lugar. El 503 «el lifecycle no cubre» pasa a un desk temporal sin `write_lifecycle_graph`: la tarea queda en el nodo de entrada (estado válido) y gates `[]`. Comprobado con sondas sin pytest sobre deskops f21ab5c8 | **resuelto**: 7 passed en la corrida 4 (deskops 0eb4f36b, que contiene 797b89fe) |
+| 8 | test_mindmap_workspace: `test_workspace_broken_ir_keeps_graph`, `test_workspace_broken_and_healthy_docs_coexistence` (`graph.ok` False) | sldb GO04 d7eefdeb (06-11): `EdgeIndex.stale` ve la edición externa (`live_stale` compara el archivo con el `source_hash` del shard). El test escribe a mano un TaskDoc roto, el índice queda stale y `_relations_state`, que es global, devolvía `store_no_preparado` para todo nodo, sanos incluidos. `rebuild_edges` no lo resuelve (`docs_written=0`; compara con el hash registrado del store), tampoco para una edición externa válida | 3b15fb6 (a1, aprobado por coord2): `_build_graph_neighborhood` bloquea solo si un stale cae dentro de la vecindad; si no, sale ok con `stale` como aviso (`data-testid="stale-outside"` en la vista). Los tests afirman: el roto y su vecino quedan `store_no_preparado`; una tarea D fuera del ciclo conserva el grafo con `stale == [task_c]`. Lo de que rebuild no resuelve el stale queda en el inbox de sldb: nota a2, commit 9c9dac6b | **resuelto**, con la corrección #10: 16 passed |
+| 9 | test_mindmap_workspace_reader: `test_no_file_is_opened_before_or_instead_of_its_guards` | sldb GO04 d7eefdeb: `live_stale._file_hash` lee y hashea cada archivo trackeado y sigue symlinks fuera de la raíz, todo dentro de `load_edge_index` y antes de cualquier guarda de graph_ui. En un proceso nuevo abrió las 28 md del desk de prueba. Es un problema de seguridad | Ninguno en graph_ui: no se puede evitar sin dejar de usar el índice. Nota (b) en el inbox de sldb, commit 9c9dac6b, promovida a task.debug en sldb con prioridad. El test llevaba un comentario con la causa; sin skip ni xfail | **resuelto en sldb** (39221856, en main 23e4c2b2): el test pasa. El comentario se actualizó en 01aa0e8 |
+
+## 3c. Segunda reanudación (2026-11-11): causas y arreglos
+
+| # | síntoma | causa raíz | arreglo | estado |
+|---|---|---|---|---|
+| 10 | test_mindmap_workspace_reader: `test_get_on_stale_store_rejects_observably_and_never_rebuilds` (`graph.ok` True; se esperaba `store_no_preparado`). Apareció cuando sldb arregló #9 | **Mío, de 3b15fb6 (a1).** El test deja B stale borrando su shard. El nodo de B solo vive en ese shard: falta en el índice compuesto, y `resolve_edges_reporting` descarta como colgantes las aristas hacia él (A->B `references`, Board->B). La regla de a1 («bloquea solo si el stale está en la vecindad visitada») nunca ve a B y entrega el grafo como ok. Verificado instrumentando un clon desechable: B ausente de `idx.nodes`, ninguna arista hacia B | 01aa0e8 (aprobado por coord2): un stale cuenta como fuera de la vecindad solo si su nodo está en `idx.nodes` y no se visitó. Si falta del índice, `store_no_preparado`, como antes de a1 (el lado seguro). Test nuevo `test_workspace_stale_without_shard_blocks_even_outside_the_neighborhood`: rojo sin el arreglo, verde con él | resuelto: reader 31 passed, workspace 16 passed |
+| 11 | e2e_mindmap_workspace: `test_reader_edge_focus_marks_only_fields_of_the_open_document`. Strict mode: `rel-prov-in` resuelve a 3 elementos | **deskops CC35b b2673b36** (09-11): agrega `BoardDoc` (`desk/tasks/Board.md`) a `deskops/data/desk_declaration.yaml`. El Board pasa a estar trackeado e indexado, y sus campos `tasks` y `task_summaries` dan aristas schema Board->tarea con dueño. B tiene ahora tres entrantes con declaración, no una. Aislado con ese e2e (versión de 12c4076) en una copia con sldb fijo en 23e4c2b2: pasa con deskops 8d0e23fe (CC35a) y 6afc78b0 (padre de b2673b36), falla con b2673b36, 6d55bb40, 120bb672 y 0eb4f36b. No se probó 7f4be3a: graph_ui de esa época no corre contra sldb 23e4c2b2, y el aislamiento ya quedó entre dos commits adyacentes. Falla igual en 16ac77a, antes de a1 | 94f4fc3 (aprobado por coord2): las aristas del Board son referencias reales y mostrarlas con dueño es correcto. El test acota el `<li>` de A->B y afirma ahí `.depends_on`. Además afirma que las entrantes del Board se muestran con dueño `BoardDoc:Board` y nunca como «este documento» | resuelto: 19 passed |
 
 ## 4. `deskops desk update` (commit d98fcea)
 
@@ -239,31 +250,82 @@ Los 6 rojos de esta corrida son los fallos #5 y #6, que antes tapaba el ImportEr
 | pytest-test_mindmap_workspace | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_workspace.py` | 1 | 128s |
 | pytest-test_mindmap_workspace_reader | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_workspace_reader.py` | 1 | 212s |
 
-### Sin correr sobre el estado actual (segunda pausa)
+### Corrida 4: 01aa0e8, clones limpios (deskops 0eb4f36b, sldb 23e4c2b2, pron 7f2e308, spec2viz b16c021)
 
-Ningún pytest corrió sobre 16ac77a/3b15fb6. Corrió `node --test tests/*.test.mjs` (rc 0) en el clon con esos cambios. Falta todo esto:
-- test_mindmap_deskops, test_mindmap_workspace y test_mindmap_workspace_reader sobre la punta;
-- e2e_desk_ui y e2e_mindmap_deskops (después de 12bfedb);
-- e2e_mindmap_workspace (toca la vista del grafo de a1), los 6 e2e_notation_* y e2e_review_workbench_views;
-- la corrida completa del CI desde clones limpios de la punta, contra deskops origin/main con 797b89fe y sldb main con el arreglo de (b).
+Todos los pasos de `.github/workflows/ci.yml` más todos los e2e, un archivo por proceso. El único rojo, e2e_mindmap_workspace (fallo #11), se volvió a correr completo después de 94f4fc3 (última fila).
 
-### Sin correr sobre el estado anterior (primera pausa)
-
-- Los e2e que la corrida 3 no alcanzó: e2e_mindmap_workspace, e2e_notation_activity, e2e_notation_class, e2e_notation_deployment, e2e_notation_legibility, e2e_notation_sequence, e2e_notation_style y e2e_review_workbench_views. Los 7 de notation pasaron en la corrida 2 (d98fcea). e2e_review_workbench_views falló en la corrida 2 (fallo #4).
-- e2e_desk_ui y e2e_mindmap_deskops después de 12bfedb.
-- La corrida completa final desde clones limpios de la punta de la rama.
+| paso | comando | rc | tiempo |
+|---|---|---|---|
+| build-deskops | `sldb stores build` | 0 | 2s |
+| build-graphui | `sldb stores build` | 0 | 1s |
+| build-check | `sldb stores build --check` | 0 | 42s |
+| node-test | `bash -c node --test tests/*.test.mjs` | 0 | 0s |
+| rw-npm-ci | `npm ci` | 0 | 19s |
+| rw-tsc | `npx tsc -p tsconfig.app.json --noEmit` | 0 | 8s |
+| rw-vitest | `npx vitest run` | 0 | 7s |
+| rw-lint | `node scripts/lint-architecture.mjs` | 0 | 1s |
+| e2e-playwright-install | `python -m playwright install chromium` | 0 | 0s |
+| pytest-test_auditor | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_auditor.py` | 0 | 0s |
+| pytest-test_ci_workflow | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_ci_workflow.py` | 0 | 0s |
+| pytest-test_desk_ui_routes | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_desk_ui_routes.py` | 0 | 182s |
+| pytest-test_editor | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_editor.py` | 0 | 1s |
+| pytest-test_mindmap_adapter | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_adapter.py` | 0 | 3s |
+| pytest-test_mindmap_compiler | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_compiler.py` | 0 | 1s |
+| pytest-test_mindmap_contract | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_contract.py` | 0 | 0s |
+| pytest-test_mindmap_deskops | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_deskops.py` | 0 | 60s |
+| pytest-test_mindmap_endpoints | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_endpoints.py` | 0 | 7s |
+| pytest-test_mindmap_notation | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_notation.py` | 0 | 12s |
+| pytest-test_mindmap_persistence | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_persistence.py` | 0 | 4s |
+| pytest-test_mindmap_quick_capture | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_quick_capture.py` | 0 | 2s |
+| pytest-test_mindmap_skin | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_skin.py` | 0 | 0s |
+| pytest-test_mindmap_workers | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_workers.py` | 0 | 6s |
+| pytest-test_mindmap_workspace | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_workspace.py` | 0 | 101s |
+| pytest-test_mindmap_workspace_explorer | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_workspace_explorer.py` | 0 | 252s |
+| pytest-test_mindmap_workspace_reader | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_mindmap_workspace_reader.py` | 0 | 205s |
+| pytest-test_parallel_workspace_serve | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_parallel_workspace_serve.py` | 0 | 19s |
+| pytest-test_projection_views | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_projection_views.py` | 0 | 33s |
+| pytest-test_provider | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_provider.py` | 0 | 0s |
+| pytest-test_representacion_docs | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_representacion_docs.py` | 0 | 0s |
+| pytest-test_review_workbench | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_review_workbench.py` | 0 | 17s |
+| pytest-test_sldb_end_to_end | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_sldb_end_to_end.py` | 0 | 10s |
+| pytest-test_snapshot_adapter | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/test_snapshot_adapter.py` | 0 | 1s |
+| pytest-e2e_desk_ui | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_desk_ui.py` | 0 | 115s |
+| pytest-e2e_mindmap_brainstorm | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_mindmap_brainstorm.py` | 0 | 7s |
+| pytest-e2e_mindmap_classes | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_mindmap_classes.py` | 0 | 5s |
+| pytest-e2e_mindmap_compiler | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_mindmap_compiler.py` | 0 | 5s |
+| pytest-e2e_mindmap_deskops | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_mindmap_deskops.py` | 0 | 23s |
+| pytest-e2e_mindmap_doc_edit | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_mindmap_doc_edit.py` | 0 | 8s |
+| pytest-e2e_mindmap_flow | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_mindmap_flow.py` | 0 | 8s |
+| pytest-e2e_mindmap_keyboard | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_mindmap_keyboard.py` | 0 | 6s |
+| pytest-e2e_mindmap_notation | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_mindmap_notation.py` | 0 | 35s |
+| pytest-e2e_mindmap_projections | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_mindmap_projections.py` | 0 | 12s |
+| pytest-e2e_mindmap_quick_capture | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_mindmap_quick_capture.py` | 0 | 12s |
+| pytest-e2e_mindmap_routes | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_mindmap_routes.py` | 0 | 6s |
+| pytest-e2e_mindmap_schema | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_mindmap_schema.py` | 0 | 8s |
+| pytest-e2e_mindmap_workspace | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_mindmap_workspace.py` | 1 | 184s |
+| pytest-e2e_notation_activity | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_notation_activity.py` | 0 | 21s |
+| pytest-e2e_notation_class | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_notation_class.py` | 0 | 42s |
+| pytest-e2e_notation_deployment | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_notation_deployment.py` | 0 | 46s |
+| pytest-e2e_notation_legibility | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_notation_legibility.py` | 0 | 52s |
+| pytest-e2e_notation_sequence | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_notation_sequence.py` | 0 | 29s |
+| pytest-e2e_notation_style | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_notation_style.py` | 0 | 22s |
+| pytest-e2e_review_workbench_views | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_review_workbench_views.py` | 0 | 56s |
+| pytest-e2e_mindmap_workspace (94f4fc3) | `timeout 900 systemd-run --user --scope -q -p MemoryMax=2G -- python -m pytest -q -rs tests/e2e_mindmap_workspace.py` | 0 | 202s |
 
 ## 6. Fuera de alcance / pendiente
 
 - Store derivado desfasado: en el clon, `sldb stores build` modifica `ReviewDoc.yaml` y `store_index` por CC33a de deskops. `--check` pasa.
 - `document-dialog.js` genera su auto-id sin `id_prefix`; solo se arregló la captura rápida.
 - 3 skips en test_review_workbench, iguales a los del CI de GitHub (el job mindmap no corre `npm ci`).
-- Python 3.13 sin verificar.
+- Python 3.13 sin verificar (no está en la máquina).
+- test_review_workbench: en la corrida 4 dio 3 passed sin skips, porque `npm ci` corrió antes en el mismo clon. En el job mindmap del CI esos 3 siguen en skip.
+- `deskops stores build` en clones de deskops: en la copia de aislamiento de #11 dio rc=1 después de un `checkout -f` (store derivado de otra versión). Era una copia desechable y no afecta el resultado.
 - `relations_state` del contexto (incoming/outgoing) sigue siendo global: a1 cambió solo el grafo.
-- Las copias de `/dev/shm/gui` se borraron en la pausa: al retomar hay que recrear los clones y el venv.
+- `/dev/shm/gui` (clones, venvs y logs) se borró al terminar.
 
 ## 7. Incidentes
 
 - Un `sed` de reemplazo tocó por error 4 archivos de `runs/subagents/`. El clasificador denegó `git checkout -- runs/`, así que se revirtió con el `sed` inverso solo en esos 4 archivos. Ninguno llegó a commit.
 - Un `git add -N .` se deshizo en el acto con `git reset -q`. No llegó a commit.
 - En deskops no hice commits ni push. b11a5282 y los commits de github-actions[bot] no son míos.
+- Segunda reanudación: para diagnosticar #10 instrumenté con un `print` temporal `workspace_routes.py` del clon desechable de `/dev/shm/gui`, y lo revertí con `git checkout` en ese clon. Nada de eso llegó al worktree ni a un commit.
