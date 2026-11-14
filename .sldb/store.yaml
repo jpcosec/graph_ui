@@ -212,5 +212,34 @@ include:
   - desk/lifecycle/rule-activation-task-docs.md
   - desk/lifecycle/rule-activation-task-external.md
   - desk/lifecycle/rule-activation-task-refactor.md
+  - desk/lifecycle/rule-closeout-alert-implicit-code.md
+  - desk/lifecycle/rule-closeout-alert-pill-graduation.md
+  - desk/lifecycle/rule-closeout-task-aggregate.md
+  - desk/lifecycle/rule-closeout-task-code.md
+  - desk/lifecycle/rule-closeout-task-debug.md
+  - desk/lifecycle/rule-closeout-task-decision.md
+  - desk/lifecycle/rule-closeout-task-docs.md
+  - desk/lifecycle/rule-closeout-task-external.md
+  - desk/lifecycle/rule-closeout-task-refactor.md
 graph_backend: networkx
 policy: {}
+tag_models:
+- AtomDoc
+- ProtoAtomDoc
+tag_namespaces:
+- name: domain
+  hierarchical: true
+  folder_axis: false
+  anchored_by:
+    model: CrossroadDoc
+    field: path
+    value: bare
+- name: layer
+  hierarchical: true
+  folder_axis: false
+- name: system
+  hierarchical: true
+  folder_axis: false
+- name: topic
+  hierarchical: true
+  folder_axis: false

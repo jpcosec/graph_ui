@@ -2,7 +2,7 @@
 source_id: RitualDoc:ritual-closeout
 target_id: RitualDoc:ritual-closeout
 relation_type: task_completes
-condition: status = "ready_for_testing" and has(closeout_evidence_verified)
+condition: status = "ready_for_testing"
 attributes:
   sets:
     status: closed
@@ -13,4 +13,4 @@ attributes:
 
 ## Notes
 
-The task is ready for closeout and its references verify durable evidence; it closes.
+The task is ready for closeout; its type's closeout rule (`rule-closeout-<type>`) holds it back until `deskops closeout verify` has written the evidence receipts it asks for, accepted and intact. Then it closes.
