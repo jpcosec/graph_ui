@@ -1,8 +1,13 @@
 ---
+sldb:
+  by: agent
+  at: '2026-11-15T17:35:30Z'
+  authority: generated
+  via: save_document_payload
 # repo-xxx
 id: spec2viz
 # Relative path to repository
-path: /home/jp/proyectos/SLDB_1/spec2viz
+path: ../../spec2viz
 # active | maintenance | archived
 status: active
 # e.g., type:tool, layer:infra

@@ -1,11 +1,11 @@
 name: repo-sldb
 path: desk/registry/repo-sldb.md
-source_hash: b378f8b91b43cd4cde1aacd5a9d918432ef4da9bc654be84a756371cdb8862bb
-content_hash: 1de587c493293315b2dfd5b7f51e99aa609a02055a38a7487b1fbc7967f696bd
+source_hash: f07a5aadb82d7d44f03e74802e83c2f7a978c7510836eeb0dfaa29200f86b816
+content_hash: e894bb5466bee53898e496d3f05af47f271c33ca4e967cd7db91066f826e6d0c
 field_hashes:
   name: adf8f4fb55456ba91d0b029904c49d4d1b85540b989a86435dfb80c0a89f7efb
   id: adf8f4fb55456ba91d0b029904c49d4d1b85540b989a86435dfb80c0a89f7efb
-  path: e9a1a0c9104ba4a59b0f60b4ecc9a74e242a3e9c3595b0b5fbe47ef9bc2acb83
+  path: bc40a2cf7f07195511ee8c26cdc93417e29d8bad1b3299d3a82b78de92c055e6
   status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
   description: 8ff744befb6ab01cc8fccba3af69cf5a39132dd7eb7d3ad07a85fa886029b08c
   tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
@@ -14,4 +14,8 @@ semantic_tags:
 - source.document.markdown
 - type.desk.repository
 - workspace.desk.registry
-provenance: null
+provenance:
+  by: agent
+  at: '2026-11-15T17:35:28Z'
+  authority: generated
+  via: save_document_payload

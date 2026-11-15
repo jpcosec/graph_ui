@@ -1,11 +1,11 @@
 name: repo-deskops
 path: desk/registry/repo-deskops.md
-source_hash: 013de0da08dcac7ebb617212d0beaa83e63b2345f8fdb34559ab23fc7ad7bad7
-content_hash: 33902eeab2598a5c4b1eda8456cc2be16f96af5c5e6eb31cf82f78a1168000cf
+source_hash: 44ea93bf72c12668813c662f6bdca8406a3c7ac33ea2cdcfcdda465b02e38158
+content_hash: a8fdac50276b3753c5f5bb00375e598658814ca0a25cb43c879a48dda3b2d9ae
 field_hashes:
   name: be1a918d36a26b50ff05a32144905fa0851e3a2c55c93b05726d8a3bab97b3e7
   id: be1a918d36a26b50ff05a32144905fa0851e3a2c55c93b05726d8a3bab97b3e7
-  path: 771b62ea8dfafce924f6e785e66313a8ed6da8926db0aad293e2e5483cc4ef9e
+  path: d9cfa49f009fd5fa222cf1158421c0fe20c2ca357d347b2b8eab3845274313a3
   status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
   description: f1abb7cf41d6b4703b3216ff4e812950ebc75240c64593d9dd53c0a52ead258a
   tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
@@ -14,4 +14,8 @@ semantic_tags:
 - source.document.markdown
 - type.desk.repository
 - workspace.desk.registry
-provenance: null
+provenance:
+  by: agent
+  at: '2026-11-15T17:35:25Z'
+  authority: generated
+  via: save_document_payload

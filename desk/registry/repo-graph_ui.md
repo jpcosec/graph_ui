@@ -1,8 +1,13 @@
 ---
+sldb:
+  by: agent
+  at: '2026-11-15T17:35:09Z'
+  authority: generated
+  via: save_document_payload
 # repo-xxx
 id: graph_ui
 # Relative path to repository
-path: /home/jp/proyectos/SLDB_1/UIs/graph_ui
+path: .
 # active | maintenance | archived
 status: active
 # e.g., type:tool, layer:infra

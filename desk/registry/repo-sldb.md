@@ -1,8 +1,13 @@
 ---
+sldb:
+  by: agent
+  at: '2026-11-15T17:35:28Z'
+  authority: generated
+  via: save_document_payload
 # repo-xxx
 id: sldb
 # Relative path to repository
-path: /home/jp/proyectos/SLDB_1/sldb
+path: ../../sldb
 # active | maintenance | archived
 status: active
 # e.g., type:tool, layer:infra

@@ -1,11 +1,11 @@
 name: repo-graph_ui
 path: desk/registry/repo-graph_ui.md
-source_hash: bea367710441ccfe959b64c2374a0118f39a6f81915eceb75fea4a67bd9958df
-content_hash: 025fd620f7ae132b9abd229ee3c5dd39682cc06c2bdbd4ded05f9d4abca04fb0
+source_hash: 0358760f5c6c4a902cecd33d4bb810720b841d8f1b0cd7a711fa2e45eaa78ad2
+content_hash: b0c235022fc57d772682e13107c8df2456676385c8bfa74a1e55053f647f23ef
 field_hashes:
   name: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   id: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
-  path: 7a649c6d7e7255e345a67095f0c61df3b67f0f0f0837fd3acd2164799876ad88
+  path: 7299b59de0b5dad3b622afc3bdf57544e505249c77a6d4254bd14b1fc9a4ade8
   status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
   description: 09d5541e8b4974c9a4471667c420213785bab047afb3d16e833003fd6511a9ac
   tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
@@ -14,4 +14,8 @@ semantic_tags:
 - source.document.markdown
 - type.desk.repository
 - workspace.desk.registry
-provenance: null
+provenance:
+  by: agent
+  at: '2026-11-15T17:35:09Z'
+  authority: generated
+  via: save_document_payload

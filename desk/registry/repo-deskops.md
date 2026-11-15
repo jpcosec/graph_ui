@@ -1,8 +1,13 @@
 ---
+sldb:
+  by: agent
+  at: '2026-11-15T17:35:25Z'
+  authority: generated
+  via: save_document_payload
 # repo-xxx
 id: deskops
 # Relative path to repository
-path: /home/jp/proyectos/SLDB_1/deskops
+path: ../../deskops
 # active | maintenance | archived
 status: active
 # e.g., type:tool, layer:infra
