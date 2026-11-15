@@ -177,14 +177,19 @@ def get(server, path):
     return request(server, path)
 
 
+def _is_cache(path) -> bool:
+    """`.sldb_cache/` es cache derivada (H11 la escribe en lecturas), no estado del store ni de los documentos."""
+    return '.sldb_cache' in Path(str(path)).parts
+
+
 def full_state(root: Path) -> dict:
     store, docs = {}, {}
     for p in sorted((root / '.sldb').rglob('*')):
-        if p.is_file():
+        if p.is_file() and not _is_cache(p.relative_to(root)):
             store[str(p.relative_to(root))] = sha(p.read_bytes())
     for p in sorted(root.rglob('*')):
         rel = p.relative_to(root)
-        if rel.parts[0] in ('.git', '.sldb') or p.is_dir() or p.is_symlink():
+        if rel.parts[0] in ('.git', '.sldb') or _is_cache(rel) or p.is_dir() or p.is_symlink():
             continue
         docs[str(rel)] = sha(p.read_bytes())
     git = None
@@ -679,7 +684,10 @@ class RealServer:
 def file_effects(events: list) -> list:
     """Efectos sobre archivos y directorios; los pipes a subprocesos (git) no lo son."""
     ignore = {'open_write_pipe', 'open_read_md', 'SERVER_START', 'CONTROL_BEGIN', 'CONTROL_END'}
-    return [e for e in events if e['k'] not in ignore]
+    def in_cache(e):
+        d = e['d'] if isinstance(e['d'], list) else [e['d']]
+        return any(_is_cache(x) for x in d if isinstance(x, str))
+    return [e for e in events if e['k'] not in ignore and not in_cache(e)]
 
 
 def mtime_state(root: Path) -> dict:
@@ -687,7 +695,7 @@ def mtime_state(root: Path) -> dict:
     state = {}
     for p in sorted(root.rglob('*')):
         rel = p.relative_to(root)
-        if rel.parts[0] == '.git' or p.is_symlink():
+        if rel.parts[0] == '.git' or _is_cache(rel) or p.is_symlink():
             continue
         state[str(rel)] = 'dir' if p.is_dir() else (sha(p.read_bytes()), p.stat().st_mtime_ns)
     return state

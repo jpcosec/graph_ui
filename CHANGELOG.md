@@ -2,6 +2,7 @@
 
 ## Sin publicar (0.1.0)
 
+- Tests de GET sin efectos: ignoran `.sldb_cache/` (cache derivada que sldb H11 escribe en lecturas) en snapshots y en el audit hook.
 - Python 3.12 o superior (`requires-python >=3.12`): 3.10 llega a fin de vida. La CI corre
   pytest, `node --test` y los e2e en 3.12 y 3.13.
 - CI en GitHub Actions (`.github/workflows/ci.yml`): mindmap (pytest + `node --test`),

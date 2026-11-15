@@ -62,11 +62,16 @@ def sha(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def _is_cache(path) -> bool:
+    """`.sldb_cache/` es cache derivada (H11 la escribe en lecturas), no estado del store ni de los documentos."""
+    return '.sldb_cache' in Path(str(path)).parts
+
+
 def snapshot(root: Path, *extra: Path) -> dict[str, str]:
     """sha256 de todos los archivos bajo .sldb y de los archivos extra."""
     files = {}
     for p in sorted((root / '.sldb').rglob('*')):
-        if p.is_file():
+        if p.is_file() and not _is_cache(p.relative_to(root)):
             files[str(p.relative_to(root))] = sha(p.read_bytes())
     for p in extra:
         files[str(p)] = sha(p.read_bytes())
@@ -422,7 +427,7 @@ def tree_hashes(root: Path) -> dict[str, str]:
     out = {}
     for p in sorted(root.rglob('*')):
         rel = p.relative_to(root)
-        if rel.parts[0] in ('.git', '.sldb') or p.is_dir() or p.is_symlink():
+        if rel.parts[0] in ('.git', '.sldb') or _is_cache(rel) or p.is_dir() or p.is_symlink():
             continue
         out[str(rel)] = sha(p.read_bytes())
     return out
@@ -437,7 +442,7 @@ def git_state(root: Path) -> tuple[str, str]:
 def full_state(root: Path) -> dict:
     store = {}
     for p in sorted((root / '.sldb').rglob('*')):
-        if p.is_file():
+        if p.is_file() and not _is_cache(p.relative_to(root)):
             store[str(p.relative_to(root))] = sha(p.read_bytes())
     return {'store': store, 'docs': tree_hashes(root), 'git': git_state(root)}
 
