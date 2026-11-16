@@ -1,0 +1,36 @@
+name: review-task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia-bundle-1
+path: desk/reviews/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia/bundle-1.md
+source_hash: 2d225638ef672e9c604a2ab990171a5e149cc204ac8b5d7a6a20bdd8be489c33
+content_hash: acdbca27b5a7bd5a9174863841cbff22ee4485ef306f904965394b11a33dc7e1
+field_hashes:
+  id: bd2baf7f463008016bd86437fa601baf34bb02c1b67dfeaaa2a351674806eb51
+  title: 56badfe0b0e3575b7c39ed687aa64f97b0caa80176a3b098a782fa304461786a
+  kind: 4c522949265daa3973b2389b594a235b5c6e47c70d2af6e23bd14f8173f56280
+  fact: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  value: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  subject: bbf16c70af61fcdc29b91dce3e42f8def30ded995894733b5755f3b352ea4148
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 6874c40de9971944b9706ccc769074b7f77cb595ed78bafba748db5266461238
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: 034d9fae157798af27c25a8a20e2f76670ddffc8ca2f5d7fe2ddedf5adeb6e1c
+  input_sha256: 999f9de215aec74359510f2c6ae33aae92e81384fec3d4cbe644098ae6d698fa
+  output_sha256: 3e1c8cfce52d321fef8e88532a5201333ab89f6f196d3e05f804cfe12d605c63
+  verdict: d5a7606c75f86f5046e5c8312a9819e4778be8ab33a7e8950d62f7ba620684fe
+  reason: f433aea0a64d5c84b858981afd111d853d6fedcf6bdef84db61150d3fc238e6e
+  created_at: b14492cd01075d376443397e7131ba9454cb7d4859fa1dfe4d957252c88a12aa
+  disposed_at: 02fecec1026abe88f37a8a6c830b9ef3520ff137585e7ba686e8b4625f8ead7c
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: 4e2ea6351e0cfe6139a1e5c7f1feae4e785c92e42cc38d3526dd3662b27f6455
+  disposition: 0841933deb0c3a7d0c82b5727f3e311ce60c3b747f966ce8a58a93a9db6b4a5f
+  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+- workspace:desk
+provenance:
+  by: agent
+  at: '2026-11-16T19:16:21Z'
+  authority: generated
+  via: save_document_payload

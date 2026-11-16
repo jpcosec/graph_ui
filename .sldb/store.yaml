@@ -331,6 +331,10 @@ include:
     name: review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-evidence-atom-1
   - path: desk/reviews/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/evidence-materialization-1.md
     name: review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-evidence-materialization-1
+  - path: desk/reviews/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia/preflight-1.md
+    name: review-task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia-preflight-1
+  - path: desk/reviews/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia/bundle-1.md
+    name: review-task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia-bundle-1
 - model: MaterializationContractDoc
   paths:
   - desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md
