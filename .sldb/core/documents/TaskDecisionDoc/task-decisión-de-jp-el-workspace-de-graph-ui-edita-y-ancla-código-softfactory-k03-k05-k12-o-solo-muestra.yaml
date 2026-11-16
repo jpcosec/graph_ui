@@ -1,16 +1,16 @@
 name: task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra
 path: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md
-source_hash: b07cfdedd46ec50ce4a55f1c89958f987ee6060656f450530478984d7e975538
-content_hash: 39869cbb3b1088d4bd0d9a7c94c5a0feff914e0bc3f2b3f43739b3dc6ebca6a4
+source_hash: ae33beaeb8369fee3a3978eff903f96b4aa54ba8f77fbb3bbadeb6b4e1fa0c7d
+content_hash: 08c5211f484726f2a37655f3e6fee2146120c5dec2a14814af23c040dd7d5898
 field_hashes:
   title: eb2b882d0d3aa62cc54122422ac1fbe115f551fd50a5b7e91dda7d7ac8e3a571
   id: 0fdcff7ebb6a6c13a66cc507955eb8413ce6340dd82729c4327afd8c311db94d
   status: 6ae048f08fcab44bfbc8463f074bfdb40f94c6bdf56d3aad9a7e1c05e5d5b5c1
   summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
-  tags: 97dc0408038530d73322d1543c5d5c1e8e0b0f6039702ceb4a4cdb7214e119e2
+  tags: cdc41ecb0faeea4fd54d89a0af9704fa317051793e9578e08cc68ba3342d3caa
   current_node: ff5161892aac34735bf10c411f7230b62b7b56446e230a5d26fb75afde4704b6
   history: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
-  why: 261e62e7fe91f1aa769a0cf75a5af628b821fa8f66d4985658514a5ffff09bc0
+  why: 2c69241bb33ccc04ee1175bcc4733bb333e07042837d32144429f23231d0f091
   goal: c032e8dbcc54c8bd1bd94c9b0d989421e8d4fef5d81ff0d57db6904c8a6cf9c3
   scope: 18f909c50c57e014702f64512915df12c248a5cf920160a25f320abf967125ce
   references: 7adaa6f37ee398bed64c4ef9b6347d1e5541842a4bba81af02ced65763c5f88b
@@ -27,7 +27,7 @@ field_hashes:
   from_drawer: 8826ea4b18c6250b00158c720ede7c9ec1a976c9eeaf3a9c3f84bd557a24177b
 semantic_tags:
 - artifact:task
-- host:local
+- host:robocop2
 - representation.markdown
 - source.document.markdown
 - type.workflow.task
@@ -35,6 +35,6 @@ semantic_tags:
 - workspace:desk
 provenance:
   by: agent
-  at: '2026-11-16T03:46:29Z'
+  at: '2026-11-16T12:43:41Z'
   authority: generated
   via: save_document_payload

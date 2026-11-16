@@ -249,6 +249,12 @@ include:
     name: review-task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot-bundle-1
   - path: desk/reviews/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/bundle-2.md
     name: review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-bundle-2
+- model: RunDoc
+  paths:
+  - path: runs/subagents/20261116-ir13-executor-a1/run.md
+    name: run-deskops-e-687036bb547d
+  - path: runs/subagents/20261116-ir13-tester-a1/run.md
+    name: run-deskops-t-3feb27738750
 graph_backend: networkx
 policy: {}
 tag_models:

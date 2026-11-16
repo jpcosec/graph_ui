@@ -1,0 +1,18 @@
+name: 20261116-011047-suggestion-deskops-ui-la-ui-del-desk-ya-muestra-los-findings-de-reglas-y-los-recibos-gates-g-gc-gates-y-g-gc-receipts
+path: desk/inbox/20261116-011047-suggestion-deskops-ui-la-ui-del-desk-ya-muestra-los-findings-de-reglas-y-los-recibos-gates-g-gc-gates-y-g-gc-receipts.md
+source_hash: 984e601bb253569c68b712b6758402ec69c39db7dc9d4ff67b57e30eb9f2725f
+content_hash: d768baf599406edcbcd21dd01322935095ab9c871f3fe88a55d2f223b40293a5
+field_hashes:
+  kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
+  sender_project: be1a918d36a26b50ff05a32144905fa0851e3a2c55c93b05726d8a3bab97b3e7
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: 6cb9d34bd419ecd7cc3e52720533cdb29a498f9abbc8d99178919e5ed3ba7689
+  status: 35ff74aeea25311f4fe759a6b762c8cd41a79adb23dd5615b92cf215175a63e5
+  title: ba56e41d5472665919a2a546ad30cf3f9db9f6f1fb78d1401e792ad69031a0c5
+  body: 3e56924d2858459b4ece0dbb005ee1c6064b56ebb444833249126db07f851b9f
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
+provenance: null

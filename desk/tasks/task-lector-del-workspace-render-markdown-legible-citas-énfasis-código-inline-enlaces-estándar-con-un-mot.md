@@ -1,7 +1,7 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-16T03:49:57Z'
+  at: '2026-11-16T12:43:52Z'
   authority: generated
   via: save_document_payload
 id: task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot
@@ -10,7 +10,7 @@ summary: ''
 tags:
 - workspace:desk
 - artifact:task
-- host:local
+- host:robocop2
 current_node: ritual-execution
 history: []
 references:

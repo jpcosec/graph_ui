@@ -1,7 +1,7 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-16T03:46:29Z'
+  at: '2026-11-16T12:43:41Z'
   authority: generated
   via: save_document_payload
 id: task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra
@@ -10,7 +10,7 @@ summary: ''
 tags:
 - workspace:desk
 - artifact:task
-- host:local
+- host:robocop2
 current_node: ritual-execution
 history: []
 references:
@@ -33,7 +33,7 @@ from_drawer: desk/drawer/tasks/task-edicion-y-anclaje-de-codigo-con-tree-sitter-
 
 _Explain why this task exists or the business driver behind it._
 
-El drawer guardaba desde el 2026-10-31 "Edición y anclaje de código con Tree-sitter e identidad ante refactor" (softfactory_spec K03, K05, K12 / U03, U05), a la espera de que el store cerrara el contrato de anclas. Ese contrato ya existe en sldb (docs/architecture/code-anchoring.md: CodeAnchorDoc, `code:<ruta>::<qualified_name>`, fingerprints signature/shape/docstring/body, `sldb anchors record` y `anchors check --record` con reconexión ante renombres). Lo que falta no es técnico: el 2026-11-04 JP fijó que el producto es la UI de deskops y que el explorador del store (el workspace) sobrevive solo como vista "inspect" secundaria. Editar código desde el workspace contradice o amplía esa decisión, y solo JP puede resolverlo.
+El drawer guardaba desde el 2026-10-31 "Edición y anclaje de código con Tree-sitter e identidad ante refactor" (softfactory_spec K03, K05, K12 / U03, U05), a la espera de que el store cerrara el contrato de anclas. Ese contrato ya existe en sldb (docs/architecture/code-anchoring.md: CodeAnchorDoc, `code:<ruta>::<qualified_name>`, fingerprints signature/shape/docstring/body, `sldb anchors record` y `anchors check --record` con reconexión ante renombres). Lo que falta no es técnico: decidir cuánto del trabajo con código asume graph_ui, que es un producto distinto de la UI de deskops y con función propia. Es una decisión de producto de JP.
 
 ## Goal
 

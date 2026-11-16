@@ -1,18 +1,19 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-16T03:48:41Z'
+  at: '2026-11-16T12:43:48Z'
   authority: generated
   via: save_document_payload
 id: task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com
-status: draft
+status: active
 summary: ''
 tags:
 - workspace:desk
 - artifact:task
-- host:local
-current_node: ritual-execution
-history: []
+- host:robocop2
+current_node: ritual-testing
+history:
+- task_activates
 references:
 - desk/inbox/20261115-224814-suggestion-ir13-pide-migrar-graph-ui-de-spec2viz-a-sldb-resolve-view-sync-de-specs-viewdoc-pilotos.md
 - ../../IR/docs/spec2viz/matriz-de-cobertura.md

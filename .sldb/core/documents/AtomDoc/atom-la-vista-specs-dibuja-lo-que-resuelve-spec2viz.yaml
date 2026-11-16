@@ -1,20 +1,24 @@
 name: atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz
 path: desk/atoms/atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz.md
-source_hash: f9f87d2100fc0bba43fb970e3eb838fce2bad1f63d24309bc1d16e4c6f992e25
-content_hash: 0810d1e971ed0bb717ebe85ec6203af1cc8c2e5796349ad5b094ceea00bd8658
+source_hash: c79e7a01b6284a7a40a31bafb46bd7d361a82385d4d869a4500b3a7728ffbdc8
+content_hash: 00a0fa997c95732d4f9bae7a323c75cff03460a6cbabadc8666bdb0e712a6af8
 field_hashes:
   id: 0d2af22781bade08ae97ccf4062b1faf3a20193ce6867f573189c3c532f459b0
-  title: 36642d2f7d34ee51db1016530d1d117a94d2eafa6c7a4e1b85c9648ca057a827
+  title: d6514168280ca1e68522fdbebbb2bf768df5843a8e97cae7f1f19f6794012ddb
   five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
-  answer: 0d48bcd1bb837dae6acef7092fa56ad181fa07990c9cfb01a3add76f5b91ebeb
-  tags: 95cfbfb24cba54260a348f9cf2acbb4ea435055049f92478d2f30ca843b87918
+  answer: 4b8c878e5f7d4524da987a0afcf42a2318c5ef5ea0680fb0d0792e2a9f5e6c7b
+  tags: 82409f9bede95d7767c3822e5753d2d7e74addc08c3bf7fbc1991075d4cebd39
   provenance: ace108ec27a6c9b40283e9df1dfb211fb779645586846f1a7396581a08983b20
 semantic_tags:
 - representation.markdown
 - source.document.markdown
 - system:graph_ui
-- system:spec2viz
+- system:sldb
 - topic:notation
 - type.knowledge.atom
 - workspace.desk.atoms
-provenance: null
+provenance:
+  by: agent
+  at: '2026-11-16T05:08:10Z'
+  authority: generated
+  via: save_document_payload

@@ -1,20 +1,20 @@
 name: task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia
 path: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
-source_hash: c3cb00d50dee77045070b08a4ad04b809ec01d20c3c1a66fa455ff6c70d676e1
-content_hash: 044aa4012c2f47c1ea4d5bc82cc1686c8d0f93acb272157f61f77937a375d8be
+source_hash: 76099e80e73019d2dbb86918976af13124ba28a78aaab65a9d6202e596f91b86
+content_hash: 40ab12413b2f84d6049687cadaa426c608330991d8be63914f78291ae1b5b4ee
 field_hashes:
   title: 16b1bc2afc4bb0427d985ce0f314846709882f95bc936a5861b43c05eecc3be2
   id: 4a60ed58e76d73ba626ab3da8232ade4a02502f003ca9d61cba82f34eb119b79
   status: 6ae048f08fcab44bfbc8463f074bfdb40f94c6bdf56d3aad9a7e1c05e5d5b5c1
   summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
-  tags: 97dc0408038530d73322d1543c5d5c1e8e0b0f6039702ceb4a4cdb7214e119e2
+  tags: cdc41ecb0faeea4fd54d89a0af9704fa317051793e9578e08cc68ba3342d3caa
   current_node: ff5161892aac34735bf10c411f7230b62b7b56446e230a5d26fb75afde4704b6
   history: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
-  why: 314415908a32b700cf66cfd7a2cfd4df6e50d9b903f5b22f4583058f51b0533b
+  why: aac4be6af41c1c08952d775ffc74ea29feb6f3aee7437c2a598b094e78aa9a10
   goal: 167232931a421385b47279d3b3bc8c3d3108d4220e7e18bcbfb90c2c2c83842d
-  scope: fa04aaa51c3476768bd897c5b24cf67875a8036873205ea60f43916905648bd1
-  references: ad78858457941621d11b34c619184f88d235be5d5b0956c5f928a580a37bf896
-  depends_on: 5afe1ab1b1273bba7af732906a527363ca3d9330182c365ef82b4adadc297153
+  scope: f1b716ac23af821498b9ce40f8419505bcb06c8a8c5b035da3cf45de3bed6e6c
+  references: 5863c720922a35bd5aada8c457c8ba6e7d403b501b04366ca4711fe3aaafe864
+  depends_on: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   pills: 152ff78e6e9a43dc8fe8ec134273a101a6596f567c90e8b9774af04fd67d016c
   files: 3bb2ecc6277730abe0e35c477c62491ef3e235dc43e0227867aee038a081d5bd
   implementation_path: e8cfbb40a2329f8cc061b11678de9ec0c9cdb0f2319e29ef32154b688d8dcbb1
@@ -27,7 +27,7 @@ field_hashes:
   closeout_evidence: 3695151359c1729d0f59ab1552be4395c8102838b1491792cff26b15b8410264
 semantic_tags:
 - artifact:task
-- host:local
+- host:robocop2
 - representation.markdown
 - source.document.markdown
 - type.workflow.task
@@ -35,6 +35,6 @@ semantic_tags:
 - workspace:desk
 provenance:
   by: agent
-  at: '2026-11-16T03:46:35Z'
+  at: '2026-11-16T12:43:45Z'
   authority: generated
   via: save_document_payload
