@@ -286,12 +286,6 @@ include:
     name: review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-commit-2
   - path: desk/reviews/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/evidence-materialization-1.md
     name: review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-materialization-1
-- model: RunDoc
-  paths:
-  - path: runs/subagents/20261116-ir13-executor-a1/run.md
-    name: run-deskops-e-687036bb547d
-  - path: runs/subagents/20261116-ir13-tester-a1/run.md
-    name: run-deskops-t-3feb27738750
 - model: MaterializationContractDoc
   paths:
   - desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md
