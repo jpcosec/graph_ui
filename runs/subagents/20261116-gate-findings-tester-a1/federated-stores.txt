@@ -1,0 +1,5 @@
+/dev/shm/gt1-ci/UIs/graph_ui/.sldb -> ["(PosixPath('/dev/shm/gt1-ci/UIs/graph_ui/.sldb'), None)", "(PosixPath('/dev/shm/gt1-ci/deskops/.sldb'), 'deskops')"]
+/dev/shm/gt1-ci-head/UIs/graph_ui/.sldb -> ["(PosixPath('/dev/shm/gt1-ci-head/UIs/graph_ui/.sldb'), None)", "(PosixPath('/dev/shm/gt1-ci-head/deskops/.sldb'), 'deskops')"]
+/dev/shm/gt1-ci/deskops/.sldb -> ["(PosixPath('/dev/shm/gt1-ci/deskops/.sldb'), None)"]
+/dev/shm/gt1-probe/desk/.sldb -> ["(PosixPath('/dev/shm/gt1-probe/desk/.sldb'), None)", "(PosixPath('/dev/shm/gt1-ci/deskops/.sldb'), 'deskops')"]
+/mnt/ssd/proyectos/SLDB_1/deskops/.sldb -> ["(PosixPath('/mnt/ssd/proyectos/SLDB_1/deskops/.sldb'), None)", "(PosixPath('/mnt/ssd/proyectos/SLDB_1/sldb/.sldb'), 'sldb')", "(PosixPath('/mnt/ssd/proyectos/SLDB_1/spec2viz/.sldb'), 'spec2viz')", "(PosixPath('/mnt/ssd/proyectos/SLDB_1/pron/.sldb'), 'pron')", "(PosixPath('/mnt/ssd/proyectos/SLDB_1/scion/.sldb'), 'scion')", "(PosixPath('/mnt/ssd/herramientas/deskops/.sldb'), 'deskops')", "(PosixPath('/mnt/ssd/herramientas/sldb/.sldb'), 'sldb')"]

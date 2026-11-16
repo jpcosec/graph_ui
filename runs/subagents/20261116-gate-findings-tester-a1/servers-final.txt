@@ -1,0 +1,2 @@
+1945452 129528 /home/robocop/.local/share/uv/tools/deskops/bin/python /home/robocop/.local/bin/sldb serve --port 18891 --store /mnt/ssd/proyectos/SLDB_1/deskops/.sldb
+1946884 169632 /home/robocop/.local/share/uv/tools/deskops/bin/python frontends/desk/serve.py 8091 --root ../../deskops --sldb-url http://127.0.0.1:18891

@@ -1,0 +1,48 @@
+## master...origin/master [ahead 1]
+ M ".sldb/core/documents/TaskCodeDoc/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\303\263digo-y-mensaje-no-solo-cumple-o-pen.yaml"
+ M .sldb/core/models/MaterializationContractDoc.yaml
+ M .sldb/core/models/ReviewDoc.yaml
+ M .sldb/core/models/TaskCodeDoc.yaml
+ M .sldb/core/store_index.yaml
+ M .sldb/runtime/graphs/deskops.kg.json
+ M .sldb/runtime/graphs/deskops.nx.json
+ M .sldb/store.yaml
+ M "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\303\263digo-y-mensaje-no-solo-cumple-o-pen.md"
+ M frontends/mindmap/index.html
+ M frontends/mindmap/views/workspace/node/reader.mjs
+ M frontends/mindmap/views/workspace/node/workspace-view.js
+ M frontends/mindmap/views/workspace/node/workspace.css
+ M tests/e2e_mindmap_workspace.py
+ M tests/mindmap-workspace-reader.test.mjs
+?? .sldb/core/documents/MaterializationContractDoc/materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view.yaml
+?? ".sldb/core/documents/ReviewDoc/review-task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\303\263digo-y-mensaje-no-solo-cumple-o-pen-evidence-atom-1.yaml"
+?? ".sldb/core/documents/ReviewDoc/review-task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\303\263digo-y-mensaje-no-solo-cumple-o-pen-evidence-commit-1.yaml"
+?? ".sldb/core/documents/ReviewDoc/review-task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\303\263digo-y-mensaje-no-solo-cumple-o-pen-evidence-materialization-1.yaml"
+?? ".sldb/core/documents/ReviewDoc/review-task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\303\263digo-y-mensaje-no-solo-cumple-o-pen-evidence-tests-1.yaml"
+?? desk/materializations/materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view.md
+?? "desk/reviews/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\303\263digo-y-mensaje-no-solo-cumple-o-pen/evidence-atom-1.md"
+?? "desk/reviews/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\303\263digo-y-mensaje-no-solo-cumple-o-pen/evidence-commit-1.md"
+?? "desk/reviews/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\303\263digo-y-mensaje-no-solo-cumple-o-pen/evidence-materialization-1.md"
+?? "desk/reviews/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\303\263digo-y-mensaje-no-solo-cumple-o-pen/evidence-tests-1.md"
+?? runs/subagents/20261116-124617/
+?? runs/subagents/20261116-124651/
+?? runs/subagents/20261116-124713/
+?? runs/subagents/20261116-124733/
+?? runs/subagents/20261116-125047/
+?? runs/subagents/20261116-125323/
+?? runs/subagents/20261116-125341/
+?? runs/subagents/20261116-125357/
+?? runs/subagents/20261116-125615/
+?? runs/subagents/20261116-125634/
+?? runs/subagents/20261116-125651/
+?? runs/subagents/20261116-125703/
+?? runs/subagents/20261116-gate-findings-executor-a1/
+?? runs/subagents/20261116-gate-findings-tester-a1/
+?? runs/subagents/20261116-ir13-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a2/
+?? runs/subagents/20261116-ir13-tester-a1/
+?? runs/subagents/20261116-ir13-tester-r2/
+?? runs/subagents/20261116-lector-executor-a1/
+?? runs/subagents/20261116-r2-reviews/
+?? runs/subagents/20261116-sldb-serve-rss/
+?? runs/subagents/20261116-triaje-graph-ui/

@@ -1,0 +1,9 @@
+Task: task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen
+Title: UI del desk: cada gate muestra los findings de sus reglas (nivel, código y mensaje), no solo cumple o pendiente
+Status: ready_for_testing
+Current node: ritual-closeout
+Task type: task.code
+Effective pills:
+- desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md
+Lifecycle gates:
+- task_completes -> complete: open [status = "ready_for_testing"]

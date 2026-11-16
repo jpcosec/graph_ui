@@ -1,0 +1,36 @@
+name: review-task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen-evidence-materialization-1
+path: desk/reviews/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen/evidence-materialization-1.md
+source_hash: c96ae88412a2e3db012a5c65d440f5d42d2cbe8544cc9a1d282796645e299135
+content_hash: 0fa23c6a142c8b5c0ad9dcf4166872cc25b1d93859a03bba7581d9624fbea0a4
+field_hashes:
+  id: 1a4d1bd6fcff19de437fffab4feac111616a6569c5a90e7a1e39be0c5abe5a55
+  title: ebd3bc34574defc6d69ed7dfe4a5ff6e58fdc062d4d156cda6966983d804a2f3
+  kind: edecec53ab11f560816e75a17681eb83886beace01d7fb927d99707d3d031aac
+  fact: b77d8cf6414796c495587568e836eb101f2c47c6cbab025c9e93d24db5ead67b
+  value: 36c8f2a35e0f45fe2597f441209965169ccf8af47482008ebc82d6bd6c47cc3b
+  subject: 41ba81ccae2689691153abcb55863f02df2123d3c7b841c8456810e368da07b3
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 9eeef991471c47a0f748cc581c93b036c7560af99f0fcdf1ed75357a5551f1ac
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  input_sha256: 86e3eed94cbd8fb37603f4ee7ae395cd02e3b9469fc648225c6f9514fdcdf7f7
+  output_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
+  reason: 9dcd1882091f2faebb5d09b39b70fe0ae4e7975c0a83243a9c227ee374100a6e
+  created_at: c0586da6461234f4772375f35591b3837eadc1802abf99ef07938912490b6724
+  disposed_at: c0586da6461234f4772375f35591b3837eadc1802abf99ef07938912490b6724
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: 3e2d6fd0cca1d8dc7393d586c1b731115a10bcd05bc7de8a8f0325e8d238d7cf
+  disposition: 678f0bec6eebf45eddb1c431f3f2f98fe66778b3cb4a5c3c9ecf67c7e8cf5d31
+  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+- workspace:desk
+provenance:
+  by: agent
+  at: '2026-11-16T16:26:56Z'
+  authority: generated
+  via: save_document_payload

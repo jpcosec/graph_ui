@@ -1,0 +1,95 @@
+Running as unit: run-u79993.scope; invocation ID: c4ebff81f5fd4c54883fac0d127a5be6
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________________ test_task_gate_shows_its_rule_findings ____________________
+
+desk = {'url': 'http://127.0.0.1:39747/', 'root': PosixPath('/dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e'), 'ops': <deskops.operations.DeskopsOperations object at 0x77c9b5879400>, 'first': 'task-preparar-la-vista', ...}
+browser_page = <Page url='http://127.0.0.1:39747/#/task?id=task-tarea-sin-recibos'>
+
+    def test_task_gate_shows_its_rule_findings(desk, browser_page):
+        """A task.code without its preflight receipt: its gate lists the activation-rule finding."""
+        page, root, ops = browser_page, desk['root'], desk['ops']
+        held = ops.create_task_bundle({
+            'title': 'Tarea sin recibos', 'why': 'Porque falta el recibo.', 'goal': 'Objetivo: retenida.', 'scope': 'Solo el desk temporal.',
+            'implementation_path': 'Ninguna.', 'validation': ['pytest -q tests/e2e_desk_ui.py'],
+            'done_when': 'El gate muestra su finding.', 'task_type': 'code',
+        }).task_id
+        view = deskops_view.task_view(root, held)['task']
+        findings = [f for gate in view['gates'] for f in gate.get('findings', [])]
+        assert any(f['code'] == 'rules/rule-activation-task-code' for f in findings), view['gates']
+    
+        page.goto(f"{desk['url']}#/task?id={held}")
+        expect(page.get_by_test_id('task-doc').locator('.doc-title')).to_have_text(view['title'])
+>       _expect_gate_findings(page.get_by_test_id('inspector-gate'), view['gates'])
+
+tests/e2e_desk_ui.py:247: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+gates_locator = <Locator frame=<Frame name= url='http://127.0.0.1:39747/#/task?id=task-tarea-sin-recibos'> selector='internal:testid=[data-testid="inspector-gate"s]'>
+view_gates = [{'relation_type': 'task_activates', 'target': 'ritual-testing', 'condition': '', 'holds': True, ...}]
+
+    def _expect_gate_findings(gates_locator, view_gates):
+        """Each rendered gate lists exactly the findings `deskops view` gives it, in order."""
+        expect(gates_locator).to_have_count(len(view_gates))
+        for index, gate in enumerate(view_gates):
+            items = gates_locator.nth(index).get_by_test_id('gate-finding')
+            findings = gate.get('findings', [])
+>           expect(items).to_have_count(len(findings))
+E           AssertionError: Locator expected to have count '1'
+E           Actual value: 0 
+E           Call log:
+E             - Expect "to_have_count" get_by_test_id("inspector-gate").first.get_by_test_id("gate-finding") with timeout 60000ms
+E             - waiting for get_by_test_id("inspector-gate").first.get_by_test_id("gate-finding")
+E               123 × locator resolved to 0 elements
+E                   - unexpected value "0"
+
+tests/e2e_desk_ui.py:224: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Linked /dev/shm/gt1-ci/deskops/.sldb as deskops in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb.
+Inheriting CrossroadDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting AtomDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting BoardDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting PillDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting RepositoryDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting ReviewDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting RitualDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting RoleDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting RunDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting StepDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting TaskDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/.sldb...
+Delivered message from graph_ui to desk-e2e at /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/desk/inbox/20261116-131927-suggestion-idea-diferida.md
+Tracked '20261116-131927-suggestion-idea-diferida'
+Delivered message from graph_ui to desk-e2e at /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/desk/inbox/20261116-131928-suggestion-pregunta-abierta.md
+Tracked '20261116-131928-suggestion-pregunta-abierta'
+Delivered message from graph_ui to desk-e2e at /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/desk/inbox/20261116-131929-suggestion-nota-que-cambia.md
+Tracked '20261116-131929-suggestion-nota-que-cambia'
+Created drawer task candidate task-idea-diferida
+Deleted source file /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/desk/inbox/20261116-131927-suggestion-idea-diferida.md
+Path: /dev/shm/gt1-bt/test_task_gate_shows_its_rule_0/desk-e2e/desk/drawer/tasks/task-idea-diferida.md
+------------------------------ Captured log setup ------------------------------
+INFO     deskops:tasks.py:303 Advanced task task-probar-la-vista to node ritual-testing
+=============================== warnings summary ===============================
+../../../venv-gt1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-gt1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+tests/e2e_desk_ui.py::test_task_gate_shows_its_rule_findings
+  /dev/shm/venv-gt1/lib/python3.13/site-packages/pydantic/main.py:280: DeprecationWarning: ProjectGraphConfig(closed_document=...) is deprecated: declare `closed:` on the document surface
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 failed, 7 deselected, 2 warnings in 96.73s (0:01:36)

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "edge_count": 131,
+    "edge_count": 92,
     "extractor": "deskops_kgdb_snapshot_v1",
     "node_count": 633,
     "runtime_output_path": ".sldb/runtime/graphs/deskops.kg.json",
@@ -6180,18 +6180,6 @@
           },
           "relation_type": "tasks",
           "target_id": "task:task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-p\u00fablica-de-sldb-read-store-extract-payload-en"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "frontmatter",
-            "provenance_path": "desk/tasks/Board.md",
-            "role": "tasks",
-            "source_kind": "declared"
-          },
-          "relation_type": "tasks",
-          "target_id": "task:task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com"
         },
         {
           "metadata": {
@@ -12901,6 +12889,42 @@
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
             "provenance_locator": "frontmatter",
+            "provenance_path": "desk/materializations/materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view.md",
+            "role": "references",
+            "source_kind": "declared"
+          },
+          "relation_type": "references",
+          "target_id": "atom:atom-deskops-workflow-views-delegate-state-and-gates-to-deskops"
+        }
+      ],
+      "identity": {
+        "node_id": "materialization:materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view",
+        "node_type": "materialization"
+      },
+      "semantics": {
+        "document_id": "materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view",
+        "identity": "materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view",
+        "label": "La UI del desk dibuja estado, gates y findings tal como los entrega deskops view",
+        "path": "desk/materializations/materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view.md"
+      },
+      "source": {
+        "extractor": "deskops_kgdb_snapshot_v1",
+        "provenance": [
+          {
+            "extractor": "desk_doc_nodes_v1",
+            "path": "desk/materializations/materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view.md",
+            "source_kind": "file_metadata"
+          }
+        ]
+      }
+    },
+    {
+      "edges": [
+        {
+          "metadata": {
+            "confidence": "high",
+            "extractor": "desk_declared_edges_v1",
+            "provenance_locator": "frontmatter",
             "provenance_path": "desk/materializations/materialization-pilotos-de-notaci\u00f3n-como-fixtures-propios-de-graph-ui.md",
             "role": "references",
             "source_kind": "declared"
@@ -13405,18 +13429,6 @@
           "metadata": {
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "frontmatter",
-            "provenance_path": "desk/tasks/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-p\u00fablica-de-sldb-read-store-extract-payload-en.md",
-            "role": "depends_on",
-            "source_kind": "declared"
-          },
-          "relation_type": "depends_on",
-          "target_id": "task:task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
             "provenance_locator": "line:29:source-file-reference",
             "provenance_path": "desk/tasks/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-p\u00fablica-de-sldb-read-store-extract-payload-en.md",
             "role": "references",
@@ -13646,522 +13658,6 @@
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
             "provenance_locator": "frontmatter",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "atoms",
-            "source_kind": "declared"
-          },
-          "relation_type": "atoms",
-          "target_id": "atom:atom-c\u00f3mo-corre-la-ci-de-graph-ui"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "frontmatter",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "atoms",
-            "source_kind": "declared"
-          },
-          "relation_type": "atoms",
-          "target_id": "atom:atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "frontmatter",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "atom:atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:28:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "atom:atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:53:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "atom:atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "frontmatter",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "pills",
-            "source_kind": "declared"
-          },
-          "relation_type": "pills",
-          "target_id": "pill:pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:31:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "pill:pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "frontmatter",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "current_node",
-            "source_kind": "declared"
-          },
-          "relation_type": "current_node",
-          "target_id": "ritual:ritual-closeout"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:27:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_mindmap_notation.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:51:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_mindmap_notation.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:80:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_mindmap_notation.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:93:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_mindmap_notation.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:48:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_notation_activity.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:93:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_notation_activity.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:26:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_notation_class.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:45:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_notation_class.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:93:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_notation_class.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:47:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_notation_deployment.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:93:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_notation_deployment.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:50:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_notation_legibility.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:93:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_notation_legibility.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:46:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_notation_sequence.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:93:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_notation_sequence.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:49:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_notation_style.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:93:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_notation_style.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:52:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_review_workbench_views.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:80:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_review_workbench_views.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:93:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_review_workbench_views.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:25:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_ci_workflow.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:23:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_mindmap_notation.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:43:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_mindmap_notation.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:80:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_mindmap_notation.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:92:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_mindmap_notation.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:24:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_mindmap_skin.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:44:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_mindmap_skin.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:80:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_mindmap_skin.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:92:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_mindmap_skin.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:22:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_projection_views.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:42:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_projection_views.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:80:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_projection_views.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:92:source-file-reference",
-            "provenance_path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_projection_views.py"
-        }
-      ],
-      "identity": {
-        "node_id": "task:task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com",
-        "node_type": "task"
-      },
-      "semantics": {
-        "document_id": "task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com",
-        "identity": "task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com",
-        "label": "IR13: migrar graph_ui de spec2viz a sldb.api.notations (resolve_view, sync de specs, ViewDoc, pilotos como fixtures)",
-        "path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md"
-      },
-      "source": {
-        "extractor": "deskops_kgdb_snapshot_v1",
-        "provenance": [
-          {
-            "extractor": "desk_doc_nodes_v1",
-            "path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
-            "source_kind": "file_metadata"
-          }
-        ]
-      }
-    },
-    {
-      "edges": [
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "frontmatter",
             "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
             "role": "atoms",
             "source_kind": "declared"
@@ -14331,6 +13827,30 @@
             "extractor": "desk_declared_edges_v1",
             "provenance_locator": "frontmatter",
             "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\u00f3digo-y-mensaje-no-solo-cumple-o-pen.md",
+            "role": "references",
+            "source_kind": "declared"
+          },
+          "relation_type": "references",
+          "target_id": "atom:atom-deskops-workflow-views-delegate-state-and-gates-to-deskops"
+        },
+        {
+          "metadata": {
+            "confidence": "high",
+            "extractor": "desk_declared_edges_v1",
+            "provenance_locator": "line:25:source-file-reference",
+            "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\u00f3digo-y-mensaje-no-solo-cumple-o-pen.md",
+            "role": "references",
+            "source_kind": "declared"
+          },
+          "relation_type": "references",
+          "target_id": "atom:atom-deskops-workflow-views-delegate-state-and-gates-to-deskops"
+        },
+        {
+          "metadata": {
+            "confidence": "high",
+            "extractor": "desk_declared_edges_v1",
+            "provenance_locator": "frontmatter",
+            "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\u00f3digo-y-mensaje-no-solo-cumple-o-pen.md",
             "role": "pills",
             "source_kind": "declared"
           },
@@ -14341,7 +13861,7 @@
           "metadata": {
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:22:source-file-reference",
+            "provenance_locator": "line:28:source-file-reference",
             "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\u00f3digo-y-mensaje-no-solo-cumple-o-pen.md",
             "role": "references",
             "source_kind": "declared"
@@ -14359,13 +13879,13 @@
             "source_kind": "declared"
           },
           "relation_type": "current_node",
-          "target_id": "ritual:ritual-execution"
+          "target_id": "ritual:ritual-closeout"
         },
         {
           "metadata": {
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:27:source-file-reference",
+            "provenance_locator": "line:23:source-file-reference",
             "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\u00f3digo-y-mensaje-no-solo-cumple-o-pen.md",
             "role": "references",
             "source_kind": "declared"
@@ -14377,7 +13897,7 @@
           "metadata": {
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:52:source-file-reference",
+            "provenance_locator": "line:33:source-file-reference",
             "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\u00f3digo-y-mensaje-no-solo-cumple-o-pen.md",
             "role": "references",
             "source_kind": "declared"
@@ -14389,7 +13909,7 @@
           "metadata": {
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:65:source-file-reference",
+            "provenance_locator": "line:58:source-file-reference",
             "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\u00f3digo-y-mensaje-no-solo-cumple-o-pen.md",
             "role": "references",
             "source_kind": "declared"
@@ -14401,7 +13921,19 @@
           "metadata": {
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:26:source-file-reference",
+            "provenance_locator": "line:71:source-file-reference",
+            "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\u00f3digo-y-mensaje-no-solo-cumple-o-pen.md",
+            "role": "references",
+            "source_kind": "declared"
+          },
+          "relation_type": "references",
+          "target_id": "test_file:tests/e2e_desk_ui.py"
+        },
+        {
+          "metadata": {
+            "confidence": "high",
+            "extractor": "desk_declared_edges_v1",
+            "provenance_locator": "line:24:source-file-reference",
             "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\u00f3digo-y-mensaje-no-solo-cumple-o-pen.md",
             "role": "references",
             "source_kind": "declared"
@@ -14413,7 +13945,7 @@
           "metadata": {
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:52:source-file-reference",
+            "provenance_locator": "line:32:source-file-reference",
             "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\u00f3digo-y-mensaje-no-solo-cumple-o-pen.md",
             "role": "references",
             "source_kind": "declared"
@@ -14425,7 +13957,7 @@
           "metadata": {
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:64:source-file-reference",
+            "provenance_locator": "line:58:source-file-reference",
             "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\u00f3digo-y-mensaje-no-solo-cumple-o-pen.md",
             "role": "references",
             "source_kind": "declared"
@@ -14437,7 +13969,19 @@
           "metadata": {
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:52:source-file-reference",
+            "provenance_locator": "line:70:source-file-reference",
+            "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\u00f3digo-y-mensaje-no-solo-cumple-o-pen.md",
+            "role": "references",
+            "source_kind": "declared"
+          },
+          "relation_type": "references",
+          "target_id": "test_file:tests/test_desk_ui_routes.py"
+        },
+        {
+          "metadata": {
+            "confidence": "high",
+            "extractor": "desk_declared_edges_v1",
+            "provenance_locator": "line:58:source-file-reference",
             "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\u00f3digo-y-mensaje-no-solo-cumple-o-pen.md",
             "role": "references",
             "source_kind": "declared"
@@ -14449,7 +13993,7 @@
           "metadata": {
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:64:source-file-reference",
+            "provenance_locator": "line:70:source-file-reference",
             "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-c\u00f3digo-y-mensaje-no-solo-cumple-o-pen.md",
             "role": "references",
             "source_kind": "declared"
@@ -14672,18 +14216,6 @@
           },
           "relation_type": "current_node",
           "target_id": "ritual:ritual-execution"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "frontmatter",
-            "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
-            "role": "depends_on",
-            "source_kind": "declared"
-          },
-          "relation_type": "depends_on",
-          "target_id": "task:task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com"
         },
         {
           "metadata": {

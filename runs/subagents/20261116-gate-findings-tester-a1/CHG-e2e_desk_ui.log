@@ -1,0 +1,14 @@
+Running as unit: run-u79819.scope; invocation ID: a04e87ab57be4c748403cef9a10051ee
+........                                                                 [100%]
+=============================== warnings summary ===============================
+../../../venv-gt1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-gt1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+tests/e2e_desk_ui.py::test_board_columns_gates_advance_conflict_focus
+  /dev/shm/venv-gt1/lib/python3.13/site-packages/pydantic/main.py:280: DeprecationWarning: ProjectGraphConfig(closed_document=...) is deprecated: declare `closed:` on the document surface
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+8 passed, 2 warnings in 210.20s (0:03:30)

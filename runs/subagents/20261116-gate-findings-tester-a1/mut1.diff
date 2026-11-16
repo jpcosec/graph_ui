@@ -1,0 +1,5 @@
+135,136c135
+<     h('p', {}, 'Condición: ', gate.condition ? h('code', {}, gate.condition) : 'sin condición'),
+<     renderGateFindings(gate, task)))
+---
+>     h('p', {}, 'Condición: ', gate.condition ? h('code', {}, gate.condition) : 'sin condición')))

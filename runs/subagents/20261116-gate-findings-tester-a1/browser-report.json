@@ -1,0 +1,100 @@
+{
+ "task-1": {
+  "ms": 9057,
+  "checks": [
+   {
+    "class": "finding is-error",
+    "level_text": "error",
+    "code": "rules/rule-activation-task-code",
+    "what_full": true,
+    "subject_shown": 0
+   }
+  ],
+  "console": [],
+  "pageerror": []
+ },
+ "task-2": {
+  "ms": 4576,
+  "checks": [
+   {
+    "class": "finding is-error",
+    "level_text": "error",
+    "code": "rules/rule-activation-task-code",
+    "what_full": true,
+    "subject_shown": 0
+   }
+  ],
+  "console": [],
+  "pageerror": []
+ },
+ "task-3": {
+  "ms": 6721,
+  "checks": [
+   {
+    "class": "finding is-error",
+    "level_text": "error",
+    "code": "rules/rule-activation-task-code",
+    "what_full": true,
+    "subject_shown": 0
+   }
+  ],
+  "console": [],
+  "pageerror": []
+ },
+ "board-1": {
+  "ms": 5931,
+  "checks": [
+   {
+    "class": "finding is-error",
+    "level_text": "error",
+    "code": "rules/rule-activation-task-code",
+    "what_full": true,
+    "subject_shown": 0
+   }
+  ],
+  "console": [],
+  "pageerror": []
+ },
+ "board-2": {
+  "ms": 6376,
+  "checks": [
+   {
+    "class": "finding is-error",
+    "level_text": "error",
+    "code": "rules/rule-activation-task-code",
+    "what_full": true,
+    "subject_shown": 0
+   }
+  ],
+  "console": [],
+  "pageerror": []
+ },
+ "board-3": {
+  "ms": 7369,
+  "checks": [
+   {
+    "class": "finding is-error",
+    "level_text": "error",
+    "code": "rules/rule-activation-task-code",
+    "what_full": true,
+    "subject_shown": 0
+   }
+  ],
+  "console": [],
+  "pageerror": []
+ },
+ "nofindings-task": {
+  "task": "task-closeout-verify-anticipa-la-evidencia-de-run-dir-que-exige-closeout-commit",
+  "gates": 1,
+  "ul_gate_findings": 0,
+  "gate_finding_li": 0,
+  "console": []
+ },
+ "nofindings-board": {
+  "task": "task-closeout-verify-anticipa-la-evidencia-de-run-dir-que-exige-closeout-commit",
+  "gates": 1,
+  "ul_gate_findings": 0,
+  "gate_finding_li": 0,
+  "console": []
+ }
+}

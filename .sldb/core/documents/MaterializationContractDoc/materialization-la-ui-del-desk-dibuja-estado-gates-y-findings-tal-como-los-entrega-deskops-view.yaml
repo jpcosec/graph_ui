@@ -1,0 +1,23 @@
+name: materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view
+path: desk/materializations/materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view.md
+source_hash: a7f6ba25292299d853892d801fa61caff4ec8493d8eca9a136fd7dcc5710e9a1
+content_hash: a80453ac2de2407cc9f9f62095eec21e00903ed6869b5049a4fc7ee91860a847
+field_hashes:
+  id: 5a9478c741f854ad20e3219580e208edef88adce99e32ee4b75d8777ba8ce39b
+  title: 887d0a2862c0d21807933a04b7868243aae0c6f73ccf9e296709235ba60f331b
+  source_atoms: 87297d988ed66b011a990f42785a41a944fcef616b320a3840379e7ad20edb87
+  target_kind: 4a1933b06cf695fcff4acaba1fdbaa7f10ce109d3c7f57bbf62f6bb572658de8
+  target_identity: 6c4dcfe5d864fbde073755b94147e2747a6171517354399a7d4cee5cd3ca5dbb
+  intent: 969c5e76316c4fd80c10eea1cd1e16454d1be280f854f910354248ace207930d
+  validation: e6dfb95bcc042978326d05961c188bbd463435e1d5715805b0dad2178b6c111a
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-16T16:26:08Z'
+  authority: generated
+  via: create_document

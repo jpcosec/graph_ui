@@ -1,0 +1,36 @@
+name: review-task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen-evidence-atom-1
+path: desk/reviews/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen/evidence-atom-1.md
+source_hash: 7c94fbfdb706e5ddc5dcf671662fbaf6856ef76e0e45de8e2984e2de224d312c
+content_hash: 43d9f64700fff69bd38e401a5ec52af960efdabc752932a26d36310730edf5d0
+field_hashes:
+  id: 506bbee02dfb292536305a9fda507eaf8280138cd44c82c7404e881d5209371f
+  title: 26baaebb0bfd222342161a62d1fec4b0ec216632d056dd27c3b87cff855057fa
+  kind: edecec53ab11f560816e75a17681eb83886beace01d7fb927d99707d3d031aac
+  fact: c833c202b5b45ac10909767bb422916db457ddd48188a4ee591f0618893df0ba
+  value: be9b7db833dc0b6e4db97410f664fbb9b00537deb77062e4887ac819de55dc05
+  subject: 41ba81ccae2689691153abcb55863f02df2123d3c7b841c8456810e368da07b3
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 9eeef991471c47a0f748cc581c93b036c7560af99f0fcdf1ed75357a5551f1ac
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  input_sha256: 86e49562c2733a81d1b1e6e26e798e781e3c9494c4b66f2459b15b2f8b406291
+  output_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
+  reason: efddb4ef3e89dff4e2d3f10eacf7d27c6240f8b72b4a747c14ebc36b3ae2e4b4
+  created_at: c0586da6461234f4772375f35591b3837eadc1802abf99ef07938912490b6724
+  disposed_at: c0586da6461234f4772375f35591b3837eadc1802abf99ef07938912490b6724
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: 887701f7c807f5ed22dadf9982d98952b9e4cc188b218e351155dc068b646ecf
+  disposition: 95357792fc140f7eecf604e3c8c651f780f0ff7d95bb86deb873775b70f11315
+  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+- workspace:desk
+provenance:
+  by: agent
+  at: '2026-11-16T16:26:53Z'
+  authority: generated
+  via: save_document_payload
