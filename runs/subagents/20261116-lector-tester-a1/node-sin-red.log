@@ -1,0 +1,5 @@
+unshare: write failed /proc/self/uid_map: Operation not permitted
+
+real	0m0.145s
+user	0m0.001s
+sys	0m0.002s

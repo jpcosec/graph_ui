@@ -1,0 +1,87 @@
+{
+ "dialogs": [],
+ "page_errors": [],
+ "console_errors": [],
+ "requests": [],
+ "dom": {
+  "script": 0,
+  "img": 0,
+  "b": 0,
+  "iframe": 0,
+  "a": 2,
+  "a_nav": 0,
+  "a_list": [
+   [
+    "#",
+    "ok",
+    "README.md"
+   ],
+   [
+    "#",
+    "ok",
+    "README.md"
+   ]
+  ],
+  "no_clasificado": [
+   [
+    "SPAN",
+    "https://example.com/auto",
+    "https://example.com/auto"
+   ],
+   [
+    "SPAN",
+    "a@b.co",
+    "mailto:a@b.co"
+   ]
+  ],
+  "links": [
+   [
+    "SPAN",
+    "no_clasificado",
+    "https://example.com/auto",
+    ""
+   ],
+   [
+    "SPAN",
+    "no_clasificado",
+    "a@b.co",
+    ""
+   ],
+   [
+    "A",
+    "ok",
+    "README.md",
+    "EM"
+   ],
+   [
+    "SPAN",
+    "roto",
+    "no-existe.md (roto)",
+    "STRONG"
+   ],
+   [
+    "A",
+    "ok",
+    "README.md",
+    "EM"
+   ],
+   [
+    "SPAN",
+    "roto",
+    "roto.md (roto)",
+    "BLOCKQUOTE"
+   ]
+  ],
+  "code": [
+   [
+    "code [[README.md]]",
+    0
+   ]
+  ],
+  "onattrs": 0,
+  "pwned": null,
+  "text": "Hostil\n\n<script>window.__pwned = 'script'</script>\n\n<img src=x onerror=\"window.__pwned='img-bloque'\">\n\nInline <img src=x onerror=\"window.__pwned='img-inline'\"> y <b onmouseover=\"window.__pwned='b'\">negrita html</b>.\n\n[js](javascript:window.__pwned='js') y [data](data:text/html,<script>alert(1)</script>) y [vb](vbscript:x).\n\nAutolink https://example.com/auto y <javascript:alert(1)> y correo a@b.co.\n\n![imagen](javascript:window.__pwned='imgsrc')\n\nénfasis con README.md y no-existe.md (roto) fuerte y code [[README.md]].\n\ncita con README.md y roto.md (roto)\n\n[ref]: javascript:alert(1) Con referencia [x][ref]."
+ },
+ "url_unchanged": true,
+ "pwned_after_clicks": null
+}

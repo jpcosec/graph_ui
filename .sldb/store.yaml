@@ -204,7 +204,6 @@ include:
   - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
   - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
   - desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md
-  - desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md
   - desk/tasks/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en.md
 - model: RuleDoc
   paths:
@@ -293,6 +292,14 @@ include:
     name: review-task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen-evidence-atom-1
   - path: desk/reviews/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen/evidence-materialization-1.md
     name: review-task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen-evidence-materialization-1
+  - path: desk/reviews/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot/evidence-tests-1.md
+    name: review-task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot-evidence-tests-1
+  - path: desk/reviews/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot/evidence-commit-1.md
+    name: review-task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot-evidence-commit-1
+  - path: desk/reviews/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot/evidence-atom-1.md
+    name: review-task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot-evidence-atom-1
+  - path: desk/reviews/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot/evidence-materialization-1.md
+    name: review-task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot-evidence-materialization-1
 - model: MaterializationContractDoc
   paths:
   - desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md
@@ -301,6 +308,7 @@ include:
   - desk/materializations/materialization-dependencias-de-graph-ui-declaradas-en-pyproject.md
   - desk/materializations/materialization-repos-hermanos-que-instala-la-ci-de-graph-ui.md
   - desk/materializations/materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view.md
+  - desk/materializations/materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html.md
 graph_backend: networkx
 policy: {}
 tag_models:

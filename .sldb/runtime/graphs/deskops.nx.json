@@ -9107,18 +9107,6 @@
             }
           },
           {
-            "target_id": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-            "relation_type": "tasks",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "frontmatter",
-              "provenance_path": "desk/tasks/Board.md",
-              "role": "tasks",
-              "source_kind": "declared"
-            }
-          },
-          {
             "target_id": "task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento",
             "relation_type": "tasks",
             "metadata": {
@@ -19093,6 +19081,53 @@
       "status": "unknown",
       "schema": {
         "identity": {
+          "node_id": "materialization:materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html",
+          "node_type": "materialization"
+        },
+        "edges": [
+          {
+            "target_id": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node",
+            "relation_type": "references",
+            "metadata": {
+              "confidence": "high",
+              "extractor": "desk_declared_edges_v1",
+              "provenance_locator": "frontmatter",
+              "provenance_path": "desk/materializations/materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html.md",
+              "role": "references",
+              "source_kind": "declared"
+            }
+          }
+        ],
+        "semantics": {
+          "document_id": "materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html",
+          "identity": "materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html",
+          "label": "El lector del workspace renderiza Markdown con markdown-it sin inyectar HTML",
+          "path": "desk/materializations/materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html.md"
+        },
+        "ast": null,
+        "io_ports": [],
+        "compliance": null,
+        "adr": null,
+        "test_map": null,
+        "git": null,
+        "source": {
+          "extractor": "deskops_kgdb_snapshot_v1",
+          "provenance": [
+            {
+              "extractor": "desk_doc_nodes_v1",
+              "path": "desk/materializations/materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html.md",
+              "source_kind": "file_metadata"
+            }
+          ]
+        }
+      },
+      "id": "materialization:materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html"
+    },
+    {
+      "type": "materialization",
+      "status": "unknown",
+      "schema": {
+        "identity": {
           "node_id": "materialization:materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view",
           "node_type": "materialization"
         },
@@ -20055,12 +20090,24 @@
             }
           },
           {
-            "target_id": "doc:docs/workspace-ui.md",
+            "target_id": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node",
             "relation_type": "references",
             "metadata": {
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:18:source-file-reference",
+              "provenance_locator": "frontmatter",
+              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+              "role": "references",
+              "source_kind": "declared"
+            }
+          },
+          {
+            "target_id": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node",
+            "relation_type": "references",
+            "metadata": {
+              "confidence": "high",
+              "extractor": "desk_declared_edges_v1",
+              "provenance_locator": "line:24:source-file-reference",
               "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
               "role": "references",
               "source_kind": "declared"
@@ -20072,7 +20119,19 @@
             "metadata": {
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:55:source-file-reference",
+              "provenance_locator": "line:20:source-file-reference",
+              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+              "role": "references",
+              "source_kind": "declared"
+            }
+          },
+          {
+            "target_id": "doc:docs/workspace-ui.md",
+            "relation_type": "references",
+            "metadata": {
+              "confidence": "high",
+              "extractor": "desk_declared_edges_v1",
+              "provenance_locator": "line:61:source-file-reference",
               "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
               "role": "references",
               "source_kind": "declared"
@@ -20096,14 +20155,14 @@
             "metadata": {
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:21:source-file-reference",
+              "provenance_locator": "line:27:source-file-reference",
               "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
               "role": "references",
               "source_kind": "declared"
             }
           },
           {
-            "target_id": "ritual:ritual-execution",
+            "target_id": "ritual:ritual-closeout",
             "relation_type": "current_node",
             "metadata": {
               "confidence": "high",
@@ -20120,7 +20179,7 @@
             "metadata": {
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:28:source-file-reference",
+              "provenance_locator": "line:23:source-file-reference",
               "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
               "role": "references",
               "source_kind": "declared"
@@ -20132,7 +20191,7 @@
             "metadata": {
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:55:source-file-reference",
+              "provenance_locator": "line:34:source-file-reference",
               "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
               "role": "references",
               "source_kind": "declared"
@@ -20144,7 +20203,7 @@
             "metadata": {
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:68:source-file-reference",
+              "provenance_locator": "line:61:source-file-reference",
               "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
               "role": "references",
               "source_kind": "declared"
@@ -20163,12 +20222,24 @@
             }
           },
           {
+            "target_id": "test_file:tests/e2e_mindmap_workspace.py",
+            "relation_type": "references",
+            "metadata": {
+              "confidence": "high",
+              "extractor": "desk_declared_edges_v1",
+              "provenance_locator": "line:80:source-file-reference",
+              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+              "role": "references",
+              "source_kind": "declared"
+            }
+          },
+          {
             "target_id": "test_file:tests/test_mindmap_workspace_reader.py",
             "relation_type": "references",
             "metadata": {
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:68:source-file-reference",
+              "provenance_locator": "line:22:source-file-reference",
               "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
               "role": "references",
               "source_kind": "declared"
@@ -20181,6 +20252,18 @@
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
               "provenance_locator": "line:74:source-file-reference",
+              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+              "role": "references",
+              "source_kind": "declared"
+            }
+          },
+          {
+            "target_id": "test_file:tests/test_mindmap_workspace_reader.py",
+            "relation_type": "references",
+            "metadata": {
+              "confidence": "high",
+              "extractor": "desk_declared_edges_v1",
+              "provenance_locator": "line:80:source-file-reference",
               "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
               "role": "references",
               "source_kind": "declared"
@@ -20211,221 +20294,6 @@
         }
       },
       "id": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot"
-    },
-    {
-      "type": "task",
-      "status": "unknown",
-      "schema": {
-        "identity": {
-          "node_id": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-          "node_type": "task"
-        },
-        "edges": [
-          {
-            "target_id": "atom:atom-deskops-workflow-views-delegate-state-and-gates-to-deskops",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "frontmatter",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "atom:atom-deskops-workflow-views-delegate-state-and-gates-to-deskops",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:25:source-file-reference",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "pill:pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables",
-            "relation_type": "pills",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "frontmatter",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "pills",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "pill:pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:28:source-file-reference",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "ritual:ritual-closeout",
-            "relation_type": "current_node",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "frontmatter",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "current_node",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/e2e_desk_ui.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:23:source-file-reference",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/e2e_desk_ui.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:33:source-file-reference",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/e2e_desk_ui.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:58:source-file-reference",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/e2e_desk_ui.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:71:source-file-reference",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/test_desk_ui_routes.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:24:source-file-reference",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/test_desk_ui_routes.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:32:source-file-reference",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/test_desk_ui_routes.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:58:source-file-reference",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/test_desk_ui_routes.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:70:source-file-reference",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/test_mindmap_deskops.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:58:source-file-reference",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/test_mindmap_deskops.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:70:source-file-reference",
-              "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          }
-        ],
-        "semantics": {
-          "document_id": "task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-          "identity": "task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-          "label": "UI del desk: cada gate muestra los findings de sus reglas (nivel, código y mensaje), no solo cumple o pendiente",
-          "path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md"
-        },
-        "ast": null,
-        "io_ports": [],
-        "compliance": null,
-        "adr": null,
-        "test_map": null,
-        "git": null,
-        "source": {
-          "extractor": "deskops_kgdb_snapshot_v1",
-          "provenance": [
-            {
-              "extractor": "desk_doc_nodes_v1",
-              "path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-              "source_kind": "file_metadata"
-            }
-          ]
-        }
-      },
-      "id": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen"
     },
     {
       "type": "task",
@@ -22401,19 +22269,6 @@
         "source_kind": "declared"
       },
       "source": "board:board-graph-ui",
-      "target": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen"
-    },
-    {
-      "relation": "tasks",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "frontmatter",
-        "provenance_path": "desk/tasks/Board.md",
-        "role": "tasks",
-        "source_kind": "declared"
-      },
-      "source": "board:board-graph-ui",
       "target": "task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento"
     },
     {
@@ -22480,6 +22335,19 @@
       },
       "source": "materialization:materialization-dependencias-de-graph-ui-declaradas-en-pyproject",
       "target": "config_file:pyproject.toml"
+    },
+    {
+      "relation": "references",
+      "metadata": {
+        "confidence": "high",
+        "extractor": "desk_declared_edges_v1",
+        "provenance_locator": "frontmatter",
+        "provenance_path": "desk/materializations/materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html.md",
+        "role": "references",
+        "source_kind": "declared"
+      },
+      "source": "materialization:materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html",
+      "target": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node"
     },
     {
       "relation": "references",
@@ -22928,7 +22796,33 @@
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:18:source-file-reference",
+        "provenance_locator": "frontmatter",
+        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+        "role": "references",
+        "source_kind": "declared"
+      },
+      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "target": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node"
+    },
+    {
+      "relation": "references",
+      "metadata": {
+        "confidence": "high",
+        "extractor": "desk_declared_edges_v1",
+        "provenance_locator": "line:24:source-file-reference",
+        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+        "role": "references",
+        "source_kind": "declared"
+      },
+      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "target": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node"
+    },
+    {
+      "relation": "references",
+      "metadata": {
+        "confidence": "high",
+        "extractor": "desk_declared_edges_v1",
+        "provenance_locator": "line:20:source-file-reference",
         "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
         "role": "references",
         "source_kind": "declared"
@@ -22941,7 +22835,7 @@
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:55:source-file-reference",
+        "provenance_locator": "line:61:source-file-reference",
         "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
         "role": "references",
         "source_kind": "declared"
@@ -22967,7 +22861,7 @@
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:21:source-file-reference",
+        "provenance_locator": "line:27:source-file-reference",
         "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
         "role": "references",
         "source_kind": "declared"
@@ -22986,149 +22880,6 @@
         "source_kind": "declared"
       },
       "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "ritual:ritual-execution"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:28:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "test_file:tests/e2e_mindmap_workspace.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:55:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "test_file:tests/e2e_mindmap_workspace.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:68:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "test_file:tests/e2e_mindmap_workspace.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:74:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "test_file:tests/e2e_mindmap_workspace.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:68:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "test_file:tests/test_mindmap_workspace_reader.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:74:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "test_file:tests/test_mindmap_workspace_reader.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "frontmatter",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-      "target": "atom:atom-deskops-workflow-views-delegate-state-and-gates-to-deskops"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:25:source-file-reference",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-      "target": "atom:atom-deskops-workflow-views-delegate-state-and-gates-to-deskops"
-    },
-    {
-      "relation": "pills",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "frontmatter",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-        "role": "pills",
-        "source_kind": "declared"
-      },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-      "target": "pill:pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:28:source-file-reference",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-      "target": "pill:pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables"
-    },
-    {
-      "relation": "current_node",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "frontmatter",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-        "role": "current_node",
-        "source_kind": "declared"
-      },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
       "target": "ritual:ritual-closeout"
     },
     {
@@ -23137,129 +22888,103 @@
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
         "provenance_locator": "line:23:source-file-reference",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
+        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
         "role": "references",
         "source_kind": "declared"
       },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-      "target": "test_file:tests/e2e_desk_ui.py"
+      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "target": "test_file:tests/e2e_mindmap_workspace.py"
     },
     {
       "relation": "references",
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:33:source-file-reference",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
+        "provenance_locator": "line:34:source-file-reference",
+        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
         "role": "references",
         "source_kind": "declared"
       },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-      "target": "test_file:tests/e2e_desk_ui.py"
+      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "target": "test_file:tests/e2e_mindmap_workspace.py"
     },
     {
       "relation": "references",
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:58:source-file-reference",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
+        "provenance_locator": "line:61:source-file-reference",
+        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
         "role": "references",
         "source_kind": "declared"
       },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-      "target": "test_file:tests/e2e_desk_ui.py"
+      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "target": "test_file:tests/e2e_mindmap_workspace.py"
     },
     {
       "relation": "references",
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:71:source-file-reference",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
+        "provenance_locator": "line:74:source-file-reference",
+        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
         "role": "references",
         "source_kind": "declared"
       },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-      "target": "test_file:tests/e2e_desk_ui.py"
+      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "target": "test_file:tests/e2e_mindmap_workspace.py"
     },
     {
       "relation": "references",
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:24:source-file-reference",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
+        "provenance_locator": "line:80:source-file-reference",
+        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
         "role": "references",
         "source_kind": "declared"
       },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-      "target": "test_file:tests/test_desk_ui_routes.py"
+      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "target": "test_file:tests/e2e_mindmap_workspace.py"
     },
     {
       "relation": "references",
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:32:source-file-reference",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
+        "provenance_locator": "line:22:source-file-reference",
+        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
         "role": "references",
         "source_kind": "declared"
       },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-      "target": "test_file:tests/test_desk_ui_routes.py"
+      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "target": "test_file:tests/test_mindmap_workspace_reader.py"
     },
     {
       "relation": "references",
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:58:source-file-reference",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
+        "provenance_locator": "line:74:source-file-reference",
+        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
         "role": "references",
         "source_kind": "declared"
       },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-      "target": "test_file:tests/test_desk_ui_routes.py"
+      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "target": "test_file:tests/test_mindmap_workspace_reader.py"
     },
     {
       "relation": "references",
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:70:source-file-reference",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
+        "provenance_locator": "line:80:source-file-reference",
+        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
         "role": "references",
         "source_kind": "declared"
       },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-      "target": "test_file:tests/test_desk_ui_routes.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:58:source-file-reference",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-      "target": "test_file:tests/test_mindmap_deskops.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:70:source-file-reference",
-        "provenance_path": "desk/tasks/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen",
-      "target": "test_file:tests/test_mindmap_deskops.py"
+      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "target": "test_file:tests/test_mindmap_workspace_reader.py"
     },
     {
       "relation": "atoms",

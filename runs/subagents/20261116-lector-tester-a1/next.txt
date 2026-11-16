@@ -1,0 +1,21 @@
+Task: task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot
+Title: Lector del workspace: render Markdown legible (citas, énfasis, código inline, enlaces estándar) con un motor real
+Status: ready_for_testing
+Current node: ritual-closeout
+Task type: task.code
+Phase: closeout
+Required ritual:
+- desk/rituals/closeout.md
+Required pills:
+- desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md
+Next actions:
+1. Confirm passing validation evidence and pill coverage.
+2. Remove the task from the active board and delete the resolved task file when ready.
+3. Untrack the store entry if tracked.
+4. Create one atomic closing commit.
+Advance when:
+- Closeout ritual obligations are satisfied.
+Sources:
+- task: desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md
+- board: desk/tasks/Board.md
+- workflow: deskops/spec/workflows/task_lifecycle.yaml

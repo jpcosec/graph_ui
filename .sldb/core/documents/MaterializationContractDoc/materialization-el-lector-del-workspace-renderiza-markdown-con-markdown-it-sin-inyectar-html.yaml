@@ -1,0 +1,23 @@
+name: materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html
+path: desk/materializations/materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html.md
+source_hash: d1c77e6a1aecc4087091777345f914f2c3aedb9073f807a9b303b8dc4da5ebed
+content_hash: e2889b979baec0edcd1766f94bfe6ea1e6a9710e337cc0f484e4654a664d738b
+field_hashes:
+  id: 2fc82889a3dd9267e33fca4d030bb98002148f485ade0da551053838c11ef1b1
+  title: cdffad1a20e17a9ec93e2b3459104e1d43aeff0309cdfff170a68107dde2414f
+  source_atoms: 08de4a11e6d6bae7b88c1ab1395810f7d4d47a9b32ac822a029341535740170b
+  target_kind: 4a1933b06cf695fcff4acaba1fdbaa7f10ce109d3c7f57bbf62f6bb572658de8
+  target_identity: 4e1a6631514c8d8557c1b9aa17906521da83e04392d34137548872a468e8ca21
+  intent: a27dde69a4a8e4832c3b3bb5195825cdf87f0f97f2d8bbf6488d8ef698543368
+  validation: e12fd228fcafed58e643aa432a6a52f70dd3f142410d09ca27b44ec0cb2ea803
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-16T17:23:09Z'
+  authority: generated
+  via: create_document

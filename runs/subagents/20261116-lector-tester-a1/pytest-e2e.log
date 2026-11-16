@@ -1,0 +1,333 @@
+Mem:              31          19           4           3          12          11
+...................F..                                                   [100%]
+=================================== FAILURES ===================================
+__ test_explorer_does_not_claim_model_loaded_while_nodes_is_held_then_updates __
+
+explorer_e2e_server = ('http://127.0.0.1:37831', PosixPath('/dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e'), 'task-tarea-sana')
+
+    def test_explorer_does_not_claim_model_loaded_while_nodes_is_held_then_updates(explorer_e2e_server):
+        """GET /nodes real retenido con page.route; el modelo Bitacora de verdad no es importable."""
+        url, root, task_id = explorer_e2e_server
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1440, "height": 900})
+            errors = []
+            page.on("pageerror", lambda error: errors.append(str(error)))
+            held = []
+            page.route('**/api/workspace/nodes', lambda route: held.append(route))   # no se contesta: pendiente
+            page.goto(f"{url}/workspace/node?path=docs/faq.md")
+            bad = page.locator('[data-testid="explorer-modeled-item"][data-id="Bitacora:b1"]')
+            good = page.locator(f'[data-testid="explorer-modeled-item"][data-id="TaskCodeDoc:{task_id}"]')
+            expect(bad).to_be_visible()
+            assert len(held) == 1
+            for item in (bad, good):
+                expect(item).to_have_attribute('data-estado', 'modelo_sin_confirmar')
+                expect(item.locator('[data-testid="explorer-estado"]')).to_have_text('modelo sin confirmar')
+            assert page.locator('[data-estado="ok"]').count() == 0 and page.locator('[data-estado="modelo_no_carga"]').count() == 0
+            # la insignia se lee completa: ni la insignia ni el boton que la contiene se recortan
+            for item in (bad, good):
+                badge = item.locator('[data-testid="explorer-estado"]')
+                overflow = badge.evaluate('(b) => { const i = b.closest("button"); return [b.scrollWidth - b.clientWidth, i.scrollWidth - i.clientWidth]; }')
+                assert overflow[0] <= 0 and overflow[1] <= 0, overflow
+                box, ibox = badge.bounding_box(), item.bounding_box()
+                assert box['x'] + box['width'] <= ibox['x'] + ibox['width'] + 0.5, (box, ibox)
+            _screenshot(page, "correccion-modelo-sin-confirmar-pendiente.png")
+            # llega la respuesta real: se actualizan titulo y diagnostico
+            held.pop().continue_()
+>           expect(bad).to_have_attribute('data-estado', 'modelo_no_carga')
+E           AssertionError: Locator expected to have attribute 'modelo_no_carga'
+E           Actual value: modelo_sin_confirmar 
+E           Call log:
+E             - Expect "to_have_attribute" locator("[data-testid=\"explorer-modeled-item\"][data-id=\"Bitacora:b1\"]") with timeout 5000ms
+E             - waiting for locator("[data-testid=\"explorer-modeled-item\"][data-id=\"Bitacora:b1\"]")
+E               14 × locator resolved to <button type="button" data-id="Bitacora:b1" class="workspace-explorer-item" data-estado="modelo_sin_confirmar" data-testid="explorer-modeled-item" title="Bitacora:b1 — la carga del modelo no se ha confirmado">…</button>
+E                  - unexpected value "modelo_sin_confirmar"
+E           
+E           Aria snapshot:
+E           - button "b1 modelo sin confirmar bitacoras/b1.md"
+
+tests/e2e_mindmap_workspace.py:1205: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb.
+Inheriting CrossroadDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting AtomDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting BoardDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting PillDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting RepositoryDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting ReviewDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting RitualDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting RoleDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting RunDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting StepDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting TaskDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/lector-t1-bt/test_explorer_does_not_claim_m0/explorer-e2e/.sldb...
+---------------------------- Captured stderr setup -----------------------------
+127.0.0.1 - - [16/Nov/2026 13:54:01] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:01] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:02] "GET /api/graph HTTP/1.1" 500 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 35358)
+Traceback (most recent call last):
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 348, in do_GET
+    self.json_response(self.editor_store.graph())
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 350, in do_GET
+    self.json_response({'ok': False, 'error': str(exc)}, 500)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 92, in json_response
+    self.end_headers()
+    ~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 553, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 557, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [16/Nov/2026 13:54:03] "GET /api/schema HTTP/1.1" 500 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 35370)
+Traceback (most recent call last):
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 343, in do_GET
+    self.json_response(self.editor_store.schema())
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 345, in do_GET
+    self.json_response({'ok': False, 'error': f'No se pudo leer el schema del store: {exc}'}, 500)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 92, in json_response
+    self.end_headers()
+    ~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 553, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 557, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [16/Nov/2026 13:54:20] "GET /workspace/node?path=docs/faq.md HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:20] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:20] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:20] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:20] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:20] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:21] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:21] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:21] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:21] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:21] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:21] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:21] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:22] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:23] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:25] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:25] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:25] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:25] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:25] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:25] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:25] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:26] "GET /api/workspace/source?path=docs%2Ffaq.md HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:26] "GET /api/workspace/explorer HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:32] "GET /api/workspace/nodes HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 13:54:32] "GET /api/workspace/nodes HTTP/1.1" 500 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 46544)
+Traceback (most recent call last):
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/workspace_routes.py", line 135, in dispatch
+    return handler.json_response(self.workspace_nodes())
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 323, in do_GET
+    return self.workspace_routes.dispatch(self, 'GET')
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/workspace_routes.py", line 152, in dispatch
+    return handler.json_response({'ok': False, 'error': str(exc)}, 500)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 92, in json_response
+    self.end_headers()
+    ~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 553, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 557, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+=============================== warnings summary ===============================
+../../../../../../dev/shm/venv-lector-t1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-lector-t1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 failed, 21 passed, 1 warning in 553.56s (0:09:13)
+EXIT=1 SECONDS=555

@@ -1,0 +1,87 @@
+(node:2060335) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)
+TAP version 13
+# (node:2060356) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: la arista saliente resalta el campo del documento abierto
+ok 1 - la arista saliente resalta el campo del documento abierto
+  ---
+  duration_ms: 1.656269
+  type: 'test'
+  ...
+# Subtest: la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+ok 2 - la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+  ---
+  duration_ms: 0.231608
+  type: 'test'
+  ...
+# Subtest: el vecino a dos saltos tampoco resalta campos del documento abierto
+ok 3 - el vecino a dos saltos tampoco resalta campos del documento abierto
+  ---
+  duration_ms: 0.213162
+  type: 'test'
+  ...
+# Subtest: el foco de campo solo resalta las aristas que declara el documento abierto
+ok 4 - el foco de campo solo resalta las aristas que declara el documento abierto
+  ---
+  duration_ms: 0.136594
+  type: 'test'
+  ...
+# Subtest: correspondence cuenta solo elementos del documento abierto
+ok 5 - correspondence cuenta solo elementos del documento abierto
+  ---
+  duration_ms: 0.360497
+  type: 'test'
+  ...
+# Subtest: un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+ok 6 - un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+  ---
+  duration_ms: 0.387825
+  type: 'test'
+  ...
+# Subtest: relation_doc y structural no tienen campo: no resaltan ninguno
+ok 7 - relation_doc y structural no tienen campo: no resaltan ninguno
+  ---
+  duration_ms: 0.142372
+  type: 'test'
+  ...
+# Subtest: se conservan todas las procedencias reales: varias del dueño correcto
+ok 8 - se conservan todas las procedencias reales: varias del dueño correcto
+  ---
+  duration_ms: 0.182668
+  type: 'test'
+  ...
+# Subtest: sin identidad abierta no se resalta nada por propiedad
+ok 9 - sin identidad abierta no se resalta nada por propiedad
+  ---
+  duration_ms: 0.298396
+  type: 'test'
+  ...
+# (node:2060356) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Error: A resource generated asynchronous activity after the test ended. This activity created the error "TypeError: fetch failed" which triggered an uncaughtException event, caught by the test runner.
+# Subtest: tests/mindmap-workspace-reader.test.mjs
+not ok 1 - tests/mindmap-workspace-reader.test.mjs
+  ---
+  duration_ms: 206.336461
+  type: 'test'
+  location: '/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/tests/mindmap-workspace-reader.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 9
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 217.281944
+
+real	0m0.340s
+user	0m0.239s
+sys	0m0.041s

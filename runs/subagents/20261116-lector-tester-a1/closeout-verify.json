@@ -1,0 +1,53 @@
+{
+  "alerts": [],
+  "declared": [
+    "tests",
+    "commit",
+    "atom",
+    "materialization"
+  ],
+  "findings": [],
+  "found": [
+    "tests",
+    "atom|materialization",
+    "commit"
+  ],
+  "gates": {
+    "atom_or_materialization_link": {
+      "evidence": [
+        "desk/atoms/atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node.md",
+        "atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/views/workspace/node/reader.mjs",
+        "materialization:materialization:materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html->frontends/mindmap/views/workspace/node/reader.mjs",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/views/workspace/node/workspace-view.js",
+        "materialization:materialization:materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html->frontends/mindmap/views/workspace/node/workspace-view.js",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/views/workspace/node/workspace.css",
+        "materialization:materialization:materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html->frontends/mindmap/views/workspace/node/workspace.css",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/index.html",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/mindmap-workspace-reader.test.mjs",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/e2e_mindmap_workspace.py"
+      ],
+      "findings": [],
+      "ok": true
+    },
+    "commit": {
+      "evidence": [
+        "9bc308b"
+      ],
+      "findings": [],
+      "ok": true
+    },
+    "tests": {
+      "evidence": [
+        "tests/test_mindmap_workspace_reader.py",
+        "tests/e2e_mindmap_workspace.py"
+      ],
+      "findings": [],
+      "ok": true
+    }
+  },
+  "implicit_code": false,
+  "ok": true,
+  "summary": "esta tarea declar\u00f3 tests, commit, atom|materialization; encontr\u00e9 tests, atom|materialization, commit",
+  "task_id": "task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot"
+}

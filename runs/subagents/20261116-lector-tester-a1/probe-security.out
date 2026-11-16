@@ -1,0 +1,199 @@
+{"kinds":[["heading",1,1],["paragraph",3,3],["paragraph",5,5],["paragraph",7,7],["paragraph",9,9],["paragraph",11,11],["paragraph",13,13],["paragraph",15,15],["quote",17,17],["paragraph",19,20]],"inlineTypes":["text","std_link","em","strong","code","softbreak"]}
+[
+ {
+  "kind": "heading",
+  "level": 1,
+  "text": "Hostil",
+  "inline": [
+   {
+    "type": "text",
+    "text": "Hostil"
+   }
+  ],
+  "line_start": 1,
+  "line_end": 1
+ },
+ {
+  "kind": "paragraph",
+  "tight": false,
+  "inline": [
+   {
+    "type": "text",
+    "text": "<script>window.__pwned = 'script'</script>"
+   }
+  ],
+  "line_start": 3,
+  "line_end": 3
+ },
+ {
+  "kind": "paragraph",
+  "tight": false,
+  "inline": [
+   {
+    "type": "text",
+    "text": "<img src=x onerror=\"window.__pwned='img-bloque'\">"
+   }
+  ],
+  "line_start": 5,
+  "line_end": 5
+ },
+ {
+  "kind": "paragraph",
+  "tight": false,
+  "inline": [
+   {
+    "type": "text",
+    "text": "Inline <img src=x onerror=\"window.__pwned='img-inline'\"> y <b onmouseover=\"window.__pwned='b'\">negrita html</b>."
+   }
+  ],
+  "line_start": 7,
+  "line_end": 7
+ },
+ {
+  "kind": "paragraph",
+  "tight": false,
+  "inline": [
+   {
+    "type": "text",
+    "text": "[js](javascript:window.__pwned='js') y [data](data:text/html,<script>alert(1)</script>) y [vb](vbscript:x)."
+   }
+  ],
+  "line_start": 9,
+  "line_end": 9
+ },
+ {
+  "kind": "paragraph",
+  "tight": false,
+  "inline": [
+   {
+    "type": "text",
+    "text": "Autolink "
+   },
+   {
+    "type": "std_link",
+    "href": "https://example.com/auto",
+    "text": "https://example.com/auto"
+   },
+   {
+    "type": "text",
+    "text": " y <javascript:alert(1)> y correo "
+   },
+   {
+    "type": "std_link",
+    "href": "mailto:a@b.co",
+    "text": "a@b.co"
+   },
+   {
+    "type": "text",
+    "text": "."
+   }
+  ],
+  "line_start": 11,
+  "line_end": 11
+ },
+ {
+  "kind": "paragraph",
+  "tight": false,
+  "inline": [
+   {
+    "type": "text",
+    "text": "![imagen](javascript:window.__pwned='imgsrc')"
+   }
+  ],
+  "line_start": 13,
+  "line_end": 13
+ },
+ {
+  "kind": "paragraph",
+  "tight": false,
+  "inline": [
+   {
+    "type": "em",
+    "children": [
+     {
+      "type": "text",
+      "text": "énfasis con [[README.md]]"
+     }
+    ]
+   },
+   {
+    "type": "text",
+    "text": " y "
+   },
+   {
+    "type": "strong",
+    "children": [
+     {
+      "type": "text",
+      "text": "[[no-existe.md]] fuerte"
+     }
+    ]
+   },
+   {
+    "type": "text",
+    "text": " y "
+   },
+   {
+    "type": "code",
+    "text": "code [[README.md]]"
+   },
+   {
+    "type": "text",
+    "text": "."
+   }
+  ],
+  "line_start": 15,
+  "line_end": 15
+ },
+ {
+  "kind": "quote",
+  "blocks": [
+   {
+    "kind": "paragraph",
+    "tight": false,
+    "inline": [
+     {
+      "type": "text",
+      "text": "cita con "
+     },
+     {
+      "type": "em",
+      "children": [
+       {
+        "type": "text",
+        "text": "[[README.md]]"
+       }
+      ]
+     },
+     {
+      "type": "text",
+      "text": " y [[roto.md]]"
+     }
+    ],
+    "line_start": 17,
+    "line_end": 17
+   }
+  ],
+  "line_start": 17,
+  "line_end": 17
+ },
+ {
+  "kind": "paragraph",
+  "tight": false,
+  "inline": [
+   {
+    "type": "text",
+    "text": "[ref]: javascript:alert(1)"
+   },
+   {
+    "type": "softbreak"
+   },
+   {
+    "type": "text",
+    "text": "Con referencia [x][ref]."
+   }
+  ],
+  "line_start": 19,
+  "line_end": 20
+ }
+]

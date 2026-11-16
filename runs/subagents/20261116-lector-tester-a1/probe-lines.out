@@ -1,0 +1,3 @@
+{"file":"README.md","blocks":19,"checked":26,"mismatches":[],"uncovered_nonblank":[],"frontmatter":null,"heading_lines":[1,11,38,66,77,87]}
+{"file":"docs/workspace-ui.md","blocks":22,"checked":57,"mismatches":[],"uncovered_nonblank":[],"frontmatter":[1,5],"heading_lines":[7,31,56,67,75]}
+{"file":"desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md","blocks":20,"checked":23,"mismatches":[],"uncovered_nonblank":[],"frontmatter":[1,35],"heading_lines":[37,39,45,51,57,63,70]}

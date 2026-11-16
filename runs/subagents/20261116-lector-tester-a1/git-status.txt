@@ -1,0 +1,42 @@
+## master...origin/master [ahead 1]
+ M ".sldb/core/documents/TaskCodeDoc/task-lector-del-workspace-render-markdown-legible-citas-\303\251nfasis-c\303\263digo-inline-enlaces-est\303\241ndar-con-un-mot.yaml"
+ M .sldb/core/models/MaterializationContractDoc.yaml
+ M .sldb/core/models/ReviewDoc.yaml
+ M .sldb/core/models/TaskCodeDoc.yaml
+ M .sldb/core/store_index.yaml
+ M .sldb/runtime/graphs/deskops.kg.json
+ M .sldb/runtime/graphs/deskops.nx.json
+ M .sldb/store.yaml
+ M "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\303\251nfasis-c\303\263digo-inline-enlaces-est\303\241ndar-con-un-mot.md"
+?? .sldb/core/documents/MaterializationContractDoc/materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html.yaml
+?? ".sldb/core/documents/ReviewDoc/review-task-lector-del-workspace-render-markdown-legible-citas-\303\251nfasis-c\303\263digo-inline-enlaces-est\303\241ndar-con-un-mot-evidence-atom-1.yaml"
+?? ".sldb/core/documents/ReviewDoc/review-task-lector-del-workspace-render-markdown-legible-citas-\303\251nfasis-c\303\263digo-inline-enlaces-est\303\241ndar-con-un-mot-evidence-commit-1.yaml"
+?? ".sldb/core/documents/ReviewDoc/review-task-lector-del-workspace-render-markdown-legible-citas-\303\251nfasis-c\303\263digo-inline-enlaces-est\303\241ndar-con-un-mot-evidence-materialization-1.yaml"
+?? ".sldb/core/documents/ReviewDoc/review-task-lector-del-workspace-render-markdown-legible-citas-\303\251nfasis-c\303\263digo-inline-enlaces-est\303\241ndar-con-un-mot-evidence-tests-1.yaml"
+?? desk/materializations/materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html.md
+?? "desk/reviews/task-lector-del-workspace-render-markdown-legible-citas-\303\251nfasis-c\303\263digo-inline-enlaces-est\303\241ndar-con-un-mot/evidence-atom-1.md"
+?? "desk/reviews/task-lector-del-workspace-render-markdown-legible-citas-\303\251nfasis-c\303\263digo-inline-enlaces-est\303\241ndar-con-un-mot/evidence-commit-1.md"
+?? "desk/reviews/task-lector-del-workspace-render-markdown-legible-citas-\303\251nfasis-c\303\263digo-inline-enlaces-est\303\241ndar-con-un-mot/evidence-materialization-1.md"
+?? "desk/reviews/task-lector-del-workspace-render-markdown-legible-citas-\303\251nfasis-c\303\263digo-inline-enlaces-est\303\241ndar-con-un-mot/evidence-tests-1.md"
+?? runs/subagents/20261116-124617/
+?? runs/subagents/20261116-124651/
+?? runs/subagents/20261116-124713/
+?? runs/subagents/20261116-124733/
+?? runs/subagents/20261116-125047/
+?? runs/subagents/20261116-125323/
+?? runs/subagents/20261116-125341/
+?? runs/subagents/20261116-125357/
+?? runs/subagents/20261116-125615/
+?? runs/subagents/20261116-125634/
+?? runs/subagents/20261116-125651/
+?? runs/subagents/20261116-125703/
+?? runs/subagents/20261116-gate-findings-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a2/
+?? runs/subagents/20261116-ir13-tester-a1/
+?? runs/subagents/20261116-ir13-tester-r2/
+?? runs/subagents/20261116-lector-executor-a1/
+?? runs/subagents/20261116-lector-tester-a1/
+?? runs/subagents/20261116-r2-reviews/
+?? runs/subagents/20261116-sldb-serve-rss/
+?? runs/subagents/20261116-triaje-graph-ui/
