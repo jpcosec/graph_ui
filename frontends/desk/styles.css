@@ -208,6 +208,16 @@ h1 { margin: 4px 0 0; font-size: 21px; line-height: 1.3; font-weight: 600; lette
 .box p, .box li { margin: 0; font-size: 11.5px; color: var(--muted); }
 .box ul { margin: 0; padding-left: 16px; }
 .box code { font-size: 10.5px; color: var(--text-2); word-break: break-all; }
+/* gate findings (deskops view gates[].findings): the level is always also visible text */
+.box ul.gate-findings { list-style: none; padding-left: 0; display: flex; flex-direction: column; gap: 4px; }
+.finding { padding: 3px 0 3px 8px; border-left: 2px solid var(--line-strong); overflow-wrap: anywhere; }
+.finding-level { font-weight: 600; font-size: 10.5px; margin-right: 2px; }
+.finding.is-error { border-left-color: var(--danger); }
+.finding.is-error .finding-level { color: var(--danger); }
+.finding.is-warning { border-left-color: var(--warning); }
+.finding.is-warning .finding-level { color: var(--warning); }
+.finding.is-info { border-left-color: var(--reference); }
+.finding.is-info .finding-level { color: var(--reference); }
 .kv { display: grid; grid-template-columns: 70px 1fr; gap: 2px 8px; font-size: 11.5px; }
 .kv dt { color: var(--extra-muted); font-family: var(--mono); font-size: 10.5px; }
 .kv dd { margin: 0; color: var(--text-2); white-space: pre-line; }

@@ -105,12 +105,35 @@ function renderPill(pill) {
       pill.how_not ? [h('dt', {}, 'cómo no'), h('dd', {}, pill.how_not)] : null));
 }
 
+// Visible label per finding level of `deskops view` (gates[].findings[].level); an
+// unknown level is shown as it comes.
+const FINDING_LEVEL_LABELS = { error: 'error', warning: 'aviso', info: 'info' };
+
+// A finding's subject is `<Model>:<id>` (optionally `doc:` and `@sha256:...`); it is
+// left out when it names the task the gate belongs to.
+function findingSubjectIsTask(subject, task) {
+  if (!subject) return true;
+  const ident = String(subject).split('@')[0].split(':').pop();
+  return ident === task.id;
+}
+
+function renderGateFindings(gate, task) {
+  const findings = gate.findings || [];
+  if (!findings.length) return null;
+  return h('ul', { class: 'gate-findings' }, findings.map((f) => h('li', { class: `finding is-${f.level}`, 'data-testid': 'gate-finding' },
+    h('span', { class: 'finding-level' }, FINDING_LEVEL_LABELS[f.level] || String(f.level)),
+    ' ', h('code', {}, f.code),
+    findingSubjectIsTask(f.subject, task) ? null : [' ', h('span', { class: 'finding-subject' }, h('code', {}, f.subject))],
+    ' ', String(f.what)))); // the what goes as a plain text node, never as markup
+}
+
 function renderGateBoxes(task) {
   return task.gates.length ? task.gates.map((gate) => h('div', { class: 'box', 'data-testid': 'inspector-gate' },
     h('div', { class: 'box-row' },
       h('strong', { class: gate.holds ? 'is-holds' : 'is-pending' }, svg(gate.holds ? 'holds' : 'pending'), `${gate.relation_type} → ${gate.target}`),
       h('span', { class: `check-state ${gate.holds ? 'is-holds' : 'is-pending'}` }, gate.holds ? 'cumple' : 'pendiente')),
-    h('p', {}, 'Condición: ', gate.condition ? h('code', {}, gate.condition) : 'sin condición')))
+    h('p', {}, 'Condición: ', gate.condition ? h('code', {}, gate.condition) : 'sin condición'),
+    renderGateFindings(gate, task)))
     : h('p', { class: 'empty-note' }, 'No hay transiciones que salgan de este nodo.');
 }
 

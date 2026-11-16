@@ -212,6 +212,65 @@ def test_task_page_sections_inheritance_and_advance(desk, browser_page):
     _no_stitch(page)
 
 
+LEVEL_LABELS = {'error': 'error', 'warning': 'aviso', 'info': 'info'}
+
+
+def _expect_gate_findings(gates_locator, view_gates):
+    """Each rendered gate lists exactly the findings `deskops view` gives it, in order."""
+    expect(gates_locator).to_have_count(len(view_gates))
+    for index, gate in enumerate(view_gates):
+        items = gates_locator.nth(index).get_by_test_id('gate-finding')
+        findings = gate.get('findings', [])
+        expect(items).to_have_count(len(findings))
+        for i, finding in enumerate(findings):
+            item = items.nth(i)
+            expect(item).to_have_class(f"finding is-{finding['level']}")
+            expect(item.locator('.finding-level')).to_have_text(LEVEL_LABELS.get(finding['level'], finding['level']))
+            expect(item.locator('code').first).to_have_text(finding['code'])
+            expect(item).to_contain_text(finding['what'])
+
+
+def test_task_gate_shows_its_rule_findings(desk, browser_page):
+    """A task.code without its preflight receipt: its gate lists the activation-rule finding."""
+    page, root, ops = browser_page, desk['root'], desk['ops']
+    held = ops.create_task_bundle({
+        'title': 'Tarea sin recibos', 'why': 'Porque falta el recibo.', 'goal': 'Objetivo: retenida.', 'scope': 'Solo el desk temporal.',
+        'implementation_path': 'Ninguna.', 'validation': ['pytest -q tests/e2e_desk_ui.py'],
+        'done_when': 'El gate muestra su finding.', 'task_type': 'code',
+    }).task_id
+    view = deskops_view.task_view(root, held)['task']
+    findings = [f for gate in view['gates'] for f in gate.get('findings', [])]
+    assert any(f['code'] == 'rules/rule-activation-task-code' for f in findings), view['gates']
+
+    page.goto(f"{desk['url']}#/task?id={held}")
+    expect(page.get_by_test_id('task-doc').locator('.doc-title')).to_have_text(view['title'])
+    _expect_gate_findings(page.get_by_test_id('inspector-gate'), view['gates'])
+    rule = page.get_by_test_id('gate-finding').filter(has=page.locator('code', has_text='rules/rule-activation-task-code'))
+    expect(rule).to_have_count(1)
+    # The subject is the task itself, so it is not repeated in the finding.
+    expect(rule.locator('.finding-subject')).to_have_count(0)
+
+    # The Board inspector draws the same gates with the same findings.
+    page.goto(desk['url'])
+    _card(page, held).click()
+    inspector = page.get_by_test_id('inspector')
+    expect(inspector).to_contain_text('Tarea sin recibos')
+    _expect_gate_findings(inspector.get_by_test_id('inspector-gate'), view['gates'])
+    _no_stitch(page)
+
+
+def test_task_gate_without_findings_has_no_list(desk, browser_page):
+    page, root, first = browser_page, desk['root'], desk['first']
+    view = deskops_view.task_view(root, first)['task']
+    assert view['gates'] and not any(gate.get('findings') for gate in view['gates']), view['gates']
+    page.goto(f"{desk['url']}#/task?id={first}")
+    gates = page.get_by_test_id('inspector-gate')
+    expect(gates).to_have_count(len(view['gates']))
+    expect(gates.first).to_contain_text(view['gates'][0]['target'])
+    expect(page.locator('ul.gate-findings')).to_have_count(0)
+    expect(page.get_by_test_id('gate-finding')).to_have_count(0)
+
+
 # ---------------------------------------------------------------- UI05 Drawer e Inbox
 def test_drawer_lists_disk_and_copies_the_exact_command(desk, browser_page):
     page, root = browser_page, desk['root']
