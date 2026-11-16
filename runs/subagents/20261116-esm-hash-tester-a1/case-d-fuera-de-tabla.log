@@ -1,0 +1,80 @@
+$ node --test /dev/shm/esm-t1/notable.test.mjs
+TAP version 13
+# Subtest: la arista saliente resalta el campo del documento abierto
+ok 1 - la arista saliente resalta el campo del documento abierto
+  ---
+  duration_ms: 25.366211
+  type: 'test'
+  ...
+# Subtest: la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+ok 2 - la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+  ---
+  duration_ms: 0.265616
+  type: 'test'
+  ...
+# Subtest: el vecino a dos saltos tampoco resalta campos del documento abierto
+ok 3 - el vecino a dos saltos tampoco resalta campos del documento abierto
+  ---
+  duration_ms: 23.276611
+  type: 'test'
+  ...
+# Subtest: el foco de campo solo resalta las aristas que declara el documento abierto
+ok 4 - el foco de campo solo resalta las aristas que declara el documento abierto
+  ---
+  duration_ms: 0.287352
+  type: 'test'
+  ...
+# Subtest: correspondence cuenta solo elementos del documento abierto
+ok 5 - correspondence cuenta solo elementos del documento abierto
+  ---
+  duration_ms: 0.369206
+  type: 'test'
+  ...
+# Subtest: un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+ok 6 - un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+  ---
+  duration_ms: 0.417747
+  type: 'test'
+  ...
+# Subtest: relation_doc y structural no tienen campo: no resaltan ninguno
+ok 7 - relation_doc y structural no tienen campo: no resaltan ninguno
+  ---
+  duration_ms: 0.164552
+  type: 'test'
+  ...
+# Subtest: se conservan todas las procedencias reales: varias del dueño correcto
+ok 8 - se conservan todas las procedencias reales: varias del dueño correcto
+  ---
+  duration_ms: 0.189484
+  type: 'test'
+  ...
+# Subtest: sin identidad abierta no se resalta nada por propiedad
+ok 9 - sin identidad abierta no se resalta nada por propiedad
+  ---
+  duration_ms: 0.320079
+  type: 'test'
+  ...
+# Error: A resource generated asynchronous activity after the test ended. This activity created the error "Error: GET https://esm.sh/linkify-it@5.0.2/es2022/linkify-it.mjs -> sin sha256 esperado en EXPECTED_SHA256" which triggered an uncaughtException event, caught by the test runner.
+# Subtest: /dev/shm/esm-t1/notable.test.mjs
+not ok 1 - /dev/shm/esm-t1/notable.test.mjs
+  ---
+  duration_ms: 3323.324805
+  type: 'test'
+  location: '/dev/shm/esm-t1/notable.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 9
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3394.377908
+EXIT=1
+DURATION=3.703210954 s

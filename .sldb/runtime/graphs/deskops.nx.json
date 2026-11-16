@@ -9095,7 +9095,7 @@
             }
           },
           {
-            "target_id": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+            "target_id": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
             "relation_type": "tasks",
             "metadata": {
               "confidence": "high",
@@ -20073,22 +20073,10 @@
       "status": "unknown",
       "schema": {
         "identity": {
-          "node_id": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+          "node_id": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
           "node_type": "task"
         },
         "edges": [
-          {
-            "target_id": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node",
-            "relation_type": "atoms",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "frontmatter",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-              "role": "atoms",
-              "source_kind": "declared"
-            }
-          },
           {
             "target_id": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node",
             "relation_type": "references",
@@ -20096,7 +20084,7 @@
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
               "provenance_locator": "frontmatter",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+              "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
               "role": "references",
               "source_kind": "declared"
             }
@@ -20108,31 +20096,7 @@
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
               "provenance_locator": "line:24:source-file-reference",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "doc:docs/workspace-ui.md",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:20:source-file-reference",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "doc:docs/workspace-ui.md",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:61:source-file-reference",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+              "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
               "role": "references",
               "source_kind": "declared"
             }
@@ -20144,7 +20108,7 @@
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
               "provenance_locator": "frontmatter",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+              "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
               "role": "pills",
               "source_kind": "declared"
             }
@@ -20156,7 +20120,7 @@
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
               "provenance_locator": "line:27:source-file-reference",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+              "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
               "role": "references",
               "source_kind": "declared"
             }
@@ -20168,113 +20132,29 @@
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
               "provenance_locator": "frontmatter",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+              "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
               "role": "current_node",
               "source_kind": "declared"
             }
           },
           {
-            "target_id": "test_file:tests/e2e_mindmap_workspace.py",
+            "target_id": "test_file:tests/test_mindmap_workspace_reader.py",
             "relation_type": "references",
             "metadata": {
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
               "provenance_locator": "line:23:source-file-reference",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/e2e_mindmap_workspace.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:34:source-file-reference",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/e2e_mindmap_workspace.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:61:source-file-reference",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/e2e_mindmap_workspace.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:74:source-file-reference",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/e2e_mindmap_workspace.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:80:source-file-reference",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/test_mindmap_workspace_reader.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:22:source-file-reference",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/test_mindmap_workspace_reader.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:74:source-file-reference",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/test_mindmap_workspace_reader.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:80:source-file-reference",
-              "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+              "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
               "role": "references",
               "source_kind": "declared"
             }
           }
         ],
         "semantics": {
-          "document_id": "task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-          "identity": "task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-          "label": "Lector del workspace: render Markdown legible (citas, énfasis, código inline, enlaces estándar) con un motor real",
-          "path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md"
+          "document_id": "task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
+          "identity": "task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
+          "label": "La prueba node del lector descarga markdown-it de esm.sh con timeout corto y verificando un hash fijado",
+          "path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md"
         },
         "ast": null,
         "io_ports": [],
@@ -20287,13 +20167,13 @@
           "provenance": [
             {
               "extractor": "desk_doc_nodes_v1",
-              "path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+              "path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
               "source_kind": "file_metadata"
             }
           ]
         }
       },
-      "id": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot"
+      "id": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij"
     },
     {
       "type": "task",
@@ -22256,7 +22136,7 @@
         "source_kind": "declared"
       },
       "source": "board:board-graph-ui",
-      "target": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot"
+      "target": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij"
     },
     {
       "relation": "tasks",
@@ -22779,29 +22659,16 @@
       "target": "test_file:tests/test_parallel_workspace_serve.py"
     },
     {
-      "relation": "atoms",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "frontmatter",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "atoms",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node"
-    },
-    {
       "relation": "references",
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
         "provenance_locator": "frontmatter",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+        "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
         "role": "references",
         "source_kind": "declared"
       },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "source": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
       "target": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node"
     },
     {
@@ -22810,38 +22677,12 @@
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
         "provenance_locator": "line:24:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+        "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
         "role": "references",
         "source_kind": "declared"
       },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "source": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
       "target": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:20:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "doc:docs/workspace-ui.md"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:61:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "doc:docs/workspace-ui.md"
     },
     {
       "relation": "pills",
@@ -22849,11 +22690,11 @@
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
         "provenance_locator": "frontmatter",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+        "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
         "role": "pills",
         "source_kind": "declared"
       },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "source": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
       "target": "pill:pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables"
     },
     {
@@ -22862,11 +22703,11 @@
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
         "provenance_locator": "line:27:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+        "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
         "role": "references",
         "source_kind": "declared"
       },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "source": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
       "target": "pill:pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables"
     },
     {
@@ -22875,11 +22716,11 @@
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
         "provenance_locator": "frontmatter",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+        "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
         "role": "current_node",
         "source_kind": "declared"
       },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "source": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
       "target": "ritual:ritual-closeout"
     },
     {
@@ -22888,102 +22729,11 @@
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
         "provenance_locator": "line:23:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+        "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
         "role": "references",
         "source_kind": "declared"
       },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "test_file:tests/e2e_mindmap_workspace.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:34:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "test_file:tests/e2e_mindmap_workspace.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:61:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "test_file:tests/e2e_mindmap_workspace.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:74:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "test_file:tests/e2e_mindmap_workspace.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:80:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "test_file:tests/e2e_mindmap_workspace.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:22:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "test_file:tests/test_mindmap_workspace_reader.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:74:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
-      "target": "test_file:tests/test_mindmap_workspace_reader.py"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:80:source-file-reference",
-        "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot",
+      "source": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
       "target": "test_file:tests/test_mindmap_workspace_reader.py"
     },
     {

@@ -1,0 +1,14 @@
+$ node --test tests/mindmap-workspace-reader.test.mjs tests/mindmap-workspace.test.mjs
+# tests 23
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+EXIT=0 DURATION=3.911082972 s
+$ node --test tests/*.test.mjs
+# tests 158
+# pass 158
+# fail 0
+# cancelled 0
+# skipped 0
+EXIT=0 DURATION=3.803526292 s

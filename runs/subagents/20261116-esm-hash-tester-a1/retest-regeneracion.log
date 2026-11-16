@@ -1,0 +1,22 @@
+--- iteracion 1: $ node --test /dev/shm/esm-t2/regen.test.mjs -> EXIT=1 (1.71 s)
+mensaje: GET https://esm.sh/mdurl@^2.0.0?target=es2022 -> sin sha256 esperado en EXPECTED_SHA256
+accion: agregar https://esm.sh/mdurl@^2.0.0?target=es2022 con 64 ceros
+--- iteracion 2: $ node --test /dev/shm/esm-t2/regen.test.mjs -> EXIT=1 (1.85 s)
+mensaje: GET https://esm.sh/mdurl@^2.0.0?target=es2022 -> sha256 0432b26197f320df4fff103362a7f841fe2f23a5348f2353863a298e482bdda3 != 0000000000000000000000000000000000000000000000000000000000000000
+accion: copiar 0432b26197f320df4fff103362a7f841fe2f23a5348f2353863a298e482bdda3 en la entrada de https://esm.sh/mdurl@^2.0.0?target=es2022
+--- iteracion 3: $ node --test /dev/shm/esm-t2/regen.test.mjs -> EXIT=1 (1.78 s)
+mensaje: GET https://esm.sh/mdurl@2.1.0/es2022/mdurl.mjs -> sin sha256 esperado en EXPECTED_SHA256
+accion: agregar https://esm.sh/mdurl@2.1.0/es2022/mdurl.mjs con 64 ceros
+--- iteracion 4: $ node --test /dev/shm/esm-t2/regen.test.mjs -> EXIT=1 (1.81 s)
+mensaje: GET https://esm.sh/mdurl@2.1.0/es2022/mdurl.mjs -> sha256 487149fd6591ee740f4e9df7cf13c4694bfd613650b49b5f6895ab3b1e81627d != 0000000000000000000000000000000000000000000000000000000000000000
+accion: copiar 487149fd6591ee740f4e9df7cf13c4694bfd613650b49b5f6895ab3b1e81627d en la entrada de https://esm.sh/mdurl@2.1.0/es2022/mdurl.mjs
+--- iteracion 5: $ node --test /dev/shm/esm-t2/regen.test.mjs -> EXIT=0 (2.35 s)
+# tests 16
+# pass 16
+# fail 0
+RECUPERADO https://esm.sh/mdurl@^2.0.0?target=es2022 0432b26197f320df4fff103362a7f841fe2f23a5348f2353863a298e482bdda3
+RECUPERADO https://esm.sh/mdurl@2.1.0/es2022/mdurl.mjs 487149fd6591ee740f4e9df7cf13c4694bfd613650b49b5f6895ab3b1e81627d
+  'https://esm.sh/mdurl@^2.0.0?target=es2022':
+    '0432b26197f320df4fff103362a7f841fe2f23a5348f2353863a298e482bdda3',
+  'https://esm.sh/mdurl@2.1.0/es2022/mdurl.mjs':
+    '487149fd6591ee740f4e9df7cf13c4694bfd613650b49b5f6895ab3b1e81627d',

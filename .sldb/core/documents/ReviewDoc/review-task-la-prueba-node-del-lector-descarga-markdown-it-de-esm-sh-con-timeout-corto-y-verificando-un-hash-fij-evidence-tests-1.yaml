@@ -1,0 +1,36 @@
+name: review-task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij-evidence-tests-1
+path: desk/reviews/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij/evidence-tests-1.md
+source_hash: f46f8079af5602518b7d2fbb0877cfcbf9b84a9483dc361283033f0e6fbfeb42
+content_hash: 98b650e655a661fa374075172d6f335594bad24d6058037174b4b888d88ee853
+field_hashes:
+  id: 51f2c5bd5b11ad7419aeb3d7d183028c4e86a8ec96335a463eb8e2719ceba653
+  title: 440cdd11b4fca9f1a7bf80d757804d033024f17935251a916242ac66ea7d19d5
+  kind: edecec53ab11f560816e75a17681eb83886beace01d7fb927d99707d3d031aac
+  fact: 68f05093bc600659c0aecd265fad80c71a658cc857e91cdfeeee782eb670c200
+  value: b6f0a568db953810e7ffd90837825beb2b0da5ad641f3cc19ed4375a9b933a0f
+  subject: 975a37cf6f717e218fcd9c762446ff9776359aee63961c3c4050ed794000c4a3
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 9eeef991471c47a0f748cc581c93b036c7560af99f0fcdf1ed75357a5551f1ac
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  input_sha256: 0c9f85415b0bf2ac68df22ba4ee8779bd7d0cfb409369d9887b674b419474b2f
+  output_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
+  reason: 3036c44c050ec9606e1c976275778fed0319909661c5e49d23b10519cd086c33
+  created_at: 60ff7aee7a7a8be5fe8cdbda420f884a973a9b7d5141950adb1267819eea6b50
+  disposed_at: 60ff7aee7a7a8be5fe8cdbda420f884a973a9b7d5141950adb1267819eea6b50
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: 89fa7679dd13a2919d5bca775f0fe5bb96b4e09caba5f59b5b470b66bed1fc0c
+  disposition: 9cfc28cedbe75b62d8b57bb3deab24edd8b13eee8564d50ffc623b39fdc309ff
+  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+- workspace:desk
+provenance:
+  by: agent
+  at: '2026-11-16T18:24:13Z'
+  authority: generated
+  via: save_document_payload

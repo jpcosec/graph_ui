@@ -1,0 +1,7 @@
+$ git diff HEAD --stat (sin runs/)
+ tests/mindmap-workspace-reader.test.mjs | 63 +++++++++++++++++++++++++++++++--
+ 1 file changed, 60 insertions(+), 3 deletions(-)
+$ diff de lineas +/- sin comentarios // : intento 1 (diff Correccion 1) vs actual
+IDENTICO (53 lineas)
+@@ -111,7 +111,51 @@ test('sin identidad abierta no se resalta nada por propiedad', () => {
+@@ -120,9 +164,22 @@ export async function resolve(specifier, context, next) {

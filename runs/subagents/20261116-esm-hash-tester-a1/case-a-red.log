@@ -1,0 +1,109 @@
+$ node --test tests/mindmap-workspace-reader.test.mjs
+TAP version 13
+# Subtest: la arista saliente resalta el campo del documento abierto
+ok 1 - la arista saliente resalta el campo del documento abierto
+  ---
+  duration_ms: 2.422303
+  type: 'test'
+  ...
+# Subtest: la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+ok 2 - la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+  ---
+  duration_ms: 0.275957
+  type: 'test'
+  ...
+# Subtest: el vecino a dos saltos tampoco resalta campos del documento abierto
+ok 3 - el vecino a dos saltos tampoco resalta campos del documento abierto
+  ---
+  duration_ms: 0.165824
+  type: 'test'
+  ...
+# Subtest: el foco de campo solo resalta las aristas que declara el documento abierto
+ok 4 - el foco de campo solo resalta las aristas que declara el documento abierto
+  ---
+  duration_ms: 0.331005
+  type: 'test'
+  ...
+# Subtest: correspondence cuenta solo elementos del documento abierto
+ok 5 - correspondence cuenta solo elementos del documento abierto
+  ---
+  duration_ms: 0.371131
+  type: 'test'
+  ...
+# Subtest: un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+ok 6 - un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+  ---
+  duration_ms: 3.007985
+  type: 'test'
+  ...
+# Subtest: relation_doc y structural no tienen campo: no resaltan ninguno
+ok 7 - relation_doc y structural no tienen campo: no resaltan ninguno
+  ---
+  duration_ms: 0.938335
+  type: 'test'
+  ...
+# Subtest: se conservan todas las procedencias reales: varias del dueño correcto
+ok 8 - se conservan todas las procedencias reales: varias del dueño correcto
+  ---
+  duration_ms: 0.216949
+  type: 'test'
+  ...
+# Subtest: sin identidad abierta no se resalta nada por propiedad
+ok 9 - sin identidad abierta no se resalta nada por propiedad
+  ---
+  duration_ms: 0.30992
+  type: 'test'
+  ...
+# Subtest: el motor del import map es markdown-it 14.1.0 por esm.sh
+ok 10 - el motor del import map es markdown-it 14.1.0 por esm.sh
+  ---
+  duration_ms: 0.486379
+  type: 'test'
+  ...
+# Subtest: renderBlocks: line_start/line_end en base 1 desde token.map, con el frontmatter separado
+ok 11 - renderBlocks: line_start/line_end en base 1 desde token.map, con el frontmatter separado
+  ---
+  duration_ms: 51.893547
+  type: 'test'
+  ...
+# Subtest: renderBlocks: cita con énfasis y enlace SLDB dentro
+ok 12 - renderBlocks: cita con énfasis y enlace SLDB dentro
+  ---
+  duration_ms: 6.549828
+  type: 'test'
+  ...
+# Subtest: renderBlocks: negrita, código inline literal, enlace estándar sin clasificar y HTML como texto
+ok 13 - renderBlocks: negrita, código inline literal, enlace estándar sin clasificar y HTML como texto
+  ---
+  duration_ms: 0.965651
+  type: 'test'
+  ...
+# Subtest: renderBlocks: un [[…]] dentro de énfasis conserva su resolución
+ok 14 - renderBlocks: un [[…]] dentro de énfasis conserva su resolución
+  ---
+  duration_ms: 21.927613
+  type: 'test'
+  ...
+# Subtest: renderBlocks: items de lista con [pred:: [[…]]] en su texto
+ok 15 - renderBlocks: items de lista con [pred:: [[…]]] en su texto
+  ---
+  duration_ms: 0.569965
+  type: 'test'
+  ...
+# Subtest: renderBlocks: sin frontmatter las lineas son las de la fuente; HTML de bloque queda como texto
+ok 16 - renderBlocks: sin frontmatter las lineas son las de la fuente; HTML de bloque queda como texto
+  ---
+  duration_ms: 0.232442
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2408.847188
+EXIT=0
+DURATION=2.778511347 s

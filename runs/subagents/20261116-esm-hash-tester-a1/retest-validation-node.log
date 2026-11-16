@@ -1,0 +1,7 @@
+$ node --test tests/*.test.mjs
+# tests 158
+# pass 158
+# fail 0
+# cancelled 0
+# skipped 0
+EXIT=0 DURATION=2.777272552 s

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "edge_count": 81,
+    "edge_count": 71,
     "extractor": "deskops_kgdb_snapshot_v1",
     "node_count": 633,
     "runtime_output_path": ".sldb/runtime/graphs/deskops.kg.json",
@@ -6191,7 +6191,7 @@
             "source_kind": "declared"
           },
           "relation_type": "tasks",
-          "target_id": "task:task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot"
+          "target_id": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij"
         },
         {
           "metadata": {
@@ -13682,19 +13682,7 @@
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
             "provenance_locator": "frontmatter",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
-            "role": "atoms",
-            "source_kind": "declared"
-          },
-          "relation_type": "atoms",
-          "target_id": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "frontmatter",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
+            "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
             "role": "references",
             "source_kind": "declared"
           },
@@ -13706,7 +13694,7 @@
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
             "provenance_locator": "line:24:source-file-reference",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
+            "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
             "role": "references",
             "source_kind": "declared"
           },
@@ -13717,32 +13705,8 @@
           "metadata": {
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:20:source-file-reference",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "doc:docs/workspace-ui.md"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:61:source-file-reference",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "doc:docs/workspace-ui.md"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
             "provenance_locator": "frontmatter",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
+            "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
             "role": "pills",
             "source_kind": "declared"
           },
@@ -13754,7 +13718,7 @@
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
             "provenance_locator": "line:27:source-file-reference",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
+            "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
             "role": "references",
             "source_kind": "declared"
           },
@@ -13766,7 +13730,7 @@
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
             "provenance_locator": "frontmatter",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
+            "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
             "role": "current_node",
             "source_kind": "declared"
           },
@@ -13778,91 +13742,7 @@
             "confidence": "high",
             "extractor": "desk_declared_edges_v1",
             "provenance_locator": "line:23:source-file-reference",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_mindmap_workspace.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:34:source-file-reference",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_mindmap_workspace.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:61:source-file-reference",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_mindmap_workspace.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:74:source-file-reference",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_mindmap_workspace.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:80:source-file-reference",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/e2e_mindmap_workspace.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:22:source-file-reference",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_mindmap_workspace_reader.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:74:source-file-reference",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
-            "role": "references",
-            "source_kind": "declared"
-          },
-          "relation_type": "references",
-          "target_id": "test_file:tests/test_mindmap_workspace_reader.py"
-        },
-        {
-          "metadata": {
-            "confidence": "high",
-            "extractor": "desk_declared_edges_v1",
-            "provenance_locator": "line:80:source-file-reference",
-            "provenance_path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
+            "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
             "role": "references",
             "source_kind": "declared"
           },
@@ -13871,21 +13751,21 @@
         }
       ],
       "identity": {
-        "node_id": "task:task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot",
+        "node_id": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
         "node_type": "task"
       },
       "semantics": {
-        "document_id": "task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot",
-        "identity": "task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot",
-        "label": "Lector del workspace: render Markdown legible (citas, \u00e9nfasis, c\u00f3digo inline, enlaces est\u00e1ndar) con un motor real",
-        "path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md"
+        "document_id": "task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
+        "identity": "task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
+        "label": "La prueba node del lector descarga markdown-it de esm.sh con timeout corto y verificando un hash fijado",
+        "path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md"
       },
       "source": {
         "extractor": "deskops_kgdb_snapshot_v1",
         "provenance": [
           {
             "extractor": "desk_doc_nodes_v1",
-            "path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot.md",
+            "path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
             "source_kind": "file_metadata"
           }
         ]
