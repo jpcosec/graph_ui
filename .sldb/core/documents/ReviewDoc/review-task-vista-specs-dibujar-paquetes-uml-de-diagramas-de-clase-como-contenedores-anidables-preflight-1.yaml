@@ -1,0 +1,36 @@
+name: review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-preflight-1
+path: desk/reviews/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/preflight-1.md
+source_hash: 00e97730c5a1cd97889697a2314abc2b88d3c4c20e49adbf9724b109d2cc5ec5
+content_hash: 5071fcd4e4f20ec5cb8d7157ee3f340c86f1e3f5b62ab21801e1e4347de1347a
+field_hashes:
+  id: 468012d1ec8df011a8eee6d233ea307ca61ec706b259d4d3cf46d5eeaeca7e64
+  title: 4a28b6d70ccc7aba275179492a543e361925a086d583f33606263d7705a6a432
+  kind: b7aa467a101908787d614f7bfc1dadd75a976b85a3bf6022dd451c30158bbff2
+  fact: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  value: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  subject: a668e28280ede79f54581da84397743a3dc39eab3e6d15b29af7be9800511493
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 6874c40de9971944b9706ccc769074b7f77cb595ed78bafba748db5266461238
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: e93853b071d80c942a059bf6749b92578b8c9174bf903482ca46d32241ce81fb
+  input_sha256: 7c103bb2b7729cec9aa29bbf456ab93cd70b8e10073b5e741788d4d6fe7f094b
+  output_sha256: 05a8ab2870eb4f1a6e4ae14580f6fb83b40efe5ece632da0099ba3477d2817d5
+  verdict: d5a7606c75f86f5046e5c8312a9819e4778be8ab33a7e8950d62f7ba620684fe
+  reason: f44fcefca3a48bf2aa13e26be3ba19220847501b0a9964af515de067a9792d6a
+  created_at: 7eff3d1c45421790451d8d818b9a475cf50b83dc04e1a5df97b626c2ac973d67
+  disposed_at: 06e2a1236cf3ee411b8b7ed28230353953280629159f97174345e1b01adcfd10
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: 36ecbbe1e2525e4b6935d4b9cfed899f84d2f0f6fdd63c104f4f8e487681431a
+  disposition: d205eb1a5ddf68278ec3cdede67a3fa6d8e9a7960cd14ce4706ddeacafaf6c95
+  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+- workspace:desk
+provenance:
+  by: agent
+  at: '2026-11-16T03:50:06Z'
+  authority: generated
+  via: save_document_payload

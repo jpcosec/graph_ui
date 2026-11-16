@@ -1,0 +1,40 @@
+name: task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables
+path: desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md
+source_hash: c258c5493badd30260597e74c2e9fac80bb85a8a6802e2554eca530e5ca01e20
+content_hash: 3d49f10c737826ec86f8c3f18269e5870cd3159140293be14d1cecdc8af235e3
+field_hashes:
+  title: b94b4335091e5901d6d2bfa458abb3dc4dacf50327282c815cc16860657b10e7
+  id: aa0eaf88f00cf40f4485c6d7de45cea294e56a1b08efefd7f2ceb6da9a569874
+  status: 6ae048f08fcab44bfbc8463f074bfdb40f94c6bdf56d3aad9a7e1c05e5d5b5c1
+  summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  tags: 97dc0408038530d73322d1543c5d5c1e8e0b0f6039702ceb4a4cdb7214e119e2
+  current_node: ff5161892aac34735bf10c411f7230b62b7b56446e230a5d26fb75afde4704b6
+  history: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  why: b1d8a2d961ed3c49e77845dbf87e2db419f01ceb56e70a047305e98efec69302
+  goal: c1d70388908b19b55eab5952c33893bff73548f47d8f9699c5d9c915499cf965
+  scope: 7815945b997fd93ce5dd4cf965789097cd36f59bc580351c7a4e501478354128
+  references: 969cb75eacaf0f16edcd115d967d308853704d23d3b27abff5879de19706de5d
+  depends_on: 1b263c2d9e3f1b321fb66aa65b12cb8f1481931555f66190f53fdbaa12e0e8e2
+  pills: 152ff78e6e9a43dc8fe8ec134273a101a6596f567c90e8b9774af04fd67d016c
+  files: cd6e40adb4ef03bef38f8eb4be2dd448cb85875f50fa7a93a2be2e0a1f0581da
+  implementation_path: cf94914b8c739b6c597e93a09241373dc91e4aa14dd46c20e610adcbf9f37778
+  validation: 1ad85324d820cca9054424bd99fb9b391926c0fae117704119f867772d70e24a
+  done_when: 143d134d0dc5b5bead47f38c1b6181286493851b6f3c955433c5d27aacda2f7f
+  task_type: 430e281fc3506e5a61bf187bc4220dab834ca38806ca4f603f817cc82f9791bb
+  inherits_from: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  inherit_acceptance_context: fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa
+  atoms: e54593c261c4293b2c4d844bc209e6d7279967fd25effe07f8f18c54a3a57b00
+  from_drawer: 9bfd5a749df2d5327fb8291061714f2d645103ff963c34be18ec6c435e051793
+semantic_tags:
+- artifact:task
+- host:local
+- representation.markdown
+- source.document.markdown
+- type.workflow.task
+- workspace.desk
+- workspace:desk
+provenance:
+  by: agent
+  at: '2026-11-16T03:54:13Z'
+  authority: generated
+  via: save_document_payload

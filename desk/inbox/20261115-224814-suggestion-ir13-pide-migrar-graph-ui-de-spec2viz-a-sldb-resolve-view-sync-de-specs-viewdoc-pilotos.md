@@ -1,4 +1,9 @@
 ---
+sldb:
+  by: agent
+  at: '2026-11-16T03:36:22Z'
+  authority: generated
+  via: save_document_payload
 # unclear | suggestion
 kind: suggestion
 # e.g., other_repo
@@ -8,9 +13,11 @@ target_project: graph_ui
 # ISO 8601 timestamp
 created_at: '2026-11-15T22:48:14'
 # open | closed
-status: open
+status: closed
 # project identity that acknowledged the note
+acknowledged_by: graph_ui
 # ISO 8601 timestamp, set when acknowledged
+acknowledged_at: '2026-11-16T00:36:20'
 ---
 
 # IR13 pide migrar graph_ui de spec2viz a sldb (resolve_view, sync de specs, ViewDoc, pilotos)

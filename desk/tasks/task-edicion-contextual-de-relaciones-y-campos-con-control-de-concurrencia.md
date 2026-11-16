@@ -1,10 +1,16 @@
 ---
+sldb:
+  by: agent
+  at: '2026-11-16T03:46:35Z'
+  authority: generated
+  via: save_document_payload
 id: task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia
 status: draft
 summary: ''
 tags:
 - workspace:desk
 - artifact:task
+- host:local
 current_node: ritual-execution
 history: []
 references:

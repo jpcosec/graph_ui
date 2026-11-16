@@ -1,13 +1,13 @@
 name: task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento
 path: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
-source_hash: e92425e3b6f2268154b70600b08bdefbe9988578d803365d733b2f799b1c6cef
-content_hash: cc59f0f61a600fd59785da58c198a53bf4c05a93bafff9789f38518166bca116
+source_hash: ff2165ba27d8765bf3d91401868eab9e6f713330f6cb57238eb28371472c91c4
+content_hash: 99ee108ffea7d773b3c98faae0fc9f6c7309f5753c81af00db054db2ba4a552c
 field_hashes:
   title: 64e81c88cc64a1ce6bc685161b1aa2220ae569c32ca54dc8cd471df73196c1e0
   id: b99d3d0a86eeed0f7f69d45040dcad046a6d88ab7204b8539ef3efb10bc9656c
   status: 6ae048f08fcab44bfbc8463f074bfdb40f94c6bdf56d3aad9a7e1c05e5d5b5c1
   summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
-  tags: 9e7e8be2998f87dfcbb538781d827f202722ef7dad630b93bca343e20f247db8
+  tags: 97dc0408038530d73322d1543c5d5c1e8e0b0f6039702ceb4a4cdb7214e119e2
   current_node: ff5161892aac34735bf10c411f7230b62b7b56446e230a5d26fb75afde4704b6
   history: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   why: 8fd45e6f58b81810fb2d3c6ba02e87df7f3b1e382cec6d3db1c901b1d22cc46c
@@ -27,9 +27,14 @@ field_hashes:
   closeout_evidence: 3695151359c1729d0f59ab1552be4395c8102838b1491792cff26b15b8410264
 semantic_tags:
 - artifact:task
+- host:local
 - representation.markdown
 - source.document.markdown
 - type.workflow.task
 - workspace.desk
 - workspace:desk
-provenance: null
+provenance:
+  by: agent
+  at: '2026-11-16T03:46:38Z'
+  authority: generated
+  via: save_document_payload

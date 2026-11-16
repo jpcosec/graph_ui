@@ -1,13 +1,13 @@
 name: task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia
 path: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
-source_hash: 6927ad1c2959a07936d1c65aff05a521b51151a5ccd75bbe6b462cb6444dd286
-content_hash: 87a6e0ee495b4e95681302a6738b5c94aecc0a6c806f69dc56ae34a031bf1242
+source_hash: c3cb00d50dee77045070b08a4ad04b809ec01d20c3c1a66fa455ff6c70d676e1
+content_hash: 044aa4012c2f47c1ea4d5bc82cc1686c8d0f93acb272157f61f77937a375d8be
 field_hashes:
   title: 16b1bc2afc4bb0427d985ce0f314846709882f95bc936a5861b43c05eecc3be2
   id: 4a60ed58e76d73ba626ab3da8232ade4a02502f003ca9d61cba82f34eb119b79
   status: 6ae048f08fcab44bfbc8463f074bfdb40f94c6bdf56d3aad9a7e1c05e5d5b5c1
   summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
-  tags: 9e7e8be2998f87dfcbb538781d827f202722ef7dad630b93bca343e20f247db8
+  tags: 97dc0408038530d73322d1543c5d5c1e8e0b0f6039702ceb4a4cdb7214e119e2
   current_node: ff5161892aac34735bf10c411f7230b62b7b56446e230a5d26fb75afde4704b6
   history: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   why: 314415908a32b700cf66cfd7a2cfd4df6e50d9b903f5b22f4583058f51b0533b
@@ -27,9 +27,14 @@ field_hashes:
   closeout_evidence: 3695151359c1729d0f59ab1552be4395c8102838b1491792cff26b15b8410264
 semantic_tags:
 - artifact:task
+- host:local
 - representation.markdown
 - source.document.markdown
 - type.workflow.task
 - workspace.desk
 - workspace:desk
-provenance: null
+provenance:
+  by: agent
+  at: '2026-11-16T03:46:35Z'
+  authority: generated
+  via: save_document_payload
