@@ -1,4 +1,4 @@
-// Carriles UML de una activity (spec2viz §14, `data.partition`): una columna por partición, en orden
+// Carriles UML de una activity (contrato de notación §14, `data.partition`): una columna por partición, en orden
 // de aparición, y el flujo bajando por filas. ELK no sirve aquí: los pasos de una partición no son
 // contiguos en el flujo (Dev -> Script -> Dev), y un contenedor por partición lo apila en bloques. El
 // layout y el ruteo ortogonal son propios y puros; la vista los recibe con la misma forma que el de

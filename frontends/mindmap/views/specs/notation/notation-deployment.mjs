@@ -1,4 +1,4 @@
-// Layout propio de un despliegue (spec2viz §14) grande y anidado, cuando ELK no lo deja legible: con
+// Layout propio de un despliegue (contrato de notación §14) grande y anidado, cuando ELK no lo deja legible: con
 // INCLUDE_CHILDREN, cada nivel de anidado suma su encabezado y su padding en cada capa, y ni el plegado
 // ni la compactación actúan dentro de los contenedores. Aquí cada contenedor acomoda a sus hijos en
 // columnas por flujo (de afuera hacia adentro) o en una grilla, eligiendo la proporción que maximiza

@@ -1,4 +1,4 @@
-/* ---- Vista Specs: un spec de spec2viz dibujado según su notación ---- */
+/* ---- Vista Specs: un spec del store dibujado según su notación ---- */
 /* R13: acotada al alto de la ventana (min-height:0 en la columna de la vista); la leyenda hace scroll en el catálogo, no estira el lienzo. */
 .notation{flex:1;min-width:0;min-height:0;display:flex;background:var(--surface-app)}
 
@@ -106,7 +106,7 @@
 /* Los rótulos de arista se dibujan sobre los nodos (no los tapa el velo de un contenedor); ya evitan los nodos hoja. */
 .notation-canvas .react-flow__edgelabel-renderer{z-index:5}
 
-/* Estilo de notación (spec2viz §13): ícono antes del rótulo y formas dibujadas como contorno. */
+/* Estilo de notación (contrato §13): ícono antes del rótulo y formas dibujadas como contorno. */
 .glyph-title-row{display:inline-flex;align-items:center;justify-content:center;gap:5px}
 .glyph-icon{flex:none;color:var(--glyph-stroke,currentColor)}
 /* Sobre un relleno declarado, el texto secundario usa el ink del relleno (legible en ambos temas). */
@@ -134,7 +134,7 @@
 .legend-line line{stroke-width:2}
 .notation-canvas .react-flow__handle{opacity:0;pointer-events:none}
 
-/* Activity (spec2viz §14): nota UML con la esquina doblada, unida a su paso por una línea punteada. */
+/* Activity (contrato §14): nota UML con la esquina doblada, unida a su paso por una línea punteada. */
 .glyph[data-function="note"]:not(.is-styled) .glyph-outline path{fill:var(--warning-soft);stroke:var(--warning-border)}
 .glyph[data-function="note"] .glyph-label{font-weight:400}
 /* Carril UML (§14, data.partition): una columna por partición, recta, con su nombre arriba. */

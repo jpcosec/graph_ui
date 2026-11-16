@@ -1,7 +1,7 @@
 // Lógica pura de la vista de notación: catálogo de specs y escena a dibujar.
 // La notación NO se interpreta aquí: el JSON de GET /api/notation/view ya trae
 // el glifo, la forma, los compartimentos y el `draw` de cada link, resueltos
-// por spec2viz (resolve_view, spec2viz/docs/notation-contract.md). Este módulo
+// por sldb (sldb.api.notations.resolve_view, sldb/docs/architecture/notations-and-views.md). Este módulo
 // solo traduce ese resultado a cajas y aristas, y avisa de lo que la vista
 // todavía no sabe dibujar en vez de inventarlo.
 
@@ -95,7 +95,7 @@ export function buildScene(view) {
     edges.push({
       id: link.doc || `${link.source}->${link.target}#${index}`, source: link.source, target: link.target,
       relation: link.relation, link: link.link || '', label: link.label || '',
-      // Rótulos de extremo (§8d): plantillas del LinkDoc ya resueltas por spec2viz
+      // Rótulos de extremo (§8d): plantillas del LinkDoc ya resueltas por sldb
       // (p. ej. multiplicidades de una asociación UML).
       sourceLabel: link.source_label || '', targetLabel: link.target_label || '',
       dash: dash(link.line), sourceEnd: terminal(link.source_end), targetEnd: terminal(link.target_end), order: link.order || 0,
@@ -103,7 +103,7 @@ export function buildScene(view) {
     });
   }
   for (const draw of fallbackDraws) notices.push(`El dibujo «${draw}» todavía no está soportado: esas relaciones se dibujan como líneas.`);
-  if ((view.skipped || []).length) notices.push(`spec2viz omitió ${view.skipped.length} elemento(s) sin glifo ni link en la notación.`);
+  if ((view.skipped || []).length) notices.push(`sldb omitió ${view.skipped.length} elemento(s) sin glifo ni link en la notación.`);
   // Un ciclo de anidado (A dentro de B dentro de A) no es dibujable: se corta.
   for (const [child] of parentOf) {
     const seen = new Set([child]);
@@ -259,7 +259,7 @@ function laneSceneAt(view, wrap, measure, headMeasure = measure) {
       sourceEnd: terminal(link.source_end), targetEnd: terminal(link.target_end)};
   });
   for (const draw of offDraws) notices.push(`El dibujo «${draw}» no es un mensaje de secuencia: esas relaciones se dibujan como mensajes.`);
-  if ((view.skipped || []).length) notices.push(`spec2viz omitió ${view.skipped.length} elemento(s) sin glifo ni link en la notación.`);
+  if ((view.skipped || []).length) notices.push(`sldb omitió ${view.skipped.length} elemento(s) sin glifo ni link en la notación.`);
   const frames = laneFrames(view.fragments, messages);
   const right = Math.max(...lanes.map(l => l.x + l.width / 2),
     ...messages.filter(m => m.self).map(m => m.x1 + LANE.loop + 6 + Math.max(...m.lines.map(t => measure(t, LANE_TEXT.size)))),
@@ -340,7 +340,7 @@ export function gridScene(view) {
   const grids = [...views.values()].map(v => ({view: v.view, label: v.label,
     columns: v.stages.map((st, i) => ({id: st.doc, label: st.label || st.title || st.doc, order: st.data?.order ?? i, index: i}))
       .sort((a, b) => a.order - b.order || a.index - b.index)}));
-  if ((view.skipped || []).length) notices.push(`spec2viz omitió ${view.skipped.length} elemento(s) sin glifo ni link en la notación.`);
+  if ((view.skipped || []).length) notices.push(`sldb omitió ${view.skipped.length} elemento(s) sin glifo ni link en la notación.`);
   return {kind: 'grid', grids, rows, cells: Object.fromEntries(cells), notices};
 }
 

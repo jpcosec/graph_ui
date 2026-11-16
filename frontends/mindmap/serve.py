@@ -131,7 +131,7 @@ class ProxyHandler(SimpleHTTPRequestHandler):
     def _api_notation_view(self):
         """GET /api/notation/view?spec=<SpecDoc>: el spec dibujado según su notación.
 
-        Lo resuelve spec2viz (``resolve_view``) sobre el store local; sldb serve
+        Lo resuelve sldb (``sldb.api.notations.resolve_view``) sobre el store local; sldb serve
         no tiene equivalente, así que en remote responde 501 explícito.
         """
         if self.backend_mode == 'remote':

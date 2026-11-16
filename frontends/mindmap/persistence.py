@@ -56,7 +56,7 @@ class EditorStore:
         return self.adapter.document_ir(name)
 
     def notation_view(self, spec_ref):
-        """Vista de notación de un SpecDoc, resuelta por spec2viz (ver sldb_adapter)."""
+        """Vista de notación de un SpecDoc, resuelta por sldb.api.notations (ver sldb_adapter)."""
         return self.adapter.notation_view(spec_ref)
 
     def save(self, request):

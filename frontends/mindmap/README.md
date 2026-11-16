@@ -47,11 +47,11 @@ las clases, que es la misma en ambos temas.
   altura de la fila) y entra por la cabecera de la clase destino, etiquetada
   con el campo. Filtro por texto; doble clic o ✎ abre «Editar clases» en esa
   clase. Solo lectura: el contrato se edita en el diálogo.
-- **🧩 Specs** (`/specs/notation`) — los specs de spec2viz del store,
+- **🧩 Specs** (`/specs/notation`) — los specs (`SpecDoc`) del store,
   dibujados según su notación (UML de clases, statechart, componentes,
   secuencia…). El catálogo son los `SpecDoc` agrupados por `category`; abrir
   uno pide `GET /api/notation/view?spec=`, que delega en
-  `spec2viz.notation_view.resolve_view`: graph_ui no casa glifos ni evalúa
+  `sldb.api.notations.resolve_view`: graph_ui no casa glifos ni evalúa
   `where`, solo dibuja forma, compartimentos, marcas y terminales tal como
   vienen. `draw: nest` es contención (el destino dentro del origen). Layout
   `lanes` (secuencias): un carril por nodo en el orden de `nodes`, mensajes
@@ -60,7 +60,7 @@ las clases, que es la misma en ambos temas.
   `data.order`, filas = components indentados por `nest`, celda = link
   `cell` (fila → columna); una fila sin celdas se dibuja vacía. Lo que aún
   no tiene (`axis`, `draw: lane`) se dibuja como grafo y línea, con aviso.
-  Estilo (contrato §13): cada nodo usa el `style` ya resuelto por spec2viz
+  Estilo (contrato §13): cada nodo usa el `style` ya resuelto por sldb
   (relleno y trazo por tema, ícono de lucide junto al rótulo), las formas
   `cylinder`, `queue`, `cloud`, `package` y `note` se dibujan como contorno, y
   cada relación con `color` pinta su línea y su punta. El texto sobre un
@@ -86,9 +86,9 @@ las clases, que es la misma en ambos temas.
   grilla, con la combinación que más zoom da en el lienzo, y las aristas se
   rutean ortogonales con A* esquivando nodos y títulos. Un título de
   contenedor reserva el sitio de su ícono.
-  Requiere spec2viz instalado y modo
+  Requiere modo
   local (en remote, 501). Solo lectura. Contrato:
-  `spec2viz/docs/notation-contract.md`.
+  `sldb/docs/architecture/notations-and-views.md`.
 
 Tres diálogos:
 

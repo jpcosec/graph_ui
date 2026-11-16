@@ -17,7 +17,7 @@ from typing import Any
 from mindmap.projection_views import VIEW_MODEL, ViewError, evaluate_view, find_view, list_views
 from mindmap.sldb_adapter import ensure_model, write_document
 
-VIEW_MODEL_REF = 'spec2viz.sldb_models:ViewDoc'
+VIEW_MODEL_REF = 'sldb.models.notation.view_doc:ViewDoc'
 
 
 class RouteError(Exception):
@@ -46,7 +46,7 @@ def _view_payload(store: Path, body: dict[str, Any]) -> dict[str, Any]:
 
 
 def _ensure_view_model(store: Path) -> None:
-    """Register spec2viz's ``ViewDoc`` in a store that has none yet (spec2viz must be installed)."""
+    """Register sldb's ``ViewDoc`` in a store that has none yet."""
     try:
         ensure_model(store, VIEW_MODEL, VIEW_MODEL_REF)
     except Exception as exc:

@@ -1,7 +1,7 @@
-"""E2E de la vista Specs: un spec de spec2viz dibujado según su notación.
+"""E2E de la vista Specs: un spec del store dibujado según su notación.
 
-1. Store temporal real: `spec2viz diagram sync` de dos pilotos del repo de
-   spec2viz (statechart con estado compuesto y diagrama de clases UML).
+1. Store temporal real: `sldb notations sync --spec` de dos pilotos de
+   tests/fixtures/notation-pilots (statechart con estado compuesto y diagrama de clases UML).
 2. La pestaña Specs lista los SpecDoc agrupados por `category` (vacía aquí).
 3. El statechart se dibuja con los subestados DENTRO del compuesto (nest como
    contención de React Flow, no como arista), la marca `initial` y la
@@ -24,9 +24,8 @@ from pathlib import Path
 import pytest
 
 MINDMAP = Path(__file__).parents[1] / "frontends" / "mindmap"
-spec2viz = pytest.importorskip("spec2viz")
-PILOTS = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz"
-MATRIX = Path(spec2viz.__file__).resolve().parents[1] / "tests/fixtures/matrix.quotation-view.yml"
+PILOTS = Path(__file__).resolve().parent / "fixtures" / "notation-pilots"
+MATRIX = PILOTS / "matrix.quotation-view.yml"
 
 try:
     from playwright.sync_api import sync_playwright
@@ -39,13 +38,11 @@ LANES_PORT = 8159
 
 def _store(pilots=None):
     pilots = pilots or [PILOTS / "state-diagram-sync-lifecycle.yml", PILOTS / "class-sldb-models.yml"]
-    if not all(p.exists() for p in pilots) or not shutil.which("spec2viz"):
-        pytest.skip("sin los pilotos o el CLI de spec2viz")
     root = Path(tempfile.mkdtemp(prefix="kb-e2e-notation-"))
     for pilot in pilots:
         shutil.copy(pilot, root / pilot.name)
     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
-    subprocess.run(["spec2viz", "diagram", "sync", *(p.name for p in pilots), "--store", ".sldb"],
+    subprocess.run(["sldb", "notations", "sync", *[a for p in pilots for a in ("--spec", p.name)], "--store", ".sldb"],
                    cwd=root, check=True, capture_output=True)
     return root / ".sldb"
 

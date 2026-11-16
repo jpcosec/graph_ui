@@ -1,6 +1,6 @@
 """Projection views evaluated with sldb's API over real, temporary stores.
 
-The stores are built with ``spec2viz diagram sync`` from spec2viz's own pilots: ``SpecNodeDoc``
+The stores are built with ``sldb notations sync --spec`` from tests/fixtures/notation-pilots: ``SpecNodeDoc``
 documents joined by typed relations (``uses``, ``inherits``, ``reads``). A view names models,
 ``where`` predicates and relation types, so the same view runs against a second store too.
 """
@@ -15,22 +15,18 @@ from pathlib import Path
 
 import pytest
 
-spec2viz = pytest.importorskip("spec2viz")
-
-from mindmap.projection_views import ViewError, evaluate_view  # noqa: E402
+from mindmap.projection_views import ViewError, evaluate_view
 
 MINDMAP = Path(__file__).resolve().parents[1] / "frontends/mindmap"
-PILOTS = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz"
+PILOTS = Path(__file__).resolve().parent / "fixtures/notation-pilots"
 INHERITS = {"nodes": [{"model": "SpecNodeDoc", "where": ""}], "relations": ["inherits"]}
 
 
 def _store(root: Path, pilots: list[str]) -> Path:
-    if not all((PILOTS / p).exists() for p in pilots) or not shutil.which("spec2viz"):
-        pytest.skip("sin los pilotos o el CLI de spec2viz")
     for pilot in pilots:
         shutil.copy(PILOTS / pilot, root / pilot)
     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
-    subprocess.run(["spec2viz", "diagram", "sync", *pilots, "--store", ".sldb"], cwd=root, check=True, capture_output=True)
+    subprocess.run(["sldb", "notations", "sync", *[a for p in pilots for a in ("--spec", p)], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
     return root / ".sldb"
 
 
@@ -79,7 +75,7 @@ def styled_store(tmp_path_factory):
     for spec in STYLE.glob("*.yml"):
         shutil.copy(spec, root / spec.name)
     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
-    subprocess.run(["spec2viz", "diagram", "sync", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
+    subprocess.run(["sldb", "notations", "sync", "--spec", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
                    cwd=root, check=True, capture_output=True)
     return root / ".sldb"
 
@@ -164,7 +160,7 @@ def test_http_errors_say_what_is_wrong(server, tmp_path):
 
 
 def test_a_saved_view_is_a_viewdoc_of_the_store_and_evaluates_by_ref(server, store):
-    pytest.importorskip("spec2viz.sldb_models").ViewDoc  # task a: the model lives in spec2viz
+    from sldb.models.notation.view_doc import ViewDoc  # noqa: F401  (task a: the model lives in sldb)
     view = {**INHERITS, "title": "Herencia", "notation": "NotationDoc:component", "layout": {"kind": "graph", "style": "layered"}}
     status, saved = _call(f"{server}/api/views/save", {"name": "herencia", "view": view})
     assert status == 200 and saved["ref"] == "ViewDoc:herencia"

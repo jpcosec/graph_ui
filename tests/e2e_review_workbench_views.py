@@ -1,6 +1,6 @@
 """E2E: projection views in review-workbench, against real servers and a real store.
 
-A temporary store is built from spec2viz's pilots (``SpecNodeDoc`` documents joined by
+A temporary store is built from the pilots of tests/fixtures/notation-pilots (``SpecNodeDoc`` documents joined by
 ``uses``/``inherits``/``reads``). Three real processes serve it: ``sldb serve`` (what
 AntoniaFlowPage reads through ``/sldb``), the graph_ui server (``/api/views*``) and a production
 build of review-workbench under ``vite preview``, whose proxy forwards both. In Chromium:
@@ -16,7 +16,7 @@ build of review-workbench under ``vite preview``, whose proxy forwards both. In 
    with React Flow's classes, since no data path renders groups today) adds no frame either, RW1)
    a view with a ``notation`` (a third store, synced from tests/fixtures/notation-style with a
    styled notation) draws each node with its glyph's resolved style: the fill, stroke and icon the
-   server resolved with spec2viz's ``resolve_documents``, painted on the node; each edge with its
+   server resolved with sldb's ``resolve_documents``, painted on the node; each edge with its
    link's colour and dash; and the notation's legend in a canvas panel that covers no node.
 """
 import json
@@ -37,12 +37,10 @@ try:
 except ImportError:  # pragma: no cover
     sync_playwright = None
 
-spec2viz = pytest.importorskip("spec2viz")
-
 ROOT = Path(__file__).resolve().parents[1]
 APP = ROOT / "apps" / "review-workbench"
 MINDMAP = ROOT / "frontends" / "mindmap"
-PILOTS = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz"
+PILOTS = ROOT / "tests" / "fixtures" / "notation-pilots"
 HERE = ["component-exception-hierarchy.yml", "component-type-system.yml"]
 THERE = ["component-architecture.yml"]
 STYLE = ROOT / "tests" / "fixtures" / "notation-style"
@@ -73,7 +71,7 @@ def _store(root: Path, pilots: list[str]) -> Path:
     for pilot in pilots:
         shutil.copy(PILOTS / pilot, root / pilot)
     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
-    subprocess.run(["spec2viz", "diagram", "sync", *pilots, "--store", ".sldb"], cwd=root, check=True, capture_output=True)
+    subprocess.run(["sldb", "notations", "sync", *[a for p in pilots for a in ("--spec", p)], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
     return root / ".sldb"
 
 
@@ -83,8 +81,6 @@ def stack():
         pytest.skip("playwright no está instalado")
     if not (shutil.which("npx") and (APP / "node_modules").is_dir()):
         pytest.skip("review-workbench needs node and `npm ci` in apps/review-workbench")
-    if not all((PILOTS / p).exists() for p in HERE + THERE) or not shutil.which("spec2viz"):
-        pytest.skip("sin los pilotos o el CLI de spec2viz")
     work = Path(tempfile.mkdtemp(prefix="rw-views-"))
     processes = []
     try:
@@ -93,7 +89,7 @@ def stack():
         for spec in STYLE.glob("*.yml"):
             shutil.copy(spec, work / "styled" / spec.name)
         subprocess.run(["sldb", "stores", "init", "--path", str(work / "styled")], check=True, capture_output=True)
-        subprocess.run(["spec2viz", "diagram", "sync", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
+        subprocess.run(["sldb", "notations", "sync", "--spec", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
                        cwd=work / "styled", check=True, capture_output=True)
         styled = work / "styled" / ".sldb"
         sldb_port, ui_port, app_port = _free_port(), _free_port(), _free_port()

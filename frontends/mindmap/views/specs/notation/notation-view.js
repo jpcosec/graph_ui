@@ -8,8 +8,8 @@ import {bestLayout, pathOf, POINT_SHAPES} from './notation-layout.mjs';
 import {glyphVars, paletteInk, themed, innerVars} from './notation-style.mjs';
 import {GlyphIcon, ShapeOutline, NotationLegend, useIcons} from './notation-style.js';
 
-// Vista genérica de notación: dibuja un spec de spec2viz tal como lo resuelve
-// GET /api/notation/view (resolve_view de spec2viz). Nada aquí distingue UML,
+// Vista genérica de notación: dibuja un spec del store tal como lo resuelve
+// GET /api/notation/view (resolve_view de sldb.api.notations). Nada aquí distingue UML,
 // statechart o secuencia: la forma viene del glifo y el trazo del link. El
 // layout lo calcula ELK (notation-layout.mjs, jerárquico), nunca coordenadas del
 // store: posiciones y plegado son estado de la superficie (contrato §7).
@@ -59,7 +59,7 @@ function Glyph({glyph: g, container, selected, children, style, lines, outside, 
   const text = lines && lines.length ? lineList(lines) : g.label;
   const label = html`<span className=${'glyph-label' + (g.label_style ? ' is-' + g.label_style : '')}>${text}</span>`;
   const compartments = (g.compartments || []).filter(c => c.items && c.items.length);
-  // Estilo resuelto por spec2viz (§13): relleno, trazo, texto e ícono; sin estilo, el de siempre.
+  // Estilo resuelto por sldb (§13): relleno, trazo, texto e ícono; sin estilo, el de siempre.
   const vars = {...glyphVars(g.style, skin, ink), ...innerVars(g.shape)};
   return html`<div className=${'glyph shape-' + g.shape + (container ? ' is-container' : '') + (selected ? ' selected' : '') + (g.style?.fill || g.style?.stroke ? ' is-styled' : '')}
       style=${{...style, ...vars}} data-doc=${g.doc} data-glyph=${g.glyph} data-function=${g.function || ''} title=${g.doc}
@@ -332,7 +332,7 @@ function NotationCanvas({skin}) {
       <div className="notation-canvas" ref=${canvasRef} data-layout=${extent?.engine || ''}>
         <${TerminalDefs}/>
         ${!current && kb.documents.status === 'error' ? html`<div className="state" role="alert"><h2>No se pudo leer el store</h2><p>${kb.documents.error}</p></div>`
-          : !current ? html`<div className="state"><h2>Este store no tiene specs de spec2viz</h2><p>Sincroniza uno con <code>spec2viz diagram sync spec.yml --store .sldb</code>.</p></div>`
+          : !current ? html`<div className="state"><h2>Este store no tiene specs</h2><p>Sincroniza uno con <code>sldb notations sync --spec spec.yml --store .sldb</code>.</p></div>`
           : state.phase === 'error' ? html`<div className="state" role="alert"><h2>No se pudo dibujar ${current}</h2><p>${state.error}</p></div>`
           : state.phase === 'loading' || !scene ? html`<div className="state"><p>Resolviendo la notación…</p></div>`
           : scene.kind === 'lanes' ? html`<div className=${'notation-scroll' + (laneFit ? ' is-fit' : '')}><${LanesDiagram} scene=${scene} scale=${laneScale}/></div>`

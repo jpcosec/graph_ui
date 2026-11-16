@@ -1,10 +1,10 @@
 """Contrato de GET /api/notation/view: un SpecDoc dibujado según su NotationDoc.
 
 graph_ui no interpreta la notación: la resuelve
-``spec2viz.notation_view.resolve_view`` (spec2viz/docs/notation-contract.md)
+``sldb.api.notations.resolve_view`` (sldb/docs/architecture/notations-and-views.md)
 y este endpoint solo la transporta. El store es real y temporal: se arma con
-``spec2viz diagram sync`` sobre los pilotos del repo de spec2viz, sin tocar
-ningún store existente.
+``sldb notations sync --spec`` sobre los pilotos de tests/fixtures/notation-pilots,
+sin tocar ningún store existente.
 """
 import importlib.util
 import json
@@ -17,11 +17,10 @@ from pathlib import Path
 
 import pytest
 
-spec2viz = pytest.importorskip("spec2viz")
-from spec2viz.notation_view import resolve_view  # noqa: E402
+from sldb.api.notations import resolve_view
 
 MINDMAP = Path(__file__).resolve().parents[1] / "frontends/mindmap"
-PILOTS = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz"
+PILOTS = Path(__file__).resolve().parent / "fixtures/notation-pilots"
 STATECHART = "state.diagram-sync-lifecycle"
 CLASSES = "class.sldb-models"
 
@@ -37,12 +36,10 @@ def _load(name):
 def store(tmp_path_factory):
     root = tmp_path_factory.mktemp("notation")
     pilots = [PILOTS / "state-diagram-sync-lifecycle.yml", PILOTS / "class-sldb-models.yml"]
-    if not all(p.exists() for p in pilots) or not shutil.which("spec2viz"):
-        pytest.skip("sin los pilotos o el CLI de spec2viz")
     for pilot in pilots:
         shutil.copy(pilot, root / pilot.name)
     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
-    subprocess.run(["spec2viz", "diagram", "sync", *(p.name for p in pilots), "--store", ".sldb"],
+    subprocess.run(["sldb", "notations", "sync", *[a for p in pilots for a in ("--spec", p.name)], "--store", ".sldb"],
                    cwd=root, check=True, capture_output=True)
     return root / ".sldb"
 
@@ -76,7 +73,7 @@ def server(store, monkeypatch):
 def test_view_is_resolve_view_verbatim(server, store):
     status, body = server.get(f"/api/notation/view?spec={STATECHART}")
     assert status == 200
-    # graph_ui no reinterpreta: lo servido es exactamente lo que resuelve spec2viz.
+    # graph_ui no reinterpreta: lo servido es exactamente lo que resuelve sldb.
     assert body == json.loads(json.dumps(resolve_view(str(store), f"SpecDoc:{STATECHART}", str(store.parent))))
 
 

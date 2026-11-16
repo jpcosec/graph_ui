@@ -2,7 +2,7 @@
 
 A real temporary store gets two specs: tests/fixtures/notation-legibility/component-containers.yml
 (two containers with long titles, nine unlinked children in one, labelled edges between
-containers) and spec2viz's activity pilot (decisions and a loop back). In Chromium, for each:
+containers) and the activity pilot of tests/fixtures/notation-pilots (decisions and a loop back). In Chromium, for each:
 
 - every diagram text renders at >= 10 px at the zoom «Ver todo» leaves;
 - no two edge/pseudostate labels overlap, no node label spills out of its box;
@@ -35,13 +35,11 @@ try:
 except ImportError:  # pragma: no cover
     sync_playwright = None
 
-spec2viz = pytest.importorskip("spec2viz")
-
 ROOT = Path(__file__).resolve().parents[1]
 MINDMAP = ROOT / "frontends" / "mindmap"
 FIXTURES = ROOT / "tests" / "fixtures" / "notation-legibility"
 FIXTURE, DENSE = FIXTURES / "component-containers.yml", FIXTURES / "deployment-dense.yml"
-ACTIVITY = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz/activity-render-error-handling.yml"
+ACTIVITY = ROOT / "tests" / "fixtures" / "notation-pilots" / "activity-render-error-handling.yml"
 COMPONENT, FLOW, DEPLOYMENT = "component.legibility-containers", "activity.render-error-handling", "deployment.legibility-dense"
 
 # R13: lo que se ve del lienzo es su caja recortada por la ventana; un lienzo más alto que la ventana
@@ -166,13 +164,11 @@ def _serve(store, *args, pythonpath=None):
 def store(tmp_path_factory):
     if sync_playwright is None:
         pytest.skip("playwright no está instalado")
-    if not ACTIVITY.exists() or not shutil.which("spec2viz"):
-        pytest.skip("sin el piloto de actividad o el CLI de spec2viz")
     root = tmp_path_factory.mktemp("legibility")
     for spec in (FIXTURE, DENSE, ACTIVITY):
         shutil.copy(spec, root / spec.name)
     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
-    subprocess.run(["spec2viz", "diagram", "sync", FIXTURE.name, DENSE.name, ACTIVITY.name, "--store", ".sldb"], cwd=root, check=True, capture_output=True)
+    subprocess.run(["sldb", "notations", "sync", "--spec", FIXTURE.name, "--spec", DENSE.name, "--spec", ACTIVITY.name, "--store", ".sldb"], cwd=root, check=True, capture_output=True)
     return root / ".sldb"
 
 

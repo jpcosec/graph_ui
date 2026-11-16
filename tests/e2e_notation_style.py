@@ -1,4 +1,4 @@
-"""E2E: the Specs view draws the style spec2viz resolves (contract §13) — colours, icons, shapes, legend.
+"""E2E: the Specs view draws the style sldb resolves (contract §13) — colours, icons, shapes, legend.
 
 A real temporary store gets tests/fixtures/notation-style/component-infra.yml synced against the
 notation tests/fixtures/notation-style/infra.yml (palette `default`). In Chromium:
@@ -138,13 +138,11 @@ def _rgb(hex_colour):
 def store(tmp_path_factory):
     if sync_playwright is None:
         pytest.skip("playwright no está instalado")
-    if not shutil.which("spec2viz"):
-        pytest.skip("sin el CLI de spec2viz")
     root = tmp_path_factory.mktemp("style")
     for spec in FIXTURES.glob("*.yml"):
         shutil.copy(spec, root / spec.name)
     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
-    subprocess.run(["spec2viz", "diagram", "sync", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
+    subprocess.run(["sldb", "notations", "sync", "--spec", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
                    cwd=root, check=True, capture_output=True)
     return root / ".sldb"
 

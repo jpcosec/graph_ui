@@ -1,4 +1,4 @@
-// Estilo resuelto por spec2viz (contrato §13), en lógica pura: qué color toca en cada tema, de dónde
+// Estilo resuelto por sldb (contrato de notación §13), en lógica pura: qué color toca en cada tema, de dónde
 // sale el color del texto sobre un relleno y el contorno de las formas que no son una caja. graph_ui
 // no recalcula precedencias: node.style y link.color ya vienen resueltos.
 

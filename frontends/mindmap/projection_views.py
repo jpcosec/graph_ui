@@ -1,6 +1,6 @@
 """Projection views: which slice of a store to look at, evaluated with sldb's API only.
 
-A view is a ``ViewDoc`` of the store (its model lives in spec2viz, next to ``NotationDoc``;
+A view is a ``ViewDoc`` of the store (its model lives in sldb, next to ``NotationDoc``;
 desk/drawer/PROJECTION_GRAMMAR_SPEC.md §3). It names models, ``where`` predicates and relation
 types, never node ids or a store path, so the same view evaluates against any store:
 
@@ -9,12 +9,12 @@ types, never node ids or a store path, so the same view evaluates against any st
 - edges: the edges ``sldb.api.graph.execute_query`` keeps for ``RelationFilter(relations,
   direction)``, between two documents of that node set;
 - layout: the view's ``layout``, else its notation's ``layout`` (``NotationDoc.layout``);
-- notation: with a ``notation``, spec2viz's ``resolve_documents`` applies it to the view's documents:
+- notation: with a ``notation``, ``sldb.api.notations.resolve_documents`` applies it to the view's documents:
   each node's glyph, shape and resolved style (fill and stroke per theme, icon), each edge's colour,
-  line and arrowhead (its ``LinkDoc``), the legend and the palette's ink per theme. Without spec2viz,
-  or with a notation that does not resolve, the view still evaluates and ``notation.error`` says why.
+  line and arrowhead (its ``LinkDoc``), the legend and the palette's ink per theme. With a
+  notation that does not resolve, the view still evaluates and ``notation.error`` says why.
 
-graph_ui only evaluates; drawing rules stay in spec2viz. The sldb calls live in
+graph_ui only evaluates; drawing rules stay in sldb. The sldb calls live in
 ``mindmap.sldb_adapter`` (the one module of the mindmap that imports sldb).
 """
 from __future__ import annotations
@@ -84,11 +84,9 @@ def _ink(documents: list[Any], palette: str) -> dict[str, str] | None:
 
 def _notation(store: Path, view: dict[str, Any], nodes: list[dict[str, Any]], edges: list[dict[str, Any]],
               documents: list[Any], pythonpath: str | None) -> dict[str, Any]:
-    """The view's notation over its nodes and edges, as spec2viz resolves it (graph_ui only maps it back)."""
+    """The view's notation over its nodes and edges, as sldb resolves it (graph_ui only maps it back)."""
     try:
         resolved = notation_documents(store, str(view['notation']), [f"{n['model']}:{n['name']}" for n in nodes], pythonpath)
-    except ImportError as exc:
-        return {'error': f'spec2viz no está instalado: {exc}'}
     except ValueError as exc:
         return {'error': str(exc)}
     by_doc = {n['doc']: n for n in resolved['nodes']}

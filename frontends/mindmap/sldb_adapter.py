@@ -236,15 +236,12 @@ class SldbAdapter:
         """Vista resuelta de un ``SpecDoc`` según su ``NotationDoc``.
 
         El contrato de notación tiene un único intérprete,
-        ``spec2viz.notation_view.resolve_view`` (spec2viz/docs/notation-contract.md):
-        graph_ui no casa glifos ni evalúa ``where``, solo dibuja lo que devuelve.
-        Errores: spec2viz ausente → 501; spec inexistente → 404; datos de
-        notación incoherentes → 422.
+        ``sldb.api.notations.resolve_view``: graph_ui no casa glifos ni evalúa
+        ``where``, solo dibuja lo que devuelve.
+        Errores: spec inexistente → 404; datos de notación incoherentes → 422.
         """
-        try:
-            from spec2viz.notation_view import ViewError, resolve_view
-        except ImportError as exc:
-            raise AdapterError(f"spec2viz no está instalado: {exc}", 501) from exc
+        from sldb.api.notations import ViewError, resolve_view
+
         ref = spec_ref if ":" in spec_ref else f"SpecDoc:{spec_ref}"
         with self.lock:
             try:
@@ -432,9 +429,9 @@ def relation_edges(store: str | Path, relation_types: list[str], direction: str)
 
 def notation_documents(store: str | Path, notation: str, doc_refs: list[str], pythonpath: str | None = None) -> dict[str, Any]:
     """La notación de una vista aplicada a sus documentos (``Model:name``), con el único intérprete
-    del contrato: ``spec2viz.notation_view.resolve_documents`` (glifo, forma y estilo de cada nodo,
-    links y leyenda). spec2viz ausente: ImportError; notación incoherente: ValueError."""
-    from spec2viz.notation_view import ViewError, resolve_documents
+    del contrato: ``sldb.api.notations.resolve_documents`` (glifo, forma y estilo de cada nodo,
+    links y leyenda). Notación incoherente: ValueError."""
+    from sldb.api.notations import ViewError, resolve_documents
 
     try:
         return resolve_documents(Path(store), notation, doc_refs, pythonpath=pythonpath)

@@ -1,4 +1,4 @@
-"""E2E: deployment specs in the Specs view (spec2viz contract §14), in Chromium.
+"""E2E: deployment specs in the Specs view (notation contract §14), in Chromium.
 
 tests/fixtures/notation-deployment/deployment-nested-paths.yml nests nodes four levels deep (account >
 network > cluster > service > artifact), joins nodes by communication paths with a label and a
@@ -82,14 +82,12 @@ DEPLOYMENT = r"""() => {
 def store(tmp_path_factory):
     if sync_playwright is None:
         pytest.skip("playwright no está instalado")
-    if not shutil.which("spec2viz"):
-        pytest.skip("sin el CLI de spec2viz")
     root = tmp_path_factory.mktemp("deployment")
     specs = [*sorted(FIXTURES.glob("*.yml")), DENSE]
     for spec in specs:
         shutil.copy(spec, root / spec.name)
     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
-    subprocess.run(["spec2viz", "diagram", "sync", *[s.name for s in specs], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
+    subprocess.run(["sldb", "notations", "sync", *[a for s in specs for a in ("--spec", s.name)], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
     return root / ".sldb"
 
 
