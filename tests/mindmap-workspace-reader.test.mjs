@@ -111,7 +111,51 @@ test('sin identidad abierta no se resalta nada por propiedad', () => {
 const indexHtml = readFileSync(new URL('../frontends/mindmap/index.html', import.meta.url), 'utf-8');
 const importMap = JSON.parse(indexHtml.match(/<script type="importmap">([\s\S]*?)<\/script>/)[1]);
 const MD_URL = importMap.imports['markdown-it'];
+// Integridad y plazo: cada modulo https que pide el hook (la URL que recibe load(), antes de
+// redirecciones) debe estar en EXPECTED_SHA256 con el sha256 de su texto UTF-8; una URL ausente, un
+// contenido distinto o un fetch que no termina en 20 s hacen fallar la prueba nombrando la URL.
+// Para regenerar la tabla al cambiar la version del import map (las URLs de dependencias tambien
+// cambian): correr `node --test tests/mindmap-workspace-reader.test.mjs` con red. Una URL nueva
+// falla con 'GET <url> -> sin sha256 esperado en EXPECTED_SHA256': agregarla a la tabla con un hash
+// cualquiera (p. ej. 64 ceros) y volver a correr; ahora falla con
+// 'GET <url> -> sha256 <obtenido> != <esperado>', y <obtenido> es el hash real a copiar en su
+// entrada. Repetir (cada modulo nuevo aparece al cargar el anterior) hasta que la prueba pase, y
+// borrar las entradas de URLs que ya no se piden.
+const EXPECTED_SHA256 = {
+  'https://esm.sh/markdown-it@14.1.0':
+    'ced1c1bb5a8502ed7924950ef10f8bcf524d541c9c2c111f8861a1a0820937df',
+  'https://esm.sh/entities@^4.4.0?target=es2022':
+    '6be2794a0aa9a0c29d15a0a4006a4e3e4a68a789396ab7f1c35134bd53fb5faa',
+  'https://esm.sh/entities@4.5.0/es2022/lib/decode.mjs':
+    'ef22e25f6bca668e40c4f7d4ecaebe2172a833a18372d55b54f997d0d8702dcd',
+  'https://esm.sh/punycode.js@^2.3.1?target=es2022':
+    'd1b84265b5e42da1f9c6e3d457985ead3d63633caa06b1df1b7578d09cfcec05',
+  'https://esm.sh/linkify-it@^5.0.0?target=es2022':
+    'f745edba9b39a27b310f0855021f58c5183c36c989ea3bd8d4869b494a058a9c',
+  'https://esm.sh/mdurl@^2.0.0?target=es2022':
+    '0432b26197f320df4fff103362a7f841fe2f23a5348f2353863a298e482bdda3',
+  'https://esm.sh/markdown-it@14.1.0/es2022/markdown-it.mjs':
+    '82ffca240d509b4840880b2e20e3625bb67c7e6c6777ba0da3f28815acbce558',
+  'https://esm.sh/uc.micro@^2.1.0?target=es2022':
+    '2e800c745d87114386af3c466e66e6dcc2d428e9afd85bdac62e33be6f2ceb60',
+  'https://esm.sh/uc.micro@^2.0.0?target=es2022':
+    '2e800c745d87114386af3c466e66e6dcc2d428e9afd85bdac62e33be6f2ceb60',
+  'https://esm.sh/punycode.js@2.3.1/es2022/punycode.mjs':
+    '91fcd4eab87734cc0b84f71999b151c798f4bda8b922a337bfd3af3109a7e0b5',
+  'https://esm.sh/entities@4.5.0/es2022/lib/escape.mjs':
+    '116aef78e5ff05efa6f79851b8b59da025ab88f5c25d2262f73df98f4d57c3fa',
+  'https://esm.sh/linkify-it@5.0.2/es2022/linkify-it.mjs':
+    'a7f8bf81f86ab33b188173277252922bb577cb6c72e7f5f5b75d99d68a66a092',
+  'https://esm.sh/mdurl@2.1.0/es2022/mdurl.mjs':
+    '487149fd6591ee740f4e9df7cf13c4694bfd613650b49b5f6895ab3b1e81627d',
+  'https://esm.sh/uc.micro@2.1.0/es2022/uc.micro.mjs':
+    '549d36fd64ab29703da6e300957bed9de0dae7d7218eca8bbe6681994133e8b0',
+  'https://esm.sh/entities@4.5.0/es2022/entities.mjs':
+    '4a9306e4021ae1079e83b5db26e1678c536fa69c8f2839802bc3cc43282cef08',
+};
 const HTTPS_HOOKS = `
+import {createHash} from 'node:crypto';
+const EXPECTED_SHA256 = ${JSON.stringify(EXPECTED_SHA256)};
 export async function resolve(specifier, context, next) {
   const parent = context.parentURL || '';
   if (specifier.startsWith('https://')) return {url: specifier, shortCircuit: true};
@@ -120,9 +164,22 @@ export async function resolve(specifier, context, next) {
 }
 export async function load(url, context, next) {
   if (!url.startsWith('https://')) return next(url, context);
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('GET ' + url + ' -> ' + res.status);
-  return {format: 'module', source: await res.text(), shortCircuit: true};
+  const expected = EXPECTED_SHA256[url];
+  if (!expected) throw new Error('GET ' + url + ' -> sin sha256 esperado en EXPECTED_SHA256');
+  let res, text;
+  try {
+    res = await fetch(url, {signal: AbortSignal.timeout(20000)});
+    if (!res.ok) throw new Error('GET ' + url + ' -> ' + res.status);
+    text = await res.text();
+  } catch (err) {
+    if (err && (err.name === 'TimeoutError' || err.name === 'AbortError')) throw new Error('GET ' + url + ' -> timeout 20 s');
+    // undici corta la conexion (TCP + TLS) a los 10 s con su propio connect timeout
+    if (err && (err.cause?.code === 'UND_ERR_CONNECT_TIMEOUT' || err.code === 'UND_ERR_CONNECT_TIMEOUT')) throw new Error('GET ' + url + ' -> connect timeout');
+    throw err;
+  }
+  const got = createHash('sha256').update(text, 'utf8').digest('hex');
+  if (got !== expected) throw new Error('GET ' + url + ' -> sha256 ' + got + ' != ' + expected);
+  return {format: 'module', source: text, shortCircuit: true};
 }`;
 register('data:text/javascript,' + encodeURIComponent(HTTPS_HOOKS));
 const {default: MarkdownIt} = await import(MD_URL);
