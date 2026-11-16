@@ -9095,18 +9095,6 @@
             }
           },
           {
-            "target_id": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
-            "relation_type": "tasks",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "frontmatter",
-              "provenance_path": "desk/tasks/Board.md",
-              "role": "tasks",
-              "source_kind": "declared"
-            }
-          },
-          {
             "target_id": "task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento",
             "relation_type": "tasks",
             "metadata": {
@@ -20073,113 +20061,6 @@
       "status": "unknown",
       "schema": {
         "identity": {
-          "node_id": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
-          "node_type": "task"
-        },
-        "edges": [
-          {
-            "target_id": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "frontmatter",
-              "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:24:source-file-reference",
-              "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "pill:pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables",
-            "relation_type": "pills",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "frontmatter",
-              "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
-              "role": "pills",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "pill:pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:27:source-file-reference",
-              "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "ritual:ritual-closeout",
-            "relation_type": "current_node",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "frontmatter",
-              "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
-              "role": "current_node",
-              "source_kind": "declared"
-            }
-          },
-          {
-            "target_id": "test_file:tests/test_mindmap_workspace_reader.py",
-            "relation_type": "references",
-            "metadata": {
-              "confidence": "high",
-              "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:23:source-file-reference",
-              "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
-              "role": "references",
-              "source_kind": "declared"
-            }
-          }
-        ],
-        "semantics": {
-          "document_id": "task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
-          "identity": "task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
-          "label": "La prueba node del lector descarga markdown-it de esm.sh con timeout corto y verificando un hash fijado",
-          "path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md"
-        },
-        "ast": null,
-        "io_ports": [],
-        "compliance": null,
-        "adr": null,
-        "test_map": null,
-        "git": null,
-        "source": {
-          "extractor": "deskops_kgdb_snapshot_v1",
-          "provenance": [
-            {
-              "extractor": "desk_doc_nodes_v1",
-              "path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
-              "source_kind": "file_metadata"
-            }
-          ]
-        }
-      },
-      "id": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij"
-    },
-    {
-      "type": "task",
-      "status": "unknown",
-      "schema": {
-        "identity": {
           "node_id": "task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento",
           "node_type": "task"
         },
@@ -20352,6 +20233,30 @@
             }
           },
           {
+            "target_id": "atom:atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz",
+            "relation_type": "references",
+            "metadata": {
+              "confidence": "high",
+              "extractor": "desk_declared_edges_v1",
+              "provenance_locator": "frontmatter",
+              "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
+              "role": "references",
+              "source_kind": "declared"
+            }
+          },
+          {
+            "target_id": "atom:atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz",
+            "relation_type": "references",
+            "metadata": {
+              "confidence": "high",
+              "extractor": "desk_declared_edges_v1",
+              "provenance_locator": "line:24:source-file-reference",
+              "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
+              "role": "references",
+              "source_kind": "declared"
+            }
+          },
+          {
             "target_id": "pill:pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables",
             "relation_type": "pills",
             "metadata": {
@@ -20369,14 +20274,14 @@
             "metadata": {
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:23:source-file-reference",
+              "provenance_locator": "line:28:source-file-reference",
               "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
               "role": "references",
               "source_kind": "declared"
             }
           },
           {
-            "target_id": "ritual:ritual-execution",
+            "target_id": "ritual:ritual-closeout",
             "relation_type": "current_node",
             "metadata": {
               "confidence": "high",
@@ -20393,7 +20298,7 @@
             "metadata": {
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:30:source-file-reference",
+              "provenance_locator": "line:23:source-file-reference",
               "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
               "role": "references",
               "source_kind": "declared"
@@ -20405,7 +20310,7 @@
             "metadata": {
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:60:source-file-reference",
+              "provenance_locator": "line:35:source-file-reference",
               "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
               "role": "references",
               "source_kind": "declared"
@@ -20417,7 +20322,7 @@
             "metadata": {
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:72:source-file-reference",
+              "provenance_locator": "line:65:source-file-reference",
               "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
               "role": "references",
               "source_kind": "declared"
@@ -20429,7 +20334,19 @@
             "metadata": {
               "confidence": "high",
               "extractor": "desk_declared_edges_v1",
-              "provenance_locator": "line:79:source-file-reference",
+              "provenance_locator": "line:77:source-file-reference",
+              "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
+              "role": "references",
+              "source_kind": "declared"
+            }
+          },
+          {
+            "target_id": "test_file:tests/e2e_notation_class.py",
+            "relation_type": "references",
+            "metadata": {
+              "confidence": "high",
+              "extractor": "desk_declared_edges_v1",
+              "provenance_locator": "line:84:source-file-reference",
               "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
               "role": "references",
               "source_kind": "declared"
@@ -22136,19 +22053,6 @@
         "source_kind": "declared"
       },
       "source": "board:board-graph-ui",
-      "target": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij"
-    },
-    {
-      "relation": "tasks",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "frontmatter",
-        "provenance_path": "desk/tasks/Board.md",
-        "role": "tasks",
-        "source_kind": "declared"
-      },
-      "source": "board:board-graph-ui",
       "target": "task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento"
     },
     {
@@ -22659,84 +22563,6 @@
       "target": "test_file:tests/test_parallel_workspace_serve.py"
     },
     {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "frontmatter",
-        "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
-      "target": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:24:source-file-reference",
-        "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
-      "target": "atom:atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node"
-    },
-    {
-      "relation": "pills",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "frontmatter",
-        "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
-        "role": "pills",
-        "source_kind": "declared"
-      },
-      "source": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
-      "target": "pill:pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:27:source-file-reference",
-        "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
-      "target": "pill:pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables"
-    },
-    {
-      "relation": "current_node",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "frontmatter",
-        "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
-        "role": "current_node",
-        "source_kind": "declared"
-      },
-      "source": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
-      "target": "ritual:ritual-closeout"
-    },
-    {
-      "relation": "references",
-      "metadata": {
-        "confidence": "high",
-        "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:23:source-file-reference",
-        "provenance_path": "desk/tasks/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij.md",
-        "role": "references",
-        "source_kind": "declared"
-      },
-      "source": "task:task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij",
-      "target": "test_file:tests/test_mindmap_workspace_reader.py"
-    },
-    {
       "relation": "atoms",
       "metadata": {
         "confidence": "high",
@@ -22880,6 +22706,32 @@
       "target": "atom:atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz"
     },
     {
+      "relation": "references",
+      "metadata": {
+        "confidence": "high",
+        "extractor": "desk_declared_edges_v1",
+        "provenance_locator": "frontmatter",
+        "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
+        "role": "references",
+        "source_kind": "declared"
+      },
+      "source": "task:task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables",
+      "target": "atom:atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz"
+    },
+    {
+      "relation": "references",
+      "metadata": {
+        "confidence": "high",
+        "extractor": "desk_declared_edges_v1",
+        "provenance_locator": "line:24:source-file-reference",
+        "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
+        "role": "references",
+        "source_kind": "declared"
+      },
+      "source": "task:task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables",
+      "target": "atom:atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz"
+    },
+    {
       "relation": "pills",
       "metadata": {
         "confidence": "high",
@@ -22897,7 +22749,7 @@
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:23:source-file-reference",
+        "provenance_locator": "line:28:source-file-reference",
         "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
         "role": "references",
         "source_kind": "declared"
@@ -22916,14 +22768,14 @@
         "source_kind": "declared"
       },
       "source": "task:task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables",
-      "target": "ritual:ritual-execution"
+      "target": "ritual:ritual-closeout"
     },
     {
       "relation": "references",
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:30:source-file-reference",
+        "provenance_locator": "line:23:source-file-reference",
         "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
         "role": "references",
         "source_kind": "declared"
@@ -22936,7 +22788,7 @@
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:60:source-file-reference",
+        "provenance_locator": "line:35:source-file-reference",
         "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
         "role": "references",
         "source_kind": "declared"
@@ -22949,7 +22801,7 @@
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:72:source-file-reference",
+        "provenance_locator": "line:65:source-file-reference",
         "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
         "role": "references",
         "source_kind": "declared"
@@ -22962,7 +22814,20 @@
       "metadata": {
         "confidence": "high",
         "extractor": "desk_declared_edges_v1",
-        "provenance_locator": "line:79:source-file-reference",
+        "provenance_locator": "line:77:source-file-reference",
+        "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
+        "role": "references",
+        "source_kind": "declared"
+      },
+      "source": "task:task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables",
+      "target": "test_file:tests/e2e_notation_class.py"
+    },
+    {
+      "relation": "references",
+      "metadata": {
+        "confidence": "high",
+        "extractor": "desk_declared_edges_v1",
+        "provenance_locator": "line:84:source-file-reference",
         "provenance_path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
         "role": "references",
         "source_kind": "declared"

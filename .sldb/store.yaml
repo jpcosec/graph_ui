@@ -203,7 +203,6 @@ include:
   paths:
   - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
   - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
-  - desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md
   - desk/tasks/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en.md
 - model: RuleDoc
   paths:
@@ -324,6 +323,14 @@ include:
     name: review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-preflight-3
   - path: desk/reviews/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/bundle-3.md
     name: review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-bundle-3
+  - path: desk/reviews/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/evidence-tests-1.md
+    name: review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-evidence-tests-1
+  - path: desk/reviews/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/evidence-commit-1.md
+    name: review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-evidence-commit-1
+  - path: desk/reviews/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/evidence-atom-1.md
+    name: review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-evidence-atom-1
+  - path: desk/reviews/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/evidence-materialization-1.md
+    name: review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-evidence-materialization-1
 - model: MaterializationContractDoc
   paths:
   - desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md

@@ -1,0 +1,976 @@
+TAP version 13
+# Subtest: irSections devuelve las secciones reales del documento con su span
+ok 1 - irSections devuelve las secciones reales del documento con su span
+  ---
+  duration_ms: 0.934583
+  type: 'test'
+  ...
+# Subtest: irSectionsWithCleanMeta conserva span y children, sin inventar
+ok 2 - irSectionsWithCleanMeta conserva span y children, sin inventar
+  ---
+  duration_ms: 0.851021
+  type: 'test'
+  ...
+# Subtest: irSpanOf: span solo con líneas reales; null no fabrica span
+ok 3 - irSpanOf: span solo con líneas reales; null no fabrica span
+  ---
+  duration_ms: 0.151521
+  type: 'test'
+  ...
+# Subtest: irFields: lista de campos con field_path; value del nodo o del payload; span null queda null
+ok 4 - irFields: lista de campos con field_path; value del nodo o del payload; span null queda null
+  ---
+  duration_ms: 1.275594
+  type: 'test'
+  ...
+# Subtest: irMeta: modelo y path desde el IR (context) con fallback al doc
+ok 5 - irMeta: modelo y path desde el IR (context) con fallback al doc
+  ---
+  duration_ms: 0.312172
+  type: 'test'
+  ...
+# Subtest: irRefFields: filtra por campos de referencia/contención, mismo shape que irFields
+ok 6 - irRefFields: filtra por campos de referencia/contención, mismo shape que irFields
+  ---
+  duration_ms: 0.355805
+  type: 'test'
+  ...
+# Subtest: empty state and unknown status are preserved
+ok 7 - empty state and unknown status are preserved
+  ---
+  duration_ms: 1.422875
+  type: 'test'
+  ...
+# Subtest: filtering composes text and status without changing source
+ok 8 - filtering composes text and status without changing source
+  ---
+  duration_ms: 0.30431
+  type: 'test'
+  ...
+# Subtest: closeout never offers advance even with a passing terminal gate
+ok 9 - closeout never offers advance even with a passing terminal gate
+  ---
+  duration_ms: 0.175938
+  type: 'test'
+  ...
+# Subtest: no message when every model imports
+ok 10 - no message when every model imports
+  ---
+  duration_ms: 0.875933
+  type: 'test'
+  ...
+# Subtest: the message names each broken model, its reference, the real error and --pythonpath
+ok 11 - the message names each broken model, its reference, the real error and --pythonpath
+  ---
+  duration_ms: 1.206844
+  type: 'test'
+  ...
+# Subtest: children are real references; collapsed containers hide and restore them
+ok 12 - children are real references; collapsed containers hide and restore them
+  ---
+  duration_ms: 2.923685
+  type: 'test'
+  ...
+# Subtest: path references resolve and containment cycles cannot trap layout
+ok 13 - path references resolve and containment cycles cannot trap layout
+  ---
+  duration_ms: 0.462436
+  type: 'test'
+  ...
+# Subtest: removing a document also removes its edge documents and stale references
+ok 14 - removing a document also removes its edge documents and stale references
+  ---
+  duration_ms: 0.474841
+  type: 'test'
+  ...
+# Subtest: removing a container retains its independent child documents
+ok 15 - removing a container retains its independent child documents
+  ---
+  duration_ms: 0.158075
+  type: 'test'
+  ...
+# Subtest: defaultsFor uses the schema real defaults for quick captures
+ok 16 - defaultsFor uses the schema real defaults for quick captures
+  ---
+  duration_ms: 0.487049
+  type: 'test'
+  ...
+# Subtest: quickPayload builds a complete payload from just a title
+ok 17 - quickPayload builds a complete payload from just a title
+  ---
+  duration_ms: 0.433932
+  type: 'test'
+  ...
+# Subtest: quickPayload prefixes the id when the model publishes id_prefix
+ok 18 - quickPayload prefixes the id when the model publishes id_prefix
+  ---
+  duration_ms: 0.162755
+  type: 'test'
+  ...
+# Subtest: the document dialog auto-id carries the model id_prefix like quickId
+ok 19 - the document dialog auto-id carries the model id_prefix like quickId
+  ---
+  duration_ms: 0.289197
+  type: 'test'
+  ...
+# Subtest: reference edges are labeled and dashed to differ from containment groups
+ok 20 - reference edges are labeled and dashed to differ from containment groups
+  ---
+  duration_ms: 0.595059
+  type: 'test'
+  ...
+# Subtest: graph metadata comes from the schema, not hardcoded lists
+ok 21 - graph metadata comes from the schema, not hardcoded lists
+  ---
+  duration_ms: 0.716664
+  type: 'test'
+  ...
+# Subtest: mixed stores keep per-model legacy fallback
+ok 22 - mixed stores keep per-model legacy fallback
+  ---
+  duration_ms: 0.2868
+  type: 'test'
+  ...
+# Subtest: localIdOf strips an export-id prefix (sldb/pron Model:doc, Store:Model:doc convention)
+ok 23 - localIdOf strips an export-id prefix (sldb/pron Model:doc, Store:Model:doc convention)
+  ---
+  duration_ms: 0.119193
+  type: 'test'
+  ...
+# Subtest: isRelationDocument: a document IS an edge when its payload has string source_id/target_id
+ok 24 - isRelationDocument: a document IS an edge when its payload has string source_id/target_id
+  ---
+  duration_ms: 0.116811
+  type: 'test'
+  ...
+# Subtest: relationships() resolves sldb export ids (Model:doc) to the plain document id in legacy mode
+ok 25 - relationships() resolves sldb export ids (Model:doc) to the plain document id in legacy mode
+  ---
+  duration_ms: 0.139393
+  type: 'test'
+  ...
+# Subtest: searchDocuments matches title, id and path; referenceFieldsOf merges references and containment
+ok 26 - searchDocuments matches title, id and path; referenceFieldsOf merges references and containment
+  ---
+  duration_ms: 0.43504
+  type: 'test'
+  ...
+# Subtest: brainstormToSource builds a contract-v1 spec with containment on the parent payload
+ok 27 - brainstormToSource builds a contract-v1 spec with containment on the parent payload
+  ---
+  duration_ms: 0.806547
+  type: 'test'
+  ...
+# Subtest: brainstormToSource gives collisions unique IDs without replacing existing documents
+ok 28 - brainstormToSource gives collisions unique IDs without replacing existing documents
+  ---
+  duration_ms: 0.260864
+  type: 'test'
+  ...
+# Subtest: schemaGraph: la contención declarada da aristas tipadas; las referencias solo se anotan
+ok 29 - schemaGraph: la contención declarada da aristas tipadas; las referencias solo se anotan
+  ---
+  duration_ms: 1.271539
+  type: 'test'
+  ...
+# Subtest: schemaGraph sin metadatos declarados cae a las tablas legacy por clase
+ok 30 - schemaGraph sin metadatos declarados cae a las tablas legacy por clase
+  ---
+  duration_ms: 0.191361
+  type: 'test'
+  ...
+# Subtest: schemaGraph: relaciones declaradas por un RelationTypeDoc ignoran extremos abstractos; las instancias (RelationDoc) cuentan sobre la declarada o se sostienen solas
+ok 31 - schemaGraph: relaciones declaradas por un RelationTypeDoc ignoran extremos abstractos; las instancias (RelationDoc) cuentan sobre la declarada o se sostienen solas
+  ---
+  duration_ms: 0.534105
+  type: 'test'
+  ...
+# Subtest: schemaGraph: los campos ⇢ infieren su clase destino de los documentos reales, incluida una auto-relación
+ok 32 - schemaGraph: los campos ⇢ infieren su clase destino de los documentos reales, incluida una auto-relación
+  ---
+  duration_ms: 1.064513
+  type: 'test'
+  ...
+# Subtest: schemaMatches encuentra clases por el tipo de relación en el que participan
+ok 33 - schemaMatches encuentra clases por el tipo de relación en el que participan
+  ---
+  duration_ms: 0.529705
+  type: 'test'
+  ...
+# Subtest: schemaMatches filtra por clase, campo, tipo y clase destino
+ok 34 - schemaMatches filtra por clase, campo, tipo y clase destino
+  ---
+  duration_ms: 0.285575
+  type: 'test'
+  ...
+# Subtest: flowGraph draws containment and reference as edges, never nesting
+ok 35 - flowGraph draws containment and reference as edges, never nesting
+  ---
+  duration_ms: 0.348248
+  type: 'test'
+  ...
+# Subtest: flowGraph respects declared schema metadata over the legacy fallback
+ok 36 - flowGraph respects declared schema metadata over the legacy fallback
+  ---
+  duration_ms: 0.246215
+  type: 'test'
+  ...
+# Subtest: flowGraph collapses an sldb RelationDoc into one labeled edge and drops its node
+ok 37 - flowGraph collapses an sldb RelationDoc into one labeled edge and drops its node
+  ---
+  duration_ms: 0.275478
+  type: 'test'
+  ...
+# Subtest: flowGraph keeps a RelationDoc as a small node when relationsAsNodes is on
+ok 38 - flowGraph keeps a RelationDoc as a small node when relationsAsNodes is on
+  ---
+  duration_ms: 0.183927
+  type: 'test'
+  ...
+# Subtest: flowMatches filters by title, id and class; flowClasses lists present classes only
+ok 39 - flowMatches filters by title, id and class; flowClasses lists present classes only
+  ---
+  duration_ms: 0.173343
+  type: 'test'
+  ...
+# Subtest: class colors are slots resolved by the active skin, not hardcoded hexes
+ok 40 - class colors are slots resolved by the active skin, not hardcoded hexes
+  ---
+  duration_ms: 0.132685
+  type: 'test'
+  ...
+# Subtest: conflictsBetween flags update/delete changes the server no longer matches
+ok 41 - conflictsBetween flags update/delete changes the server no longer matches
+  ---
+  duration_ms: 0.250916
+  type: 'test'
+  ...
+# Subtest: changesBetween + conflictsBetween round trip: unchanged documents never conflict
+ok 42 - changesBetween + conflictsBetween round trip: unchanged documents never conflict
+  ---
+  duration_ms: 0.246376
+  type: 'test'
+  ...
+# Subtest: history: edit pushes one entry onto history and clears future
+ok 43 - history: edit pushes one entry onto history and clears future
+  ---
+  duration_ms: 0.173128
+  type: 'test'
+  ...
+# Subtest: history: undo/redo round trip restores the exact working copy
+ok 44 - history: undo/redo round trip restores the exact working copy
+  ---
+  duration_ms: 0.193943
+  type: 'test'
+  ...
+# Subtest: history: a new edit after undo clears the redo stack (future)
+ok 45 - history: a new edit after undo clears the redo stack (future)
+  ---
+  duration_ms: 0.139326
+  type: 'test'
+  ...
+# Subtest: history: checkpoint + apply creates exactly one history entry (drag start/stop)
+ok 46 - history: checkpoint + apply creates exactly one history entry (drag start/stop)
+  ---
+  duration_ms: 0.179808
+  type: 'test'
+  ...
+# Subtest: history: caps at 40 entries
+ok 47 - history: caps at 40 entries
+  ---
+  duration_ms: 0.222637
+  type: 'test'
+  ...
+# Subtest: history: reset clears history/future and rebases working on the new baseline
+ok 48 - history: reset clears history/future and rebases working on the new baseline
+  ---
+  duration_ms: 0.15406
+  type: 'test'
+  ...
+# Subtest: projectionsOf/findProjection: ProjectionDoc is matched nominally by model_name
+ok 49 - projectionsOf/findProjection: ProjectionDoc is matched nominally by model_name
+  ---
+  duration_ms: 0.152717
+  type: 'test'
+  ...
+# Subtest: applyProjection: declared models/relations filter entities and relation (type) documents; empty means every one
+ok 50 - applyProjection: declared models/relations filter entities and relation (type) documents; empty means every one
+  ---
+  duration_ms: 0.194565
+  type: 'test'
+  ...
+# Subtest: renderDisplay: {field} substitutes the payload, {rel.field} follows a RelationDoc edge to its target
+ok 51 - renderDisplay: {field} substitutes the payload, {rel.field} follows a RelationDoc edge to its target
+  ---
+  duration_ms: 0.260585
+  type: 'test'
+  ...
+# Subtest: titleFor: uses the active projection's display template when declared, else falls back to titleOf
+ok 52 - titleFor: uses the active projection's display template when declared, else falls back to titleOf
+  ---
+  duration_ms: 0.11738
+  type: 'test'
+  ...
+# Subtest: relationTypesOf: distinct names from RelationTypeDoc declarations and RelationDoc instances, sorted
+ok 53 - relationTypesOf: distinct names from RelationTypeDoc declarations and RelationDoc instances, sorted
+  ---
+  duration_ms: 0.134452
+  type: 'test'
+  ...
+# Subtest: siblingRanks: una arista ordena a los hermanos que separa, en el nivel de su ancestro común
+ok 54 - siblingRanks: una arista ordena a los hermanos que separa, en el nivel de su ancestro común
+  ---
+  duration_ms: 5.066864
+  type: 'test'
+  ...
+# Subtest: deploymentLayout: cada hijo dentro de su contenedor, de afuera hacia adentro, con rutas ortogonales
+ok 55 - deploymentLayout: cada hijo dentro de su contenedor, de afuera hacia adentro, con rutas ortogonales
+  ---
+  duration_ms: 33.012479
+  type: 'test'
+  ...
+# Subtest: wrapText corta en palabras sin pasar del ancho, y parte una palabra demasiado larga
+ok 56 - wrapText corta en palabras sin pasar del ancho, y parte una palabra demasiado larga
+  ---
+  duration_ms: 3.32022
+  type: 'test'
+  ...
+# Subtest: G4: una caja crece con su rótulo, a lo alto cuando el rótulo se corta
+ok 57 - G4: una caja crece con su rótulo, a lo alto cuando el rótulo se corta
+  ---
+  duration_ms: 0.520784
+  type: 'test'
+  ...
+# Subtest: G6: el rombo de una decisión contiene su rótulo
+ok 58 - G6: el rombo de una decisión contiene su rótulo
+  ---
+  duration_ms: 0.248894
+  type: 'test'
+  ...
+# Subtest: un pseudoestado tiene tamaño fijo y su rótulo va fuera, para que ELK le reserve sitio
+ok 59 - un pseudoestado tiene tamaño fijo y su rótulo va fuera, para que ELK le reserve sitio
+  ---
+  duration_ms: 0.172955
+  type: 'test'
+  ...
+# Subtest: G2/G5: la cabecera del contenedor y el rótulo de arista tienen caja propia
+ok 60 - G2/G5: la cabecera del contenedor y el rótulo de arista tienen caja propia
+  ---
+  duration_ms: 0.253011
+  type: 'test'
+  ...
+# Subtest: G3: los hijos sueltos de un contenedor se apilan en filas con aristas invisibles
+ok 61 - G3: los hijos sueltos de un contenedor se apilan en filas con aristas invisibles
+  ---
+  duration_ms: 1.658892
+  type: 'test'
+  ...
+# Subtest: elkGraph: jerarquía, título como nodo (vertical) o como padding (horizontal), rótulos medidos y grilla
+ok 62 - elkGraph: jerarquía, título como nodo (vertical) o como padding (horizontal), rótulos medidos y grilla
+  ---
+  duration_ms: 1.281524
+  type: 'test'
+  ...
+# Subtest: fromElk: posiciones relativas al padre, recorrido de aristas y caja del rótulo; sin aristas de grilla
+ok 63 - fromElk: posiciones relativas al padre, recorrido de aristas y caja del rótulo; sin aristas de grilla
+  ---
+  duration_ms: 3.021994
+  type: 'test'
+  ...
+# Subtest: R1/R2: el inicial va a la primera capa y el final a la última; las ramas de un rombo usan sus vértices
+ok 64 - R1/R2: el inicial va a la primera capa y el final a la última; las ramas de un rombo usan sus vértices
+  ---
+  duration_ms: 0.902028
+  type: 'test'
+  ...
+# Subtest: routeOf sigue las secciones en el orden en que se conectan
+ok 65 - routeOf sigue las secciones en el orden en que se conectan
+  ---
+  duration_ms: 0.47716
+  type: 'test'
+  ...
+# Subtest: R3: placeLabels deja cada rótulo pegado a un tramo de su arista, sin pisar nodos ni otros rótulos
+ok 66 - R3: placeLabels deja cada rótulo pegado a un tramo de su arista, sin pisar nodos ni otros rótulos
+  ---
+  duration_ms: 0.931093
+  type: 'test'
+  ...
+# Subtest: layoutIssues: arista diagonal o con un extremo al aire, rótulo lejos y arista sobre un encabezado
+ok 67 - layoutIssues: arista diagonal o con un extremo al aire, rótulo lejos y arista sobre un encabezado
+  ---
+  duration_ms: 0.572927
+  type: 'test'
+  ...
+# Subtest: bestLayout: prefiere el orden del spec mientras se lea; si no, el que mejor cabe
+ok 68 - bestLayout: prefiere el orden del spec mientras se lea; si no, el que mejor cabe
+  ---
+  duration_ms: 4.84195
+  type: 'test'
+  ...
+# Subtest: R6: con dos ramas paralelas, cada guarda va a la salida de su vértice y más cerca de su rama que de la otra
+ok 69 - R6: con dos ramas paralelas, cada guarda va a la salida de su vértice y más cerca de su rama que de la otra
+  ---
+  duration_ms: 1.971267
+  type: 'test'
+  ...
+# Subtest: §14: una nota de un paso es un nodo derivado justo después de él, unido por una línea punteada sin punta
+ok 70 - §14: una nota de un paso es un nodo derivado justo después de él, unido por una línea punteada sin punta
+  ---
+  duration_ms: 0.271405
+  type: 'test'
+  ...
+# Subtest: elkGraph reserva sitio a los rótulos de arista que se le piden (todos, ninguno o un conjunto)
+ok 71 - elkGraph reserva sitio a los rótulos de arista que se le piden (todos, ninguno o un conjunto)
+  ---
+  duration_ms: 0.316466
+  type: 'test'
+  ...
+# Subtest: labelsOnNodes: un rótulo encima de un nodo o del encabezado de un contenedor cuenta como problema
+ok 72 - labelsOnNodes: un rótulo encima de un nodo o del encabezado de un contenedor cuenta como problema
+  ---
+  duration_ms: 0.242926
+  type: 'test'
+  ...
+# Subtest: buildScene lleva el tipo de diagrama (un despliegue no sigue el orden del spec)
+ok 73 - buildScene lleva el tipo de diagrama (un despliegue no sigue el orden del spec)
+  ---
+  duration_ms: 0.108605
+  type: 'test'
+  ...
+# Subtest: containerHeader reserva el sitio del ícono (§13) y del keyword en el ancho del título
+ok 74 - containerHeader reserva el sitio del ícono (§13) y del keyword en el ancho del título
+  ---
+  duration_ms: 0.124143
+  type: 'test'
+  ...
+# Subtest: R9: una multiplicidad va junto al extremo real de su arista, fuera de la caja, aunque entre de costado
+ok 75 - R9: una multiplicidad va junto al extremo real de su arista, fuera de la caja, aunque entre de costado
+  ---
+  duration_ms: 0.454733
+  type: 'test'
+  ...
+# Subtest: R10: los nodos sueltos van en la grilla que más zoom da, al costado o debajo de lo conectado
+ok 76 - R10: los nodos sueltos van en la grilla que más zoom da, al costado o debajo de lo conectado
+  ---
+  duration_ms: 1.27925
+  type: 'test'
+  ...
+# Subtest: themed elige el color del tema activo; un string vale para los dos
+ok 77 - themed elige el color del tema activo; un string vale para los dos
+  ---
+  duration_ms: 1.007796
+  type: 'test'
+  ...
+# Subtest: glyphVars: sin estilo no hay variables; con relleno el texto toma el ink de la paleta que contrasta
+ok 78 - glyphVars: sin estilo no hay variables; con relleno el texto toma el ink de la paleta que contrasta
+  ---
+  duration_ms: 1.088425
+  type: 'test'
+  ...
+# Subtest: readableInk: un relleno literal claro conserva el texto oscuro también en el tema oscuro
+ok 79 - readableInk: un relleno literal claro conserva el texto oscuro también en el tema oscuro
+  ---
+  duration_ms: 1.074788
+  type: 'test'
+  ...
+# Subtest: paletteInk lee los dos inks del PaletteDoc que nombra la vista
+ok 80 - paletteInk lee los dos inks del PaletteDoc que nombra la vista
+  ---
+  duration_ms: 0.227401
+  type: 'test'
+  ...
+# Subtest: iconKey pasa el nombre kebab-case de lucide a la clave del objeto icons
+ok 81 - iconKey pasa el nombre kebab-case de lucide a la clave del objeto icons
+  ---
+  duration_ms: 0.16802
+  type: 'test'
+  ...
+# Subtest: cada forma de contorno tiene trazo y área interior
+ok 82 - cada forma de contorno tiene trazo y área interior
+  ---
+  duration_ms: 0.432743
+  type: 'test'
+  ...
+# Subtest: el layout reserva sitio para el ícono, y una forma de contorno crece hasta que el texto quepa en su área interior
+ok 83 - el layout reserva sitio para el ícono, y una forma de contorno crece hasta que el texto quepa en su área interior
+  ---
+  duration_ms: 0.731127
+  type: 'test'
+  ...
+# Subtest: buildScene pasa el color resuelto de cada relación y el estilo de cada elemento
+ok 84 - buildScene pasa el color resuelto de cada relación y el estilo de cada elemento
+  ---
+  duration_ms: 0.638589
+  type: 'test'
+  ...
+# Subtest: clipToContour lleva el extremo de una arista al contorno real, siguiendo su último tramo
+ok 85 - clipToContour lleva el extremo de una arista al contorno real, siguiendo su último tramo
+  ---
+  duration_ms: 0.776758
+  type: 'test'
+  ...
+# Subtest: §14: una partición es un carril de la escena, en orden de aparición; sin partición no hay carriles
+ok 86 - §14: una partición es un carril de la escena, en orden de aparición; sin partición no hay carriles
+  ---
+  duration_ms: 2.357079
+  type: 'test'
+  ...
+# Subtest: flowRanks: el rango es el camino más largo desde el inicio; la vuelta a un paso abierto es un bucle
+ok 87 - flowRanks: el rango es el camino más largo desde el inicio; la vuelta a un paso abierto es un bucle
+  ---
+  duration_ms: 0.716963
+  type: 'test'
+  ...
+# Subtest: swimlaneLayout: cada paso en la columna de su carril, el flujo baja, la nota a su lado y rutas ortogonales
+ok 88 - swimlaneLayout: cada paso en la columna de su carril, el flujo baja, la nota a su lado y rutas ortogonales
+  ---
+  duration_ms: 7.226311
+  type: 'test'
+  ...
+# Subtest: nest se vuelve contención, no arista: los subestados viven dentro de syncing
+ok 89 - nest se vuelve contención, no arista: los subestados viven dentro de syncing
+  ---
+  duration_ms: 2.430481
+  type: 'test'
+  ...
+# Subtest: el orden de capas pone cada contenedor antes que sus hijos
+ok 90 - el orden de capas pone cada contenedor antes que sus hijos
+  ---
+  duration_ms: 0.675713
+  type: 'test'
+  ...
+# Subtest: las terminales y el trazo salen del link, no del tipo de relación
+ok 91 - las terminales y el trazo salen del link, no del tipo de relación
+  ---
+  duration_ms: 0.345732
+  type: 'test'
+  ...
+# Subtest: lo que no se sabe dibujar se avisa y se dibuja como grafo/línea, sin descartarlo
+ok 92 - lo que no se sabe dibujar se avisa y se dibuja como grafo/línea, sin descartarlo
+  ---
+  duration_ms: 0.342025
+  type: 'test'
+  ...
+# Subtest: carriles: uno por nodo en el orden de nodes, mensajes bajando por order
+ok 93 - carriles: uno por nodo en el orden de nodes, mensajes bajando por order
+  ---
+  duration_ms: 2.406339
+  type: 'test'
+  ...
+# Subtest: carriles: la autollamada es un bucle sobre su carril y ocupa su fila; los retornos traen su trazo
+ok 94 - carriles: la autollamada es un bucle sobre su carril y ocupa su fila; los retornos traen su trazo
+  ---
+  duration_ms: 1.670982
+  type: 'test'
+  ...
+# Subtest: grilla: columnas por data.order agrupadas por vista, filas en preorden de nest
+ok 95 - grilla: columnas por data.order agrupadas por vista, filas en preorden de nest
+  ---
+  duration_ms: 0.767927
+  type: 'test'
+  ...
+# Subtest: grilla: celda en la intersección fila × columna, filas vacías incluidas
+ok 96 - grilla: celda en la intersección fila × columna, filas vacías incluidas
+  ---
+  duration_ms: 0.54809
+  type: 'test'
+  ...
+# Subtest: grilla real de dos vistas: una tabla por vista, mismas filas en las dos
+ok 97 - grilla real de dos vistas: una tabla por vista, mismas filas en las dos
+  ---
+  duration_ms: 0.539013
+  type: 'test'
+  ...
+# Subtest: una grilla sin columnas cae a grafo con aviso
+ok 98 - una grilla sin columnas cae a grafo con aviso
+  ---
+  duration_ms: 0.479743
+  type: 'test'
+  ...
+# Subtest: un ciclo de anidado se corta en vez de colgar el layout
+ok 99 - un ciclo de anidado se corta en vez de colgar el layout
+  ---
+  duration_ms: 0.236533
+  type: 'test'
+  ...
+# Subtest: catálogo: SpecDoc agrupados por category, los sin categoría al final
+ok 100 - catálogo: SpecDoc agrupados por category, los sin categoría al final
+  ---
+  duration_ms: 9.715728
+  type: 'test'
+  ...
+# Subtest: compartimentos: atributos y métodos de un spec de clases, una línea cada uno
+ok 101 - compartimentos: atributos y métodos de un spec de clases, una línea cada uno
+  ---
+  duration_ms: 0.26366
+  type: 'test'
+  ...
+# Subtest: los rótulos de extremo (§8d) pasan tal cual a la arista: multiplicidades UML
+ok 102 - los rótulos de extremo (§8d) pasan tal cual a la arista: multiplicidades UML
+  ---
+  duration_ms: 0.244586
+  type: 'test'
+  ...
+# Subtest: marcos de fragmento: abarcan sus filas y las líneas de vida que tocan; sin mensajes no hay marco
+ok 103 - marcos de fragmento: abarcan sus filas y las líneas de vida que tocan; sin mensajes no hay marco
+  ---
+  duration_ms: 0.404678
+  type: 'test'
+  ...
+# Subtest: piloto real sequence.sync-pipeline: tres marcos con su operador y sus líneas de vida
+ok 104 - piloto real sequence.sync-pipeline: tres marcos con su operador y sus líneas de vida
+  ---
+  duration_ms: 0.932195
+  type: 'test'
+  ...
+# Subtest: R11: «Ver todo» de una secuencia: entera si se lee; si no, legible a lo ancho y con scroll
+ok 105 - R11: «Ver todo» de una secuencia: entera si se lee; si no, legible a lo ancho y con scroll
+  ---
+  duration_ms: 0.165324
+  type: 'test'
+  ...
+# Subtest: R11: el rótulo de un mensaje se parte en palabras y el hueco entre carriles vecinos lo aloja
+ok 106 - R11: el rótulo de un mensaje se parte en palabras y el hueco entre carriles vecinos lo aloja
+  ---
+  duration_ms: 3.980253
+  type: 'test'
+  ...
+# Subtest: sin nada guardado, cada vista arranca en su estado por defecto
+ok 107 - sin nada guardado, cada vista arranca en su estado por defecto
+  ---
+  duration_ms: 0.930894
+  type: 'test'
+  ...
+# Subtest: lo que elige el operador se recuerda por vista y gana al defecto
+ok 108 - lo que elige el operador se recuerda por vista y gana al defecto
+  ---
+  duration_ms: 0.204718
+  type: 'test'
+  ...
+# Subtest: sin almacenamiento (o si falla) se usa el defecto
+ok 109 - sin almacenamiento (o si falla) se usa el defecto
+  ---
+  duration_ms: 0.275488
+  type: 'test'
+  ...
+# Subtest: spaces presente: agrupa por los espacios del JSON, con label legible y orden por number ascendente
+ok 110 - spaces presente: agrupa por los espacios del JSON, con label legible y orden por number ascendente
+  ---
+  duration_ms: 4.498017
+  type: 'test'
+  ...
+# Subtest: spaces presente: label cae a workspace si label falta, y a placeholder si faltan ambos
+ok 111 - spaces presente: label cae a workspace si label falta, y a placeholder si faltan ambos
+  ---
+  duration_ms: 0.289348
+  type: 'test'
+  ...
+# Subtest: spaces ausente (fallback): agrupa la lista plana por workspace, sin perder workers ni orden interno
+ok 112 - spaces ausente (fallback): agrupa la lista plana por workspace, sin perder workers ni orden interno
+  ---
+  duration_ms: 9.047713
+  type: 'test'
+  ...
+# Subtest: fallback: workers sin campo workspace caen en un group placeholder, no se pierden
+ok 113 - fallback: workers sin campo workspace caen en un group placeholder, no se pierden
+  ---
+  duration_ms: 0.214591
+  type: 'test'
+  ...
+# Subtest: fallback: el group se ordena por label cuando no hay number
+ok 114 - fallback: el group se ordena por label cuando no hay number
+  ---
+  duration_ms: 0.206928
+  type: 'test'
+  ...
+# Subtest: flota vacía es un estado válido: sin groups y sin error
+ok 115 - flota vacía es un estado válido: sin groups y sin error
+  ---
+  duration_ms: 0.194042
+  type: 'test'
+  ...
+# Subtest: spaces vacío con workers presentes: no se descartan, se usa el fallback por workspace
+ok 116 - spaces vacío con workers presentes: no se descartan, se usa el fallback por workspace
+  ---
+  duration_ms: 0.211605
+  type: 'test'
+  ...
+# Subtest: payload con error de runtime (ej. deskops no instalado) agrupa sin romperse
+ok 117 - payload con error de runtime (ej. deskops no instalado) agrupa sin romperse
+  ---
+  duration_ms: 0.135443
+  type: 'test'
+  ...
+# Subtest: groups sin workers se descartan: una cabecera sin filas es ruido
+ok 118 - groups sin workers se descartan: una cabecera sin filas es ruido
+  ---
+  duration_ms: 0.398486
+  type: 'test'
+  ...
+# Subtest: unnumbered spaces van al final, desempatando por label
+ok 119 - unnumbered spaces van al final, desempatando por label
+  ---
+  duration_ms: 0.472466
+  type: 'test'
+  ...
+# Subtest: basename acorta el cwd para mostrar, dejando el path completo en title
+ok 120 - basename acorta el cwd para mostrar, dejando el path completo en title
+  ---
+  duration_ms: 0.291289
+  type: 'test'
+  ...
+# Subtest: normalizeStatus mapea a los 5 estados conocidos y unknown de default
+ok 121 - normalizeStatus mapea a los 5 estados conocidos y unknown de default
+  ---
+  duration_ms: 0.155845
+  type: 'test'
+  ...
+# Subtest: worker filas inválidas (null) no rompen el agrupado
+ok 122 - worker filas inválidas (null) no rompen el agrupado
+  ---
+  duration_ms: 0.112691
+  type: 'test'
+  ...
+# Subtest: modeledGroups agrupa por modelo y ordena por titulo del catalogo
+ok 123 - modeledGroups agrupa por modelo y ordena por titulo del catalogo
+  ---
+  duration_ms: 11.641878
+  type: 'test'
+  ...
+# Subtest: modeledGroups conserva el estado y la causa recibidos
+ok 124 - modeledGroups conserva el estado y la causa recibidos
+  ---
+  duration_ms: 0.318441
+  type: 'test'
+  ...
+# Subtest: modeledGroups sin catalogo no inventa titulos ni causas ni afirma carga
+ok 125 - modeledGroups sin catalogo no inventa titulos ni causas ni afirma carga
+  ---
+  duration_ms: 0.215746
+  type: 'test'
+  ...
+# Subtest: mientras /nodes esta pendiente o fallo, ningun modelado queda ok ni modelo_no_carga; la guardia prevalece
+ok 126 - mientras /nodes esta pendiente o fallo, ningun modelado queda ok ni modelo_no_carga; la guardia prevalece
+  ---
+  duration_ms: 0.316791
+  type: 'test'
+  ...
+# Subtest: con /nodes recibido, una entrada ausente del catalogo sigue sin confirmar
+ok 127 - con /nodes recibido, una entrada ausente del catalogo sigue sin confirmar
+  ---
+  duration_ms: 0.261639
+  type: 'test'
+  ...
+# Subtest: al llegar /nodes se actualizan titulo y diagnostico
+ok 128 - al llegar /nodes se actualizan titulo y diagnostico
+  ---
+  duration_ms: 0.178967
+  type: 'test'
+  ...
+# Subtest: etiquetas visibles: modelo sin confirmar y ruta nunca vacia
+ok 129 - etiquetas visibles: modelo sin confirmar y ruta nunca vacia
+  ---
+  duration_ms: 0.208834
+  type: 'test'
+  ...
+# Subtest: dos titulos iguales conservan rutas distintas en sus entradas
+ok 130 - dos titulos iguales conservan rutas distintas en sus entradas
+  ---
+  duration_ms: 0.244266
+  type: 'test'
+  ...
+# Subtest: el filtro local mira id, titulo, ruta y modelo
+ok 131 - el filtro local mira id, titulo, ruta y modelo
+  ---
+  duration_ms: 0.476511
+  type: 'test'
+  ...
+# Subtest: buildTree arma carpetas antes que archivos, ambos por nombre
+ok 132 - buildTree arma carpetas antes que archivos, ambos por nombre
+  ---
+  duration_ms: 0.673486
+  type: 'test'
+  ...
+# Subtest: buildTree filtra por ruta y no deja carpetas vacias con coincidencias
+ok 133 - buildTree filtra por ruta y no deja carpetas vacias con coincidencias
+  ---
+  duration_ms: 0.324743
+  type: 'test'
+  ...
+# Subtest: describeInvalidRoots nombra la entrada y la razon recibida
+ok 134 - describeInvalidRoots nombra la entrada y la razon recibida
+  ---
+  duration_ms: 0.160469
+  type: 'test'
+  ...
+# Subtest: describeInvalidRoots etiqueta el componente prohibido
+ok 135 - describeInvalidRoots etiqueta el componente prohibido
+  ---
+  duration_ms: 0.10129
+  type: 'test'
+  ...
+# Subtest: la arista saliente resalta el campo del documento abierto
+ok 136 - la arista saliente resalta el campo del documento abierto
+  ---
+  duration_ms: 2.216877
+  type: 'test'
+  ...
+# Subtest: la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+ok 137 - la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+  ---
+  duration_ms: 0.233616
+  type: 'test'
+  ...
+# Subtest: el vecino a dos saltos tampoco resalta campos del documento abierto
+ok 138 - el vecino a dos saltos tampoco resalta campos del documento abierto
+  ---
+  duration_ms: 0.160372
+  type: 'test'
+  ...
+# Subtest: el foco de campo solo resalta las aristas que declara el documento abierto
+ok 139 - el foco de campo solo resalta las aristas que declara el documento abierto
+  ---
+  duration_ms: 0.213475
+  type: 'test'
+  ...
+# Subtest: correspondence cuenta solo elementos del documento abierto
+ok 140 - correspondence cuenta solo elementos del documento abierto
+  ---
+  duration_ms: 0.359509
+  type: 'test'
+  ...
+# Subtest: un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+ok 141 - un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+  ---
+  duration_ms: 0.391157
+  type: 'test'
+  ...
+# Subtest: relation_doc y structural no tienen campo: no resaltan ninguno
+ok 142 - relation_doc y structural no tienen campo: no resaltan ninguno
+  ---
+  duration_ms: 0.163824
+  type: 'test'
+  ...
+# Subtest: se conservan todas las procedencias reales: varias del dueño correcto
+ok 143 - se conservan todas las procedencias reales: varias del dueño correcto
+  ---
+  duration_ms: 0.1914
+  type: 'test'
+  ...
+# Subtest: sin identidad abierta no se resalta nada por propiedad
+ok 144 - sin identidad abierta no se resalta nada por propiedad
+  ---
+  duration_ms: 0.315438
+  type: 'test'
+  ...
+# Subtest: el motor del import map es markdown-it 14.1.0 por esm.sh
+ok 145 - el motor del import map es markdown-it 14.1.0 por esm.sh
+  ---
+  duration_ms: 0.479715
+  type: 'test'
+  ...
+# Subtest: renderBlocks: line_start/line_end en base 1 desde token.map, con el frontmatter separado
+ok 146 - renderBlocks: line_start/line_end en base 1 desde token.map, con el frontmatter separado
+  ---
+  duration_ms: 6.451807
+  type: 'test'
+  ...
+# Subtest: renderBlocks: cita con énfasis y enlace SLDB dentro
+ok 147 - renderBlocks: cita con énfasis y enlace SLDB dentro
+  ---
+  duration_ms: 1.393912
+  type: 'test'
+  ...
+# Subtest: renderBlocks: negrita, código inline literal, enlace estándar sin clasificar y HTML como texto
+ok 148 - renderBlocks: negrita, código inline literal, enlace estándar sin clasificar y HTML como texto
+  ---
+  duration_ms: 0.93197
+  type: 'test'
+  ...
+# Subtest: renderBlocks: un [[…]] dentro de énfasis conserva su resolución
+ok 149 - renderBlocks: un [[…]] dentro de énfasis conserva su resolución
+  ---
+  duration_ms: 0.644298
+  type: 'test'
+  ...
+# Subtest: renderBlocks: items de lista con [pred:: [[…]]] en su texto
+ok 150 - renderBlocks: items de lista con [pred:: [[…]]] en su texto
+  ---
+  duration_ms: 0.497083
+  type: 'test'
+  ...
+# Subtest: renderBlocks: sin frontmatter las lineas son las de la fuente; HTML de bloque queda como texto
+ok 151 - renderBlocks: sin frontmatter las lineas son las de la fuente; HTML de bloque queda como texto
+  ---
+  duration_ms: 0.226816
+  type: 'test'
+  ...
+# Subtest: TABS contains document, graph, and code projections
+ok 152 - TABS contains document, graph, and code projections
+  ---
+  duration_ms: 1.319402
+  type: 'test'
+  ...
+# Subtest: filterCatalog filters by query and model without modifying input
+ok 153 - filterCatalog filters by query and model without modifying input
+  ---
+  duration_ms: 0.341794
+  type: 'test'
+  ...
+# Subtest: formatHash formats hashes safely
+ok 154 - formatHash formats hashes safely
+  ---
+  duration_ms: 1.236337
+  type: 'test'
+  ...
+# Subtest: parseCodeSnippet slices content with target line highlighted
+ok 155 - parseCodeSnippet slices content with target line highlighted
+  ---
+  duration_ms: 0.499312
+  type: 'test'
+  ...
+# Subtest: formatProblems distinguishes clean, node problems, store problems, and errors
+ok 156 - formatProblems distinguishes clean, node problems, store problems, and errors
+  ---
+  duration_ms: 0.238624
+  type: 'test'
+  ...
+# Subtest: filterGraphEdges and distinctEdgeTypes filter and extract relation types
+ok 157 - filterGraphEdges and distinctEdgeTypes filter and extract relation types
+  ---
+  duration_ms: 0.240617
+  type: 'test'
+  ...
+# Subtest: irSectionsWithCleanMeta extracts hierarchical IR structure with line spans
+ok 158 - irSectionsWithCleanMeta extracts hierarchical IR structure with line spans
+  ---
+  duration_ms: 0.368541
+  type: 'test'
+  ...
+# Subtest: buildScene: cada paquete es contenedor de lo que declara, a dos niveles, y las clases son hojas
+ok 159 - buildScene: cada paquete es contenedor de lo que declara, a dos niveles, y las clases son hojas
+  ---
+  duration_ms: 1.543298
+  type: 'test'
+  ...
+# Subtest: elkGraph: cada paquete reserva su cabecera y sus hijos van debajo (G2)
+ok 160 - elkGraph: cada paquete reserva su cabecera y sus hijos van debajo (G2)
+  ---
+  duration_ms: 2.797459
+  type: 'test'
+  ...
+# Subtest: containerOutline: la carpeta envuelve toda la caja y su pestaña es la cabecera del paquete
+ok 161 - containerOutline: la carpeta envuelve toda la caja y su pestaña es la cabecera del paquete
+  ---
+  duration_ms: 1.623919
+  type: 'test'
+  ...
+1..161
+# tests 161
+# suites 0
+# pass 161
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4772.677224

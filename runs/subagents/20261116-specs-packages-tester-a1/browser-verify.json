@@ -1,0 +1,20 @@
+{
+ "loads": [
+  3.914,
+  4.051,
+  3.85
+ ],
+ "console_errors": [],
+ "pageerrors": [],
+ "nodes": [
+  "SpecNodeDoc:class.packages.core",
+  "SpecNodeDoc:class.packages.shared",
+  "SpecNodeDoc:class.packages.billing",
+  "SpecNodeDoc:class.packages.identity",
+  "SpecNodeDoc:class.packages.AuditLog",
+  "SpecNodeDoc:class.packages.Invoice",
+  "SpecNodeDoc:class.packages.Payment",
+  "SpecNodeDoc:class.packages.User"
+ ],
+ "container_outlines": 4
+}

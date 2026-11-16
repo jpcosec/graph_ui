@@ -1,0 +1,44 @@
+TAP version 13
+# Subtest: buildScene: cada paquete es contenedor de lo que declara, a dos niveles, y las clases son hojas
+ok 1 - buildScene: cada paquete es contenedor de lo que declara, a dos niveles, y las clases son hojas
+  ---
+  duration_ms: 1.545233
+  type: 'test'
+  ...
+# Subtest: elkGraph: cada paquete reserva su cabecera y sus hijos van debajo (G2)
+ok 2 - elkGraph: cada paquete reserva su cabecera y sus hijos van debajo (G2)
+  ---
+  duration_ms: 2.927322
+  type: 'test'
+  ...
+# Subtest: containerOutline: la carpeta envuelve toda la caja y su pestaña es la cabecera del paquete
+not ok 3 - containerOutline: la carpeta envuelve toda la caja y su pestaña es la cabecera del paquete
+  ---
+  duration_ms: 0.726108
+  type: 'test'
+  location: '/dev/shm/pkg-t1-mut/tests/notation-packages.test.mjs:92:1'
+  failureType: 'testCodeFailure'
+  error: 'SpecNodeDoc:class.packages.core'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: ~
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///dev/shm/pkg-t1-mut/tests/notation-packages.test.mjs:99:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 2
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4450.790135

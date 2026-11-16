@@ -1,0 +1,52 @@
+{
+  "alerts": [],
+  "declared": [
+    "tests",
+    "commit",
+    "atom",
+    "materialization"
+  ],
+  "findings": [],
+  "found": [
+    "tests",
+    "atom|materialization",
+    "commit"
+  ],
+  "gates": {
+    "atom_or_materialization_link": {
+      "evidence": [
+        "desk/atoms/atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz.md",
+        "atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz",
+        "atom-c\u00f3mo-decide-el-layout-de-una-vista-su-estilo-de-arquitectura",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/views/specs/notation/notation-view.js",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/views/specs/notation/notation.mjs",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/views/specs/notation/notation-layout.mjs",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/views/specs/notation/notation-style.mjs",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/views/specs/notation/notation.css",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/e2e_notation_class.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/notation-packages.test.mjs",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/fixtures/notation-packages/class.packages.yml"
+      ],
+      "findings": [],
+      "ok": true
+    },
+    "commit": {
+      "evidence": [
+        "e479c50"
+      ],
+      "findings": [],
+      "ok": true
+    },
+    "tests": {
+      "evidence": [
+        "tests/e2e_notation_class.py"
+      ],
+      "findings": [],
+      "ok": true
+    }
+  },
+  "implicit_code": false,
+  "ok": true,
+  "summary": "esta tarea declar\u00f3 tests, commit, atom|materialization; encontr\u00e9 tests, atom|materialization, commit",
+  "task_id": "task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables"
+}

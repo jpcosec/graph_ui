@@ -1,0 +1,49 @@
+## master...origin/master [ahead 2]
+ M .sldb/core/documents/TaskCodeDoc/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.yaml
+ M .sldb/core/models/ReviewDoc.yaml
+ M .sldb/core/models/TaskCodeDoc.yaml
+ M .sldb/core/store_index.yaml
+ M .sldb/runtime/graphs/deskops.kg.json
+ M .sldb/runtime/graphs/deskops.nx.json
+ M .sldb/store.yaml
+ M desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md
+?? .sldb/core/documents/ReviewDoc/review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-evidence-atom-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-evidence-commit-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-evidence-materialization-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-evidence-tests-1.yaml
+?? desk/reviews/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/evidence-atom-1.md
+?? desk/reviews/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/evidence-commit-1.md
+?? desk/reviews/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/evidence-materialization-1.md
+?? desk/reviews/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/evidence-tests-1.md
+?? runs/subagents/20261116-124617/
+?? runs/subagents/20261116-124651/
+?? runs/subagents/20261116-124713/
+?? runs/subagents/20261116-124733/
+?? runs/subagents/20261116-125047/
+?? runs/subagents/20261116-125323/
+?? runs/subagents/20261116-125341/
+?? runs/subagents/20261116-125357/
+?? runs/subagents/20261116-125615/
+?? runs/subagents/20261116-125634/
+?? runs/subagents/20261116-125651/
+?? runs/subagents/20261116-125703/
+?? runs/subagents/20261116-172432/
+?? runs/subagents/20261116-172444/
+?? runs/subagents/20261116-172528/
+?? runs/subagents/20261116-174106/
+?? runs/subagents/20261116-175739/
+?? runs/subagents/20261116-175850/
+?? runs/subagents/20261116-184946/
+?? runs/subagents/20261116-185004/
+?? runs/subagents/20261116-esm-hash-executor-a1/
+?? runs/subagents/20261116-gate-findings-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a2/
+?? runs/subagents/20261116-ir13-tester-a1/
+?? runs/subagents/20261116-ir13-tester-r2/
+?? runs/subagents/20261116-lector-executor-a1/
+?? runs/subagents/20261116-r2-reviews/
+?? runs/subagents/20261116-sldb-serve-rss/
+?? runs/subagents/20261116-specs-packages-executor-a1/
+?? runs/subagents/20261116-specs-packages-tester-a1/
+?? runs/subagents/20261116-triaje-graph-ui/

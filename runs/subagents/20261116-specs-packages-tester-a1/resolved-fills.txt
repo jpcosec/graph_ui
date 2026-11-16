@@ -1,0 +1,8 @@
+SpecNodeDoc:class.packages.Invoice class-box null null
+SpecNodeDoc:class.packages.Payment class-box null null
+SpecNodeDoc:class.packages.User class-box null null
+SpecNodeDoc:class.packages.AuditLog class-box null null
+SpecNodeDoc:class.packages.core package null null
+SpecNodeDoc:class.packages.billing package {"light": "#fff1c2", "dark": "#3d3200"} {"fill": "spec", "stroke": "spec"}
+SpecNodeDoc:class.packages.identity package {"light": "#dbebf4", "dark": "#092c42"} {"fill": "spec", "stroke": "spec"}
+SpecNodeDoc:class.packages.shared package null null

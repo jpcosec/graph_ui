@@ -1,7 +1,7 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-16T18:24:54Z'
+  at: '2026-11-16T19:09:09Z'
   authority: generated
   via: save_document_payload
 # board-xxx
@@ -12,7 +12,6 @@ scope: graph_ui
 tasks:
 - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
 - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
-- desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md
 - desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md
 - desk/tasks/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en.md
 # List of pill-xxx paths
@@ -48,6 +47,5 @@ _Generated from the task references above._
 
 - Vista Changes: arbol de hashes, staleness e impacto en conocimiento [draft] - Añadir en /workspace la pestaña Changes y la sección Integrity del panel Context: listan los documentos que sldb reporta como cambiados o stale y los anclajes de código que no están intact, y para cada uno los documentos que dependen de él a 1-2 saltos en el índice de relaciones, marcados como potencialmente obsoletos. Todo de solo lectura.
 - Edicion contextual de relaciones y campos con control de concurrencia [draft] - Habilitar en el panel Context y en la proyección Document del workspace el alta/baja de relaciones válidas según el modelo y la edición de campos vía pron.Store/sldb, exigiendo el hash de revisión previo y rechazando con 409 Conflict cualquier escritura obsoleta.
-- Vista Specs: dibujar paquetes UML de diagramas de clase como contenedores anidables [draft] - Un spec class con data.packages se ve en /specs/notation con cada paquete como contenedor con forma package (carpeta con pestaña UML y su título), con sus clases y subpaquetes adentro a cualquier profundidad, el relleno/trazo/ícono de node.style del paquete, y las mismas garantías de legibilidad que los otros diagramas (nada tapado, «Ver todo» entra en la ventana).
 - Decisión de JP: ¿el workspace de graph_ui edita y ancla código (softfactory K03/K05/K12) o solo muestra el estado de los CodeAnchorDoc de sldb? [draft] - Una decisión escrita de JP, con una de tres opciones: (A) graph_ui solo muestra, en la vista inspect, los anclajes de código de un documento y su estado (intact/changed/lost) leyendo CodeAnchorDoc por la API de sldb, sin editar código; (B) además edita fragmentos de código anclados desde el workspace (K05), con escritura y reanclaje por sldb; (C) nada de código en graph_ui; el tema pasa a la UI de deskops o se descarta.
 - El lector del workspace y el adaptador usan la lectura pública de sldb (read_store, extract_payload) en vez de módulos internos [draft] - Ningún archivo .py bajo frontends/ ni tests/deskops_viewdocs.py importa sldb.store.runtime_cache_signature ni sldb.runtime.validation; las lecturas usan sldb.api.read_store y sldb.api.extract_payload, y un listado GET del workspace sobre un store sin preparar responde 503 con el texto de sldb ('store not prepared: run `sldb stores update`') en vez de migrar el store.
