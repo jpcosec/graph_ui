@@ -1,13 +1,15 @@
 name: 20261116-011047-suggestion-deskops-ui-la-ui-del-desk-ya-muestra-los-findings-de-reglas-y-los-recibos-gates-g-gc-gates-y-g-gc-receipts
 path: desk/inbox/20261116-011047-suggestion-deskops-ui-la-ui-del-desk-ya-muestra-los-findings-de-reglas-y-los-recibos-gates-g-gc-gates-y-g-gc-receipts.md
-source_hash: 984e601bb253569c68b712b6758402ec69c39db7dc9d4ff67b57e30eb9f2725f
-content_hash: d768baf599406edcbcd21dd01322935095ab9c871f3fe88a55d2f223b40293a5
+source_hash: 15b615e70ef63227ec48f16b5bc64f1e726de734af5bf9ad6ae02bbd0abb4f62
+content_hash: 6c7bc419f5b9a8ff4a1d5eb9cb26a41a5c95c49ddae8e4246a719fa7bd1b7ea5
 field_hashes:
   kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
   sender_project: be1a918d36a26b50ff05a32144905fa0851e3a2c55c93b05726d8a3bab97b3e7
   target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   created_at: 6cb9d34bd419ecd7cc3e52720533cdb29a498f9abbc8d99178919e5ed3ba7689
-  status: 35ff74aeea25311f4fe759a6b762c8cd41a79adb23dd5615b92cf215175a63e5
+  status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
+  acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  acknowledged_at: 55498530c9a0a849ed6eb144f003953b9eb52da606a617f5b0d5403744bd1aa3
   title: ba56e41d5472665919a2a546ad30cf3f9db9f6f1fb78d1401e792ad69031a0c5
   body: 3e56924d2858459b4ece0dbb005ee1c6064b56ebb444833249126db07f851b9f
 semantic_tags:
@@ -15,4 +17,8 @@ semantic_tags:
 - source.document.markdown
 - type.desk.inbox-note
 - workspace.desk.inbox
-provenance: null
+provenance:
+  by: agent
+  at: '2026-11-16T12:50:39Z'
+  authority: generated
+  via: save_document_payload

@@ -1,13 +1,15 @@
 name: 20261116-073057-suggestion-sldb-api-read-store-store-is-prepared-y-extract-payload-lectura-p-blica-sin-migrar
 path: desk/inbox/20261116-073057-suggestion-sldb-api-read-store-store-is-prepared-y-extract-payload-lectura-p-blica-sin-migrar.md
-source_hash: 725002739cf87198fa3bb41b0c5487f232aa9330b6ddde04d0e0fdd62a2549eb
-content_hash: 4b6fa28590642df5255b14aa90476207ed543ca20040614da77c4b493137a863
+source_hash: 832b8952444b256c5aee0cd96de6262c8cc58da30dbdfe6b0d9533ef1960aceb
+content_hash: 620fd24e0c7c28ad05ddf9613ec8507b855e58ae9b6d4d36b35deb7a23298397
 field_hashes:
   kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
   sender_project: adf8f4fb55456ba91d0b029904c49d4d1b85540b989a86435dfb80c0a89f7efb
   target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   created_at: a224a0e45f1efa43a3e51fd84ccc034b7354cced3f2ceee96bf39f6aa1de299a
-  status: 35ff74aeea25311f4fe759a6b762c8cd41a79adb23dd5615b92cf215175a63e5
+  status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
+  acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  acknowledged_at: 3a12176e6cee64a50516792c4201b5ebbcd3cec4cc83767d33624682fe2507fa
   title: b1ca4607d45d8479f82b1c79066a0c45855ac3d28ec2b4b23b40b5ff6401fae8
   body: 21eff40830531a36c31c0eb8e5f1a0ed019a5686fdd9f5b330ada3f6fc0db44e
 semantic_tags:
@@ -15,4 +17,8 @@ semantic_tags:
 - source.document.markdown
 - type.desk.inbox-note
 - workspace.desk.inbox
-provenance: null
+provenance:
+  by: agent
+  at: '2026-11-16T12:50:43Z'
+  authority: generated
+  via: save_document_payload
