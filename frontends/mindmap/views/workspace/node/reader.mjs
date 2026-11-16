@@ -10,9 +10,12 @@
 const INLINE_PREDICATE = /\[([a-zA-Z0-9_-]+)::\s*(!)?\[\[([^\]]+)\]\]\]/;
 const STANDARD_LINK = /(!)?\[\[([^\]]+)\]\]/;
 const LINK_SCAN = new RegExp(`${INLINE_PREDICATE.source}|${STANDARD_LINK.source}`, 'g');
-const HEADING = /^(#{1,6})[ \t]+(.*?)[ \t]*#*[ \t]*$/;
-const FENCE = /^[ \t]*(```|~~~)/;
-const LIST_ITEM = /^[ \t]*(?:[-*+]|\d+[.)])[ \t]+/;
+
+/** Opciones del motor Markdown (markdown-it): el HTML del documento nunca se interpreta. */
+export const MARKDOWN_OPTIONS = Object.freeze({html: false, linkify: false});
+
+/** Instancia el motor con las opciones del lector; el constructor llega del import map. */
+export const createMarkdown = MarkdownIt => new MarkdownIt({...MARKDOWN_OPTIONS});
 
 /** Parte una linea en segmentos de texto y de enlace; el enlace lleva su resolucion si existe. */
 export function splitInline(line, linksByRaw = {}) {
@@ -31,52 +34,135 @@ export function splitInline(line, linksByRaw = {}) {
   return out;
 }
 
-/** Texto -> bloques con line_start/line_end (1-based, mismas lineas que la fuente). */
-export function renderBlocks(text) {
-  const lines = String(text ?? '').split('\n').map(l => l.replace(/\r$/, ''));
-  if (lines.length && lines[lines.length - 1] === '') lines.pop();
+/**
+ * Fuente -> bloques para el lector, con el motor real (markdown-it, md.parse).
+ *
+ * Cada bloque lleva line_start/line_end en base 1 e inclusivos, tomados de token.map
+ * ([inicio, fin) en base 0) y desplazados por el frontmatter, que se separa antes de parsear.
+ * Los inline quedan como arbol de nodos de datos (sin HTML): text, softbreak, hardbreak, em,
+ * strong, code, std_link (enlace Markdown estandar, sin clasificar) y span (marca sin render
+ * propio). Los [[…]] se resuelven despues con splitInline sobre los nodos text.
+ */
+export function renderBlocks(text, md) {
+  const lines = String(text ?? '').split('\n');
   const blocks = [];
-  let i = 0;
-  if (lines[0] === '---') {
+  let offset = 0;
+  if (lines[0]?.replace(/\r$/, '') === '---') {
     const close = lines.findIndex((l, idx) => idx > 0 && l.trim() === '---');
     if (close > 0) {
-      blocks.push({kind: 'frontmatter', line_start: 1, line_end: close + 1, lines: lines.slice(1, close)});
-      i = close + 1;
+      blocks.push({kind: 'frontmatter', line_start: 1, line_end: close + 1, lines: lines.slice(1, close).map(l => l.replace(/\r$/, ''))});
+      offset = close + 1;
     }
   }
-  let para = null;
-  const flush = () => { if (para) { blocks.push(para); para = null; } };
-  while (i < lines.length) {
-    const line = lines[i];
-    const n = i + 1;
-    if (FENCE.test(line)) {
-      flush();
-      let j = i + 1;
-      while (j < lines.length && !FENCE.test(lines[j])) j++;
-      const end = Math.min(j, lines.length - 1);
-      blocks.push({kind: 'code', line_start: n, line_end: end + 1, lines: lines.slice(i + 1, j)});
-      i = end + 1;
-      continue;
+  const body = lines.slice(offset).join('\n');
+  const tokens = md.parse(body, {});
+  const span = t => ({line_start: t.map[0] + 1 + offset, line_end: t.map[1] + offset});
+  const srcLines = t => lines.slice(t.map[0] + offset, t.map[1] + offset).map(l => l.replace(/\r$/, ''));
+
+  // Recorre tokens de bloque desde i hasta el cierre `stop` (o el final); devuelve [bloques, siguiente].
+  function walk(i, stop) {
+    const out = [];
+    while (i < tokens.length) {
+      const t = tokens[i];
+      if (stop && t.type === stop) return [out, i + 1];
+      if (t.type === 'heading_open') {
+        const inl = tokens[i + 1];
+        out.push({kind: 'heading', level: Number(t.tag.slice(1)), text: inl.content.trim(), inline: inlineNodes(inl.children), ...span(t)});
+        i += 3;
+      } else if (t.type === 'paragraph_open') {
+        out.push({kind: 'paragraph', tight: !!t.hidden, inline: inlineNodes(tokens[i + 1].children), ...span(t)});
+        i += 3;
+      } else if (t.type === 'fence' || t.type === 'code_block') {
+        const content = t.content.endsWith('\n') ? t.content.slice(0, -1) : t.content;
+        out.push({kind: 'code', info: t.info || '', lines: content.split('\n'), ...span(t)});
+        i += 1;
+      } else if (t.type === 'blockquote_open') {
+        const [children, next] = walk(i + 1, 'blockquote_close');
+        out.push({kind: 'quote', blocks: children, ...span(t)});
+        i = next;
+      } else if (t.type === 'bullet_list_open' || t.type === 'ordered_list_open') {
+        const ordered = t.type === 'ordered_list_open';
+        const close = ordered ? 'ordered_list_close' : 'bullet_list_close';
+        const list = {kind: 'list', ordered, start: ordered ? Number(t.attrGet('start') ?? 1) : null, items: [], ...span(t)};
+        i += 1;
+        while (i < tokens.length && tokens[i].type !== close) {
+          const item = tokens[i]; // list_item_open
+          const [children, next] = walk(i + 1, 'list_item_close');
+          list.items.push({line: item.map[0] + 1 + offset, ...span(item), blocks: children});
+          i = next;
+        }
+        out.push(list);
+        i += 1;
+      } else if (t.type === 'hr') {
+        out.push({kind: 'hr', ...span(t)});
+        i += 1;
+      } else if (t.map && t.nesting >= 0) {
+        // Bloque sin render propio (p. ej. tablas): su fuente se muestra literal, como texto.
+        let next = i + 1;
+        if (t.nesting === 1) {
+          let depth = 1;
+          while (next < tokens.length && depth > 0) { depth += tokens[next].nesting; next++; }
+        }
+        out.push({kind: 'raw', lines: srcLines(t), ...span(t)});
+        i = next;
+      } else {
+        i += 1;
+      }
     }
-    const h = HEADING.exec(line);
-    if (h) {
-      flush();
-      blocks.push({kind: 'heading', level: h[1].length, text: h[2].trim(), line_start: n, line_end: n});
-    } else if (LIST_ITEM.test(line)) {
-      if (!para || para.kind !== 'list') { flush(); para = {kind: 'list', line_start: n, line_end: n, items: []}; }
-      para.items.push({line: n, text: line.replace(LIST_ITEM, '')});
-      para.line_end = n;
-    } else if (line.trim() === '') {
-      flush();
-    } else {
-      if (!para || para.kind !== 'paragraph') { flush(); para = {kind: 'paragraph', line_start: n, line_end: n, lines: []}; }
-      para.lines.push(line);
-      para.line_end = n;
-    }
-    i++;
+    return [out, i];
   }
-  flush();
-  return blocks;
+
+  return blocks.concat(walk(0, null)[0]);
+}
+
+const INLINE_PAIRS = {em_open: 'em', strong_open: 'strong'};
+
+/** Tokens inline de markdown-it -> nodos de datos. El HTML nunca se interpreta: llega como texto. */
+export function inlineNodes(children) {
+  const root = {children: []};
+  const stack = [root];
+  const top = () => stack[stack.length - 1];
+  for (const c of children || []) {
+    const parent = top();
+    if (c.type === 'text' || c.type === 'text_special' || c.type === 'html_inline') {
+      const last = parent.children[parent.children.length - 1];
+      if (last && last.type === 'text') last.text += c.content;
+      else parent.children.push({type: 'text', text: c.content});
+    } else if (c.type === 'softbreak') {
+      parent.children.push({type: 'softbreak'});
+    } else if (c.type === 'hardbreak') {
+      parent.children.push({type: 'hardbreak'});
+    } else if (c.type === 'code_inline') {
+      parent.children.push({type: 'code', text: c.content});
+    } else if (c.type === 'image') {
+      parent.children.push({type: 'std_link', href: c.attrGet('src') ?? '', text: c.content});
+    } else if (c.type === 'link_open') {
+      const node = {type: 'std_link', href: c.attrGet('href') ?? '', text: '', children: []};
+      parent.children.push(node);
+      stack.push(node);
+    } else if (c.nesting === 1) {
+      const node = {type: INLINE_PAIRS[c.type] || 'span', children: []};
+      parent.children.push(node);
+      stack.push(node);
+    } else if (c.nesting === -1) {
+      if (stack.length > 1) {
+        const node = stack.pop();
+        if (node.type === 'std_link') { node.text = inlineText(node.children); delete node.children; }
+      }
+    } else if (c.content) {
+      parent.children.push({type: 'text', text: c.content});
+    }
+  }
+  return root.children;
+}
+
+/** Texto plano de un arbol de nodos inline (el texto visible de un enlace estandar). */
+export function inlineText(nodes) {
+  return (nodes || []).map(n => {
+    if (n.type === 'text' || n.type === 'code' || n.type === 'std_link') return n.text;
+    if (n.type === 'softbreak' || n.type === 'hardbreak') return ' ';
+    return inlineText(n.children);
+  }).join('');
 }
 
 export const linksByRaw = links => Object.fromEntries((links || []).map(l => [l.raw, l]));

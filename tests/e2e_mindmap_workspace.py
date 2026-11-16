@@ -713,6 +713,120 @@ def test_reader_missing_anchor_is_broken_not_navigable(reader_e2e_server):
         browser.close()
 
 
+# ---------------------------------------------------------------- render Markdown legible (markdown-it)
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+
+
+def _source_text(page):
+    """Texto de RawSource: las celdas de linea unidas como en el archivo."""
+    return '\n'.join(page.locator('[data-testid="doc-source"] .workspace-src-line .workspace-code-line-text').all_text_contents())
+
+
+def _assert_source_is_file_bytes(page, data: bytes):
+    text = _source_text(page) + ('\n' if data.endswith(b'\n') else '')
+    assert text.encode('utf-8') == data
+
+
+@pytest.fixture
+def repo_reader_server(monkeypatch):
+    """Servidor real sobre el store y el arbol de este repo (solo lecturas GET)."""
+    monkeypatch.setenv('DESKOPS_ROOT', str(REPO_ROOT))
+    server = make_server(0, REPO_ROOT / '.sldb')
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        yield f"http://127.0.0.1:{server.server_port}"
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=5)
+
+
+@pytest.mark.parametrize('rel', ['README.md', 'docs/workspace-ui.md'])
+def test_reader_renders_real_markdown_of_the_repo(repo_reader_server, rel):
+    url = repo_reader_server
+    data = (REPO_ROOT / rel).read_bytes()
+    text = data.decode('utf-8')
+    # lo que el Markdown real tiene, sacado del propio archivo
+    quote = next((ln[2:].strip() for ln in text.splitlines() if ln.startswith('> ')), None)
+    code = re.search(r'(?<!`)`([^`\n]+)`(?!`)', text)
+    strong = re.search(r'\*\*([^*\n`\[]+)\*\*', text)
+    std_links = re.findall(r'(?<!!)\[([^\]\n]+)\]\(([^)\s]+)\)', text)
+    assert code and strong and std_links, rel
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.goto(f"{url}/workspace/node?path={rel}&tab=document")
+        render = page.locator('[data-testid="doc-render"]')
+        expect(render).to_be_visible()
+        expect(render.locator('code.workspace-render-code-inline', has_text=code.group(1)).first).to_be_visible()
+        expect(render.locator('strong', has_text=strong.group(1).strip()).first).to_be_visible()
+        if quote:
+            expect(render.locator('blockquote.workspace-render-quote').first).to_contain_text(quote.split('[')[0].strip()[:30])
+        # enlaces estandar: span sin clasificar con su texto y su destino; ningun <a> navegable
+        std = render.locator('[data-testid="doc-link"][data-status="no_clasificado"]')
+        assert std.count() >= 1
+        label, dest = std_links[0]
+        first = render.locator('[data-status="no_clasificado"]', has_text=re.sub(r'[`*_]', '', label)).first
+        expect(first).to_have_attribute('title', dest)
+        assert render.locator('a').count() == render.locator('a.workspace-doc-link[data-status="ok"][href="#"]').count()
+        assert render.locator('a[href]:not([href="#"])').count() == 0
+        # los bloques conservan data-line-start
+        assert render.locator('[data-line-start]').count() > 0
+        # fuente cruda identica a los bytes del archivo
+        _assert_source_is_file_bytes(page, data)
+        _screenshot(page, f"reader-render-{rel.replace('/', '-')}.png")
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()
+
+
+PELIGRO_MD = (
+    '# Peligro\n'
+    '\n'
+    '<script>window.__pwned = 1</script>\n'
+    '\n'
+    'Imagen <img src="x" onerror="window.__pwned = 2"> y *enfasis con [[otro.md]]* y `codigo [[otro.md]]`.\n'
+    '\n'
+    '> Cita con [[no-existe.md]] y **negrita**.\n'
+    '\n'
+    'Estandar [sitio](https://example.com/z) sin abrir.\n'
+)
+
+
+def test_reader_document_html_is_text_and_sldb_links_keep_state(reader_e2e_server):
+    url, source_id, target_id = reader_e2e_server
+    path = Path(os.environ['DESKOPS_ROOT']) / 'docs' / 'peligro.md'
+    path.write_text(PELIGRO_MD, encoding='utf-8')
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1440, "height": 900})
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.goto(f"{url}/workspace/node?path=docs/peligro.md&tab=document")
+        render = page.locator('[data-testid="doc-render"]')
+        expect(render).to_contain_text('<script>window.__pwned = 1</script>')
+        expect(render).to_contain_text('<img src="x" onerror="window.__pwned = 2">')
+        assert render.locator('script, img').count() == 0
+        assert page.evaluate('window.__pwned === undefined')
+        # [[…]] dentro de enfasis y de cita conserva su estado; dentro de codigo inline queda literal
+        expect(render.locator('em a.workspace-doc-link[data-status="ok"]')).to_have_count(1)
+        expect(render.locator('blockquote.workspace-render-quote [data-status="roto"]')).to_have_count(1)
+        expect(render.locator('blockquote.workspace-render-quote strong')).to_have_text('negrita')
+        expect(render.locator('code.workspace-render-code-inline')).to_have_text('codigo [[otro.md]]')
+        assert render.locator('code.workspace-render-code-inline [data-testid="doc-link"]').count() == 0
+        # enlace estandar: texto, destino en title, no navegable
+        std = render.locator('[data-status="no_clasificado"]')
+        expect(std).to_have_text('sitio')
+        expect(std).to_have_attribute('title', 'https://example.com/z')
+        assert render.locator('a[href]:not([href="#"])').count() == 0
+        _assert_source_is_file_bytes(page, path.read_bytes())
+        assert not errors, f"Errores de JS: {errors}"
+        browser.close()
+
+
 # ---------------------------------------------------------------- WS13.2: explorador
 
 BAD_MODEL_SRC = '''from __future__ import annotations

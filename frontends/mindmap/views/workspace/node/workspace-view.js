@@ -1,4 +1,5 @@
 import {useEffect, useState, useRef} from 'react';
+import MarkdownIt from 'markdown-it';
 import {html} from '../../../shared/html.js';
 import {request} from '../../../shell/api.js';
 import {irSectionsWithCleanMeta, irFields} from '../../../shared/document-ir.mjs';
@@ -12,6 +13,7 @@ import {
   distinctEdgeTypes
 } from './workspace.mjs';
 import {
+  createMarkdown,
   renderBlocks,
   splitInline,
   linksByRaw,
@@ -39,6 +41,9 @@ import {
   targetKey
 } from './reader.mjs';
 import {ExplorerPanel} from '../explorer/explorer-view.js';
+
+// Motor Markdown del lector (markdown-it del import map, html:false, linkify:false).
+const markdown = createMarkdown(MarkdownIt);
 
 // Aviso fijo de las relaciones: salen del indice preparado, no certifican cambios externos.
 // No afirma frescura ni se calcula a partir de stale vacio.
@@ -182,32 +187,73 @@ function InlineText({text, links, onOpenLink}) {
   })}`;
 }
 
+// Nodos inline del motor -> elementos htm. Nunca innerHTML: todo texto del documento se dibuja
+// como texto, y los [[…]] se resuelven en los nodos de texto con InlineText (por raw).
+function InlineNodes({nodes, links, onOpenLink}) {
+  return html`${(nodes || []).map((n, i) => {
+    if (n.type === 'text') return html`<${InlineText} key=${i} text=${n.text} links=${links} onOpenLink=${onOpenLink} />`;
+    if (n.type === 'softbreak') return html`<span key=${i}>${' '}</span>`;
+    if (n.type === 'hardbreak') return html`<br key=${i} />`;
+    if (n.type === 'code') return html`<code key=${i} className="workspace-render-code-inline">${n.text}</code>`;
+    if (n.type === 'std_link') {
+      // Enlace Markdown estandar: nadie lo clasifica; se muestra su texto, no se abre.
+      return html`<span key=${i} className="workspace-link-unresolved" data-testid="doc-link" data-status="no_clasificado" title=${n.href}>${n.text}</span>`;
+    }
+    const inner = html`<${InlineNodes} nodes=${n.children} links=${links} onOpenLink=${onOpenLink} />`;
+    if (n.type === 'em') return html`<em key=${i}>${inner}</em>`;
+    if (n.type === 'strong') return html`<strong key=${i}>${inner}</strong>`;
+    return html`<span key=${i}>${inner}</span>`;
+  })}`;
+}
+
+function RenderedBlock({b, cls = '', sections, links, onFocus, onOpenLink}) {
+  const inline = nodes => html`<${InlineNodes} nodes=${nodes} links=${links} onOpenLink=${onOpenLink} />`;
+  const children = list => list.map((c, j) => html`<${RenderedBlock} key=${j} b=${c} sections=${sections} links=${links} onFocus=${onFocus} onOpenLink=${onOpenLink} />`);
+  if (b.kind === 'frontmatter') {
+    return html`<pre className=${cls + ' workspace-render-frontmatter'} data-line-start=${b.line_start}><code>${b.lines.join('\n')}</code></pre>`;
+  }
+  if (b.kind === 'code') {
+    return html`<pre className=${cls + ' workspace-render-code'} data-line-start=${b.line_start}><code>${b.lines.join('\n')}</code></pre>`;
+  }
+  if (b.kind === 'raw') {
+    return html`<pre className=${cls + ' workspace-render-code'} data-line-start=${b.line_start}>${b.lines.join('\n')}</pre>`;
+  }
+  if (b.kind === 'heading') {
+    const sec = (sections || []).find(s => s.line_start === b.line_start);
+    const Tag = 'h' + Math.min(6, b.level + 1);
+    return html`<${Tag} className=${cls + ' workspace-render-heading'} data-line-start=${b.line_start} data-section-path=${sec?.path || ''}>
+      ${sec ? html`<button type="button" className="workspace-ir-focus-btn" data-testid="render-heading" onClick=${() => onFocus(sectionFocus(sec))}>${inline(b.inline)}</button>` : inline(b.inline)}
+    <//>`;
+  }
+  if (b.kind === 'quote') {
+    return html`<blockquote className=${cls + ' workspace-render-quote'} data-line-start=${b.line_start}>${children(b.blocks)}</blockquote>`;
+  }
+  if (b.kind === 'list') {
+    const items = b.items.map(it => html`<li key=${it.line} data-line-start=${it.line_start}>${children(it.blocks)}</li>`);
+    return b.ordered
+      ? html`<ol className=${cls} start=${b.start} data-line-start=${b.line_start}>${items}</ol>`
+      : html`<ul className=${cls} data-line-start=${b.line_start}>${items}</ul>`;
+  }
+  if (b.kind === 'hr') return html`<hr className=${cls} data-line-start=${b.line_start} />`;
+  if (b.tight) return html`<span className=${cls} data-line-start=${b.line_start}>${inline(b.inline)}</span>`;
+  return html`<p className=${cls} data-line-start=${b.line_start}>${inline(b.inline)}</p>`;
+}
+
 function RenderedDocument({text, links, sections, focus, onFocus, onOpenLink}) {
-  const blocks = renderBlocks(text);
+  const blocks = renderBlocks(text, markdown);
   const byRaw = linksByRaw(links);
   const blockFocused = b => focus?.kind === 'section' && focus.line_start != null && b.line_start >= focus.line_start && b.line_end <= focus.line_end;
   return html`
     <div className="workspace-render" data-testid="doc-render">
-      ${blocks.map((b, i) => {
-        const cls = 'workspace-render-block' + (blockFocused(b) ? ' is-focused' : '');
-        if (b.kind === 'frontmatter') {
-          return html`<pre key=${i} className=${cls + ' workspace-render-frontmatter'} data-line-start=${b.line_start}><code>${b.lines.join('\n')}</code></pre>`;
-        }
-        if (b.kind === 'code') {
-          return html`<pre key=${i} className=${cls + ' workspace-render-code'} data-line-start=${b.line_start}><code>${b.lines.join('\n')}</code></pre>`;
-        }
-        if (b.kind === 'heading') {
-          const sec = (sections || []).find(s => s.line_start === b.line_start);
-          const Tag = 'h' + Math.min(6, b.level + 1);
-          return html`<${Tag} key=${i} className=${cls + ' workspace-render-heading'} data-line-start=${b.line_start} data-section-path=${sec?.path || ''}>
-            ${sec ? html`<button type="button" className="workspace-ir-focus-btn" data-testid="render-heading" onClick=${() => onFocus(sectionFocus(sec))}>${b.text}</button>` : b.text}
-          <//>`;
-        }
-        if (b.kind === 'list') {
-          return html`<ul key=${i} className=${cls} data-line-start=${b.line_start}>${b.items.map(it => html`<li key=${it.line}><${InlineText} text=${it.text} links=${byRaw} onOpenLink=${onOpenLink} /></li>`)}</ul>`;
-        }
-        return html`<p key=${i} className=${cls} data-line-start=${b.line_start}>${b.lines.map((ln, j) => html`<span key=${j}><${InlineText} text=${ln} links=${byRaw} onOpenLink=${onOpenLink} />${j < b.lines.length - 1 ? ' ' : ''}</span>`)}</p>`;
-      })}
+      ${blocks.map((b, i) => html`<${RenderedBlock}
+        key=${i}
+        b=${b}
+        cls=${'workspace-render-block' + (blockFocused(b) ? ' is-focused' : '')}
+        sections=${sections}
+        links=${byRaw}
+        onFocus=${onFocus}
+        onOpenLink=${onOpenLink}
+      />`)}
     </div>
   `;
 }
