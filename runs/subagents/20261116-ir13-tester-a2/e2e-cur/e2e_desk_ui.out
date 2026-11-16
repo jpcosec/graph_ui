@@ -1,0 +1,804 @@
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+_______________ test_board_columns_gates_advance_conflict_focus ________________
+
+desk = {'url': 'http://127.0.0.1:38559/', 'root': PosixPath('/dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e'), 'ops': <deskops.operations.DeskopsOperations object at 0x7f549c785be0>, 'first': 'task-preparar-la-vista', ...}
+browser_page = <Page url='http://127.0.0.1:38559/'>
+
+    def test_board_columns_gates_advance_conflict_focus(desk, browser_page):
+        page, root, ops, first, second = browser_page, desk['root'], desk['ops'], desk['first'], desk['second']
+        page.goto(desk['url'])
+>       expect(_card(page, first)).to_be_visible()
+E       AssertionError: Locator expected to be visible
+E       Actual value: None
+E       Error: element(s) not found 
+E       Call log:
+E         - Expect "to_be_visible" locator(".card[data-task-id=\"task-preparar-la-vista\"]") with timeout 60000ms
+E         - waiting for locator(".card[data-task-id=\"task-preparar-la-vista\"]")
+E       
+E       Aria snapshot:
+E       - complementary "Navegación":
+E         - text: deskops
+E         - navigation:
+E           - link "Board":
+E             - /url: "#/board"
+E           - link "Drawer":
+E             - /url: "#/drawer"
+E           - link "Inbox":
+E             - /url: "#/inbox"
+E           - link "Agentes":
+E             - /url: "#/agents"
+E           - separator
+E           - link "Inspeccionar":
+E             - /url: http://127.0.0.1:8090/
+E         - paragraph:
+E           - text: Datos de
+E           - code: deskops view
+E           - text: . Inspeccionar abre el visor de nodos (:8090).
+E       - banner:
+E         - text: Desk activo
+E         - combobox "Desk activo":
+E           - option "desk-e2e" [selected]
+E         - code: /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e
+E         - button "Actualizar"
+E       - main:
+E         - paragraph: Cargando el desk…
+
+tests/e2e_desk_ui.py:136: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb.
+Inheriting CrossroadDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting AtomDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting BoardDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting PillDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting RepositoryDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting ReviewDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting RitualDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting RoleDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting RunDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting StepDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting TaskDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/.sldb...
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/desk/inbox/20261116-112024-suggestion-idea-diferida.md
+Tracked '20261116-112024-suggestion-idea-diferida'
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/desk/inbox/20261116-112024-suggestion-pregunta-abierta.md
+Tracked '20261116-112024-suggestion-pregunta-abierta'
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/desk/inbox/20261116-112025-suggestion-nota-que-cambia.md
+Tracked '20261116-112025-suggestion-nota-que-cambia'
+Created drawer task candidate task-idea-diferida
+Deleted source file /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/desk/inbox/20261116-112024-suggestion-idea-diferida.md
+Path: /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e/desk/drawer/tasks/task-idea-diferida.md
+------------------------------ Captured log setup ------------------------------
+INFO     deskops:tasks.py:303 Advanced task task-probar-la-vista to node ritual-testing
+--------------------------- Captured stderr teardown ---------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 37244)
+Traceback (most recent call last):
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 164, in do_GET
+    return self.json_response(self.view(root, view, query))
+                              ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 176, in view
+    return self.views.view(root, view)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:55345 para /dev/shm/ir13t2-bt/test_board_columns_gates_advan0/desk-e2e.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 119, in __init__
+    super().__init__(*args, directory=str(DESK_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 167, in do_GET
+    return self.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 136, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+_______________ test_task_page_sections_inheritance_and_advance ________________
+
+desk = {'url': 'http://127.0.0.1:33011/', 'root': PosixPath('/dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e'), 'ops': <deskops.operations.DeskopsOperations object at 0x7f549bc478a0>, 'first': 'task-preparar-la-vista', ...}
+browser_page = <Page url='http://127.0.0.1:33011/#/task?id=task-probar-la-vista'>
+
+    def test_task_page_sections_inheritance_and_advance(desk, browser_page):
+        page, root, ops, first, second = browser_page, desk['root'], desk['ops'], desk['first'], desk['second']
+        page.goto(f"{desk['url']}#/task?id={second}")
+        doc = page.get_by_test_id('task-doc')
+        view = deskops_view.task_view(root, second)['task']
+>       expect(doc.locator('.doc-title')).to_have_text(view['title'])
+E       AssertionError: Locator expected to have text 'Probar la vista'
+E       Actual value: None
+E       Error: element(s) not found 
+E       Call log:
+E         - Expect "to_have_text" get_by_test_id("task-doc").locator(".doc-title") with timeout 60000ms
+E         - waiting for get_by_test_id("task-doc").locator(".doc-title")
+E       
+E       Aria snapshot:
+E       - complementary "Navegación":
+E         - text: deskops
+E         - navigation:
+E           - link "Board":
+E             - /url: "#/board"
+E           - link "Drawer":
+E             - /url: "#/drawer"
+E           - link "Inbox":
+E             - /url: "#/inbox"
+E           - link "Agentes":
+E             - /url: "#/agents"
+E           - separator
+E           - link "Inspeccionar":
+E             - /url: http://127.0.0.1:8090/
+E         - paragraph:
+E           - text: Datos de
+E           - code: deskops view
+E           - text: . Inspeccionar abre el visor de nodos (:8090).
+E       - banner:
+E         - text: Desk activo
+E         - combobox "Desk activo":
+E           - option "desk-e2e" [selected]
+E         - code: /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e
+E         - button "Actualizar"
+E       - main:
+E         - paragraph: Cargando el desk…
+
+tests/e2e_desk_ui.py:190: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb.
+Inheriting CrossroadDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting AtomDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting BoardDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting PillDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting RepositoryDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting ReviewDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting RitualDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting RoleDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting RunDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting StepDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting TaskDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/.sldb...
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/desk/inbox/20261116-112145-suggestion-idea-diferida.md
+Tracked '20261116-112145-suggestion-idea-diferida'
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/desk/inbox/20261116-112146-suggestion-pregunta-abierta.md
+Tracked '20261116-112146-suggestion-pregunta-abierta'
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/desk/inbox/20261116-112146-suggestion-nota-que-cambia.md
+Tracked '20261116-112146-suggestion-nota-que-cambia'
+Created drawer task candidate task-idea-diferida
+Deleted source file /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/desk/inbox/20261116-112145-suggestion-idea-diferida.md
+Path: /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e/desk/drawer/tasks/task-idea-diferida.md
+------------------------------ Captured log setup ------------------------------
+INFO     deskops:tasks.py:303 Advanced task task-probar-la-vista to node ritual-testing
+--------------------------- Captured stderr teardown ---------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 51814)
+Traceback (most recent call last):
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 164, in do_GET
+    return self.json_response(self.view(root, view, query))
+                              ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 176, in view
+    return self.views.view(root, view)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:52851 para /dev/shm/ir13t2-bt/test_task_page_sections_inheri0/desk-e2e.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 119, in __init__
+    super().__init__(*args, directory=str(DESK_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 167, in do_GET
+    return self.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 136, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+_____________ test_drawer_lists_disk_and_copies_the_exact_command ______________
+
+desk = {'url': 'http://127.0.0.1:45815/', 'root': PosixPath('/dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e'), 'ops': <deskops.operations.DeskopsOperations object at 0x7f549bec9550>, 'first': 'task-preparar-la-vista', ...}
+browser_page = <Page url='http://127.0.0.1:45815/#/drawer'>
+
+    def test_drawer_lists_disk_and_copies_the_exact_command(desk, browser_page):
+        page, root = browser_page, desk['root']
+        page.goto(f"{desk['url']}#/drawer")
+        view = deskops_view.drawer_view(root)
+        files = sorted(p for p in (root / 'desk/drawer/tasks').glob('*.md') if p.name not in {'Board.md', 'README.md'})
+        assert [entry['path'] for entry in view['tasks']] == [p.relative_to(root).as_posix() for p in files]
+>       expect(page.locator('[data-entry-id]')).to_have_count(len(files))
+E       AssertionError: Locator expected to have count '1'
+E       Actual value: 0 
+E       Call log:
+E         - Expect "to_have_count" locator("[data-entry-id]") with timeout 60000ms
+E         - waiting for locator("[data-entry-id]")
+E           123 × locator resolved to 0 elements
+E               - unexpected value "0"
+
+tests/e2e_desk_ui.py:222: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb.
+Inheriting CrossroadDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting AtomDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting BoardDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting PillDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting RepositoryDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting ReviewDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting RitualDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting RoleDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting RunDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting StepDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting TaskDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/.sldb...
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/desk/inbox/20261116-112306-suggestion-idea-diferida.md
+Tracked '20261116-112306-suggestion-idea-diferida'
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/desk/inbox/20261116-112306-suggestion-pregunta-abierta.md
+Tracked '20261116-112306-suggestion-pregunta-abierta'
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/desk/inbox/20261116-112307-suggestion-nota-que-cambia.md
+Tracked '20261116-112307-suggestion-nota-que-cambia'
+Created drawer task candidate task-idea-diferida
+Deleted source file /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/desk/inbox/20261116-112306-suggestion-idea-diferida.md
+Path: /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e/desk/drawer/tasks/task-idea-diferida.md
+------------------------------ Captured log setup ------------------------------
+INFO     deskops:tasks.py:303 Advanced task task-probar-la-vista to node ritual-testing
+--------------------------- Captured stderr teardown ---------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 54826)
+Traceback (most recent call last):
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 164, in do_GET
+    return self.json_response(self.view(root, view, query))
+                              ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 176, in view
+    return self.views.view(root, view)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:55663 para /dev/shm/ir13t2-bt/test_drawer_lists_disk_and_cop0/desk-e2e.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 119, in __init__
+    super().__init__(*args, directory=str(DESK_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 167, in do_GET
+    return self.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 136, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+_____________________ test_inbox_ack_promote_and_conflict ______________________
+
+desk = {'url': 'http://127.0.0.1:37551/', 'root': PosixPath('/dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e'), 'ops': <deskops.operations.DeskopsOperations object at 0x7f549bad7610>, 'first': 'task-preparar-la-vista', ...}
+browser_page = <Page url='http://127.0.0.1:37551/#/inbox'>
+
+    def test_inbox_ack_promote_and_conflict(desk, browser_page):
+        page, root, ops = browser_page, desk['root'], desk['ops']
+        page.goto(f"{desk['url']}#/inbox")
+        view = deskops_view.inbox_view(root)
+>       expect(page.locator('[data-note-id]')).to_have_count(view['count'])
+E       AssertionError: Locator expected to have count '2'
+E       Actual value: 0 
+E       Call log:
+E         - Expect "to_have_count" locator("[data-note-id]") with timeout 60000ms
+E         - waiting for locator("[data-note-id]")
+E           123 × locator resolved to 0 elements
+E               - unexpected value "0"
+
+tests/e2e_desk_ui.py:237: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb.
+Inheriting CrossroadDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting AtomDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting BoardDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting PillDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting RepositoryDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting ReviewDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting RitualDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting RoleDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting RunDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting StepDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting TaskDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/.sldb...
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/desk/inbox/20261116-112427-suggestion-idea-diferida.md
+Tracked '20261116-112427-suggestion-idea-diferida'
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/desk/inbox/20261116-112427-suggestion-pregunta-abierta.md
+Tracked '20261116-112427-suggestion-pregunta-abierta'
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/desk/inbox/20261116-112428-suggestion-nota-que-cambia.md
+Tracked '20261116-112428-suggestion-nota-que-cambia'
+Created drawer task candidate task-idea-diferida
+Deleted source file /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/desk/inbox/20261116-112427-suggestion-idea-diferida.md
+Path: /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e/desk/drawer/tasks/task-idea-diferida.md
+------------------------------ Captured log setup ------------------------------
+INFO     deskops:tasks.py:303 Advanced task task-probar-la-vista to node ritual-testing
+--------------------------- Captured stderr teardown ---------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 38100)
+Traceback (most recent call last):
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 164, in do_GET
+    return self.json_response(self.view(root, view, query))
+                              ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 176, in view
+    return self.views.view(root, view)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:34125 para /dev/shm/ir13t2-bt/test_inbox_ack_promote_and_con0/desk-e2e.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 119, in __init__
+    super().__init__(*args, directory=str(DESK_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 167, in do_GET
+    return self.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 136, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+________ test_agents_without_herdr_shows_cause_and_runs_match_the_view _________
+
+desk = {'url': 'http://127.0.0.1:45441/', 'root': PosixPath('/dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e'), 'ops': <deskops.operations.DeskopsOperations object at 0x7f549bacb930>, 'first': 'task-preparar-la-vista', ...}
+browser_page = <Page url='http://127.0.0.1:45441/#/agents'>
+
+    def test_agents_without_herdr_shows_cause_and_runs_match_the_view(desk, browser_page):
+        page, root, first = browser_page, desk['root'], desk['first']
+        page.goto(f"{desk['url']}#/agents")
+        view = agents_view(root, herdr=HERDR)
+        assert view['workers'] is None
+>       expect(page.locator('.notice.is-error')).to_contain_text('Herdr no está disponible')
+E       AssertionError: Locator expected to contain text 'Herdr no está disponible'
+E       Actual value: None
+E       Error: element(s) not found 
+E       Call log:
+E         - Expect "to_contain_text" locator(".notice.is-error") with timeout 60000ms
+E         - waiting for locator(".notice.is-error")
+E       
+E       Aria snapshot:
+E       - complementary "Navegación":
+E         - text: deskops
+E         - navigation:
+E           - link "Board":
+E             - /url: "#/board"
+E           - link "Drawer":
+E             - /url: "#/drawer"
+E           - link "Inbox":
+E             - /url: "#/inbox"
+E           - link "Agentes":
+E             - /url: "#/agents"
+E           - separator
+E           - link "Inspeccionar":
+E             - /url: http://127.0.0.1:8090/
+E         - paragraph:
+E           - text: Datos de
+E           - code: deskops view
+E           - text: . Inspeccionar abre el visor de nodos (:8090).
+E       - banner:
+E         - text: Desk activo
+E         - combobox "Desk activo":
+E           - option "desk-e2e" [selected]
+E         - code: /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e
+E         - button "Actualizar"
+E       - main:
+E         - paragraph: Cargando el desk…
+
+tests/e2e_desk_ui.py:281: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb.
+Inheriting CrossroadDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting AtomDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting BoardDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting PillDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting RepositoryDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting ReviewDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting RitualDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting RoleDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting RunDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting StepDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting TaskDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/.sldb...
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/desk/inbox/20261116-112548-suggestion-idea-diferida.md
+Tracked '20261116-112548-suggestion-idea-diferida'
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/desk/inbox/20261116-112549-suggestion-pregunta-abierta.md
+Tracked '20261116-112549-suggestion-pregunta-abierta'
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/desk/inbox/20261116-112549-suggestion-nota-que-cambia.md
+Tracked '20261116-112549-suggestion-nota-que-cambia'
+Created drawer task candidate task-idea-diferida
+Deleted source file /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/desk/inbox/20261116-112548-suggestion-idea-diferida.md
+Path: /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e/desk/drawer/tasks/task-idea-diferida.md
+------------------------------ Captured log setup ------------------------------
+INFO     deskops:tasks.py:303 Advanced task task-probar-la-vista to node ritual-testing
+--------------------------- Captured stderr teardown ---------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 50636)
+Traceback (most recent call last):
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 164, in do_GET
+    return self.json_response(self.view(root, view, query))
+                              ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 176, in view
+    return self.views.view(root, view)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:36987 para /dev/shm/ir13t2-bt/test_agents_without_herdr_show0/desk-e2e.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 119, in __init__
+    super().__init__(*args, directory=str(DESK_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 167, in do_GET
+    return self.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 136, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+_________ test_every_screen_loads_from_the_sidebar_with_visible_focus __________
+
+desk = {'url': 'http://127.0.0.1:37115/', 'root': PosixPath('/dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e'), 'ops': <deskops.operations.DeskopsOperations object at 0x7f549bac7570>, 'first': 'task-preparar-la-vista', ...}
+browser_page = <Page url='http://127.0.0.1:37115/'>
+
+    def test_every_screen_loads_from_the_sidebar_with_visible_focus(desk, browser_page):
+        page = browser_page
+        page.goto(desk['url'])
+>       expect(page.locator('.card').first).to_be_visible()
+E       AssertionError: Locator expected to be visible
+E       Actual value: None
+E       Error: element(s) not found 
+E       Call log:
+E         - Expect "to_be_visible" locator(".card").first with timeout 60000ms
+E         - waiting for locator(".card").first
+E       
+E       Aria snapshot:
+E       - complementary "Navegación":
+E         - text: deskops
+E         - navigation:
+E           - link "Board":
+E             - /url: "#/board"
+E           - link "Drawer":
+E             - /url: "#/drawer"
+E           - link "Inbox":
+E             - /url: "#/inbox"
+E           - link "Agentes":
+E             - /url: "#/agents"
+E           - separator
+E           - link "Inspeccionar":
+E             - /url: http://127.0.0.1:8090/
+E         - paragraph:
+E           - text: Datos de
+E           - code: deskops view
+E           - text: . Inspeccionar abre el visor de nodos (:8090).
+E       - banner:
+E         - text: Desk activo
+E         - combobox "Desk activo":
+E           - option "desk-e2e" [selected]
+E         - code: /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e
+E         - button "Actualizar"
+E       - main:
+E         - paragraph: Cargando el desk…
+
+tests/e2e_desk_ui.py:297: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb.
+Inheriting CrossroadDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting AtomDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting BoardDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting PillDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting RepositoryDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting ReviewDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting RitualDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting RoleDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting RunDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting StepDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting TaskDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/.sldb...
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/desk/inbox/20261116-112709-suggestion-idea-diferida.md
+Tracked '20261116-112709-suggestion-idea-diferida'
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/desk/inbox/20261116-112709-suggestion-pregunta-abierta.md
+Tracked '20261116-112709-suggestion-pregunta-abierta'
+Delivered message from graph_ui to desk-e2e at /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/desk/inbox/20261116-112710-suggestion-nota-que-cambia.md
+Tracked '20261116-112710-suggestion-nota-que-cambia'
+Created drawer task candidate task-idea-diferida
+Deleted source file /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/desk/inbox/20261116-112709-suggestion-idea-diferida.md
+Path: /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e/desk/drawer/tasks/task-idea-diferida.md
+------------------------------ Captured log setup ------------------------------
+INFO     deskops:tasks.py:303 Advanced task task-probar-la-vista to node ritual-testing
+--------------------------- Captured stderr teardown ---------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 46438)
+Traceback (most recent call last):
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 164, in do_GET
+    return self.json_response(self.view(root, view, query))
+                              ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 176, in view
+    return self.views.view(root, view)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:53697 para /dev/shm/ir13t2-bt/test_every_screen_loads_from_t0/desk-e2e.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 119, in __init__
+    super().__init__(*args, directory=str(DESK_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 167, in do_GET
+    return self.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 136, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+=============================== warnings summary ===============================
+../../../../../../dev/shm/venv-ir13-t2/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-ir13-t2/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+tests/e2e_desk_ui.py::test_task_page_sections_inheritance_and_advance
+  /dev/shm/venv-ir13-t2/lib/python3.13/site-packages/pydantic/main.py:280: DeprecationWarning: ProjectGraphConfig(closed_document=...) is deprecated: declare `closed:` on the document surface
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+6 failed, 2 warnings in 484.86s (0:08:04)
+Command exited with non-zero status 1
+maxrss_kb=2807092

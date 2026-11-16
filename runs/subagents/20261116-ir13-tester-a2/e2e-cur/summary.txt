@@ -1,0 +1,15 @@
+tests/e2e_desk_ui.py rc=1 485s avail_antes=13G maxrss_kb=2807092 | 6 failed, 2 warnings in 484.86s (0:08:04)
+tests/e2e_mindmap_brainstorm.py rc=0 8s avail_antes=10G maxrss_kb=141664 | 1 passed, 1 warning in 5.95s
+tests/e2e_mindmap_classes.py rc=0 5s avail_antes=10G maxrss_kb=137436 | 1 passed, 1 warning in 4.85s
+tests/e2e_mindmap_compiler.py rc=0 5s avail_antes=10G maxrss_kb=138324 | 1 passed, 1 warning in 4.44s
+tests/e2e_mindmap_deskops.py rc=1 80s avail_antes=10G maxrss_kb=2403784 |     return handler.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+tests/e2e_mindmap_doc_edit.py rc=0 8s avail_antes=10G maxrss_kb=139376 | 1 passed, 1 warning in 7.97s
+tests/e2e_mindmap_document_dialog.py rc=1 29s avail_antes=10G maxrss_kb=252072 | 1 failed, 1 warning in 28.23s
+tests/e2e_mindmap_flow.py rc=0 8s avail_antes=11G maxrss_kb=138564 | 2 passed, 1 warning in 7.59s
+tests/e2e_mindmap_keyboard.py rc=0 7s avail_antes=10G maxrss_kb=140708 | 1 passed, 1 warning in 6.04s
+tests/e2e_mindmap_projections.py rc=0 11s avail_antes=10G maxrss_kb=138912 | 3 passed, 1 warning in 10.97s
+tests/e2e_mindmap_quick_capture.py rc=0 12s avail_antes=10G maxrss_kb=144724 | 1 passed, 1 warning in 11.24s
+tests/e2e_mindmap_routes.py rc=0 6s avail_antes=10G maxrss_kb=145392 | 1 passed, 1 warning in 5.51s
+tests/e2e_mindmap_schema.py rc=0 11s avail_antes=10G maxrss_kb=136652 | 2 passed, 1 warning in 10.03s
+tests/e2e_mindmap_workspace.py rc=137 437s avail_antes=10G  | 
+DONE

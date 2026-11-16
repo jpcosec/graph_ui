@@ -1,0 +1,48 @@
+ M .github/requirements-suite.txt
+ M README.md
+ M frontends/mindmap/README.md
+ M frontends/mindmap/persistence.py
+ M frontends/mindmap/projection_views.py
+ M frontends/mindmap/serve.py
+ M frontends/mindmap/sldb_adapter.py
+ M frontends/mindmap/views/specs/notation/notation-deployment.mjs
+ M frontends/mindmap/views/specs/notation/notation-style.mjs
+ M frontends/mindmap/views/specs/notation/notation-swimlanes.mjs
+ M frontends/mindmap/views/specs/notation/notation-view.js
+ M frontends/mindmap/views/specs/notation/notation.css
+ M frontends/mindmap/views/specs/notation/notation.mjs
+ M frontends/mindmap/views_routes.py
+ M pyproject.toml
+ M tests/e2e_mindmap_notation.py
+ M tests/e2e_notation_activity.py
+ M tests/e2e_notation_class.py
+ M tests/e2e_notation_deployment.py
+ M tests/e2e_notation_legibility.py
+ M tests/e2e_notation_sequence.py
+ M tests/e2e_notation_style.py
+ M tests/e2e_review_workbench_views.py
+ M tests/test_ci_workflow.py
+ M tests/test_mindmap_notation.py
+ M tests/test_mindmap_skin.py
+ M tests/test_projection_views.py
+?? runs/subagents/20261116-124617/
+?? runs/subagents/20261116-124651/
+?? runs/subagents/20261116-124713/
+?? runs/subagents/20261116-124733/
+?? runs/subagents/20261116-125047/
+?? runs/subagents/20261116-125323/
+?? runs/subagents/20261116-125341/
+?? runs/subagents/20261116-125357/
+?? runs/subagents/20261116-125615/
+?? runs/subagents/20261116-125634/
+?? runs/subagents/20261116-125651/
+?? runs/subagents/20261116-125703/
+?? runs/subagents/20261116-ir13-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a2/
+?? runs/subagents/20261116-ir13-tester-a1/
+?? runs/subagents/20261116-ir13-tester-a2/
+?? runs/subagents/20261116-ir13-tester-r2/
+?? runs/subagents/20261116-r2-reviews/
+?? runs/subagents/20261116-sldb-serve-rss/
+?? runs/subagents/20261116-triaje-graph-ui/
+?? tests/fixtures/notation-pilots/

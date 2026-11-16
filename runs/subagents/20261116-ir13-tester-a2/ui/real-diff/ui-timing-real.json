@@ -1,0 +1,184 @@
+[
+  {
+    "screen": "documents-map",
+    "path": "/documents/map",
+    "selector": ".document-node",
+    "ms": 60112,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".document-node\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18931/documents/map",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 0,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": false
+    },
+    "screenshot": "real-documents-map.png",
+    "errors": [
+      "console.error: TypeError: Cannot read properties of undefined (reading 'has')\n    at isReferenceField (http://127.0.0.1:18931/source/graph.mjs:83:19)\n    at http://127.0.0.1:18931/source/graph.mjs:89:9\n    at Array.forEach (<anonymous>)\n    at http://127.0.0.1:18931/source/graph.mjs:88:50\n    at Array.forEach (<an",
+      "pageerror: Cannot read properties of undefined (reading 'has')"
+    ],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      60015,
+      60028,
+      60112
+    ],
+    "median_ms": 60028
+  },
+  {
+    "screen": "documents-flow",
+    "path": "/documents/flow",
+    "selector": ".flow-node",
+    "ms": 60022,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".flow-node\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18931/documents/flow",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 0,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": false
+    },
+    "screenshot": "real-documents-flow.png",
+    "errors": [
+      "console.error: TypeError: Cannot read properties of undefined (reading 'has')\n    at isReferenceField (http://127.0.0.1:18931/source/graph.mjs:83:19)\n    at http://127.0.0.1:18931/source/graph.mjs:89:9\n    at Array.forEach (<anonymous>)\n    at http://127.0.0.1:18931/source/graph.mjs:88:50\n    at Array.forEach (<an",
+      "pageerror: Cannot read properties of undefined (reading 'has')"
+    ],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      60038,
+      60018,
+      60022
+    ],
+    "median_ms": 60022
+  },
+  {
+    "screen": "draft-tree",
+    "path": "/draft/tree",
+    "selector": ".brainstorm",
+    "ms": 1389,
+    "drawn": true,
+    "matched": 1,
+    "url_final": "http://127.0.0.1:18931/draft/tree",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "Captura tus primeras ideas"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 0,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": false
+    },
+    "screenshot": "real-draft-tree.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      1428,
+      1358,
+      1389
+    ],
+    "median_ms": 1389
+  },
+  {
+    "screen": "models-diagram",
+    "path": "/models/diagram",
+    "selector": ".class-node",
+    "ms": 14869,
+    "drawn": true,
+    "matched": 26,
+    "url_final": "http://127.0.0.1:18931/models/diagram",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 38,
+      "catalog": 0,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": false
+    },
+    "screenshot": "real-models-diagram.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      44240,
+      12197,
+      14869
+    ],
+    "median_ms": 14869
+  },
+  {
+    "screen": "specs-notation",
+    "path": "/specs/notation",
+    "selector": ".notation .state h2, .notation-canvas .glyph, .lane-head, .notation-grid",
+    "ms": 1587,
+    "drawn": true,
+    "matched": 1,
+    "url_final": "http://127.0.0.1:18931/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "Este store no tiene specs"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 0,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": false
+    },
+    "screenshot": "real-specs-notation.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      1547,
+      1377,
+      1587
+    ],
+    "median_ms": 1547
+  }
+]

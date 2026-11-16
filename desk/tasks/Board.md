@@ -1,7 +1,7 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-16T12:50:09Z'
+  at: '2026-11-16T16:14:32Z'
   authority: generated
   via: save_document_payload
 # board-xxx
@@ -12,7 +12,6 @@ scope: graph_ui
 tasks:
 - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
 - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
-- desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md
 - desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md
 - desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md
 - desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md
@@ -51,9 +50,8 @@ _Generated from the task references above._
 
 - Vista Changes: arbol de hashes, staleness e impacto en conocimiento [draft] - Añadir en /workspace la pestaña Changes y la sección Integrity del panel Context: listan los documentos que sldb reporta como cambiados o stale y los anclajes de código que no están intact, y para cada uno los documentos que dependen de él a 1-2 saltos en el índice de relaciones, marcados como potencialmente obsoletos. Todo de solo lectura.
 - Edicion contextual de relaciones y campos con control de concurrencia [draft] - Habilitar en el panel Context y en la proyección Document del workspace el alta/baja de relaciones válidas según el modelo y la edición de campos vía pron.Store/sldb, exigiendo el hash de revisión previo y rechazando con 409 Conflict cualquier escritura obsoleta.
-- IR13: migrar graph_ui de spec2viz a sldb.api.notations (resolve_view, sync de specs, ViewDoc, pilotos como fixtures) [active] - graph_ui deja de importar, instalar o invocar spec2viz: el código de producción usa `sldb.api.notations`, el store registra el ViewDoc de sldb, las pruebas sincronizan specs con `sldb notations sync --spec ... --store .sldb` sobre pilotos copiados como fixtures propios de graph_ui, y `specir retirement check` no lista nada de graph_ui.
 - Vista Specs: dibujar paquetes UML de diagramas de clase como contenedores anidables [draft] - Un spec class con data.packages se ve en /specs/notation con cada paquete como contenedor con forma package (carpeta con pestaña UML y su título), con sus clases y subpaquetes adentro a cualquier profundidad, el relleno/trazo/ícono de node.style del paquete, y las mismas garantías de legibilidad que los otros diagramas (nada tapado, «Ver todo» entra en la ventana).
 - Lector del workspace: render Markdown legible (citas, énfasis, código inline, enlaces estándar) con un motor real [draft] - En la pestaña de lectura del workspace (/workspace, componente RenderedDocument de frontends/mindmap/views/workspace/node/workspace-view.js) un documento Markdown se ve con citas, énfasis, negrita, código inline y enlaces estándar renderizados, conservando lo que ya funciona: los enlaces SLDB [[…]] y [pred:: [[…]]] con su resolución y estados, el foco por sección con data-line-start, y la fuente cruda (RawSource) literal e íntegra.
 - Decisión de JP: ¿el workspace de graph_ui edita y ancla código (softfactory K03/K05/K12) o solo muestra el estado de los CodeAnchorDoc de sldb? [draft] - Una decisión escrita de JP, con una de tres opciones: (A) graph_ui solo muestra, en la vista inspect, los anclajes de código de un documento y su estado (intact/changed/lost) leyendo CodeAnchorDoc por la API de sldb, sin editar código; (B) además edita fragmentos de código anclados desde el workspace (K05), con escritura y reanclaje por sldb; (C) nada de código en graph_ui; el tema pasa a la UI de deskops o se descarta.
-- El lector del workspace y el adaptador usan la lectura pública de sldb (read_store, extract_payload) en vez de módulos internos [draft] - Ningún archivo de frontends/ ni tests/deskops_viewdocs.py importa sldb.store.runtime_cache_signature ni sldb.runtime.validation; las lecturas usan sldb.api.read_store y sldb.api.extract_payload, y un store sin preparar en un GET del workspace da un error claro con el mensaje de sldb en vez de migrarse.
-- UI del desk: cada gate muestra los findings de sus reglas (nivel, código y mensaje), no solo cumple o pendiente [draft] - En la vista Tarea y en el inspector del Board de frontends/desk, cada gate muestra sus findings: el nivel (error, warning, info) como texto visible, el código de la regla en <code> y el mensaje (what) completo; un gate sin findings no muestra lista vacía.
+- El lector del workspace y el adaptador usan la lectura pública de sldb (read_store, extract_payload) en vez de módulos internos [draft] - Ningún archivo .py bajo frontends/ ni tests/deskops_viewdocs.py importa sldb.store.runtime_cache_signature ni sldb.runtime.validation; las lecturas usan sldb.api.read_store y sldb.api.extract_payload, y un listado GET del workspace sobre un store sin preparar responde 503 con el texto de sldb ('store not prepared: run `sldb stores update`') en vez de migrar el store.
+- UI del desk: cada gate muestra los findings de sus reglas (nivel, código y mensaje), no solo cumple o pendiente [draft] - En la vista Tarea y en el inspector del Board de frontends/desk (las dos dibujan los gates con renderGateBoxes de board.js: task.js línea ~71 y board.js línea ~165, cargados como scripts globales en index.html), cada gate muestra sus findings: el nivel como texto visible ('error', 'aviso' o 'info'), el código de la regla en <code> y el mensaje (what) completo; el subject no se muestra (es la propia tarea). Un gate sin findings no muestra lista.

@@ -41,3 +41,4 @@
 {"task_id": "task-ui04-pantalla-tarea-documento", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
 {"task_id": "task-ui05-pantallas-drawer-e-inbox", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
 {"task_id": "task-ui06-pantalla-agentes-y-corridas", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "manual", "commit": null}
+{"task_id": "task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com", "run_id": "deskops-t-f62fd3896e07-a2", "run_dir": "runs/subagents/20261116-ir13-tester-a2", "session_sha256": null, "commit": null}

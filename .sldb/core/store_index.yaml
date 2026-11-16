@@ -301,4 +301,4 @@ predicates:
 - name: tagged_as
   axis: WHAT
   description: The model, document or section carries this semantic tag.
-store_hash: eedccfc7d53155a340cc6ce6efb55954724662f6ef59a5589bb322101a280cac
+store_hash: cbb45b6652e278c3d0c73021be261712f639b9959bb4ecf9221f3212a9e1b669

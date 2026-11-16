@@ -1,0 +1,71 @@
+{
+  "alerts": [],
+  "declared": [
+    "tests",
+    "commit",
+    "atom",
+    "materialization"
+  ],
+  "findings": [],
+  "found": [
+    "tests",
+    "atom|materialization",
+    "commit"
+  ],
+  "gates": {
+    "atom_or_materialization_link": {
+      "evidence": [
+        "desk/atoms/atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz.md",
+        "atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz",
+        "atom-c\u00f3mo-corre-la-ci-de-graph-ui",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/sldb_adapter.py",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/views_routes.py",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/projection_views.py",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/persistence.py",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/serve.py",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/views/specs/notation",
+        "materialization:materialization:materialization-dependencias-de-graph-ui-declaradas-en-pyproject->pyproject.toml",
+        "materialization:materialization:materialization-repos-hermanos-que-instala-la-ci-de-graph-ui->.github/requirements-suite.txt",
+        "materialization:materialization:materialization-pilotos-de-notaci\u00f3n-como-fixtures-propios-de-graph-ui->tests/fixtures/notation-pilots",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/fixtures/notation-pilots",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/test_projection_views.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/test_mindmap_notation.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/test_mindmap_skin.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/e2e_notation_class.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/e2e_notation_sequence.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/e2e_notation_deployment.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/e2e_notation_activity.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/e2e_notation_style.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/e2e_notation_legibility.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/e2e_mindmap_notation.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/e2e_review_workbench_views.py",
+        "atom-doc:desk/atoms/atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz.md"
+      ],
+      "findings": [],
+      "ok": true
+    },
+    "commit": {
+      "evidence": [
+        "79d63ee"
+      ],
+      "findings": [],
+      "ok": true
+    },
+    "tests": {
+      "evidence": [
+        "tests/test_projection_views.py",
+        "tests/test_mindmap_notation.py",
+        "tests/test_mindmap_skin.py",
+        "tests/test_ci_workflow.py",
+        "tests/e2e_notation_class.py",
+        "tests/e2e_mindmap_notation.py"
+      ],
+      "findings": [],
+      "ok": true
+    }
+  },
+  "implicit_code": false,
+  "ok": true,
+  "summary": "esta tarea declar\u00f3 tests, commit, atom|materialization; encontr\u00e9 tests, atom|materialization, commit",
+  "task_id": "task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com"
+}

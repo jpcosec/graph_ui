@@ -1,0 +1,7 @@
+| pantalla | ruta | mediana ms | corridas ms | dibujado | errores consola | HTTP 5xx | HTTP 4xx | captura |
+|---|---|---:|---|---|---:|---:|---:|---|
+| documents-map | `/documents/map` | 60011 | [60019, 60011, 60010] | NO | 2 | 0 | 0 | synced-documents-map.png |
+| documents-flow | `/documents/flow` | 60026 | [60014, 60058, 60026] | NO | 2 | 0 | 0 | synced-documents-flow.png |
+| draft-tree | `/draft/tree` | 2984 | [3080, 2619, 2984] | sí | 0 | 0 | 0 | synced-draft-tree.png |
+| models-diagram | `/models/diagram` | 22423 | [53008, 19269, 22423] | sí | 0 | 0 | 0 | synced-models-diagram.png |
+| specs-notation | `/specs/notation` | 19929 | [19929, 23359, 17128] | sí | 0 | 0 | 0 | synced-specs-notation.png |

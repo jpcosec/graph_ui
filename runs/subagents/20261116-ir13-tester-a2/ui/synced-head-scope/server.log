@@ -1,0 +1,1613 @@
+KB Mindmap: http://127.0.0.1:18935/ · store: /dev/shm/ir13t2-lay/UIs/graph_ui/.sldb
+127.0.0.1 - - [16/Nov/2026 12:23:49] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /documents/map HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:53] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:56] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:56] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:56] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:56] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:56] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:56] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:56] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:00] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:03] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:07] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:11] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:14] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:15] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:16] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /documents/map HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:53] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:55] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:55] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:55] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:55] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:55] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:55] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:55] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:24:56] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:00] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:03] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:04] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:04] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /documents/map HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:53] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:55] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:55] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:55] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:55] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:55] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:55] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:55] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:55] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:25:56] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:00] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:04] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:04] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /documents/flow HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:54] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:56] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:56] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:56] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:56] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:56] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:56] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:56] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:26:57] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:01] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:05] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:05] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:05] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:54] "GET /documents/flow HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:54] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:54] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:54] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:54] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:54] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:55] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:56] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:56] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:56] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:56] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:56] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:56] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:27:56] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:00] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:07] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:11] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:13] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:13] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:19] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:54] "GET /documents/flow HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:54] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:54] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:54] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:54] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:54] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:55] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:57] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:57] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:57] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:57] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:57] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:57] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:28:57] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:00] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:06] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:13] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:18] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:18] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:19] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:25] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:55] "GET /draft/tree HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:55] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:55] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:55] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:55] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:55] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:56] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:57] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:57] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:58] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:58] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:58] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:58] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:58] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:58] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:59] "GET /draft/tree HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:59] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:59] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:59] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:59] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:59] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:59] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:59] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:59] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:59] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:59] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:59] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:59] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:29:59] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /api/workers HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 48420)
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /source/projections.js HTTP/1.1" 200 -
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 327, in do_GET
+    self._api_workers()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 200, in _api_workers
+    self.json_response(payload)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:00] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:01] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:01] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:01] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:01] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:01] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:01] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:01] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /draft/tree HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:02] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:03] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:04] "GET /api/workers HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 49026)
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 327, in do_GET
+    self._api_workers()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 200, in _api_workers
+    self.json_response(payload)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [16/Nov/2026 12:30:04] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:04] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:04] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:04] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:04] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:04] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:04] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /models/diagram HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /api/workers HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 55326)
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 327, in do_GET
+    self._api_workers()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 200, in _api_workers
+    self.json_response(payload)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:06] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:07] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:08] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:08] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:08] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:08] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:08] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:08] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:08] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:11] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:13] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:13] "GET /api/graph HTTP/1.1" 500 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 48428)
+Traceback (most recent call last):
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 348, in do_GET
+    self.json_response(self.editor_store.graph())
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 350, in do_GET
+    self.json_response({'ok': False, 'error': str(exc)}, 500)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 92, in json_response
+    self.end_headers()
+    ~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 553, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 557, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [16/Nov/2026 12:30:16] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:21] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:27] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:27] "GET /api/graph HTTP/1.1" 500 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 49030)
+Traceback (most recent call last):
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 348, in do_GET
+    self.json_response(self.editor_store.graph())
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 350, in do_GET
+    self.json_response({'ok': False, 'error': str(exc)}, 500)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 92, in json_response
+    self.end_headers()
+    ~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 553, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 557, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [16/Nov/2026 12:30:28] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:28] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:28] "GET /api/schema HTTP/1.1" 500 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 49036)
+Traceback (most recent call last):
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 343, in do_GET
+    self.json_response(self.editor_store.schema())
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 345, in do_GET
+    self.json_response({'ok': False, 'error': f'No se pudo leer el schema del store: {exc}'}, 500)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 92, in json_response
+    self.end_headers()
+    ~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 553, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 557, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [16/Nov/2026 12:30:34] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:40] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:42] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:42] "GET /api/graph HTTP/1.1" 500 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 55328)
+Traceback (most recent call last):
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 348, in do_GET
+    self.json_response(self.editor_store.graph())
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 350, in do_GET
+    self.json_response({'ok': False, 'error': str(exc)}, 500)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 92, in json_response
+    self.end_headers()
+    ~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 553, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 557, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [16/Nov/2026 12:30:43] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:43] "GET /api/schema HTTP/1.1" 500 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 55336)
+Traceback (most recent call last):
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 343, in do_GET
+    self.json_response(self.editor_store.schema())
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 345, in do_GET
+    self.json_response({'ok': False, 'error': f'No se pudo leer el schema del store: {exc}'}, 500)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 92, in json_response
+    self.end_headers()
+    ~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 553, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 557, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [16/Nov/2026 12:30:45] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:50] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:56] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:56] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:56] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:58] "GET /models/diagram HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:59] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:59] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:59] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:59] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:59] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:59] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:59] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:59] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:59] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:59] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:30:59] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:00] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:01] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:01] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:01] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:01] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:01] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:01] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:01] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:04] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:09] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:15] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:16] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:17] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:18] "GET /models/diagram HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:18] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:18] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:18] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:18] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:18] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:19] "GET /api/workers HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 32904)
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 327, in do_GET
+    self._api_workers()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 200, in _api_workers
+    self.json_response(payload)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [16/Nov/2026 12:31:21] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:21] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:21] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:21] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:21] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:21] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:21] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:23] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:28] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:37] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:39] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:39] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:42] "GET /specs/notation HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:42] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:42] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:42] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:42] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:42] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:42] "GET /api/workers HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 54388)
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 327, in do_GET
+    self._api_workers()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 200, in _api_workers
+    self.json_response(payload)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:43] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:45] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:45] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:45] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:45] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:45] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:45] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:45] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:58] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:59] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:31:59] "GET /api/notation/view?spec=component.exception-hierarchy HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:02] "GET /specs/notation HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:02] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:02] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:02] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:02] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:02] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:03] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:04] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:04] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:04] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:04] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:04] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:04] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:04] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:21] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:22] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:22] "GET /api/notation/view?spec=component.exception-hierarchy HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /specs/notation HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:26] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:28] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:28] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:28] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:28] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:28] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:28] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:28] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:39] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:39] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:32:39] "GET /api/notation/view?spec=component.exception-hierarchy HTTP/1.1" 200 -

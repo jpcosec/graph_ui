@@ -1,0 +1,23 @@
+name: materialization-pilotos-de-notación-como-fixtures-propios-de-graph-ui
+path: desk/materializations/materialization-pilotos-de-notación-como-fixtures-propios-de-graph-ui.md
+source_hash: 2bf6dc3ad935cd5374e9132f26deb565fae64dd9a42226f75366b5b7e5d2e954
+content_hash: bc1d287bb8a108c9a7a2ed6d15317a36341f9069c5289a1d8efa5bd78618768b
+field_hashes:
+  id: 3464b725945e754a3bfc770c4f18b89dfd1fcc640f5386c63fb194158744858e
+  title: 5b10a2d01ffb2e35912d6e60f240a26315c198687bd984653588177ede855df9
+  source_atoms: 70299cd9c9a3724b048921968f0151bb5ad9448c1e5031b8937eafb91ecebcf7
+  target_kind: 6215cbab51cf4b84b1e729c9c933c0ad7c75a6fd6092c35469d28d28162f75e2
+  target_identity: 89e027a17908c2c4b843b5c87df075714b340ffb8ce750a5d01170f09de766b5
+  intent: 9b128d4c11e284cf3e0212ad80fe255e7f110ba1f61b2952c9b2c16c72faf77e
+  validation: 1820d93565f92b5649874bf2785728d4b1f2b40d0b52e84bf43d67be7ea19612
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-16T16:12:54Z'
+  authority: generated
+  via: create_document

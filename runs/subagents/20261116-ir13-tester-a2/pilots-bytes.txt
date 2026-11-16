@@ -1,0 +1,12 @@
+OK activity-render-error-handling.yml
+OK class-sldb-models.yml
+OK component-architecture.yml
+OK component-exception-hierarchy.yml
+OK component-type-system.yml
+OK matrix-pipeline-coverage.yml
+OK sequence-render-pipeline.yml
+OK sequence-sync-pipeline.yml
+OK state-diagram-sync-lifecycle.yml
+OK matrix.quotation-view.yml
+README: Copiados de jpcosec/spec2viz en 2a218b1 (IR13); se mantienen aquí, spec2viz se retira.
+11

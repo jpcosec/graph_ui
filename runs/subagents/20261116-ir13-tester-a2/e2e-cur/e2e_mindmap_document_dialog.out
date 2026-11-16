@@ -1,0 +1,163 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______ test_document_dialog_creates_an_atomdoc_with_the_model_id_prefix _______
+
+editor_server = ('http://127.0.0.1:33237', PosixPath('/dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog'))
+
+    def test_document_dialog_creates_an_atomdoc_with_the_model_id_prefix(editor_server):
+        url, root = editor_server
+        before = _atoms(root)
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1440, "height": 900})
+            errors = []
+            page.on("pageerror", lambda error: errors.append(str(error)))
+            page.goto(url + "/")
+>           page.wait_for_selector(".document-node", timeout=15000)
+
+tests/e2e_mindmap_document_dialog.py:51: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/dev/shm/venv-ir13-t2/lib/python3.13/site-packages/playwright/sync_api/_generated.py:21403: in wait_for_selector
+    self._sync(
+/dev/shm/venv-ir13-t2/lib/python3.13/site-packages/playwright/_impl/page.py:464: in wait_for_selector
+    return await self._main_frame.wait_for_selector(
+/dev/shm/venv-ir13-t2/lib/python3.13/site-packages/playwright/_impl/frame.py:418: in wait_for_selector
+    result = await self._channel.waitForSelector(
+/dev/shm/venv-ir13-t2/lib/python3.13/site-packages/playwright/_impl/channel_owner.py:398: in _mapped
+    return mapper(await awaitable)
+                  ^^^^^^^^^^^^^^^
+/dev/shm/venv-ir13-t2/lib/python3.13/site-packages/playwright/_impl/channel_owner.py:387: in finish
+    raise e from None
+/dev/shm/venv-ir13-t2/lib/python3.13/site-packages/playwright/_impl/channel_owner.py:352: in finish
+    result = await zone.run_async(lambda: awaitable)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl.utils.zones.Zone object at 0x736be78ce0f0>
+func = <function ChannelOwner._wrap_api_call.<locals>.finish.<locals>.<lambda> at 0x736be751ef20>
+
+    async def run_async(self, func: Callable[[], Awaitable[R]]) -> R:
+        # Python: run() of an async function. The coroutine runs when it is awaited,
+        # so the zone must be current while it is awaited, not while it is created.
+        token = _async_local_storage.set(self)
+        try:
+>           return await func()
+                   ^^^^^^^^^^^^
+E           playwright._impl._errors.TimeoutError: Page.wait_for_selector: Timeout 15000ms exceeded.
+E           Call log:
+E             - waiting for locator(".document-node") to be visible
+
+/dev/shm/venv-ir13-t2/lib/python3.13/site-packages/playwright/_impl/utils/zones.py:58: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb.
+Inheriting CrossroadDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting AtomDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting BoardDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting PillDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting RepositoryDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting ReviewDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting RitualDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting RoleDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting RunDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting StepDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting TaskDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/ir13t2-bt/test_document_dialog_creates_a0/desk-dialog/.sldb...
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:11] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:12] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:13] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:13] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:13] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:13] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:13] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:13] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:13] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:15] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:19] "GET /api/workers HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:22] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:22] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 11:30:23] "GET /api/workers HTTP/1.1" 200 -
+=============================== warnings summary ===============================
+../../../../../../dev/shm/venv-ir13-t2/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-ir13-t2/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 failed, 1 warning in 28.23s
+Command exited with non-zero status 1
+maxrss_kb=252072

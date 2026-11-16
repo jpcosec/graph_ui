@@ -1,0 +1,23 @@
+name: materialization-repos-hermanos-que-instala-la-ci-de-graph-ui
+path: desk/materializations/materialization-repos-hermanos-que-instala-la-ci-de-graph-ui.md
+source_hash: 7a6bb1ccf86d29ba4a8cec75323e1fc1d628580bd7fdda01092553581ec12a59
+content_hash: 3129ad21f4d24dfa9cd46dcf69f785c4a9a6856e489aff9ef3bff1052cdd3dba
+field_hashes:
+  id: 400ccc404cf1d8b6b45e2d14b0421ff9e2b614753c4c3a5e7a5dd0a958b34960
+  title: 294270ae353430ba0ea03f311456d7faa85e10519df8bae887691e9f29230fb7
+  source_atoms: f3a5a63fb6dca978d8ea73046c63fd0138f7dda09165881fdcd4f542fadde002
+  target_kind: 48882ab48bfdf3bef2fe65e3304e91ccfd8f74e357c183367ad6fe903fe0e697
+  target_identity: 43f9eef36ec1935428dd89a49d6f92e62ea39f9febe4e2fd110deba51b784639
+  intent: ddf1fe0e5a293e48d93f6071f1293f89b89946580293eb3cc6bf60b2f692dd3c
+  validation: e36d3edb06e99f9cfbd3dbf1bb5c7bc687043a37fdc375dd4324a1199f903b3a
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-16T16:13:20Z'
+  authority: generated
+  via: create_document

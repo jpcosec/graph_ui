@@ -1,0 +1,1417 @@
+[
+  {
+    "screen": "pilot-component-exception-hierarchy",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"component.exception-hierarchy\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 12739,
+    "drawn": true,
+    "matched": 9,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "component · 9 elementos · 8 relaciones"
+      ],
+      "glyphs": 9,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 8,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-component-exception-hierarchy.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      11763,
+      12275,
+      12739
+    ],
+    "median_ms": 12275
+  },
+  {
+    "screen": "pilot-matrix-pipeline-coverage",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"matrix.pipeline-coverage\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 10747,
+    "drawn": true,
+    "matched": 2,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "component-view-matrix · 22 elementos · 39 relaciones"
+      ],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 2,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-matrix-pipeline-coverage.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      10323,
+      10406,
+      10747
+    ],
+    "median_ms": 10406
+  },
+  {
+    "screen": "pilot-component-spec2viz-architecture",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"component.spec2viz-architecture\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 12041,
+    "drawn": true,
+    "matched": 11,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "component · 11 elementos · 12 relaciones"
+      ],
+      "glyphs": 11,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 12,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-component-spec2viz-architecture.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      12402,
+      12122,
+      12041
+    ],
+    "median_ms": 12122
+  },
+  {
+    "screen": "pilot-component-type-system",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"component.type-system\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 14230,
+    "drawn": true,
+    "matched": 21,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "component · 21 elementos · 32 relaciones"
+      ],
+      "glyphs": 21,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 32,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-component-type-system.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      14231,
+      13875,
+      14230
+    ],
+    "median_ms": 14230
+  },
+  {
+    "screen": "pilot-activity-render-error-handling",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"activity.render-error-handling\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 17260,
+    "drawn": true,
+    "matched": 13,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "activity · 13 elementos · 17 relaciones"
+      ],
+      "glyphs": 13,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 17,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-activity-render-error-handling.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      17069,
+      17297,
+      17260
+    ],
+    "median_ms": 17260
+  },
+  {
+    "screen": "pilot-state-diagram-type-lifecycle",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"state.diagram-type-lifecycle\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60047,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"state.diagram-type-lifecycle\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar state.diagram-type-lifecycle"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar state.diagram-type-lifecycle\n\nSpecDoc:state.diagram-type-lifecycle is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-state-diagram-type-lifecycle.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=state.diagram-type-lifecycle"
+    ],
+    "runs_ms": [
+      60045,
+      60041,
+      60047
+    ],
+    "median_ms": 60045
+  },
+  {
+    "screen": "pilot-class-sldb-models",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"class.sldb-models\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 11908,
+    "drawn": true,
+    "matched": 8,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "uml-class · 8 elementos · 13 relaciones"
+      ],
+      "glyphs": 8,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 13,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-class-sldb-models.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      12200,
+      12357,
+      11908
+    ],
+    "median_ms": 12200
+  },
+  {
+    "screen": "pilot-state-diagram-sync-lifecycle",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"state.diagram-sync-lifecycle\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 11531,
+    "drawn": true,
+    "matched": 7,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "statechart · 7 elementos · 11 relaciones"
+      ],
+      "glyphs": 7,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 8,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-state-diagram-sync-lifecycle.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      11714,
+      11896,
+      11531
+    ],
+    "median_ms": 11714
+  },
+  {
+    "screen": "pilot-sequence-build-pipeline",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"sequence.build-pipeline\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60026,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"sequence.build-pipeline\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar sequence.build-pipeline"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar sequence.build-pipeline\n\nSpecDoc:sequence.build-pipeline is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-sequence-build-pipeline.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=sequence.build-pipeline"
+    ],
+    "runs_ms": [
+      60041,
+      60044,
+      60026
+    ],
+    "median_ms": 60041
+  },
+  {
+    "screen": "pilot-sequence-render-pipeline",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"sequence.render-pipeline\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 10701,
+    "drawn": true,
+    "matched": 16,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "uml-sequence · 8 elementos · 14 relaciones"
+      ],
+      "glyphs": 8,
+      "lanes": 8,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-sequence-render-pipeline.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      10124,
+      10791,
+      10701
+    ],
+    "median_ms": 10701
+  },
+  {
+    "screen": "pilot-sequence-sync-pipeline",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"sequence.sync-pipeline\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 10605,
+    "drawn": true,
+    "matched": 12,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "uml-sequence · 6 elementos · 12 relaciones"
+      ],
+      "glyphs": 6,
+      "lanes": 6,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-sequence-sync-pipeline.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      10711,
+      10490,
+      10605
+    ],
+    "median_ms": 10605
+  },
+  {
+    "screen": "pilot-spec-01",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-01\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60050,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-01\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-01"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-01\n\nSpecDoc:spec-01 is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-01.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-01"
+    ],
+    "runs_ms": [
+      60048,
+      60033,
+      60050
+    ],
+    "median_ms": 60048
+  },
+  {
+    "screen": "pilot-spec-02",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-02\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60025,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-02\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-02"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-02\n\nSpecDoc:spec-02 is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-02.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-02"
+    ],
+    "runs_ms": [
+      60039,
+      60033,
+      60025
+    ],
+    "median_ms": 60033
+  },
+  {
+    "screen": "pilot-spec-03",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-03\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60007,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-03\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-03"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-03\n\nSpecDoc:spec-03 is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-03.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-03"
+    ],
+    "runs_ms": [
+      60013,
+      60011,
+      60007
+    ],
+    "median_ms": 60011
+  },
+  {
+    "screen": "pilot-spec-04",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-04\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60009,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-04\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-04"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-04\n\nSpecDoc:spec-04 is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-04.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-04"
+    ],
+    "runs_ms": [
+      60011,
+      60010,
+      60009
+    ],
+    "median_ms": 60010
+  },
+  {
+    "screen": "pilot-spec-05",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-05\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60009,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-05\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-05"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-05\n\nSpecDoc:spec-05 is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-05.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-05"
+    ],
+    "runs_ms": [
+      60013,
+      60010,
+      60009
+    ],
+    "median_ms": 60010
+  },
+  {
+    "screen": "pilot-spec-06",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-06\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60074,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-06\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-06"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-06\n\nSpecDoc:spec-06 is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-06.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-06"
+    ],
+    "runs_ms": [
+      60010,
+      60038,
+      60074
+    ],
+    "median_ms": 60038
+  },
+  {
+    "screen": "pilot-spec-07",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-07\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60021,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-07\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-07"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-07\n\nSpecDoc:spec-07 is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-07.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-07"
+    ],
+    "runs_ms": [
+      60019,
+      60048,
+      60021
+    ],
+    "median_ms": 60021
+  },
+  {
+    "screen": "pilot-spec-08",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-08\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60025,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-08\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-08"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-08\n\nSpecDoc:spec-08 is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-08.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-08"
+    ],
+    "runs_ms": [
+      60014,
+      60033,
+      60025
+    ],
+    "median_ms": 60025
+  },
+  {
+    "screen": "pilot-spec-09",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-09\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60013,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-09\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-09"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-09\n\nSpecDoc:spec-09 is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-09.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-09"
+    ],
+    "runs_ms": [
+      60019,
+      60027,
+      60013
+    ],
+    "median_ms": 60019
+  },
+  {
+    "screen": "pilot-spec-09a",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-09a\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60047,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-09a\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-09a"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-09a\n\nSpecDoc:spec-09a is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-09a.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-09a"
+    ],
+    "runs_ms": [
+      60013,
+      60026,
+      60047
+    ],
+    "median_ms": 60026
+  },
+  {
+    "screen": "pilot-spec-10",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-10\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60018,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-10\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-10"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-10\n\nSpecDoc:spec-10 is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-10.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-10"
+    ],
+    "runs_ms": [
+      60018,
+      60019,
+      60018
+    ],
+    "median_ms": 60018
+  },
+  {
+    "screen": "pilot-spec-11",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-11\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60497,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-11\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-11"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-11\n\nSpecDoc:spec-11 is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-11.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-11"
+    ],
+    "runs_ms": [
+      60016,
+      60032,
+      60497
+    ],
+    "median_ms": 60032
+  },
+  {
+    "screen": "pilot-spec-12",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-12\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60028,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-12\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-12"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-12\n\nSpecDoc:spec-12 is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-12.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-12"
+    ],
+    "runs_ms": [
+      60050,
+      60250,
+      60028
+    ],
+    "median_ms": 60050
+  },
+  {
+    "screen": "pilot-spec-13",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-13\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60124,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-13\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-13"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-13\n\nSpecDoc:spec-13 is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-13.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-13"
+    ],
+    "runs_ms": [
+      60047,
+      60198,
+      60124
+    ],
+    "median_ms": 60124
+  },
+  {
+    "screen": "pilot-spec-14",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"spec-14\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 60022,
+    "drawn": false,
+    "failure": "Locator.wait_for: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator(\".notation:has(.notation-catalog button.active[data-spec=\\\"spec-14\\\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)\").first to be visible\n",
+    "matched": 0,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [
+        "No se pudo dibujar spec-14"
+      ],
+      "meta": [],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [
+        "No se pudo dibujar spec-14\n\nSpecDoc:spec-14 is not in the store"
+      ],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-spec-14.png",
+    "errors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "http_5xx": [],
+    "http_4xx": [
+      "404 GET http://127.0.0.1:18934/api/notation/view?spec=spec-14"
+    ],
+    "runs_ms": [
+      60030,
+      60034,
+      60022
+    ],
+    "median_ms": 60030
+  },
+  {
+    "screen": "pilot-state-diagram-sync-lifecycle",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"state.diagram-sync-lifecycle\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 17289,
+    "drawn": true,
+    "matched": 7,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "statechart · 7 elementos · 11 relaciones"
+      ],
+      "glyphs": 7,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 8,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-state-diagram-sync-lifecycle.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      14341,
+      13522,
+      17289
+    ],
+    "median_ms": 14341
+  },
+  {
+    "screen": "pilot-activity-render-error-handling",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"activity.render-error-handling\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 22193,
+    "drawn": true,
+    "matched": 13,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "activity · 13 elementos · 17 relaciones"
+      ],
+      "glyphs": 13,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 17,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-activity-render-error-handling.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      26952,
+      23410,
+      22193
+    ],
+    "median_ms": 23410
+  },
+  {
+    "screen": "pilot-sequence-sync-pipeline",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"sequence.sync-pipeline\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 13858,
+    "drawn": true,
+    "matched": 12,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "uml-sequence · 6 elementos · 12 relaciones"
+      ],
+      "glyphs": 6,
+      "lanes": 6,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-sequence-sync-pipeline.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      14553,
+      14719,
+      13858
+    ],
+    "median_ms": 14553
+  },
+  {
+    "screen": "pilot-component-exception-hierarchy",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"component.exception-hierarchy\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 18063,
+    "drawn": true,
+    "matched": 9,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "component · 9 elementos · 8 relaciones"
+      ],
+      "glyphs": 9,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 8,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-component-exception-hierarchy.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      16770,
+      17480,
+      18063
+    ],
+    "median_ms": 17480
+  },
+  {
+    "screen": "pilot-matrix-pipeline-coverage",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"matrix.pipeline-coverage\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 12638,
+    "drawn": true,
+    "matched": 2,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "component-view-matrix · 22 elementos · 39 relaciones"
+      ],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 2,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-matrix-pipeline-coverage.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      13596,
+      12592,
+      12638
+    ],
+    "median_ms": 12638
+  },
+  {
+    "screen": "pilot-matrix-quotation-view",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"matrix.quotation-view\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 12157,
+    "drawn": true,
+    "matched": 1,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "component-view-matrix · 9 elementos · 15 relaciones"
+      ],
+      "glyphs": 0,
+      "lanes": 0,
+      "grids": 1,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-matrix-quotation-view.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      12039,
+      11542,
+      12157
+    ],
+    "median_ms": 12039
+  },
+  {
+    "screen": "pilot-sequence-render-pipeline",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"sequence.render-pipeline\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 11514,
+    "drawn": true,
+    "matched": 16,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "uml-sequence · 8 elementos · 14 relaciones"
+      ],
+      "glyphs": 8,
+      "lanes": 8,
+      "grids": 0,
+      "edges": 0,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-sequence-render-pipeline.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      12051,
+      12582,
+      11514
+    ],
+    "median_ms": 12051
+  },
+  {
+    "screen": "pilot-class-sldb-models",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"class.sldb-models\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 12507,
+    "drawn": true,
+    "matched": 8,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "uml-class · 8 elementos · 13 relaciones"
+      ],
+      "glyphs": 8,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 13,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-class-sldb-models.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      12482,
+      11961,
+      12507
+    ],
+    "median_ms": 12482
+  },
+  {
+    "screen": "pilot-component-spec2viz-architecture",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"component.spec2viz-architecture\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 12417,
+    "drawn": true,
+    "matched": 11,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "component · 11 elementos · 12 relaciones"
+      ],
+      "glyphs": 11,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 12,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-component-spec2viz-architecture.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      12425,
+      12463,
+      12417
+    ],
+    "median_ms": 12425
+  },
+  {
+    "screen": "pilot-component-type-system",
+    "path": "/specs/notation",
+    "selector": ".notation:has(.notation-catalog button.active[data-spec=\"component.type-system\"]) :is(.notation-canvas .glyph, .lane-head, .notation-grid)",
+    "ms": 13563,
+    "drawn": true,
+    "matched": 21,
+    "url_final": "http://127.0.0.1:18934/specs/notation",
+    "extra": {
+      "title": "KB · Mindmap",
+      "notices": [],
+      "state": [],
+      "meta": [
+        "component · 21 elementos · 32 relaciones"
+      ],
+      "glyphs": 21,
+      "lanes": 0,
+      "grids": 0,
+      "edges": 32,
+      "catalog": 36,
+      "deskTasks": 0,
+      "deskTitle": [],
+      "alerts": [],
+      "mentionsSpec2viz": true
+    },
+    "screenshot": "pilots-pilot-component-type-system.png",
+    "errors": [],
+    "http_5xx": [],
+    "http_4xx": [],
+    "runs_ms": [
+      13479,
+      13459,
+      13563
+    ],
+    "median_ms": 13479
+  }
+]

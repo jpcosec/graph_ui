@@ -203,7 +203,6 @@ include:
   paths:
   - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
   - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
-  - desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md
   - desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md
   - desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md
   - desk/tasks/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en.md
@@ -275,12 +274,31 @@ include:
     name: review-task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen-preflight-2
   - path: desk/reviews/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen/bundle-2.md
     name: review-task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen-bundle-2
+  - path: desk/reviews/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/evidence-tests-1.md
+    name: review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-tests-1
+  - path: desk/reviews/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/evidence-commit-1.md
+    name: review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-commit-1
+  - path: desk/reviews/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/evidence-atom-1.md
+    name: review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-atom-1
+  - path: desk/reviews/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/evidence-tests-2.md
+    name: review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-tests-2
+  - path: desk/reviews/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/evidence-commit-2.md
+    name: review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-commit-2
+  - path: desk/reviews/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/evidence-materialization-1.md
+    name: review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-materialization-1
 - model: RunDoc
   paths:
   - path: runs/subagents/20261116-ir13-executor-a1/run.md
     name: run-deskops-e-687036bb547d
   - path: runs/subagents/20261116-ir13-tester-a1/run.md
     name: run-deskops-t-3feb27738750
+- model: MaterializationContractDoc
+  paths:
+  - desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md
+  - desk/materializations/materialization-pilotos-de-notación-como-fixtures-propios-de-graph-ui.md
+  - desk/materializations/materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci.md
+  - desk/materializations/materialization-dependencias-de-graph-ui-declaradas-en-pyproject.md
+  - desk/materializations/materialization-repos-hermanos-que-instala-la-ci-de-graph-ui.md
 graph_backend: networkx
 policy: {}
 tag_models:

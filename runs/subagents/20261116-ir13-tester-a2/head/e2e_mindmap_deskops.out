@@ -1,0 +1,248 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______ test_workflow_board_context_filters_advance_and_real_empty_error _______
+
+workflow_server = ('http://127.0.0.1:35759', <deskops.operations.DeskopsOperations object at 0x765709e0c440>, ['task-revisar-el-contexto', 'task-preparar-la-entrega'])
+
+    def test_workflow_board_context_filters_advance_and_real_empty_error(workflow_server):
+        url, ops, ids = workflow_server
+        with sync_playwright() as pw:
+            expect.set_options(timeout=30000)
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1440, "height": 1000})
+            errors = []
+            page.on("pageerror", lambda error: (errors.append(str(error)), print("Browser error:", error)))
+            page.goto(url + "/workflow/deskops")
+            expect(page.locator(".desk-task")).to_have_count(2)
+>           expect(page.locator(".desk-detail h2")).to_have_text("Revisar el contexto")
+E           AssertionError: Locator expected to have text 'Revisar el contexto'
+E           Actual value: None
+E           Error: element(s) not found 
+E           Call log:
+E             - Expect "to_have_text" locator(".desk-detail h2") with timeout 30000ms
+E             - waiting for locator(".desk-detail h2")
+E           
+E           Aria snapshot:
+E           - main:
+E             - link "◈ KB Mindmap":
+E               - /url: /
+E               - text: ◈ KB
+E               - strong: Mindmap
+E             - text: Explorar · organizar · editar
+E             - tablist "Vistas":
+E               - tab "🗺 KB"
+E               - tab "⇢ Flujo"
+E               - tab "💡 Brainstorm"
+E               - tab "📐 Schema"
+E               - tab "🧩 Specs"
+E               - tab "Deskops" [selected]
+E               - tab "Workspace"
+E             - combobox "Proyección":
+E               - option "Todo" [selected]
+E               - option "all"
+E             - button "Cambiar tema": ◐
+E             - text: WORKFLOW / DESKOPS
+E             - heading "El trabajo, en contexto." [level=1]
+E             - paragraph: Tu tablero real. Sus próximos pasos y las condiciones para avanzar.
+E             - button "Actualizar"
+E             - strong: "2"
+E             - text: Tareas enrutadas
+E             - strong: "2"
+E             - text: Borrador
+E             - paragraph: /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser desk/tasks/Board.md
+E             - complementary "Tareas del Board":
+E               - text: Buscar tareas
+E               - searchbox "Buscar tareas"
+E               - text: Estado
+E               - combobox "Estado":
+E                 - option "Todos los estados" [selected]
+E                 - option "Borrador"
+E               - button "Borrador ↗ Revisar el contexto Comprobar el trabajo con datos reales. ritual-execution" [pressed]:
+E                 - text: Borrador ↗
+E                 - strong: Revisar el contexto
+E                 - text: Comprobar el trabajo con datos reales.
+E                 - code: ritual-execution
+E               - button "Borrador ↗ Preparar la entrega Comprobar el trabajo con datos reales. ritual-execution":
+E                 - text: Borrador ↗
+E                 - strong: Preparar la entrega
+E                 - text: Comprobar el trabajo con datos reales.
+E                 - code: ritual-execution
+E             - article "Detalle de tarea":
+E               - status: Leyendo contexto y gates…
+E             - complementary "Workers vivos":
+E               - button "Mostrar workers": Workers
+
+tests/e2e_mindmap_deskops.py:69: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb.
+Inheriting CrossroadDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting AtomDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting BoardDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting PillDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting RepositoryDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting ReviewDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting RitualDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting RoleDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting RunDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting StepDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting TaskDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser/.sldb...
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [16/Nov/2026 12:40:08] "GET /workflow/deskops HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:08] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:08] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:08] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:08] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:08] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:09] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:11] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:11] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:11] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:11] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:11] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:11] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:11] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:12] "GET /api/desk/board HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:31] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:40:32] "GET /api/schema HTTP/1.1" 200 -
+=============================== warnings summary ===============================
+../../../venv-gu-head/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-gu-head/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 failed, 1 warning in 49.19s
+127.0.0.1 - - [16/Nov/2026 12:41:16] "GET /api/desk/task?id=task-revisar-el-contexto HTTP/1.1" 502 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 56720)
+Traceback (most recent call last):
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 212, in dispatch
+    return handler.json_response(self.detail(ids[0]))
+                                 ~~~~~~~~~~~^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 188, in detail
+    view = self.views.task(self.root, ident)
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 128, in task
+    return self.view(root, 'task', params)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:57013 para /dev/shm/ir13t2-bt-head/test_workflow_board_context_fi0/desk-browser.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 319, in do_GET
+    return self.desk_routes.dispatch(self, 'GET')
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 245, in dispatch
+    return handler.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gu-lay/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+Command exited with non-zero status 1
+maxrss_kb=2308900

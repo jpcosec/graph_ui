@@ -1,0 +1,23 @@
+name: materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations
+path: desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md
+source_hash: 646b0b6b1bcc839eef265e39f08cb109a5341af1ce557fed035cad56c8332215
+content_hash: 0a5a17b534d49d7052c1715cba2c1ba5b9bec5cfb1238a137daca76d4d556f1c
+field_hashes:
+  id: 1bd1396d83d9c0967c2520fededb599da51d241d6834be5a770cc6a45c113cfb
+  title: 823a33454a34fa65cffad6678504bb8e8fe000f25dfce42287d9e515872cb1d8
+  source_atoms: 70299cd9c9a3724b048921968f0151bb5ad9448c1e5031b8937eafb91ecebcf7
+  target_kind: 4a1933b06cf695fcff4acaba1fdbaa7f10ce109d3c7f57bbf62f6bb572658de8
+  target_identity: 4b0cd021efcbea1f42ded117685cefe093924c1176e6a40f5a247f2a30b39599
+  intent: 7750b3403cf44f510b43cca5b1045b05b3a2f0595378853b4d13a22ff30cd1c4
+  validation: 3ef97c68cf598f4725265beb40d08dae909f2971cf6936fcef27c66206c8052a
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-16T16:12:48Z'
+  authority: generated
+  via: create_document

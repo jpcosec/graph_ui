@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import spec2viz
+ModuleNotFoundError: No module named 'spec2viz'
+exit=1

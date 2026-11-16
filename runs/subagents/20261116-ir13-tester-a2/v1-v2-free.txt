@@ -1,0 +1,7 @@
+               total        used        free      shared  buff/cache   available
+Mem:              31          13          10           4          12          18
+Swap:             15           8           7
+               total        used        free      shared  buff/cache   available
+Mem:              31          12          10           4          12          18
+Swap:             15           8           7
+DONE

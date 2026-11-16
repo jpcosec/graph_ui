@@ -1,0 +1,7 @@
+tests/e2e_mindmap_document_dialog.py rc=1 31s avail_antes=16G maxrss_kb=251276 | 1 failed, 1 warning in 29.84s
+tests/test_desk_ui_routes.py rc=1 636s avail_antes=18G maxrss_kb=2900840 | 5 failed, 8 passed, 1 warning in 634.48s (0:10:34)
+tests/test_mindmap_deskops.py rc=143 273s avail_antes=16G  | 
+tests/e2e_mindmap_deskops.py rc=1 83s avail_antes=12G maxrss_kb=2308900 |     return handler.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+tests/e2e_desk_ui.py rc=1 494s avail_antes=14G maxrss_kb=2399148 | 6 failed, 2 warnings in 493.45s (0:08:13)
+tests/e2e_mindmap_workspace.py rc=0 429s avail_antes=14G maxrss_kb=582852 | 19 passed, 1 warning in 426.79s (0:07:06)
+DONE

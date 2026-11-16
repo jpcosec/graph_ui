@@ -1,0 +1,2 @@
+tests/e2e_mindmap_workspace.py rc=0 422s avail_antes=17G maxrss_kb=599664 | 19 passed, 1 warning in 420.90s (0:07:00)
+DONE

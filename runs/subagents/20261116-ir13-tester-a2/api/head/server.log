@@ -1,0 +1,17 @@
+KB Mindmap: http://127.0.0.1:18942/ · store: /dev/shm/ir13t2-lay/UIs/graph_ui/.sldb
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=activity.render-error-handling HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=class.sldb-models HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=component.spec2viz-architecture HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=component.exception-hierarchy HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=component.type-system HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=matrix.pipeline-coverage HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=matrix.quotation-view HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=sequence.render-pipeline HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=sequence.sync-pipeline HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=state.diagram-sync-lifecycle HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=state.diagram-type-lifecycle HTTP/1.1" 404 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=sequence.build-pipeline HTTP/1.1" 404 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=spec-01 HTTP/1.1" 404 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=spec-09a HTTP/1.1" 404 -
+127.0.0.1 - - [16/Nov/2026 12:23:41] "GET /api/notation/view?spec=spec-14 HTTP/1.1" 404 -

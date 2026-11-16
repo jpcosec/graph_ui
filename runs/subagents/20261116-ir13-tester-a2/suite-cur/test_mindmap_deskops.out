@@ -1,0 +1,634 @@
+.FFF.F.                                                                  [100%]
+=================================== FAILURES ===================================
+___________________ test_real_advance_stale_origin_and_types ___________________
+
+desk = (PosixPath('/dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo'), <deskops.operations.DeskopsOperations object at 0x7e3731b98270>, 'task-revisar-contrato-real')
+server = 'http://127.0.0.1:40881'
+
+    def test_real_advance_stale_origin_and_types(desk, server):
+        root, ops, ident = desk
+>       status, detail = http(server, '/api/desk/task?id='+ident)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_mindmap_deskops.py:108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_mindmap_deskops.py:78: in http
+    response = urlopen(request, timeout=30)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:189: in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:489: in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:506: in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:466: in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1360: in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1335: in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:1478: in getresponse
+    response.begin()
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:343: in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:304: in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.SocketIO object at 0x7e3730591810>
+b = <memory at 0x7e3734950340>
+
+    def readinto(self, b):
+        """Read up to len(b) bytes into the writable buffer *b* and return
+        the number of bytes read.  If the socket is non-blocking and no bytes
+        are available, None is returned.
+    
+        If *b* is non-empty, a 0 return value indicates that the connection
+        was shutdown at the other end.
+        """
+        self._checkClosed()
+        self._checkReadable()
+        if self._timeout_occurred:
+            raise OSError("cannot read from timed out object")
+        try:
+>           return self._sock.recv_into(b)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+E           TimeoutError: timed out
+
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socket.py:723: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb.
+Inheriting CrossroadDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting AtomDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting BoardDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting PillDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting RepositoryDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting ReviewDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting RitualDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting RoleDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting RunDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting StepDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting TaskDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo/.sldb...
+_________________ test_serialized_advances_and_board_revision __________________
+
+desk = (PosixPath('/dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo'), <deskops.operations.DeskopsOperations object at 0x7e3730801c50>, 'task-revisar-contrato-real')
+server = 'http://127.0.0.1:43769'
+
+    def test_serialized_advances_and_board_revision(desk, server):
+        root, ops, ident = desk
+>       detail = http(server, '/api/desk/task?id='+ident)[1]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_mindmap_deskops.py:125: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_mindmap_deskops.py:78: in http
+    response = urlopen(request, timeout=30)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:189: in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:489: in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:506: in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:466: in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1360: in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1335: in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:1478: in getresponse
+    response.begin()
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:343: in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:304: in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.SocketIO object at 0x7e37306aeb90>
+b = <memory at 0x7e37326edd80>
+
+    def readinto(self, b):
+        """Read up to len(b) bytes into the writable buffer *b* and return
+        the number of bytes read.  If the socket is non-blocking and no bytes
+        are available, None is returned.
+    
+        If *b* is non-empty, a 0 return value indicates that the connection
+        was shutdown at the other end.
+        """
+        self._checkClosed()
+        self._checkReadable()
+        if self._timeout_occurred:
+            raise OSError("cannot read from timed out object")
+        try:
+>           return self._sock.recv_into(b)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+E           TimeoutError: timed out
+
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socket.py:723: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb.
+Inheriting CrossroadDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting AtomDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting BoardDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting PillDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting RepositoryDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting ReviewDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting RitualDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting RoleDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting RunDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting StepDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting TaskDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo/.sldb...
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [16/Nov/2026 11:03:56] "GET /api/desk/task?id=task-revisar-contrato-real HTTP/1.1" 502 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 60234)
+Traceback (most recent call last):
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 212, in dispatch
+    return handler.json_response(self.detail(ids[0]))
+                                 ~~~~~~~~~~~^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 188, in detail
+    view = self.views.task(self.root, ident)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 128, in task
+    return self.view(root, 'task', params)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:54257 para /dev/shm/ir13t2-bt/test_real_advance_stale_origin0/repo.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 319, in do_GET
+    return self.desk_routes.dispatch(self, 'GET')
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 245, in dispatch
+    return handler.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+______________________ test_blocked_and_missing_lifecycle ______________________
+
+desk = (PosixPath('/dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo'), <deskops.operations.DeskopsOperations object at 0x7e3730389a90>, 'task-revisar-contrato-real')
+server = 'http://127.0.0.1:39269'
+tmp_path = PosixPath('/dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7e37300529c0>
+
+    def test_blocked_and_missing_lifecycle(desk, server, tmp_path, monkeypatch):
+        root, ops, ident = desk
+        path = root / f'desk/tasks/{ident}.md'
+        advance_to(ops, ident, 'ritual-testing')
+        payload = doc_access.read_doc(path, TaskDoc)
+        payload['validation'] = []
+        doc_access.write_doc(ops.root, path, TaskDoc, payload)
+>       detail = http(server, '/api/desk/task?id='+ident)[1]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_mindmap_deskops.py:145: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_mindmap_deskops.py:78: in http
+    response = urlopen(request, timeout=30)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:189: in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:489: in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:506: in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:466: in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1360: in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1335: in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:1478: in getresponse
+    response.begin()
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:343: in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:304: in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.SocketIO object at 0x7e37334dfd30>
+b = <memory at 0x7e3730454280>
+
+    def readinto(self, b):
+        """Read up to len(b) bytes into the writable buffer *b* and return
+        the number of bytes read.  If the socket is non-blocking and no bytes
+        are available, None is returned.
+    
+        If *b* is non-empty, a 0 return value indicates that the connection
+        was shutdown at the other end.
+        """
+        self._checkClosed()
+        self._checkReadable()
+        if self._timeout_occurred:
+            raise OSError("cannot read from timed out object")
+        try:
+>           return self._sock.recv_into(b)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+E           TimeoutError: timed out
+
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socket.py:723: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb.
+Inheriting CrossroadDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting AtomDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting BoardDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting PillDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting RepositoryDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting ReviewDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting RitualDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting RoleDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting RunDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting StepDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting TaskDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo/.sldb...
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [16/Nov/2026 11:05:00] "GET /api/desk/task?id=task-revisar-contrato-real HTTP/1.1" 502 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 33076)
+Traceback (most recent call last):
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 212, in dispatch
+    return handler.json_response(self.detail(ids[0]))
+                                 ~~~~~~~~~~~^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 188, in detail
+    view = self.views.task(self.root, ident)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 128, in task
+    return self.view(root, 'task', params)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:54053 para /dev/shm/ir13t2-bt/test_serialized_advances_and_b0/repo.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 319, in do_GET
+    return self.desk_routes.dispatch(self, 'GET')
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 245, in dispatch
+    return handler.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+------------------------------ Captured log call -------------------------------
+INFO     deskops:tasks.py:303 Advanced task task-revisar-contrato-real to node ritual-testing
+__________________ test_terminal_cannot_close_and_path_escape __________________
+
+desk = (PosixPath('/dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo'), <deskops.operations.DeskopsOperations object at 0x7e37320e8310>, 'task-revisar-contrato-real')
+server = 'http://127.0.0.1:45347'
+tmp_path = PosixPath('/dev/shm/ir13t2-bt/test_terminal_cannot_close_and0')
+
+    def test_terminal_cannot_close_and_path_escape(desk, server, tmp_path):
+        root, ops, ident = desk
+        path = root / f'desk/tasks/{ident}.md'
+        advance_to(ops, ident, 'ritual-closeout')
+>       detail = http(server, '/api/desk/task?id='+ident)[1]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_mindmap_deskops.py:172: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_mindmap_deskops.py:78: in http
+    response = urlopen(request, timeout=30)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:189: in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:489: in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:506: in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:466: in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1360: in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1335: in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:1478: in getresponse
+    response.begin()
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:343: in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:304: in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.SocketIO object at 0x7e3732203e50>
+b = <memory at 0x7e372afea680>
+
+    def readinto(self, b):
+        """Read up to len(b) bytes into the writable buffer *b* and return
+        the number of bytes read.  If the socket is non-blocking and no bytes
+        are available, None is returned.
+    
+        If *b* is non-empty, a 0 return value indicates that the connection
+        was shutdown at the other end.
+        """
+        self._checkClosed()
+        self._checkReadable()
+        if self._timeout_occurred:
+            raise OSError("cannot read from timed out object")
+        try:
+>           return self._sock.recv_into(b)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+E           TimeoutError: timed out
+
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socket.py:723: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb.
+Inheriting CrossroadDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting AtomDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting BoardDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting PillDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting RepositoryDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting ReviewDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting RitualDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting RoleDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting RunDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting StepDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting TaskDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo/.sldb...
+---------------------------- Captured stderr setup -----------------------------
+127.0.0.1 - - [16/Nov/2026 11:06:04] "GET /api/desk/task?id=task-revisar-contrato-real HTTP/1.1" 502 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 42126)
+Traceback (most recent call last):
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 212, in dispatch
+    return handler.json_response(self.detail(ids[0]))
+                                 ~~~~~~~~~~~^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 188, in detail
+    view = self.views.task(self.root, ident)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 128, in task
+    return self.view(root, 'task', params)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:59309 para /dev/shm/ir13t2-bt/test_blocked_and_missing_lifec0/repo.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 319, in do_GET
+    return self.desk_routes.dispatch(self, 'GET')
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 245, in dispatch
+    return handler.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+------------------------------ Captured log call -------------------------------
+INFO     deskops:tasks.py:303 Advanced task task-revisar-contrato-real to node ritual-testing
+INFO     deskops:tasks.py:303 Advanced task task-revisar-contrato-real to node ritual-closeout
+=============================== warnings summary ===============================
+../../../../../../dev/shm/venv-ir13-t2/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-ir13-t2/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+4 failed, 3 passed, 1 warning in 251.81s (0:04:11)
+127.0.0.1 - - [16/Nov/2026 11:07:16] "GET /api/desk/task?id=task-revisar-contrato-real HTTP/1.1" 502 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 42550)
+Traceback (most recent call last):
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 212, in dispatch
+    return handler.json_response(self.detail(ids[0]))
+                                 ~~~~~~~~~~~^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 188, in detail
+    view = self.views.task(self.root, ident)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 128, in task
+    return self.view(root, 'task', params)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:58025 para /dev/shm/ir13t2-bt/test_terminal_cannot_close_and0/repo.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 84, in __init__
+    super().__init__(*args, directory=str(MINDMAP_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 319, in do_GET
+    return self.desk_routes.dispatch(self, 'GET')
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 245, in dispatch
+    return handler.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/serve.py", line 93, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+Command exited with non-zero status 1
+maxrss_kb=2709344

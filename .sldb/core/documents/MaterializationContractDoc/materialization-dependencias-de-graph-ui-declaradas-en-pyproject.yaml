@@ -1,0 +1,23 @@
+name: materialization-dependencias-de-graph-ui-declaradas-en-pyproject
+path: desk/materializations/materialization-dependencias-de-graph-ui-declaradas-en-pyproject.md
+source_hash: b01a009ee0cf7bd139579f0ae822dec46723ef921b28e97a89175c1a191e7dec
+content_hash: aca4d2a89632230eac83c2579ef5c3cae06910c342f451f6e6505a65c0b27e55
+field_hashes:
+  id: 5dc842c5d072254ae00cea870a49b4d23d7e91ef0cd50a0a76630894528a2a79
+  title: 5985795372331d52561ef037852bcb21e049f1722051ae323eedee6d60a14fa5
+  source_atoms: f3a5a63fb6dca978d8ea73046c63fd0138f7dda09165881fdcd4f542fadde002
+  target_kind: 48882ab48bfdf3bef2fe65e3304e91ccfd8f74e357c183367ad6fe903fe0e697
+  target_identity: 9c6cd9431da5c16d2ee820ad552f266833f2ce755f554cbf9ffc5e0d3ccf1504
+  intent: 350124747edda9ebf7b83899e4c9597b1bdf45f1f0a8fd29da856487d58b7d95
+  validation: e36d3edb06e99f9cfbd3dbf1bb5c7bc687043a37fdc375dd4324a1199f903b3a
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-16T16:13:10Z'
+  authority: generated
+  via: create_document

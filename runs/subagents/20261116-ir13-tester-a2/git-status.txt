@@ -1,0 +1,51 @@
+## master...origin/master [ahead 3]
+ M ".sldb/core/documents/AtomDoc/atom-c\303\263mo-corre-la-ci-de-graph-ui.yaml"
+ M .sldb/core/documents/TaskCodeDoc/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.yaml
+ M .sldb/core/models/AtomDoc.yaml
+ M .sldb/core/models/MaterializationContractDoc.yaml
+ M .sldb/core/models/ReviewDoc.yaml
+ M .sldb/core/models/TaskCodeDoc.yaml
+ M .sldb/core/store_index.yaml
+ M .sldb/store.yaml
+ M "desk/atoms/atom-c\303\263mo-corre-la-ci-de-graph-ui.md"
+ M desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md
+ M frontends/desk/board.js
+ M frontends/desk/styles.css
+ M tests/e2e_desk_ui.py
+?? .sldb/core/documents/MaterializationContractDoc/
+?? .sldb/core/documents/ReviewDoc/review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-atom-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-commit-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-commit-2.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-materialization-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-tests-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-tests-2.yaml
+?? .sldb/runtime/
+?? desk/materializations/
+?? desk/reviews/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/evidence-atom-1.md
+?? desk/reviews/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/evidence-commit-1.md
+?? desk/reviews/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/evidence-commit-2.md
+?? desk/reviews/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/evidence-materialization-1.md
+?? desk/reviews/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/evidence-tests-1.md
+?? desk/reviews/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/evidence-tests-2.md
+?? runs/subagents/20261116-124617/
+?? runs/subagents/20261116-124651/
+?? runs/subagents/20261116-124713/
+?? runs/subagents/20261116-124733/
+?? runs/subagents/20261116-125047/
+?? runs/subagents/20261116-125323/
+?? runs/subagents/20261116-125341/
+?? runs/subagents/20261116-125357/
+?? runs/subagents/20261116-125615/
+?? runs/subagents/20261116-125634/
+?? runs/subagents/20261116-125651/
+?? runs/subagents/20261116-125703/
+?? runs/subagents/20261116-gate-findings-executor-a1/
+?? runs/subagents/20261116-gate-findings-tester-a1/
+?? runs/subagents/20261116-ir13-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a2/
+?? runs/subagents/20261116-ir13-tester-a1/
+?? runs/subagents/20261116-ir13-tester-a2/
+?? runs/subagents/20261116-ir13-tester-r2/
+?? runs/subagents/20261116-r2-reviews/
+?? runs/subagents/20261116-sldb-serve-rss/
+?? runs/subagents/20261116-triaje-graph-ui/

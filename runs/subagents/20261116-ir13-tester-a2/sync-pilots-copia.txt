@@ -1,0 +1,18 @@
+sldb notations sync --spec activity-render-error-handling.yml --spec class-sldb-models.yml --spec component-architecture.yml --spec component-exception-hierarchy.yml --spec component-type-system.yml --spec matrix-pipeline-coverage.yml --spec matrix.quotation-view.yml --spec sequence-render-pipeline.yml --spec sequence-sync-pipeline.yml --spec state-diagram-sync-lifecycle.yml --store .sldb
+alert: [spec-sync/unresolved-ref] component.spec2viz-architecture: component.spec2viz-architecture.renderers: 'AtomDoc:atom-multi-backend-renderers-what' no existe en el store
+    fix     : crear el documento referido o quitar la ref del spec
+alert: [spec-sync/unresolved-ref] component.spec2viz-architecture: component.spec2viz-architecture.renderers: 'AtomDoc:atom-multi-backend-renderers-how_not' no existe en el store
+    fix     : crear el documento referido o quitar la ref del spec
+Synced activity.render-error-handling: 13 nodes, 17 edges (39 created, 0 updated, 0 deleted, relation types added: next, branch, notation NotationDoc:activity)
+Synced class.sldb-models: 8 nodes, 13 edges (37 created, 0 updated, 0 deleted, relation types added: inheritance, realization, composition, aggregation, association, dependency, notation NotationDoc:uml-class)
+Synced component.spec2viz-architecture: 11 nodes, 12 edges (30 created, 0 updated, 0 deleted, relation types added: reads, uses, notation NotationDoc:component)
+  ! component.spec2viz-architecture.renderers: 'AtomDoc:atom-multi-backend-renderers-what' no existe en el store
+  ! component.spec2viz-architecture.renderers: 'AtomDoc:atom-multi-backend-renderers-how_not' no existe en el store
+Synced component.exception-hierarchy: 9 nodes, 8 edges (18 created, 6 updated, 0 deleted, relation types added: inherits, notation NotationDoc:component)
+Synced component.type-system: 21 nodes, 32 edges (54 created, 6 updated, 0 deleted, notation NotationDoc:component)
+Synced matrix.pipeline-coverage: 22 nodes, 30 edges (59 created, 0 updated, 0 deleted, relation types added: occupies, notation NotationDoc:component-view-matrix)
+Synced matrix.quotation-view: 9 nodes, 12 edges (22 created, 6 updated, 0 deleted, notation NotationDoc:component-view-matrix)
+Synced sequence.render-pipeline: 8 nodes, 14 edges (30 created, 0 updated, 0 deleted, relation types added: sends, sends_async, returns, notation NotationDoc:uml-sequence)
+Synced sequence.sync-pipeline: 6 nodes, 12 edges (19 created, 7 updated, 0 deleted, notation NotationDoc:uml-sequence)
+Synced state.diagram-sync-lifecycle: 7 nodes, 8 edges (21 created, 0 updated, 0 deleted, relation types added: transitions_to, notation NotationDoc:statechart)
+exit=0

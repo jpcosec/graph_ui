@@ -1,0 +1,16 @@
+activity.render-error-handling 200 0.386563 {"spec": "SpecDoc:activity.render-error-handling", "title": "CLI Render Command Error Handling", "diagram_type": "activity", "notation": "NotationDoc:activity", "palette": "", "level": "types", "layou
+class.sldb-models 200 0.002830 {"spec": "SpecDoc:class.sldb-models", "title": "spec2viz documents in the sldb store", "diagram_type": "class", "notation": "NotationDoc:uml-class", "palette": "", "level": "types", "layout": {"kind":
+component.spec2viz-architecture 200 0.002535 {"spec": "SpecDoc:component.spec2viz-architecture", "title": "spec2viz Module Dependency Graph", "diagram_type": "component", "notation": "NotationDoc:component", "palette": "", "level": "types", "lay
+component.exception-hierarchy 200 0.002457 {"spec": "SpecDoc:component.exception-hierarchy", "title": "Exception Hierarchy and Pipeline Stages", "diagram_type": "component", "notation": "NotationDoc:component", "palette": "", "level": "types",
+component.type-system 200 0.002866 {"spec": "SpecDoc:component.type-system", "title": "Type System: Models, IR, and Renderers", "diagram_type": "component", "notation": "NotationDoc:component", "palette": "", "level": "types", "layout"
+matrix.pipeline-coverage 200 0.002988 {"spec": "SpecDoc:matrix.pipeline-coverage", "title": "Module coverage across the render pipeline", "diagram_type": "component_view_matrix", "notation": "NotationDoc:component-view-matrix", "palette":
+matrix.quotation-view 200 0.002470 {"spec": "SpecDoc:matrix.quotation-view", "title": "Quotation Flow - Component View Matrix", "diagram_type": "component_view_matrix", "notation": "NotationDoc:component-view-matrix", "palette": "", "l
+sequence.render-pipeline 200 0.002581 {"spec": "SpecDoc:sequence.render-pipeline", "title": "Render Pipeline Call Chain", "diagram_type": "sequence", "notation": "NotationDoc:uml-sequence", "palette": "", "level": "instances", "layout": {
+sequence.sync-pipeline 200 0.002457 {"spec": "SpecDoc:sequence.sync-pipeline", "title": "diagram sync call chain", "diagram_type": "sequence", "notation": "NotationDoc:uml-sequence", "palette": "", "level": "instances", "layout": {"kind
+state.diagram-sync-lifecycle 200 0.002436 {"spec": "SpecDoc:state.diagram-sync-lifecycle", "title": "Ciclo de un `diagram sync`", "diagram_type": "state", "notation": "NotationDoc:statechart", "palette": "", "level": "both", "layout": {"kind"
+state.diagram-type-lifecycle 404 0.001914 {"ok": false, "error": "SpecDoc:state.diagram-type-lifecycle is not in the store"}
+sequence.build-pipeline 404 0.001957 {"ok": false, "error": "SpecDoc:sequence.build-pipeline is not in the store"}
+spec-01 404 0.001856 {"ok": false, "error": "SpecDoc:spec-01 is not in the store"}
+spec-09a 404 0.001921 {"ok": false, "error": "SpecDoc:spec-09a is not in the store"}
+spec-14 404 0.001992 {"ok": false, "error": "SpecDoc:spec-14 is not in the store"}
+VmHWM:	   79004 kB

@@ -1,0 +1,25 @@
+tests/test_auditor.py rc=0 1s avail_antes=17G maxrss_kb=41416 | 2 passed, 1 warning in 0.09s
+tests/test_ci_workflow.py rc=0 0s avail_antes=17G maxrss_kb=33212 | 6 passed, 1 warning in 0.09s
+tests/test_desk_ui_routes.py rc=1 593s avail_antes=17G maxrss_kb=2398844 | 5 failed, 8 passed, 1 warning in 591.68s (0:09:51)
+tests/test_editor.py rc=0 0s avail_antes=16G maxrss_kb=40852 | 2 passed, 3 warnings in 0.09s
+tests/test_mindmap_adapter.py rc=0 2s avail_antes=16G maxrss_kb=83876 | 7 passed, 1 warning in 1.34s
+tests/test_mindmap_compiler.py rc=0 1s avail_antes=16G maxrss_kb=79304 | 8 passed, 1 warning in 0.84s
+tests/test_mindmap_contract.py rc=0 1s avail_antes=16G maxrss_kb=32724 | 10 passed, 1 warning in 0.03s
+tests/test_mindmap_deskops.py rc=1 285s avail_antes=16G maxrss_kb=2709344 |     return handler.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+tests/test_mindmap_endpoints.py rc=0 6s avail_antes=14G maxrss_kb=105636 | 32 passed, 1 warning in 5.44s
+tests/test_mindmap_notation.py rc=0 8s avail_antes=13G maxrss_kb=83264 | 5 passed, 1 warning in 7.44s
+tests/test_mindmap_persistence.py rc=0 3s avail_antes=14G maxrss_kb=85836 | 4 passed, 1 warning in 1.88s
+tests/test_mindmap_quick_capture.py rc=0 2s avail_antes=14G maxrss_kb=87396 | 3 passed, 1 warning in 1.58s
+tests/test_mindmap_skin.py rc=0 0s avail_antes=14G maxrss_kb=31676 | 4 passed, 1 warning in 0.02s
+tests/test_mindmap_workers.py rc=0 5s avail_antes=14G maxrss_kb=77244 | 10 passed, 1 warning in 5.18s
+tests/test_mindmap_workspace.py rc=0 122s avail_antes=14G maxrss_kb=167088 | 17 passed, 1 warning in 120.59s (0:02:00)
+tests/test_mindmap_workspace_explorer.py rc=0 249s avail_antes=14G maxrss_kb=238596 | 40 passed, 1 warning in 248.36s (0:04:08)
+tests/test_mindmap_workspace_reader.py rc=0 239s avail_antes=14G maxrss_kb=228452 | 31 passed, 1 warning in 237.08s (0:03:57)
+tests/test_parallel_workspace_serve.py rc=0 21s avail_antes=14G maxrss_kb=111064 | 3 passed, 1 warning in 20.56s
+tests/test_projection_views.py rc=0 24s avail_antes=14G maxrss_kb=106280 | 11 passed, 1 warning in 23.52s
+tests/test_provider.py rc=0 0s avail_antes=14G maxrss_kb=41136 | 2 passed, 1 warning in 0.09s
+tests/test_representacion_docs.py rc=0 0s avail_antes=14G maxrss_kb=32696 | 4 passed, 1 warning in 0.06s
+tests/test_review_workbench.py rc=0 25s avail_antes=14G maxrss_kb=491368 | 3 passed, 1 warning in 24.70s
+tests/test_sldb_end_to_end.py rc=0 67s avail_antes=14G maxrss_kb=1729324 | 4 passed, 1 warning in 62.44s (0:01:02)
+tests/test_snapshot_adapter.py rc=0 1s avail_antes=13G maxrss_kb=69476 | 1 passed, 1 warning in 0.61s
+DONE

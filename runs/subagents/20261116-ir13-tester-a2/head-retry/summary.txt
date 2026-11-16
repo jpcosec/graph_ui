@@ -1,0 +1,2 @@
+tests/test_mindmap_deskops.py rc=1 277s avail_antes=19G maxrss_kb=2782468 |     return handler.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+DONE

@@ -1,0 +1,8 @@
+#!/bin/bash
+cd /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui
+free -g > /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/runs/subagents/20261116-ir13-tester-a2/v1-v2-free.txt
+systemd-run --user --scope -q -p MemoryMax=3G -- env TMPDIR=/dev/shm PLAYWRIGHT_BROWSERS_PATH=/dev/shm/pw-browsers /dev/shm/venv-ir13-t2/bin/python -m pytest tests/test_projection_views.py tests/test_mindmap_notation.py tests/test_mindmap_skin.py -q -rs -p no:cacheprovider --basetemp=/dev/shm/ir13t2-bt > /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/runs/subagents/20261116-ir13-tester-a2/v1-unit.out 2>&1; echo "exit=$?" >> /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/runs/subagents/20261116-ir13-tester-a2/v1-unit.out
+free -g >> /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/runs/subagents/20261116-ir13-tester-a2/v1-v2-free.txt
+t0=$(date +%s)
+systemd-run --user --scope -q -p MemoryMax=3G -- env TMPDIR=/dev/shm PLAYWRIGHT_BROWSERS_PATH=/dev/shm/pw-browsers /usr/bin/time -f 'maxrss_kb=%M' /dev/shm/venv-ir13-t2/bin/python -m pytest tests/e2e_notation_class.py tests/e2e_notation_sequence.py tests/e2e_notation_deployment.py tests/e2e_notation_activity.py tests/e2e_notation_style.py tests/e2e_notation_legibility.py tests/e2e_mindmap_notation.py tests/e2e_review_workbench_views.py -q -rs -p no:cacheprovider --basetemp=/dev/shm/ir13t2-bt > /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/runs/subagents/20261116-ir13-tester-a2/v2-e2e.out 2>&1; echo "exit=$? secs=$(($(date +%s)-t0))" >> /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/runs/subagents/20261116-ir13-tester-a2/v2-e2e.out
+echo DONE >> /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/runs/subagents/20261116-ir13-tester-a2/v1-v2-free.txt

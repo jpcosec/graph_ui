@@ -1,0 +1,43 @@
+Using Python 3.13.18 environment at: /dev/shm/venv-gu-head
+Resolved 26 packages in 9ms
+   Building structuredlanguagedb @ file:///mnt/ssd/proyectos/SLDB_1/sldb
+   Building spec2viz @ file:///mnt/ssd/proyectos/SLDB_1/spec2viz
+   Building graph-ui @ file:///dev/shm/gu-lay/UIs/graph_ui
+   Building pron @ file:///mnt/ssd/proyectos/SLDB_1/pron
+   Building deskops @ file:///mnt/ssd/proyectos/SLDB_1/deskops
+      Built graph-ui @ file:///dev/shm/gu-lay/UIs/graph_ui
+      Built pron @ file:///mnt/ssd/proyectos/SLDB_1/pron
+      Built spec2viz @ file:///mnt/ssd/proyectos/SLDB_1/spec2viz
+      Built structuredlanguagedb @ file:///mnt/ssd/proyectos/SLDB_1/sldb
+      Built deskops @ file:///mnt/ssd/proyectos/SLDB_1/deskops
+Prepared 5 packages in 875ms
+warning: Failed to hardlink files; falling back to full copy. This may lead to degraded performance.
+         If the cache and target directories are on different filesystems, hardlinking may not be supported.
+         If this is intentional, set `export UV_LINK_MODE=copy` or use `--link-mode=copy` to suppress this warning.
+Installed 26 packages in 73ms
+ + annotated-types==0.8.0
+ + click==8.5.1
+ + deskops==0.2.0 (from file:///mnt/ssd/proyectos/SLDB_1/deskops)
+ + graph-ui==0.1.0 (from file:///dev/shm/gu-lay/UIs/graph_ui)
+ + greenlet==3.5.6
+ + iniconfig==2.3.1
+ + jinja2==3.1.6
+ + linkify-it-py==2.2.0
+ + markdown-it-py==4.3.0
+ + markupsafe==3.0.4
+ + mdit-py-plugins==0.7.0
+ + mdurl==0.1.2
+ + networkx==3.7
+ + packaging==26.3
+ + playwright==1.65.2
+ + pluggy==1.7.0
+ + pron==1.0.0 (from file:///mnt/ssd/proyectos/SLDB_1/pron)
+ + pydantic==2.14.3
+ + pydantic-core==2.50.4
+ + pygments==2.21.0
+ + pytest==9.2.0
+ + pyyaml==6.0.3
+ + spec2viz==0.2.0 (from file:///mnt/ssd/proyectos/SLDB_1/spec2viz)
+ + structuredlanguagedb==0.1.13 (from file:///mnt/ssd/proyectos/SLDB_1/sldb)
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.5

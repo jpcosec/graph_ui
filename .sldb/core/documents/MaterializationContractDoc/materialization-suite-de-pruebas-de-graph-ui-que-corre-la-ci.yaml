@@ -1,0 +1,23 @@
+name: materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci
+path: desk/materializations/materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci.md
+source_hash: 4c7b23bc2908007ac9fc0db33e99fbe06712a269229c2a093d136ad7b470efdb
+content_hash: 1860b2e9458c1a3318aca5f7dc99c70988b695fddc2d1c55268e838576b6662e
+field_hashes:
+  id: e22ad174f9bb0475e1da7072e4367ba3210abf06d3b359b1453ceebe5b5e22fa
+  title: 47bfe29b1ff23c21ceee64f070b0c1b8e3e7a61f5cd0f75cf9f2de6e8e3f67e0
+  source_atoms: f3a5a63fb6dca978d8ea73046c63fd0138f7dda09165881fdcd4f542fadde002
+  target_kind: bc3580f49a47f4f776b546de9ce98f20daa247e8bfe6dd3d1a1b25f4fb018b2d
+  target_identity: 68f05093bc600659c0aecd265fad80c71a658cc857e91cdfeeee782eb670c200
+  intent: 7d18187b3570add47652d9932ec08ca68e3ef902b7f4391803b2d9cca5508146
+  validation: e36d3edb06e99f9cfbd3dbf1bb5c7bc687043a37fdc375dd4324a1199f903b3a
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-16T16:13:03Z'
+  authority: generated
+  via: create_document
