@@ -40,6 +40,20 @@ export function innerVars(shape) {
   return {'--inner-top': pct(t), '--inner-right': pct(r), '--inner-bottom': pct(b), '--inner-left': pct(l)};
 }
 
+// Contorno de una forma que además es contenedor, en píxeles de su caja: estirar OUTLINES haría crecer la
+// pestaña del paquete con la altura del contenedor y el cuerpo empezaría por debajo de los primeros hijos.
+// Paquete UML: la pestaña envuelve la cabecera que reservó el layout (de x=0 al borde derecho del título,
+// de y=0 a su borde de abajo) y el cuerpo ocupa el resto, así el título va en la pestaña y los hijos, que
+// el layout pone bajo la cabecera, quedan dentro del cuerpo. null si la forma no tiene contorno de contenedor.
+export function containerOutline(shape, {width, height, header} = {}) {
+  if (shape !== 'package' || !header || !(width > 0) || !(height > 0)) return null;
+  const tabW = Math.min(Math.max(header.x + header.width, 24), width - 8);
+  const tabH = Math.min(Math.max(header.y + header.height, 12), height - 8);
+  const r = n => +n.toFixed(2);
+  return {viewBox: `0 0 ${r(width)} ${r(height)}`, tab: {width: r(tabW), height: r(tabH)},
+    d: `M0,${r(tabH)} L0,0 L${r(tabW)},0 L${r(tabW)},${r(tabH)} L${r(width)},${r(tabH)} L${r(width)},${r(height)} L0,${r(height)} Z`};
+}
+
 // Un valor resuelto por tema ({light, dark}) en el tema activo; un string vale para los dos.
 export function themed(value, skin = 'light') {
   if (!value) return null;

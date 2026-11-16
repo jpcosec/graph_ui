@@ -5,7 +5,7 @@ import {request} from '../../../shell/api.js';
 import {useSource} from '../../../source/source.js';
 import {specCatalog, sceneFor, compartmentLine, cellKey, LANE, LANE_TEXT, TERMINALS, laneFitScale} from './notation.mjs';
 import {bestLayout, pathOf, POINT_SHAPES} from './notation-layout.mjs';
-import {glyphVars, paletteInk, themed, innerVars} from './notation-style.mjs';
+import {glyphVars, paletteInk, themed, innerVars, containerOutline} from './notation-style.mjs';
 import {GlyphIcon, ShapeOutline, NotationLegend, useIcons} from './notation-style.js';
 
 // Vista genérica de notación: dibuja un spec del store tal como lo resuelve
@@ -46,7 +46,7 @@ async function layoutGraph(scene, element) {
   const nodes = [...best.nodes].sort((a, b) => a.depth - b.depth).map(n => ({
     id: n.id, type: 'glyph', parentId: n.parent || undefined, zIndex: n.container ? 0 : 1,
     position: {x: n.x, y: n.y}, style: {width: n.width, height: n.height},
-    data: {glyph: n.glyph, container: n.container, lines: n.lines, header: n.header, outside: n.outside, direction: best.direction}}));
+    data: {glyph: n.glyph, container: n.container, lines: n.lines, header: n.header, outside: n.outside, direction: best.direction, width: n.width, height: n.height}}));
   return {nodes, edges: best.edges, zoom: best.zoom, width: best.width, height: best.height, engine: best.engine || 'elk'};
 }
 
@@ -54,17 +54,22 @@ async function layoutGraph(scene, element) {
 // cabeceras de carril (que no viven dentro de React Flow).
 const lineList = lines => lines.map((line, i) => html`<span key=${i} className="glyph-line">${line}</span>`);
 
-function Glyph({glyph: g, container, selected, children, style, lines, outside, header, skin, ink, icons}) {
+function Glyph({glyph: g, container, selected, children, style, lines, outside, header, size, skin, ink, icons}) {
   const point = POINT_SHAPES.includes(g.shape);
   const text = lines && lines.length ? lineList(lines) : g.label;
   const label = html`<span className=${'glyph-label' + (g.label_style ? ' is-' + g.label_style : '')}>${text}</span>`;
   const compartments = (g.compartments || []).filter(c => c.items && c.items.length);
   // Estilo resuelto por sldb (§13): relleno, trazo, texto e ícono; sin estilo, el de siempre.
   const vars = {...glyphVars(g.style, skin, ink), ...innerVars(g.shape)};
+  // Un contenedor con forma de contorno (paquete UML) lo dibuja alrededor de toda su caja, con la pestaña
+  // en la cabecera que le reservó el layout (containerOutline); estirar el contorno de 0..100 no sirve ahí.
+  const frame = container && header && size ? containerOutline(g.shape, {width: size.width, height: size.height, header}) : null;
   return html`<div className=${'glyph shape-' + g.shape + (container ? ' is-container' : '') + (selected ? ' selected' : '') + (g.style?.fill || g.style?.stroke ? ' is-styled' : '')}
       style=${{...style, ...vars}} data-doc=${g.doc} data-glyph=${g.glyph} data-function=${g.function || ''} title=${g.doc}
       data-fill=${themed(g.style?.fill, skin) || ''} data-stroke=${themed(g.style?.stroke, skin) || ''} data-icon=${g.style?.icon || ''}>
-    <${ShapeOutline} shape=${g.shape}/>
+    ${frame ? html`<svg className="glyph-outline is-container-outline" viewBox=${frame.viewBox} preserveAspectRatio="none" aria-hidden="true"
+        data-tab-width=${frame.tab.width} data-tab-height=${frame.tab.height}><path d=${frame.d} vectorEffect="non-scaling-stroke"/></svg>`
+      : html`<${ShapeOutline} shape=${g.shape}/>`}
     ${children}
     ${(g.markers || []).map(m => html`<span key=${m.id} className=${'glyph-marker marker-' + m.shape} title=${m.id} data-marker=${m.id}></span>`)}
     ${point ? (outside ? html`<span className="glyph-point-label" style=${{left: outside.x + 'px', top: outside.y + 'px', width: outside.width + 'px'}}>${lineList(outside.lines)}</span>` : '')
@@ -78,7 +83,8 @@ function GlyphNode({data, selected}) {
   const [inPos, outPos] = HANDLES[data.direction] || HANDLES.TB;
   const icons = useIcons([data.glyph.style?.icon]);
   return html`<${Glyph} glyph=${data.glyph} container=${data.container} selected=${selected} skin=${data.skin} ink=${data.ink} icons=${icons}
-      lines=${data.container ? data.header?.lines : data.lines} outside=${data.outside} header=${data.container ? data.header : null}>
+      lines=${data.container ? data.header?.lines : data.lines} outside=${data.outside} header=${data.container ? data.header : null}
+      size=${data.width && data.height ? {width: data.width, height: data.height} : null}>
     <${Handle} type="target" position=${inPos}/><${Handle} type="source" position=${outPos}/>
   </${Glyph}>`;
 }

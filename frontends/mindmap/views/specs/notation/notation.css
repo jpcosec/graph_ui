@@ -117,6 +117,9 @@
 .glyph-outline path{fill:var(--glyph-fill,var(--surface-panel));stroke:var(--glyph-stroke,var(--ink));stroke-width:1.5}
 /* El texto de una forma de contorno va en su área interior (SHAPE_INNER en notation-style.mjs). */
 .glyph-outline ~ .glyph-head{position:absolute;top:var(--inner-top);right:var(--inner-right);bottom:var(--inner-bottom);left:var(--inner-left);min-height:0;padding:0 4px;box-sizing:border-box}
+/* Paquete UML contenedor: el contorno envuelve toda la caja y la pestaña es la cabecera que reservó el layout
+   (containerOutline): el título va en la pestaña, sin la raya de cabecera de los demás contenedores. */
+.glyph.shape-package.is-container > .glyph-head{border-bottom:0;justify-content:center}
 
 /* Leyenda de la notación, al pie del catálogo: nunca tapa el diagrama. */
 .notation-legend{margin:14px 10px 6px;padding-top:8px;border-top:1px solid var(--border)}
