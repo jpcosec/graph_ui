@@ -1,0 +1,18 @@
+name: 20261115-224814-suggestion-ir13-pide-migrar-graph-ui-de-spec2viz-a-sldb-resolve-view-sync-de-specs-viewdoc-pilotos
+path: desk/inbox/20261115-224814-suggestion-ir13-pide-migrar-graph-ui-de-spec2viz-a-sldb-resolve-view-sync-de-specs-viewdoc-pilotos.md
+source_hash: 60f9a41e228b26cf864aae76a5866cae1c31afed25daffa9edf89bfd5b2fdf12
+content_hash: 67fa646ede6a0c0947729250a54ec1373e09202aabdb0883345cfc522713393e
+field_hashes:
+  kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
+  sender_project: bedfd7658116eea0e9c6aa56c43288b769f14cc22546ef2cbac2588069909ad8
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: e4b7ccdbd033f0b4f8bf95337c6a66179e37d05dda986f7fef7e8173852f752d
+  status: 35ff74aeea25311f4fe759a6b762c8cd41a79adb23dd5615b92cf215175a63e5
+  title: a38b6c102d9948cfe8bfb19d2cdd1fc2430a8a461e4926fac2f25ffe20e8ac5f
+  body: 0daab03d40fdec5b3f74d13e45a927abbde033c066d64a329d07e9b1e2028817
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
+provenance: null
