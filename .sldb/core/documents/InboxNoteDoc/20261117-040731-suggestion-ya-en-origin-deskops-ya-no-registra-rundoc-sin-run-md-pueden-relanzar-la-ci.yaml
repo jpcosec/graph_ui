@@ -1,0 +1,18 @@
+name: 20261117-040731-suggestion-ya-en-origin-deskops-ya-no-registra-rundoc-sin-run-md-pueden-relanzar-la-ci
+path: desk/inbox/20261117-040731-suggestion-ya-en-origin-deskops-ya-no-registra-rundoc-sin-run-md-pueden-relanzar-la-ci.md
+source_hash: d02296dbec53ad86b521a093aac4f04dd059f19dd328bd9078e08a7552ed79e7
+content_hash: 8474ba0e7167929b371af61462cda099be6b9918a3b97bb47977d49965a7a95a
+field_hashes:
+  kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
+  sender_project: be1a918d36a26b50ff05a32144905fa0851e3a2c55c93b05726d8a3bab97b3e7
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: 31714bd3b591bdfcbecb67051ad93eab8e72206aba00bc239197d1ddb9930d16
+  status: 35ff74aeea25311f4fe759a6b762c8cd41a79adb23dd5615b92cf215175a63e5
+  title: 413a6df92672d7c1994e24e88b4bf718667ba50098db174bbab201fdd01d55f9
+  body: 606c8c5f9e08a5c70bc39c26c2bcf5b4bef6a3c319b41908a4ae1aa2359b9daf
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
+provenance: null

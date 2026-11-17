@@ -1,18 +1,19 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-17T06:21:37Z'
+  at: '2026-11-17T07:37:15Z'
   authority: generated
-  via: create_document
+  via: save_document_payload
 id: task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout
-status: draft
+status: active
 summary: ''
 tags:
 - workspace:desk
 - artifact:task
 - host:robocop2
-current_node: ritual-execution
-history: []
+current_node: ritual-testing
+history:
+- task_activates
 references:
 - runs/subagents/20261117-vite-huerfano-tester-a1/result-summary.md
 - tests/e2e_review_workbench_views.py
