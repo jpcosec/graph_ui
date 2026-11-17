@@ -28,6 +28,7 @@ from typing import Any
 from sldb.cli.model_utils import resolve_model_ref
 from sldb.cli.serve.routes import serialize_document
 from sldb.cli.store_context import get_store_context
+from sldb.core.exceptions import SLDBStoreError  # re-exportada: el resto de mindmap no importa sldb
 from sldb.runtime.validation import render_model_markdown, validate_model_input_roundtrip
 
 VIEW_FILENAME = "mindmap-view.json"
@@ -68,12 +69,15 @@ def quick_payload(fields: list[dict[str, Any]], id_prefix: str = "") -> dict[str
 
 
 class AdapterError(Exception):
-    """Error del adaptador con código HTTP equivalente."""
+    """Error del adaptador con código HTTP equivalente. ``estado`` es opcional: lo lleva solo un
+    error con nombre propio en la respuesta (``store_no_preparado``, como en workspace_routes)."""
 
-    def __init__(self, message: str, status: int = 400, completed: list[str] | None = None):
+    def __init__(self, message: str, status: int = 400, completed: list[str] | None = None,
+                 estado: str | None = None):
         super().__init__(message)
         self.status = status
         self.completed = completed or []
+        self.estado = estado
 
 
 class SldbAdapter:
@@ -403,14 +407,16 @@ class SldbAdapter:
 def runtime_documents(store: str | Path, pythonpath: str | None = None) -> list[Any]:
     """Todos los documentos del store (``model_name``, ``name``, ``payload``).
 
-    Cada lectura abre el store con ``open_store``, como toda operación de sldb: empieza una
+    Cada lectura abre el store con la lectura pública ``sldb.api.read_store``: empieza una
     operación nueva y los cachés de sldb se revalidan contra el disco. Sin eso, un proceso de
     larga vida (el servidor, o un test) seguía sirviendo el roster de un modelo cacheado antes de
     que otro proceso escribiera en él (visto con ViewDoc desde sldb GO04 d7eefdeb).
+    ``read_store`` no migra ni escribe el store: si su layout no es canónico lanza
+    ``SLDBStoreError`` 'store not prepared: run `sldb stores update`' (views_routes lo responde 503).
     """
-    from sldb.api import load_runtime_documents, open_store
+    from sldb.api import load_runtime_documents, read_store
 
-    return load_runtime_documents(open_store(Path(store)).store_path, pythonpath)
+    return load_runtime_documents(read_store(Path(store)).store_path, pythonpath)
 
 
 def where_holds(expression: str, payload: dict[str, Any]) -> bool:

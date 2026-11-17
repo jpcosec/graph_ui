@@ -15,9 +15,10 @@ from pathlib import Path
 from typing import Any
 
 from mindmap.projection_views import VIEW_MODEL, ViewError, evaluate_view, find_view, list_views
-from mindmap.sldb_adapter import ensure_model, write_document
+from mindmap.sldb_adapter import SLDBStoreError, ensure_model, write_document
 
 VIEW_MODEL_REF = 'sldb.models.notation.view_doc:ViewDoc'
+STORE_NO_PREPARADO = 'store_no_preparado'  # el mismo estado que workspace_routes
 
 
 class RouteError(Exception):
@@ -85,3 +86,9 @@ def dispatch(method: str, route: str, query: dict[str, list[str]], body: dict[st
         return {'ok': False, 'error': str(exc)}, exc.status
     except ViewError as exc:
         return {'ok': False, 'error': str(exc)}, 422
+    except SLDBStoreError as exc:
+        # Las lecturas de vistas usan sldb.api.read_store, que no migra: un store con layout no
+        # canónico responde 503 con el texto de sldb. Cualquier otro error del store sigue igual.
+        if 'store not prepared' in str(exc):
+            return {'ok': False, 'error': str(exc), 'estado': STORE_NO_PREPARADO}, 503
+        raise

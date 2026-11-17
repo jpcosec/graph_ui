@@ -14,9 +14,10 @@ from __future__ import annotations
 import os
 import re
 
-from mindmap.sldb_adapter import AdapterError, SldbAdapter
+from mindmap.sldb_adapter import AdapterError, SLDBStoreError, SldbAdapter
 
 SaveError = AdapterError
+STORE_NO_PREPARADO = 'store_no_preparado'  # el mismo estado que workspace_routes
 
 
 class EditorStore:
@@ -74,7 +75,14 @@ class EditorStore:
             # capa 6, ``sldb.api.read_store`` — expuesto por el adaptador). Sin esto,
             # el compare contra ``expected`` compararía contra un payload viejo
             # y pisotearía el cambio ajeno (ver MIGRACION §2.6).
-            adapter.refresh_for_concurrent_sessions()
+            # read_store no migra: un store des-preparado con el servidor arrancado lanza
+            # 'store not prepared' antes de escribir nada, y aquí responde 503 store_no_preparado.
+            try:
+                adapter.refresh_for_concurrent_sessions()
+            except SLDBStoreError as exc:
+                if 'store not prepared' in str(exc):
+                    raise SaveError(str(exc), 503, estado=STORE_NO_PREPARADO) from exc
+                raise
             changes = request.get('changes', [])
             if not isinstance(changes, list) or len(changes) > 500:
                 raise SaveError('Lista de cambios inválida.')

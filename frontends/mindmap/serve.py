@@ -474,6 +474,11 @@ class ProxyHandler(SimpleHTTPRequestHandler):
                     report, status = self.compilation.run(route.rsplit('/', 1)[1], request)
                     self.json_response(report, status)
             except self.save_error as exc:
+                if getattr(exc, 'estado', None):
+                    # store_no_preparado: save no escribió nada y no se vuelve a leer un store
+                    # sin preparar para adjuntar el grafo; la respuesta lleva el estado (como workspace).
+                    return self.json_response({'ok': False, 'error': str(exc), 'estado': exc.estado,
+                        'completed': exc.completed}, exc.status)
                 self.json_response({'ok': False, 'error': str(exc), 'completed': exc.completed,
                     **self.editor_store.graph()}, exc.status)
             except (ValueError, KeyError, TypeError) as exc:

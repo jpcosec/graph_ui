@@ -195,3 +195,60 @@ def test_a_view_another_process_saves_is_seen_by_the_next_read_of_this_one(tmp_p
     subprocess.run([sys.executable, "-c", writer, str(store)], check=True, capture_output=True,
                    cwd=MINDMAP.parent)
     assert find_view(store, "ViewDoc:herencia")["relations"] == ["inherits"]
+
+
+def _unprepare(store: Path) -> Path:
+    """Deja el store con layout no canónico, como tests/test_mindmap_workspace_explorer.py::
+    test_listing_get_on_unprepared_store_is_503_and_writes_nothing: el índice semántico real del store,
+    en su archivo único previo al sharding (PLAN 15 capa 5). _already_canonical lo rechaza."""
+    from sldb.api import store_is_prepared
+    from sldb.store.io import load_semantic_index
+    from sldb.store.io.utils import yaml_dump
+    from sldb.store.layout import semantic_index_path
+
+    legacy = semantic_index_path(store)
+    assert not legacy.exists()
+    legacy.write_text(yaml_dump(load_semantic_index(store).model_dump(mode="json")), encoding="utf-8")
+    assert not store_is_prepared(store)
+    return legacy
+
+
+def _tree_state(*roots: Path) -> dict:
+    """sha256 y mtime_ns de todos los archivos bajo cada raíz (recursivo)."""
+    import hashlib
+    return {str(p): (hashlib.sha256(p.read_bytes()).hexdigest(), p.stat().st_mtime_ns)
+            for root in roots for p in sorted(root.rglob("*")) if p.is_file()}
+
+
+def test_views_get_on_an_unprepared_store_is_503_and_writes_nothing(tmp_path, monkeypatch):
+    """Las lecturas de vistas usan sldb.api.read_store, que no migra: con el servidor ya arrancado
+    sobre un store preparado que después queda no canónico, GET /api/views y la evaluación de una
+    vista responden 503 store_no_preparado con el texto de sldb y no cambia ningún archivo de .sldb
+    (ni de .sldb_cache, donde escribiría la migración)."""
+    from sldb.api import open_store, store_is_prepared
+
+    store = _store(tmp_path, ["component-exception-hierarchy.yml"])
+    monkeypatch.setenv("GRAPH_UI_BACKEND", "local")
+    httpd = _load_serve().make_server(port=0, store=store)
+    threading.Thread(target=httpd.serve_forever, daemon=True).start()
+    url = f"http://127.0.0.1:{httpd.server_address[1]}"
+    try:
+        assert store_is_prepared(store)
+        assert _call(f"{url}/api/views/evaluate", {"view": INHERITS})[0] == 200  # preparado: evalúa
+        legacy = _unprepare(store)
+        cache = store.parent / ".sldb_cache"
+        for method, route, body in (("GET", "/api/views", None),
+                                    ("GET", "/api/views/evaluate?view=ViewDoc:herencia", None),
+                                    ("POST", "/api/views/evaluate", {"view": INHERITS})):
+            before = _tree_state(store, cache)
+            status, data = _call(f"{url}{route}", body)
+            assert status == 503, (method, route, status, data)
+            assert data["ok"] is False and data["estado"] == "store_no_preparado", data
+            assert "store not prepared" in data["error"], data
+            assert _tree_state(store, cache) == before, f"{method} {route} cambió archivos del store"
+        assert legacy.exists() and not store_is_prepared(store)  # nada lo migró
+    finally:
+        httpd.shutdown()
+        httpd.server_close()
+    open_store(store)  # control: la apertura que sí migra prepara el mismo store
+    assert store_is_prepared(store) and not legacy.exists()

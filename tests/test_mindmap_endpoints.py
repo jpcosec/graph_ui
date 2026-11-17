@@ -489,3 +489,51 @@ def test_models_promote_installs_validated_draft(fresh_env):
         "el draft sobrevivió a la promoción"
     status, detail = _request(port, "/api/models/detail", {"model": "TaskDoc"})
     assert status == 200 and "priority" in str(detail)
+
+
+def test_save_on_a_store_unprepared_after_start_is_503_and_writes_nothing(tmp_path, monkeypatch):
+    """POST /api/save con el servidor ya arrancado sobre un store que después queda no canónico
+    (el índice semántico real en su archivo único previo al sharding, como tests/
+    test_mindmap_workspace_explorer.py::test_listing_get_on_unprepared_store_is_503_and_writes_nothing):
+    persistence.save traduce el 'store not prepared' de sldb.api.read_store a 503
+    store_no_preparado y no cambia ningún archivo de .sldb ni de .sldb_cache."""
+    import hashlib
+    from sldb.api import open_store, store_is_prepared
+    from sldb.store.io import load_semantic_index
+    from sldb.store.io.utils import yaml_dump
+    from sldb.store.layout import semantic_index_path
+
+    monkeypatch.setenv("GRAPH_UI_BACKEND", "local")
+    store = tmp_path / ".sldb"
+    _compile_fixture(store)
+    env = _Server(store)
+    try:
+        assert store_is_prepared(store)
+        status, graph = _request(env.port, "/api/graph")
+        assert status == 200 and graph["documents"], graph
+        doc = graph["documents"][0]
+        payload = {**doc["payload"], "title": "Cambio que no debe escribirse"}
+        body = {"changes": [{"action": "update", "id": doc["id"], "model": doc["model_name"],
+                             "expected": doc["payload"], "payload": payload}],
+                "view": graph["view"], "viewRevision": graph["revision"]}
+
+        legacy = semantic_index_path(store)
+        assert not legacy.exists()
+        legacy.write_text(yaml_dump(load_semantic_index(store).model_dump(mode="json")), encoding="utf-8")
+        assert not store_is_prepared(store)
+
+        def tree_state() -> dict:
+            return {str(p): (hashlib.sha256(p.read_bytes()).hexdigest(), p.stat().st_mtime_ns)
+                    for root in (store, tmp_path / ".sldb_cache") for p in sorted(root.rglob("*")) if p.is_file()}
+
+        before = tree_state()
+        status, data = _request(env.port, "/api/save", body)
+        assert status == 503, (status, data)
+        assert data["ok"] is False and data["estado"] == "store_no_preparado", data
+        assert "store not prepared" in data["error"] and data["completed"] == [], data
+        assert tree_state() == before, "POST /api/save cambió archivos del store"
+        assert legacy.exists() and not store_is_prepared(store)  # nada lo migró
+    finally:
+        env.stop()
+    open_store(store)  # control: la apertura que sí migra prepara el mismo store
+    assert store_is_prepared(store) and not legacy.exists()
