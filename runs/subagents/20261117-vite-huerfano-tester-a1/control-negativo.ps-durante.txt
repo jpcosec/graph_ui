@@ -1,0 +1,79 @@
+1327477       1 1323289 node /dev/shm/gui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-uvze5a5n/dist --port 41979 --strictPort --host 127.0.0.1
+1984202       1 1981868 node /dev/shm/cc34ui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-2fwa2btg/dist --port 33405 --strictPort --host 127.0.0.1
+2425827 2425826 2425827 /bin/bash /dev/shm/vite-t1/run.sh control-negativo /dev/shm/vite-t1/neg tests/e2e_review_workbench_views.py -k test_stop
+2425829 2425827 2425827 /bin/bash /dev/shm/vite-t1/run.sh control-negativo /dev/shm/vite-t1/neg tests/e2e_review_workbench_views.py -k test_stop
+2425832 2425827 2425832 timeout 900 systemd-run --user --scope -p MemoryMax=3G -- env TMPDIR=/dev/shm /dev/shm/vite-t1/venv/bin/python -m pytest -q -rs -p no:cacheprovider --basetemp=/dev/shm/vite-t1/bt tests/e2e_review_workbench_views.py -k test_stop
+2425833 2425832 2425832 /dev/shm/vite-t1/venv/bin/python -m pytest -q -rs -p no:cacheprovider --basetemp=/dev/shm/vite-t1/bt tests/e2e_review_workbench_views.py -k test_stop
+3566546       1 3549636 node /home/dios/proyectos/SLDB_1-wip/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/sldb-suite/tmp/rw-views-e3pf30lq/dist --port 41135 --strictPort --host 127.0.0.1
+3589698       1 3589698 /home/dios/proyectos/SLDB_1-wip/.venv/bin/python frontends/mindmap/serve.py 8092
+4056613       1    1694 /home/robocop/.local/bin/uv run --directory sldb sldb serve --store /mnt/ssd/proyectos/SLDB_1/workbench_demo/.sldb --pythonpath /mnt/ssd/proyectos/SLDB_1 --port 8085 --cors
+4057087 4056613    1694 /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/python /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/sldb serve --store /mnt/ssd/proyectos/SLDB_1/workbench_demo/.sldb --pythonpath /mnt/ssd/proyectos/SLDB_1 --port 8085 --cors
+---
+1327477       1 1323289 node /dev/shm/gui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-uvze5a5n/dist --port 41979 --strictPort --host 127.0.0.1
+1984202       1 1981868 node /dev/shm/cc34ui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-2fwa2btg/dist --port 33405 --strictPort --host 127.0.0.1
+2425827 2425826 2425827 /bin/bash /dev/shm/vite-t1/run.sh control-negativo /dev/shm/vite-t1/neg tests/e2e_review_workbench_views.py -k test_stop
+2425829 2425827 2425827 /bin/bash /dev/shm/vite-t1/run.sh control-negativo /dev/shm/vite-t1/neg tests/e2e_review_workbench_views.py -k test_stop
+2425832 2425827 2425832 timeout 900 systemd-run --user --scope -p MemoryMax=3G -- env TMPDIR=/dev/shm /dev/shm/vite-t1/venv/bin/python -m pytest -q -rs -p no:cacheprovider --basetemp=/dev/shm/vite-t1/bt tests/e2e_review_workbench_views.py -k test_stop
+2425833 2425832 2425832 /dev/shm/vite-t1/venv/bin/python -m pytest -q -rs -p no:cacheprovider --basetemp=/dev/shm/vite-t1/bt tests/e2e_review_workbench_views.py -k test_stop
+2425897 2425833 2425897 npm exec vite preview --outDir /dev/shm/vite-t1/bt/test_stop_leaves_no_process_of0/rw-views-stop --port 56125 --strictPort --host 127.0.0.1
+3566546       1 3549636 node /home/dios/proyectos/SLDB_1-wip/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/sldb-suite/tmp/rw-views-e3pf30lq/dist --port 41135 --strictPort --host 127.0.0.1
+3589698       1 3589698 /home/dios/proyectos/SLDB_1-wip/.venv/bin/python frontends/mindmap/serve.py 8092
+4056613       1    1694 /home/robocop/.local/bin/uv run --directory sldb sldb serve --store /mnt/ssd/proyectos/SLDB_1/workbench_demo/.sldb --pythonpath /mnt/ssd/proyectos/SLDB_1 --port 8085 --cors
+4057087 4056613    1694 /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/python /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/sldb serve --store /mnt/ssd/proyectos/SLDB_1/workbench_demo/.sldb --pythonpath /mnt/ssd/proyectos/SLDB_1 --port 8085 --cors
+---
+1327477       1 1323289 node /dev/shm/gui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-uvze5a5n/dist --port 41979 --strictPort --host 127.0.0.1
+1984202       1 1981868 node /dev/shm/cc34ui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-2fwa2btg/dist --port 33405 --strictPort --host 127.0.0.1
+2425827 2425826 2425827 /bin/bash /dev/shm/vite-t1/run.sh control-negativo /dev/shm/vite-t1/neg tests/e2e_review_workbench_views.py -k test_stop
+2425829 2425827 2425827 /bin/bash /dev/shm/vite-t1/run.sh control-negativo /dev/shm/vite-t1/neg tests/e2e_review_workbench_views.py -k test_stop
+2425832 2425827 2425832 timeout 900 systemd-run --user --scope -p MemoryMax=3G -- env TMPDIR=/dev/shm /dev/shm/vite-t1/venv/bin/python -m pytest -q -rs -p no:cacheprovider --basetemp=/dev/shm/vite-t1/bt tests/e2e_review_workbench_views.py -k test_stop
+2425833 2425832 2425832 /dev/shm/vite-t1/venv/bin/python -m pytest -q -rs -p no:cacheprovider --basetemp=/dev/shm/vite-t1/bt tests/e2e_review_workbench_views.py -k test_stop
+2425897 2425833 2425897 npm exec vite preview --outDir /dev/shm/vite-t1/bt/test_stop_leaves_no_process_of0/rw-views-stop --port 56125 --strictPort --host 127.0.0.1
+2425978 2425897 2425897 sh -c vite preview --outDir /dev/shm/vite-t1/bt/test_stop_leaves_no_process_of0/rw-views-stop --port 56125 --strictPort --host 127.0.0.1
+2425979 2425978 2425897 node /dev/shm/vite-t1/neg/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/vite-t1/bt/test_stop_leaves_no_process_of0/rw-views-stop --port 56125 --strictPort --host 127.0.0.1
+3566546       1 3549636 node /home/dios/proyectos/SLDB_1-wip/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/sldb-suite/tmp/rw-views-e3pf30lq/dist --port 41135 --strictPort --host 127.0.0.1
+3589698       1 3589698 /home/dios/proyectos/SLDB_1-wip/.venv/bin/python frontends/mindmap/serve.py 8092
+4056613       1    1694 /home/robocop/.local/bin/uv run --directory sldb sldb serve --store /mnt/ssd/proyectos/SLDB_1/workbench_demo/.sldb --pythonpath /mnt/ssd/proyectos/SLDB_1 --port 8085 --cors
+4057087 4056613    1694 /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/python /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/sldb serve --store /mnt/ssd/proyectos/SLDB_1/workbench_demo/.sldb --pythonpath /mnt/ssd/proyectos/SLDB_1 --port 8085 --cors
+---
+1327477       1 1323289 node /dev/shm/gui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-uvze5a5n/dist --port 41979 --strictPort --host 127.0.0.1
+1984202       1 1981868 node /dev/shm/cc34ui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-2fwa2btg/dist --port 33405 --strictPort --host 127.0.0.1
+2425827 2425826 2425827 /bin/bash /dev/shm/vite-t1/run.sh control-negativo /dev/shm/vite-t1/neg tests/e2e_review_workbench_views.py -k test_stop
+2425829 2425827 2425827 /bin/bash /dev/shm/vite-t1/run.sh control-negativo /dev/shm/vite-t1/neg tests/e2e_review_workbench_views.py -k test_stop
+2425832 2425827 2425832 timeout 900 systemd-run --user --scope -p MemoryMax=3G -- env TMPDIR=/dev/shm /dev/shm/vite-t1/venv/bin/python -m pytest -q -rs -p no:cacheprovider --basetemp=/dev/shm/vite-t1/bt tests/e2e_review_workbench_views.py -k test_stop
+2425833 2425832 2425832 /dev/shm/vite-t1/venv/bin/python -m pytest -q -rs -p no:cacheprovider --basetemp=/dev/shm/vite-t1/bt tests/e2e_review_workbench_views.py -k test_stop
+2425897 2425833 2425897 npm exec vite preview --outDir /dev/shm/vite-t1/bt/test_stop_leaves_no_process_of0/rw-views-stop --port 56125 --strictPort --host 127.0.0.1
+2425978 2425897 2425897 sh -c vite preview --outDir /dev/shm/vite-t1/bt/test_stop_leaves_no_process_of0/rw-views-stop --port 56125 --strictPort --host 127.0.0.1
+2425979 2425978 2425897 node /dev/shm/vite-t1/neg/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/vite-t1/bt/test_stop_leaves_no_process_of0/rw-views-stop --port 56125 --strictPort --host 127.0.0.1
+3566546       1 3549636 node /home/dios/proyectos/SLDB_1-wip/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/sldb-suite/tmp/rw-views-e3pf30lq/dist --port 41135 --strictPort --host 127.0.0.1
+3589698       1 3589698 /home/dios/proyectos/SLDB_1-wip/.venv/bin/python frontends/mindmap/serve.py 8092
+4056613       1    1694 /home/robocop/.local/bin/uv run --directory sldb sldb serve --store /mnt/ssd/proyectos/SLDB_1/workbench_demo/.sldb --pythonpath /mnt/ssd/proyectos/SLDB_1 --port 8085 --cors
+4057087 4056613    1694 /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/python /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/sldb serve --store /mnt/ssd/proyectos/SLDB_1/workbench_demo/.sldb --pythonpath /mnt/ssd/proyectos/SLDB_1 --port 8085 --cors
+---
+1327477       1 1323289 node /dev/shm/gui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-uvze5a5n/dist --port 41979 --strictPort --host 127.0.0.1
+1984202       1 1981868 node /dev/shm/cc34ui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-2fwa2btg/dist --port 33405 --strictPort --host 127.0.0.1
+2425827 2425826 2425827 /bin/bash /dev/shm/vite-t1/run.sh control-negativo /dev/shm/vite-t1/neg tests/e2e_review_workbench_views.py -k test_stop
+2425829 2425827 2425827 /bin/bash /dev/shm/vite-t1/run.sh control-negativo /dev/shm/vite-t1/neg tests/e2e_review_workbench_views.py -k test_stop
+2425832 2425827 2425832 timeout 900 systemd-run --user --scope -p MemoryMax=3G -- env TMPDIR=/dev/shm /dev/shm/vite-t1/venv/bin/python -m pytest -q -rs -p no:cacheprovider --basetemp=/dev/shm/vite-t1/bt tests/e2e_review_workbench_views.py -k test_stop
+2425833 2425832 2425832 /dev/shm/vite-t1/venv/bin/python -m pytest -q -rs -p no:cacheprovider --basetemp=/dev/shm/vite-t1/bt tests/e2e_review_workbench_views.py -k test_stop
+2425897 2425833 2425897 npm exec vite preview --outDir /dev/shm/vite-t1/bt/test_stop_leaves_no_process_of0/rw-views-stop --port 56125 --strictPort --host 127.0.0.1
+2425978 2425897 2425897 sh -c vite preview --outDir /dev/shm/vite-t1/bt/test_stop_leaves_no_process_of0/rw-views-stop --port 56125 --strictPort --host 127.0.0.1
+2425979 2425978 2425897 node /dev/shm/vite-t1/neg/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/vite-t1/bt/test_stop_leaves_no_process_of0/rw-views-stop --port 56125 --strictPort --host 127.0.0.1
+3566546       1 3549636 node /home/dios/proyectos/SLDB_1-wip/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/sldb-suite/tmp/rw-views-e3pf30lq/dist --port 41135 --strictPort --host 127.0.0.1
+3589698       1 3589698 /home/dios/proyectos/SLDB_1-wip/.venv/bin/python frontends/mindmap/serve.py 8092
+4056613       1    1694 /home/robocop/.local/bin/uv run --directory sldb sldb serve --store /mnt/ssd/proyectos/SLDB_1/workbench_demo/.sldb --pythonpath /mnt/ssd/proyectos/SLDB_1 --port 8085 --cors
+4057087 4056613    1694 /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/python /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/sldb serve --store /mnt/ssd/proyectos/SLDB_1/workbench_demo/.sldb --pythonpath /mnt/ssd/proyectos/SLDB_1 --port 8085 --cors
+---
+1327477       1 1323289 node /dev/shm/gui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-uvze5a5n/dist --port 41979 --strictPort --host 127.0.0.1
+1984202       1 1981868 node /dev/shm/cc34ui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-2fwa2btg/dist --port 33405 --strictPort --host 127.0.0.1
+2425827 2425826 2425827 /bin/bash /dev/shm/vite-t1/run.sh control-negativo /dev/shm/vite-t1/neg tests/e2e_review_workbench_views.py -k test_stop
+2425829 2425827 2425827 /bin/bash /dev/shm/vite-t1/run.sh control-negativo /dev/shm/vite-t1/neg tests/e2e_review_workbench_views.py -k test_stop
+2425832 2425827 2425832 timeout 900 systemd-run --user --scope -p MemoryMax=3G -- env TMPDIR=/dev/shm /dev/shm/vite-t1/venv/bin/python -m pytest -q -rs -p no:cacheprovider --basetemp=/dev/shm/vite-t1/bt tests/e2e_review_workbench_views.py -k test_stop
+2425833 2425832 2425832 /dev/shm/vite-t1/venv/bin/python -m pytest -q -rs -p no:cacheprovider --basetemp=/dev/shm/vite-t1/bt tests/e2e_review_workbench_views.py -k test_stop
+2425897 2425833 2425897 npm exec vite preview --outDir /dev/shm/vite-t1/bt/test_stop_leaves_no_process_of0/rw-views-stop --port 56125 --strictPort --host 127.0.0.1
+2425978 2425897 2425897 sh -c vite preview --outDir /dev/shm/vite-t1/bt/test_stop_leaves_no_process_of0/rw-views-stop --port 56125 --strictPort --host 127.0.0.1
+2425979 2425978 2425897 node /dev/shm/vite-t1/neg/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/vite-t1/bt/test_stop_leaves_no_process_of0/rw-views-stop --port 56125 --strictPort --host 127.0.0.1
+3566546       1 3549636 node /home/dios/proyectos/SLDB_1-wip/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/sldb-suite/tmp/rw-views-e3pf30lq/dist --port 41135 --strictPort --host 127.0.0.1
+3589698       1 3589698 /home/dios/proyectos/SLDB_1-wip/.venv/bin/python frontends/mindmap/serve.py 8092
+4056613       1    1694 /home/robocop/.local/bin/uv run --directory sldb sldb serve --store /mnt/ssd/proyectos/SLDB_1/workbench_demo/.sldb --pythonpath /mnt/ssd/proyectos/SLDB_1 --port 8085 --cors
+4057087 4056613    1694 /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/python /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/sldb serve --store /mnt/ssd/proyectos/SLDB_1/workbench_demo/.sldb --pythonpath /mnt/ssd/proyectos/SLDB_1 --port 8085 --cors
+---

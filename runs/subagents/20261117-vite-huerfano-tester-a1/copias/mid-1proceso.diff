@@ -1,0 +1,10 @@
+--- /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/tests/e2e_review_workbench_views.py	2026-11-17 02:23:35.224294439 -0300
++++ /dev/shm/vite-t1/mid/tests/e2e_mid1.py	2026-11-17 02:36:37.390543949 -0300
+@@ -136,6 +136,7 @@
+         sldb_port, ui_port, app_port = _free_port(), _free_port(), _free_port()
+         env = {**os.environ, "GRAPH_UI_BACKEND": "local", "SLDB_STORE": str(store)}
+         processes.append(_spawn(["sldb", "serve", "--store", str(store), "--port", str(sldb_port)]))
++        raise RuntimeError("SIMULATED: fallo tras lanzar 1 proceso")
+         processes.append(_spawn([sys.executable, str(MINDMAP / "serve.py"), str(ui_port)], env=env))
+         _wait(f"http://127.0.0.1:{sldb_port}/health", processes[0])
+         _wait(f"http://127.0.0.1:{ui_port}/api/views", processes[1])

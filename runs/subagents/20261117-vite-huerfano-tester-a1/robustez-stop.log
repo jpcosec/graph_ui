@@ -1,0 +1,8 @@
+ignora-TERM: stop=10.02s rc=-9 exc=None before={'30011': [2392777, 2392778]} after={'30011': []}
+ya-muerto-zombie: stop=0.00s rc=3 exc=None before={} after={}
+ya-muerto-reapeado: stop=0.00s rc=3 exc=None before={} after={}
+nietos: stop=0.10s rc=-15 exc=None before={'30021': [2394292, 2394293], '30022': [2394292, 2394294, 2394295], '30023': [2394292, 2394294, 2394296]} after={'30021': [], '30022': [], '30023': []}
+nieto-huerfano-lider-muerto: stop=0.10s rc=0 exc=None before={'30031': [2394538]} after={'30031': []}
+nieto-ignora-TERM-lider-muerto: stop=10.08s rc=0 exc=None before={'30041': [2394852]} after={'30041': []}
+nieto-setsid-escapa: stop=0.10s rc=-15 exc=None before={'30051': [2396137, 2396138]} after={'30051': [2396138]}
+tres-grupos-dos-tercos: stop=10.01s left=[[], [], []]

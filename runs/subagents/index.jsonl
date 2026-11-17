@@ -48,3 +48,4 @@
 {"task_id": "task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables", "run_id": null, "run_dir": "runs/subagents/20261116-specs-packages-tester-a1", "session_sha256": null, "commit": null}
 {"task_id": "task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-p\u00fablica-de-sldb-read-store-extract-payload-en", "run_id": null, "run_dir": "runs/subagents/20261116-read-store-tester-a1", "session_sha256": null, "commit": null}
 {"task_id": "task-las-vistas-de-proyecci\u00f3n-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon", "run_id": null, "run_dir": "runs/subagents/20261117-viewsave-tester-a1", "session_sha256": null, "commit": null}
+{"task_id": "task-la-e2e-de-vistas-de-review-workbench-no-deja-procesos-vite-preview-hu\u00e9rfanos-al-terminar", "run_id": null, "run_dir": "runs/subagents/20261117-vite-huerfano-tester-a1", "session_sha256": null, "commit": null}

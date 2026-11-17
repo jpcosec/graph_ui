@@ -1,0 +1,536 @@
+    PID    PPID    PGID CMD
+      1       0       1 /usr/lib/systemd/systemd --system --deserialize=103 splash
+      2       0       0 [kthreadd]
+      3       2       0 [pool_workqueue_release]
+      4       2       0 [kworker/R-rcu_gp]
+      5       2       0 [kworker/R-sync_wq]
+      6       2       0 [kworker/R-kvfree_rcu_reclaim]
+      7       2       0 [kworker/R-slub_flushwq]
+      8       2       0 [kworker/R-netns]
+     10       2       0 [kworker/0:0H-kblockd]
+     13       2       0 [kworker/R-mm_percpu_wq]
+     14       2       0 [ksoftirqd/0]
+     15       2       0 [rcu_preempt]
+     16       2       0 [rcu_exp_par_gp_kthread_worker/0]
+     17       2       0 [rcu_exp_gp_kthread_worker]
+     18       2       0 [migration/0]
+     19       2       0 [kprobe-optimizer]
+     20       2       0 [idle_inject/0]
+     21       2       0 [cpuhp/0]
+     22       2       0 [cpuhp/1]
+     23       2       0 [idle_inject/1]
+     24       2       0 [migration/1]
+     25       2       0 [ksoftirqd/1]
+     28       2       0 [cpuhp/2]
+     29       2       0 [idle_inject/2]
+     30       2       0 [migration/2]
+     31       2       0 [ksoftirqd/2]
+     33       2       0 [kworker/2:0H-kblockd]
+     34       2       0 [cpuhp/3]
+     35       2       0 [idle_inject/3]
+     36       2       0 [migration/3]
+     37       2       0 [ksoftirqd/3]
+     39       2       0 [kworker/3:0H-kblockd]
+     40       2       0 [cpuhp/4]
+     41       2       0 [idle_inject/4]
+     42       2       0 [migration/4]
+     43       2       0 [ksoftirqd/4]
+     45       2       0 [kworker/4:0H-kblockd]
+     46       2       0 [cpuhp/5]
+     47       2       0 [idle_inject/5]
+     48       2       0 [migration/5]
+     49       2       0 [ksoftirqd/5]
+     51       2       0 [kworker/5:0H-kblockd]
+     52       2       0 [kdevtmpfs]
+     53       2       0 [kworker/R-inet_frag_wq]
+     54       2       0 [rcu_tasks_kthread]
+     55       2       0 [rcu_tasks_rude_kthread]
+     56       2       0 [kauditd]
+     57       2       0 [khungtaskd]
+     59       2       0 [oom_reaper]
+     61       2       0 [kworker/R-writeback]
+     62       2       0 [kcompactd0]
+     63       2       0 [ksmd]
+     64       2       0 [khugepaged]
+     65       2       0 [kworker/R-kblockd]
+     66       2       0 [kworker/R-blkcg_punt_bio]
+     67       2       0 [kworker/R-kintegrityd]
+     69       2       0 [irq/9-acpi]
+     73       2       0 [kworker/R-tpm_dev_wq]
+     74       2       0 [kworker/R-ata_sff]
+     75       2       0 [kworker/R-md_bitmap]
+     76       2       0 [kworker/R-md_llbitmap_io]
+     77       2       0 [kworker/R-md_llbitmap_unplug]
+     78       2       0 [kworker/R-edac-poller]
+     79       2       0 [kworker/R-devfreq_wq]
+     80       2       0 [watchdogd]
+     81       2       0 [kworker/R-quota_events_unbound]
+     82       2       0 [kswapd0]
+     83       2       0 [ecryptfs-kthread]
+     84       2       0 [kworker/R-kthrotld]
+     85       2       0 [kworker/R-acpi_thermal_pm]
+     88       2       0 [kworker/R-mld]
+     89       2       0 [kworker/R-ipv6_addrconf]
+     90       2       0 [kworker/R-kstrp]
+     93       2       0 [kworker/u25:0]
+    105       2       0 [kworker/R-charger_manager]
+    196       2       0 [scsi_eh_0]
+    197       2       0 [kworker/R-scsi_tmf_0]
+    198       2       0 [scsi_eh_1]
+    199       2       0 [kworker/R-scsi_tmf_1]
+    200       2       0 [scsi_eh_2]
+    201       2       0 [kworker/R-scsi_tmf_2]
+    202       2       0 [scsi_eh_3]
+    203       2       0 [kworker/R-scsi_tmf_3]
+    204       2       0 [scsi_eh_4]
+    205       2       0 [kworker/R-scsi_tmf_4]
+    206       2       0 [scsi_eh_5]
+    207       2       0 [kworker/R-scsi_tmf_5]
+    224       2       0 [kworker/R-uas]
+    225       2       0 [kworker/5:1H-kblockd]
+    261       2       0 [kworker/0:1H-kblockd]
+    263       2       0 [kworker/2:1H-kblockd]
+    265       2       0 [kworker/3:1H-kblockd]
+    274       2       0 [jbd2/sdb2-8]
+    275       2       0 [kworker/R-ext4-rsv-conversion]
+    325       1     325 /usr/lib/systemd/systemd-journald
+    346       2       0 [kworker/4:1H-kblockd]
+    420       1     420 /usr/lib/systemd/systemd-udevd
+    421       2       0 [psimon]
+    562       2       0 [irq/127-mei_me]
+    615       2       0 [kworker/R-ttm]
+    616       2       0 [card1-crtc0]
+    617       2       0 [card1-crtc1]
+    618       2       0 [card1-crtc2]
+    656       2       0 [nv_queue]
+    657       2       0 [nv_queue]
+    658       2       0 [nv_open_q]
+    659       2       0 [nvidia-modeset/kthread_q]
+    660       2       0 [nvidia-modeset/deferred_close_kthread_q]
+    663       2       0 [irq/129-nvidia]
+    664       2       0 [nvidia]
+    665       2       0 [nv_queue]
+    737       2       0 [UVM global queue]
+    738       2       0 [UVM deferred release queue]
+    739       2       0 [UVM Tools Event Queue]
+    816       1     816 /home/dios/.local/bin/claude daemon run --json-path /home/dios/.claude/daemon.json --log-file /home/dios/.claude/daemon.log --origin transient --spawned-by {"label":"claude","cwd":"/home/dios/proyectos/Matrix","pid":4070006}
+    829     816     829 claude bg-pty-host --bg-pty-host /tmp/cc-daemon-1000/3de38fde/spare/165a9342.pty.sock 200 50 -- /home/dios/.local/share/claude/versions/2.1.316 --bg-spare /tmp/cc-daemon-1000/3de38fde/spare/165a9342.claim.sock
+    835     829     829 claude bg-spare --bg-spare /tmp/cc-daemon-1000/3de38fde/spare/165a9342.claim.sock
+   1337       1    1337 /usr/lib/systemd/systemd-oomd
+   1338       1    1338 /usr/lib/systemd/systemd-resolved
+   1339       1    1339 /usr/lib/systemd/systemd-timesyncd
+   1350       1    1350 avahi-daemon: running [server.local]
+   1351       1    1351 @dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+   1354       1    1354 /usr/libexec/gnome-remote-desktop-daemon --system
+   1371       1    1371 /usr/lib/polkit-1/polkitd --no-debug
+   1372       1    1372 /usr/libexec/power-profiles-daemon
+   1374       1    1374 /usr/sbin/smartd -n
+   1377       1    1377 /usr/libexec/accounts-daemon
+   1378       1    1378 /usr/sbin/cron -f -P
+   1379       1    1379 /usr/libexec/switcheroo-control
+   1381       1    1381 /usr/lib/systemd/systemd-logind
+   1382       1    1382 /usr/sbin/thermald --systemd --dbus-enable --adaptive
+   1383       1    1383 /usr/libexec/udisks2/udisksd
+   1387    1350    1350 avahi-daemon: chroot helper
+   1394       1    1394 /usr/bin/nvidia-persistenced --user nvidia-persistenced --no-persistence-mode --verbose
+   1430       1    1430 /usr/sbin/rsyslogd -n -iNONE
+   1531       1    1531 /usr/sbin/NetworkManager --no-daemon
+   1536       1    1536 /usr/sbin/wpa_supplicant -u -s -O DIR=/run/wpa_supplicant GROUP=netdev
+   1573       1    1573 /usr/sbin/ModemManager
+   1695       1    1695 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+   1708       1    1708 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+   1755       1    1755 /usr/sbin/gdm3
+   1795       1    1795 /usr/local/bin/ollama serve
+   1797       1    1797 /usr/sbin/kerneloops --test
+   1800       1    1800 /usr/sbin/kerneloops
+   1813       1    1811 /opt/teamviewer/tv_bin/teamviewerd -d
+   1826       1    1825 /opt/teamviewer/tv_bin/tv_crashpad_handler --database=/opt/teamviewer/logfiles/crashpad/teamviewerd --annotation=edition=FI --annotation=version=15.83.3 --initial-client-fd=7 --shared-client-connection
+   1888       1    1888 /usr/lib/systemd/systemd --user
+   1907    1888    1888 (sd-pam)
+   2031    1888    2031 /usr/bin/pipewire
+   2032    1888    2032 /usr/bin/pipewire -c filter-chain.conf
+   2034    1888    2034 /usr/bin/wireplumber
+   2035    1888    2035 /usr/bin/pipewire-pulse
+   2096       1    2096 /usr/libexec/rtkit-daemon
+   4067    1888    4067 /usr/libexec/gcr-ssh-agent --base-dir /run/user/1000/gcr
+   4238       1    4238 /usr/libexec/colord
+   4306       1    4306 /usr/libexec/upowerd
+   5178       2       0 [kworker/R-tls-strp]
+ 327154 3628917  327154 [codex] <defunct>
+ 364573       2       0 [psimon]
+ 521530 1094592  521530 htop
+ 523277 2194861  523277 /bin/bash
+ 524480  523277  524480 claude
+ 531718 2194861  531718 /bin/bash
+ 561246       1  561246 /home/robocop/AntonIA/repos/legacy/mepu/mepu/.venv/bin/python -m uvicorn mepu.app.api:app --app-dir src --host 127.0.0.1 --port 32962
+ 620376 2194861  620376 /bin/bash
+ 620394  620376  620394 claude --model opus
+ 620892 2194861  620892 /bin/bash
+ 620910  620892  620910 claude --model opus
+ 621367 2194861  621367 /bin/bash
+ 621384  621367  621384 claude --model opus
+ 621870 2194861  621870 /bin/bash
+ 621893  621870  621893 claude --model opus
+ 634033 3628917  634033 [codex] <defunct>
+ 640585       1  640585 /usr/lib/systemd/systemd --user
+ 640591  640585  640585 (sd-pam)
+ 640601  640585  640601 /usr/bin/pipewire
+ 640604  640585  640604 /usr/bin/pipewire -c filter-chain.conf
+ 640609  640585  640609 /usr/bin/wireplumber
+ 643000 2194861  643000 /bin/bash
+ 813122       1  813122 -bash
+ 925470 3488214  925470 /usr/bin/gnome-keyring-daemon --foreground --components=pkcs11,secrets --control-directory=/run/user/120/keyring
+ 929762       2       0 [jbd2/sda1-8]
+ 929763       2       0 [kworker/R-ext4-rsv-conversion]
+ 966607       2       0 [kworker/1:0H]
+1011711 2194861 1011711 /bin/bash
+1011730 1011711 1011730 claude --model opus
+1040694       1 1040694 /snap/docker/3618/bin/containerd-shim-runc-v2 -namespace moby -id 7f6b63ad05acf8f55a7180c46d83df566ed59eb3fb69640df9d6a11111f459c3 -address /run/snap.docker/containerd/containerd.sock
+1040728 1040694 1040728 postgres
+1040967 1217310 1217310 /snap/docker/3618/bin/docker-proxy -proto tcp -host-ip 127.0.0.1 -host-port 26432 -container-ip 172.21.0.2 -container-port 5432 -use-listen-fd
+1041261 1040728 1041261 postgres: checkpointer 
+1041262 1040728 1041262 postgres: background writer 
+1041271 1040728 1041271 postgres: walwriter 
+1041272 1040728 1041272 postgres: autovacuum launcher 
+1041274 1040728 1041274 postgres: logical replication launcher 
+1042531       1 1042531 /snap/docker/3618/bin/containerd-shim-runc-v2 -namespace moby -id 5ee6cd0bc98af41700ad7ce886cb046648560d531282670dc7ccd2ebe2053936 -address /run/snap.docker/containerd/containerd.sock
+1042557 1042531 1042557 bash /app/deploy/plataforma/arrancar.sh dagster
+1042774 1217310 1217310 /snap/docker/3618/bin/docker-proxy -proto tcp -host-ip 127.0.0.1 -host-port 23000 -container-ip 172.21.0.3 -container-port 3000 -use-listen-fd
+1042800 1042557 1042557 /opt/venv/bin/python /opt/venv/bin/dagster api grpc -m ftcourier.orquestacion.definitions --host 127.0.0.1 --port 4000
+1042830       1 1042830 /snap/docker/3618/bin/containerd-shim-runc-v2 -namespace moby -id 7382f0f9634f5053af5a6bbb5be0ba2945947d61dc893e8bace2ed03cb43412e -address /run/snap.docker/containerd/containerd.sock
+1042855 1042830 1042855 /opt/venv/bin/python /opt/venv/bin/uvicorn ftcourier.app.api:app --host 0.0.0.0 --port 8000
+1043065 1217310 1217310 /snap/docker/3618/bin/docker-proxy -proto tcp -host-ip 127.0.0.1 -host-port 28000 -container-ip 172.21.0.4 -container-port 8000 -use-listen-fd
+1044147 1042557 1042557 /opt/venv/bin/python /opt/venv/bin/dagster-daemon run -w /dagster_home/workspace.yaml
+1044148 1042557 1042557 /opt/venv/bin/python /opt/venv/bin/dagster-webserver -h 0.0.0.0 -p 3000 -w /dagster_home/workspace.yaml
+1052540 1042800 1042557 /opt/venv/bin/python -B -c from multiprocessing.resource_tracker import main;main(11)
+1073372 2194861 1073372 /bin/bash
+1094592 2194861 1094592 /bin/bash
+1097903 1073372 1097903 claude
+1099445       2       0 [kworker/R-xfsalloc]
+1099446       2       0 [kworker/R-xfs_mru_cache]
+1099449       2       0 [jfsIO]
+1099450       2       0 [jfsCommit]
+1099451       2       0 [jfsCommit]
+1099452       2       0 [jfsCommit]
+1099453       2       0 [jfsCommit]
+1099454       2       0 [jfsCommit]
+1099455       2       0 [jfsCommit]
+1099456       2       0 [jfsSync]
+1107988       2       0 [kworker/1:2H-kblockd]
+1199339       1 1199339 -bash
+1200603 2194861 1200603 /bin/bash
+1217310       1 1217310 dockerd --group docker --exec-root=/run/snap.docker --data-root=/var/snap/docker/common/var-lib-docker --pidfile=/run/snap.docker/docker.pid --config-file=/var/snap/docker/3618/config/daemon.json
+1217653 1217310 1217653 /snap/docker/3618/bin/containerd --config /run/snap.docker/containerd/containerd.toml
+1221139       1 1221139 /snap/docker/3618/bin/containerd-shim-runc-v2 -namespace moby -id 9c94cb1887707fbbff09c0b1a182eaaa1c8f3a4356c2b10b8127375dbb7a0d08 -address /run/snap.docker/containerd/containerd.sock
+1221140       1 1221140 /snap/docker/3618/bin/containerd-shim-runc-v2 -namespace moby -id 72c3a6dd874572e7de94e1623c2ae24dff8e359752393960902b41ba2b8614bb -address /run/snap.docker/containerd/containerd.sock
+1221143       1 1221143 /snap/docker/3618/bin/containerd-shim-runc-v2 -namespace moby -id ff7d96434049ce62e4381838fa67bf3db541bed56833b445e47df382fb143d51 -address /run/snap.docker/containerd/containerd.sock
+1221194       1 1221194 /snap/docker/3618/bin/containerd-shim-runc-v2 -namespace moby -id fed71c1fb50caa57b1ca905f094947e570a66fc6f833c7d9c8a46207eca8b49e -address /run/snap.docker/containerd/containerd.sock
+1221238 1221140 1221238 python -m ministack
+1221239 1221139 1221239 /usr/local/bin/python3.13 /usr/local/bin/uvicorn mepu.ingesta.servicio_adjuntos:app --host 0.0.0.0 --port 8000
+1221242 1221194 1221242 postgres
+1221258 1221143 1221258 postgres -c synchronous_commit=off -c shared_buffers=1GB -c max_connections=300 -c max_wal_size=4GB -c checkpoint_timeout=15min -c work_mem=16MB
+1221682 1217310 1217310 /snap/docker/3618/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 8000 -container-ip 172.17.0.2 -container-port 8000 -use-listen-fd
+1221692 1217310 1217310 /snap/docker/3618/bin/docker-proxy -proto tcp -host-ip :: -host-port 8000 -container-ip 172.17.0.2 -container-port 8000 -use-listen-fd
+1221788 1217310 1217310 /snap/docker/3618/bin/docker-proxy -proto tcp -host-ip 127.0.0.1 -host-port 4566 -container-ip 172.18.0.2 -container-port 4566 -use-listen-fd
+1221883 1217310 1217310 /snap/docker/3618/bin/docker-proxy -proto tcp -host-ip 127.0.0.1 -host-port 25432 -container-ip 172.20.0.2 -container-port 5432 -use-listen-fd
+1221998 1217310 1217310 /snap/docker/3618/bin/docker-proxy -proto tcp -host-ip 127.0.0.1 -host-port 15432 -container-ip 172.18.0.3 -container-port 5432 -use-listen-fd
+1222025 1221242 1222025 postgres: checkpointer 
+1222026 1221242 1222026 postgres: background writer 
+1222037 1221242 1222037 postgres: walwriter 
+1222038 1221242 1222038 postgres: autovacuum launcher 
+1222039 1221242 1222039 postgres: logical replication launcher 
+1222107 1221258 1222107 postgres: checkpointer 
+1222108 1221258 1222108 postgres: background writer 
+1222300 1221258 1222300 postgres: walwriter 
+1222301 1221258 1222301 postgres: autovacuum launcher 
+1222302 1221258 1222302 postgres: logical replication launcher 
+1243735 1801033 1243735 bash -c export PATH=$HOME/.local/bin:$PATH; claude --permission-mode auto -n ontolatam "$(cat $HOME/proyectos/ontolatam.consigna-2.md)"; exec bash
+1243737 1243735 1243735 claude --permission-mode auto -n ontolatam Eres el trabajador del proyecto **ontolatam** en robocop2. JP (el due??o del repo) te deja corriendo sin supervisi??n para despachar las tareas del desk. Nadie va a aprobar cada paso: avanza de punta a punta y no te detengas a preguntar.  ## D??nde est??s  - Repo: `~/proyectos/ontolatam`, clon de `jpcosec/mepu` (privado), rama de integraci??n `dev`. El nombre del repo y la identidad del desk siguen siendo `mepu`; `ontolatam` es el nombre de este proyecto de trabajo. - `data` y `.venv` son enlaces a `~/proyectos/mepu-licitaciones/` (ignorados por git). No borres ni muevas esa carpeta: ah?? viven los datos crudos, los Parquet y `mepu.duckdb`, que usa el tablero de JP. - Qu?? hay hecho: ingesta, n??cleo com??n y tablero para Chile, Paraguay, Colombia, Brasil y Per??. Lee primero `README.md`, `ontologia/README.md` (el camino para sumar un pa??s), `ontologia/fuentes/` (fichas de fuente ya verificadas de cada pa??s) y, como modelo de un pa??s completo, `src/mepu/ingesta/dncp.py`, `src/mepu/ingesta/carga_dncp.py`, `src/mepu/ontologia/nucleo_py.py`, `alineamiento_py.py`, `fichas_py.py` y `tests/test_nucleo_py.py`. - Las tareas est??n en el desk: `PYTHONPATH=src deskops list tasks --root .` y `deskops show task <id> --root .`. `deskops doctor` necesita `PYTHONPATH=src`.  ## Qu?? hacer, en este orden  Segunda tanda (2026-11-16). La primera tanda ya integr?? los cinco pa??ses (PRs #2 a #6). Lee primero la tarea de traspaso: trae el estado completo y los hechos por pa??s.  1. `task-dejar-una-sola-copia-del-c??digo-en-robocop2-???` (entorno, Makefile y tablero) ??? ~1,5 h 2. `task-uruguay-verificar-arce-???` ??? ~4 h 3. `task-panam??-verificar-panamacompra-en-cifras-???` ??? ~4 h 4. `task-guatemala-verificar-guatecompras-ocds-???` ??? ~4 h 5. `task-m??xico-verificar-compras-mx-???` ??? ~5 h 6. `task-el-salvador-verificar-comprasal-???` ??? ~5 h 7. `task-costa-rica-verificar-sicop-???` ??? ~4 h 8. `task-bolivia-verificar-sicoes-???` ??? ~5 h 9. `task-nicaragua-verificar-las-condiciones-de-uso-de-siscae-???` (solo ficha; no extraigas) ??? ~1 h 10. `task-colombia-llevar-el-producto-de-cada-proceso-de-secop-ii-al-n??cleo` ??? ~3 h 11. `task-calcular-la-participaci??n-de-mercado-de-un-producto-particular-???` (depende de 1 y 10; cubre todos los pa??ses del n??cleo) ??? ~4 h 12. `task-traspaso-del-proceso-ontolatam-???` ??? ~1,5 h 13. `task-programar-la-actualizaci??n-peri??dica-de-las-descargas` (NO actives el temporizador; incluye los pa??ses nuevos) ??? ~3 h 14. `task-decidir-el-motor-de-base-de-datos-???` (mide y recomienda; NO decidas ni migres) ??? ~4 h 15. `task-argentina-verificar-compr-ar-???` ??? ~4 h 16. `task-brasil-cargar-los-a??os-anteriores-de-compras-gov-br` (descarga larga, al final) ??? 15 h o m??s  Los pa??ses 2 a 9 son la prioridad de JP: su lista de ocho mercados del 2026-11-16, en orden de facilidad de acceso estimada. Esa evaluaci??n es preliminar y no fue probada: verifica cada fuente en vivo y respeta sus condiciones de uso. Si un pa??s queda bloqueado, an??talo en el inbox y sigue con el siguiente.  Una tarea a la vez, en serie y en este orden; la descarga de Brasil no se adelanta en paralelo. Cada tarea trae su alcance, lo que queda fuera y su criterio de cierre: resp??talos. Cuando termines las diecis??is, detente y deja un resumen final.  JP autoriza adem??s, solo para la tarea del motor (14), un contenedor Postgres propio y temporal llamado `ontolatam-pg-prueba` (4 GB de memoria como m??ximo), que debes eliminar al terminar. No toques los contenedores ni las bases de otros proyectos, no dejes servidores corriendo y no actives temporizadores.  Las compuertas del desk usan un revisor externo (`runtime-pi-deepseek-flash`). No pongas en las tareas ni en las revisiones datos de personas ni credenciales.  ## Autorizaci??n de JP (2026-11-15)  En el repo `jpcosec/mepu`, JP te autoriza a: hacer push de ramas de trabajo, abrir PRs, hacer **squash merge a `dev` de tus propios PRs** cuando los tests pasen y hayas verificado el resultado, borrar la rama ya mergeada, y hacer commit y push directo a `dev` de los archivos de `desk/` que toque `deskops`. No hay CI en el repo: la verificaci??n la haces t?? antes de mergear. Nada fuera de ese repo.  GitHub: la cuenta activa de `gh` es otra y no ve este repo. Usa `GH_TOKEN=$(gh auth token --user jpcosec) gh ???` en cada comando, sin cambiar la cuenta activa. `git push` ya est?? configurado en este clon.  ## C??mo trabajar cada tarea  1. Ponte al d??a: `git pull --ff-only` en `dev`. Avanza la tarea en el desk con `deskops advance task <id> --root .` (est??n en `draft`); mira qu?? sigue con `deskops next <id> --root .`. 2. Un worktree por tarea: `git worktree add ../wt-ontolatam-<pa??s> -b wt/<pa??s> dev`. En el worktree usa `MEPU_DATA=$HOME/proyectos/ontolatam/data` y `PYTHONPATH=src` con `~/proyectos/ontolatam/.venv/bin/python`. 3. Sigue el mismo dise??o que Paraguay: RAW intacto con `_manifest.json` (url, ETag, sha256, versiones), NORMALIZED en Parquet con las columnas de linaje, y un m??dulo `nucleo_<pa??s>.py` que cumpla el contrato `nucleo.COLUMNAS`. Verifica la fuente en vivo antes de creer la ficha: las fichas tuvieron errores antes. 4. Verificaci??n m??nima antes de mergear: tests nuevos del pa??s y `pytest` completo en verde; filas de origen = filas en Parquet; al menos un procedimiento comparado contra la fuente en vivo; los conteos por pa??s del n??cleo (CL 95.358, PY 251.212, CO 8.983.198, BR 297.913, PE 259.455) no cambian salvo que la tarea sea justamente ampliar ese pa??s; `sldb stores check` en PASS. 5. Fichas y documentos con seguimiento (`ontologia/`, `desk/`, `.sldb/`): solo con `sldb` y `deskops`, nunca editados a mano. No crees scripts ni wrappers sobre `deskops`, `sldb` o `gh`; si a la herramienta le falta algo, `deskops inbox "<hueco>" --kind unclear --root .`. 6. PR contra `dev` con una descripci??n que diga qu?? entr??, las cifras verificadas y lo que qued?? pendiente. Squash merge, `git worktree remove`, borrar la rama local y remota. 7. Cierra la tarea en el mismo momento: `deskops edit task <id> references '["<sha>", "tests/???"]'`, `deskops advance task <id>` hasta el closeout, `deskops closeout commit --task <id> --no-run --reason "integrada: PR #N" --paths <archivo de la tarea>`, y push. Para el desk: en el clon principal sobre `dev`, agrega solo los archivos de `desk/` que toc?? `deskops` (nunca `git add -A`) y commit con `[skip ci]`. 8. Termina los commits con `Co-Authored-By:` de tu modelo. No cambies la configuraci??n global de git.  ## L??mites del servidor (compartido, 6 n??cleos, 31 GB)  - Todo proceso pesado va con tope: `systemd-run --user --scope -q -p MemoryMax=11G -p MemorySwapMax=1G env MEPU_DATA=??? MEPU_DUCKDB_MEMORIA=10GB MEPU_DUCKDB_HILOS=3 MEPU_DUCKDB_TEMPORAL=20GB PYTHONPATH=src .venv/bin/python ???`. Un solo proceso pesado a la vez. El 2026-11-15 una consulta sin tope bot?? una m??quina. - Disco: hay unos 400 GB libres. Si una fuente va a ocupar m??s de 100 GB entre crudo y Parquet, baja primero el per??odo reciente equivalente al de Chile (nov 2025 en adelante), integra eso, y anota en el inbox del desk cu??nto pesa el resto. - Descargas respetuosas: reintentos con espera, sin paralelismo agresivo contra los portales p??blicos, cliente con nombre gen??rico. No incluyas el nombre de JP, su correo ni el nombre del proyecto en ninguna petici??n externa. - `mepu.duckdb` es derivada y la usa el tablero: reconstruye en un archivo aparte, verifica y reci??n entonces reemplaza.  ## Reglas de datos  - Los montos nunca se suman entre monedas. La regla de montos cre??bles (`adjudicaciones_creibles`) necesita la moneda local de cada pa??s nuevo en `MONEDA_LOCAL`. - Nada de datos de contacto de personas (correos, tel??fonos, direcciones) en documentos, fichas, ejemplos de perfil ni commits. - Ninguna credencial en documentos ni logs. - Suma cada pa??s nuevo al tablero (`src/mepu/analisis/tablero.py`, `notebooks/licitaciones.py`) solo si entra por el contrato sin cambios de dise??o; si exige redise??ar, an??talo y sigue.  ## Si algo se traba  Diagnostica primero. Si una tarea queda bloqueada por algo que solo JP puede resolver (acceso negado, una decisi??n de dise??o grande, una fuente ca??da por horas), deja la nota con `deskops inbox "<qu?? pas?? y qu?? falta>" --kind unclear --root .`, haz commit y push de esa nota, y pasa a la tarea siguiente. No dejes worktrees ni PRs a medias sin anotarlo.
+1321586       1 1321586 /snap/docker/3618/bin/containerd-shim-runc-v2 -namespace moby -id a80685f259547cc6df7adfa201e3b9c8f1ead0ac0f5cbc6c0ee05e417827b03e -address /run/snap.docker/containerd/containerd.sock
+1321611 1321586 1321611 postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c max_connections=200
+1321820 1217310 1217310 /snap/docker/3618/bin/docker-proxy -proto tcp -host-ip 127.0.0.1 -host-port 55432 -container-ip 172.19.0.2 -container-port 5432 -use-listen-fd
+1321919 1321611 1321919 postgres: checkpointer 
+1321920 1321611 1321920 postgres: background writer 
+1321922 1321611 1321922 postgres: walwriter 
+1321923 1321611 1321923 postgres: autovacuum launcher 
+1321924 1321611 1321924 postgres: logical replication launcher 
+1327477       1 1323289 node /dev/shm/gui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-uvze5a5n/dist --port 41979 --strictPort --host 127.0.0.1
+1327498 1327477 1323289 /dev/shm/gui/UIs/graph_ui/apps/review-workbench/node_modules/@esbuild/linux-x64/bin/esbuild --service=0.21.5 --ping
+1492675 2013072 1492675 /usr/sbin/tailscaled be-child ssh-monitor --uid=1001 --gid=1003 --groups=1003,27,984,1001,1002 --local-user=robocop --rpc-fd=3
+1513989       1 1513989 /usr/sbin/cupsd -l
+1514007       1 1514007 /usr/sbin/cups-browsed
+1552830       1 1552830 /home/robocop/.local/bin/scion server start --foreground --enable-hub=true --enable-runtime-broker=true --enable-web=true --dev-auth=true --auto-provide=true --web-assets-dir=/home/robocop/scion-build/web-v0.2.21/web/dist/client
+1583183       1 1583183 /snap/docker/3618/bin/containerd-shim-runc-v2 -namespace moby -id e32f2c2b5a0bc8e28d9f7e1e5e0bcd77a8b8557c0748ae02b62ccbfccc2c2d7d -address /run/snap.docker/containerd/containerd.sock
+1583207 1583183 1583207 postgres -c fsync=off -c full_page_writes=off -c synchronous_commit=off -c shared_buffers=1GB -c max_connections=300 -c max_wal_size=4GB -c checkpoint_timeout=15min -c work_mem=16MB
+1583444 1217310 1217310 /snap/docker/3618/bin/docker-proxy -proto tcp -host-ip 127.0.0.1 -host-port 15434 -container-ip 172.18.0.4 -container-port 5432 -use-listen-fd
+1583563 1583207 1583563 postgres: checkpointer 
+1583564 1583207 1583564 postgres: background writer 
+1583567 1583207 1583567 postgres: walwriter 
+1583568 1583207 1583568 postgres: autovacuum launcher 
+1583569 1583207 1583569 postgres: logical replication launcher 
+1671098 2194861 1671098 /bin/bash
+1671118 1671098 1671118 claude
+1801033       1 1801033 tmux new-session -d -s mepu-worktrees -x 200 -y 50 -c /home/robocop/AntonIA/repos/legacy/mepu/mepu export PATH=$HOME/.local/bin:$PATH AWS_PROFILE=server-dev; claude --resume 451c900a-ae2f-43f6-8444-0f76f8e9f633 --permission-mode auto -n mepu-worktrees; exec bash
+1801035 1801033 1801035 bash
+1804892 1801033 1804892 bash
+1804965 1801033 1804965 bash
+1805033 1801033 1805033 bash
+1818197 1801033 1818197 bash
+1917344       2       0 [kworker/u24:3+loop7]
+1955210 2194861 1955210 /bin/bash
+1955236 1955210 1955236 claude --model opus
+1955776 2194861 1955776 /bin/bash
+1955795 1955776 1955795 claude --model opus
+1956308 2194861 1956308 /bin/bash
+1956327 1956308 1956327 claude --model opus
+1956898 2194861 1956898 /bin/bash
+1957375 2194861 1957375 /bin/bash
+1958108 2194861 1958108 /bin/bash
+1984202       1 1981868 node /dev/shm/cc34ui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-2fwa2btg/dist --port 33405 --strictPort --host 127.0.0.1
+1984210 1984202 1981868 /dev/shm/cc34ui/UIs/graph_ui/apps/review-workbench/node_modules/@esbuild/linux-x64/bin/esbuild --service=0.21.5 --ping
+1991702 2194861 1991702 /bin/bash
+1991746 1991702 1991746 claude
+2003734 2194861 2003734 /bin/bash
+2003752 2003734 2003752 claude
+2013072       1 2013072 /usr/sbin/tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock --port=41641
+2021726 2003752 2021726 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794889854547-wlf5ys.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'L=runs/subagents/deskops-t-d471ebbc6f77/validation.log; { echo "### \$ SPECIR_MMDC=... TMPDIR=/dev/shm timeout 9000 flock /dev/shm/sldb1-tests.lock .venv/bin/python -m pytest -q -n 4 -p no:cacheprovider tests/"; } >> $L; SPECIR_MMDC=/mnt/ssd/herramientas/mermaid-cli/mmdc TMPDIR=/dev/shm timeout 9000 flock /dev/shm/sldb1-tests.lock .venv/bin/python -m pytest -q -n 4 -p no:cacheprovider tests/ > runs/subagents/deskops-t-d471ebbc6f77/suite.log 2>&1; rc=$?; tail -30 runs/subagents/deskops-t-d471ebbc6f77/suite.log >> $L; echo "### rc=$rc" >> $L; echo rc=$rc' < /dev/null && pwd -P >| /tmp/claude-a1ef-cwd
+2021727 2021726 2021727 timeout 9000 flock /dev/shm/sldb1-tests.lock .venv/bin/python -m pytest -q -n 4 -p no:cacheprovider tests/
+2021728 2021727 2021727 flock /dev/shm/sldb1-tests.lock .venv/bin/python -m pytest -q -n 4 -p no:cacheprovider tests/
+2068472       1 2068472 /home/robocop/AntonIA/repos/legacy/mepu/wt-ui-8/../mepu/.venv/bin/python -m uvicorn mepu.app.api:app --app-dir src --host 127.0.0.1 --port 32964
+2109293 3867838 2109293 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794718595340-ypa56i.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'M=/mnt/ssd/AntonIA/repos/legacy/mepu/mepu; W=$M/../wt/p1; cd $W && export PATH=$M/.venv/bin:$PATH AWS_PROFILE=server-dev PYTHONPATH=$W/shared/etl-plataforma/src; make -C $W codigo-doc > /tmp/claude-1001/p1-cd3.log 2>&1; sldb stores update --store .sldb >/dev/null 2>&1; python tools/generar_spec_etl.py >/dev/null 2>&1; python tools/generar_spec_etl.py --render >/dev/null 2>&1; python tools/inventario_tests.py >/dev/null 2>&1; git add -A knowledge/symbols .sldb specs rendered docs/codigo/INVENTARIO_TESTS.md; git diff --cached --quiet || git commit -q -m "BD-10 P1: s??mbolos, store, specs e inventario regenerados  Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"; test -z "$(git status --porcelain)" && echo limpio; git status --short | head -3; make -C $W ci-pr > /tmp/claude-1001/p1-cipr.log 2>&1; echo rc=$? >> /tmp/claude-1001/p1-cipr.log; grep -E '"'"' passed| failed|certificado|rc='"'"' /tmp/claude-1001/p1-cipr.log | tail -3' && pwd -P >| /tmp/claude-5706-cwd
+2116386       2       0 [kworker/u24:0-flush-8:16]
+2118033 1955795 2118033 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794799988100-mcolz9.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'D=/mnt/ssd/proyectos/SLDB_1/deskops/runs/subagents/exec-deskops-e-a9bb6500e6e2; until grep -q "FASE 2\|Fase 2\|fase 2" $D/result-summary.md 2>/dev/null && [ $(find $D/result-summary.md -mmin -2 | wc -l) -eq 0 ] && grep -qi "entrega\|ENTREGA LISTA" $D/result-summary.md && [ -s $D/git-status.txt ] && [ $D/git-status.txt -nt $D/review-record.txt ]; do sleep 60; done; sleep 30; ls -la $D | tail -5' < /dev/null && pwd -P >| /tmp/claude-e430-cwd
+2122506 1097903 2122506 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794632983096-fe8r00.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'B=/dev/shm/suite-dk-4dff74a9; cd $B; export TMPDIR=/dev/shm PATH=/mnt/ssd/proyectos/SLDB_1/.venv/bin:$PATH PYTHONPATH=$B; timeout 5400 python -m pytest -q -n 4 -p no:cacheprovider tests > /mnt/ssd/proyectos/SLDB_1/reports/suite-deskops-4dff74a9.log 2>&1; echo "rc=$?"; tail -1 /mnt/ssd/proyectos/SLDB_1/reports/suite-deskops-4dff74a9.log; grep -E '"'"'^(FAILED|ERROR)'"'"' /mnt/ssd/proyectos/SLDB_1/reports/suite-deskops-4dff74a9.log | head; cd /; rm -rf $B' < /dev/null && pwd -P >| /tmp/claude-b2ea-cwd
+2122507 2122506 2122507 timeout 5400 python -m pytest -q -n 4 -p no:cacheprovider tests
+2122508 2122507 2122507 python -m pytest -q -n 4 -p no:cacheprovider tests
+2122560 2122508 2122507 /mnt/ssd/proyectos/SLDB_1/.venv/bin/python -u -c import sys;exec(eval(sys.stdin.readline()))
+2122563 2122508 2122507 /mnt/ssd/proyectos/SLDB_1/.venv/bin/python -u -c import sys;exec(eval(sys.stdin.readline()))
+2122566 2122508 2122507 /mnt/ssd/proyectos/SLDB_1/.venv/bin/python -u -c import sys;exec(eval(sys.stdin.readline()))
+2122570 2122508 2122507 /mnt/ssd/proyectos/SLDB_1/.venv/bin/python -u -c import sys;exec(eval(sys.stdin.readline()))
+2147772 1097903 2147772 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794632983096-fe8r00.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'until [ -f /dev/shm/cli_res.txt ] && ! pgrep -af "tests/test_cli.py" >/dev/null; do sleep 15; done; cat /dev/shm/ci_int_res.txt /dev/shm/cli_res.txt' < /dev/null && pwd -P >| /tmp/claude-2d84-cwd
+2148969       1 2148969 tail -n +1 -f /dev/shm/uifollow/verify.tsv
+2148970       1 2148969 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794408298587-g1xl75.sh 2>/dev/null || true && shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'tail -n +1 -f /dev/shm/uifollow/verify.tsv | grep --line-buffered -vP '"'"'\t0\t'"'"' ' < /dev/null && pwd -P >| /tmp/claude-41bd-cwd
+2148971 2148970 2148969 ugrep -G --ignore-files --hidden -I --exclude-dir=.git --exclude-dir=.svn --exclude-dir=.hg --exclude-dir=.bzr --exclude-dir=.jj --exclude-dir=.sl --line-buffered -vP \t0\t
+2173619 2109293 2173619 make -C /mnt/ssd/AntonIA/repos/legacy/mepu/mepu/../wt/p1 ci-pr
+2173626 2173619 2173619 /bin/sh -c python3 tools/candado_tests.py --base "mepu_test_p1"  -- python3 tools/certificado_ci.py --nombre "make ci-pr" --junit "/tmp/mepu-ci-pr-p1-junit.xml" -- make --no-print-directory ci-pr-pasos
+2173627 2173626 2173619 python3 tools/candado_tests.py --base mepu_test_p1 -- python3 tools/certificado_ci.py --nombre make ci-pr --junit /tmp/mepu-ci-pr-p1-junit.xml -- make --no-print-directory ci-pr-pasos
+2173628 2173627 2173619 python3 tools/certificado_ci.py --nombre make ci-pr --junit /tmp/mepu-ci-pr-p1-junit.xml -- make --no-print-directory ci-pr-pasos
+2173661 2173628 2173619 make --no-print-directory ci-pr-pasos
+2178598 2173661 2173619 /bin/sh -c mkdir -p .ci; seleccion="$(python3 tools/tests_afectados.py --alcance modulo --explicar  2>.ci/ci-pr-motivos.txt)"; \   echo "ci-pr: contratos + $(echo "$seleccion" | grep -c .) archivos por m??dulo (motivos: .ci/ci-pr-motivos.txt)"; \   MEPU_TEST_PG_URL=postgresql://mepu:mepu-local-only@127.0.0.1:15434/mepu_test_p1 MEPU_TEST_DDL_URL=postgresql://mepu:mepu-local-only@127.0.0.1:15434/mepu_test_p1_ddl MEPU_TEST_DAGSTER_URL=postgresql://mepu:mepu-local-only@127.0.0.1:15434/mepu_test_p1_dagster MEPU_TEST_APP_URL=postgresql://mepu:mepu-local-only@127.0.0.1:15434/mepu_test_p1_app env -u AWS_PROFILE -u AWS_ACCESS_KEY_ID -u AWS_SECRET_ACCESS_KEY -u AWS_SESSION_TOKEN -u OPENROUTER_API_KEY -u OPENAI_API_KEY -u LLM_API_KEY -u ANTHROPIC_API_KEY AWS_CONFIG_FILE=/dev/null AWS_SHARED_CREDENTIALS_FILE=/dev/null AWS_EC2_METADATA_DISABLED=true nice -n 10 python3 -m pytest tests/test_spec_etl.py tests/test_assets.py tests/test_catalogo_tablas.py tests/test_definitions.py tests/test_pasos.py tests/test_contrato_archivo.py tests/test_planificacion.py tests/test_preguntas_ayuda.py tests/test_alcance_recalculo.py tests/test_citas_de_codigo.py tests/test_frontera_paquetes.py tests/test_frontera_compartidos.py tests/test_app_solo_lee.py tests/test_tamano_codigo.py tests/test_datos_sinteticos.py tests/test_fuentes.py $seleccion -q -rs \   -m "not poblacion_real" -p no:cacheprovider -n "auto" --dist loadfile --junitxml="/tmp/mepu-ci-pr-p1-junit.xml"; \   r=$?; python3 tools/ci_junit.py "/tmp/mepu-ci-pr-p1-junit.xml" && exit $r
+2179294 2178598 2173619 python3 -m pytest tests/test_spec_etl.py tests/test_assets.py tests/test_catalogo_tablas.py tests/test_definitions.py tests/test_pasos.py tests/test_contrato_archivo.py tests/test_planificacion.py tests/test_preguntas_ayuda.py tests/test_alcance_recalculo.py tests/test_citas_de_codigo.py tests/test_frontera_paquetes.py tests/test_frontera_compartidos.py tests/test_app_solo_lee.py tests/test_tamano_codigo.py tests/test_datos_sinteticos.py tests/test_fuentes.py tests/test_adjuntos_etapa4.py tests/test_adjuntos_etapas.py tests/test_adjuntos_lectura.py tests/test_adjuntos_oc.py tests/test_ajuste_aplicado.py tests/test_alcance_ambito.py tests/test_alcance_recalculo.py tests/test_alcance_tanda.py tests/test_api_feedback.py tests/test_api_pdf_cargado.py tests/test_api_privado.py tests/test_api_publico.py tests/test_api_reporting.py tests/test_api_rutas.py tests/test_app_sub_lineas.py tests/test_asset_extraccion_config.py tests/test_assets.py tests/test_assets_registro.py tests/test_auth.py tests/test_avisos_ciclo.py tests/test_avisos_frecuencia.py tests/test_banco.py tests/test_barrido_api.py tests/test_calce_producto.py tests/test_catalogo_tablas.py tests/test_checks.py tests/test_checks_hom1_cola.py tests/test_cicd.py tests/test_ciclo_raw.py tests/test_ciclo_revision.py tests/test_ciclo_vida_infra.py tests/test_cliente_sap.py tests/test_coberturas.py tests/test_cognito.py tests/test_cola.py tests/test_connectors.py tests/test_connectors_s3.py tests/test_contrato_archivo.py tests/test_correccion_medicion.py tests/test_correcciones.py tests/test_correcciones_encolan.py tests/test_correcciones_paso.py tests/test_cuadratura.py tests/test_dashboard.py tests/test_dashboard_medidas.py tests/test_datos_sinteticos.py tests/test_datos_tablero.py tests/test_decision.py tests/test_decision_equipo.py tests/test_definitions.py tests/test_delivery_oc.py tests/test_desarrollo.py tests/test_desarrollo_cola.py tests/test_desarrollo_pipeline.py tests/test_descarga_2026.py tests/test_descarga_adjuntos.py tests/test_direcciones.py tests/test_direcciones_oc.py tests/test_disparo_por_llegada.py tests/test_editores_avisos.py tests/test_ejecutor.py tests/test_elecciones_ambiguedad.py tests/test_encolado.py tests/test_encolar_por_version.py tests/test_entregas_sftp.py tests/test_estado_app.py tests/test_estado_vistas.py tests/test_etapa4_global.py tests/test_etlkit_nucleo.py tests/test_evaluacion.py tests/test_eventos_hist.py tests/test_exportar.py tests/test_exportar_selector.py tests/test_extraccion_linea.py tests/test_extractor_api_listado.py tests/test_extractor_pendientes.py tests/test_f3b_upsert_sftp.py tests/test_ficha_evidencia.py tests/test_ficha_lineas_pendientes.py tests/test_flujo_oc.py tests/test_forma.py tests/test_frescura_cadencia.py tests/test_fuentes.py tests/test_gateway_barrido.py tests/test_gateway_ejecucion.py tests/test_generar_wiki.py tests/test_globales_encolan.py tests/test_historico.py tests/test_homologacion_medicion.py tests/test_indicadores_marcha_por_llave.py tests/test_informe_regresion.py tests/test_ing13_cerradas.py tests/test_ingerir.py tests/test_ingerir_globales.py tests/test_ingesta_ocs.py tests/test_ingesta_run_job.py tests/test_ingestas_sftp_y_vigilancia.py tests/test_ingreso_pendiente.py tests/test_isp_registro.py tests/test_jobs_cola.py tests/test_lake_prefijos.py tests/test_landing.py tests/test_landing_s3.py tests/test_lectores_hist.py tests/test_lectura_texto_linea.py tests/test_licitacion_oc.py tests/test_limpieza_tablas.py tests/test_llaves.py tests/test_llegada_identica.py tests/test_lote_extraccion.py tests/test_lotes.py tests/test_maestros_extractors.py tests/test_migracion_0081.py tests/test_migracion_0082.py tests/test_migracion_0083.py tests/test_migracion_0084.py tests/test_migracion_0085.py tests/test_migracion_0088.py tests/test_migracion_0093.py tests/test_migracion_0094.py tests/test_migracion_0101.py tests/test_migracion_0102.py tests/test_migracion_0104.py tests/test_migracion_0107.py tests/test_migracion_0108.py tests/test_migracion_0109.py tests/test_migracion_0110.py tests/test_migracion_0111.py tests/test_migracion_eleccion_linea.py tests/test_migracion_oc_consulta_dueno.py tests/test_migracion_vigencia_por_clave.py tests/test_migrar_ajustes.py tests/test_mis_clientes.py tests/test_motor_reglas.py tests/test_nb.py tests/test_negocios_collective.py tests/test_negocios_encola.py tests/test_notebook_negocios.py tests/test_novedades_motor.py tests/test_observaciones.py tests/test_observadas.py tests/test_oc_descripcion_categoria.py tests/test_oc_reabierta.py tests/test_pantallas_precalculadas.py tests/test_parametros.py tests/test_pasos.py tests/test_pasos_cableado.py tests/test_pendiente_alerta.py tests/test_pendientes_adjuntos.py tests/test_pendientes_linea.py tests/test_pendientes_por_linea.py tests/test_pg_schemas.py tests/test_pg_trampas.py tests/test_pii.py tests/test_planificacion.py tests/test_planilla_va01.py tests/test_plataforma_v2.py tests/test_poblacion.py tests/test_poblar_desde_lake.py tests/test_preguntas_acciones.py tests/test_preguntas_ayuda.py tests/test_preguntas_herramientas.py tests/test_preguntas_ia.py tests/test_preguntas_representante.py tests/test_preguntas_sin_valores_fijos.py tests/test_presupuesto_llm.py tests/test_puente_encola.py tests/test_recalculo_por_cambio.py tests/test_reconciliar_cola.py tests/test_reevaluacion_historico.py tests/test_reglas_tarjetas.py tests/test_reglas_vista.py tests/test_remix.py tests/test_reporte.py tests/test_reporting_historico.py tests/test_reporting_views.py tests/test_revision_encola.py tests/test_revision_final.py tests/test_revision_modelo.py tests/test_revision_modelo_cola.py tests/test_revision_por_llave.py tests/test_roles_ui.py tests/test_routing.py tests/test_rut_proveedor.py tests/test_schedule_barrido_api.py tests/test_sensor_actualizar.py tests/test_sensor_app_eventos.py tests/test_sensor_avisos.py tests/test_sensor_cola.py tests/test_sensor_fallida.py tests/test_sensor_parametros.py tests/test_settings.py tests/test_sftp_limpieza.py tests/test_sin_cambios.py tests/test_solo_insercion.py tests/test_spec_etl.py tests/test_stg.py tests/test_stock_lote.py tests/test_stock_material.py tests/test_stock_pendiente.py tests/test_stock_por_contenido.py tests/test_sub_correlativo_nulo.py tests/test_subir_descarga_2026.py tests/test_sugerencia_revision.py tests/test_sugerencia_revision_por_orden.py tests/test_tabla_reglas.py tests/test_tablero.py tests/test_tablero_fondo.py tests/test_tablero_indicadores.py tests/test_tablero_lista_oc_por_orden.py tests/test_tablero_vistas_v3.py tests/test_tanda1_por_llave.py tests/test_tanda3_por_clase.py tests/test_tanda3_por_contenido.py tests/test_tanda4_correcciones_frescura.py tests/test_tanda4_negocio.py tests/test_tanda4_pantallas.py tests/test_tanda4_por_llave.py tests/test_texto.py tests/test_topes_de_tiempo.py tests/test_triggers.py tests/test_ui99_descargas.py tests/test_unidad_cantidad.py tests/test_validacion_giuseppe.py tests/test_version_de_corrida.py tests/test_versionado.py tests/test_vigilar_cadencia.py tests/test_vigilar_ocs_frecuencia.py tests/test_wiki_tablas.py -q -rs -m not poblacion_real -p no:cacheprovider -n auto --dist loadfile --junitxml=/tmp/mepu-ci-pr-p1-junit.xml
+2180080 2179294 2173619 /mnt/ssd/AntonIA/repos/legacy/mepu/mepu/.venv/bin/python3 -u -c import sys;exec(eval(sys.stdin.readline()))
+2180297 2179294 2173619 /mnt/ssd/AntonIA/repos/legacy/mepu/mepu/.venv/bin/python3 -u -c import sys;exec(eval(sys.stdin.readline()))
+2180514 2179294 2173619 /mnt/ssd/AntonIA/repos/legacy/mepu/mepu/.venv/bin/python3 -u -c import sys;exec(eval(sys.stdin.readline()))
+2180524 2179294 2173619 /mnt/ssd/AntonIA/repos/legacy/mepu/mepu/.venv/bin/python3 -u -c import sys;exec(eval(sys.stdin.readline()))
+2180532 2179294 2173619 /mnt/ssd/AntonIA/repos/legacy/mepu/mepu/.venv/bin/python3 -u -c import sys;exec(eval(sys.stdin.readline()))
+2180566 2179294 2173619 /mnt/ssd/AntonIA/repos/legacy/mepu/mepu/.venv/bin/python3 -u -c import sys;exec(eval(sys.stdin.readline()))
+2189499       2       0 [kworker/u24:5-writeback]
+2189508       2       0 [kworker/u24:6+flush-8:16]
+2193033       2       0 [kworker/3:0-events]
+2194861       1 2194861 /home/robocop/.local/bin/herdr server
+2203848       2       0 [kworker/u24:8-events_unbound]
+2209668 1955236 2209668 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794799987922-erzkhl.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'S=/tmp/claude-1001/-mnt-ssd-proyectos-SLDB-1/72f77258-0f9a-489d-b7d3-47a958bc0be7/scratchpad; cat > $S/c4_pglast.py <<'"'"'EOF'"'"' import json, os, subprocess os.environ["TMPDIR"] = "/dev/shm" W = "/mnt/ssd/proyectos/SLDB_1" UV = "TMPDIR=/dev/shm uv run --frozen --extra code --extra postgres --extra dev" def run(a): return subprocess.run(a, cwd=W, capture_output=True, text=True, stdin=subprocess.DEVNULL) T = [x[:-3] for x in os.listdir(W + "/sldb/desk/tasks") if x.startswith("task-sldb-code-lee-las-claves")][0] d = json.loads(run(["deskops", "show", "task", T, "--root", "sldb", "--format", "json"]).stdout) def edit(f, v):     if not isinstance(v, str): v = json.dumps(v, ensure_ascii=False)     r = run(["deskops", "edit", "task", T, f, v, "--root", "sldb"]); print(f, r.returncode, r.stderr[-150:].strip()) edit("title", "sldb.code lee las claves del SQL de Postgres con el parser real de Postgres (pglast, extra postgres): PK con IDENTITY, constraints de tabla y FK de ALTER TABLE ADD CONSTRAINT (C4 de IR)") edit("goal", "Con el extra postgres instalado (pglast, que envuelve libpg_query, el parser de Postgres), las claves de un .sql (PRIMARY KEY, FOREIGN KEY y UNIQUE, de CREATE TABLE a nivel de columna o de tabla y de ALTER TABLE ADD CONSTRAINT), la columna id con GENERATED ... AS IDENTITY y las referencias de cada FK salen como hechos correctos sin p??rdidas silenciosas sobre Postgres v??lido; sin el extra, sldb.code sigue leyendo el .sql con tree-sitter-sql como hoy y documenta que las claves pueden faltar.") prec = ("Decisi??n del supervisor (2026-11-17), reemplaza el enfoque de lectura de claves de las precisiones anteriores: el foco de JP es Postgres, as?? que las claves y constraints del DDL (y el tipo, PK, IDENTITY y UNIQUE de cada columna) se leen con pglast como extra opcional nuevo postgres en pyproject.toml (pglast>=7, que trae ruedas para Linux x86_64 y Python 3.12-3.13). tree-sitter-sql sigue dando tablas, columnas, vistas, ??ndices, spans, anclas y fingerprints, y es el ??nico camino sin el extra. Con el extra, cada sentencia CREATE TABLE y ALTER TABLE se parsea tambi??n con pglast (por sentencia, usando los offsets de tree-sitter para ubicarla) y de su ??rbol salen las claves, con los mismos facts y atributos que fijaron las precisiones anteriores: kind constraint con constraint_type primary_key|foreign_key|unique, columns, references {table, columns} (columns vac??a = PK de la referenciada), nombres sin comillas con esquema si viene escrito, sufijo ~N por tipo dentro de la tabla, attrs.primary_key/unique/identity/type en la columna y relaci??n references si la tabla est?? en el archivo. Si pglast no puede parsear una sentencia, se usa lo de tree-sitter y el hecho de la tabla lleva attrs.keys_partial true. CHECK y EXCLUDE no son claves (fuera). El diff del intento anterior (runs/subagents/20261116-exec-k2-c2/executor-diff-c4-c2.patch) es el punto de partida: se reaprovechan los facts, los tests y los fixtures, y la lectura textual de claves sobre nodos ERROR se reemplaza por pglast. Los bordes de los tres testers (runs/subagents/20261116-test-k2*/result-summary.md) son casos de test obligatorios.") edit("scope", d["scope"].rstrip() + "\n\n" + prec) edit("implementation_path", "1) Aplicar el parche executor-diff-c4-c2.patch del run-dir 20261116-exec-k2-c2 (excluyendo CHANGELOG.md si choca y reescribiendo su entrada). 2) Agregar el extra postgres con pglast a pyproject.toml y correr uv lock una vez. 3) Un m??dulo nuevo del paquete sldb.code que, dado el texto de una sentencia, devuelve sus claves y atributos de columna desde el ??rbol de pglast; usarlo en lang_sql cuando el extra est??, y quitar la lectura textual de claves. 4) Tests con todos los bordes de los tres testers, m??s un test que se salta sin pglast y otro que prueba el fallback sin el extra. 5) Validation.") files = list(dict.fromkeys((d.get("files") or []) + ["pyproject.toml", "uv.lock"])) edit("files", files) val = [f"{UV} pytest -q tests/selfdoc/test_treesitter_symbols.py", f"{UV} pytest -q tests/api/test_anchors.py", f"{UV} pytest -q tests/selfdoc/test_fingerprints.py", "TMPDIR=/dev/shm uv run --frozen --extra code --extra dev pytest -q tests/selfdoc/test_treesitter_symbols.py", f"{UV} pytest -q tests/test_clean_code_rules.py", f"{UV} bash tools/check.sh --fast"] edit("validation", val) edit("done_when", "Los comandos de Validation pasan (con y sin el extra postgres); todos los bordes de los tres testers anteriores dan las claves correctas con el extra; sobre el fixture de Django salen la columna id con primary_key e identity, cada FK de ALTER TABLE y las UniqueConstraint seguidas de CheckConstraint; sin el extra, la lectura de .sql no cambia respecto de HEAD salvo attrs.keys_partial; los hechos de .py y TS no cambian; CHANGELOG y commit; aviso a IR.") edit("summary", "Desbloqueada 2026-11-17 por decisi??n del supervisor: las claves se leen con pglast (extra postgres). Intento nuevo sobre el diff guardado.") EOF cd /mnt/ssd/proyectos/SLDB_1; export TMPDIR=/dev/shm; for y in jinja sw10 sw11; do deskops add task --from-yaml $S/tasks/$y.yaml --root sldb </dev/null 2>&1 | tail -1 | sed '"'"'s#.*/desk/tasks/##'"'"' | cut -c1-90; done; for k in 011458 011531 015212; do n=$(ls sldb/desk/inbox/20261117-$k-*.md | xargs basename | sed '"'"'s/\.md$//'"'"'); deskops message ack "$n" --root sldb </dev/null 2>&1 | tail -1 | cut -c1-40; done; python3 $S/c4_pglast.py; deskops graph missing --root sldb </dev/null | tail -1; for f in sldb/desk/inbox/*.md; do st=$(grep -m1 "^status:" "$f" | awk '"'"'{print $2}'"'"'); [ "$st" = "open" ] && basename $f; done | wc -l' && pwd -P >| /tmp/claude-eaa5-cwd
+2231673       2       0 [kworker/4:2-events]
+2234205       2       0 [kworker/5:2-mm_percpu_wq]
+2237649       2       0 [kworker/u24:7-events_unbound]
+2239441 2194861 2239441 /bin/bash
+2239521 2239441 2239521 claude
+2243470 1955236 2243470 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794799987922-erzkhl.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'P=$(cat /tmp/claude-1001/-mnt-ssd-proyectos-SLDB-1/72f77258-0f9a-489d-b7d3-47a958bc0be7/scratchpad/cur_pane); [ -z "$P" ] && exit 1; f=/mnt/ssd/proyectos/SLDB_1/sldb/runs/subagents/20261116-test-k3-c1/result-summary.md; sleep 120; for i in $(seq 1 110); do st=$(/home/robocop/setup/herdr/coordination.sh agents 2>&1 | grep "$P " | awk '"'"'{print $2}'"'"'); [ -f $f ] && [ "$st" != "working" ] && break; sleep 30; done; head -10 $f | cut -c1-240' < /dev/null && pwd -P >| /tmp/claude-c39e-cwd
+2251599       2       0 [kworker/0:2-mm_percpu_wq]
+2256206       1 2256065 /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/python -c  import sys, time from pathlib import Path import sldb.api as api import sldb.api.documents.apply_batch as ab from sldb.core.exceptions import ConflictError  store, pythonpath, hold, marks, title, source_hash = sys.argv[1:7] marks = Path(marks) real = ab.prevalidate_changes def marked(*args, **kwargs):     plan = real(*args, **kwargs)     (marks / ("ready" if hold == "1" else "entered")).write_text("x")     while hold == "1" and not (marks / "go").exists():         time.sleep(0.02)                    # the first holds here, after prevalidating     return plan ab.prevalidate_changes = marked payload = {"title": title, "status": "open", "tags": ["auth"]} changes = [     {"id": "login", "action": "update", "payload": payload, "expected_source_hash": source_hash},     {"id": "extra-" + title.lower(), "action": "create", "model": "TicketDoc", "payload": payload, "path": "extra-" + title.lower() + ".md"}, ] (marks / ("started" if hold == "0" else "_")).write_text("x") try:     api.apply_batch(store, changes, pythonpath)     print("OK") except ConflictError:     print("CONFLICT")  /dev/shm/pytest-of-robocop/pytest-607/test_second_process_with_the_s0/repo/.sldb /dev/shm/pytest-of-robocop/pytest-607/test_second_process_with_the_s0 1 /dev/shm/pytest-of-robocop/pytest-607/test_second_process_with_the_s0 Winner 534b942fd7bd4d6256e498c202b8dc5df394ce2c8d4113169ba2e8b7e6940bb3
+2257535 2209668 2257535 python3 /tmp/claude-1001/-mnt-ssd-proyectos-SLDB-1/72f77258-0f9a-489d-b7d3-47a958bc0be7/scratchpad/c4_pglast.py
+2260137       2       0 [kworker/1:1-events]
+2261206 3867838 2261206 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794718595340-ypa56i.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'grep -lE '"'"'TestClient'"'"' tests/test_tablero*.py | head -2; N4B=$(ls desk/tasks | grep '"'"'^task-bd-10-n4b-'"'"' | sed '"'"'s/.md$//'"'"'); AN=$(ls desk/tasks | grep '"'"'^task-anon-1-'"'"' | sed '"'"'s/.md$//'"'"') R1="Resueltas: (1) Ubicaci??n ??nica: src/mepu/datos/metricas.py, como lista de dicts en Python. Sin YAML. (2) La fila de salida lleva clave, etiqueta, unidad, universo, periodo, valor, filtros_json y detalle_href, con periodo incluido; es la misma forma que ten??a catalogo_metrica, para que tablero_inicio en wt/ui-8 la consuma sin cambios. (3) Contrato: un m??dulo nuevo src/mepu/app/metricas.py con def catalogo(conn) -> list[dict]. El aviso a mepu-ad lo da el coordinador, no el ejecutor. (4) Las definiciones y sus filtros se reconstruyen desde el m??dulo retirado: git show b7899ab52^:src/mepu/reporte/catalogo_metricas.py y git show b7899ab52^:tests/test_catalogo_metricas.py. Est??n en el historial y se pueden leer. (5) Arn??s de test: el mismo de los tests del tablero que usan TestClient sobre mepu.app.api con la base de prueba (por ejemplo tests/test_tablero.py). Para cada m??trica con filtros de la lista, el test llama /api/tablero/ocs con esos filtros y compara el conteo con el valor de catalogo(). Las que no tienen lista (indicadores por caso, peso de reglas) se prueban contra una consulta directa equivalente. (6) Frontera de la app: puede filtrar por columnas ya publicadas (estados, marcas, fechas, banderas), contar, sumar y agrupar. No puede calcular reglas, veredictos, homologaciones ni stock disponible (AGENTS.md ??3b). Si una m??trica necesitaba un c??lculo as??, se deja con valor None y un comentario en DUDAS." R2="Resueltas: (1) El rango del factor es exactamente [0.7, 1.3]: factor = 0.7 + 0.6 * (los primeros 8 bytes del HMAC(clave, '"'"'precio:'"'"'+sku) como entero / 2^64). (2) Formatos: el SKU o material conserva separadores y largos (por ejemplo, '"'"'120-10-60231'"'"'); cada d??gito se reemplaza con d??gitos derivados del HMAC(clave, '"'"'sku:'"'"'+real) y las letras con letras, siempre en may??sculas. El customer_number es num??rico con el mismo largo, derivado del HMAC. Si dos reales distintos dan el mismo falso, la herramienta falla nombrando la tabla y la columna (no se resuelve en silencio). (3) Texto neutro: '"'"'Texto de prueba <n>'"'"', con un contador estable por fila, conservando NULL y vac??o. (4) Personas: nombre '"'"'Persona <NNNN>'"'"' y correo '"'"'persona<NNNN>@ejemplo.cl'"'"', con NNNN derivado del HMAC del valor real; el RUT de persona es un n??mero entre 10.000.000 y 25.000.000 derivado del HMAC, con d??gito verificador v??lido, en el mismo formato del original (con o sin puntos y guion). Sin bibliotecas nuevas. (5) Universo: todas las tablas de los esquemas core y app (las l??gicas y sus _hist), descubiertas en tiempo de ejecuci??n desde information_schema. reporting son vistas y no se tocan. Toda columna de texto debe tener tratamiento en src/mepu/datos/anonimizacion.py; si falta uno, el subcomando '"'"'inventario'"'"' y el de ejecuci??n fallan. (6) Un solo proceso: el subcomando '"'"'ejecutar --dsn ???'"'"' junta en memoria los valores reales sensibles, anonimiza, verifica y termina con c??digo distinto de 0 si se escap?? algo. '"'"'inventario'"'"' solo lista. Los valores reales nunca se escriben a disco ni a log. (7) El factor es por SKU o material. Lo ligado a un SKU se escala: precio del negocio, montos de stock y pendientes en pesos, y precio y total de la l??nea de OC homologada a ese SKU. Los totales que agregan varios SKU (por ejemplo, el total de una OC) se recalculan como la suma de sus l??neas escaladas, para que las sumas cuadren. Los impuestos o descuentos que no est??n ligados a un SKU no se tocan. (8) RUT: se conserva si el valor est?? en el conjunto de RUT de organismos de oc/master_oc (son p??blicos, salen en Mercado P??blico). Cualquier otro RUT, en cualquier columna, se trata como de persona y se reemplaza. As?? se resuelven las columnas mezcladas." for k in preflight bundle; do deskops review dispose review-$N4B-$k-1 --verdict accepted --root . --reason "$R1" 2>&1 | tail -1; deskops review dispose review-$AN-$k-1 --verdict accepted --root . --reason "$R2" 2>&1 | tail -1; done; deskops advance task $N4B --root . 2>&1 | tail -1; deskops advance task $AN --root . 2>&1 | tail -1; git status --short -z | tr '"'"'\0'"'"' '"'"'\n'"'"' | grep -v '"'"'^?? runs/'"'"' | sed -E '"'"'s/^.. //'"'"' | grep -E '"'"'^"?(desk/|\.sldb/)'"'"' | tr '"'"'\n'"'"' '"'"'\0'"'"' | xargs -0 -r git add --; git commit -q -m "desk: BD-10 N4b y ANON-1 con preflight y paquete aceptados, activas [skip ci]  Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"; git pull --rebase -q; git push -q origin dev; git log --oneline -1; git show --stat HEAD | grep -c shared' && pwd -P >| /tmp/claude-49a3-cwd
+2271187       1 2271187 /snap/snapd/current/usr/lib/snapd/snapd
+2273747 1011730 2273747 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794878495816-6sllhd.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'TMPDIR=/dev/shm PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 timeout 3600 /dev/shm/pron-venv/bin/python -m pytest -q -p syrupy -p xdist -n 4 > runs/subagents/test-pron-link-t1/suite.log 2>&1; echo "suite rc=$?" >> runs/subagents/test-pron-link-t1/suite.log' < /dev/null && pwd -P >| /tmp/claude-6b33-cwd
+2273748 2273747 2273748 timeout 3600 /dev/shm/pron-venv/bin/python -m pytest -q -p syrupy -p xdist -n 4
+2273750 2273748 2273748 /dev/shm/pron-venv/bin/python -m pytest -q -p syrupy -p xdist -n 4
+2273906 2273750 2273748 /dev/shm/pron-venv/bin/python -u -c import sys;exec(eval(sys.stdin.readline()))
+2273911 2273750 2273748 /dev/shm/pron-venv/bin/python -u -c import sys;exec(eval(sys.stdin.readline()))
+2273919 2273750 2273748 /dev/shm/pron-venv/bin/python -u -c import sys;exec(eval(sys.stdin.readline()))
+2273926 2273750 2273748 /dev/shm/pron-venv/bin/python -u -c import sys;exec(eval(sys.stdin.readline()))
+2274662 1011730 2274662 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794878495816-6sllhd.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'R=/mnt/ssd/proyectos/SLDB_1/pron/runs/subagents/test-pron-link-t1; seen=""; for i in $(seq 1 1800); do for p in "v5-docs.log:V5 rc=" "v6-control.log:V6 rc=" "gh-layout.log:make world rc=" "suite.log:suite rc="; do f=${p%%:*}; k=${p#*:}; if ! echo "$seen" | grep -q "$f" && grep -q "$k" $R/$f 2>/dev/null; then grep "$k" $R/$f; seen="$seen $f"; fi; done; [ $(echo $seen | wc -w) -ge 4 ] && exit 0; sleep 2; done' < /dev/null && pwd -P >| /tmp/claude-7140-cwd
+2279880 2239521 2279880 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794892407928-cnh1d2.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'cd /mnt/ssd/proyectos/SLDB_1/sldb; git check-ignore -v src/sldb/templates | head -2; cp -r /dev/shm/k3t2/store-new/src/sldb/templates /dev/shm/k3t2/store-old/src/sldb/; cp -r /dev/shm/k3t2/store-new/src/structuredLanguageDB.egg-info /dev/shm/k3t2/store-old/src/; cat > /dev/shm/k3t2/scripts/store.sh <<'"'"'E'"'"' set -u D=$1; cd $D R="env TMPDIR=/dev/shm PYTHONPATH=$D/src uv run --project /mnt/ssd/proyectos/SLDB_1/sldb --frozen --extra code --extra dev" $R python -c "import sldb.code.scan as s; print(s.__file__)" echo "--- stores update"; /usr/bin/time -f "%e s" $R sldb stores update > $D.update.log 2>&1; echo rc=$?; tail -4 $D.update.log echo "--- selfdoc check"; $R sldb selfdoc check > $D.selfdoc.log 2>&1; echo rc=$?; tail -3 $D.selfdoc.log echo "--- spec"; $R python -I /dev/shm/k3t-scripts/spec.py $D/src $D.spec.json E for d in old new; do echo "##### $d"; flock /dev/shm/sldb1-tests.lock bash /dev/shm/k3t2/scripts/store.sh /dev/shm/k3t2/store-$d; done 2>&1 | tail -40' && pwd -P >| /tmp/claude-2725-cwd
+2279915 2279880 2279915 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794892407928-cnh1d2.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'cd /mnt/ssd/proyectos/SLDB_1/sldb; git check-ignore -v src/sldb/templates | head -2; cp -r /dev/shm/k3t2/store-new/src/sldb/templates /dev/shm/k3t2/store-old/src/sldb/; cp -r /dev/shm/k3t2/store-new/src/structuredLanguageDB.egg-info /dev/shm/k3t2/store-old/src/; cat > /dev/shm/k3t2/scripts/store.sh <<'"'"'E'"'"' set -u D=$1; cd $D R="env TMPDIR=/dev/shm PYTHONPATH=$D/src uv run --project /mnt/ssd/proyectos/SLDB_1/sldb --frozen --extra code --extra dev" $R python -c "import sldb.code.scan as s; print(s.__file__)" echo "--- stores update"; /usr/bin/time -f "%e s" $R sldb stores update > $D.update.log 2>&1; echo rc=$?; tail -4 $D.update.log echo "--- selfdoc check"; $R sldb selfdoc check > $D.selfdoc.log 2>&1; echo rc=$?; tail -3 $D.selfdoc.log echo "--- spec"; $R python -I /dev/shm/k3t-scripts/spec.py $D/src $D.spec.json E for d in old new; do echo "##### $d"; flock /dev/shm/sldb1-tests.lock bash /dev/shm/k3t2/scripts/store.sh /dev/shm/k3t2/store-$d; done 2>&1 | tail -40' && pwd -P >| /tmp/claude-2725-cwd
+2279916 2279880 2279915 tail -40
+2279917 2279915 2279915 flock /dev/shm/sldb1-tests.lock bash /dev/shm/k3t2/scripts/store.sh /dev/shm/k3t2/store-old
+2280629       2       0 [kworker/3:2-mm_percpu_wq]
+2280801  640585 2280801 /snap/snapd-desktop-integration/391/usr/bin/user-session-helper /snap/snapd-desktop-integration/391/usr/bin/snapd-desktop-integration
+2280802    1888 2280802 /snap/snapd-desktop-integration/391/usr/bin/user-session-helper /snap/snapd-desktop-integration/391/usr/bin/snapd-desktop-integration
+2282798       2       0 [kworker/u24:1-ipv6_addrconf]
+2286091       2       0 [kworker/1:2-mm_percpu_wq]
+2288515       2       0 [kworker/2:0-events]
+2290696 2021728 2021727 .venv/bin/python -m pytest -q -n 4 -p no:cacheprovider tests/
+2290960 2290696 2021727 /mnt/ssd/proyectos/SLDB_1/IR/.venv/bin/python -u -c import sys;exec(eval(sys.stdin.readline()))
+2291000 2290696 2021727 /mnt/ssd/proyectos/SLDB_1/IR/.venv/bin/python -u -c import sys;exec(eval(sys.stdin.readline()))
+2291005 2290696 2021727 /mnt/ssd/proyectos/SLDB_1/IR/.venv/bin/python -u -c import sys;exec(eval(sys.stdin.readline()))
+2291015 2290696 2021727 /mnt/ssd/proyectos/SLDB_1/IR/.venv/bin/python -u -c import sys;exec(eval(sys.stdin.readline()))
+2294383 2291015 2294383 /mnt/ssd/proyectos/SLDB_1/IR/.venv/bin/python -m sldb mcp --store /dev/shm/pytest-of-robocop/pytest-1382/popen-gw3/specir-blog0/blog/.sldb --extension specir.mcp_extension:register --level 1 --actor agent:specir-ir06-blog
+2296349       2       0 [kworker/5:3-mm_percpu_wq]
+2310307       2       0 [kworker/0:0-events]
+2317349 1243737 2317349 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794839698210-9p7nzo.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'cd ~/proyectos/wt-ontolatam-argentina && rm -f ~/proyectos/ontolatam/data/mepu.nueva.duckdb; systemd-run --user --scope -q -p MemoryMax=11G -p MemorySwapMax=1G env MEPU_DATA=$HOME/proyectos/ontolatam/data MEPU_BASE=$HOME/proyectos/ontolatam/data/mepu.nueva.duckdb MEPU_DUCKDB_MEMORIA=7GB MEPU_DUCKDB_HILOS=2 MEPU_DUCKDB_TEMPORAL=30GB PYTHONPATH=src ~/proyectos/ontolatam/.venv/bin/python -m mepu.datos.consulta 2>&1 | tail -2' < /dev/null && pwd -P >| /tmp/claude-6c92-cwd
+2317387 2317349 2317387 /home/robocop/proyectos/ontolatam/.venv/bin/python -m mepu.datos.consulta
+2317388 2317349 2317387 tail -2
+2318524 1243737 2318524 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794839698210-9p7nzo.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'until ! pgrep -f "mepu[.]datos[.]consulta" >/dev/null; do sleep 15; done; cat /tmp/claude-1001/-mnt-ssd-proyectos-ontolatam/eb5267ff-5d89-44bc-bbfa-e8fea729d760/tasks/bbiygya7t.output | cut -c1-600' < /dev/null && pwd -P >| /tmp/claude-065a-cwd
+2318665 2291015 2318665 /mnt/ssd/proyectos/SLDB_1/IR/.venv/bin/python -m sldb mcp --store /dev/shm/pytest-of-robocop/pytest-1382/popen-gw3/specir-store0/IR/.sldb --extension specir.mcp_extension:register
+2321710       2       0 [kworker/2:2-events]
+2322196       2       0 [kworker/4:0-events]
+2324905       2       0 [kworker/1:0-events]
+2328599  620394 2328599 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794832889151-8y0feq.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'B=/dev/shm/vite-t1; cat > $B/run.sh <<'"'"'EOF'"'"' #!/bin/bash # usage: run.sh <label> <cwd> <pytest args...> B=/dev/shm/vite-t1; label=$1; cwd=$2; shift 2 export PLAYWRIGHT_BROWSERS_PATH=$B/pw PATH=$B/venv/bin:$PATH PYTHONPATH=$cwd/frontends cd $cwd ps -eo pid,ppid,pgid,cmd > $B/logs/$label.ps-antes.txt ( while sleep 1; do ps -eo pid,ppid,pgid,cmd | grep -E '"'"'vite|rw-views|sldb serve|serve.py'"'"' | grep -v grep; echo ---; done ) > $B/logs/$label.ps-durante.txt & mon=$! rm -rf $B/bt timeout 900 systemd-run --user --scope -p MemoryMax=3G -- env TMPDIR=/dev/shm $B/venv/bin/python -m pytest -q -rs -p no:cacheprovider --basetemp=$B/bt "$@" > $B/logs/$label.pytest.log 2>&1 echo "rc=$?" >> $B/logs/$label.pytest.log kill $mon sleep 1 ps -eo pid,ppid,pgid,cmd > $B/logs/$label.ps-despues.txt tail -15 $B/logs/$label.pytest.log EOF chmod +x $B/run.sh; $B/run.sh e2e /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui tests/e2e_review_workbench_views.py' && pwd -P >| /tmp/claude-1367-cwd
+2328602 2328599 2328602 /bin/bash /dev/shm/vite-t1/run.sh e2e /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui tests/e2e_review_workbench_views.py
+2329225       2       0 [kworker/u24:2+flush-8:16]
+2329226       2       0 [kworker/u24:4-events_unbound]
+2330375 1583207 2330375 postgres: mepu t_2180532_0232fc05 172.18.0.1(55486) idle
+2330376 1583207 2330376 postgres: mepu postgres 172.18.0.1(55492) idle
+2332687       1 2332687 /home/robocop/.local/opt/node-v22.23.4-linux-x64/bin/node /mnt/ssd/proyectos/SLDB_1/UIs/sldb-ui/node_modules/astro/bin/astro.mjs dev --port 4321 --json
+2334214       1 2334214 /opt/google/chrome/chrome --allow-pre-commit-input --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-crash-reporter --disable-default-apps --disable-dev-shm-usage --disable-hang-monitor --disable-infobars --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-search-engine-choice-screen --disable-sync --enable-automation --export-tagged-pdf --force-color-profile=srgb --generate-pdf-document-outline --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --disable-features=Translate,AcceptCHFrame,MediaRouter,OptimizationHints,WebUIReloadButton,WebUIOmniboxPopup,WebUIOmniboxAimPopup,ProcessPerSiteUpToMainFrameThreshold,IsolateSandboxedIframes --enable-features=PdfOopif --headless --hide-scrollbars --mute-audio --disable-extensions --headless=new --disable-gpu --no-first-run --no-default-browser-check --disable-dev-shm-usage --remote-debugging-port=0 --user-data-dir=/dev/shm/irjp-mmdc.D7A9m6/puppeteer_dev_chrome_profile-bQYUcX --noerrdialogs --ozone-platform=headless --ozone-override-screen-size=800,600 --use-angle=swiftshader-webgl about:blank
+2334223 2334214 2334214 cat
+2334224 2334214 2334214 cat
+2334338       1 2334338 /opt/google/chrome/chrome --allow-pre-commit-input --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-crash-reporter --disable-default-apps --disable-dev-shm-usage --disable-hang-monitor --disable-infobars --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-search-engine-choice-screen --disable-sync --enable-automation --export-tagged-pdf --force-color-profile=srgb --generate-pdf-document-outline --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --disable-features=Translate,AcceptCHFrame,MediaRouter,OptimizationHints,WebUIReloadButton,WebUIOmniboxPopup,WebUIOmniboxAimPopup,ProcessPerSiteUpToMainFrameThreshold,IsolateSandboxedIframes --enable-features=PdfOopif --headless --hide-scrollbars --mute-audio --disable-extensions --headless=new --disable-gpu --no-first-run --no-default-browser-check --disable-dev-shm-usage --remote-debugging-port=0 --user-data-dir=/dev/shm/irjp-mmdc.HISr9a/puppeteer_dev_chrome_profile-QWYizt --noerrdialogs --ozone-platform=headless --ozone-override-screen-size=800,600 --use-angle=swiftshader-webgl about:blank
+2334346 2334338 2334338 cat
+2334347 2334338 2334338 cat
+2334412       2       0 [kworker/u24:9-events_unbound]
+2334476 1040694 1040694 runc --root /run/snap.docker/runtime-runc/moby --log /run/snap.docker/containerd/daemon/io.containerd.runtime.v2.task/moby/7f6b63ad05acf8f55a7180c46d83df566ed59eb3fb69640df9d6a11111f459c3/log.json --log-format json --systemd-cgroup exec --process /var/snap/docker/common/run/runc-process579081677 --detach --pid-file /run/snap.docker/containerd/daemon/io.containerd.runtime.v2.task/moby/7f6b63ad05acf8f55a7180c46d83df566ed59eb3fb69640df9d6a11111f459c3/2b3ef9f5fd24bc4bf245e96f1554d9cddd71837f2b6da339705526a428435f3f.pid 7f6b63ad05acf8f55a7180c46d83df566ed59eb3fb69640df9d6a11111f459c3
+2334477 1221194 1221194 runc --root /run/snap.docker/runtime-runc/moby --log /run/snap.docker/containerd/daemon/io.containerd.runtime.v2.task/moby/fed71c1fb50caa57b1ca905f094947e570a66fc6f833c7d9c8a46207eca8b49e/log.json --log-format json --systemd-cgroup exec --process /var/snap/docker/common/run/runc-process4141444950 --detach --pid-file /run/snap.docker/containerd/daemon/io.containerd.runtime.v2.task/moby/fed71c1fb50caa57b1ca905f094947e570a66fc6f833c7d9c8a46207eca8b49e/4cb363d400b27a3ccd907fee910349aa3a92dfc4dc46c20dc8cf25329e9045c8.pid fed71c1fb50caa57b1ca905f094947e570a66fc6f833c7d9c8a46207eca8b49e
+2334761    1888 2334761 /snap/firmware-updater/262/bin/firmware-notifier
+2334762  640585 2334762 /snap/firmware-updater/262/bin/firmware-notifier
+2334802       2       0 [kworker/u24:10-flush-8:0]
+2334803       2       0 [kworker/u24:11-writeback]
+2334804       2       0 [kworker/u24:12]
+2335153 2180532 2173619 /mnt/ssd/AntonIA/repos/legacy/mepu/mepu/.venv/bin/python3 -m alembic upgrade head
+2337224 2261206 2337224 /home/robocop/.local/share/uv/tools/deskops/bin/python /home/robocop/.local/bin/deskops advance task task-bd-10-n4b-el-cat??logo-de-m??tricas-queda-como-definiciones-fijas-y-la-app-cuenta-por-oc-lector-del-in --root .
+2337225 2261206 2337224 tail -1
+2337233 2257535 2257535 /home/robocop/.local/share/uv/tools/deskops/bin/python /home/robocop/.local/bin/deskops edit task task-sldb-code-lee-las-claves-del-sql-de-postgres-pk-con-identity-constraints-de-tabla-y-fk-de-alter-tabl summary Desbloqueada 2026-11-17 por decisi??n del supervisor: las claves se leen con pglast (extra postgres). Intento nuevo sobre el diff guardado. --root sldb
+2337373       2       0 [kworker/5:0-events]
+2339013       1 2339013 /snap/docker/3618/bin/containerd-shim-runc-v2 -namespace moby -id 8ed729bbfe4e2f7aec848e0afb31a59742c1c51608121a63d20856e0d9c96cd2 -address /run/snap.docker/containerd/containerd.sock
+2339039 2339013 2339039 postgres -c fsync=off -c full_page_writes=off -c max_connections=200
+2339101       2       0 [kworker/0:1-events]
+2339242 1217310 1217310 /snap/docker/3618/bin/docker-proxy -proto tcp -host-ip 127.0.0.1 -host-port 15436 -container-ip 172.17.0.3 -container-port 5432 -use-listen-fd
+2339427 2339039 2339427 postgres: checkpointer 
+2339428 2339039 2339428 postgres: background writer 
+2339430 2339039 2339430 postgres: walwriter 
+2339431 2339039 2339431 postgres: autovacuum launcher 
+2339432 2339039 2339432 postgres: logical replication launcher 
+2339524 2290960 2339524 timeout 120 /mnt/ssd/proyectos/SLDB_1/IR/.venv/bin/sldb serve --help
+2339544 2339524 2339524 /mnt/ssd/proyectos/SLDB_1/IR/.venv/bin/python /mnt/ssd/proyectos/SLDB_1/IR/.venv/bin/sldb serve --help
+2339663 1956327 1956327 [git] <defunct>
+2339726 1956327 1956327 [git] <defunct>
+2339727 1956327 1956327 [git] <defunct>
+2339729 1956327 1956327 [git] <defunct>
+2339899 2118033 2339899 sleep 60
+2340168       1 2340167 /opt/google/chrome/chrome_crashpad_handler --monitor-self --monitor-self-annotation=ptype=crashpad-handler --user-stream-region=4,65568 --database=/home/robocop/.config/google-chrome/Crash Reports --url=https://clients2.google.com/cr/report --annotation=channel= --annotation=lsb-release=Ubuntu 24.04.5 LTS --annotation=plat=Linux --annotation=prod=Chrome_Linux --annotation=ver=156.0.8078.47 --initial-client-fd=7 --shared-client-connection
+2340194       1 2340133 /opt/google/chrome/chrome_crashpad_handler --monitor-self --monitor-self-annotation=ptype=crashpad-handler --user-stream-region=4,65568 --database=/home/robocop/.config/google-chrome/Crash Reports --url=https://clients2.google.com/cr/report --annotation=channel= --annotation=lsb-release=Ubuntu 24.04.5 LTS --annotation=plat=Linux --annotation=prod=Chrome_Linux --annotation=ver=156.0.8078.47 --initial-client-fd=7 --shared-client-connection
+2340276       1 2340275 /opt/google/chrome/chrome_crashpad_handler --no-periodic-tasks --monitor-self-annotation=ptype=crashpad-handler --database=/home/robocop/.config/google-chrome/Crash Reports --url=https://clients2.google.com/cr/report --annotation=channel= --annotation=lsb-release=Ubuntu 24.04.5 LTS --annotation=plat=Linux --annotation=prod=Chrome_Linux --annotation=ver=156.0.8078.47 --initial-client-fd=4 --shared-client-connection
+2340277       1 2340274 /opt/google/chrome/chrome_crashpad_handler --no-periodic-tasks --monitor-self-annotation=ptype=crashpad-handler --database=/home/robocop/.config/google-chrome/Crash Reports --url=https://clients2.google.com/cr/report --annotation=channel= --annotation=lsb-release=Ubuntu 24.04.5 LTS --annotation=plat=Linux --annotation=prod=Chrome_Linux --annotation=ver=156.0.8078.47 --initial-client-fd=4 --shared-client-connection
+2340547 2122560 2122507 /mnt/ssd/proyectos/SLDB_1/.venv/bin/python -m deskops drawer remove --help
+2340609 2122566 2122507 /mnt/ssd/proyectos/SLDB_1/.venv/bin/python -m deskops desk update --apply --root /dev/shm/pytest-of-robocop/pytest-1350/popen-gw2/test_desk_update_apply_declare0/repo
+2340826 2122563 2122507 /mnt/ssd/proyectos/SLDB_1/.venv/bin/python -m sldb stores check --store /dev/shm/pytest-of-robocop/pytest-1350/popen-gw1/test_merge_failure_at_the_sour0/repo/.sldb
+2340919 2334338 2334338 /opt/google/chrome/chrome --type=zygote --no-zygote-sandbox --headless=new --crashpad-handler-pid=2340168 --enable-crash-reporter=, --noerrdialogs --user-data-dir=/dev/shm/irjp-mmdc.HISr9a/puppeteer_dev_chrome_profile-QWYizt --change-stack-guard-on-fork=enable
+2340922 2334214 2334214 /opt/google/chrome/chrome --type=zygote --no-zygote-sandbox --headless=new --crashpad-handler-pid=2340194 --enable-crash-reporter=, --noerrdialogs --user-data-dir=/dev/shm/irjp-mmdc.D7A9m6/puppeteer_dev_chrome_profile-bQYUcX --change-stack-guard-on-fork=enable
+2340993 2334214 2334214 /opt/google/chrome/chrome --type=zygote --headless=new --crashpad-handler-pid=2340194 --enable-crash-reporter=, --noerrdialogs --user-data-dir=/dev/shm/irjp-mmdc.D7A9m6/puppeteer_dev_chrome_profile-bQYUcX --change-stack-guard-on-fork=enable
+2341073 2334338 2334338 /opt/google/chrome/chrome --type=zygote --headless=new --crashpad-handler-pid=2340168 --enable-crash-reporter=, --noerrdialogs --user-data-dir=/dev/shm/irjp-mmdc.HISr9a/puppeteer_dev_chrome_profile-QWYizt --change-stack-guard-on-fork=enable
+2341075 2122570 2122507 /mnt/ssd/proyectos/SLDB_1/.venv/bin/python -m deskops add task --title Aggregate --goal g --scope s --task-type task.aggregate --root /dev/shm/pytest-of-robocop/pytest-1350/popen-gw3/test_closeout_verify_of_an_agg0/repo
+2341136  621893  621893 [git] <defunct>
+2341307 2243470 2243470 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794799987922-erzkhl.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'P=$(cat /tmp/claude-1001/-mnt-ssd-proyectos-SLDB-1/72f77258-0f9a-489d-b7d3-47a958bc0be7/scratchpad/cur_pane); [ -z "$P" ] && exit 1; f=/mnt/ssd/proyectos/SLDB_1/sldb/runs/subagents/20261116-test-k3-c1/result-summary.md; sleep 120; for i in $(seq 1 110); do st=$(/home/robocop/setup/herdr/coordination.sh agents 2>&1 | grep "$P " | awk '"'"'{print $2}'"'"'); [ -f $f ] && [ "$st" != "working" ] && break; sleep 30; done; head -10 $f | cut -c1-240' < /dev/null && pwd -P >| /tmp/claude-c39e-cwd
+2341308 2341307 2243470 bash /home/robocop/setup/herdr/coordination.sh agents
+2341309 2341307 2243470 /bin/bash -c source /home/robocop/.claude/shell-snapshots/snapshot-bash-1794799987922-erzkhl.sh 2>/dev/null || true && \builtin shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'which'; \builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'P=$(cat /tmp/claude-1001/-mnt-ssd-proyectos-SLDB-1/72f77258-0f9a-489d-b7d3-47a958bc0be7/scratchpad/cur_pane); [ -z "$P" ] && exit 1; f=/mnt/ssd/proyectos/SLDB_1/sldb/runs/subagents/20261116-test-k3-c1/result-summary.md; sleep 120; for i in $(seq 1 110); do st=$(/home/robocop/setup/herdr/coordination.sh agents 2>&1 | grep "$P " | awk '"'"'{print $2}'"'"'); [ -f $f ] && [ "$st" != "working" ] && break; sleep 30; done; head -10 $f | cut -c1-240' < /dev/null && pwd -P >| /tmp/claude-c39e-cwd
+2341310 2341307 2243470 awk {print $2}
+2341311 2341309 2243470 ugrep -G --ignore-files --hidden -I --exclude-dir=.git --exclude-dir=.svn --exclude-dir=.hg --exclude-dir=.bzr --exclude-dir=.jj --exclude-dir=.sl w5:p6C 
+2341428       1 2341428 (fwupd)
+2341463 2341308 2243470 herdr agent list
+2341464 2341308 2243470 python3 -c  import json, sys d = json.load(sys.stdin) seen = set() print("%-16s %-9s %-8s %s" % ("name", "status", "pane", "cwd")) for a in d["result"]["agents"]:     pane = a["pane_id"]     if pane in seen:         continue     seen.add(pane)     print("%-16s %-9s %-8s %s" % (a.get("name") or a["agent"], a["agent_status"], pane, a.get("cwd", "?")))
+2341619 2318524 2341619 sleep 15
+2341791 2147772 2341791 sleep 15
+2342139 2274662 2342139 sleep 2
+2342141 2328602 2328602 ps -eo pid,ppid,pgid,cmd
+2508763 3628917 2508763 [codex] <defunct>
+2549927 2194861 2549927 /bin/bash
+2550131 2549927 2550131 htop
+2554493       1 2554491 node listener.mjs
+2557085       1 2557082 node /dev/shm/esm-e1/tls-listener.mjs
+2574525 2194861 2574525 /bin/bash
+2574553 2574525 2574553 claude --model opus
+3167657       1 3167482 /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/python -c  import sys, time from pathlib import Path import sldb.api as api import sldb.api.documents.apply_batch as ab from sldb.core.exceptions import ConflictError  store, pythonpath, hold, marks, title, source_hash = sys.argv[1:7] marks = Path(marks) real = ab.prevalidate_changes def marked(*args, **kwargs):     plan = real(*args, **kwargs)     (marks / ("ready" if hold == "1" else "entered")).write_text("x")     while hold == "1" and not (marks / "go").exists():         time.sleep(0.02)                    # the first holds here, after prevalidating     return plan ab.prevalidate_changes = marked payload = {"title": title, "status": "open", "tags": ["auth"]} changes = [     {"id": "login", "action": "update", "payload": payload, "expected_source_hash": source_hash},     {"id": "extra-" + title.lower(), "action": "create", "model": "TicketDoc", "payload": payload, "path": "extra-" + title.lower() + ".md"}, ] (marks / ("started" if hold == "0" else "_")).write_text("x") try:     api.apply_batch(store, changes, pythonpath)     print("OK") except ConflictError:     print("CONFLICT")  /dev/shm/pytest-of-robocop/pytest-652/test_second_process_with_the_s0/repo/.sldb /dev/shm/pytest-of-robocop/pytest-652/test_second_process_with_the_s0 1 /dev/shm/pytest-of-robocop/pytest-652/test_second_process_with_the_s0 Winner 534b942fd7bd4d6256e498c202b8dc5df394ce2c8d4113169ba2e8b7e6940bb3
+3235278 2013072 3235278 /usr/sbin/tailscaled be-child ssh-monitor --uid=1001 --gid=1003 --groups=1003,27,984,1001,1002 --local-user=robocop --rpc-fd=3
+3235286 3235278 3235286 /usr/bin/login -f         -h 100.114.175.18 -p
+3235452 3235286 3235452 -bash
+3467357  640585 3467357 /usr/bin/pipewire-pulse
+3468233  640585 3468233 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+3468595  640585 3468595 /usr/libexec/xdg-document-portal
+3468602  640585 3468602 /usr/libexec/xdg-permission-store
+3468879 3468595 3468879 fusermount3 -o rw,nosuid,nodev,fsname=portal,auto_unmount,subtype=portal -- /run/user/1001/doc
+3478627    1888 3478627 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+3478636    1888 3478636 /usr/libexec/xdg-document-portal
+3478650    1888 3478650 /usr/libexec/xdg-permission-store
+3478665 3478636 3478665 fusermount3 -o rw,nosuid,nodev,fsname=portal,auto_unmount,subtype=portal -- /run/user/1000/doc
+3487948    1755    1755 gdm-session-worker [pam/gdm-launch-environment]
+3488214       1 3488214 /usr/lib/systemd/systemd --user
+3488215 3488214 3488214 (sd-pam)
+3488658 3488214 3488658 /usr/bin/pipewire
+3488659 3488214 3488659 /usr/bin/pipewire -c filter-chain.conf
+3488661 3488214 3488661 /usr/bin/wireplumber
+3488662 3488214 3488662 /usr/bin/pipewire-pulse
+3488668 3488214 3488668 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+3488678 3487948 3488678 /usr/libexec/gdm-x-session dbus-run-session -- gnome-session --autostart /usr/share/gdm/greeter/autostart
+3488680 3488678 3488678 /usr/lib/xorg/Xorg vt1 -displayfd 3 -auth /run/user/120/gdm/Xauthority -nolisten tcp -background none -noreset -keeptty -novtswitch -verbose 3
+3488719 3488214 3488719 /usr/libexec/xdg-document-portal
+3488813 3488214 3488813 /usr/libexec/xdg-permission-store
+3488820 3488719 3488820 fusermount3 -o rw,nosuid,nodev,fsname=portal,auto_unmount,subtype=portal -- /run/user/120/doc
+3489572       2       0 [nvidia-drm/timeline-d89]
+3490336 3488678 3488678 dbus-run-session -- gnome-session --autostart /usr/share/gdm/greeter/autostart
+3490356 3490336 3488678 dbus-daemon --nofork --print-address 4 --session
+3490357 3490336 3488678 /usr/libexec/gnome-session-binary --autostart /usr/share/gdm/greeter/autostart
+3490525       1 3488678 /usr/libexec/at-spi-bus-launcher
+3490533 3490525 3488678 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/accessibility.conf --nofork --print-address 11 --address=unix:path=/run/user/120/at-spi/bus_0
+3490724 3490357 3488678 /usr/bin/gnome-shell
+3491816       2       0 [nvidia-drm/timeline-d8d]
+3491839 3490724 3488678 /usr/libexec/mutter-x11-frames
+3492057       1 3488678 /usr/libexec/at-spi2-registryd --use-gnome-session
+3492810  640585 3468233 /usr/bin/gnome-keyring-daemon --start --foreground --components=secrets
+3492831  640585 3492831 /usr/bin/gnome-keyring-daemon --foreground --components=pkcs11,secrets --control-directory=/run/user/1001/keyring
+3493032       1 3488678 /usr/libexec/xdg-permission-store
+3493045       1 3488678 /usr/bin/gjs -m /usr/share/gnome-shell/org.gnome.Shell.Notifications
+3493078 3490357 3488678 /usr/libexec/gsd-sharing
+3493081 3490357 3488678 /usr/libexec/gsd-wacom
+3493084 3490357 3488678 /usr/libexec/gsd-color
+3493087 3490357 3488678 /usr/libexec/gsd-keyboard
+3493091 3490357 3488678 /usr/libexec/gsd-print-notifications
+3493094 3490357 3488678 /usr/libexec/gsd-rfkill
+3493096 3490357 3488678 /usr/libexec/gsd-smartcard
+3493100 3490357 3488678 /usr/libexec/gsd-datetime
+3493104 3490357 3488678 /usr/libexec/gsd-media-keys
+3493106 3490357 3488678 /usr/libexec/gsd-screensaver-proxy
+3493110 3490357 3488678 /usr/libexec/gsd-sound
+3493113 3490357 3488678 /usr/libexec/gsd-a11y-settings
+3493116 3490357 3488678 /usr/libexec/gsd-housekeeping
+3493119 3490357 3488678 /usr/libexec/gsd-power
+3493126 3490724 3493126 ibus-daemon --panel disable --xim
+3493182       1 3488678 /usr/libexec/gsd-printer
+3493249 3493126 3493126 /usr/libexec/ibus-memconf
+3493252       1 3493126 /usr/libexec/ibus-x11 --kill-daemon
+3493279       1 3488678 /usr/libexec/ibus-portal
+3493319       1 3488678 /usr/bin/gjs -m /usr/share/gnome-shell/org.gnome.ScreenSaver
+3493438 3493126 3493126 /usr/libexec/ibus-engine-simple
+3493580       1 3488678 /usr/libexec/dconf-service
+3566546       1 3549636 node /home/dios/proyectos/SLDB_1-wip/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/sldb-suite/tmp/rw-views-e3pf30lq/dist --port 41135 --strictPort --host 127.0.0.1
+3566554 3566546 3549636 /home/dios/proyectos/SLDB_1-wip/UIs/graph_ui/apps/review-workbench/node_modules/@esbuild/linux-x64/bin/esbuild --service=0.21.5 --ping
+3589698       1 3589698 /home/dios/proyectos/SLDB_1-wip/.venv/bin/python frontends/mindmap/serve.py 8092
+3628917       1 3628917 /home/robocop/.codex/packages/app-server-daemon/releases/0.169.0-x86_64-unknown-linux-musl/bin/codex app-server daemon pid-update-loop
+3646190 3628917 3646190 [codex] <defunct>
+3726297 3628917 3726297 /home/robocop/.codex/packages/app-server-daemon/releases/0.169.0-x86_64-unknown-linux-musl/bin/codex app-server --listen unix:// --analytics-default-enabled --managed-daemon
+3867768       1 3867768 claude bg-pty-host --bg-pty-host /tmp/cc-daemon-1001/d7b7a3f7/pty/cd81ebb3.sock 75 41 -- /home/robocop/.local/share/claude/versions/2.1.325 --session-id cd81ebb3-b37c-464b-9fb9-b7e35b5ba48b --fork-session --resume /home/robocop/claude-sesiones/24f38ffa-e609-436d-b368-fde9effa0897.jsonl --reply-on-resume --model opus --permission-mode bypassPermissions
+3867838 3867768 3867838 /home/robocop/.local/share/claude/versions/2.1.325 --session-id cd81ebb3-b37c-464b-9fb9-b7e35b5ba48b --fork-session --resume /home/robocop/claude-sesiones/24f38ffa-e609-436d-b368-fde9effa0897.jsonl --reply-on-resume --model opus --permission-mode bypassPermissions
+3935612  640585 3935612 /usr/libexec/at-spi-bus-launcher
+3966728 2194861 3966728 /bin/bash
+3967290 2194861 3967290 /bin/bash
+4009189 2194861 4009189 /bin/bash
+4012861 4009189 4012861 claude --resume /home/robocop/claude-sesiones/24f38ffa-e609-436d-b368-fde9effa0897.jsonl --dangerously-skip-permissions
+4056613       1    1694 /home/robocop/.local/bin/uv run --directory sldb sldb serve --store /mnt/ssd/proyectos/SLDB_1/workbench_demo/.sldb --pythonpath /mnt/ssd/proyectos/SLDB_1 --port 8085 --cors
+4056614       1    1694 python3 -m http.server 8099 -d sldb/docs/ui-workbench/screens
+4057087 4056613    1694 /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/python /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/sldb serve --store /mnt/ssd/proyectos/SLDB_1/workbench_demo/.sldb --pythonpath /mnt/ssd/proyectos/SLDB_1 --port 8085 --cors
+4080009       1 4080009 /home/robocop/.local/bin/claude daemon run --json-path /home/robocop/.claude/daemon.json --log-file /home/robocop/.claude/daemon.log --origin transient --spawned-by {"label":"claude","cwd":"/mnt/ssd/AntonIA/repos/legacy/mepu/mepu","pid":4012861}
+4080023 4080009 4080023 claude bg-pty-host --bg-pty-host /tmp/cc-daemon-1001/d7b7a3f7/spare/c0667ab7.pty.sock 200 50 -- /home/robocop/.local/share/claude/versions/2.1.326 --bg-spare /tmp/cc-daemon-1001/d7b7a3f7/spare/c0667ab7.claim.sock
+4080040 4080023 4080023 claude bg-spare --bg-spare /tmp/cc-daemon-1001/d7b7a3f7/spare/c0667ab7.claim.sock
+4131319       1 4131319 claude bg-pty-host --bg-pty-host /tmp/cc-daemon-1000/3de38fde/pty/0be58c0a.sock 153 41 -- /home/dios/.local/share/claude/versions/2.1.314 --session-id 0be58c0a-6fab-4697-ba82-f61dc213775c --fork-session --resume /home/dios/.claude/projects/-home-dios-proyectos-Matrix/944ef242-930d-4432-a369-661a8b05fb85.jsonl --permission-mode auto
+4131331 4131319 4131331 /home/dios/.local/share/claude/versions/2.1.314 --session-id 0be58c0a-6fab-4697-ba82-f61dc213775c --fork-session --resume /home/dios/.claude/projects/-home-dios-proyectos-Matrix/944ef242-930d-4432-a369-661a8b05fb85.jsonl --permission-mode auto
+4190397 2013072 4190397 /usr/sbin/tailscaled be-child ssh-monitor --uid=1001 --gid=1003 --groups=1003,27,984,1001,1002 --local-user=robocop --rpc-fd=3

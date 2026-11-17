@@ -1,0 +1,83 @@
+Running as unit: run-u174.scope; invocation ID: 8c5010d51b90456b8fa94b3fe4ab574a
+EEE                                                                      [100%]
+==================================== ERRORS ====================================
+__ ERROR at setup of test_views_query_save_reload_and_point_at_another_store ___
+
+    @pytest.fixture(scope="module")
+    def stack():
+        if sync_playwright is None:
+            pytest.skip("playwright no está instalado")
+        if not (shutil.which("npx") and (APP / "node_modules").is_dir()):
+            pytest.skip("review-workbench needs node and `npm ci` in apps/review-workbench")
+        work = Path(tempfile.mkdtemp(prefix="rw-views-"))
+        processes = []
+        try:
+            (work / "here").mkdir(), (work / "there").mkdir(), (work / "styled").mkdir()
+            store, other = _store(work / "here", HERE), _store(work / "there", THERE)
+            for spec in STYLE.glob("*.yml"):
+                shutil.copy(spec, work / "styled" / spec.name)
+            subprocess.run(["sldb", "stores", "init", "--path", str(work / "styled")], check=True, capture_output=True)
+            subprocess.run(["sldb", "notations", "sync", "--spec", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
+                           cwd=work / "styled", check=True, capture_output=True)
+            styled = work / "styled" / ".sldb"
+            sldb_port, ui_port, app_port = _free_port(), _free_port(), _free_port()
+            env = {**os.environ, "GRAPH_UI_BACKEND": "local", "SLDB_STORE": str(store)}
+            processes.append(_spawn(["sldb", "serve", "--store", str(store), "--port", str(sldb_port)]))
+>           raise RuntimeError("SIMULATED: fallo tras lanzar 1 proceso")
+E           RuntimeError: SIMULATED: fallo tras lanzar 1 proceso
+
+tests/e2e_mid1.py:139: RuntimeError
+__ ERROR at setup of test_layout_style_rings_by_field_and_layered_by_relation __
+
+    @pytest.fixture(scope="module")
+    def stack():
+        if sync_playwright is None:
+            pytest.skip("playwright no está instalado")
+        if not (shutil.which("npx") and (APP / "node_modules").is_dir()):
+            pytest.skip("review-workbench needs node and `npm ci` in apps/review-workbench")
+        work = Path(tempfile.mkdtemp(prefix="rw-views-"))
+        processes = []
+        try:
+            (work / "here").mkdir(), (work / "there").mkdir(), (work / "styled").mkdir()
+            store, other = _store(work / "here", HERE), _store(work / "there", THERE)
+            for spec in STYLE.glob("*.yml"):
+                shutil.copy(spec, work / "styled" / spec.name)
+            subprocess.run(["sldb", "stores", "init", "--path", str(work / "styled")], check=True, capture_output=True)
+            subprocess.run(["sldb", "notations", "sync", "--spec", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
+                           cwd=work / "styled", check=True, capture_output=True)
+            styled = work / "styled" / ".sldb"
+            sldb_port, ui_port, app_port = _free_port(), _free_port(), _free_port()
+            env = {**os.environ, "GRAPH_UI_BACKEND": "local", "SLDB_STORE": str(store)}
+            processes.append(_spawn(["sldb", "serve", "--store", str(store), "--port", str(sldb_port)]))
+>           raise RuntimeError("SIMULATED: fallo tras lanzar 1 proceso")
+E           RuntimeError: SIMULATED: fallo tras lanzar 1 proceso
+
+tests/e2e_mid1.py:139: RuntimeError
+_ ERROR at setup of test_a_view_with_a_notation_draws_glyph_styles_link_colours_and_the_legend _
+
+    @pytest.fixture(scope="module")
+    def stack():
+        if sync_playwright is None:
+            pytest.skip("playwright no está instalado")
+        if not (shutil.which("npx") and (APP / "node_modules").is_dir()):
+            pytest.skip("review-workbench needs node and `npm ci` in apps/review-workbench")
+        work = Path(tempfile.mkdtemp(prefix="rw-views-"))
+        processes = []
+        try:
+            (work / "here").mkdir(), (work / "there").mkdir(), (work / "styled").mkdir()
+            store, other = _store(work / "here", HERE), _store(work / "there", THERE)
+            for spec in STYLE.glob("*.yml"):
+                shutil.copy(spec, work / "styled" / spec.name)
+            subprocess.run(["sldb", "stores", "init", "--path", str(work / "styled")], check=True, capture_output=True)
+            subprocess.run(["sldb", "notations", "sync", "--spec", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
+                           cwd=work / "styled", check=True, capture_output=True)
+            styled = work / "styled" / ".sldb"
+            sldb_port, ui_port, app_port = _free_port(), _free_port(), _free_port()
+            env = {**os.environ, "GRAPH_UI_BACKEND": "local", "SLDB_STORE": str(store)}
+            processes.append(_spawn(["sldb", "serve", "--store", str(store), "--port", str(sldb_port)]))
+>           raise RuntimeError("SIMULATED: fallo tras lanzar 1 proceso")
+E           RuntimeError: SIMULATED: fallo tras lanzar 1 proceso
+
+tests/e2e_mid1.py:139: RuntimeError
+1 deselected, 3 errors in 12.39s
+rc=1

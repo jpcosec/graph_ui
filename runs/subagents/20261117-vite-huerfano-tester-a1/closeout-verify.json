@@ -1,0 +1,43 @@
+{
+  "alerts": [],
+  "declared": [
+    "tests",
+    "commit",
+    "atom",
+    "materialization"
+  ],
+  "findings": [],
+  "found": [
+    "tests",
+    "atom|materialization",
+    "commit"
+  ],
+  "gates": {
+    "atom_or_materialization_link": {
+      "evidence": [
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/test_review_workbench.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/e2e_review_workbench_views.py"
+      ],
+      "findings": [],
+      "ok": true
+    },
+    "commit": {
+      "evidence": [
+        "9a609dd"
+      ],
+      "findings": [],
+      "ok": true
+    },
+    "tests": {
+      "evidence": [
+        "tests/e2e_review_workbench_views.py"
+      ],
+      "findings": [],
+      "ok": true
+    }
+  },
+  "implicit_code": false,
+  "ok": true,
+  "summary": "esta tarea declar\u00f3 tests, commit, atom|materialization; encontr\u00e9 tests, atom|materialization, commit",
+  "task_id": "task-la-e2e-de-vistas-de-review-workbench-no-deja-procesos-vite-preview-hu\u00e9rfanos-al-terminar"
+}

@@ -1,0 +1,57 @@
+# control negativo: tests/e2e_review_workbench_views.py::test_stop_leaves_no_process_of_vite_preview_alive
+# copia: git archive HEAD en /dev/shm/vite-e1/neg + archivo nuevo con el cuerpo de _stop reemplazado por el teardown de HEAD (terminate/wait/kill sobre el Popen)
+# node_modules: symlink al de /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/apps/review-workbench
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________ test_stop_leaves_no_process_of_vite_preview_alive _______________
+
+tmp_path = PosixPath('/dev/shm/vite-e1/bt/test_stop_leaves_no_process_of0')
+
+    def test_stop_leaves_no_process_of_vite_preview_alive(tmp_path):
+        """``_stop`` takes down ``npx vite preview`` and the ``node vite preview`` it forks: nothing keeps the outDir."""
+        if not (shutil.which("npx") and (APP / "node_modules").is_dir()):
+            pytest.skip("review-workbench needs node and `npm ci` in apps/review-workbench")
+        if not Path("/proc/self/cmdline").exists():
+            pytest.skip("needs /proc to list the processes")
+        out = tmp_path / "rw-views-stop"
+        out.mkdir()
+        (out / "index.html").write_text("<!doctype html><title>rw-views-stop</title>")
+        port = _free_port()
+        process = _spawn(["npx", "vite", "preview", "--outDir", str(out), "--port", str(port), "--strictPort",
+                          "--host", "127.0.0.1"], cwd=APP)
+        try:
+            _wait(f"http://127.0.0.1:{port}/", process)
+            assert _holding(str(out)), "vite preview should be running with this outDir before _stop"
+        finally:
+            _stop([process])
+        left = _holding(str(out))
+        for pid in left:  # do not leak this run's processes even when the assertion fails
+            try:
+                os.kill(pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+>       assert left == [], f"processes still holding {out} after _stop: {left}"
+E       AssertionError: processes still holding /dev/shm/vite-e1/bt/test_stop_leaves_no_process_of0/rw-views-stop after _stop: [2292838]
+E       assert [2292838] == []
+E         
+E         Left contains one more item: 2292838
+E         Use -v to get more diff
+
+tests/e2e_review_workbench_views.py:183: AssertionError
+=============================== warnings summary ===============================
+../venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/vite-e1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 failed, 1 warning in 3.87s
+rc=1
+--- ps antes
+1327477 Wed Nov 11 09:33:02 2026 node /dev/shm/gui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-uvze5a5n/dist --port 41979 --strictPort --host 127.0.0.1
+1984202 Wed Nov 11 11:21:34 2026 node /dev/shm/cc34ui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-2fwa2btg/dist --port 33405 --strictPort --host 127.0.0.1
+3566546 Mon Nov  2 14:01:33 2026 node /home/dios/proyectos/SLDB_1-wip/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/sldb-suite/tmp/rw-views-e3pf30lq/dist --port 41135 --strictPort --host 127.0.0.1
+--- ps despues
+1327477 Wed Nov 11 09:33:02 2026 node /dev/shm/gui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-uvze5a5n/dist --port 41979 --strictPort --host 127.0.0.1
+1984202 Wed Nov 11 11:21:34 2026 node /dev/shm/cc34ui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-2fwa2btg/dist --port 33405 --strictPort --host 127.0.0.1
+3566546 Mon Nov  2 14:01:33 2026 node /home/dios/proyectos/SLDB_1-wip/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/sldb-suite/tmp/rw-views-e3pf30lq/dist --port 41135 --strictPort --host 127.0.0.1

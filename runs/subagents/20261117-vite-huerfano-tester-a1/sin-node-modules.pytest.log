@@ -1,0 +1,6 @@
+Running as unit: run-u70.scope; invocation ID: 19076ad435474f4598672ff75b282309
+s                                                                        [100%]
+=========================== short test summary info ============================
+SKIPPED [1] tests/e2e_review_workbench_views.py:171: review-workbench needs node and `npm ci` in apps/review-workbench
+1 skipped, 3 deselected in 0.16s
+rc=0

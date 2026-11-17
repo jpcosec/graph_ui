@@ -1,0 +1,31 @@
+--- /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/tests/e2e_review_workbench_views.py	2026-11-17 02:23:35.224294439 -0300
++++ /dev/shm/vite-t1/neg/tests/e2e_review_workbench_views.py	2026-11-17 02:35:10.583925406 -0300
+@@ -90,22 +90,14 @@
+ 
+ 
+ def _stop(processes: list[subprocess.Popen], timeout: float = 10) -> None:
+-    """SIGTERM every process group started by ``_spawn``; SIGKILL the groups still alive after ``timeout``."""
++    """HEAD's teardown: terminate/wait/kill on the Popen only."""
+     for process in processes:
+-        try:
+-            os.killpg(process.pid, signal.SIGTERM)  # pgid == pid: _spawn starts a new session
+-        except ProcessLookupError:
+-            pass
+-    deadline = time.time() + timeout
++        process.terminate()
+     for process in processes:
+-        while _group_alive(process) and time.time() < deadline:
+-            time.sleep(0.1)
+-        if _group_alive(process):
+-            try:
+-                os.killpg(process.pid, signal.SIGKILL)
+-            except ProcessLookupError:
+-                pass
+-        process.wait(timeout=timeout)
++        try:
++            process.wait(timeout=10)
++        except subprocess.TimeoutExpired:
++            process.kill()
+ 
+ 
+ def _store(root: Path, pilots: list[str]) -> Path:

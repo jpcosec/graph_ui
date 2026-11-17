@@ -1,0 +1,10 @@
+--- /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/tests/e2e_review_workbench_views.py	2026-11-17 02:23:35.224294439 -0300
++++ /dev/shm/vite-t1/mid/tests/e2e_review_workbench_views.py	2026-11-17 02:36:15.435072434 -0300
+@@ -138,6 +138,7 @@
+         processes.append(_spawn(["sldb", "serve", "--store", str(store), "--port", str(sldb_port)]))
+         processes.append(_spawn([sys.executable, str(MINDMAP / "serve.py"), str(ui_port)], env=env))
+         _wait(f"http://127.0.0.1:{sldb_port}/health", processes[0])
++        raise RuntimeError("SIMULATED: fallo tras lanzar 2 procesos")
+         _wait(f"http://127.0.0.1:{ui_port}/api/views", processes[1])
+         dist = work / "dist"
+         subprocess.run(["npx", "vite", "build", "--outDir", str(dist), "--emptyOutDir"], cwd=APP, check=True,

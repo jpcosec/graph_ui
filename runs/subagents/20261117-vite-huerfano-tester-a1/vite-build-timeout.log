@@ -1,0 +1,7 @@
+TimeoutExpired
+vivos tras timeout: [2431846, 2431847, 2431866, 2431868]
+timeout 120 /dev/shm/vite-t1/venv/bin/python -u -I build_timeout.py /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/apps/review-workbench /dev/shm/vite-t1/buildout/dist-
+/dev/shm/vite-t1/venv/bin/python -u -I build_timeout.py /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/apps/review-workbench /dev/shm/vite-t1/buildout/dist-timeout 
+2431866       1 sh -c vite build --outDir /dev/shm/vite-t1/buildout/dist-timeout --emptyOutDir
+2431868 2431866 node /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite build --outDir /dev/shm/vite-t1/buildout/dist-timeout --emptyOutDir
+(kill 2431868 2431866 por el tester tras la evidencia)
