@@ -1,0 +1,36 @@
+name: review-task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en-evidence-materialization-1
+path: desk/reviews/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en/evidence-materialization-1.md
+source_hash: 701dd77fc5d2330cf59497d8f05cc7a56700f8d01709e1a3a8d83bc91846bc45
+content_hash: 43b8d9deee8995fda047866a671dce0e1c5cc7c0ecfa9e7019b51685ad238d10
+field_hashes:
+  id: 75887ac6d149e62d18c860d875d84763e239cff12236abe11468b815e9ac99a2
+  title: 57f75ef19e526b79bd914d64eb0170385fe58f070a1343e040c4c348d5e12118
+  kind: edecec53ab11f560816e75a17681eb83886beace01d7fb927d99707d3d031aac
+  fact: b77d8cf6414796c495587568e836eb101f2c47c6cbab025c9e93d24db5ead67b
+  value: 45975ff9e0af7104d8fe73374b8d7ea50443ff051b0055331a651d1cd6cc3dea
+  subject: ef23d374cb11cce0a0a93edc2609574d90ce3f920854a39a01701e65b3ad0d59
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 9eeef991471c47a0f748cc581c93b036c7560af99f0fcdf1ed75357a5551f1ac
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  input_sha256: c5e41ae939fa3c3554b18a67bfaac6a80eb2a3670569544a64366834eea8aebd
+  output_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
+  reason: 10cc5cc2cec7cf280f3f0b61671bc1a4be022a16665adb4cca0ae84360d523d0
+  created_at: 507bce662bc63cd628a397902fbf89782d96f48c53d4fa89eee01912e5500805
+  disposed_at: 507bce662bc63cd628a397902fbf89782d96f48c53d4fa89eee01912e5500805
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: d2901698bb39cbfee7549f9f30f007f9e73fdb52ebcd0bc381f1037e32a80a41
+  disposition: f2678de4d5e4caa5c9479074dce2aaf1dc13712d9ece547bac54107efc00e6cb
+  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+- workspace:desk
+provenance:
+  by: agent
+  at: '2026-11-17T03:13:59Z'
+  authority: generated
+  via: create_document

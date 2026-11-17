@@ -1,0 +1,7 @@
+.sldb/core/models/InboxNoteDoc.yaml
+.sldb/core/store_index.yaml
+frontends/mindmap/persistence.py
+frontends/mindmap/sldb_adapter.py
+frontends/mindmap/workspace_routes.py
+tests/deskops_viewdocs.py
+tests/test_mindmap_workspace_explorer.py

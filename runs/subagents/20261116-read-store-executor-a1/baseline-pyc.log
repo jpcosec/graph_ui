@@ -1,0 +1,4 @@
+$ /mnt/ssd/proyectos/SLDB_1/sldb/.venv/bin/python -c 'from sldb.api import read_store, extract_payload, store_is_prepared'
+rc=0
+$ /dev/shm/readstore-a1/venv/bin/python -c 'from sldb.api import read_store, extract_payload, store_is_prepared'
+rc=0

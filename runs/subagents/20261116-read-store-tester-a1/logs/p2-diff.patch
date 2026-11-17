@@ -1,0 +1,220 @@
+diff --git a/frontends/mindmap/persistence.py b/frontends/mindmap/persistence.py
+index f520759..8dea3d5 100644
+--- a/frontends/mindmap/persistence.py
++++ b/frontends/mindmap/persistence.py
+@@ -71,7 +71,7 @@ class EditorStore:
+             # Sesiones concurrentes: el proceso lleva cacheado el store desde el
+             # arranque; una escritura de otro proceso (otra sesión, otro server)
+             # NO se ve hasta que forzamos el re-sweep de hojas (sldb PLAN 15
+-            # capa 6, ``new_operation`` — expuesto por el adaptador). Sin esto,
++            # capa 6, ``sldb.api.read_store`` — expuesto por el adaptador). Sin esto,
+             # el compare contra ``expected`` compararía contra un payload viejo
+             # y pisotearía el cambio ajeno (ver MIGRACION §2.6).
+             adapter.refresh_for_concurrent_sessions()
+diff --git a/frontends/mindmap/sldb_adapter.py b/frontends/mindmap/sldb_adapter.py
+index 6b1aead..b8969de 100644
+--- a/frontends/mindmap/sldb_adapter.py
++++ b/frontends/mindmap/sldb_adapter.py
+@@ -366,10 +366,12 @@ class SldbAdapter:
+         procesos (sesiones concurrentes). Sin esto, una sesión concurrente
+         no se detecta y el guardado pisa el cambio ajeno (vuelta 4;
+         MIGRACION §2.6). Además del guard-write del store, la signature del
+-        adapter se re-sweipea en la próxima lectura.
++        adapter se re-sweipea en la próxima lectura. Usa la lectura pública
++        ``sldb.api.read_store``: abre la operación nueva de la cache runtime y
++        la del hash de documentos, sin migrar el store.
+         """
+-        from sldb.store.runtime_cache_signature import new_operation
+-        new_operation(self.store)
++        from sldb.api import read_store
++        read_store(self.store)
+ 
+     # ------------------------------------------------------------------- vista
+ 
+diff --git a/frontends/mindmap/workspace_routes.py b/frontends/mindmap/workspace_routes.py
+index 86c6faf..5aee147 100644
+--- a/frontends/mindmap/workspace_routes.py
++++ b/frontends/mindmap/workspace_routes.py
+@@ -2,8 +2,8 @@
+ 
+ Strictly read-only: ninguna ruta GET reconstruye indices (load_edge_index, nunca document_edges ni rebuild_edges;
+ un store desactualizado responde store_no_preparado). Los listados (/nodes, /explorer) inician operacion con
+-sldb.api.open_store(readonly) sobre un store canonico preparado fuera del request; no se afirma nada sobre un layout
+-no canonico. Adheres to SLDB contracts, safe repo-bounded file inspection,
++sldb.api.read_store, que no migra: un store con layout no canonico responde 503 store_no_preparado con el texto de
++sldb ('store not prepared: run `sldb stores update`'). Adheres to SLDB contracts, safe repo-bounded file inspection,
+ and zero top-level SLDB imports to support remote/headless modes without regressions.
+ """
+ from __future__ import annotations
+@@ -162,13 +162,18 @@ class WorkspaceRoutes:
+         return indexed_documents(self.store_path)
+ 
+     def _fresh_listing(self) -> None:
+-        """Inicio de operacion de un listado por la via publica: el catalogo ve altas y bajas hechas
+-        por otros procesos. El store ya existe (lo comprueban los llamadores) y es canonico y esta
+-        preparado fuera del request; sobre ese supuesto open_store(readonly) no escribio nada en el
+-        ensayo del 2026-11-02 (runs/subagents/20261102-ws13-2-correccion/ensayo/). No habilita un
+-        layout no canonico, que open_store migraria, ni afirma que readonly lo proteja."""
+-        from sldb.api import open_store
+-        open_store(self.store_path, mode='readonly')
++        """Inicio de operacion de un listado por la lectura publica sldb.api.read_store: el catalogo
++        ve altas y bajas hechas por otros procesos. read_store no migra ni escribe el store; si su
++        layout no es canonico lanza 'store not prepared: run `sldb stores update`', que aqui responde
++        503 store_no_preparado con el mensaje de sldb. El store ya existe (lo comprueban los llamadores)."""
++        from sldb.api import read_store
++        from sldb.core.exceptions import SLDBStoreError
++        try:
++            read_store(self.store_path)
++        except SLDBStoreError as exc:
++            if 'store not prepared' in str(exc):
++                raise WorkspaceError(str(exc), 503, STORE_NO_PREPARADO) from exc
++            raise
+ 
+     def _pythonpath(self) -> str | None:
+         return getattr(self.editor_store, 'pythonpath', None) if self.editor_store else None
+@@ -181,18 +186,17 @@ class WorkspaceRoutes:
+             return data.decode('utf-8', errors='replace'), True
+ 
+     def _extract_payload(self, model_name: str, text: str, models: dict[str, Any] | None = None) -> tuple[dict[str, Any], str | None]:
+-        """Payload del texto ya leído con la API pública (modelo registrado + extract_model_data).
++        """Payload del texto ya leído con la API pública (modelo registrado + extract_payload).
+ 
+         Devuelve (payload, plantilla del modelo). No abre ningún otro documento."""
+-        from sldb.api import load_registered_model
+-        from sldb.runtime.validation import extract_model_data
++        from sldb.api import extract_payload, load_registered_model
+ 
+         cache = models if models is not None else {}
+         model_type = cache.get(model_name)
+         if model_type is None:
+             model_type = load_registered_model(self.store_path, model_name, self._pythonpath()).model_type
+             cache[model_name] = model_type
+-        return extract_model_data(model_type, text), getattr(model_type, '__template__', None)
++        return extract_payload(model_type, text), getattr(model_type, '__template__', None)
+ 
+     def workspace_nodes(self) -> dict[str, Any]:
+         """Index of all documents in the store with canonical id Model:name.
+@@ -227,7 +231,7 @@ class WorkspaceRoutes:
+                 payload, _ = self._extract_payload(model_name, text, models)
+             except Exception as exc:
+                 # El modelo de un documento autorizado no carga (load_registered_model o
+-                # extract_model_data, sin distinguirlos): conserva identidad y ruta, causa = str(exc).
++                # extract_payload, sin distinguirlos): conserva identidad y ruta, causa = str(exc).
+                 node['estado'] = MODELO_NO_CARGA
+                 node['causa'] = str(exc)
+                 nodes.append(node)
+diff --git a/tests/deskops_viewdocs.py b/tests/deskops_viewdocs.py
+index a7e4f84..543f96d 100644
+--- a/tests/deskops_viewdocs.py
++++ b/tests/deskops_viewdocs.py
+@@ -11,7 +11,6 @@ from pathlib import Path
+ from sldb import api
+ from sldb.core.exceptions import SLDBModelError
+ from sldb.models.notation.view_doc import ViewDoc
+-from sldb.runtime.validation import extract_model_data
+ 
+ 
+ def install_views(root):
+@@ -24,7 +23,7 @@ def install_views(root):
+     (root / 'views').mkdir(exist_ok=True)
+     names = []
+     for seed in sorted(p for p in files('deskops').joinpath('data', 'views').iterdir() if p.name.endswith('.md')):
+-        payload = ViewDoc.model_validate(extract_model_data(ViewDoc, seed.read_text(encoding='utf-8'))).model_dump()
++        payload = ViewDoc.model_validate(api.extract_payload(ViewDoc, seed.read_text(encoding='utf-8'))).model_dump()
+         api.create_document(store, 'ViewDoc', root / 'views' / seed.name, payload, payload['name'], '')
+         names.append(payload['name'])
+     return names
+diff --git a/tests/test_mindmap_workspace_explorer.py b/tests/test_mindmap_workspace_explorer.py
+index a99a70c..0d97599 100644
+--- a/tests/test_mindmap_workspace_explorer.py
++++ b/tests/test_mindmap_workspace_explorer.py
+@@ -712,7 +712,88 @@ def test_refresh_path_has_no_sldb_store_import():
+         elif isinstance(node, ast.Import):
+             mods += [a.name for a in node.names]
+     assert not [m for m in mods if m == 'sldb.store' or m.startswith('sldb.store.')], mods
+-    assert 'sldb.api' in mods  # open_store llega por sldb.api
++    assert 'sldb.api' in mods  # read_store llega por sldb.api
++
++
++def test_frontends_do_not_import_sldb_internal_readers():
++    """Ningun .py de frontends/ importa sldb.store.runtime_cache_signature ni extract_model_data de
++    sldb.runtime.validation (imports estaticos, por ast): la lectura usa sldb.api.read_store y
++    sldb.api.extract_payload."""
++    import ast
++    banned_module = 'sldb.store.runtime_cache_signature'
++    files = sorted((Path(_frontends_dir)).rglob('*.py'))
++    assert files
++    offenders = []
++    api_names: dict[str, set] = {}
++    for py in files:
++        rel = str(py.relative_to(Path(_frontends_dir)))
++        for node in ast.walk(ast.parse(py.read_text(encoding='utf-8'))):
++            if isinstance(node, ast.Import):
++                offenders += [(rel, a.name) for a in node.names
++                              if a.name == banned_module or a.name.startswith(banned_module + '.')]
++            elif isinstance(node, ast.ImportFrom) and node.module:
++                names = {a.name for a in node.names}
++                if node.module == banned_module or node.module.startswith(banned_module + '.'):
++                    offenders.append((rel, node.module))
++                if node.module == 'sldb.store' and 'runtime_cache_signature' in names:
++                    offenders.append((rel, 'sldb.store:runtime_cache_signature'))
++                if node.module == 'sldb.runtime.validation' and 'extract_model_data' in names:
++                    offenders.append((rel, 'sldb.runtime.validation:extract_model_data'))
++                if node.module == 'sldb.runtime' and 'validation' in names:
++                    offenders.append((rel, 'sldb.runtime:validation'))
++                if node.module == 'sldb.api':
++                    api_names.setdefault(rel, set()).update(names)
++    assert offenders == [], offenders
++    # la lectura publica que los reemplaza
++    assert 'read_store' in api_names.get('mindmap/sldb_adapter.py', set()), api_names
++    assert {'read_store', 'extract_payload'} <= api_names.get('mindmap/workspace_routes.py', set()), api_names
++
++
++def test_listing_get_on_unprepared_store_is_503_and_writes_nothing(tmp_path, monkeypatch):
++    """Un store con layout no canonico (lo que sldb.store.migration._already_canonical rechaza:
++    el indice semantico de archivo unico, anterior al sharding, sigue presente) no se migra en un
++    GET: /api/workspace/nodes y /api/workspace/explorer responden 503 con el texto de sldb y ningun
++    archivo bajo .sldb cambia de sha256 ni de mtime."""
++    from sldb.api import open_store, store_is_prepared
++    from sldb.store.io import load_semantic_index
++    from sldb.store.io.utils import yaml_dump
++    from sldb.store.layout import semantic_index_path
++
++    monkeypatch.delenv('DESKOPS_ROOT', raising=False)
++    monkeypatch.delenv('WORKSPACE_EXPLORER_ROOTS', raising=False)
++    root = tmp_path / 'repo'
++    root.mkdir()
++    git_init(root)
++    prepare_store(root)
++    store = root / '.sldb'
++    srv = Srv(root)
++    try:
++        assert store_is_prepared(store)
++        assert get(srv.url, '/api/workspace/nodes')[0] == 200  # preparado: el listado funciona
++        # Layout previo al sharding del indice semantico (PLAN 15 capa 5): el indice real del
++        # store, en su archivo unico. _already_canonical lo rechaza y open_store lo migraria.
++        legacy = semantic_index_path(store)
++        assert not legacy.exists()
++        legacy.write_text(yaml_dump(load_semantic_index(store).model_dump(mode='json')), encoding='utf-8')
++        assert not store_is_prepared(store)
++
++        def store_state() -> dict:
++            return {str(p.relative_to(store)): (sha(p.read_bytes()), p.stat().st_mtime_ns)
++                    for p in sorted(store.rglob('*')) if p.is_file()}
++
++        for url in ('/api/workspace/nodes', '/api/workspace/explorer'):
++            before = store_state()
++            status, data = get(srv.url, url)
++            assert status == 503, (url, status, data)
++            assert data['ok'] is False and data['estado'] == 'store_no_preparado', data
++            assert 'store not prepared' in data['error'], data
++            assert store_state() == before, f'GET {url} cambio archivos bajo .sldb'
++        assert legacy.exists() and not store_is_prepared(store)  # nada lo migro
++    finally:
++        srv.close()
++    # control: la apertura que si migra (open_store) prepara el mismo store
++    open_store(store)
++    assert store_is_prepared(store) and not legacy.exists()
+ 
+ 
+ def test_real_process_listing_get_writes_nothing_and_sees_other_process_changes(env, tmp_path):

@@ -1,0 +1,14 @@
+               total        used        free      shared  buff/cache   available
+Mem:              31          17           6           4          12          13
+$ pytest -q -rs tests/e2e_mindmap_workspace.py (cwd /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui)
+Running as unit: run-u86928.scope; invocation ID: 862228c0dd494822aa14cb9f2d2cb7cc
+......................                                                   [100%]
+=============================== warnings summary ===============================
+../../../../../../dev/shm/readstore-a1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/readstore-a1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+22 passed, 1 warning in 277.76s (0:04:37)
+rc=0

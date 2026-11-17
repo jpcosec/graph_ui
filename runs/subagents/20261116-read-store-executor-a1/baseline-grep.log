@@ -1,0 +1,9 @@
+$ ! grep -rnE 'runtime_cache_signature|extract_model_data' frontends tests/deskops_viewdocs.py --include=*.py  (cwd /dev/shm/readstore-a1/base)
+frontends/mindmap/workspace_routes.py:184:        """Payload del texto ya leído con la API pública (modelo registrado + extract_model_data).
+frontends/mindmap/workspace_routes.py:188:        from sldb.runtime.validation import extract_model_data
+frontends/mindmap/workspace_routes.py:195:        return extract_model_data(model_type, text), getattr(model_type, '__template__', None)
+frontends/mindmap/workspace_routes.py:230:                # extract_model_data, sin distinguirlos): conserva identidad y ruta, causa = str(exc).
+frontends/mindmap/sldb_adapter.py:371:        from sldb.store.runtime_cache_signature import new_operation
+tests/deskops_viewdocs.py:14:from sldb.runtime.validation import extract_model_data
+tests/deskops_viewdocs.py:27:        payload = ViewDoc.model_validate(extract_model_data(ViewDoc, seed.read_text(encoding='utf-8'))).model_dump()
+rc=1

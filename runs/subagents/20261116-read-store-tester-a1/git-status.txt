@@ -1,0 +1,44 @@
+ M .sldb/core/documents/TaskCodeDoc/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en.yaml
+ M .sldb/core/models/InboxNoteDoc.yaml
+ M .sldb/core/models/TaskCodeDoc.yaml
+ M .sldb/core/store_index.yaml
+ M desk/tasks/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en.md
+?? .sldb/core/documents/InboxNoteDoc/20261116-230531-suggestion-aviso-el-alias-deskops-inbox-se-retir-usar-deskops-message.yaml
+?? desk/inbox/20261116-230531-suggestion-aviso-el-alias-deskops-inbox-se-retir-usar-deskops-message.md
+?? runs/subagents/20261116-124617/
+?? runs/subagents/20261116-124651/
+?? runs/subagents/20261116-124713/
+?? runs/subagents/20261116-124733/
+?? runs/subagents/20261116-125047/
+?? runs/subagents/20261116-125323/
+?? runs/subagents/20261116-125341/
+?? runs/subagents/20261116-125357/
+?? runs/subagents/20261116-125615/
+?? runs/subagents/20261116-125634/
+?? runs/subagents/20261116-125651/
+?? runs/subagents/20261116-125703/
+?? runs/subagents/20261116-172432/
+?? runs/subagents/20261116-172444/
+?? runs/subagents/20261116-172528/
+?? runs/subagents/20261116-174106/
+?? runs/subagents/20261116-175739/
+?? runs/subagents/20261116-175850/
+?? runs/subagents/20261116-184946/
+?? runs/subagents/20261116-185004/
+?? runs/subagents/20261116-190941/
+?? runs/subagents/20261116-190951/
+?? runs/subagents/20261116-esm-hash-executor-a1/
+?? runs/subagents/20261116-gate-findings-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a2/
+?? runs/subagents/20261116-ir13-tester-a1/
+?? runs/subagents/20261116-ir13-tester-r2/
+?? runs/subagents/20261116-lector-executor-a1/
+?? runs/subagents/20261116-r2-reviews/
+?? runs/subagents/20261116-read-store-executor-a1/
+?? runs/subagents/20261116-read-store-tester-a1/
+?? runs/subagents/20261116-sldb-serve-rss/
+?? runs/subagents/20261116-specs-packages-executor-a1/
+?? runs/subagents/20261116-triaje-graph-ui/
+?? runs/subagents/20261117-013020/
+?? runs/subagents/20261117-013106/

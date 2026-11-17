@@ -1,0 +1,18 @@
+Initialized store at /dev/shm/readstore-t1/conc-ctl/repo/.sldb
+Registered 'StepDoc'
+{
+ "A_names_initial": [
+  "s1"
+ ],
+ "B_update_create": "{\"ok\": true, \"saved\": [\"s2\", \"s1\"], \"documents\": [{\"id\": \"s1\", \"model_name\": \"StepDoc\", \"path\": \"StepDoc/s1.md\", \"version\": \"f5589eed779ce4b8e58e7d72749b06c008db2221f12694897a31bd46dcba8176\", \"payload\": {\"title\": \"S1-por-B\", \"id\": \"s1\", \"action\": \"a\", \"outcome\": \"o\", \"tags\": []}, \"semantic_tags\": [\"",
+ "A_stale_update": "ACEPTADO (pisó el cambio ajeno)",
+ "A_names_after_B_create": [
+  "s1",
+  "s2"
+ ],
+ "B_delete": "{\"ok\": true, \"saved\": [\"s2\"], \"documents\": [{\"id\": \"s1\", \"model_name\": \"StepDoc\", \"path\": \"StepDoc/s1.md\", \"version\": \"a14a605f2640b44170ad144c7143d3d9010ad894d80f20bae5e0aadc13ad6c65\", \"payload\": {\"title\": \"S1-por-A\", \"id\": \"s1\", \"action\": \"a\", \"outcome\": \"o\", \"tags\": []}, \"semantic_tags\": [\"repres",
+ "A_names_after_B_delete": [
+  "s1",
+  "s2"
+ ]
+}

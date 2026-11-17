@@ -1,0 +1,9 @@
+Task: task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en
+Title: El lector del workspace y el adaptador usan la lectura pública de sldb (read_store, extract_payload) en vez de módulos internos
+Status: ready_for_testing
+Current node: ritual-closeout
+Task type: task.code
+Effective pills:
+- desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md
+Lifecycle gates:
+- task_completes -> complete: open [status = "ready_for_testing"]

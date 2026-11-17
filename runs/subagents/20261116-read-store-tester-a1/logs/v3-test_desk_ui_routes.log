@@ -1,0 +1,13 @@
+.............                                                            [100%]
+=============================== warnings summary ===============================
+../venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/readstore-t1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+tests/test_desk_ui_routes.py::test_each_view_route_returns_exactly_what_deskops_view_returns
+  /dev/shm/readstore-t1/venv/lib/python3.13/site-packages/pydantic/main.py:280: DeprecationWarning: ProjectGraphConfig(closed_document=...) is deprecated: declare `closed:` on the document surface
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+13 passed, 2 warnings in 268.37s (0:04:28)

@@ -1,0 +1,8 @@
+E       AssertionError: [('mindmap/sldb_adapter.py', 'sldb.store.runtime_cache_signature'), ('mindmap/workspace_routes.py', 'sldb.runtime.validation:extract_model_data')]
+E       assert [('mindmap/sl..._model_data')] == []
+E         
+E         Left contains 2 more items, first extra item: ('mindmap/sldb_adapter.py', 'sldb.store.runtime_cache_signature')
+E         Use -v to get more diff
+E               AssertionError: ('/api/workspace/nodes', 200, {'ok': True, 'nodes': [{'id': 'BoardDoc:Board', 'name': 'Board', 'model_name': 'BoardDoc...peDoc:reltype-links_to', 'name': 'reltype-links_to', 'model_name': 'RelationTypeDoc', 'title': 'links_to', ...}, ...]})
+E               assert 200 == 503
+2 failed, 40 deselected, 1 warning in 12.34s

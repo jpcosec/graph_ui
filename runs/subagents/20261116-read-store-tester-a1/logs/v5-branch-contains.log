@@ -1,0 +1,13 @@
+$ git -C ../../sldb branch -r --contains f515d91c
+rc=0 (salida vacía)
+
+$ git merge-base --is-ancestor f515d91c origin/main
+rc=1
+
+$ git branch -r --contains 77b6dc34
+  origin/HEAD -> origin/main
+  origin/main
+
+parche de f515d91c vs 77b6dc34 (sin líneas index):
+IDENTICO
+77b6dc34 api: read_store abre una operación fresca de solo lectura sin migrar y rechaza un store no preparado; store_is_prepared y extract_payload públicos

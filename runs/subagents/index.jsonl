@@ -46,3 +46,4 @@
 {"task_id": "task-lector-del-workspace-render-markdown-legible-citas-\u00e9nfasis-c\u00f3digo-inline-enlaces-est\u00e1ndar-con-un-mot", "run_id": null, "run_dir": "runs/subagents/20261116-lector-tester-a1", "session_sha256": null, "commit": null}
 {"task_id": "task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij", "run_id": null, "run_dir": "runs/subagents/20261116-esm-hash-tester-a1", "session_sha256": null, "commit": null}
 {"task_id": "task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables", "run_id": null, "run_dir": "runs/subagents/20261116-specs-packages-tester-a1", "session_sha256": null, "commit": null}
+{"task_id": "task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-p\u00fablica-de-sldb-read-store-extract-payload-en", "run_id": null, "run_dir": "runs/subagents/20261116-read-store-tester-a1", "session_sha256": null, "commit": null}

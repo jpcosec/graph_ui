@@ -1,0 +1,2 @@
+$ ! grep -rnE 'runtime_cache_signature|extract_model_data' frontends tests/deskops_viewdocs.py --include=*.py  (cwd /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui)
+rc=0

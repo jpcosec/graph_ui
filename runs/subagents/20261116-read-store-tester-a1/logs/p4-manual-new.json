@@ -1,0 +1,349 @@
+{
+ "A_unprepared_before_start": {
+  "prepared_before_start": "False",
+  "startup_changed_store": true,
+  "startup_changed_files": [
+   ".sldb_cache/semantic_index.yaml"
+  ],
+  "gets": {
+   "/api/workspace/nodes": {
+    "status": 200,
+    "body": {
+     "ok": true,
+     "keys": [
+      "nodes",
+      "ok"
+     ]
+    }
+   },
+   "/api/workspace/explorer": {
+    "status": 200,
+    "body": {
+     "ok": true,
+     "keys": [
+      "ignorados_error",
+      "limite",
+      "modeled",
+      "ok",
+      "repo",
+      "roots",
+      "roots_invalid",
+      "sin_git"
+     ]
+    }
+   }
+  },
+  "gets_changed_store": false,
+  "gets_changed_files": [],
+  "n_files": 425,
+  "gets_changed_store_sldb_only": false,
+  "n_files_sldb_only": 425,
+  "sha_all_before": "f0f2e37ac4c35b717c75de09552f580f37716e8595d6c3dec8ebf62509b49bd3",
+  "sha_all_after": "f0f2e37ac4c35b717c75de09552f580f37716e8595d6c3dec8ebf62509b49bd3",
+  "prepared_after": "True",
+  "mindmap_file": null,
+  "server_alive": true
+ },
+ "B_unprepared_after_start": {
+  "prepared_before_start": "True",
+  "startup_changed_store": false,
+  "startup_changed_files": [],
+  "prepared_after_mutation": "False",
+  "gets": {
+   "/api/workspace/nodes": {
+    "status": 503,
+    "body": {
+     "ok": false,
+     "estado": "store_no_preparado",
+     "error": "store not prepared: run `sldb stores update` (/dev/shm/readstore-t1/manual/work-new/unprep-after-start/.sldb)",
+     "keys": [
+      "error",
+      "estado",
+      "ok"
+     ]
+    }
+   },
+   "/api/workspace/explorer": {
+    "status": 503,
+    "body": {
+     "ok": false,
+     "estado": "store_no_preparado",
+     "error": "store not prepared: run `sldb stores update` (/dev/shm/readstore-t1/manual/work-new/unprep-after-start/.sldb)",
+     "keys": [
+      "error",
+      "estado",
+      "ok"
+     ]
+    }
+   }
+  },
+  "gets_changed_store": false,
+  "gets_changed_files": [],
+  "n_files": 426,
+  "gets_changed_store_sldb_only": false,
+  "n_files_sldb_only": 425,
+  "sha_all_before": "93ed7f6f97935a99f1d8a4622a7475b21b37b429188dd47a64e1bb3536df3602",
+  "sha_all_after": "93ed7f6f97935a99f1d8a4622a7475b21b37b429188dd47a64e1bb3536df3602",
+  "prepared_after": "False",
+  "mindmap_file": null,
+  "post_save_empty": {
+   "status": 500,
+   "body": {
+    "ok": false,
+    "error": "store not prepared: run `sldb stores update` (/dev/shm/readstore-t1/manual/work-new/unprep-after-start/.sldb)",
+    "keys": [
+     "error",
+     "ok"
+    ]
+   },
+   "changed_store": false,
+   "prepared_after": "False"
+  },
+  "server_alive": true
+ },
+ "C_prepared": {
+  "prepared_before_start": "True",
+  "startup_changed_store": false,
+  "startup_changed_files": [],
+  "gets": {
+   "/api/workspace/nodes": {
+    "status": 200,
+    "body": {
+     "ok": true,
+     "keys": [
+      "nodes",
+      "ok"
+     ]
+    }
+   },
+   "/api/workspace/explorer": {
+    "status": 200,
+    "body": {
+     "ok": true,
+     "keys": [
+      "ignorados_error",
+      "limite",
+      "modeled",
+      "ok",
+      "repo",
+      "roots",
+      "roots_invalid",
+      "sin_git"
+     ]
+    }
+   }
+  },
+  "gets_changed_store": false,
+  "gets_changed_files": [],
+  "n_files": 425,
+  "gets_changed_store_sldb_only": false,
+  "n_files_sldb_only": 425,
+  "sha_all_before": "f0f2e37ac4c35b717c75de09552f580f37716e8595d6c3dec8ebf62509b49bd3",
+  "sha_all_after": "f0f2e37ac4c35b717c75de09552f580f37716e8595d6c3dec8ebf62509b49bd3",
+  "prepared_after": "True",
+  "mindmap_file": null,
+  "server_alive": true
+ },
+ "D_missing_store": {
+  "prepared_before_start": "no existe",
+  "startup_changed_store": true,
+  "startup_changed_files": [
+   ".sldb/core/store_index.yaml",
+   ".sldb_cache/semantic_dag.yaml"
+  ],
+  "gets": {
+   "/api/workspace/nodes": {
+    "status": 200,
+    "body": {
+     "ok": true,
+     "keys": [
+      "nodes",
+      "ok"
+     ]
+    }
+   },
+   "/api/workspace/explorer": {
+    "status": 200,
+    "body": {
+     "ok": true,
+     "keys": [
+      "ignorados_error",
+      "limite",
+      "modeled",
+      "ok",
+      "repo",
+      "roots",
+      "roots_invalid",
+      "sin_git"
+     ]
+    }
+   }
+  },
+  "gets_changed_store": false,
+  "gets_changed_files": [],
+  "n_files": 2,
+  "gets_changed_store_sldb_only": false,
+  "n_files_sldb_only": 1,
+  "sha_all_before": "6c14696ae0fc60ab4c3dd675c2fb1bb70368ee04bbba1f2a667afb1ea566c938",
+  "sha_all_after": "6c14696ae0fc60ab4c3dd675c2fb1bb70368ee04bbba1f2a667afb1ea566c938",
+  "prepared_after": "True",
+  "mindmap_file": null,
+  "server_alive": true
+ },
+ "E_empty_sldb_dir": {
+  "prepared_before_start": "False",
+  "startup_changed_store": true,
+  "startup_changed_files": [
+   ".sldb/core/store_index.yaml",
+   ".sldb_cache/semantic_dag.yaml"
+  ],
+  "gets": {
+   "/api/workspace/nodes": {
+    "status": 200,
+    "body": {
+     "ok": true,
+     "keys": [
+      "nodes",
+      "ok"
+     ]
+    }
+   },
+   "/api/workspace/explorer": {
+    "status": 200,
+    "body": {
+     "ok": true,
+     "keys": [
+      "ignorados_error",
+      "limite",
+      "modeled",
+      "ok",
+      "repo",
+      "roots",
+      "roots_invalid",
+      "sin_git"
+     ]
+    }
+   }
+  },
+  "gets_changed_store": false,
+  "gets_changed_files": [],
+  "n_files": 2,
+  "gets_changed_store_sldb_only": false,
+  "n_files_sldb_only": 1,
+  "sha_all_before": "f412ab104b9f9eb40c07e9cd7a183be5c14bc27540fe611f2c6eb8136f580778",
+  "sha_all_after": "f412ab104b9f9eb40c07e9cd7a183be5c14bc27540fe611f2c6eb8136f580778",
+  "prepared_after": "True",
+  "mindmap_file": null,
+  "server_alive": true
+ },
+ "F_store_deleted_after_start": {
+  "prepared_before_start": "True",
+  "startup_changed_store": false,
+  "startup_changed_files": [],
+  "prepared_after_mutation": "False",
+  "gets": {
+   "/api/workspace/nodes": {
+    "status": 503,
+    "body": {
+     "ok": false,
+     "error": "El store no está disponible.",
+     "keys": [
+      "error",
+      "ok"
+     ]
+    }
+   },
+   "/api/workspace/explorer": {
+    "status": 503,
+    "body": {
+     "ok": false,
+     "error": "El store no está disponible.",
+     "keys": [
+      "error",
+      "ok"
+     ]
+    }
+   }
+  },
+  "gets_changed_store": false,
+  "gets_changed_files": [],
+  "n_files": 0,
+  "gets_changed_store_sldb_only": false,
+  "n_files_sldb_only": 0,
+  "sha_all_before": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "sha_all_after": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "prepared_after": "no existe",
+  "mindmap_file": null,
+  "post_save_empty": {
+   "status": 500,
+   "body": {
+    "ok": false,
+    "error": "store not prepared: run `sldb stores update` (/dev/shm/readstore-t1/manual/work-new/deleted-after-start/.sldb)",
+    "keys": [
+     "error",
+     "ok"
+    ]
+   },
+   "changed_store": false,
+   "prepared_after": "False"
+  },
+  "server_alive": true
+ },
+ "G_store_index_deleted_after_start": {
+  "prepared_before_start": "True",
+  "startup_changed_store": false,
+  "startup_changed_files": [],
+  "prepared_after_mutation": "False",
+  "gets": {
+   "/api/workspace/nodes": {
+    "status": 503,
+    "body": {
+     "ok": false,
+     "estado": "store_no_preparado",
+     "error": "store not prepared: run `sldb stores update` (/dev/shm/readstore-t1/manual/work-new/index-deleted-after-start/.sldb)",
+     "keys": [
+      "error",
+      "estado",
+      "ok"
+     ]
+    }
+   },
+   "/api/workspace/explorer": {
+    "status": 503,
+    "body": {
+     "ok": false,
+     "estado": "store_no_preparado",
+     "error": "store not prepared: run `sldb stores update` (/dev/shm/readstore-t1/manual/work-new/index-deleted-after-start/.sldb)",
+     "keys": [
+      "error",
+      "estado",
+      "ok"
+     ]
+    }
+   }
+  },
+  "gets_changed_store": false,
+  "gets_changed_files": [],
+  "n_files": 424,
+  "gets_changed_store_sldb_only": false,
+  "n_files_sldb_only": 424,
+  "sha_all_before": "a276eb06f18def69d1f7b9f15105e2720870bcfa472d80899f75f84ff9b9eecd",
+  "sha_all_after": "a276eb06f18def69d1f7b9f15105e2720870bcfa472d80899f75f84ff9b9eecd",
+  "prepared_after": "False",
+  "mindmap_file": null,
+  "post_save_empty": {
+   "status": 500,
+   "body": {
+    "ok": false,
+    "error": "store not prepared: run `sldb stores update` (/dev/shm/readstore-t1/manual/work-new/index-deleted-after-start/.sldb)",
+    "keys": [
+     "error",
+     "ok"
+    ]
+   },
+   "changed_store": false,
+   "prepared_after": "False"
+  },
+  "server_alive": true
+ }
+}

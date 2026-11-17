@@ -1,0 +1,122 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+______________ test_frontends_do_not_import_sldb_internal_readers ______________
+
+    def test_frontends_do_not_import_sldb_internal_readers():
+        """Ningun .py de frontends/ importa sldb.store.runtime_cache_signature ni extract_model_data de
+        sldb.runtime.validation (imports estaticos, por ast): la lectura usa sldb.api.read_store y
+        sldb.api.extract_payload."""
+        import ast
+        banned_module = 'sldb.store.runtime_cache_signature'
+        files = sorted((Path(_frontends_dir)).rglob('*.py'))
+        assert files
+        offenders = []
+        api_names: dict[str, set] = {}
+        for py in files:
+            rel = str(py.relative_to(Path(_frontends_dir)))
+            for node in ast.walk(ast.parse(py.read_text(encoding='utf-8'))):
+                if isinstance(node, ast.Import):
+                    offenders += [(rel, a.name) for a in node.names
+                                  if a.name == banned_module or a.name.startswith(banned_module + '.')]
+                elif isinstance(node, ast.ImportFrom) and node.module:
+                    names = {a.name for a in node.names}
+                    if node.module == banned_module or node.module.startswith(banned_module + '.'):
+                        offenders.append((rel, node.module))
+                    if node.module == 'sldb.store' and 'runtime_cache_signature' in names:
+                        offenders.append((rel, 'sldb.store:runtime_cache_signature'))
+                    if node.module == 'sldb.runtime.validation' and 'extract_model_data' in names:
+                        offenders.append((rel, 'sldb.runtime.validation:extract_model_data'))
+                    if node.module == 'sldb.runtime' and 'validation' in names:
+                        offenders.append((rel, 'sldb.runtime:validation'))
+                    if node.module == 'sldb.api':
+                        api_names.setdefault(rel, set()).update(names)
+>       assert offenders == [], offenders
+E       AssertionError: [('mindmap/sldb_adapter.py', 'sldb.store.runtime_cache_signature'), ('mindmap/workspace_routes.py', 'sldb.runtime.validation:extract_model_data')]
+E       assert [('mindmap/sl..._model_data')] == []
+E         
+E         Left contains 2 more items, first extra item: ('mindmap/sldb_adapter.py', 'sldb.store.runtime_cache_signature')
+E         Use -v to get more diff
+
+tests/test_mindmap_workspace_explorer.py:746: AssertionError
+________ test_listing_get_on_unprepared_store_is_503_and_writes_nothing ________
+
+tmp_path = PosixPath('/dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7e5b44f68e90>
+
+    def test_listing_get_on_unprepared_store_is_503_and_writes_nothing(tmp_path, monkeypatch):
+        """Un store con layout no canonico (lo que sldb.store.migration._already_canonical rechaza:
+        el indice semantico de archivo unico, anterior al sharding, sigue presente) no se migra en un
+        GET: /api/workspace/nodes y /api/workspace/explorer responden 503 con el texto de sldb y ningun
+        archivo bajo .sldb cambia de sha256 ni de mtime."""
+        from sldb.api import open_store, store_is_prepared
+        from sldb.store.io import load_semantic_index
+        from sldb.store.io.utils import yaml_dump
+        from sldb.store.layout import semantic_index_path
+    
+        monkeypatch.delenv('DESKOPS_ROOT', raising=False)
+        monkeypatch.delenv('WORKSPACE_EXPLORER_ROOTS', raising=False)
+        root = tmp_path / 'repo'
+        root.mkdir()
+        git_init(root)
+        prepare_store(root)
+        store = root / '.sldb'
+        srv = Srv(root)
+        try:
+            assert store_is_prepared(store)
+            assert get(srv.url, '/api/workspace/nodes')[0] == 200  # preparado: el listado funciona
+            # Layout previo al sharding del indice semantico (PLAN 15 capa 5): el indice real del
+            # store, en su archivo unico. _already_canonical lo rechaza y open_store lo migraria.
+            legacy = semantic_index_path(store)
+            assert not legacy.exists()
+            legacy.write_text(yaml_dump(load_semantic_index(store).model_dump(mode='json')), encoding='utf-8')
+            assert not store_is_prepared(store)
+    
+            def store_state() -> dict:
+                return {str(p.relative_to(store)): (sha(p.read_bytes()), p.stat().st_mtime_ns)
+                        for p in sorted(store.rglob('*')) if p.is_file()}
+    
+            for url in ('/api/workspace/nodes', '/api/workspace/explorer'):
+                before = store_state()
+                status, data = get(srv.url, url)
+>               assert status == 503, (url, status, data)
+E               AssertionError: ('/api/workspace/nodes', 200, {'ok': True, 'nodes': [{'id': 'BoardDoc:Board', 'name': 'Board', 'model_name': 'BoardDoc...peDoc:reltype-links_to', 'name': 'reltype-links_to', 'model_name': 'RelationTypeDoc', 'title': 'links_to', ...}, ...]})
+E               assert 200 == 503
+
+tests/test_mindmap_workspace_explorer.py:787: AssertionError
+----------------------------- Captured stdout call -----------------------------
+Initializing local store at /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+No deskops owner store at /dev/shm/readstore-t1/venv/lib/python3.13/site-packages/.sldb; registering the models directly from the installed package.
+Registering CrossroadDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering AtomDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering BoardDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering DeskFAQDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering InboxNoteDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering MaterializationContractDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering PillDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering ProtoAtomDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering RepositoryDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering ReviewDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering RitualDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering RoleDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering RunDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering RuntimeProfileDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering StepDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering TaskAggregateDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering TaskCodeDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering TaskDebugDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering TaskDecisionDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering TaskDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering TaskDocsDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering TaskExternalDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+Registering TaskRefactorDoc in /dev/shm/readstore-t1/bt/test_listing_get_on_unprepared0/repo/.sldb...
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [17/Nov/2026 00:06:30] "GET /api/workspace/nodes HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 00:06:30] "GET /api/workspace/nodes HTTP/1.1" 200 -
+=============================== warnings summary ===============================
+../venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/readstore-t1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2 failed, 1 warning in 5.79s

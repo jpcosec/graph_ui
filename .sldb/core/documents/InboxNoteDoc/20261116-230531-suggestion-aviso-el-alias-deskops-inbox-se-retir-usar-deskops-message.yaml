@@ -1,0 +1,24 @@
+name: 20261116-230531-suggestion-aviso-el-alias-deskops-inbox-se-retir-usar-deskops-message
+path: desk/inbox/20261116-230531-suggestion-aviso-el-alias-deskops-inbox-se-retir-usar-deskops-message.md
+source_hash: e85e41e3132fa6b206ce0572e081dffc3d149da2848bb4bc4af07f150687f0a4
+content_hash: 8528a124f712d98088f8690c35ffd6c9dc46c2e909f2ad1151121e23ce3882dd
+field_hashes:
+  kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
+  sender_project: be1a918d36a26b50ff05a32144905fa0851e3a2c55c93b05726d8a3bab97b3e7
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: 3c74d7c9e64d3a977a651875a68bd8aaf00803d91b8b29c811144f76b5683b96
+  status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
+  acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  acknowledged_at: 4c7dabd0afdb1f35dfa82bb75814c09af108235884da995d23f63da200d87a37
+  title: 3fef34d8166ec6b3e439575018023ed1171422bf922390c33445ee30d104c5c2
+  body: 09a760558405f72dd94daf40f9de552af5337efff078e7008563103c4d20cd06
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
+provenance:
+  by: agent
+  at: '2026-11-17T02:45:19Z'
+  authority: generated
+  via: save_document_payload

@@ -1,0 +1,48 @@
+{
+  "alerts": [],
+  "declared": [
+    "tests",
+    "commit",
+    "atom",
+    "materialization"
+  ],
+  "findings": [],
+  "found": [
+    "tests",
+    "atom|materialization",
+    "commit"
+  ],
+  "gates": {
+    "atom_or_materialization_link": {
+      "evidence": [
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/sldb_adapter.py",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/workspace_routes.py",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/persistence.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/deskops_viewdocs.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/test_mindmap_workspace_explorer.py",
+        "materialization:materialization:materialization-dependencias-de-graph-ui-declaradas-en-pyproject->pyproject.toml"
+      ],
+      "findings": [],
+      "ok": true
+    },
+    "commit": {
+      "evidence": [
+        "1479e24"
+      ],
+      "findings": [],
+      "ok": true
+    },
+    "tests": {
+      "evidence": [
+        "tests/test_mindmap_workspace_explorer.py",
+        "tests/deskops_viewdocs.py"
+      ],
+      "findings": [],
+      "ok": true
+    }
+  },
+  "implicit_code": false,
+  "ok": true,
+  "summary": "esta tarea declar\u00f3 tests, commit, atom|materialization; encontr\u00e9 tests, atom|materialization, commit",
+  "task_id": "task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-p\u00fablica-de-sldb-read-store-extract-payload-en"
+}

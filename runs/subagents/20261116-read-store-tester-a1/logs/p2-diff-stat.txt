@@ -1,0 +1,8 @@
+ .sldb/core/models/InboxNoteDoc.yaml      |  6 +--
+ .sldb/core/store_index.yaml              |  2 +-
+ frontends/mindmap/persistence.py         |  2 +-
+ frontends/mindmap/sldb_adapter.py        |  8 +--
+ frontends/mindmap/workspace_routes.py    | 32 ++++++------
+ tests/deskops_viewdocs.py                |  3 +-
+ tests/test_mindmap_workspace_explorer.py | 83 +++++++++++++++++++++++++++++++-
+ 7 files changed, 111 insertions(+), 25 deletions(-)
