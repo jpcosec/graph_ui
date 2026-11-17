@@ -1,0 +1,50 @@
+Missing graph references:
+- missing_declared_target: materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations -> frontends/mindmap
+  provenance: desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md:frontmatter
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: materialization:materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html -> frontends/mindmap/views/workspace
+  provenance: desk/materializations/materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html.md:frontmatter
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: materialization:materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view -> frontends/desk
+  provenance: desk/materializations/materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view.md:frontmatter
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: materialization:materialization-pilotos-de-notación-como-fixtures-propios-de-graph-ui -> test_file:tests/fixtures/notation-pilots
+  provenance: desk/materializations/materialization-pilotos-de-notación-como-fixtures-propios-de-graph-ui.md:frontmatter
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci -> test_file:tests
+  provenance: desk/materializations/materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci.md:frontmatter
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/architecture/code-anchoring.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:36:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/decisiones/2026-11-codigo-en-el-workspace.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:22:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/decisiones/2026-11-codigo-en-el-workspace.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:48:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/decisiones/2026-11-codigo-en-el-workspace.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:60:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/decisiones/2026-11-codigo-en-el-workspace.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:66:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia -> test_file:tests/test_mindmap_workspace_edit.py
+  provenance: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md:line:32:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia -> test_file:tests/test_mindmap_workspace_edit.py
+  provenance: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md:line:64:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia -> test_file:tests/test_mindmap_workspace_edit.py
+  provenance: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md:line:76:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento -> test_file:tests/test_mindmap_changes.py
+  provenance: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md:line:29:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento -> test_file:tests/test_mindmap_changes.py
+  provenance: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md:line:73:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento -> test_file:tests/test_mindmap_changes.py
+  provenance: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md:line:80:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+16 missing, 0 informational

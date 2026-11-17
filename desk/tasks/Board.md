@@ -1,7 +1,7 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-17T06:21:54Z'
+  at: '2026-11-17T07:45:25Z'
   authority: generated
   via: save_document_payload
 # board-xxx
@@ -13,7 +13,6 @@ tasks:
 - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
 - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
 - desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md
-- desk/tasks/task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -48,4 +47,3 @@ _Generated from the task references above._
 - Vista Changes: arbol de hashes, staleness e impacto en conocimiento [draft] - Añadir en /workspace la pestaña Changes y la sección Integrity del panel Context: listan los documentos que sldb reporta como cambiados o stale y los anclajes de código que no están intact, y para cada uno los documentos que dependen de él a 1-2 saltos en el índice de relaciones, marcados como potencialmente obsoletos. Todo de solo lectura.
 - Edicion contextual de relaciones y campos con control de concurrencia [draft] - En el workspace de Mindmap (/workspace/node, puerto 8088; no el visor standalone de solo lectura de frontends/workspace en el 8090) se puede editar un campo de un documento desde 'Campos del Documento (IR)' de la proyección Documento y agregar o quitar una relación válida según el modelo desde el panel 'Contexto y Relaciones'. Cada escritura lleva la revisión del documento (su source_hash) y el servidor la rechaza con 409 si el documento cambió desde que se leyó, sin perder lo que el usuario escribió.
 - Decisión de JP: ¿el workspace de graph_ui edita y ancla código (softfactory K03/K05/K12) o solo muestra el estado de los CodeAnchorDoc de sldb? [draft] - Una decisión escrita de JP, con una de tres opciones: (A) graph_ui solo muestra, en la vista inspect, los anclajes de código de un documento y su estado (intact/changed/lost) leyendo CodeAnchorDoc por la API de sldb, sin editar código; (B) además edita fragmentos de código anclados desde el workspace (K05), con escritura y reanclaje por sldb; (C) nada de código en graph_ui; el tema pasa a la UI de deskops o se descarta.
-- El vite build del fixture de vistas no deja procesos huérfanos cuando se pasa del timeout [draft] - Si el vite build del fixture se pasa del timeout, el fixture falla con el error del timeout y no queda vivo ningún proceso del build.

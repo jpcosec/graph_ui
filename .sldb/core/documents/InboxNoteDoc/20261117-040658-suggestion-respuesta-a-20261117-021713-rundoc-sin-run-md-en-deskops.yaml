@@ -1,13 +1,15 @@
 name: 20261117-040658-suggestion-respuesta-a-20261117-021713-rundoc-sin-run-md-en-deskops
 path: desk/inbox/20261117-040658-suggestion-respuesta-a-20261117-021713-rundoc-sin-run-md-en-deskops.md
-source_hash: 9f061f0b30b398a52c728c74bb15db80d412f22fcc39a9570795edc34ee8b659
-content_hash: 223030c45563c5c4189860d4252cc281d28d7a84653e393a3f8940be86633c30
+source_hash: 71ed71c0ef22b8f73e2a8eff0ae3c8f07fb172bed50da1d54103866861ad7787
+content_hash: 6ca8c80fde453462ac4183e354d89a7fd91b6b774194c9ee8eb82fe7b2af45ea
 field_hashes:
   kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
   sender_project: be1a918d36a26b50ff05a32144905fa0851e3a2c55c93b05726d8a3bab97b3e7
   target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   created_at: 576d2cc25e5ca13f26e7392e516079c876cef5e3d1681167c87f891b7df6a6bd
-  status: 35ff74aeea25311f4fe759a6b762c8cd41a79adb23dd5615b92cf215175a63e5
+  status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
+  acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  acknowledged_at: 00d86e08f2ca4a2c756d52f8b28c2154793bfb04b2f3c0debc8367f4347283dc
   title: 96d852b9fa1e1a2ae187f2b7353d77c1e79bd97070fb59cf3af7bdb6e9685e1f
   body: 1437011437369964246b528a5ac1899a49e2b039a15995b0164c52f0180e7953
 semantic_tags:
@@ -15,4 +17,8 @@ semantic_tags:
 - source.document.markdown
 - type.desk.inbox-note
 - workspace.desk.inbox
-provenance: null
+provenance:
+  by: agent
+  at: '2026-11-17T07:41:28Z'
+  authority: generated
+  via: save_document_payload

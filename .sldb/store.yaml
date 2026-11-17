@@ -203,7 +203,6 @@ include:
   paths:
   - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
   - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
-  - desk/tasks/task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout.md
 - model: RuleDoc
   paths:
   - desk/lifecycle/rule-activation-task-aggregate.md
@@ -373,6 +372,12 @@ include:
     name: review-task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout-preflight-1
   - path: desk/reviews/task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout/bundle-1.md
     name: review-task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout-bundle-1
+  - path: desk/reviews/task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout/evidence-tests-1.md
+    name: review-task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout-evidence-tests-1
+  - path: desk/reviews/task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout/evidence-commit-1.md
+    name: review-task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout-evidence-commit-1
+  - path: desk/reviews/task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout/evidence-materialization-1.md
+    name: review-task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout-evidence-materialization-1
 - model: MaterializationContractDoc
   paths:
   - desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md

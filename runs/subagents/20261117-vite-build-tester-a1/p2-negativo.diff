@@ -1,0 +1,22 @@
+112,129c112,113
+<     """Build review-workbench into ``dist``; on timeout, stop every process the build forked.
+< 
+<     ``subprocess.run(..., timeout=)`` killed only npx and left ``sh -c vite build`` and
+<     ``node .../vite build`` alive. Started through ``_spawn``, the build is its own process group,
+<     so ``_stop`` takes the whole tree down. The output goes to ``dist.parent/'vite-build.log'``
+<     (a file, not a PIPE, so a chatty build cannot block on a full pipe).
+<     """
+<     cmd = ["npx", "vite", "build", "--outDir", str(dist), "--emptyOutDir"]
+<     log = dist.parent / "vite-build.log"
+<     with log.open("wb") as out:
+<         process = _spawn(cmd, cwd=APP, stdout=out, stderr=subprocess.STDOUT)
+<     try:
+<         process.wait(timeout)
+<     except subprocess.TimeoutExpired:
+<         _stop([process])
+<         raise subprocess.TimeoutExpired(cmd, timeout) from None
+<     if process.returncode != 0:
+<         raise subprocess.CalledProcessError(process.returncode, cmd, output=log.read_text(errors="replace"))
+---
+>     subprocess.run(["npx", "vite", "build", "--outDir", str(dist), "--emptyOutDir"], cwd=APP, check=True,
+>                    capture_output=True, timeout=timeout)

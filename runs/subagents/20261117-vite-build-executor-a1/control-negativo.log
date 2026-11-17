@@ -1,0 +1,34 @@
+RAM check 2026-11-17T04:39:10-03:00: available=12G some avg60=0.01
+Running as unit: run-u943.scope; invocation ID: bad90836d278498db54b6e3d85ddfd3c
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_build_timeout_leaves_no_process_of_vite_build_alive ___________
+
+tmp_path = PosixPath('/dev/shm/vbuild-e1/bt/test_build_timeout_leaves_no_p0')
+
+    def test_build_timeout_leaves_no_process_of_vite_build_alive(tmp_path):
+        """A ``vite build`` past its timeout raises ``TimeoutExpired`` and leaves no process holding its outDir."""
+        if not (shutil.which("npx") and (APP / "node_modules").is_dir()):
+            pytest.skip("review-workbench needs node and `npm ci` in apps/review-workbench")
+        if not Path("/proc/self/cmdline").exists():
+            pytest.skip("needs /proc to list the processes")
+        dist = tmp_path / "rw-views-build-timeout" / "dist"
+        dist.parent.mkdir()
+        with pytest.raises(subprocess.TimeoutExpired):
+            _build(dist, timeout=1)
+        left = _holding(str(dist))
+        for pid in left:  # do not leak this run's processes even when the assertion fails
+            try:
+                os.kill(pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+>       assert left == [], f"processes still holding {dist} after the build timed out: {left}"
+E       AssertionError: processes still holding /dev/shm/vbuild-e1/bt/test_build_timeout_leaves_no_p0/rw-views-build-timeout/dist after the build timed out: [2822188, 2822189]
+E       assert [2822188, 2822189] == []
+E         
+E         Left contains 2 more items, first extra item: 2822188
+E         Use -v to get more diff
+
+tests/e2e_review_workbench_views.py:222: AssertionError
+1 failed, 4 deselected in 1.40s
+exit=1

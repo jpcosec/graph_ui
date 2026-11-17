@@ -1,0 +1,36 @@
+RAM check 2026-11-17T04:39:22-03:00: available=12G some avg60=0.01
+Running as unit: run-u946.scope; invocation ID: 958d53f5ee104c97bab1d17a4283f87a
+.                                                                        [100%]
+=============================== warnings summary ===============================
+../../../../../../dev/shm/vbuild-e1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/vbuild-e1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 4 deselected, 1 warning in 1.22s
+exit=0
+RAM check 2026-11-17T04:39:23-03:00: available=12G some avg60=0.01
+Running as unit: run-u947.scope; invocation ID: f08b5083cf56496c8e2350defa5cffb8
+.                                                                        [100%]
+=============================== warnings summary ===============================
+../../../../../../dev/shm/vbuild-e1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/vbuild-e1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 4 deselected, 1 warning in 1.22s
+exit=0
+RAM check 2026-11-17T04:39:25-03:00: available=12G some avg60=0.01
+Running as unit: run-u948.scope; invocation ID: 3d095d441620428cb78a6e2201555ce8
+.                                                                        [100%]
+=============================== warnings summary ===============================
+../../../../../../dev/shm/vbuild-e1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/vbuild-e1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 4 deselected, 1 warning in 1.22s
+exit=0

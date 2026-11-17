@@ -1,4 +1,9 @@
 ---
+sldb:
+  by: agent
+  at: '2026-11-17T07:41:31Z'
+  authority: generated
+  via: save_document_payload
 # unclear | suggestion
 kind: suggestion
 # e.g., other_repo
@@ -8,9 +13,11 @@ target_project: graph_ui
 # ISO 8601 timestamp
 created_at: '2026-11-17T04:07:31'
 # open | closed
-status: open
+status: closed
 # project identity that acknowledged the note
+acknowledged_by: graph_ui
 # ISO 8601 timestamp, set when acknowledged
+acknowledged_at: '2026-11-17T04:41:30'
 ---
 
 # Ya en origin: deskops ya no registra RunDoc sin run.md; pueden relanzar la CI

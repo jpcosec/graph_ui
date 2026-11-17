@@ -1,0 +1,25 @@
+Running as unit: run-u1016.scope; invocation ID: 057c57d2938d4a328d7983cdc60e64fb
+RC 1 CMD ['npx', 'vite', 'build', '--outDir', '/dev/shm/vbuild-t1/bt-rc/test_build_rc_nonzero_raises_c0/rw-rc-fail/dist', '--emptyOutDir']
+OUTPUT>>> ✘ [ERROR] Expected identifier but found "{"
+
+    vite.config.js:1:323:
+      1 │ ...nch/vite.config.js";export default {{{ this is not valid javascript
+        ╵                                        ^
+
+failed to load config from /dev/shm/vbuild-t1/rc/apps/review-workbench/vite.config.js
+error during build:
+Error: Build failed with 1 error:
+vite.config.js:1:323: ERROR: Expected identifier but found "{"
+    at failureErrorWithLog (/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/apps/review-workbench/node_modules/esbuild/lib/main.js:1472:15)
+    at /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/apps/review-workbench/node_modules/esbuild/lib/main.js:945:25
+    at runOnEndCallbacks (/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/apps/review-workbench/node_modules/esbuild/lib/main.js:1315:45)
+    at buildResponseToResult (/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/apps/review-workbench/node_modules/esbuild/lib/main.js:943:7)
+    at /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/apps/review-workbench/node_modules/esbuild/lib/main.js:970:16
+    at responseCallbacks.<computed> (/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/apps/review-workbench/node_modules/esbuild/lib/main.js:622:9)
+    at handleIncomingPacket (/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/apps/review-workbench/node_modules/esbuild/lib/main.js:677:12)
+    at Socket.readFromStdout (/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/apps/review-workbench/node_modules/esbuild/lib/main.js:600:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+ <<<
+...
+3 passed in 1.16s

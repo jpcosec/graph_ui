@@ -1,0 +1,68 @@
+diff --git a/tests/e2e_review_workbench_views.py b/tests/e2e_review_workbench_views.py
+index 2280f4e..74a76c9 100644
+--- a/tests/e2e_review_workbench_views.py
++++ b/tests/e2e_review_workbench_views.py
+@@ -108,6 +108,27 @@ def _stop(processes: list[subprocess.Popen], timeout: float = 10) -> None:
+         process.wait(timeout=timeout)
+ 
+ 
++def _build(dist: Path, timeout: float = 300) -> None:
++    """Build review-workbench into ``dist``; on timeout, stop every process the build forked.
++
++    ``subprocess.run(..., timeout=)`` killed only npx and left ``sh -c vite build`` and
++    ``node .../vite build`` alive. Started through ``_spawn``, the build is its own process group,
++    so ``_stop`` takes the whole tree down. The output goes to ``dist.parent/'vite-build.log'``
++    (a file, not a PIPE, so a chatty build cannot block on a full pipe).
++    """
++    cmd = ["npx", "vite", "build", "--outDir", str(dist), "--emptyOutDir"]
++    log = dist.parent / "vite-build.log"
++    with log.open("wb") as out:
++        process = _spawn(cmd, cwd=APP, stdout=out, stderr=subprocess.STDOUT)
++    try:
++        process.wait(timeout)
++    except subprocess.TimeoutExpired:
++        _stop([process])
++        raise subprocess.TimeoutExpired(cmd, timeout) from None
++    if process.returncode != 0:
++        raise subprocess.CalledProcessError(process.returncode, cmd, output=log.read_text(errors="replace"))
++
++
+ def _store(root: Path, pilots: list[str]) -> Path:
+     for pilot in pilots:
+         shutil.copy(PILOTS / pilot, root / pilot)
+@@ -140,8 +161,7 @@ def stack():
+         _wait(f"http://127.0.0.1:{sldb_port}/health", processes[0])
+         _wait(f"http://127.0.0.1:{ui_port}/api/views", processes[1])
+         dist = work / "dist"
+-        subprocess.run(["npx", "vite", "build", "--outDir", str(dist), "--emptyOutDir"], cwd=APP, check=True,
+-                       capture_output=True, timeout=300)
++        _build(dist)
+         app_env = {**os.environ, "VITE_SLDB_URL": f"http://127.0.0.1:{sldb_port}", "VITE_GRAPH_UI_URL": f"http://127.0.0.1:{ui_port}"}
+         processes.append(_spawn(["npx", "vite", "preview", "--outDir", str(dist), "--port", str(app_port), "--strictPort",
+                                  "--host", "127.0.0.1"], cwd=APP, env=app_env))
+@@ -191,6 +211,25 @@ def test_stop_leaves_no_process_of_vite_preview_alive(tmp_path):
+     assert left == [], f"processes still holding {out} after _stop: {left}"
+ 
+ 
++def test_build_timeout_leaves_no_process_of_vite_build_alive(tmp_path):
++    """A ``vite build`` past its timeout raises ``TimeoutExpired`` and leaves no process holding its outDir."""
++    if not (shutil.which("npx") and (APP / "node_modules").is_dir()):
++        pytest.skip("review-workbench needs node and `npm ci` in apps/review-workbench")
++    if not Path("/proc/self/cmdline").exists():
++        pytest.skip("needs /proc to list the processes")
++    dist = tmp_path / "rw-views-build-timeout" / "dist"
++    dist.parent.mkdir()
++    with pytest.raises(subprocess.TimeoutExpired):
++        _build(dist, timeout=1)
++    left = _holding(str(dist))
++    for pid in left:  # do not leak this run's processes even when the assertion fails
++        try:
++            os.kill(pid, signal.SIGKILL)
++        except ProcessLookupError:
++            pass
++    assert left == [], f"processes still holding {dist} after the build timed out: {left}"
++
++
+ def _expected(store: Path, view: dict) -> tuple[int, int]:
+     from mindmap.projection_views import evaluate_view
+ 

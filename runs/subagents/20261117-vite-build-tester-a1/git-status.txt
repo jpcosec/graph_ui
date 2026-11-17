@@ -1,0 +1,52 @@
+ M .sldb/core/documents/InboxNoteDoc/20261117-040658-suggestion-respuesta-a-20261117-021713-rundoc-sin-run-md-en-deskops.yaml
+ M .sldb/core/documents/InboxNoteDoc/20261117-040731-suggestion-ya-en-origin-deskops-ya-no-registra-rundoc-sin-run-md-pueden-relanzar-la-ci.yaml
+ M .sldb/core/documents/TaskCodeDoc/task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout.yaml
+ M .sldb/core/models/InboxNoteDoc.yaml
+ M .sldb/core/models/TaskCodeDoc.yaml
+ M .sldb/core/store_index.yaml
+ M desk/inbox/20261117-040658-suggestion-respuesta-a-20261117-021713-rundoc-sin-run-md-en-deskops.md
+ M desk/inbox/20261117-040731-suggestion-ya-en-origin-deskops-ya-no-registra-rundoc-sin-run-md-pueden-relanzar-la-ci.md
+ M desk/tasks/task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout.md
+?? runs/subagents/20261116-124617/
+?? runs/subagents/20261116-124651/
+?? runs/subagents/20261116-124713/
+?? runs/subagents/20261116-124733/
+?? runs/subagents/20261116-125047/
+?? runs/subagents/20261116-125323/
+?? runs/subagents/20261116-125341/
+?? runs/subagents/20261116-125357/
+?? runs/subagents/20261116-125615/
+?? runs/subagents/20261116-125634/
+?? runs/subagents/20261116-125651/
+?? runs/subagents/20261116-125703/
+?? runs/subagents/20261116-172432/
+?? runs/subagents/20261116-172444/
+?? runs/subagents/20261116-172528/
+?? runs/subagents/20261116-174106/
+?? runs/subagents/20261116-175739/
+?? runs/subagents/20261116-175850/
+?? runs/subagents/20261116-184946/
+?? runs/subagents/20261116-185004/
+?? runs/subagents/20261116-190941/
+?? runs/subagents/20261116-190951/
+?? runs/subagents/20261116-esm-hash-executor-a1/
+?? runs/subagents/20261116-gate-findings-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a2/
+?? runs/subagents/20261116-ir13-tester-a1/
+?? runs/subagents/20261116-ir13-tester-r2/
+?? runs/subagents/20261116-lector-executor-a1/
+?? runs/subagents/20261116-r2-reviews/
+?? runs/subagents/20261116-sldb-serve-rss/
+?? runs/subagents/20261116-specs-packages-executor-a1/
+?? runs/subagents/20261116-triaje-graph-ui/
+?? runs/subagents/20261117-013020/
+?? runs/subagents/20261117-013106/
+?? runs/subagents/20261117-033313/
+?? runs/subagents/20261117-040638/
+?? runs/subagents/20261117-045839/
+?? runs/subagents/20261117-045857/
+?? runs/subagents/20261117-073609/
+?? runs/subagents/20261117-073621/
+?? runs/subagents/20261117-vite-build-executor-a1/
+?? runs/subagents/20261117-vite-build-tester-a1/

@@ -1,0 +1,37 @@
+name: review-task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout-evidence-commit-1
+path: desk/reviews/task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout/evidence-commit-1.md
+source_hash: 82b9e7cfc1f6465075d12cc62b07a2f85d3f3b0432b2cd2792a8770505049a56
+content_hash: 90700c68bbf2dda0a89ad1051d7b22e8743ef190cf8096225ff604ea54974c16
+field_hashes:
+  id: 7c0242d07b4e4bd99d329a7e2e4e484943fe25acaaff88126ce94d08702d5e7a
+  title: 19da8d413e6a1df8a1a30a73a6598319d01b0a63076bcba6d30fc63190854939
+  kind: edecec53ab11f560816e75a17681eb83886beace01d7fb927d99707d3d031aac
+  fact: 5ea9c58673a69c87d0e5540a6f9978aad8f8e0a0b9ce3471cff139c730d97888
+  value: c345a0af047fc8772735f7e37391490b9a66db5428ab42d496c03be9e8b82bd4
+  subject: ec5e40e830b0c36a5694d80630aa98d0aa158263c5121a79598b3dfe0ff12e59
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 9eeef991471c47a0f748cc581c93b036c7560af99f0fcdf1ed75357a5551f1ac
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  input_sha256: 30ae09ea7ac7041250a249d09725136d3474fa5e254b5d38032d9b0743bd9c4c
+  contract_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  output_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
+  reason: 2286066690b98ec4ea629913d71655b6da3d30f71e4c44a96dc63c09d5b6d10f
+  created_at: 46251a7ce33a5beef30939f9ae4f13d44d5abee7da4cc63cf9992101d0e6bea9
+  disposed_at: 46251a7ce33a5beef30939f9ae4f13d44d5abee7da4cc63cf9992101d0e6bea9
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: b1a8ad7b4a29e1b74b9ead9097a4dd4e6fae52014e527f5a8c5b9faf7ba3cebc
+  disposition: 3da3529ed3ad58a99ee8c387fac51338d3904d600bce6a6f2bdd15141e989486
+  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+- workspace:desk
+provenance:
+  by: agent
+  at: '2026-11-17T07:45:11Z'
+  authority: generated
+  via: create_document

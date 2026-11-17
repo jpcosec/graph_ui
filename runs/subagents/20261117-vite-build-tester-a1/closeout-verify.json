@@ -1,0 +1,42 @@
+{
+  "alerts": [],
+  "declared": [
+    "tests",
+    "commit",
+    "atom",
+    "materialization"
+  ],
+  "findings": [],
+  "found": [
+    "tests",
+    "atom|materialization",
+    "commit"
+  ],
+  "gates": {
+    "atom_or_materialization_link": {
+      "evidence": [
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/e2e_review_workbench_views.py"
+      ],
+      "findings": [],
+      "ok": true
+    },
+    "commit": {
+      "evidence": [
+        "e5d731e"
+      ],
+      "findings": [],
+      "ok": true
+    },
+    "tests": {
+      "evidence": [
+        "tests/e2e_review_workbench_views.py"
+      ],
+      "findings": [],
+      "ok": true
+    }
+  },
+  "implicit_code": false,
+  "ok": true,
+  "summary": "esta tarea declar\u00f3 tests, commit, atom|materialization; encontr\u00e9 tests, atom|materialization, commit",
+  "task_id": "task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-hu\u00e9rfanos-cuando-se-pasa-del-timeout"
+}

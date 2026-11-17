@@ -1,0 +1,10 @@
+2026-11-17T04:40:29-03:00
+# procesos con vite build / vbuild-e1 (outDir de mis corridas) / rw-views tras todas las corridas
+## filtro outDir de mis corridas (vbuild-e1/bt):
+(ninguno)
+## vite build en todo el sistema:
+(ninguno)
+## vite preview vivos (los 3 preexistentes de otras sesiones, mismos PID que ps-antes; no tocados):
+1327477       1 1323289  5-19:07:27 node /dev/shm/gui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-uvze5a5n/dist --port 41979 --strictPort --host 127.0.0.1
+1984202       1 1981868  5-17:18:55 node /dev/shm/cc34ui/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/rw-views-2fwa2btg/dist --port 33405 --strictPort --host 127.0.0.1
+3566546       1 3549636 14-14:38:55 node /home/dios/proyectos/SLDB_1-wip/UIs/graph_ui/apps/review-workbench/node_modules/.bin/vite preview --outDir /dev/shm/sldb-suite/tmp/rw-views-e3pf30lq/dist --port 41135 --strictPort --host 127.0.0.1
