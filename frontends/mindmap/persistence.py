@@ -71,7 +71,7 @@ class EditorStore:
             # Sesiones concurrentes: el proceso lleva cacheado el store desde el
             # arranque; una escritura de otro proceso (otra sesión, otro server)
             # NO se ve hasta que forzamos el re-sweep de hojas (sldb PLAN 15
-            # capa 6, ``new_operation`` — expuesto por el adaptador). Sin esto,
+            # capa 6, ``sldb.api.read_store`` — expuesto por el adaptador). Sin esto,
             # el compare contra ``expected`` compararía contra un payload viejo
             # y pisotearía el cambio ajeno (ver MIGRACION §2.6).
             adapter.refresh_for_concurrent_sessions()

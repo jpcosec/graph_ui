@@ -2,8 +2,8 @@
 
 Strictly read-only: ninguna ruta GET reconstruye indices (load_edge_index, nunca document_edges ni rebuild_edges;
 un store desactualizado responde store_no_preparado). Los listados (/nodes, /explorer) inician operacion con
-sldb.api.open_store(readonly) sobre un store canonico preparado fuera del request; no se afirma nada sobre un layout
-no canonico. Adheres to SLDB contracts, safe repo-bounded file inspection,
+sldb.api.read_store, que no migra: un store con layout no canonico responde 503 store_no_preparado con el texto de
+sldb ('store not prepared: run `sldb stores update`'). Adheres to SLDB contracts, safe repo-bounded file inspection,
 and zero top-level SLDB imports to support remote/headless modes without regressions.
 """
 from __future__ import annotations
@@ -162,13 +162,18 @@ class WorkspaceRoutes:
         return indexed_documents(self.store_path)
 
     def _fresh_listing(self) -> None:
-        """Inicio de operacion de un listado por la via publica: el catalogo ve altas y bajas hechas
-        por otros procesos. El store ya existe (lo comprueban los llamadores) y es canonico y esta
-        preparado fuera del request; sobre ese supuesto open_store(readonly) no escribio nada en el
-        ensayo del 2026-11-02 (runs/subagents/20261102-ws13-2-correccion/ensayo/). No habilita un
-        layout no canonico, que open_store migraria, ni afirma que readonly lo proteja."""
-        from sldb.api import open_store
-        open_store(self.store_path, mode='readonly')
+        """Inicio de operacion de un listado por la lectura publica sldb.api.read_store: el catalogo
+        ve altas y bajas hechas por otros procesos. read_store no migra ni escribe el store; si su
+        layout no es canonico lanza 'store not prepared: run `sldb stores update`', que aqui responde
+        503 store_no_preparado con el mensaje de sldb. El store ya existe (lo comprueban los llamadores)."""
+        from sldb.api import read_store
+        from sldb.core.exceptions import SLDBStoreError
+        try:
+            read_store(self.store_path)
+        except SLDBStoreError as exc:
+            if 'store not prepared' in str(exc):
+                raise WorkspaceError(str(exc), 503, STORE_NO_PREPARADO) from exc
+            raise
 
     def _pythonpath(self) -> str | None:
         return getattr(self.editor_store, 'pythonpath', None) if self.editor_store else None
@@ -181,18 +186,17 @@ class WorkspaceRoutes:
             return data.decode('utf-8', errors='replace'), True
 
     def _extract_payload(self, model_name: str, text: str, models: dict[str, Any] | None = None) -> tuple[dict[str, Any], str | None]:
-        """Payload del texto ya leído con la API pública (modelo registrado + extract_model_data).
+        """Payload del texto ya leído con la API pública (modelo registrado + extract_payload).
 
         Devuelve (payload, plantilla del modelo). No abre ningún otro documento."""
-        from sldb.api import load_registered_model
-        from sldb.runtime.validation import extract_model_data
+        from sldb.api import extract_payload, load_registered_model
 
         cache = models if models is not None else {}
         model_type = cache.get(model_name)
         if model_type is None:
             model_type = load_registered_model(self.store_path, model_name, self._pythonpath()).model_type
             cache[model_name] = model_type
-        return extract_model_data(model_type, text), getattr(model_type, '__template__', None)
+        return extract_payload(model_type, text), getattr(model_type, '__template__', None)
 
     def workspace_nodes(self) -> dict[str, Any]:
         """Index of all documents in the store with canonical id Model:name.
@@ -227,7 +231,7 @@ class WorkspaceRoutes:
                 payload, _ = self._extract_payload(model_name, text, models)
             except Exception as exc:
                 # El modelo de un documento autorizado no carga (load_registered_model o
-                # extract_model_data, sin distinguirlos): conserva identidad y ruta, causa = str(exc).
+                # extract_payload, sin distinguirlos): conserva identidad y ruta, causa = str(exc).
                 node['estado'] = MODELO_NO_CARGA
                 node['causa'] = str(exc)
                 nodes.append(node)

@@ -366,10 +366,12 @@ class SldbAdapter:
         procesos (sesiones concurrentes). Sin esto, una sesión concurrente
         no se detecta y el guardado pisa el cambio ajeno (vuelta 4;
         MIGRACION §2.6). Además del guard-write del store, la signature del
-        adapter se re-sweipea en la próxima lectura.
+        adapter se re-sweipea en la próxima lectura. Usa la lectura pública
+        ``sldb.api.read_store``: abre la operación nueva de la cache runtime y
+        la del hash de documentos, sin migrar el store.
         """
-        from sldb.store.runtime_cache_signature import new_operation
-        new_operation(self.store)
+        from sldb.api import read_store
+        read_store(self.store)
 
     # ------------------------------------------------------------------- vista
 

@@ -712,7 +712,88 @@ def test_refresh_path_has_no_sldb_store_import():
         elif isinstance(node, ast.Import):
             mods += [a.name for a in node.names]
     assert not [m for m in mods if m == 'sldb.store' or m.startswith('sldb.store.')], mods
-    assert 'sldb.api' in mods  # open_store llega por sldb.api
+    assert 'sldb.api' in mods  # read_store llega por sldb.api
+
+
+def test_frontends_do_not_import_sldb_internal_readers():
+    """Ningun .py de frontends/ importa sldb.store.runtime_cache_signature ni extract_model_data de
+    sldb.runtime.validation (imports estaticos, por ast): la lectura usa sldb.api.read_store y
+    sldb.api.extract_payload."""
+    import ast
+    banned_module = 'sldb.store.runtime_cache_signature'
+    files = sorted((Path(_frontends_dir)).rglob('*.py'))
+    assert files
+    offenders = []
+    api_names: dict[str, set] = {}
+    for py in files:
+        rel = str(py.relative_to(Path(_frontends_dir)))
+        for node in ast.walk(ast.parse(py.read_text(encoding='utf-8'))):
+            if isinstance(node, ast.Import):
+                offenders += [(rel, a.name) for a in node.names
+                              if a.name == banned_module or a.name.startswith(banned_module + '.')]
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                names = {a.name for a in node.names}
+                if node.module == banned_module or node.module.startswith(banned_module + '.'):
+                    offenders.append((rel, node.module))
+                if node.module == 'sldb.store' and 'runtime_cache_signature' in names:
+                    offenders.append((rel, 'sldb.store:runtime_cache_signature'))
+                if node.module == 'sldb.runtime.validation' and 'extract_model_data' in names:
+                    offenders.append((rel, 'sldb.runtime.validation:extract_model_data'))
+                if node.module == 'sldb.runtime' and 'validation' in names:
+                    offenders.append((rel, 'sldb.runtime:validation'))
+                if node.module == 'sldb.api':
+                    api_names.setdefault(rel, set()).update(names)
+    assert offenders == [], offenders
+    # la lectura publica que los reemplaza
+    assert 'read_store' in api_names.get('mindmap/sldb_adapter.py', set()), api_names
+    assert {'read_store', 'extract_payload'} <= api_names.get('mindmap/workspace_routes.py', set()), api_names
+
+
+def test_listing_get_on_unprepared_store_is_503_and_writes_nothing(tmp_path, monkeypatch):
+    """Un store con layout no canonico (lo que sldb.store.migration._already_canonical rechaza:
+    el indice semantico de archivo unico, anterior al sharding, sigue presente) no se migra en un
+    GET: /api/workspace/nodes y /api/workspace/explorer responden 503 con el texto de sldb y ningun
+    archivo bajo .sldb cambia de sha256 ni de mtime."""
+    from sldb.api import open_store, store_is_prepared
+    from sldb.store.io import load_semantic_index
+    from sldb.store.io.utils import yaml_dump
+    from sldb.store.layout import semantic_index_path
+
+    monkeypatch.delenv('DESKOPS_ROOT', raising=False)
+    monkeypatch.delenv('WORKSPACE_EXPLORER_ROOTS', raising=False)
+    root = tmp_path / 'repo'
+    root.mkdir()
+    git_init(root)
+    prepare_store(root)
+    store = root / '.sldb'
+    srv = Srv(root)
+    try:
+        assert store_is_prepared(store)
+        assert get(srv.url, '/api/workspace/nodes')[0] == 200  # preparado: el listado funciona
+        # Layout previo al sharding del indice semantico (PLAN 15 capa 5): el indice real del
+        # store, en su archivo unico. _already_canonical lo rechaza y open_store lo migraria.
+        legacy = semantic_index_path(store)
+        assert not legacy.exists()
+        legacy.write_text(yaml_dump(load_semantic_index(store).model_dump(mode='json')), encoding='utf-8')
+        assert not store_is_prepared(store)
+
+        def store_state() -> dict:
+            return {str(p.relative_to(store)): (sha(p.read_bytes()), p.stat().st_mtime_ns)
+                    for p in sorted(store.rglob('*')) if p.is_file()}
+
+        for url in ('/api/workspace/nodes', '/api/workspace/explorer'):
+            before = store_state()
+            status, data = get(srv.url, url)
+            assert status == 503, (url, status, data)
+            assert data['ok'] is False and data['estado'] == 'store_no_preparado', data
+            assert 'store not prepared' in data['error'], data
+            assert store_state() == before, f'GET {url} cambio archivos bajo .sldb'
+        assert legacy.exists() and not store_is_prepared(store)  # nada lo migro
+    finally:
+        srv.close()
+    # control: la apertura que si migra (open_store) prepara el mismo store
+    open_store(store)
+    assert store_is_prepared(store) and not legacy.exists()
 
 
 def test_real_process_listing_get_writes_nothing_and_sees_other_process_changes(env, tmp_path):
