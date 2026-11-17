@@ -1,0 +1,49 @@
+{
+  "alerts": [],
+  "declared": [
+    "tests",
+    "commit",
+    "atom",
+    "materialization"
+  ],
+  "findings": [],
+  "found": [
+    "tests",
+    "atom|materialization",
+    "commit"
+  ],
+  "gates": {
+    "atom_or_materialization_link": {
+      "evidence": [
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/sldb_adapter.py",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/views_routes.py",
+        "materialization:materialization:materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations->frontends/mindmap/persistence.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/test_mindmap_persistence.py",
+        "materialization:materialization:materialization-suite-de-pruebas-de-graph-ui-que-corre-la-ci->tests/test_projection_views.py"
+      ],
+      "findings": [],
+      "ok": true
+    },
+    "commit": {
+      "evidence": [
+        "1479e24",
+        "d62195c"
+      ],
+      "findings": [],
+      "ok": true
+    },
+    "tests": {
+      "evidence": [
+        "tests/test_projection_views.py",
+        "tests/test_mindmap_endpoints.py",
+        "tests/test_mindmap_persistence.py"
+      ],
+      "findings": [],
+      "ok": true
+    }
+  },
+  "implicit_code": false,
+  "ok": true,
+  "summary": "esta tarea declar\u00f3 tests, commit, atom|materialization; encontr\u00e9 tests, atom|materialization, commit",
+  "task_id": "task-las-vistas-de-proyecci\u00f3n-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon"
+}

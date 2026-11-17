@@ -1,0 +1,416 @@
+Running as unit: run-u88211.scope; invocation ID: a0413bbd6d1b4cb9802368dc56325b7a
+..................F......                                                [100%]
+=================================== FAILURES ===================================
+_ test_explorer_equal_titles_show_distinct_visible_paths_and_open_their_origin _
+
+explorer_e2e_server = ('http://127.0.0.1:33575', PosixPath('/dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e'), 'task-tarea-sana')
+
+    def test_explorer_equal_titles_show_distinct_visible_paths_and_open_their_origin(explorer_e2e_server):
+        url, root, task_id = explorer_e2e_server
+        ops = DeskopsOperations(root)
+        # Dos documentos modelados REALES con el mismo titulo y modelos, ids y rutas distintos
+        task = ops.create_task_bundle({
+            'title': 'ActionsSection', 'goal': 'Objetivo de la tarea', 'scope': 'Scope temporal',
+            'validation': ['pytest'], 'done_when': 'Completada',
+        })
+        atom = ops.create_artifact('artifact.atom', {
+            'title': 'ActionsSection', 'five_wh_one_plus': 'what', 'answer': 'Respuesta del atom.',
+        })
+        expected = {
+            f'TaskCodeDoc:{task.task_id}': task.task_path.relative_to(root).as_posix(),
+            'AtomDoc:' + atom.doc_id: atom.path.relative_to(root).as_posix(),
+        }
+        assert len(set(expected.values())) == 2
+        for d in ('desk/notas/alfa', 'desk/notas/beta'):
+            (root / d).mkdir(parents=True, exist_ok=True)
+            (root / d / 'LEEME.md').write_text(f'# LEEME\n\nContenido de {d}.\n', encoding='utf-8')
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1440, "height": 900})
+            errors = []
+            page.on("pageerror", lambda error: errors.append(str(error)))
+            page.goto(f"{url}/workspace/node?path=docs/faq.md")
+            # modelados con el mismo titulo: cada uno muestra, visible en el DOM, su ruta relativa
+            entries = page.locator('[data-testid="explorer-modeled-item"]', has_text='ActionsSection')
+            expect(entries).to_have_count(2)
+            for ident, rel in expected.items():
+                item = page.locator(f'[data-testid="explorer-modeled-item"][data-id="{ident}"]')
+                expect(item.locator('.workspace-explorer-item-title')).to_contain_text('ActionsSection')
+                path_el = item.locator('[data-testid="explorer-item-path"]')
+                expect(path_el).to_be_visible()
+                expect(path_el).to_have_text(rel)
+            _screenshot(page, "correccion-titulos-repetidos.png")
+            # abrir cada uno lleva a su origen (en ambos ordenes)
+            for ident in list(expected) + list(reversed(list(expected))):
+                page.locator(f'[data-testid="explorer-modeled-item"][data-id="{ident}"]').click()
+>               expect(page.locator('[data-testid="document-reader"]')).to_have_attribute('data-identity', ident)
+E               AssertionError: Locator expected to have attribute 'AtomDoc:atom-actionssection'
+E               Actual value: None
+E               Error: element(s) not found 
+E               Call log:
+E                 - Expect "to_have_attribute" locator("[data-testid=\"document-reader\"]") with timeout 5000ms
+E                 - waiting for locator("[data-testid=\"document-reader\"]")
+E               
+E               Aria snapshot:
+E               - main:
+E                 - link "◈ KB Mindmap":
+E                   - /url: /
+E                   - text: ◈ KB
+E                   - strong: Mindmap
+E                 - text: Explorar · organizar · editar
+E                 - tablist "Vistas":
+E                   - tab "🗺 KB"
+E                   - tab "⇢ Flujo"
+E                   - tab "💡 Brainstorm"
+E                   - tab "📐 Schema"
+E                   - tab "🧩 Specs"
+E                   - tab "Deskops"
+E                   - tab "Workspace" [selected]
+E                 - button "Cambiar tema": ◐
+E                 - alert:
+E                   - text: "1 modelo(s) del store no se pueden importar: Bitacora (ws132_bitacora:Bitacora): Failed to import module 'ws132_bitacora'. (No module named 'ws132_bitacora'). Si viven fuera del entorno, arranca graph-ui con --pythonpath <dir> (o SLDB_PYTHONPATH)."
+E                   - button "Recargar SLDB"
+E                   - button "Cerrar error": ×
+E                 - text: WORKSPACE / MULTI-PROYECCIÓN
+E                 - heading "AtomDoc:atom-actionssection" [level=1]
+E                 - searchbox "Buscar nodo"
+E                 - combobox "Filtrar catálogo por modelo":
+E                   - option "Todos los modelos" [selected]
+E                   - option "AtomDoc"
+E                   - option "Bitacora"
+E                   - option "BoardDoc"
+E                   - option "RelationDoc"
+E                   - option "RelationTypeDoc"
+E                   - option "RitualDoc"
+E                   - option "RuleDoc"
+E                   - option "TaskCodeDoc"
+E                 - combobox "Seleccionar nodo activo":
+E                   - option "[AtomDoc] ActionsSection" [selected]
+E                   - option "[Bitacora] b1"
+E                   - option "[BoardDoc] explorer-e2e Board"
+E                   - option "[RelationDoc] Task activates"
+E                   - option "[RelationDoc] Task hands to closeout"
+E                   - option "[RelationDoc] Task completes"
+E                   - option "[RelationTypeDoc] has_model"
+E                   - option "[RelationTypeDoc] links_to"
+E                   - option "[RelationTypeDoc] has_document"
+E                   - option "[RelationTypeDoc] has_section"
+E                   - option "[RelationTypeDoc] tagged_as"
+E                   - option "[RelationTypeDoc] semantic_parent"
+E                   - option "[RelationTypeDoc] semantic_equivalent"
+E                   - option "[RelationTypeDoc] has_field"
+E                   - option "[RelationTypeDoc] extends"
+E                   - option "[RelationTypeDoc] applies_to_source"
+E                   - option "[RelationTypeDoc] applies_to_target"
+E                   - option "[RelationTypeDoc] names"
+E                   - option "[RelationTypeDoc] references"
+E                   - option "[RelationTypeDoc] contains"
+E                   - option "[RelationTypeDoc] composes"
+E                   - option "[RelationTypeDoc] Task activates"
+E                   - option "[RelationTypeDoc] Task completes"
+E                   - option "[RelationTypeDoc] Task hands to closeout"
+E                   - option "[RitualDoc] Phase ritual for dependency-layer execution"
+E                   - option "[RitualDoc] Execution ritual"
+E                   - option "[RitualDoc] Testing ritual"
+E                   - option "[RitualDoc] Closeout ritual"
+E                   - option "[RuleDoc] Activación de task.aggregate"
+E                   - option "[RuleDoc] Activación de task.code"
+E                   - option "[RuleDoc] Activación de task.debug"
+E                   - option "[RuleDoc] Activación de task.decision"
+E                   - option "[RuleDoc] Activación de task.docs"
+E                   - option "[RuleDoc] Activación de task.external"
+E                   - option "[RuleDoc] Activación de task.refactor"
+E                   - 'option "[RuleDoc] Alerta de cierre: código implícito"'
+E                   - 'option "[RuleDoc] Alerta de cierre: graduación de pills"'
+E                   - option "[RuleDoc] Cierre de task.aggregate"
+E                   - option "[RuleDoc] Cierre de task.code"
+E                   - option "[RuleDoc] Cierre de task.debug"
+E                   - option "[RuleDoc] Cierre de task.decision"
+E                   - option "[RuleDoc] Cierre de task.docs"
+E                   - option "[RuleDoc] Cierre de task.external"
+E                   - option "[RuleDoc] Cierre de task.refactor"
+E                   - option "[TaskCodeDoc] Tarea sana"
+E                   - option "[TaskCodeDoc] ActionsSection"
+E                 - group "Profundidad de grafo":
+E                   - button "1 hop" [pressed]
+E                   - button "2 hops"
+E                 - button "Cargando…" [disabled]
+E                 - navigation "Proyecciones del nodo":
+E                   - button "Documento"
+E                   - button "Grafo Local"
+E                   - button "Código"
+E                 - complementary "Explorador de documentos":
+E                   - heading "Explorador" [level=3]
+E                   - button "Refrescar catálogo"
+E                   - searchbox "Filtrar explorador"
+E                   - heading "Modelados (46)" [level=4]
+E                   - text: AtomDoc (1)
+E                   - list:
+E                     - listitem:
+E                       - button "ActionsSection desk/atoms/atom-actionssection.md"
+E                   - text: Bitacora (1)
+E                   - list:
+E                     - listitem:
+E                       - button "b1 modelo_no_carga bitacoras/b1.md"
+E                   - text: BoardDoc (1)
+E                   - list:
+E                     - listitem:
+E                       - button "explorer-e2e Board desk/tasks/Board.md"
+E                   - text: RelationDoc (3)
+E                   - list:
+E                     - listitem:
+E                       - button "Task activates desk/lifecycle/execution-task_activates.md"
+E                     - listitem:
+E                       - button "Task completes desk/lifecycle/closeout-task_completes.md"
+E                     - listitem:
+E                       - button "Task hands to closeout desk/lifecycle/testing-task_hands_to_closeout.md"
+E                   - text: RelationTypeDoc (18)
+E                   - list:
+E                     - listitem:
+E                       - button "applies_to_source sldb/relation_types/applies_to_source.md"
+E                     - listitem:
+E                       - button "applies_to_target sldb/relation_types/applies_to_target.md"
+E                     - listitem:
+E                       - button "composes sldb/relation_types/composes.md"
+E                     - listitem:
+E                       - button "contains sldb/relation_types/contains.md"
+E                     - listitem:
+E                       - button "extends sldb/relation_types/extends.md"
+E                     - listitem:
+E                       - button "has_document sldb/relation_types/has_document.md"
+E                     - listitem:
+E                       - button "has_field sldb/relation_types/has_field.md"
+E                     - listitem:
+E                       - button "has_model sldb/relation_types/has_model.md"
+E                     - listitem:
+E                       - button "has_section sldb/relation_types/has_section.md"
+E                     - listitem:
+E                       - button "links_to sldb/relation_types/links_to.md"
+E                     - listitem:
+E                       - button "names sldb/relation_types/names.md"
+E                     - listitem:
+E                       - button "references sldb/relation_types/references.md"
+E                     - listitem:
+E                       - button "semantic_equivalent sldb/relation_types/semantic_equivalent.md"
+E                     - listitem:
+E                       - button "semantic_parent sldb/relation_types/semantic_parent.md"
+E                     - listitem:
+E                       - button "tagged_as sldb/relation_types/tagged_as.md"
+E                     - listitem:
+E                       - button "Task activates desk/lifecycle/type-task_activates.md"
+E                     - listitem:
+E                       - button "Task completes desk/lifecycle/type-task_completes.md"
+E                     - listitem:
+E                       - button "Task hands to closeout desk/lifecycle/type-task_hands_to_closeout.md"
+E                   - text: RitualDoc (4)
+E                   - list:
+E                     - listitem:
+E                       - button "Closeout ritual desk/rituals/closeout.md"
+E                     - listitem:
+E                       - button "Execution ritual desk/rituals/execution.md"
+E                     - listitem:
+E                       - button "Phase ritual for dependency-layer execution desk/rituals/phase.md"
+E                     - listitem:
+E                       - button "Testing ritual desk/rituals/testing.md"
+E                   - text: RuleDoc (16)
+E                   - list:
+E                     - listitem:
+E                       - button "Activación de task.aggregate desk/lifecycle/rule-activation-task-aggregate.md"
+E                     - listitem:
+E                       - button "Activación de task.code desk/lifecycle/rule-activation-task-code.md"
+E                     - listitem:
+E                       - button "Activación de task.debug desk/lifecycle/rule-activation-task-debug.md"
+E                     - listitem:
+E                       - button "Activación de task.decision desk/lifecycle/rule-activation-task-decision.md"
+E                     - listitem:
+E                       - button "Activación de task.docs desk/lifecycle/rule-activation-task-docs.md"
+E                     - listitem:
+E                       - button "Activación de task.external desk/lifecycle/rule-activation-task-external.md"
+E                     - listitem:
+E                       - button "Activación de task.refactor desk/lifecycle/rule-activation-task-refactor.md"
+E                     - listitem:
+E                       - 'button "Alerta de cierre: código implícito desk/lifecycle/rule-closeout-alert-implicit-code.md"'
+E                     - listitem:
+E                       - 'button "Alerta de cierre: graduación de pills desk/lifecycle/rule-closeout-alert-pill-graduation.md"'
+E                     - listitem:
+E                       - button "Cierre de task.aggregate desk/lifecycle/rule-closeout-task-aggregate.md"
+E                     - listitem:
+E                       - button "Cierre de task.code desk/lifecycle/rule-closeout-task-code.md"
+E                     - listitem:
+E                       - button "Cierre de task.debug desk/lifecycle/rule-closeout-task-debug.md"
+E                     - listitem:
+E                       - button "Cierre de task.decision desk/lifecycle/rule-closeout-task-decision.md"
+E                     - listitem:
+E                       - button "Cierre de task.docs desk/lifecycle/rule-closeout-task-docs.md"
+E                     - listitem:
+E                       - button "Cierre de task.external desk/lifecycle/rule-closeout-task-external.md"
+E                     - listitem:
+E                       - button "Cierre de task.refactor desk/lifecycle/rule-closeout-task-refactor.md"
+E                   - text: TaskCodeDoc (2)
+E                   - list:
+E                     - listitem:
+E                       - button "ActionsSection desk/tasks/task-actionssection.md"
+E                     - listitem:
+E                       - button "Tarea sana desk/tasks/task-tarea-sana.md"
+E                   - heading "Markdown sin modelo (8)" [level=4]
+E                   - paragraph: "Rutas: desk, docs"
+E                   - list:
+E                     - listitem:
+E                       - button "▾ desk (7)" [expanded]
+E                       - list:
+E                         - listitem:
+E                           - button "▸ contexts (1)"
+E                         - listitem:
+E                           - button "▸ drawer (1)"
+E                         - listitem:
+E                           - button "▸ notas (4)"
+E                         - listitem:
+E                           - button "▸ runtimes (1)"
+E                     - listitem:
+E                       - button "▾ docs (1)" [expanded]
+E                       - list:
+E                         - listitem:
+E                           - button "faq.md docs/faq.md"
+E                 - main "Proyección activa":
+E                   - status: Cargando documento…
+E                 - complementary "Contexto y Relaciones":
+E                   - heading "Identidad Canónica" [level=3]
+E                   - text: ID
+E                   - strong: Cargando…
+E                   - text: Modelo Cargando… Estado Cargando… Nodo Actual
+E                   - code: Cargando…
+E                   - text: Path Cargando… Repo Cargando… Content Hash (SLDB) Cargando… File Revision (Git/Disk) Cargando…
+E                   - heading "Relaciones Salientes (cargando)" [level=3]
+E                   - paragraph: Cargando relaciones…
+E                   - heading "Relaciones Incidentes (cargando)" [level=3]
+E                   - paragraph: Cargando relaciones…
+E                   - heading "Enlaces del documento (cargando)" [level=3]
+E                   - paragraph: Cargando enlaces…
+E                   - heading "Problemas de Integridad" [level=3]
+E                   - paragraph: Cargando integridad…
+E                 - complementary "Workers vivos":
+E                   - button "Mostrar workers": Workers
+
+tests/e2e_mindmap_workspace.py:1156: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+No deskops owner store at /dev/shm/viewsave-t1/venv/lib/python3.13/site-packages/.sldb; registering the models directly from the installed package.
+Registering CrossroadDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering AtomDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering BoardDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering DeskFAQDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering InboxNoteDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering MaterializationContractDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering PillDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering ProtoAtomDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering RepositoryDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering ReviewDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering RitualDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering RoleDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering RunDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering RuntimeProfileDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering StepDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering TaskAggregateDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering TaskCodeDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering TaskDebugDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering TaskDecisionDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering TaskDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering TaskDocsDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering TaskExternalDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+Registering TaskRefactorDoc in /dev/shm/viewsave-t1/bt/test_explorer_equal_titles_sho0/explorer-e2e/.sldb...
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [17/Nov/2026 02:05:58] "GET /workspace/node?path=docs/faq.md HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:58] "GET /styles/shell.css HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:58] "GET /skins/light.css HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:58] "GET /skins/dark.css HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:58] "GET /styles/base.css HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:58] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:58] "GET /shared/html.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:58] "GET /shell/api.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:58] "GET /source/source.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:58] "GET /shell/dialogs.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:58] "GET /shell/shell.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:58] "GET /shell/registry.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /source/documents.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /source/models.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /source/draft.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /source/projections.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /shell/skin.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /shell/use-before-unload.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /shell/router.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /dialogs/conflict-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /dialogs/class-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /dialogs/compiler-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /shell/workers-panel.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/workflow/deskops/deskops-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/documents/map/map-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/documents/flow/flow-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/draft/tree/tree-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/models/diagram/diagram-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/specs/notation/notation-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/workspace/node/workspace-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /source/draft.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /source/projections.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /source/history.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /source/batch.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /source/import-errors.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /shared/documents.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /shared/classes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /shared/workers.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /shared/workers-collapse.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/workflow/deskops/deskops.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/documents/map/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /source/graph.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/documents/map/document-node.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/documents/map/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/documents/map/toolbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/documents/map/statusbar.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/documents/map/quick-create-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/documents/map/connect-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/documents/map/document-dialog.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/documents/flow/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /shared/document-ir.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/specs/notation/notation-style.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/specs/notation/notation-layout.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/specs/notation/notation.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/specs/notation/notation-style.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/workspace/node/workspace.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/workspace/node/reader.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/workspace/explorer/explorer-view.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/models/diagram/projection.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/documents/map/document-ficha.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/models/diagram/projection-editor.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/specs/notation/notation-deployment.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/specs/notation/notation-swimlanes.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:05:59] "GET /views/workspace/explorer/explorer.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:00] "GET /views/documents/map/map.css HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:00] "GET /views/documents/flow/flow.css HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:00] "GET /views/draft/tree/tree.css HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:00] "GET /views/specs/notation/notation.css HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:00] "GET /views/workflow/deskops/deskops.css HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:00] "GET /views/workspace/node/workspace.css HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:00] "GET /views/models/diagram/diagram.css HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:01] "GET /api/workspace/source?path=docs%2Ffaq.md HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:02] "GET /api/workspace/explorer HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:02] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:03] "GET /api/schema HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:04] "GET /api/workspace/nodes HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:09] "GET /api/workspace/source?id=TaskCodeDoc%3Atask-actionssection HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:11] "GET /api/workspace/source?id=AtomDoc%3Aatom-actionssection HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:11] "GET /api/workspace/node?id=TaskCodeDoc%3Atask-actionssection&depth=1 HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 02:06:16] "GET /api/workspace/node?id=AtomDoc%3Aatom-actionssection&depth=1 HTTP/1.1" 200 -
+------------------------------ Captured log call -------------------------------
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•from_drawer⸥' references unknown field 'from_drawer'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev,list•closeout_evidence⸥' references unknown field 'closeout_evidence'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•provenance⸥' references unknown field 'provenance'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•from_drawer⸥' references unknown field 'from_drawer'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev,list•closeout_evidence⸥' references unknown field 'closeout_evidence'
+WARNING  sldb.api.records.map_fields:map_fields.py:19 Template marker '⸢optrev•provenance⸥' references unknown field 'provenance'
+=============================== warnings summary ===============================
+../../../venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/viewsave-t1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 failed, 24 passed, 1 warning in 461.13s (0:07:41)

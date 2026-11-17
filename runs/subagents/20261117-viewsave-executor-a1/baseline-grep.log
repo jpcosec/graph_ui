@@ -1,0 +1,5 @@
+$ ! grep -rn open_store frontends/mindmap/sldb_adapter.py frontends/mindmap/projection_views.py frontends/mindmap/views_routes.py
+frontends/mindmap/sldb_adapter.py:406:    Cada lectura abre el store con ``open_store``, como toda operación de sldb: empieza una
+frontends/mindmap/sldb_adapter.py:411:    from sldb.api import load_runtime_documents, open_store
+frontends/mindmap/sldb_adapter.py:413:    return load_runtime_documents(open_store(Path(store)).store_path, pythonpath)
+grep rc=0 (validation requires rc=1)

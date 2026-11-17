@@ -1,0 +1,33 @@
+Running as unit: run-u88309.scope; invocation ID: 8845a4360034411aa6b5680ed7850ebd
+.                                                                        [100%]
+=============================== warnings summary ===============================
+../../../venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/viewsave-t1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 19.71s
+ws rc=0
+Running as unit: run-u88312.scope; invocation ID: f267478ea6b64e70b131215eea0ffb5a
+.                                                                        [100%]
+=============================== warnings summary ===============================
+../../../venv-old/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/viewsave-t1/venv-old/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 23.77s
+oldws rc=0
+Running as unit: run-u88316.scope; invocation ID: 0798fb338e1945fe86fa468a04e4843a
+.                                                                        [100%]
+=============================== warnings summary ===============================
+../../../venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/viewsave-t1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 16.77s
+ws rc=0

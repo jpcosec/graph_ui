@@ -1,0 +1,21 @@
+Task: task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon
+Title: Las vistas de proyección leen sin migrar (read_store) y el guardado sobre un store sin preparar responde 503, no 500
+Status: ready_for_testing
+Current node: ritual-closeout
+Task type: task.code
+Phase: closeout
+Required ritual:
+- desk/rituals/closeout.md
+Next actions:
+1. Confirm passing validation evidence and pill coverage.
+2. Remove the task from the active board and delete the resolved task file when ready.
+3. Untrack the store entry if tracked.
+4. Create one atomic closing commit.
+Advance when:
+- Closeout ritual obligations are satisfied.
+Blocked by:
+- error: [rules/rule-closeout-task-code] TaskCodeDoc:task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon: Una tarea task.code se cierra con recibos evidence aceptados e intactos de tests, commit y atom o materialization (los escribe deskops closeout verify). | any(^subject: kind = "evidence" and fact = "tests" and anchor_state = "intact" and verdict = "accepted") (seen: {}) (witness: ReviewDoc:review-task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon-bundle-1 {"kind":"bundle"})
+Sources:
+- task: desk/tasks/task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon.md
+- board: desk/tasks/Board.md
+- workflow: deskops/spec/workflows/task_lifecycle.yaml

@@ -1,0 +1,17 @@
+serve.py pid 2172687 port 54277
+prepared at start: True
+GET /api/graph 200 95 docs
+PREPARED GET /api/views 200 {'views': '<list>'}
+PREPARED POST /api/views/evaluate 200 edges 11
+PREPARED POST /api/save 200 {'ok': True, 'saved': ['component.exception-hierarchy'], 'documents': '<list>', 'view': '<dict>', 'revision': '<str>'}
+PREPARED save changed files: 4 ['component.exception-hierarchy.yaml', 'SpecDoc.yaml', 'mindmap-view.json', 'store_index.yaml']
+title persisted: True
+.sldb deleted from test process
+DELETE GET /api/views 404 {'ok': False, 'error': '/dev/shm/viewsave-t1/proc-old-delete/.sldb is not an sldb store'}
+DELETE GET /api/views/evaluate?view=ViewDoc:herencia 404 {'ok': False, 'error': '/dev/shm/viewsave-t1/proc-old-delete/.sldb is not an sldb store'}
+DELETE POST /api/views/evaluate 404 {'ok': False, 'error': '/dev/shm/viewsave-t1/proc-old-delete/.sldb is not an sldb store'}
+DELETE POST /api/views/save 404 {'ok': False, 'error': '/dev/shm/viewsave-t1/proc-old-delete/.sldb is not an sldb store'}
+DELETE POST /api/save 500 {'ok': False, 'error': 'store not prepared: run `sldb stores update` (/dev/shm/viewsave-t1/proc-old-delete/.sldb)'}
+files hashed: 299 identical before/after: True
+serve alive: True
+serve.py exit -15

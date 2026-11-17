@@ -1,0 +1,8 @@
+Task: task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon
+Title: Las vistas de proyección leen sin migrar (read_store) y el guardado sobre un store sin preparar responde 503, no 500
+Status: ready_for_testing
+Current node: ritual-closeout
+Task type: task.code
+Lifecycle gates:
+- task_completes -> complete: open [status = "ready_for_testing"]
+  blocked by: error: [rules/rule-closeout-task-code] TaskCodeDoc:task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon: Una tarea task.code se cierra con recibos evidence aceptados e intactos de tests, commit y atom o materialization (los escribe deskops closeout verify). | any(^subject: kind = "evidence" and fact = "tests" and anchor_state = "intact" and verdict = "accepted") (seen: {}) (witness: ReviewDoc:review-task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon-bundle-1 {"kind":"bundle"})

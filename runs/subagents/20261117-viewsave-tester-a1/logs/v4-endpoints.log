@@ -1,0 +1,10 @@
+Running as unit: run-u88320.scope; invocation ID: d720d96cdfd34c77acab8c9ceaff1de2
+.................................                                        [100%]
+=============================== warnings summary ===============================
+../../../venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/viewsave-t1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+33 passed, 1 warning in 8.09s

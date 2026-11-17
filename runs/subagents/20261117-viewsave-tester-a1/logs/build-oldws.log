@@ -1,0 +1,2 @@
+built: links: 0, models: 0, tracked: 0, generated: 0, undeclared: 0, missing: 0
+Unexpected: Command '['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z']' returned non-zero exit status 128.

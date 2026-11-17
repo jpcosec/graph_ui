@@ -1,0 +1,171 @@
+$ (cwd=/dev/shm/viewsave-e1/neg) python -m pytest -q -rs tests/test_projection_views.py::test_views_get_on_an_unprepared_store_is_503_and_writes_nothing tests/test_mindmap_endpoints.py::test_save_on_a_store_unprepared_after_start_is_503_and_writes_nothing tests/test_mindmap_persistence.py::test_save_on_a_store_unprepared_after_open_is_503_store_no_preparado_and_writes_nothing
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_______ test_views_get_on_an_unprepared_store_is_503_and_writes_nothing ________
+
+tmp_path = PosixPath('/dev/shm/viewsave-e1/bt/test_views_get_on_an_unprepare0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x789d352abe10>
+
+    def test_views_get_on_an_unprepared_store_is_503_and_writes_nothing(tmp_path, monkeypatch):
+        """Las lecturas de vistas usan sldb.api.read_store, que no migra: con el servidor ya arrancado
+        sobre un store preparado que después queda no canónico, GET /api/views y la evaluación de una
+        vista responden 503 store_no_preparado con el texto de sldb y no cambia ningún archivo de .sldb
+        (ni de .sldb_cache, donde escribiría la migración)."""
+        from sldb.api import open_store, store_is_prepared
+    
+        store = _store(tmp_path, ["component-exception-hierarchy.yml"])
+        monkeypatch.setenv("GRAPH_UI_BACKEND", "local")
+        httpd = _load_serve().make_server(port=0, store=store)
+        threading.Thread(target=httpd.serve_forever, daemon=True).start()
+        url = f"http://127.0.0.1:{httpd.server_address[1]}"
+        try:
+            assert store_is_prepared(store)
+            assert _call(f"{url}/api/views/evaluate", {"view": INHERITS})[0] == 200  # preparado: evalúa
+            legacy = _unprepare(store)
+            cache = store.parent / ".sldb_cache"
+            for method, route, body in (("GET", "/api/views", None),
+                                        ("GET", "/api/views/evaluate?view=ViewDoc:herencia", None),
+                                        ("POST", "/api/views/evaluate", {"view": INHERITS})):
+                before = _tree_state(store, cache)
+                status, data = _call(f"{url}{route}", body)
+>               assert status == 503, (method, route, status, data)
+E               AssertionError: ('GET', '/api/views', 200, {'views': []})
+E               assert 200 == 503
+
+tests/test_projection_views.py:245: AssertionError
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [17/Nov/2026 01:27:24] "POST /api/views/evaluate HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 01:27:24] "GET /api/views HTTP/1.1" 200 -
+____ test_save_on_a_store_unprepared_after_start_is_503_and_writes_nothing _____
+
+tmp_path = PosixPath('/dev/shm/viewsave-e1/bt/test_save_on_a_store_unprepare0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x789d32d3c9d0>
+
+    def test_save_on_a_store_unprepared_after_start_is_503_and_writes_nothing(tmp_path, monkeypatch):
+        """POST /api/save con el servidor ya arrancado sobre un store que después queda no canónico
+        (el índice semántico real en su archivo único previo al sharding, como tests/
+        test_mindmap_workspace_explorer.py::test_listing_get_on_unprepared_store_is_503_and_writes_nothing):
+        persistence.save traduce el 'store not prepared' de sldb.api.read_store a 503
+        store_no_preparado y no cambia ningún archivo de .sldb ni de .sldb_cache."""
+        import hashlib
+        from sldb.api import open_store, store_is_prepared
+        from sldb.store.io import load_semantic_index
+        from sldb.store.io.utils import yaml_dump
+        from sldb.store.layout import semantic_index_path
+    
+        monkeypatch.setenv("GRAPH_UI_BACKEND", "local")
+        store = tmp_path / ".sldb"
+        _compile_fixture(store)
+        env = _Server(store)
+        try:
+            assert store_is_prepared(store)
+            status, graph = _request(env.port, "/api/graph")
+            assert status == 200 and graph["documents"], graph
+            doc = graph["documents"][0]
+            payload = {**doc["payload"], "title": "Cambio que no debe escribirse"}
+            body = {"changes": [{"action": "update", "id": doc["id"], "model": doc["model_name"],
+                                 "expected": doc["payload"], "payload": payload}],
+                    "view": graph["view"], "viewRevision": graph["revision"]}
+    
+            legacy = semantic_index_path(store)
+            assert not legacy.exists()
+            legacy.write_text(yaml_dump(load_semantic_index(store).model_dump(mode="json")), encoding="utf-8")
+            assert not store_is_prepared(store)
+    
+            def tree_state() -> dict:
+                return {str(p): (hashlib.sha256(p.read_bytes()).hexdigest(), p.stat().st_mtime_ns)
+                        for root in (store, tmp_path / ".sldb_cache") for p in sorted(root.rglob("*")) if p.is_file()}
+    
+            before = tree_state()
+            status, data = _request(env.port, "/api/save", body)
+>           assert status == 503, (status, data)
+E           AssertionError: (500, {'ok': False, 'error': 'store not prepared: run `sldb stores update` (/dev/shm/viewsave-e1/bt/test_save_on_a_store_unprepare0/.sldb)'})
+E           assert 500 == 503
+
+tests/test_mindmap_endpoints.py:531: AssertionError
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [17/Nov/2026 01:27:25] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 01:27:25] "POST /api/save HTTP/1.1" 500 -
+_ test_save_on_a_store_unprepared_after_open_is_503_store_no_preparado_and_writes_nothing _
+
+store = <mindmap_persistence.EditorStore object at 0x789d3304b8c0>
+
+    def test_save_on_a_store_unprepared_after_open_is_503_store_no_preparado_and_writes_nothing(store):
+        """EditorStore abierto sobre un store preparado que después queda no canónico (el índice
+        semántico real en su archivo único previo al sharding, como tests/test_mindmap_workspace_explorer.py::
+        test_listing_get_on_unprepared_store_is_503_and_writes_nothing): save traduce el 'store not prepared'
+        de sldb.api.read_store a SaveError 503 'store_no_preparado' antes de escribir nada en .sldb,
+        .sldb_cache ni el archivo de vista."""
+        import hashlib
+        from sldb.api import store_is_prepared
+        from sldb.store.io import load_semantic_index
+        from sldb.store.io.utils import yaml_dump
+        from sldb.store.layout import semantic_index_path
+    
+        sldb_dir = Path(store.store)
+        assert store_is_prepared(sldb_dir)
+        legacy = semantic_index_path(sldb_dir)
+        legacy.write_text(yaml_dump(load_semantic_index(sldb_dir).model_dump(mode='json')), encoding='utf-8')
+        assert not store_is_prepared(sldb_dir)
+    
+        def tree_state():
+            return {str(p): (hashlib.sha256(p.read_bytes()).hexdigest(), p.stat().st_mtime_ns)
+                    for p in sorted(store.root.rglob('*')) if p.is_file()}
+    
+        before = tree_state()
+        with pytest.raises(persistence.SaveError) as error:
+>           save(store, [create('step', 'StepDoc', title='Step', action='x', outcome='y')], {'collapsed': ['a']})
+
+tests/test_mindmap_persistence.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_mindmap_persistence.py:26: in save
+    return store.save({'changes': changes, 'view': view or {}, 'viewRevision': store.view()['revision']})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+frontends/mindmap/persistence.py:77: in save
+    adapter.refresh_for_concurrent_sessions()
+frontends/mindmap/sldb_adapter.py:374: in refresh_for_concurrent_sessions
+    read_store(self.store)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+store = PosixPath('/dev/shm/viewsave-e1/bt/test_save_on_a_store_unprepare1/.sldb')
+
+    def read_store(store: str | Path | None = None) -> StoreLocation:
+        """Resolve a store and start a new read-only operation over it, never writing to disk.
+    
+        Unlike `open_store`, the layout is never migrated: a reader (a GET) must not rewrite the
+        store it reads. Each call starts a new operation, so documents added or removed by another
+        process since the previous call are seen.
+    
+        Args:
+            store: A `.sldb` directory path, the alias of a linked store, or None/"" to discover
+                the nearest project store (falling back to the global store, as `mode="readonly"`).
+    
+        Returns:
+            The resolved store directory and its project root.
+    
+        Raises:
+            SLDBStoreError: When no store can be found, or when its layout is not canonical
+                ("store not prepared: run `sldb stores update`").
+        """
+        store_path = _resolve_store_arg(str(store)) if store else _find_default_store("readonly")
+        root = project_root(store_path)
+        if not store_is_prepared(store_path):
+>           raise SLDBStoreError(f"{NOT_PREPARED} ({store_path})")
+E           sldb.core.exceptions.sldb_store_error.SLDBStoreError: store not prepared: run `sldb stores update` (/dev/shm/viewsave-e1/bt/test_save_on_a_store_unprepare1/.sldb)
+
+../venv/lib/python3.13/site-packages/sldb/api/stores/read_store.py:53: SLDBStoreError
+---------------------------- Captured stdout setup -----------------------------
+Initialized store at /dev/shm/viewsave-e1/bt/test_save_on_a_store_unprepare1/.sldb
+Registered 'BoardDoc'
+Registered 'TaskDoc'
+Registered 'RitualDoc'
+Registered 'StepDoc'
+=============================== warnings summary ===============================
+../venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/viewsave-e1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+3 failed, 1 warning in 8.78s
+rc=1

@@ -1,0 +1,284 @@
+diff --git a/frontends/mindmap/persistence.py b/frontends/mindmap/persistence.py
+index 8dea3d5..ced1687 100644
+--- a/frontends/mindmap/persistence.py
++++ b/frontends/mindmap/persistence.py
+@@ -14,9 +14,10 @@ from __future__ import annotations
+ import os
+ import re
+ 
+-from mindmap.sldb_adapter import AdapterError, SldbAdapter
++from mindmap.sldb_adapter import AdapterError, SLDBStoreError, SldbAdapter
+ 
+ SaveError = AdapterError
++STORE_NO_PREPARADO = 'store_no_preparado'  # el mismo estado que workspace_routes
+ 
+ 
+ class EditorStore:
+@@ -74,7 +75,14 @@ class EditorStore:
+             # capa 6, ``sldb.api.read_store`` — expuesto por el adaptador). Sin esto,
+             # el compare contra ``expected`` compararía contra un payload viejo
+             # y pisotearía el cambio ajeno (ver MIGRACION §2.6).
+-            adapter.refresh_for_concurrent_sessions()
++            # read_store no migra: un store des-preparado con el servidor arrancado lanza
++            # 'store not prepared' antes de escribir nada, y aquí responde 503 store_no_preparado.
++            try:
++                adapter.refresh_for_concurrent_sessions()
++            except SLDBStoreError as exc:
++                if 'store not prepared' in str(exc):
++                    raise SaveError(str(exc), 503, estado=STORE_NO_PREPARADO) from exc
++                raise
+             changes = request.get('changes', [])
+             if not isinstance(changes, list) or len(changes) > 500:
+                 raise SaveError('Lista de cambios inválida.')
+diff --git a/frontends/mindmap/serve.py b/frontends/mindmap/serve.py
+index 0bf8825..c48cac3 100644
+--- a/frontends/mindmap/serve.py
++++ b/frontends/mindmap/serve.py
+@@ -474,6 +474,11 @@ class ProxyHandler(SimpleHTTPRequestHandler):
+                     report, status = self.compilation.run(route.rsplit('/', 1)[1], request)
+                     self.json_response(report, status)
+             except self.save_error as exc:
++                if getattr(exc, 'estado', None):
++                    # store_no_preparado: save no escribió nada y no se vuelve a leer un store
++                    # sin preparar para adjuntar el grafo; la respuesta lleva el estado (como workspace).
++                    return self.json_response({'ok': False, 'error': str(exc), 'estado': exc.estado,
++                        'completed': exc.completed}, exc.status)
+                 self.json_response({'ok': False, 'error': str(exc), 'completed': exc.completed,
+                     **self.editor_store.graph()}, exc.status)
+             except (ValueError, KeyError, TypeError) as exc:
+diff --git a/frontends/mindmap/sldb_adapter.py b/frontends/mindmap/sldb_adapter.py
+index b8969de..3bfbe55 100644
+--- a/frontends/mindmap/sldb_adapter.py
++++ b/frontends/mindmap/sldb_adapter.py
+@@ -28,6 +28,7 @@ from typing import Any
+ from sldb.cli.model_utils import resolve_model_ref
+ from sldb.cli.serve.routes import serialize_document
+ from sldb.cli.store_context import get_store_context
++from sldb.core.exceptions import SLDBStoreError  # re-exportada: el resto de mindmap no importa sldb
+ from sldb.runtime.validation import render_model_markdown, validate_model_input_roundtrip
+ 
+ VIEW_FILENAME = "mindmap-view.json"
+@@ -68,12 +69,15 @@ def quick_payload(fields: list[dict[str, Any]], id_prefix: str = "") -> dict[str
+ 
+ 
+ class AdapterError(Exception):
+-    """Error del adaptador con código HTTP equivalente."""
++    """Error del adaptador con código HTTP equivalente. ``estado`` es opcional: lo lleva solo un
++    error con nombre propio en la respuesta (``store_no_preparado``, como en workspace_routes)."""
+ 
+-    def __init__(self, message: str, status: int = 400, completed: list[str] | None = None):
++    def __init__(self, message: str, status: int = 400, completed: list[str] | None = None,
++                 estado: str | None = None):
+         super().__init__(message)
+         self.status = status
+         self.completed = completed or []
++        self.estado = estado
+ 
+ 
+ class SldbAdapter:
+@@ -403,14 +407,16 @@ class SldbAdapter:
+ def runtime_documents(store: str | Path, pythonpath: str | None = None) -> list[Any]:
+     """Todos los documentos del store (``model_name``, ``name``, ``payload``).
+ 
+-    Cada lectura abre el store con ``open_store``, como toda operación de sldb: empieza una
++    Cada lectura abre el store con la lectura pública ``sldb.api.read_store``: empieza una
+     operación nueva y los cachés de sldb se revalidan contra el disco. Sin eso, un proceso de
+     larga vida (el servidor, o un test) seguía sirviendo el roster de un modelo cacheado antes de
+     que otro proceso escribiera en él (visto con ViewDoc desde sldb GO04 d7eefdeb).
++    ``read_store`` no migra ni escribe el store: si su layout no es canónico lanza
++    ``SLDBStoreError`` 'store not prepared: run `sldb stores update`' (views_routes lo responde 503).
+     """
+-    from sldb.api import load_runtime_documents, open_store
++    from sldb.api import load_runtime_documents, read_store
+ 
+-    return load_runtime_documents(open_store(Path(store)).store_path, pythonpath)
++    return load_runtime_documents(read_store(Path(store)).store_path, pythonpath)
+ 
+ 
+ def where_holds(expression: str, payload: dict[str, Any]) -> bool:
+diff --git a/frontends/mindmap/views_routes.py b/frontends/mindmap/views_routes.py
+index e182745..ee58ebd 100644
+--- a/frontends/mindmap/views_routes.py
++++ b/frontends/mindmap/views_routes.py
+@@ -15,9 +15,10 @@ from pathlib import Path
+ from typing import Any
+ 
+ from mindmap.projection_views import VIEW_MODEL, ViewError, evaluate_view, find_view, list_views
+-from mindmap.sldb_adapter import ensure_model, write_document
++from mindmap.sldb_adapter import SLDBStoreError, ensure_model, write_document
+ 
+ VIEW_MODEL_REF = 'sldb.models.notation.view_doc:ViewDoc'
++STORE_NO_PREPARADO = 'store_no_preparado'  # el mismo estado que workspace_routes
+ 
+ 
+ class RouteError(Exception):
+@@ -85,3 +86,9 @@ def dispatch(method: str, route: str, query: dict[str, list[str]], body: dict[st
+         return {'ok': False, 'error': str(exc)}, exc.status
+     except ViewError as exc:
+         return {'ok': False, 'error': str(exc)}, 422
++    except SLDBStoreError as exc:
++        # Las lecturas de vistas usan sldb.api.read_store, que no migra: un store con layout no
++        # canónico responde 503 con el texto de sldb. Cualquier otro error del store sigue igual.
++        if 'store not prepared' in str(exc):
++            return {'ok': False, 'error': str(exc), 'estado': STORE_NO_PREPARADO}, 503
++        raise
+diff --git a/tests/test_mindmap_endpoints.py b/tests/test_mindmap_endpoints.py
+index cf2f9b7..cfdda66 100644
+--- a/tests/test_mindmap_endpoints.py
++++ b/tests/test_mindmap_endpoints.py
+@@ -489,3 +489,51 @@ def test_models_promote_installs_validated_draft(fresh_env):
+         "el draft sobrevivió a la promoción"
+     status, detail = _request(port, "/api/models/detail", {"model": "TaskDoc"})
+     assert status == 200 and "priority" in str(detail)
++
++
++def test_save_on_a_store_unprepared_after_start_is_503_and_writes_nothing(tmp_path, monkeypatch):
++    """POST /api/save con el servidor ya arrancado sobre un store que después queda no canónico
++    (el índice semántico real en su archivo único previo al sharding, como tests/
++    test_mindmap_workspace_explorer.py::test_listing_get_on_unprepared_store_is_503_and_writes_nothing):
++    persistence.save traduce el 'store not prepared' de sldb.api.read_store a 503
++    store_no_preparado y no cambia ningún archivo de .sldb ni de .sldb_cache."""
++    import hashlib
++    from sldb.api import open_store, store_is_prepared
++    from sldb.store.io import load_semantic_index
++    from sldb.store.io.utils import yaml_dump
++    from sldb.store.layout import semantic_index_path
++
++    monkeypatch.setenv("GRAPH_UI_BACKEND", "local")
++    store = tmp_path / ".sldb"
++    _compile_fixture(store)
++    env = _Server(store)
++    try:
++        assert store_is_prepared(store)
++        status, graph = _request(env.port, "/api/graph")
++        assert status == 200 and graph["documents"], graph
++        doc = graph["documents"][0]
++        payload = {**doc["payload"], "title": "Cambio que no debe escribirse"}
++        body = {"changes": [{"action": "update", "id": doc["id"], "model": doc["model_name"],
++                             "expected": doc["payload"], "payload": payload}],
++                "view": graph["view"], "viewRevision": graph["revision"]}
++
++        legacy = semantic_index_path(store)
++        assert not legacy.exists()
++        legacy.write_text(yaml_dump(load_semantic_index(store).model_dump(mode="json")), encoding="utf-8")
++        assert not store_is_prepared(store)
++
++        def tree_state() -> dict:
++            return {str(p): (hashlib.sha256(p.read_bytes()).hexdigest(), p.stat().st_mtime_ns)
++                    for root in (store, tmp_path / ".sldb_cache") for p in sorted(root.rglob("*")) if p.is_file()}
++
++        before = tree_state()
++        status, data = _request(env.port, "/api/save", body)
++        assert status == 503, (status, data)
++        assert data["ok"] is False and data["estado"] == "store_no_preparado", data
++        assert "store not prepared" in data["error"] and data["completed"] == [], data
++        assert tree_state() == before, "POST /api/save cambió archivos del store"
++        assert legacy.exists() and not store_is_prepared(store)  # nada lo migró
++    finally:
++        env.stop()
++    open_store(store)  # control: la apertura que sí migra prepara el mismo store
++    assert store_is_prepared(store) and not legacy.exists()
+diff --git a/tests/test_mindmap_persistence.py b/tests/test_mindmap_persistence.py
+index 94dcd1e..301f920 100644
+--- a/tests/test_mindmap_persistence.py
++++ b/tests/test_mindmap_persistence.py
+@@ -71,3 +71,34 @@ def test_view_conflict_and_path_traversal_rejected(store):
+     assert error.value.status == 409
+     with pytest.raises(persistence.SaveError):
+         save(store, [create('../escape', 'StepDoc', title='Bad', action='x', outcome='y')])
++
++
++def test_save_on_a_store_unprepared_after_open_is_503_store_no_preparado_and_writes_nothing(store):
++    """EditorStore abierto sobre un store preparado que después queda no canónico (el índice
++    semántico real en su archivo único previo al sharding, como tests/test_mindmap_workspace_explorer.py::
++    test_listing_get_on_unprepared_store_is_503_and_writes_nothing): save traduce el 'store not prepared'
++    de sldb.api.read_store a SaveError 503 'store_no_preparado' antes de escribir nada en .sldb,
++    .sldb_cache ni el archivo de vista."""
++    import hashlib
++    from sldb.api import store_is_prepared
++    from sldb.store.io import load_semantic_index
++    from sldb.store.io.utils import yaml_dump
++    from sldb.store.layout import semantic_index_path
++
++    sldb_dir = Path(store.store)
++    assert store_is_prepared(sldb_dir)
++    legacy = semantic_index_path(sldb_dir)
++    legacy.write_text(yaml_dump(load_semantic_index(sldb_dir).model_dump(mode='json')), encoding='utf-8')
++    assert not store_is_prepared(sldb_dir)
++
++    def tree_state():
++        return {str(p): (hashlib.sha256(p.read_bytes()).hexdigest(), p.stat().st_mtime_ns)
++                for p in sorted(store.root.rglob('*')) if p.is_file()}
++
++    before = tree_state()
++    with pytest.raises(persistence.SaveError) as error:
++        save(store, [create('step', 'StepDoc', title='Step', action='x', outcome='y')], {'collapsed': ['a']})
++    assert error.value.status == 503 and error.value.estado == 'store_no_preparado'
++    assert 'store not prepared' in str(error.value)
++    assert tree_state() == before
++    assert legacy.exists() and not store_is_prepared(sldb_dir)
+diff --git a/tests/test_projection_views.py b/tests/test_projection_views.py
+index 44f6eb3..289a2c9 100644
+--- a/tests/test_projection_views.py
++++ b/tests/test_projection_views.py
+@@ -195,3 +195,60 @@ def test_a_view_another_process_saves_is_seen_by_the_next_read_of_this_one(tmp_p
+     subprocess.run([sys.executable, "-c", writer, str(store)], check=True, capture_output=True,
+                    cwd=MINDMAP.parent)
+     assert find_view(store, "ViewDoc:herencia")["relations"] == ["inherits"]
++
++
++def _unprepare(store: Path) -> Path:
++    """Deja el store con layout no canónico, como tests/test_mindmap_workspace_explorer.py::
++    test_listing_get_on_unprepared_store_is_503_and_writes_nothing: el índice semántico real del store,
++    en su archivo único previo al sharding (PLAN 15 capa 5). _already_canonical lo rechaza."""
++    from sldb.api import store_is_prepared
++    from sldb.store.io import load_semantic_index
++    from sldb.store.io.utils import yaml_dump
++    from sldb.store.layout import semantic_index_path
++
++    legacy = semantic_index_path(store)
++    assert not legacy.exists()
++    legacy.write_text(yaml_dump(load_semantic_index(store).model_dump(mode="json")), encoding="utf-8")
++    assert not store_is_prepared(store)
++    return legacy
++
++
++def _tree_state(*roots: Path) -> dict:
++    """sha256 y mtime_ns de todos los archivos bajo cada raíz (recursivo)."""
++    import hashlib
++    return {str(p): (hashlib.sha256(p.read_bytes()).hexdigest(), p.stat().st_mtime_ns)
++            for root in roots for p in sorted(root.rglob("*")) if p.is_file()}
++
++
++def test_views_get_on_an_unprepared_store_is_503_and_writes_nothing(tmp_path, monkeypatch):
++    """Las lecturas de vistas usan sldb.api.read_store, que no migra: con el servidor ya arrancado
++    sobre un store preparado que después queda no canónico, GET /api/views y la evaluación de una
++    vista responden 503 store_no_preparado con el texto de sldb y no cambia ningún archivo de .sldb
++    (ni de .sldb_cache, donde escribiría la migración)."""
++    from sldb.api import open_store, store_is_prepared
++
++    store = _store(tmp_path, ["component-exception-hierarchy.yml"])
++    monkeypatch.setenv("GRAPH_UI_BACKEND", "local")
++    httpd = _load_serve().make_server(port=0, store=store)
++    threading.Thread(target=httpd.serve_forever, daemon=True).start()
++    url = f"http://127.0.0.1:{httpd.server_address[1]}"
++    try:
++        assert store_is_prepared(store)
++        assert _call(f"{url}/api/views/evaluate", {"view": INHERITS})[0] == 200  # preparado: evalúa
++        legacy = _unprepare(store)
++        cache = store.parent / ".sldb_cache"
++        for method, route, body in (("GET", "/api/views", None),
++                                    ("GET", "/api/views/evaluate?view=ViewDoc:herencia", None),
++                                    ("POST", "/api/views/evaluate", {"view": INHERITS})):
++            before = _tree_state(store, cache)
++            status, data = _call(f"{url}{route}", body)
++            assert status == 503, (method, route, status, data)
++            assert data["ok"] is False and data["estado"] == "store_no_preparado", data
++            assert "store not prepared" in data["error"], data
++            assert _tree_state(store, cache) == before, f"{method} {route} cambió archivos del store"
++        assert legacy.exists() and not store_is_prepared(store)  # nada lo migró
++    finally:
++        httpd.shutdown()
++        httpd.server_close()
++    open_store(store)  # control: la apertura que sí migra prepara el mismo store
++    assert store_is_prepared(store) and not legacy.exists()

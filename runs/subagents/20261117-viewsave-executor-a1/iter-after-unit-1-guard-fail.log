@@ -1,0 +1,34 @@
+$ (cwd=/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui) python -m pytest -q -rs tests/test_mindmap_persistence.py tests/test_projection_views.py tests/test_mindmap_workspace_explorer.py tests/test_mindmap_adapter.py tests/test_parallel_workspace_serve.py tests/test_mindmap_deskops.py
+...............................................................F........ [ 94%]
+....                                                                     [100%]
+=================================== FAILURES ===================================
+________________ test_no_duplicate_sldb_imports_outside_adapter ________________
+
+    def test_no_duplicate_sldb_imports_outside_adapter():
+        """Regla del plan: solo el adaptador importa internos de SLDB (el resto,
+        incluido el editor de clases, pasa por pron.Store). Recorre todo
+        frontends/mindmap/*.py en vez de una lista fija, para no dejar huecos
+        cuando se agregue un módulo nuevo."""
+        allowed = "sldb_adapter.py"
+        checked = [p for p in MINDMAP.glob("*.py") if p.name != allowed]
+        assert checked, "no se encontraron módulos para revisar"
+        for path in checked:
+            for line in path.read_text(encoding="utf-8").splitlines():
+                if line.startswith(("import sldb", "from sldb.")) or line == "from sldb import":
+>                   raise AssertionError(f"{path.name} importa sldb directamente: {line.strip()}")
+E                   AssertionError: views_routes.py importa sldb directamente: from sldb.core.exceptions import SLDBStoreError
+
+tests/test_mindmap_adapter.py:99: AssertionError
+=============================== warnings summary ===============================
+../../../../../../dev/shm/viewsave-e1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/viewsave-e1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+tests/test_mindmap_deskops.py::test_real_advance_stale_origin_and_types
+  /dev/shm/viewsave-e1/venv/lib/python3.13/site-packages/pydantic/main.py:280: DeprecationWarning: ProjectGraphConfig(closed_document=...) is deprecated: declare `closed:` on the document surface
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 failed, 75 passed, 2 warnings in 422.24s (0:07:02)
+rc=1

@@ -1,0 +1,2 @@
+$ ! grep -rn open_store frontends/mindmap/sldb_adapter.py frontends/mindmap/projection_views.py frontends/mindmap/views_routes.py
+grep rc=1 (validation requires rc=1)

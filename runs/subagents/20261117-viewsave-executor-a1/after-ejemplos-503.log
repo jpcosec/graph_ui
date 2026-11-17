@@ -1,0 +1,11 @@
+$ python scripts/ejemplos.py /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui  (servidor real make_server, stores reales des-preparados tras arrancar)
+127.0.0.1 - - [17/Nov/2026 01:49:43] "GET /api/views HTTP/1.1" 503 -
+127.0.0.1 - - [17/Nov/2026 01:49:43] "GET /api/views/evaluate?view=ViewDoc:herencia HTTP/1.1" 503 -
+127.0.0.1 - - [17/Nov/2026 01:49:43] "POST /api/views/evaluate HTTP/1.1" 503 -
+127.0.0.1 - - [17/Nov/2026 01:49:46] "GET /api/graph HTTP/1.1" 200 -
+127.0.0.1 - - [17/Nov/2026 01:49:46] "POST /api/save HTTP/1.1" 503 -
+GET /api/views -> 503 {"ok": false, "error": "store not prepared: run `sldb stores update` (/dev/shm/viewsave-e1/tmpzglmxxxn/views/.sldb)", "estado": "store_no_preparado"}
+GET /api/views/evaluate?view=ViewDoc:herencia -> 503 {"ok": false, "error": "store not prepared: run `sldb stores update` (/dev/shm/viewsave-e1/tmpzglmxxxn/views/.sldb)", "estado": "store_no_preparado"}
+POST /api/views/evaluate -> 503 {"ok": false, "error": "store not prepared: run `sldb stores update` (/dev/shm/viewsave-e1/tmpzglmxxxn/views/.sldb)", "estado": "store_no_preparado"}
+POST /api/save -> 503 {"ok": false, "error": "store not prepared: run `sldb stores update` (/dev/shm/viewsave-e1/tmpzglmxxxn/save/.sldb)", "estado": "store_no_preparado", "completed": []}
+rc=0

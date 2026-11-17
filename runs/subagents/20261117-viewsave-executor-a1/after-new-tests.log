@@ -1,0 +1,11 @@
+$ (cwd=/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui) python -m pytest -q -rs tests/test_projection_views.py::test_views_get_on_an_unprepared_store_is_503_and_writes_nothing tests/test_mindmap_endpoints.py::test_save_on_a_store_unprepared_after_start_is_503_and_writes_nothing tests/test_mindmap_persistence.py::test_save_on_a_store_unprepared_after_open_is_503_store_no_preparado_and_writes_nothing
+...                                                                      [100%]
+=============================== warnings summary ===============================
+../../../../../../dev/shm/viewsave-e1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/viewsave-e1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+3 passed, 1 warning in 6.30s
+rc=0

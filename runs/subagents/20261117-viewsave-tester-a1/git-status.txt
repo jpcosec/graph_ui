@@ -1,0 +1,45 @@
+ M .sldb/core/documents/TaskCodeDoc/task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon.yaml
+ M .sldb/core/models/TaskCodeDoc.yaml
+ M .sldb/core/store_index.yaml
+ M desk/tasks/task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon.md
+?? runs/subagents/20261116-124617/
+?? runs/subagents/20261116-124651/
+?? runs/subagents/20261116-124713/
+?? runs/subagents/20261116-124733/
+?? runs/subagents/20261116-125047/
+?? runs/subagents/20261116-125323/
+?? runs/subagents/20261116-125341/
+?? runs/subagents/20261116-125357/
+?? runs/subagents/20261116-125615/
+?? runs/subagents/20261116-125634/
+?? runs/subagents/20261116-125651/
+?? runs/subagents/20261116-125703/
+?? runs/subagents/20261116-172432/
+?? runs/subagents/20261116-172444/
+?? runs/subagents/20261116-172528/
+?? runs/subagents/20261116-174106/
+?? runs/subagents/20261116-175739/
+?? runs/subagents/20261116-175850/
+?? runs/subagents/20261116-184946/
+?? runs/subagents/20261116-185004/
+?? runs/subagents/20261116-190941/
+?? runs/subagents/20261116-190951/
+?? runs/subagents/20261116-esm-hash-executor-a1/
+?? runs/subagents/20261116-gate-findings-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a2/
+?? runs/subagents/20261116-ir13-tester-a1/
+?? runs/subagents/20261116-ir13-tester-r2/
+?? runs/subagents/20261116-lector-executor-a1/
+?? runs/subagents/20261116-r2-reviews/
+?? runs/subagents/20261116-sldb-serve-rss/
+?? runs/subagents/20261116-specs-packages-executor-a1/
+?? runs/subagents/20261116-triaje-graph-ui/
+?? runs/subagents/20261117-013020/
+?? runs/subagents/20261117-013106/
+?? runs/subagents/20261117-033313/
+?? runs/subagents/20261117-040638/
+?? runs/subagents/20261117-045839/
+?? runs/subagents/20261117-045857/
+?? runs/subagents/20261117-viewsave-executor-a1/
+?? runs/subagents/20261117-viewsave-tester-a1/

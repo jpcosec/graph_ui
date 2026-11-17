@@ -1,0 +1,18 @@
+serve.py pid 2169683 port 33671
+prepared at start: True
+GET /api/graph 200 95 docs
+PREPARED GET /api/views 200 {'views': '<list>'}
+PREPARED POST /api/views/evaluate 200 edges 11
+PREPARED POST /api/save 200 {'ok': True, 'saved': ['component.exception-hierarchy'], 'documents': '<list>', 'view': '<dict>', 'revision': '<str>'}
+PREPARED save changed files: 4 ['mindmap-view.json', 'store_index.yaml', 'SpecDoc.yaml', 'component.exception-hierarchy.yaml']
+title persisted: True
+unprepared by pid 2169956 prepared= False
+UNPREPARE GET /api/views 200 {'views': '<list>'}
+UNPREPARE GET /api/views/evaluate?view=ViewDoc:herencia 404 {'ok': False, 'error': 'ViewDoc:herencia is not in /dev/shm/viewsave-t1/proc-old-unprepare/.sldb'}
+UNPREPARE POST /api/views/evaluate 200 {'ok': True, 'store': '<str>', 'view': '<dict>', 'nodes': '<list>', 'edges': '<list>', 'layout': '<dict>'}
+UNPREPARE POST /api/views/save 200 {'ok': True, 'ref': '<str>', 'view': '<dict>'}
+UNPREPARE POST /api/save 200 {'ok': True, 'saved': ['component.exception-hierarchy'], 'documents': '<list>', 'view': '<dict>', 'revision': '<str>'}
+files hashed: 406 identical before/after: False
+still unprepared (prepared=) True
+serve alive: True
+serve.py exit -15

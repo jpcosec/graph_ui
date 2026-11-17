@@ -1,0 +1,12 @@
+== ws
+serve pid 2175188
+stale viewRevision 409 {'ok': False, 'error': 'El mapa cambió en otra sesión. Recarga antes de guardar.', 'completed': [], 'documents': 'list', 'view': 'dict', 'revision': 'str'}
+stale expected 409 {'ok': False, 'error': 'component.type-system cambió en SLDB. Recarga para evitar sobrescribirlo.', 'completed': [], 'documents': 'list', 'view': 'dict', 'revision': 'str'}
+invalid op 400 {'ok': False, 'error': 'Operación inválida.', 'completed': [], 'documents': 'list', 'view': 'dict', 'revision': 'str'}
+exit -15
+== oldws
+serve pid 2176055
+stale viewRevision 409 {'ok': False, 'error': 'El mapa cambió en otra sesión. Recarga antes de guardar.', 'completed': [], 'documents': 'list', 'view': 'dict', 'revision': 'str'}
+stale expected 409 {'ok': False, 'error': 'component.type-system cambió en SLDB. Recarga para evitar sobrescribirlo.', 'completed': [], 'documents': 'list', 'view': 'dict', 'revision': 'str'}
+invalid op 400 {'ok': False, 'error': 'Operación inválida.', 'completed': [], 'documents': 'list', 'view': 'dict', 'revision': 'str'}
+exit -15

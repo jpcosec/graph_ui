@@ -1,0 +1,16 @@
+$ (cwd=/dev/shm/viewsave-e1/head) python -m pytest -q -rs tests/test_mindmap_persistence.py tests/test_projection_views.py tests/test_mindmap_workspace_explorer.py tests/test_mindmap_adapter.py tests/test_parallel_workspace_serve.py tests/test_mindmap_deskops.py
+........................................................................ [ 97%]
+..                                                                       [100%]
+=============================== warnings summary ===============================
+../venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/viewsave-e1/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+tests/test_mindmap_deskops.py::test_real_advance_stale_origin_and_types
+  /dev/shm/viewsave-e1/venv/lib/python3.13/site-packages/pydantic/main.py:280: DeprecationWarning: ProjectGraphConfig(closed_document=...) is deprecated: declare `closed:` on the document surface
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+74 passed, 2 warnings in 314.15s (0:05:14)
+rc=0
