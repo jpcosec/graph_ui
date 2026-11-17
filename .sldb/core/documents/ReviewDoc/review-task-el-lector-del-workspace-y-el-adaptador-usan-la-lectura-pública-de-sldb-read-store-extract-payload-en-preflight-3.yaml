@@ -1,0 +1,36 @@
+name: review-task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en-preflight-3
+path: desk/reviews/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en/preflight-3.md
+source_hash: aded9a1a8fe892bfc77214b085dbf673905887c27ed6081be4bc3bdaa0961417
+content_hash: 4bb261d0b374d13a30392fcfa73aeab44ec8505fc8d69538789f1f886e9bf908
+field_hashes:
+  id: d66d53b7abbbe2548fd1b2c6f598d48645700cd1d279a706fe3711096e612c4d
+  title: 3883f4282c548688816089907ec896a5503ea232f7eb2cbedb61698081e3bf20
+  kind: b7aa467a101908787d614f7bfc1dadd75a976b85a3bf6022dd451c30158bbff2
+  fact: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  value: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  subject: ef23d374cb11cce0a0a93edc2609574d90ce3f920854a39a01701e65b3ad0d59
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 6874c40de9971944b9706ccc769074b7f77cb595ed78bafba748db5266461238
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: 4399a258ec2cf9cb3ce32265a9172126060a4a37aa9521e94b67cec78e97fb69
+  input_sha256: bfd4e56389588590dde8ed5e0b960d845a36d5331faf51026ca632e3be5ec194
+  output_sha256: 8f6cc47058da4b3a6c0576beaf42b439c5ba8203175111734d8566a6bddca776
+  verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
+  reason: f1fd104e78fdcba6e15400b124e6aa02209371923680437f8a7d68b742a28d3e
+  created_at: 96d4553c4b21b7b5dd01b7138bb0cc74e395b98e56d8f1ad31915a29d524c2a7
+  disposed_at: 9e2325c4f26298e1031a77c6dcb64bc9800e54a4800937da5cd80d21c5742b32
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: 16c5b8a7cabff18eb3c2ceddcb83935505a014091870837717acea30eaee3c36
+  disposition: ac38b246148f26fe4caa723d79e0e306e171dd84f621c5ce0cb6fe5bdcbfb1af
+  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+- workspace:desk
+provenance:
+  by: agent
+  at: '2026-11-17T01:32:10Z'
+  authority: generated
+  via: save_document_payload

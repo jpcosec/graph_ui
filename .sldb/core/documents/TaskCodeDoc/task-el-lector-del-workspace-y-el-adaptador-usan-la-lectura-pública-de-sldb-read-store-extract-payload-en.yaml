@@ -1,24 +1,24 @@
 name: task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en
 path: desk/tasks/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en.md
-source_hash: 53de0706b8b62beabf4ef578ac40a954f5606a02bdeac4a3924d994d981f6430
-content_hash: 81a79ff582a844226375c5aea93275beeaf0227d23333c3df19346fb3f3238ce
+source_hash: 3e443dc81502c3ea6c42bd4be223f95bea9706c3e233f9321a4f50b6875f5fa8
+content_hash: 1209be5e548f15b6ece0d1267398bf204c1ead5f7b10c10253abc2d846bf0981
 field_hashes:
   title: 9b9067390503ab837bc8377f87a546788a94e7d921914c36e18e59ccb84ae8d4
   id: f70bb8e462d89b0e7ce82d15f990a17bd802626a0130dab0d306e44d4adf7854
-  status: 6ae048f08fcab44bfbc8463f074bfdb40f94c6bdf56d3aad9a7e1c05e5d5b5c1
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
   summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   tags: cdc41ecb0faeea4fd54d89a0af9704fa317051793e9578e08cc68ba3342d3caa
-  current_node: ff5161892aac34735bf10c411f7230b62b7b56446e230a5d26fb75afde4704b6
-  history: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  current_node: d10f5286503cbf750af0584acaec732741c2d9cfbae2a6d5b8ce45b8bf83b79d
+  history: f89b8fd2ac9e43a24ba505d162381268ed901d0695f62c6ad8ec2c62718dfa1c
   why: ee2c7c949ee56d14a5c956544aea9a318c4798a52592fcdc1de00f4120d2d2d3
-  goal: 3023675ed900f70d20cc60774f158a9916f3f8d85dfd3e1ffe002fc6b40b0935
-  scope: 9db7d81e8bf90cc628390214f9d977ff93648b7a4332fde2a9d488fda6c91396
+  goal: 815defb96cc7cde5d5b66f89414e1b146520b2fbe6382ce9313843d4adbbc644
+  scope: 5489fd3d974400bc6d2491fb8e7f2996756d74cb4d7c9518b2d93547866c4817
   references: 9441e700dbe5a8d6c4aebe84b8db7d13f1cc8423cee0fc783aec83dbe3526a69
   depends_on: 1b263c2d9e3f1b321fb66aa65b12cb8f1481931555f66190f53fdbaa12e0e8e2
   pills: 152ff78e6e9a43dc8fe8ec134273a101a6596f567c90e8b9774af04fd67d016c
   files: f0feb2f83c4b3ce3ee28dfc0299ab4817e5409b7e936928932f370d73c73fa1e
   implementation_path: 9b62cc5edc7746600b8abc83e256bd6830d0091d92e36390687ed4df8ec08c7e
-  validation: 5510742e2253e9f09ccf80e464f4c94b47b70c51f879659504d41b44227cacad
+  validation: d1d6d103648dce4c29735a575864aa3618020fb94a787dcef24f4959d6bcad5f
   done_when: eae0813cadcf395e1af04e6ac8c5c3eaff2251698e8f870c815a7daa2ee01bdc
   task_type: 430e281fc3506e5a61bf187bc4220dab834ca38806ca4f603f817cc82f9791bb
   inherits_from: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
@@ -34,6 +34,6 @@ semantic_tags:
 - workspace:desk
 provenance:
   by: agent
-  at: '2026-11-16T12:55:21Z'
+  at: '2026-11-17T01:34:07Z'
   authority: generated
   via: save_document_payload

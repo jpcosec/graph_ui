@@ -1,18 +1,19 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-16T12:55:21Z'
+  at: '2026-11-17T01:34:07Z'
   authority: generated
   via: save_document_payload
 id: task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en
-status: draft
+status: active
 summary: ''
 tags:
 - workspace:desk
 - artifact:task
 - host:robocop2
-current_node: ritual-execution
-history: []
+current_node: ritual-testing
+history:
+- task_activates
 references:
 - desk/inbox/20261116-073057-suggestion-sldb-api-read-store-store-is-prepared-y-extract-payload-lectura-p-blica-sin-migrar.md
 - ../../sldb/src/sldb/api/stores/read_store.py
@@ -47,13 +48,13 @@ sldb publicó en sldb.api (commits f515d91c y 336cde87 de sldb main; nota del in
 
 _Describe the concrete result this task must produce._
 
-Ningún archivo .py bajo frontends/ ni tests/deskops_viewdocs.py importa sldb.store.runtime_cache_signature ni sldb.runtime.validation; las lecturas usan sldb.api.read_store y sldb.api.extract_payload, y un listado GET del workspace sobre un store sin preparar responde 503 con el texto de sldb ('store not prepared: run `sldb stores update`') en vez de migrar el store.
+Ningún archivo .py bajo frontends/ ni tests/deskops_viewdocs.py importa sldb.store.runtime_cache_signature ni el nombre extract_model_data (el único import restante de sldb.runtime.validation es render_model_markdown/validate_model_input_roundtrip en sldb_adapter.py, sin equivalente público); las lecturas usan sldb.api.read_store y sldb.api.extract_payload, y un listado GET del workspace sobre un store sin preparar responde 503 con el texto de sldb ('store not prepared: run `sldb stores update`') en vez de migrar el store.
 
 ## Scope
 
 _State what is in scope and what is out of scope._
 
-ENTRA: (1) frontends/mindmap/sldb_adapter.py, método refresh_for_concurrent_sessions (línea ~371): 'from sldb.store.runtime_cache_signature import new_operation; new_operation(self.store)' pasa a 'from sldb.api import read_store; read_store(self.store)' (read_store hace ese new_operation y además el de documents_hash). (2) frontends/mindmap/workspace_routes.py: (a) _extract_payload (línea ~183) usa sldb.api.extract_payload(model_type, text) en lugar de sldb.runtime.validation.extract_model_data, mismo valor devuelto; (b) _fresh_listing (línea ~164), el único punto del módulo que abre el store en un GET (open_store(self.store_path, mode='readonly')), pasa a read_store(self.store_path); su docstring se reescribe: read_store no migra. Si read_store lanza SLDBStoreError con 'store not prepared', _fresh_listing la convierte en WorkspaceError(<mensaje de sldb>, 503, 'store_no_preparado') (WorkspaceError(mensaje, status, código) ya existe en el módulo; el 503 es el mismo estado que hoy da 'El store no está disponible.'). Las escrituras no cambian. (3) frontends/mindmap/persistence.py: solo el comentario de la línea ~74 que cita new_operation pasa a citar read_store. (4) tests/deskops_viewdocs.py línea 14 y 27: extract_model_data -> sldb.api.extract_payload. (5) tests/test_mindmap_workspace_explorer.py: una prueba nueva junto a test_refresh_path_has_no_sldb_store_import que recorre con ast (imports estáticos, como la existente) todos los .py de frontends/ y falla si alguno importa sldb.store.runtime_cache_signature o sldb.runtime.validation; y una prueba de que GET /api/workspace/nodes sobre un store con layout no canónico responde 503 con 'store not prepared' y no cambia ningún archivo del store. (6) pyproject.toml: no cambia (sldb sigue en 0.1.13 en su pyproject; no hay versión nueva que exigir). NO ENTRA: cambiar sldb; frontends/desk; las rutas de escritura.
+ENTRA: (1) frontends/mindmap/sldb_adapter.py, método refresh_for_concurrent_sessions (línea ~371): 'from sldb.store.runtime_cache_signature import new_operation; new_operation(self.store)' pasa a 'from sldb.api import read_store; read_store(self.store)' (read_store hace ese new_operation y además el de documents_hash). (2) frontends/mindmap/workspace_routes.py: (a) _extract_payload (línea ~183) usa sldb.api.extract_payload(model_type, text) en lugar de sldb.runtime.validation.extract_model_data, mismo valor devuelto; (b) _fresh_listing (línea ~164), el único punto del módulo que abre el store en un GET (open_store(self.store_path, mode='readonly')), pasa a read_store(self.store_path); su docstring se reescribe: read_store no migra. Si read_store lanza SLDBStoreError con 'store not prepared', _fresh_listing la convierte en WorkspaceError(<mensaje de sldb>, 503, 'store_no_preparado') (WorkspaceError(mensaje, status, código) ya existe en el módulo; el 503 es el mismo estado que hoy da 'El store no está disponible.'). Las escrituras no cambian. (3) frontends/mindmap/persistence.py: solo el comentario de la línea ~74 que cita new_operation pasa a citar read_store. (4) docstrings y comentarios de workspace_routes.py que citan extract_model_data u open_store en la lectura pasan a citar extract_payload y read_store. (4b) tests/deskops_viewdocs.py línea 14 y 27: extract_model_data -> sldb.api.extract_payload. (5) tests/test_mindmap_workspace_explorer.py: una prueba nueva junto a test_refresh_path_has_no_sldb_store_import que recorre con ast (imports estáticos, como la existente) todos los .py de frontends/ y falla si alguno importa sldb.store.runtime_cache_signature o el nombre extract_model_data de sldb.runtime.validation; y una prueba de que GET /api/workspace/nodes sobre un store con layout no canónico responde 503 con 'store not prepared' y no cambia ningún archivo del store. (6) pyproject.toml: no cambia (sldb sigue en 0.1.13 en su pyproject; no hay versión nueva que exigir). NO ENTRA: el import de render_model_markdown y validate_model_input_roundtrip desde sldb.runtime.validation en frontends/mindmap/sldb_adapter.py línea 31 (sldb.api no tiene equivalente público; se pidió a sldb por inbox y queda para otra tarea); cambiar sldb; frontends/desk; las rutas de escritura.
 
 ## Implementation Path
 
@@ -66,7 +67,7 @@ _Outline the expected implementation route or affected surface._
 _List the checks required before this task can close._
 
 - python -c "from sldb.api import read_store, extract_payload, store_is_prepared"
-- ! grep -rnE "sldb\.store\.runtime_cache_signature|sldb\.runtime\.validation" frontends tests/deskops_viewdocs.py --include=*.py
+- ! grep -rnE "runtime_cache_signature|extract_model_data" frontends tests/deskops_viewdocs.py --include=*.py
 - python -m pytest -q -rs tests/test_mindmap_workspace_explorer.py tests/test_mindmap_workspace_reader.py tests/test_mindmap_workspace.py tests/test_mindmap_adapter.py tests/test_mindmap_persistence.py tests/test_parallel_workspace_serve.py tests/test_mindmap_deskops.py tests/test_desk_ui_routes.py
 - python -m pytest -q -rs tests/e2e_mindmap_workspace.py
 - git -C ../../sldb branch -r --contains f515d91c

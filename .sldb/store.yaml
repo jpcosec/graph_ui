@@ -335,6 +335,10 @@ include:
     name: review-task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia-preflight-1
   - path: desk/reviews/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia/bundle-1.md
     name: review-task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia-bundle-1
+  - path: desk/reviews/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en/preflight-3.md
+    name: review-task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en-preflight-3
+  - path: desk/reviews/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en/bundle-3.md
+    name: review-task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en-bundle-3
 - model: MaterializationContractDoc
   paths:
   - desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md
