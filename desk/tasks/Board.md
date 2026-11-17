@@ -1,7 +1,7 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-17T03:16:07Z'
+  at: '2026-11-17T04:53:04Z'
   authority: generated
   via: save_document_payload
 # board-xxx
@@ -14,6 +14,7 @@ tasks:
 - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
 - desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md
 - desk/tasks/task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon.md
+- desk/tasks/task-la-e2e-de-vistas-de-review-workbench-no-deja-procesos-vite-preview-huérfanos-al-terminar.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -48,4 +49,5 @@ _Generated from the task references above._
 - Vista Changes: arbol de hashes, staleness e impacto en conocimiento [draft] - Añadir en /workspace la pestaña Changes y la sección Integrity del panel Context: listan los documentos que sldb reporta como cambiados o stale y los anclajes de código que no están intact, y para cada uno los documentos que dependen de él a 1-2 saltos en el índice de relaciones, marcados como potencialmente obsoletos. Todo de solo lectura.
 - Edicion contextual de relaciones y campos con control de concurrencia [draft] - En el workspace de Mindmap (/workspace/node, puerto 8088; no el visor standalone de solo lectura de frontends/workspace en el 8090) se puede editar un campo de un documento desde 'Campos del Documento (IR)' de la proyección Documento y agregar o quitar una relación válida según el modelo desde el panel 'Contexto y Relaciones'. Cada escritura lleva la revisión del documento (su source_hash) y el servidor la rechaza con 409 si el documento cambió desde que se leyó, sin perder lo que el usuario escribió.
 - Decisión de JP: ¿el workspace de graph_ui edita y ancla código (softfactory K03/K05/K12) o solo muestra el estado de los CodeAnchorDoc de sldb? [draft] - Una decisión escrita de JP, con una de tres opciones: (A) graph_ui solo muestra, en la vista inspect, los anclajes de código de un documento y su estado (intact/changed/lost) leyendo CodeAnchorDoc por la API de sldb, sin editar código; (B) además edita fragmentos de código anclados desde el workspace (K05), con escritura y reanclaje por sldb; (C) nada de código en graph_ui; el tema pasa a la UI de deskops o se descarta.
-- Las vistas de proyección leen sin migrar (read_store) y el guardado sobre un store sin preparar responde 503, no 500 [draft] - Ningún GET de frontends/mindmap migra el store. runtime_documents usa sldb.api.read_store en vez de open_store, y sobre un store sin preparar los GET de vistas responden 503 con el texto de sldb ('store not prepared'). POST /api/save sobre un store des-preparado responde 503 con ese texto y estado 'store_no_preparado', como el workspace, sin escribir nada.
+- Las vistas de proyección leen sin migrar (read_store) y el guardado sobre un store sin preparar responde 503, no 500 [active] - Ningún GET de frontends/mindmap migra el store. runtime_documents usa sldb.api.read_store en vez de open_store, y sobre un store sin preparar los GET de vistas responden 503 con el texto de sldb ('store not prepared'). POST /api/save sobre un store des-preparado responde 503 con ese texto y estado 'store_no_preparado', como el workspace, sin escribir nada.
+- La e2e de vistas de review-workbench no deja procesos vite preview huérfanos al terminar [draft] - Al terminar `pytest tests/e2e_review_workbench_views.py`, pase o falle, no queda vivo ningún proceso que el fixture haya lanzado: vite preview, sldb serve ni serve.py.

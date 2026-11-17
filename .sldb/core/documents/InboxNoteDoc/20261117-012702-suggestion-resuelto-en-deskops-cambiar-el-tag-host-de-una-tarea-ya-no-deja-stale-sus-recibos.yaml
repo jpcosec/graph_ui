@@ -1,0 +1,24 @@
+name: 20261117-012702-suggestion-resuelto-en-deskops-cambiar-el-tag-host-de-una-tarea-ya-no-deja-stale-sus-recibos
+path: desk/inbox/20261117-012702-suggestion-resuelto-en-deskops-cambiar-el-tag-host-de-una-tarea-ya-no-deja-stale-sus-recibos.md
+source_hash: 884e11d8d5d94a699154be3c3f386ba6ded7edc9e778d3388e536637af019402
+content_hash: a60b89dc8c647b5314a940640b9c108f18c814b5279e78d115ebc1b1fc5a4549
+field_hashes:
+  kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
+  sender_project: be1a918d36a26b50ff05a32144905fa0851e3a2c55c93b05726d8a3bab97b3e7
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: 9f52843a1a0ccf07c64023603c7f138faa37bc2679fc03755df0f004f7696737
+  status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
+  acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  acknowledged_at: 880a1c0aed685772b1a963678f2251a90cafdfa820022e3ff78aa287facc1d51
+  title: 66bf600db8b45806969e0568b572f8ffcc8dc05ceb4bc4fc770f7a3d4b37dc54
+  body: 88c538ba91a1b67c98de6bfcba56a705201118b1efd8cab364bf8d037fd89a6f
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
+provenance:
+  by: agent
+  at: '2026-11-17T04:52:12Z'
+  authority: generated
+  via: save_document_payload

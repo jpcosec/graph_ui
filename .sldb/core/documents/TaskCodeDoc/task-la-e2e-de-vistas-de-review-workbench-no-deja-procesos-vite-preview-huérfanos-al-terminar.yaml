@@ -1,0 +1,39 @@
+name: task-la-e2e-de-vistas-de-review-workbench-no-deja-procesos-vite-preview-huérfanos-al-terminar
+path: desk/tasks/task-la-e2e-de-vistas-de-review-workbench-no-deja-procesos-vite-preview-huérfanos-al-terminar.md
+source_hash: 77a8dc0eac151380ceaf1c74a59c4f461d4636f5a572976393f587ae27f3fccb
+content_hash: e5aa61ccfd227ef81dd8d092f677a00093bf5c3ec27c24029ebbcee27db49fad
+field_hashes:
+  title: 8b234b0591aeae452a378a7622298de2687478c4592a428d1eebe72856f76188
+  id: 194b12a75776300ae331e40257c5b3b8cb19958658421d9f6abacf56ec12c9f1
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  tags: cdc41ecb0faeea4fd54d89a0af9704fa317051793e9578e08cc68ba3342d3caa
+  current_node: d10f5286503cbf750af0584acaec732741c2d9cfbae2a6d5b8ce45b8bf83b79d
+  history: f89b8fd2ac9e43a24ba505d162381268ed901d0695f62c6ad8ec2c62718dfa1c
+  why: 1082c1b192890909fbfebb9732a1a29401c6e83b8320e877f233223325170424
+  goal: 3f49f707baf7c784ce34638d9340e8928dbadbb96cb2641f565dac8f76fb0a07
+  scope: 1d35f1b364c1c82cf9e3cd355c29caf18a7f0bc6e159c333296fd06f86902564
+  references: 60b4b5f292401c5744d91a0b561d4a2148355ae3dccdf96c6db8c0e340b2ff48
+  depends_on: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  files: ebe4049a4ebcee28660f40934e81c05b6e1bea19731015b458797512d744a9f4
+  implementation_path: 30eb8a3fdffc622e79fdac5a906fa90fa8cb3d042de1d86e71939eae9e7ca61b
+  validation: 4bd602fc4d4621dc76e4884d704a6eac49dc1af173ce4fd25c4ccd8734532478
+  done_when: 422a089c2862a918d9dcc44587ff7539b937c88577dca307aa908e81955b2d63
+  task_type: 430e281fc3506e5a61bf187bc4220dab834ca38806ca4f603f817cc82f9791bb
+  inherits_from: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  inherit_acceptance_context: fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa
+  atoms: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- artifact:task
+- host:robocop2
+- representation.markdown
+- source.document.markdown
+- type.workflow.task
+- workspace.desk
+- workspace:desk
+provenance:
+  by: agent
+  at: '2026-11-17T04:59:56Z'
+  authority: generated
+  via: save_document_payload
