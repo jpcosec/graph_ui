@@ -1,0 +1,24 @@
+name: 20261116-171910-suggestion-sldb-serve-fuga-de-list-views-cerrada-2-24-gb-104-mb
+path: desk/inbox/20261116-171910-suggestion-sldb-serve-fuga-de-list-views-cerrada-2-24-gb-104-mb.md
+source_hash: 13edd04d028749a9104b062e047dce45f7e445725db6695a2bf10831aaf6e646
+content_hash: e94634ca957af9b39bf382e53bbc488804d9a2536e2910b6ddb4d8c3167df576
+field_hashes:
+  kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
+  sender_project: adf8f4fb55456ba91d0b029904c49d4d1b85540b989a86435dfb80c0a89f7efb
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: c854914d51202186c68e6e0a1ce29cd2ebe5bcf003eded65b0c1c3739fe05746
+  status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
+  acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  acknowledged_at: 6d7ec359e68279ced14c96f631575dffce5fd625a2e509ac811ac9ac1ed33056
+  title: 571913544ebaeecad8e5d14a402ce560420d42a7462531f7d6fb0dd55d64adc4
+  body: ec081988288f6afa8632056cca77cd02d245ad745d404caa54029d83fd4d96bd
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
+provenance:
+  by: agent
+  at: '2026-11-17T01:21:56Z'
+  authority: generated
+  via: save_document_payload
