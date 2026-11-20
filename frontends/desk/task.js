@@ -103,6 +103,7 @@ function renderTaskPage() {
       h('span', { class: 'muted' }, task.current_node)),
     h('div', { class: 'doc-footer-actions' },
       actionStatus(task.id),
+      h('a', { class: 'lane-link', href: workbenchHref(task.id), target: '_blank', rel: 'noopener' }, 'Workbench ↗'),
       h('a', { class: 'lane-link', href: inspectHref(task.id), target: '_blank', rel: 'noopener' }, 'Inspeccionar ↗'),
       advanceButton(view)));
   return h('div', { class: 'doc-layout' },

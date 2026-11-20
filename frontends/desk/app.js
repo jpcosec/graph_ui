@@ -5,6 +5,7 @@
 'use strict';
 
 const INSPECT_BASE = 'http://127.0.0.1:8090/';
+const WORKBENCH_BASE = 'http://127.0.0.1:5174/';
 const DISABLED_ACTIONS = [
   ['Iniciar ejecución', 'Llega con runtime dispatch (fábrica E3).'],
   ['Promover a atom', 'Requiere operación de graduación (no existe).'],
@@ -148,6 +149,7 @@ const screenHref = (name, params) => {
   return `${deskQuery()}#/${name}${tail}`;
 };
 const inspectHref = (id) => `${INSPECT_BASE}?id=${encodeURIComponent(`TaskDoc:${id}`)}`;
+const workbenchHref = (id) => `${WORKBENCH_BASE}#/workbench?doc=${encodeURIComponent(`TaskDoc:${id}`)}&lens=fierros`;
 
 async function getJSON(url) {
   let response;
