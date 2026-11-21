@@ -1,0 +1,25 @@
+name: 20261121-032547-suggestion-enlace-workbench-36adfbb-entr-a-master-sin-tarea-ni-prueba-url-fija
+path: desk/inbox/20261121-032547-suggestion-enlace-workbench-36adfbb-entr-a-master-sin-tarea-ni-prueba-url-fija.md
+source_hash: 8e8c6bc833849e7e15445dd53518c09a8a57f43d958684e7a8705c59ce3f1982
+content_hash: 652c3d9de47051e57c1c1cc2110abd8445c0fbb7750a4386ed52edde686cfb78
+field_hashes:
+  kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
+  sender_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: 530006d903f5a6c9604f8de6f6c56daec477acf317e74e5a4fcd098c15248f1b
+  status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
+  acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  acknowledged_at: d93795905443e8e00a0e14f673762a2d199d981b1fe844f63361d97a3bb8e3dc
+  ack_reason: 59e69c0f51c73a56fc70ad03510a9f4d784732d4245ce67582a2608aa44c28dc
+  title: eac1faf9ab2246249f3081f0cedfc8d7d8294b9601b79cd3f8d0647750d7724e
+  body: 00472e2cfc9b866e756c737bca1726930b88c45aba1e338ea6470da93ac6c0f3
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
+provenance:
+  by: agent
+  at: '2026-11-21T06:29:11Z'
+  authority: generated
+  via: save_document_payload

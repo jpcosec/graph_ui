@@ -1,0 +1,25 @@
+name: 20261117-132017-suggestion-deskops-view-holds-false-en-un-gate-con-finding-de-error
+path: desk/inbox/20261117-132017-suggestion-deskops-view-holds-false-en-un-gate-con-finding-de-error.md
+source_hash: 2a83be81e8623461b2cd9e68f4661c5766ee28026e8fc4b2165ddb9432ea5e14
+content_hash: c686e17c36cd232d247f067631cc892e380d28c4b60d793ffdbce8e9158895df
+field_hashes:
+  kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
+  sender_project: be1a918d36a26b50ff05a32144905fa0851e3a2c55c93b05726d8a3bab97b3e7
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: 542d0ad5ffc0fc803fdafbd7dd9e58a9a7fc6163d461691f402a4dfc84c29232
+  status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
+  acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  acknowledged_at: 46edc86637561cb7a99eb749a6891f471fefd0d988fe99b9c1eab9902eae8566
+  ack_reason: 038d307e6ef1d841e63269e739388d82208cc0836da7e0db8013d0cb1e14c165
+  title: ab5aac5c3ea44aa78d05f76dfd9803de7e8c44f28a83286a37425030b04ef7e1
+  body: adbccb7a397809b3ed1ed45bfdf7c854efbd17980493f36d128727a4c2639708
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
+provenance:
+  by: agent
+  at: '2026-11-21T06:29:40Z'
+  authority: generated
+  via: save_document_payload
