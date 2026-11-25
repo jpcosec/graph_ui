@@ -1,0 +1,2 @@
+node --test tests/notation-partition-lanes.test.mjs tests/mindmap-notation*.test.mjs -> exit 0 (70 pass)
+python -m pytest -q tests/e2e_notation_activity.py tests/e2e_mindmap_notation.py -> exit 0 (4 passed; chromium del sistema enlazado como headless shell de playwright)

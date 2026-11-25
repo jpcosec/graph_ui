@@ -1,0 +1,19 @@
+name: 20261125-194402-unclear-exportar-el-modo-lector-de-una-composici-n-entera-no-de-un-solo-diagrama
+path: desk/inbox/20261125-194402-unclear-exportar-el-modo-lector-de-una-composici-n-entera-no-de-un-solo-diagrama.md
+source_hash: b09fcd585d6fbfff30c4d3a6361a7a16e9e68245f9af3bbabe67660f9ac75303
+content_hash: 36c04342d42343fd4a65c7eb31cc33adf696e0f740bb281fc2fdd43c5e748f20
+field_hashes:
+  kind: 683144a12969e0fd85512737e57b4db93ed15ee760906165a5516d581a77889a
+  sender_project: bedfd7658116eea0e9c6aa56c43288b769f14cc22546ef2cbac2588069909ad8
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: 7bcf0eba66719234445fd0c1775c9ef27eac469c96c8f684f8a2b2ab9830dfd6
+  status: 35ff74aeea25311f4fe759a6b762c8cd41a79adb23dd5615b92cf215175a63e5
+  ack_reason: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  title: 516f981c7ab58e0b6aa5675927ca999eb464b50c79c0a3367204e1706e8d0971
+  body: c3f0752c840a15b3af1912d3dcf8415354983b5a0129da1635f81e49f713734c
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
+provenance: null

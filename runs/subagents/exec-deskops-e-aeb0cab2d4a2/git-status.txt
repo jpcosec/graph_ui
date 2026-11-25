@@ -1,0 +1,33 @@
+## master...origin/master [ahead 45]
+ M .sldb/core/documents/RunDoc/run-deskops-e-84ca580617e9.yaml
+ M .sldb/core/documents/RunDoc/run-deskops-e-aeb0cab2d4a2.yaml
+ M .sldb/core/documents/RunDoc/run-deskops-t-85bb9600cb62.yaml
+ M .sldb/core/models/RunDoc.yaml
+ M .sldb/core/store_index.yaml
+ M runs/subagents/exec-deskops-e-5a75737107bd/run.md
+ M runs/subagents/exec-deskops-e-84ca580617e9/run.md
+ M runs/subagents/exec-deskops-e-940f5ec7a52c-a2/run.md
+ M runs/subagents/exec-deskops-e-aeb0cab2d4a2/run.md
+ M runs/subagents/exec-deskops-t-85bb9600cb62-testing/run.md
+?? runs/subagents/20261125-204217/
+?? runs/subagents/20261125-204242/
+?? runs/subagents/20261125-204806/
+?? runs/subagents/20261125-204834/
+?? runs/subagents/20261125-205532/
+?? runs/subagents/20261125-205554/
+?? runs/subagents/exec-deskops-e-5a75737107bd/board.txt
+?? runs/subagents/exec-deskops-e-5a75737107bd/git-status.txt
+?? runs/subagents/exec-deskops-e-5a75737107bd/graph.txt
+?? runs/subagents/exec-deskops-e-5a75737107bd/next.txt
+?? runs/subagents/exec-deskops-e-5a75737107bd/prompt.md
+?? runs/subagents/exec-deskops-e-5a75737107bd/result-summary.md
+?? runs/subagents/exec-deskops-e-5a75737107bd/task.txt
+?? runs/subagents/exec-deskops-e-5a75737107bd/validation.log
+?? runs/subagents/exec-deskops-e-940f5ec7a52c-a2/prompt.md
+?? runs/subagents/exec-deskops-e-aeb0cab2d4a2/board.txt
+?? runs/subagents/exec-deskops-e-aeb0cab2d4a2/git-status.txt
+?? runs/subagents/exec-deskops-e-aeb0cab2d4a2/graph.txt
+?? runs/subagents/exec-deskops-e-aeb0cab2d4a2/next.txt
+?? runs/subagents/exec-deskops-e-aeb0cab2d4a2/prompt.md
+?? runs/subagents/exec-deskops-e-aeb0cab2d4a2/task.txt
+?? runs/subagents/exec-deskops-t-85bb9600cb62-testing/prompt.md

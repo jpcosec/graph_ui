@@ -1,7 +1,17 @@
+Task: task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de
+Title: una notación con carriles por partición se dibuja con una columna por partición en cualquier tipo de diagrama
+Status: active
+Current node: ritual-testing
+Task type: task.code
+Lifecycle gates:
+- task_hands_to_closeout -> ritual-closeout: open [nonempty(validation)]
+  post-hook evento-para-el-coordinador: sh -c mkdir -p runs/hooks && printf '%s %s %s %s->%s\n' "$(date -u +%FT%TZ)" "$DESKOPS_TASK_ID" "$DESKOPS_TRANSITION" "$DESKOPS_FROM_NODE" "$DESKOPS_TO_NODE" >> runs/hooks/events.log
+  post-hook encola-reap-del-tester: deskops queue add dispatch-reap --root .
+
 ---
 sldb:
   by: agent
-  at: '2026-11-25T22:40:47Z'
+  at: '2026-11-25T21:32:15Z'
   authority: generated
   via: save_document_payload
 id: task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de
@@ -11,25 +21,15 @@ tags: []
 current_node: ritual-testing
 history:
 - task_activates
-references:
-- frontends/mindmap/views/specs/notation/notation-swimlanes.mjs
-- frontends/mindmap/views/specs/notation/notation.mjs
-- tests/fixtures/notation-partition-lanes/view-components.json
-- tests/notation-partition-lanes.test.mjs
-- 5bee085097e8ee80b29730b3da7a36dce0bc97fa
+references: []
 depends_on: []
 pills: []
-files:
-- frontends/mindmap/views/specs/notation/notation-swimlanes.mjs
-- frontends/mindmap/views/specs/notation/notation.mjs
-- tests/fixtures/notation-partition-lanes/view-components.json
-- tests/notation-partition-lanes.test.mjs
+files: []
 pointers: []
 task_type: task.code
 inherits_from: []
 inherit_acceptance_context: false
-atoms:
-- atom-una-notacion-con-carriles-por-particion-dibuja-una-columna-por-particion
+atoms: []
 ---
 
 # una notación con carriles por partición se dibuja con una columna por partición en cualquier tipo de diagrama
@@ -72,3 +72,20 @@ _List the checks required before this task can close._
 _Name the observable condition that makes the task complete._
 
 Una notación de prueba que no es la de actividad, con nodos repartidos en tres particiones, se dibuja con tres columnas con su título y cada nodo dentro de la suya. La actividad UML se dibuja igual que antes. En el código de la vista no hay ninguna rama por nombre de notación ni por tipo de diagrama.
+
+## Como probar (tester)
+
+Ubica el trabajo del ejecutor:
+
+    git log -1 --format=%H --grep "Task-Id: task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de"   # commit del ejecutor
+    git show --name-only <commit>                           # sus archivos
+
+Los tests a correr son los archivos tests/*.py de ese commit, mas tests/test_<modulo>.py cuando exista para cada modulo de codigo tocado; de a uno, con `TMPDIR=/tmp python -m pytest -q <archivo>`. No corras la suite completa: la corre integrate en el host.
+
+Escribe result-summary.md con el veredicto PASA o FALLA en la primera linea.
+
+## Temporales de pytest
+
+Antes de cualquier pytest exporta, para que sus temporales caigan en el /tmp del contenedor (muere con el agente) y no en el /dev/shm del host:
+
+    export PYTEST_ADDOPTS="--basetemp=/tmp/pytest-deskops-t-7c62dc444282"

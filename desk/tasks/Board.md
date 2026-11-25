@@ -1,7 +1,7 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-25T21:42:59Z'
+  at: '2026-11-25T22:47:11Z'
   authority: generated
   via: save_document_payload
 # board-xxx
@@ -19,7 +19,6 @@ tasks:
 - desk/tasks/task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount.md
 - desk/tasks/task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor.md
 - desk/tasks/task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker.md
-- desk/tasks/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -27,6 +26,8 @@ rituals:
 - desk/rituals/execution.md
 - desk/rituals/testing.md
 - desk/rituals/closeout.md
+# DAG phases: id, tasks, integration
+phases: []
 # e.g., system:sldb
 tags:
 - system:graph_ui
@@ -59,4 +60,3 @@ _Generated from the task references above._
 - Las demas vistas de mindmap tambien se montan embebidas con mount(...) [draft] - Que frontends/mindmap/embed exponga mount para cada vista registrada (o mount(container, {view: <id>, ...}) generico), con request, base, tema y storage como la de notacion.
 - graph_ui exporta un HTML autocontenido del modo lector que se abre sin servidor [draft] - Un HTML autocontenido (SVG inline, css inline, sin fetch ni importmap) con zoom/arrastre basico y titulo, generado desde un spec del store por una ruta GET /api/notation/export?spec=..&format=svg|html y un boton de exportar en la vista de notacion.
 - G-D: el layout de notacion corta en el primer candidato legible y ELK corre en un worker [ready_for_testing] - Que bestLayout corte en el primer candidato sin problemas y con zoom legible, que ELK corra en un worker, y que una prueba fije un tope de corridas para esa spec.
-- una notación con carriles por partición se dibuja con una columna por partición en cualquier tipo de diagrama [active] - Que el layout de carriles por partición sea una capacidad genérica de la vista de notación, que cualquier notación pueda pedir.
