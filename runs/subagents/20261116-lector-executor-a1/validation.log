@@ -1,0 +1,12 @@
+# Validación (ejecutor deskops-e-98abeab5b1c6, intento 1) — 2026-11-16
+## Línea base (antes del cambio)
+node --test tests/mindmap-workspace-reader.test.mjs tests/mindmap-workspace.test.mjs      -> rc=0, 16/16 (baseline-node.log)
+pytest tests/e2e_mindmap_workspace.py (copia git archive de HEAD en /dev/shm/lector-e1-base) -> rc=0, 19 passed en 482.82s (baseline-e2e.log)
+  (un primer intento de línea base sobre el árbol se abortó: lo contaminé editando durante la corrida; quedó en baseline-e2e-aborted-contaminated.log, rc=143 por stop del scope propio)
+## Después del cambio
+node --test tests/mindmap-workspace-reader.test.mjs tests/mindmap-workspace.test.mjs      -> rc=0, 23/23 (after-node.log)
+pytest tests/test_mindmap_workspace_reader.py                                             -> rc=0, 31 passed en 393.16s (after-py-reader.log)
+pytest tests/e2e_mindmap_workspace.py                                                     -> rc=0, 22 passed en 486.82s (after-e2e.log; 19 previos + 3 nuevos)
+Comando pytest: systemd-run --user --scope -p MemoryMax=3G -- env TMPDIR=/dev/shm PLAYWRIGHT_BROWSERS_PATH=/dev/shm/pw-lector /dev/shm/venv-lector-e1/bin/python -m pytest <archivo> -q -rs -p no:cacheprovider --basetemp=/dev/shm/lector-e1-bt[2]
+## Store real
+.sldb/: listado (mtime, tamaño, ruta) idéntico antes y después del e2e y del serve.py manual (SLDB_SIN_CAMBIOS)

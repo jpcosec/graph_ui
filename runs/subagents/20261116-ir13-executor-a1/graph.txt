@@ -1,0 +1,41 @@
+Missing graph references:
+- missing_declared_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/architecture/code-anchoring.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:36:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/decisiones/2026-11-codigo-en-el-workspace.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:22:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/decisiones/2026-11-codigo-en-el-workspace.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:48:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/decisiones/2026-11-codigo-en-el-workspace.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:60:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/decisiones/2026-11-codigo-en-el-workspace.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:66:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia -> desk/tasks/task-workspace-multiproyeccion-documento-grafo-local-codigo-y-contexto.md
+  provenance: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md:line:18:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia -> test_file:tests/test_mindmap_workspace_edit.py
+  provenance: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md:line:27:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia -> test_file:tests/test_mindmap_workspace_edit.py
+  provenance: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md:line:70:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento -> desk/tasks/task-workspace-multiproyeccion-documento-grafo-local-codigo-y-contexto.md
+  provenance: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md:line:18:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento -> test_file:tests/test_mindmap_changes.py
+  provenance: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md:line:27:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento -> test_file:tests/test_mindmap_changes.py
+  provenance: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md:line:70:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables -> test_file:tests/fixtures/notation-packages/class.packages.yml
+  provenance: desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md:line:32:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- missing_declared_target: task:task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables -> test_file:tests/fixtures/notation-packages/class.packages.yml
+  provenance: desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md:line:60:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+13 missing, 0 informational

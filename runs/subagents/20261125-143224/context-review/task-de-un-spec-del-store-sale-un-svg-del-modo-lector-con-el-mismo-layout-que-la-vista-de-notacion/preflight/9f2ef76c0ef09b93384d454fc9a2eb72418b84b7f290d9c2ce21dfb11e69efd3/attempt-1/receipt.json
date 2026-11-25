@@ -1,0 +1,9 @@
+{
+  "key": "task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion/preflight",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "9f2ef76c0ef09b93384d454fc9a2eb72418b84b7f290d9c2ce21dfb11e69efd3",
+  "output_sha256": "3ce68b17bef6eb7bd2434a47ae4c4d03f5f2f644ac9e06daad4c5e89707f6966",
+  "start": "2026-11-25T14:32:24.493073+00:00",
+  "end": "2026-11-25T14:32:41.749001+00:00"
+}

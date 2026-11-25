@@ -1,0 +1,21 @@
+...F..                                                                   [100%]
+=================================== FAILURES ===================================
+_________ test_sibling_repos_come_from_git_main_branches_not_releases __________
+
+    def test_sibling_repos_come_from_git_main_branches_not_releases():
+        lines = [l for l in SUITE.read_text(encoding="utf-8").splitlines() if l and not l.startswith("#")]
+>       assert len(lines) == 4 and all("git+https://github.com/jpcosec/" in l for l in lines)
+E       AssertionError: assert (3 == 4)
+E        +  where 3 = len(['structuredLanguageDB @ git+https://github.com/jpcosec/sldb@main', 'pron @ git+https://github.com/jpcosec/pron@master', 'deskops @ git+https://github.com/jpcosec/opsys@main'])
+
+tests/test_ci_workflow.py:62: AssertionError
+=============================== warnings summary ===============================
+../../../../../../dev/shm/venv-ir13-r2/lib/python3.12/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-ir13-r2/lib/python3.12/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 failed, 5 passed, 1 warning in 0.13s
+Command exited with non-zero status 1
+maxrss_kb=34192

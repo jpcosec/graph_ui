@@ -1,0 +1,9 @@
+{
+  "key": "task-la-e2e-de-vistas-de-review-workbench-no-deja-procesos-vite-preview-huérfanos-al-terminar/preflight",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "bb47f93556df8cd32844bb9f7a9febc5730f6bf059c9ba5f357a4e6bcbc54848",
+  "output_sha256": "9ce9bb93e189263c7e9ea3ee523ec9f0aacce57ee5d10bf53dd25844e44e7b12",
+  "start": "2026-11-17T04:58:39.938795+00:00",
+  "end": "2026-11-17T04:58:51.596807+00:00"
+}

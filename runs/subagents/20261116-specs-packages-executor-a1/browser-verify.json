@@ -1,0 +1,83 @@
+{
+ "loads": [
+  1.817,
+  1.019,
+  0.989
+ ],
+ "console_errors": [],
+ "page_errors": [],
+ "nodes": [
+  {
+   "id": "SpecNodeDoc:class.packages.core",
+   "x": 743,
+   "y": 386,
+   "w": 264,
+   "h": 571,
+   "container": true,
+   "title": "Core"
+  },
+  {
+   "id": "SpecNodeDoc:class.packages.shared",
+   "x": 1063,
+   "y": 386,
+   "w": 183,
+   "h": 130,
+   "container": true,
+   "title": "Shared"
+  },
+  {
+   "id": "SpecNodeDoc:class.packages.billing",
+   "x": 764,
+   "y": 449,
+   "w": 210,
+   "h": 283,
+   "container": true,
+   "title": "Billing"
+  },
+  {
+   "id": "SpecNodeDoc:class.packages.identity",
+   "x": 754,
+   "y": 808,
+   "w": 183,
+   "h": 141,
+   "container": true,
+   "title": "Identity"
+  },
+  {
+   "id": "SpecNodeDoc:class.packages.AuditLog",
+   "x": 1072,
+   "y": 438,
+   "w": 165,
+   "h": 69,
+   "container": false,
+   "title": "AuditLog"
+  },
+  {
+   "id": "SpecNodeDoc:class.packages.Invoice",
+   "x": 773,
+   "y": 635,
+   "w": 165,
+   "h": 88,
+   "container": false,
+   "title": "Invoice"
+  },
+  {
+   "id": "SpecNodeDoc:class.packages.Payment",
+   "x": 800,
+   "y": 512,
+   "w": 165,
+   "h": 69,
+   "container": false,
+   "title": "Payment"
+  },
+  {
+   "id": "SpecNodeDoc:class.packages.User",
+   "x": 763,
+   "y": 870,
+   "w": 165,
+   "h": 69,
+   "container": false,
+   "title": "User"
+  }
+ ]
+}

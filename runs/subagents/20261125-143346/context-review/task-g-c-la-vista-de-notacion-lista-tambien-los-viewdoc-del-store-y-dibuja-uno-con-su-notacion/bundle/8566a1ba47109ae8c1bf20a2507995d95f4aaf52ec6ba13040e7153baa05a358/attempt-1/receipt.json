@@ -1,0 +1,9 @@
+{
+  "key": "task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion/bundle",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "8566a1ba47109ae8c1bf20a2507995d95f4aaf52ec6ba13040e7153baa05a358",
+  "output_sha256": "c6f2aa98c1e529033a4635719ca007de8df435f142092ff077b19cbd33b910a8",
+  "start": "2026-11-25T14:33:47.361179+00:00",
+  "end": "2026-11-25T14:33:59.822438+00:00"
+}

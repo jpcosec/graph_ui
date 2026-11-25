@@ -1,0 +1,94 @@
+{
+  "key": "task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot/bundle",
+  "input_sha256": "0b4f2e1d8fa594c1075acd775f3b615cf775497ee9e9188fa0cd7c17d690ba72",
+  "argv": [
+    "pi",
+    "--provider",
+    "deepseek",
+    "--model",
+    "deepseek-flash",
+    "--thinking",
+    "low",
+    "--offline",
+    "--no-session",
+    "--no-context-files",
+    "--no-skills",
+    "--no-extensions",
+    "--no-prompt-templates",
+    "--no-tools",
+    "--print",
+    "--system-prompt",
+    "Revisor barato aislado de un encargo de planificación. Trabajas solo con el input explícito: sin herramientas, historial ni otras fuentes. No ejecutas nada. Responde en español con estas secciones exactas: REFORMULACION (propósito, resultado, repo, límites), AMBIGUEDADES (numeradas, cada una con cita textual del input y qué obligaría a inventar; escribe \"ninguna\" si no hay), DRY-RUN (lecturas, cambios previstos, dependencias y validaciones futuras, sin ejecutar), FUTURO (lo que produce otro nodo o decide un humano, no ambigüedad). REFORMULACION describe el encargo del nodo, no esta revisión. DRY-RUN describe cómo lo ejecutaría un ejecutor futuro, hipotéticamente y sin ejecutar nada. Si el nodo es un agregado o paquete no ejecutable, dilo y además recorre cómo lo cumplen sus hijos, qué transfiere cada uno al siguiente y cómo se valida el resultado conjunto. Máximo 350 palabras.",
+    "@/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/runs/subagents/20261116-124733/context-review/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot/bundle/0b4f2e1d8fa594c1075acd775f3b615cf775497ee9e9188fa0cd7c17d690ba72/attempt-1/input.md"
+  ],
+  "model": "deepseek/deepseek-flash",
+  "profile": "runtime-pi-deepseek-flash",
+  "selection_reason": "deepseek-flash: perfil barato verificado en esta máquina por ritual-context-review (D4)",
+  "sources": [
+    {
+      "path": "desk/tasks/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot.md",
+      "sha256": "c6405f50dac931d17695e682c5c1c6fb6a36e0a6027f8e8d8aa297a35e561dde",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/execution.md",
+      "sha256": "1e1f276948153414b47a428e9cdef41fca3084def14e942601541bfde213413b",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/testing.md",
+      "sha256": "bdf6263333b61cd58a3da8c64d9bf29f8562f7595de532fdcb90ec3ed2d979a0",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/closeout.md",
+      "sha256": "102af3eff35756f1a8a2d0e1092862418d891504ec08f8855125a5a5bc406d95",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md",
+      "sha256": "451269fb5a78129f8d1038928699e1db7a99fe0a87bc8a0879b8a35c08d3f6eb",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/atoms/atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node.md",
+      "sha256": "2eb6472f8d65175fcf9904eadcd4276cbbe3b759223ef13d40f426b0e1614549",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views/workspace/node/reader.mjs",
+      "sha256": "537d33d21d56615a9b5d7e8e59a686de85050f8ea66fc12213195afa9b16ed58",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views/workspace/node/workspace-view.js",
+      "sha256": "cdb1782d024b9c87e2c321901a63648016c05e3fed15c2c0168c981044ebf668",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views/workspace/node/workspace.css",
+      "sha256": "220f9e18782f10335e53df2c5f158d79557bbc36c979cb08c53fc504b89bea90",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/index.html",
+      "sha256": "40994f4971223f54deb17fced2d1fb0d9437d0beba01f607d9425d99fd6a2c50",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/mindmap-workspace-reader.test.mjs",
+      "sha256": "4aaf2679534bc2dc152a26d6b678da387b0b20cb92e70baef68572a9deace6ca",
+      "projection": "whole_file"
+    }
+  ],
+  "omitted_sources": [
+    {
+      "path": "tests/e2e_mindmap_workspace.py",
+      "reason": "size>=60000",
+      "size": 64793
+    }
+  ],
+  "started": "2026-11-16T12:47:33.541660+00:00",
+  "finished": "2026-11-16T12:47:51.602758+00:00",
+  "retry_reason": "El input cambió: JP mudó todas las tareas a robocop2 (tag host:local -> host:robocop2, c3664af); el resto del contrato no cambió"
+}

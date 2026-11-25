@@ -1,15 +1,17 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-25T14:22:45Z'
+  at: '2026-11-25T16:08:08Z'
   authority: generated
-  via: create_document
+  via: save_document_payload
 id: task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker
-status: draft
+status: ready_for_testing
 summary: ''
 tags: []
-current_node: ritual-execution
-history: []
+current_node: ritual-closeout
+history:
+- task_activates
+- task_hands_to_closeout
 references: []
 depends_on: []
 pills: []
@@ -44,7 +46,7 @@ notation-layout.mjs (bestLayout), notation-view.js (instancia de ELK), tests nod
 
 _Outline the expected implementation route or affected surface._
 
-Repo /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui. bestLayout: evaluar candidatos en el orden actual y devolver el primero sin problemas y con zoom >= legible; solo si ninguno lo cumple seguir con la otra direccion y luego sin reservar rotulos, como hoy; el resultado para las specs que hoy salen al primer intento no cambia. ELK con worker: elkjs trae elk-worker; instanciarlo con workerUrl servido por graph_ui (o el patron que use la libreria vendorizada), con fallback al hilo principal si el worker no carga. Prueba node en tests/mindmap-notation-layout.test.mjs: con un contador de corridas inyectado, la spec de actividad de 13 nodos (fixture: copiar activity.render-error-handling a tests/fixtures/ si no esta) no pasa de un tope (p. ej. 30) y las specs de fixtures existentes dan el mismo layout que antes.
+Intento 2 (tester FALLA en runs/subagents/exec-deskops-t-475a7d5409d5-testing, sobre 8f617a4). Partir de ese commit y corregir: (1) REGRESION: el corte temprano de bestIn en notation-layout.mjs rompe state.diagram-sync-lifecycle: tests/e2e_mindmap_notation.py::test_specs_view_draws_nest_markers_compartments_and_terminals da margen 5.0 (< 8) en assert_nodes_framed (tests/e2e_notation_legibility.py:204); el criterio de 'primer candidato aceptable' tiene que incluir lo que hoy hace que bestLayout prefiera el candidato que encuadra bien (comparar contra lo que el puntaje actual premia), de modo que las specs que hoy salen bien den el mismo layout. (2) El tope de corridas es 30 para la actividad de 13 nodos (hoy da 56); si 30 no se puede sin cambiar layouts buenos, dejar el minimo alcanzable y explicarlo en result-summary.md con la cuenta medida. (3) El worker de ELK no puede salir del CDN: servir elk-worker desde graph_ui (archivo vendorizado o ruta del servidor) con fallback al hilo principal. (4) El test node usa el fixture real tests/fixtures/notation-pilots/activity-render-error-handling.yml, no uno sintetico. Validacion: los cuatro comandos de Validation, incluida la e2e de notacion completa.
 
 ## Validation
 

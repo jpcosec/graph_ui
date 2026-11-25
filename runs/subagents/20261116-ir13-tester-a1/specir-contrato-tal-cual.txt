@@ -1,0 +1,4 @@
+Usage: specir retirement check [OPTIONS]
+Try 'specir retirement check --help' for help.
+
+Error: no path given for: deskops, pron, sldb, spec2viz/.sldb

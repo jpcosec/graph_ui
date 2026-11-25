@@ -1,0 +1,10 @@
+total_wall_secs=517
+baseline_e2e_packages_secs=12
+node_tests_all_secs=5
+e2e_notation_class_secs=51
+e2e_notation_legibility_secs=44
+e2e_mindmap_notation_secs=26
+test_mindmap_notation_secs=8
+test_projection_views_secs=27
+browser_loads_secs=1.817,1.019,0.989
+memory_waits=0 (available >= 12 GB en cada paso)

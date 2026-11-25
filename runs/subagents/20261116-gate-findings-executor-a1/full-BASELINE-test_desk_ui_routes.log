@@ -1,0 +1,827 @@
+FF..FFF......                                                            [100%]
+=================================== FAILURES ===================================
+________ test_each_view_route_returns_exactly_what_deskops_view_returns ________
+
+desk_env = (PosixPath('/dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo'), PosixPath('/dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other'), ['task-primera-tarea', 'task-segunda-tarea'])
+server = (<desk.serve.DeskUIServer object at 0x75b88b529e80>, 'http://127.0.0.1:42871')
+
+    def test_each_view_route_returns_exactly_what_deskops_view_returns(desk_env, server):
+        root, _, ids = desk_env
+        _, base = server
+        for view in ('board', 'drawer', 'inbox'):
+>           status, data = _request(f'{base}/api/view/{view}')
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_desk_ui_routes.py:115: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_desk_ui_routes.py:93: in _request
+    resp = urlopen(req, timeout=60)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:189: in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:489: in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:506: in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:466: in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1360: in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1335: in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:1478: in getresponse
+    response.begin()
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:343: in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:304: in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.SocketIO object at 0x75b88b1efd60>
+b = <memory at 0x75b88d5cc340>
+
+    def readinto(self, b):
+        """Read up to len(b) bytes into the writable buffer *b* and return
+        the number of bytes read.  If the socket is non-blocking and no bytes
+        are available, None is returned.
+    
+        If *b* is non-empty, a 0 return value indicates that the connection
+        was shutdown at the other end.
+        """
+        self._checkClosed()
+        self._checkReadable()
+        if self._timeout_occurred:
+            raise OSError("cannot read from timed out object")
+        try:
+>           return self._sock.recv_into(b)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+E           TimeoutError: timed out
+
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socket.py:723: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb.
+Inheriting CrossroadDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting AtomDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting BoardDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting PillDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting RepositoryDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting ReviewDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting RitualDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting RoleDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting RunDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting StepDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting TaskDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo/.sldb...
+Initializing local store at /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb.
+Inheriting CrossroadDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting AtomDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting BoardDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting PillDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting RepositoryDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting ReviewDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting RitualDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting RoleDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting RunDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting StepDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting TaskDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/other/.sldb...
+------------------------------ Captured log setup ------------------------------
+INFO     deskops:tasks.py:303 Advanced task task-segunda-tarea to node ritual-testing
+--------------------------- Captured stderr teardown ---------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 55412)
+Traceback (most recent call last):
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 164, in do_GET
+    return self.json_response(self.view(root, view, query))
+                              ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 176, in view
+    return self.views.view(root, view)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:44809 para /dev/shm/gate-e1-bt/test_each_view_route_returns_e0/repo.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 119, in __init__
+    super().__init__(*args, directory=str(DESK_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 167, in do_GET
+    return self.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 136, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+_____ test_desk_selector_lists_registry_desks_with_a_desk_and_routes_views _____
+
+desk_env = (PosixPath('/dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo'), PosixPath('/dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other'), ['task-primera-tarea', 'task-segunda-tarea'])
+server = (<desk.serve.DeskUIServer object at 0x75b88ab865d0>, 'http://127.0.0.1:37203')
+
+    def test_desk_selector_lists_registry_desks_with_a_desk_and_routes_views(desk_env, server):
+        root, other, _ = desk_env
+        _, base = server
+        status, data = _request(f'{base}/api/desks')
+        assert status == 200
+        assert [(d['id'], d['path'], d['default']) for d in data['desks']] == [
+            ('repo-main', str(root), True), ('repo-other', str(other), False)]
+>       status, board = _request(f'{base}/api/view/board?desk=repo-other')
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_desk_ui_routes.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_desk_ui_routes.py:93: in _request
+    resp = urlopen(req, timeout=60)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:189: in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:489: in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:506: in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:466: in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1360: in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1335: in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:1478: in getresponse
+    response.begin()
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:343: in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:304: in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.SocketIO object at 0x75b88a7f5660>
+b = <memory at 0x75b888c8bc40>
+
+    def readinto(self, b):
+        """Read up to len(b) bytes into the writable buffer *b* and return
+        the number of bytes read.  If the socket is non-blocking and no bytes
+        are available, None is returned.
+    
+        If *b* is non-empty, a 0 return value indicates that the connection
+        was shutdown at the other end.
+        """
+        self._checkClosed()
+        self._checkReadable()
+        if self._timeout_occurred:
+            raise OSError("cannot read from timed out object")
+        try:
+>           return self._sock.recv_into(b)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+E           TimeoutError: timed out
+
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socket.py:723: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb.
+Inheriting CrossroadDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting AtomDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting BoardDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting PillDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting RepositoryDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting ReviewDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting RitualDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting RoleDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting RunDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting StepDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting TaskDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/repo/.sldb...
+Initializing local store at /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb.
+Inheriting CrossroadDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting AtomDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting BoardDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting PillDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting RepositoryDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting ReviewDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting RitualDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting RoleDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting RunDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting StepDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting TaskDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other/.sldb...
+------------------------------ Captured log setup ------------------------------
+INFO     deskops:tasks.py:303 Advanced task task-segunda-tarea to node ritual-testing
+--------------------------- Captured stderr teardown ---------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 34830)
+Traceback (most recent call last):
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 164, in do_GET
+    return self.json_response(self.view(root, view, query))
+                              ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 176, in view
+    return self.views.view(root, view)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:33789 para /dev/shm/gate-e1-bt/test_desk_selector_lists_regis0/other.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 119, in __init__
+    super().__init__(*args, directory=str(DESK_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 167, in do_GET
+    return self.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 136, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+__________ test_advance_delegates_to_desk_routes_with_revision_guard ___________
+
+desk_env = (PosixPath('/dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo'), PosixPath('/dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other'), ['task-primera-tarea', 'task-segunda-tarea'])
+server = (<desk.serve.DeskUIServer object at 0x75b88b3e2b10>, 'http://127.0.0.1:40929')
+
+    def test_advance_delegates_to_desk_routes_with_revision_guard(desk_env, server):
+        root, _, ids = desk_env
+        _, base = server
+>       _, view = _request(f'{base}/api/view/task?id={ids[0]}')
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_desk_ui_routes.py:165: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_desk_ui_routes.py:93: in _request
+    resp = urlopen(req, timeout=60)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:189: in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:489: in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:506: in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:466: in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1360: in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1335: in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:1478: in getresponse
+    response.begin()
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:343: in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:304: in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.SocketIO object at 0x75b88873a7d0>
+b = <memory at 0x75b8833287c0>
+
+    def readinto(self, b):
+        """Read up to len(b) bytes into the writable buffer *b* and return
+        the number of bytes read.  If the socket is non-blocking and no bytes
+        are available, None is returned.
+    
+        If *b* is non-empty, a 0 return value indicates that the connection
+        was shutdown at the other end.
+        """
+        self._checkClosed()
+        self._checkReadable()
+        if self._timeout_occurred:
+            raise OSError("cannot read from timed out object")
+        try:
+>           return self._sock.recv_into(b)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+E           TimeoutError: timed out
+
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socket.py:723: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb.
+Inheriting CrossroadDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting AtomDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting BoardDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting PillDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting RepositoryDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting ReviewDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting RitualDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting RoleDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting RunDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting StepDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting TaskDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo/.sldb...
+Initializing local store at /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb.
+Inheriting CrossroadDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting AtomDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting BoardDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting PillDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting RepositoryDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting ReviewDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting RitualDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting RoleDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting RunDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting StepDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting TaskDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/other/.sldb...
+------------------------------ Captured log setup ------------------------------
+INFO     deskops:tasks.py:303 Advanced task task-segunda-tarea to node ritual-testing
+--------------------------- Captured stderr teardown ---------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 51126)
+Traceback (most recent call last):
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 164, in do_GET
+    return self.json_response(self.view(root, view, query))
+                              ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 174, in view
+    return self.views.task(root, ids[0])
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 128, in task
+    return self.view(root, 'task', params)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:57501 para /dev/shm/gate-e1-bt/test_advance_delegates_to_desk0/repo.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 119, in __init__
+    super().__init__(*args, directory=str(DESK_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 167, in do_GET
+    return self.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 136, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+________ test_board_comes_from_sldb_serve_and_projects_to_deskops_view _________
+
+desk_env = (PosixPath('/dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo'), PosixPath('/dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other'), ['task-primera-tarea', 'task-segunda-tarea'])
+server = (<desk.serve.DeskUIServer object at 0x75b88d360950>, 'http://127.0.0.1:36425')
+
+    def test_board_comes_from_sldb_serve_and_projects_to_deskops_view(desk_env, server):
+        """c6: GET /views/board of the desk's sldb serve is run_view's result (`sldb views run`,
+        in its own process like the CLI: the process that wrote the store keeps sldb caches that
+        give another revision for the same rows), and deskops' projection of it is
+        `deskops view board`."""
+        from deskops.cli.commands.view import project
+    
+        root, _, _ = desk_env
+        instance, base = server
+>       url = instance.RequestHandlerClass.views.serves.url(root)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_desk_ui_routes.py:183: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+frontends/mindmap/deskops_routes.py:47: in url
+    self.urls[root] = self._start(root)
+                      ^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <mindmap.deskops_routes.SldbServes object at 0x75b888c37ce0>
+root = PosixPath('/dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo')
+
+    def _start(self, root):
+        with socket.socket() as probe:
+            probe.bind(('127.0.0.1', 0))
+            port = probe.getsockname()[1]
+        process = subprocess.Popen(
+            [sys.executable, '-m', 'sldb', 'serve', '--host', '127.0.0.1', '--port', str(port), '--store', str(root / '.sldb')],
+            cwd=root, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+        self.processes[root] = process
+        url = f'http://127.0.0.1:{port}'
+        deadline = time.monotonic() + self.startup_timeout
+        while time.monotonic() < deadline:
+            if process.poll() is not None:
+                raise DeskError(f'sldb serve no arrancó para {root}: {process.stderr.read().decode(errors="replace").strip()}', 502)
+            try:
+                with urlopen(f'{url}/views', timeout=5):
+                    return url
+            except (URLError, OSError):
+                time.sleep(0.2)
+>       raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+E       mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:36239 para /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo.
+
+frontends/mindmap/deskops_routes.py:68: DeskError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb.
+Inheriting CrossroadDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting AtomDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting BoardDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting PillDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting RepositoryDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting ReviewDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting RitualDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting RoleDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting RunDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting StepDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting TaskDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/repo/.sldb...
+Initializing local store at /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb.
+Inheriting CrossroadDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting AtomDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting BoardDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting PillDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting RepositoryDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting ReviewDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting RitualDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting RoleDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting RunDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting StepDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting TaskDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/gate-e1-bt/test_board_comes_from_sldb_ser0/other/.sldb...
+------------------------------ Captured log setup ------------------------------
+INFO     deskops:tasks.py:303 Advanced task task-segunda-tarea to node ritual-testing
+____________ test_advance_with_the_etag_read_before_an_edit_is_409 _____________
+
+desk_env = (PosixPath('/dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo'), PosixPath('/dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other'), ['task-primera-tarea', 'task-segunda-tarea'])
+server = (<desk.serve.DeskUIServer object at 0x75b882230160>, 'http://127.0.0.1:45911')
+
+    def test_advance_with_the_etag_read_before_an_edit_is_409(desk_env, server):
+        from deskops.cli.main import main as deskops_main
+    
+        root, _, ids = desk_env
+        _, base = server
+>       _, view = _request(f'{base}/api/view/task?id={ids[0]}')
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_desk_ui_routes.py:201: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_desk_ui_routes.py:93: in _request
+    resp = urlopen(req, timeout=60)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:189: in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:489: in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:506: in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:466: in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1360: in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/urllib/request.py:1335: in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:1478: in getresponse
+    response.begin()
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:343: in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/client.py:304: in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.SocketIO object at 0x75b88abd0550>
+b = <memory at 0x75b882234a00>
+
+    def readinto(self, b):
+        """Read up to len(b) bytes into the writable buffer *b* and return
+        the number of bytes read.  If the socket is non-blocking and no bytes
+        are available, None is returned.
+    
+        If *b* is non-empty, a 0 return value indicates that the connection
+        was shutdown at the other end.
+        """
+        self._checkClosed()
+        self._checkReadable()
+        if self._timeout_occurred:
+            raise OSError("cannot read from timed out object")
+        try:
+>           return self._sock.recv_into(b)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+E           TimeoutError: timed out
+
+/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socket.py:723: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+Initializing local store at /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb.
+Inheriting CrossroadDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting AtomDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting BoardDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting PillDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting RepositoryDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting ReviewDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting RitualDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting RoleDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting RunDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting StepDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting TaskDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo/.sldb...
+Initializing local store at /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Linked /mnt/ssd/proyectos/SLDB_1/deskops/.sldb as deskops in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb.
+Inheriting CrossroadDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting AtomDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting BoardDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting DeskFAQDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting InboxNoteDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting MaterializationContractDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting PillDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting ProtoAtomDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting RepositoryDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting ReviewDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting RitualDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting RoleDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting RunDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting RuntimeProfileDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting StepDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting TaskAggregateDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting TaskCodeDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting TaskDebugDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting TaskDecisionDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting TaskDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting TaskDocsDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting TaskExternalDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+Inheriting TaskRefactorDoc in /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/other/.sldb...
+------------------------------ Captured log setup ------------------------------
+INFO     deskops:tasks.py:303 Advanced task task-segunda-tarea to node ritual-testing
+--------------------------- Captured stderr teardown ---------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 42490)
+Traceback (most recent call last):
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 164, in do_GET
+    return self.json_response(self.view(root, view, query))
+                              ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 174, in view
+    return self.views.task(root, ids[0])
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 128, in task
+    return self.view(root, 'task', params)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ~~~~~~~~^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ~~~~~~~~~~~^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:40075 para /dev/shm/gate-e1-bt/test_advance_with_the_etag_rea0/repo.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 119, in __init__
+    super().__init__(*args, directory=str(DESK_DIR), **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 687, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 451, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/http/server.py", line 439, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 167, in do_GET
+    return self.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/gate-e1-head/frontends/desk/serve.py", line 136, in json_response
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/robocop/.local/share/uv/python/cpython-3.13.18-linux-x86_64-gnu/lib/python3.13/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+=============================== warnings summary ===============================
+../venv-gate-e1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-gate-e1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_desk_ui_routes.py::test_each_view_route_returns_exactly_what_deskops_view_returns
+FAILED tests/test_desk_ui_routes.py::test_desk_selector_lists_registry_desks_with_a_desk_and_routes_views
+FAILED tests/test_desk_ui_routes.py::test_advance_delegates_to_desk_routes_with_revision_guard
+FAILED tests/test_desk_ui_routes.py::test_board_comes_from_sldb_serve_and_projects_to_deskops_view
+FAILED tests/test_desk_ui_routes.py::test_advance_with_the_etag_read_before_an_edit_is_409
+5 failed, 8 passed, 1 warning in 590.31s (0:09:50)

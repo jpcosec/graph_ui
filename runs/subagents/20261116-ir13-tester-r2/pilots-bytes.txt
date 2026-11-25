@@ -1,0 +1,25 @@
+OK e554b219ec0c883fa6cc12b567ef7895bd815cf0 e554b219ec0c883fa6cc12b567ef7895bd815cf0 activity-render-error-handling.yml
+OK 9107890a20d0763cae5b9940811f4070d51e7d1c 9107890a20d0763cae5b9940811f4070d51e7d1c class-sldb-models.yml
+OK b1967758ad177ea1044c4ddac5af6b8b2aed82c3 b1967758ad177ea1044c4ddac5af6b8b2aed82c3 component-architecture.yml
+OK 476643c6c3333c2f51599732adba6c2793e789cc 476643c6c3333c2f51599732adba6c2793e789cc component-exception-hierarchy.yml
+OK 3ee3b11c15f94722b15028ffb08e286fea38e493 3ee3b11c15f94722b15028ffb08e286fea38e493 component-type-system.yml
+OK b9470a74237e5ef247590ca2b0b777735d360f40 b9470a74237e5ef247590ca2b0b777735d360f40 matrix-pipeline-coverage.yml
+OK fd454ce54944290f2153f27b7121dab11a8bff28 fd454ce54944290f2153f27b7121dab11a8bff28 sequence-render-pipeline.yml
+OK 3cdc4e4d6207f8e58178ec747233b5be329218d3 3cdc4e4d6207f8e58178ec747233b5be329218d3 sequence-sync-pipeline.yml
+OK 6daa991c36954ac66cb97799731cda8c5cedb03e 6daa991c36954ac66cb97799731cda8c5cedb03e state-diagram-sync-lifecycle.yml
+OK 176993257696d21d9b87708b0158c0fe0573b166 176993257696d21d9b87708b0158c0fe0573b166 matrix.quotation-view.yml
+--- ls
+README.md
+activity-render-error-handling.yml
+class-sldb-models.yml
+component-architecture.yml
+component-exception-hierarchy.yml
+component-type-system.yml
+matrix-pipeline-coverage.yml
+matrix.quotation-view.yml
+sequence-render-pipeline.yml
+sequence-sync-pipeline.yml
+state-diagram-sync-lifecycle.yml
+--- README
+Copiados de jpcosec/spec2viz en 2a218b1 (IR13); se mantienen aquM-CM--, spec2viz se retira.$
+2a218b1 2026-11-15 23:03:41 -0300 inbox: pedidos de IR (IR13: gate de retiro de spec2viz; IR13b) [skip ci]

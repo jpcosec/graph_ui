@@ -1,0 +1,20 @@
+task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en/preflight: reviewed
+review: review-task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en-preflight-2
+run_dir: runs/subagents/20261116-125615/context-review/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en/preflight/0e1bc82aa5f58657f490824134a5c920b5f37e6a47a1d01a7538ffbb72a409b4/attempt-1
+input_sha256: 0e1bc82aa5f58657f490824134a5c920b5f37e6a47a1d01a7538ffbb72a409b4
+rc=0 task-el-lector-del-workspace-y-el-adaptador preflight
+task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en/bundle: reviewed
+review: review-task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en-bundle-2
+run_dir: runs/subagents/20261116-125634/context-review/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en/bundle/513e64c753455fffccb739d64e84a00a7d58443288348e912723bba8202b52f9/attempt-1
+input_sha256: 513e64c753455fffccb739d64e84a00a7d58443288348e912723bba8202b52f9
+rc=0 task-el-lector-del-workspace-y-el-adaptador bundle
+task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen/preflight: reviewed
+review: review-task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen-preflight-2
+run_dir: runs/subagents/20261116-125651/context-review/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen/preflight/ac0856cc0a8bb6e744ae98bd89a0dca626c58e3acdfb92130f424acbc2b95364/attempt-1
+input_sha256: ac0856cc0a8bb6e744ae98bd89a0dca626c58e3acdfb92130f424acbc2b95364
+rc=0 task-ui-del-desk-cada-gate preflight
+task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen/bundle: reviewed
+review: review-task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen-bundle-2
+run_dir: runs/subagents/20261116-125703/context-review/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen/bundle/f5fe54078ff75a229542a84ca266eb8cad86ea63c006dadf74f6c613a45b89dc/attempt-1
+input_sha256: f5fe54078ff75a229542a84ca266eb8cad86ea63c006dadf74f6c613a45b89dc
+rc=0 task-ui-del-desk-cada-gate bundle

@@ -1,0 +1,40 @@
+{
+  "README.md": {
+    "loads_ms": [
+      3507,
+      2555,
+      2846
+    ],
+    "console_errors": [],
+    "page_errors": [],
+    "dom": {
+      "blockquote": 1,
+      "code_inline": 36,
+      "em": 0,
+      "strong": 9,
+      "std_link_spans": 7,
+      "a_total": 0,
+      "a_navegable": 0,
+      "first_quote": "Los imports rotos contra pron del 2026-09-17 quedaron resueltos el 2026-09-21; ver AVISO-imports-rotos.md."
+    }
+  },
+  "docs/workspace-ui.md": {
+    "loads_ms": [
+      2945,
+      3032,
+      2756
+    ],
+    "console_errors": [],
+    "page_errors": [],
+    "dom": {
+      "blockquote": 0,
+      "code_inline": 116,
+      "em": 6,
+      "strong": 16,
+      "std_link_spans": 5,
+      "a_total": 0,
+      "a_navegable": 0,
+      "first_quote": ""
+    }
+  }
+}

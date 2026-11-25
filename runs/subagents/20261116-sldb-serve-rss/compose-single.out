@@ -1,0 +1,4 @@
+stores: [('/dev/shm/rss-min-bt5/test_real_advance_stale_origin0/repo/.sldb', None), ('/mnt/ssd/proyectos/SLDB_1/deskops/.sldb', 'deskops'), ('/mnt/ssd/proyectos/SLDB_1/sldb/.sldb', 'sldb'), ('/mnt/ssd/proyectos/SLDB_1/spec2viz/.sldb', 'spec2viz'), ('/mnt/ssd/proyectos/SLDB_1/pron/.sldb', 'pron'), ('/mnt/ssd/proyectos/SLDB_1/scion/.sldb', 'scion'), ('/mnt/ssd/herramientas/deskops/.sldb', 'deskops'), ('/mnt/ssd/herramientas/sldb/.sldb', 'sldb')]
+call0 35.5s nodes=31152 edges=178756 shards_cached=15617 maxrss_mb=1202
+call1 0.6s nodes=31152 edges=178756 shards_cached=15617 maxrss_mb=1202
+call2 0.7s nodes=31152 edges=178756 shards_cached=15617 maxrss_mb=1202

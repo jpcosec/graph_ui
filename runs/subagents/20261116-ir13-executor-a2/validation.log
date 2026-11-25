@@ -1,0 +1,109 @@
+$ uv venv /dev/shm/venv-ir13-fix
+Using CPython 3.13.18
+Creating virtual environment at: /dev/shm/venv-ir13-fix
+Activate with: source /dev/shm/venv-ir13-fix/bin/activate
+exit=0
+
+$ uv pip install -q -e ../../sldb -e ../../pron -e ../../deskops -e .[test]
+exit=0
+
+$ /dev/shm/venv-ir13-fix/bin/python -c import spec2viz
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import spec2viz
+ModuleNotFoundError: No module named 'spec2viz'
+exit=1
+
+$ systemd-run --user --scope -p MemoryMax=3G -- /dev/shm/venv-ir13-fix/bin/python -m pytest -q -rs tests/test_ci_workflow.py
+Running as unit: run-u76981.scope; invocation ID: 7d54313ef3d84a4cb597dad46b0c7c45
+......                                                                   [100%]
+=============================== warnings summary ===============================
+../../../../../../dev/shm/venv-ir13-fix/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-ir13-fix/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+6 passed, 1 warning in 0.13s
+exit=0
+
+# (el venv se borró por error tras la primera corrida; se recrea igual para la prueba negativa)
+$ uv venv -q /dev/shm/venv-ir13-fix
+exit=0
+
+$ uv pip install -q -e ../../sldb -e ../../pron -e ../../deskops -e .[test]
+exit=0
+
+# copia negativa 1 en /dev/shm/ir13-fix-neg: requirements-suite.txt con la linea de spec2viz re-agregada (se espera FAIL)
+$ systemd-run --user --scope -p MemoryMax=3G -- /dev/shm/venv-ir13-fix/bin/python -m pytest -q -rs -p no:cacheprovider tests/test_ci_workflow.py::test_sibling_repos_come_from_git_main_branches_not_releases
+Running as unit: run-u76983.scope; invocation ID: 89069d97b2b547bdae985bad93ed4610
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_sibling_repos_come_from_git_main_branches_not_releases __________
+
+    def test_sibling_repos_come_from_git_main_branches_not_releases():
+        """sldb, pron and deskops come from git; spec2viz is no longer a sibling (the Specs view
+        resolves through sldb.api.notations)."""
+        text = SUITE.read_text(encoding="utf-8")
+        lines = [l for l in text.splitlines() if l and not l.startswith("#")]
+>       assert len(lines) == 3 and all("git+https://github.com/jpcosec/" in l for l in lines)
+E       AssertionError: assert (4 == 3)
+E        +  where 4 = len(['structuredLanguageDB @ git+https://github.com/jpcosec/sldb@main', 'pron @ git+https://github.com/jpcosec/pron@master...deskops @ git+https://github.com/jpcosec/opsys@main', '-e git+https://github.com/jpcosec/spec2viz@master#egg=spec2viz'])
+
+tests/test_ci_workflow.py:65: AssertionError
+=============================== warnings summary ===============================
+../venv-ir13-fix/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-ir13-fix/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 failed, 1 warning in 0.06s
+exit=1
+
+# copia negativa 2: solo un comentario que nombra spec2viz (se espera FAIL)
+$ systemd-run --user --scope -p MemoryMax=3G -- /dev/shm/venv-ir13-fix/bin/python -m pytest -q -rs -p no:cacheprovider tests/test_ci_workflow.py::test_sibling_repos_come_from_git_main_branches_not_releases
+Running as unit: run-u76984.scope; invocation ID: 48c27b2dd5e44056833893bf7f5f88f8
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_sibling_repos_come_from_git_main_branches_not_releases __________
+
+    def test_sibling_repos_come_from_git_main_branches_not_releases():
+        """sldb, pron and deskops come from git; spec2viz is no longer a sibling (the Specs view
+        resolves through sldb.api.notations)."""
+        text = SUITE.read_text(encoding="utf-8")
+        lines = [l for l in text.splitlines() if l and not l.startswith("#")]
+        assert len(lines) == 3 and all("git+https://github.com/jpcosec/" in l for l in lines)
+        assert [l.split(" @ ")[0] for l in lines] == ["structuredLanguageDB", "pron", "deskops"]
+>       assert "spec2viz" not in text
+E       AssertionError: assert 'spec2viz' not in '# Sibling r...# spec2viz\n'
+E         
+E         'spec2viz' is contained here:
+E           ys@main
+E           # spec2viz
+
+tests/test_ci_workflow.py:67: AssertionError
+=============================== warnings summary ===============================
+../venv-ir13-fix/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-ir13-fix/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 failed, 1 warning in 0.03s
+exit=1
+
+# control: copia con requirements-suite.txt del repo, sin cambios (se espera PASS)
+$ systemd-run --user --scope -p MemoryMax=3G -- /dev/shm/venv-ir13-fix/bin/python -m pytest -q -rs -p no:cacheprovider tests/test_ci_workflow.py::test_sibling_repos_come_from_git_main_branches_not_releases
+Running as unit: run-u76985.scope; invocation ID: ae032ae7d64e4377873ced2a62b6870a
+.                                                                        [100%]
+=============================== warnings summary ===============================
+../venv-ir13-fix/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-ir13-fix/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 0.02s
+exit=0
+

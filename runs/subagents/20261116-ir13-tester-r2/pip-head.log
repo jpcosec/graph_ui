@@ -1,0 +1,55 @@
+Using Python 3.12.3 environment at: /dev/shm/venv-gu-head
+Resolved 18 packages in 11ms
+   Building deskops @ file:///mnt/ssd/proyectos/SLDB_1/deskops
+   Building structuredlanguagedb @ file:///mnt/ssd/proyectos/SLDB_1/sldb
+   Building spec2viz @ file:///mnt/ssd/proyectos/SLDB_1/spec2viz
+   Building pron @ file:///mnt/ssd/proyectos/SLDB_1/pron
+      Built pron @ file:///mnt/ssd/proyectos/SLDB_1/pron
+      Built deskops @ file:///mnt/ssd/proyectos/SLDB_1/deskops
+      Built spec2viz @ file:///mnt/ssd/proyectos/SLDB_1/spec2viz
+      Built structuredlanguagedb @ file:///mnt/ssd/proyectos/SLDB_1/sldb
+Prepared 4 packages in 1.32s
+Installed 18 packages in 5ms
+ + annotated-types==0.8.0
+ + click==8.5.1
+ + deskops==0.2.0 (from file:///mnt/ssd/proyectos/SLDB_1/deskops)
+ + jinja2==3.1.6
+ + linkify-it-py==2.2.0
+ + markdown-it-py==4.3.0
+ + markupsafe==3.0.4
+ + mdit-py-plugins==0.7.0
+ + mdurl==0.1.2
+ + networkx==3.7
+ + pron==1.0.0 (from file:///mnt/ssd/proyectos/SLDB_1/pron)
+ + pydantic==2.14.3
+ + pydantic-core==2.50.4
+ + pyyaml==6.0.3
+ + spec2viz==0.2.0 (from file:///mnt/ssd/proyectos/SLDB_1/spec2viz)
+ + structuredlanguagedb==0.1.13 (from file:///mnt/ssd/proyectos/SLDB_1/sldb)
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.5
+Using Python 3.12.3 environment at: /dev/shm/venv-gu-head
+Resolved 28 packages in 662ms
+   Building graph-ui @ file:///dev/shm/gu-head
+      Built graph-ui @ file:///dev/shm/gu-head
+Prepared 1 package in 736ms
+Installed 10 packages in 8ms
+ + execnet==2.1.2
+ + graph-ui==0.1.0 (from file:///dev/shm/gu-head)
+ + greenlet==3.5.6
+ + iniconfig==2.3.1
+ + packaging==26.3
+ + playwright==1.65.2
+ + pluggy==1.7.0
+ + pygments==2.21.0
+ + pytest==9.2.0
+ + pytest-xdist==3.8.0
+Using Python 3.12.3 environment at: /dev/shm/venv-gu-head
+Resolved 26 packages in 204ms
+   Building graph-ui @ file:///dev/shm/gu-lay/UIs/graph_ui
+      Built graph-ui @ file:///dev/shm/gu-lay/UIs/graph_ui
+Prepared 1 package in 840ms
+Uninstalled 1 package in 0.20ms
+Installed 1 package in 1ms
+ - graph-ui==0.1.0 (from file:///dev/shm/gu-head)
+ + graph-ui==0.1.0 (from file:///dev/shm/gu-lay/UIs/graph_ui)

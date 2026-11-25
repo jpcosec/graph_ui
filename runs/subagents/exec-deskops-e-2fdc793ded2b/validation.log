@@ -1,0 +1,2 @@
+node --test tests/*.test.mjs -> 9 pass, 1 fail (mindmap-workspace-reader: esm.sh "sin sha256 esperado", network; same failure on main checkout without my changes)
+pytest tests/e2e_mindmap_notation.py tests/e2e_notation_activity.py -> exit 0, 4 passed (chromium symlinked into playwright cache)

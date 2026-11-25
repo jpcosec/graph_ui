@@ -1,0 +1,9 @@
+{
+  "key": "task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c/preflight",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "294dee776137b40db99ee4031942f7ee20b382716ed1e7bf3ad831927e45d258",
+  "output_sha256": "e55050ac8cbb4b10de1541e49e5248170a0d672fe0762ff088f27a5e00878f22",
+  "start": "2026-11-25T15:55:24.901687+00:00",
+  "end": "2026-11-25T15:55:45.568604+00:00"
+}

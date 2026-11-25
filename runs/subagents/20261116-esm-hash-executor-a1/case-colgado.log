@@ -1,0 +1,217 @@
+# Corrección 1: caso (c) repetido tras mapear UND_ERR_CONNECT_TIMEOUT a 'GET <url> -> connect timeout'
+# listener: node /dev/shm/esm-e1/listener.mjs (net.createServer que acepta y no responde), pid 2597113, puerto 33921
+# copia: /dev/shm/esm-e1/case-colgado.test.mjs; diff contra tests/mindmap-workspace-reader.test.mjs:
+24c24
+< } from '../frontends/mindmap/views/workspace/node/reader.mjs';
+---
+> } from 'file:///mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/views/workspace/node/reader.mjs';
+111c111
+< const indexHtml = readFileSync(new URL('../frontends/mindmap/index.html', import.meta.url), 'utf-8');
+---
+> const indexHtml = readFileSync(new URL('file:///mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/index.html'), 'utf-8');
+113c113
+< const MD_URL = importMap.imports['markdown-it'];
+---
+> const MD_URL = 'https://127.0.0.1:33921';
+121a122,123
+>   'https://127.0.0.1:33921':
+>     'ced1c1bb5a8502ed7924950ef10f8bcf524d541c9c2c111f8861a1a0820937df',
+215d216
+<   assert.equal(MD_URL, 'https://esm.sh/markdown-it@14.1.0');
+
+$ time node --test /dev/shm/esm-e1/case-colgado.test.mjs
+TAP version 13
+# Subtest: la arista saliente resalta el campo del documento abierto
+ok 1 - la arista saliente resalta el campo del documento abierto
+  ---
+  duration_ms: 1.780358
+  type: 'test'
+  ...
+# Subtest: la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+ok 2 - la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+  ---
+  duration_ms: 3.458654
+  type: 'test'
+  ...
+# Subtest: el vecino a dos saltos tampoco resalta campos del documento abierto
+ok 3 - el vecino a dos saltos tampoco resalta campos del documento abierto
+  ---
+  duration_ms: 0.183763
+  type: 'test'
+  ...
+# Subtest: el foco de campo solo resalta las aristas que declara el documento abierto
+ok 4 - el foco de campo solo resalta las aristas que declara el documento abierto
+  ---
+  duration_ms: 0.233759
+  type: 'test'
+  ...
+# Subtest: correspondence cuenta solo elementos del documento abierto
+ok 5 - correspondence cuenta solo elementos del documento abierto
+  ---
+  duration_ms: 0.356342
+  type: 'test'
+  ...
+# Subtest: un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+ok 6 - un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+  ---
+  duration_ms: 0.393844
+  type: 'test'
+  ...
+# Subtest: relation_doc y structural no tienen campo: no resaltan ninguno
+ok 7 - relation_doc y structural no tienen campo: no resaltan ninguno
+  ---
+  duration_ms: 0.158724
+  type: 'test'
+  ...
+# Subtest: se conservan todas las procedencias reales: varias del dueño correcto
+ok 8 - se conservan todas las procedencias reales: varias del dueño correcto
+  ---
+  duration_ms: 0.436515
+  type: 'test'
+  ...
+# Subtest: sin identidad abierta no se resalta nada por propiedad
+ok 9 - sin identidad abierta no se resalta nada por propiedad
+  ---
+  duration_ms: 0.324781
+  type: 'test'
+  ...
+# Error: A resource generated asynchronous activity after the test ended. This activity created the error "Error: GET https://127.0.0.1:33921 -> connect timeout" which triggered an uncaughtException event, caught by the test runner.
+# Subtest: /dev/shm/esm-e1/case-colgado.test.mjs
+not ok 1 - /dev/shm/esm-e1/case-colgado.test.mjs
+  ---
+  duration_ms: 10861.635329
+  type: 'test'
+  location: '/dev/shm/esm-e1/case-colgado.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 9
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 10880.796992
+
+real	0m11.014s
+user	0m0.242s
+sys	0m0.046s
+exit code: 1
+duracion (date): 11.015297340 s
+=================== VARIANTE (c'): TLS completo y sin respuesta HTTP ===================
+# listener: node /dev/shm/esm-e1/tls-listener.mjs (tls.createServer con certificado autofirmado para IP 127.0.0.1, completa el handshake y no responde), pid 2557082, puerto 43783
+# copia: /dev/shm/esm-e1/case-colgado-tls.test.mjs; diff contra tests/mindmap-workspace-reader.test.mjs:
+24c24
+< } from '../frontends/mindmap/views/workspace/node/reader.mjs';
+---
+> } from 'file:///mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/views/workspace/node/reader.mjs';
+111c111
+< const indexHtml = readFileSync(new URL('../frontends/mindmap/index.html', import.meta.url), 'utf-8');
+---
+> const indexHtml = readFileSync(new URL('file:///mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/index.html'), 'utf-8');
+113c113
+< const MD_URL = importMap.imports['markdown-it'];
+---
+> const MD_URL = 'https://127.0.0.1:43783';
+121a122,123
+>   'https://127.0.0.1:43783':
+>     'ced1c1bb5a8502ed7924950ef10f8bcf524d541c9c2c111f8861a1a0820937df',
+213d214
+<   assert.equal(MD_URL, 'https://esm.sh/markdown-it@14.1.0');
+
+$ time env NODE_EXTRA_CA_CERTS=/dev/shm/esm-e1/cert.pem node --test /dev/shm/esm-e1/case-colgado-tls.test.mjs
+TAP version 13
+# Subtest: la arista saliente resalta el campo del documento abierto
+ok 1 - la arista saliente resalta el campo del documento abierto
+  ---
+  duration_ms: 1.806194
+  type: 'test'
+  ...
+# Subtest: la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+ok 2 - la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+  ---
+  duration_ms: 0.248857
+  type: 'test'
+  ...
+# Subtest: el vecino a dos saltos tampoco resalta campos del documento abierto
+ok 3 - el vecino a dos saltos tampoco resalta campos del documento abierto
+  ---
+  duration_ms: 0.164962
+  type: 'test'
+  ...
+# Subtest: el foco de campo solo resalta las aristas que declara el documento abierto
+ok 4 - el foco de campo solo resalta las aristas que declara el documento abierto
+  ---
+  duration_ms: 0.221502
+  type: 'test'
+  ...
+# Subtest: correspondence cuenta solo elementos del documento abierto
+ok 5 - correspondence cuenta solo elementos del documento abierto
+  ---
+  duration_ms: 0.340936
+  type: 'test'
+  ...
+# Subtest: un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+ok 6 - un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+  ---
+  duration_ms: 0.428463
+  type: 'test'
+  ...
+# Subtest: relation_doc y structural no tienen campo: no resaltan ninguno
+ok 7 - relation_doc y structural no tienen campo: no resaltan ninguno
+  ---
+  duration_ms: 0.16444
+  type: 'test'
+  ...
+# Subtest: se conservan todas las procedencias reales: varias del dueño correcto
+ok 8 - se conservan todas las procedencias reales: varias del dueño correcto
+  ---
+  duration_ms: 0.186233
+  type: 'test'
+  ...
+# Subtest: sin identidad abierta no se resalta nada por propiedad
+ok 9 - sin identidad abierta no se resalta nada por propiedad
+  ---
+  duration_ms: 0.382366
+  type: 'test'
+  ...
+# Error: A resource generated asynchronous activity after the test ended. This activity created the error "Error: GET https://127.0.0.1:43783 -> timeout 20 s" which triggered an uncaughtException event, caught by the test runner.
+# Subtest: /dev/shm/esm-e1/case-colgado-tls.test.mjs
+not ok 1 - /dev/shm/esm-e1/case-colgado-tls.test.mjs
+  ---
+  duration_ms: 20157.412382
+  type: 'test'
+  location: '/dev/shm/esm-e1/case-colgado-tls.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 9
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 20171.751032
+
+real	0m20.218s
+user	0m0.265s
+sys	0m0.039s
+exit code: 1
+duracion (date): 20.219743869 s
+
+# NOTA DEL EJECUTOR: con el caso (c) tal como se dispuso (net.createServer que acepta TCP y no responde),
+# el handshake TLS nunca termina y undici corta a los ~10 s con su connect timeout propio
+# (TypeError 'fetch failed', cause.code UND_ERR_CONNECT_TIMEOUT, cause.name ConnectTimeoutError).
+# No es TimeoutError/AbortError, asi que, segun la disposicion, se conserva tal cual: falla en 11,3 s (< 30 s)
+# pero SIN el mensaje 'GET <url> -> timeout 20 s'. La variante (c') completa TLS y ejercita el AbortSignal de 20 s.
+# (Nota anterior a la Corrección 1. Tras la corrección, el caso (c) de arriba falla en 11,0 s con 'GET https://127.0.0.1:33921 -> connect timeout'.)

@@ -1,0 +1,107 @@
+{
+  "key": "task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/bundle",
+  "input_sha256": "6e5fb5323b0bbf19a0110896f19a6dd09cc6d48bd89928a9daff02143a67e8f3",
+  "argv": [
+    "pi",
+    "--provider",
+    "deepseek",
+    "--model",
+    "deepseek-flash",
+    "--thinking",
+    "low",
+    "--offline",
+    "--no-session",
+    "--no-context-files",
+    "--no-skills",
+    "--no-extensions",
+    "--no-prompt-templates",
+    "--no-tools",
+    "--print",
+    "--system-prompt",
+    "Revisor barato aislado de un encargo de planificación. Trabajas solo con el input explícito: sin herramientas, historial ni otras fuentes. No ejecutas nada. Responde en español con estas secciones exactas: REFORMULACION (propósito, resultado, repo, límites), AMBIGUEDADES (numeradas, cada una con cita textual del input y qué obligaría a inventar; escribe \"ninguna\" si no hay), DRY-RUN (lecturas, cambios previstos, dependencias y validaciones futuras, sin ejecutar), FUTURO (lo que produce otro nodo o decide un humano, no ambigüedad). REFORMULACION describe el encargo del nodo, no esta revisión. DRY-RUN describe cómo lo ejecutaría un ejecutor futuro, hipotéticamente y sin ejecutar nada. Si el nodo es un agregado o paquete no ejecutable, dilo y además recorre cómo lo cumplen sus hijos, qué transfiere cada uno al siguiente y cómo se valida el resultado conjunto. Máximo 350 palabras.",
+    "@/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/runs/subagents/20261116-185004/context-review/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/bundle/6e5fb5323b0bbf19a0110896f19a6dd09cc6d48bd89928a9daff02143a67e8f3/attempt-1/input.md"
+  ],
+  "model": "deepseek/deepseek-flash",
+  "profile": "runtime-pi-deepseek-flash",
+  "selection_reason": "deepseek-flash: perfil barato verificado en esta máquina por ritual-context-review (D4)",
+  "sources": [
+    {
+      "path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
+      "sha256": "597cf9ce8944672b7a54c1c1f527db7e20ac07cf81d0f7a926d389f9c082f0a5",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/execution.md",
+      "sha256": "1e1f276948153414b47a428e9cdef41fca3084def14e942601541bfde213413b",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/testing.md",
+      "sha256": "bdf6263333b61cd58a3da8c64d9bf29f8562f7595de532fdcb90ec3ed2d979a0",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/closeout.md",
+      "sha256": "102af3eff35756f1a8a2d0e1092862418d891504ec08f8855125a5a5bc406d95",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md",
+      "sha256": "451269fb5a78129f8d1038928699e1db7a99fe0a87bc8a0879b8a35c08d3f6eb",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/atoms/atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz.md",
+      "sha256": "c79e7a01b6284a7a40a31bafb46bd7d361a82385d4d869a4500b3a7728ffbdc8",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/atoms/atom-cómo-decide-el-layout-de-una-vista-su-estilo-de-arquitectura.md",
+      "sha256": "7f5a1a05cfa879a4ec6f5f067746cfc6ced690ba1fbdca33bd64e097ca46b8ed",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views/specs/notation/notation-view.js",
+      "sha256": "69e7efa27e7983ffc413a2f8ebc8c99b01afec731973ac6428f903e732a8af63",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views/specs/notation/notation.mjs",
+      "sha256": "a0db16b12487083fbbc153fa9f87ef2c7437c2201c7fec0cd69f72c0f5fb5b82",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views/specs/notation/notation-layout.mjs",
+      "sha256": "020b51d99075d6d5fdfafc55c0030c40bf3f81e5462e610cb30bbc73b554fd65",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views/specs/notation/notation-style.mjs",
+      "sha256": "ecf64ac6a5a0e69ff5c41acd6a9f56405e40a1afb0ea25ed934b256bedc912ac",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views/specs/notation/notation.css",
+      "sha256": "2343a62749edcafcd139752a07846369fd451566386f370f1204a23336313677",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/e2e_notation_class.py",
+      "sha256": "36e69eddd34aa965a1a01ef77f16c43755219d20fc2e1110667809dd82e7e836",
+      "projection": "whole_file"
+    }
+  ],
+  "omitted_sources": [
+    {
+      "path": "tests/notation-packages.test.mjs",
+      "reason": "missing"
+    },
+    {
+      "path": "tests/fixtures/notation-packages/class.packages.yml",
+      "reason": "missing"
+    }
+  ],
+  "started": "2026-11-16T18:50:05.132174+00:00",
+  "finished": "2026-11-16T18:50:17.619343+00:00",
+  "retry_reason": "El input cambió: tag host:robocop2 (c3664af) y su dependencia IR13 cerró (c9b09f7); el contrato ya asume el estado posterior a IR13"
+}

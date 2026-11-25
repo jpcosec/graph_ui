@@ -1,0 +1,9 @@
+{
+  "key": "task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen/bundle",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "5cfdeb14edfc74559ce8e1c46dcf3f3afaa496480b80d8b20ee174f291b23338",
+  "output_sha256": "ece2071e01d3faec4fcba615f48a607905369a6e5f9131d9747a5e85319c4d72",
+  "start": "2026-11-16T12:53:57.643738+00:00",
+  "end": "2026-11-16T12:54:13.504800+00:00"
+}

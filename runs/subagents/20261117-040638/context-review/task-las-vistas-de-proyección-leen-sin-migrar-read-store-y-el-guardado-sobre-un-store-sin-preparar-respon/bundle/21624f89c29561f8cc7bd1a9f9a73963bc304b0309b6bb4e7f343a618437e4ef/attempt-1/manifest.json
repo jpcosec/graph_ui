@@ -1,0 +1,88 @@
+{
+  "key": "task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon/bundle",
+  "input_sha256": "21624f89c29561f8cc7bd1a9f9a73963bc304b0309b6bb4e7f343a618437e4ef",
+  "argv": [
+    "pi",
+    "--provider",
+    "deepseek",
+    "--model",
+    "deepseek-flash",
+    "--thinking",
+    "low",
+    "--offline",
+    "--no-session",
+    "--no-context-files",
+    "--no-skills",
+    "--no-extensions",
+    "--no-prompt-templates",
+    "--no-tools",
+    "--print",
+    "--system-prompt",
+    "Revisor barato aislado de un encargo de planificación. Trabajas solo con el input explícito: sin herramientas, historial ni otras fuentes. No ejecutas nada. Responde en español con estas secciones exactas: REFORMULACION (propósito, resultado, repo, límites), AMBIGUEDADES (numeradas, cada una con cita textual del input y qué obligaría a inventar; escribe \"ninguna\" si no hay), DRY-RUN (lecturas, cambios previstos, dependencias y validaciones futuras, sin ejecutar), FUTURO (lo que produce otro nodo o decide un humano, no ambigüedad). REFORMULACION describe el encargo del nodo, no esta revisión. DRY-RUN describe cómo lo ejecutaría un ejecutor futuro, hipotéticamente y sin ejecutar nada. Si el nodo es un agregado o paquete no ejecutable, dilo y además recorre cómo lo cumplen sus hijos, qué transfiere cada uno al siguiente y cómo se valida el resultado conjunto. Máximo 350 palabras.",
+    "@/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/runs/subagents/20261117-040638/context-review/task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon/bundle/21624f89c29561f8cc7bd1a9f9a73963bc304b0309b6bb4e7f343a618437e4ef/attempt-1/input.md"
+  ],
+  "binary": "pi",
+  "model": "deepseek/deepseek-flash",
+  "input_delivery": "file",
+  "isolation_flags": [
+    "--offline",
+    "--no-session",
+    "--no-context-files",
+    "--no-skills",
+    "--no-extensions",
+    "--no-prompt-templates",
+    "--no-tools"
+  ],
+  "profile": "runtime-pi-deepseek-flash",
+  "selection_reason": "deepseek-flash: perfil barato verificado en esta máquina por ritual-context-review (D4)",
+  "sources": [
+    {
+      "path": "desk/tasks/task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon.md",
+      "sha256": "00d608dbf685f2cc9dfabd94da3cdfe13344d58dcc8580ff05fedd232816ef0a",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/execution.md",
+      "sha256": "1e1f276948153414b47a428e9cdef41fca3084def14e942601541bfde213413b",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/testing.md",
+      "sha256": "bdf6263333b61cd58a3da8c64d9bf29f8562f7595de532fdcb90ec3ed2d979a0",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/closeout.md",
+      "sha256": "102af3eff35756f1a8a2d0e1092862418d891504ec08f8855125a5a5bc406d95",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/sldb_adapter.py",
+      "sha256": "dcfa364657e5fad62a132d4a842b84c4ac4a0fdcb6d7128529dd1b25e8d555d3",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views_routes.py",
+      "sha256": "e235c468ad9a3bb8b4447d6d00785dc9a022c085c5dafe86dd28efa08700eb13",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/persistence.py",
+      "sha256": "b3e5532f594b8616bfffce92a7923ef5bf571c6f1f75c2e7dcfea45d0537f4ec",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/test_mindmap_persistence.py",
+      "sha256": "b3c1041a65dadc2b4104a1eeef11df0fb3e04a6507239ebfdd2d2264f9e0c242",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/test_projection_views.py",
+      "sha256": "ac9a8ec0887b228019f11cbff8117134ea00bc40adc7bc75b1d76156f25bef8d",
+      "projection": "whole_file"
+    }
+  ],
+  "omitted_sources": [],
+  "started": "2026-11-17T04:06:39.461261+00:00",
+  "finished": "2026-11-17T04:07:14.501575+00:00"
+}

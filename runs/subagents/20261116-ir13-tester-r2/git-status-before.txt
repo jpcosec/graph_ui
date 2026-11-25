@@ -1,0 +1,64 @@
+== ../../deskops
+ M .sldb/core/models/InboxNoteDoc.yaml
+ M .sldb/core/models/RunDoc.yaml
+ M .sldb/core/store_index.yaml
+ M .sldb/store.yaml
+ M deskops/cli/commands/desk.py
+ M tests/fixtures/golden/scaffold/update.json
+ M tests/test_cli.py
+ M tests/test_legacy_task_states.py
+ M tests/test_review_doc.py
+?? .sldb/core/documents/InboxNoteDoc/20261116-081341-suggestion-create-document-pinnea-las-anclas-a-documentos-igual-que-save-document-payload.yaml
+?? .sldb/core/documents/InboxNoteDoc/20261116-082230-suggestion-sldb-api-template-anchors-los-p-rrafos-ancla-literales-de-la-plantilla-de-un-modelo-h1-de-placeholder.yaml
+?? .sldb/core/documents/InboxNoteDoc/20261116-083618-suggestion-referrers-y-rewrite-references-aceptan-graph-excluded-sources-y-no-duplican-menciones-del-frontmatter-h-a-h-c-de-cc35c.yaml
+?? .sldb/core/documents/RunDoc/run-deskops-e-bae0befe2582.yaml
+?? .sldb/core/documents/RunDoc/run-deskops-t-05549e84fdaf.yaml
+?? desk/inbox/20261116-081341-suggestion-create-document-pinnea-las-anclas-a-documentos-igual-que-save-document-payload.md
+?? desk/inbox/20261116-082230-suggestion-sldb-api-template-anchors-los-p-rrafos-ancla-literales-de-la-plantilla-de-un-modelo-h1-de-placeholder.md
+?? desk/inbox/20261116-083618-suggestion-referrers-y-rewrite-references-aceptan-graph-excluded-sources-y-no-duplican-menciones-del-frontmatter-h-a-h-c-de-cc35c.md
+?? runs/subagents/exec-deskops-e-bae0befe2582/
+?? runs/subagents/test-deskops-t-05549e84fdaf/
+== .
+ M .github/requirements-suite.txt
+ M .sldb/core/models/ReviewDoc.yaml
+ M .sldb/core/store_index.yaml
+ M .sldb/store.yaml
+ M README.md
+ M frontends/mindmap/README.md
+ M frontends/mindmap/persistence.py
+ M frontends/mindmap/projection_views.py
+ M frontends/mindmap/serve.py
+ M frontends/mindmap/sldb_adapter.py
+ M frontends/mindmap/views/specs/notation/notation-deployment.mjs
+ M frontends/mindmap/views/specs/notation/notation-style.mjs
+ M frontends/mindmap/views/specs/notation/notation-swimlanes.mjs
+ M frontends/mindmap/views/specs/notation/notation-view.js
+ M frontends/mindmap/views/specs/notation/notation.css
+ M frontends/mindmap/views/specs/notation/notation.mjs
+ M frontends/mindmap/views_routes.py
+ M pyproject.toml
+ M tests/e2e_mindmap_notation.py
+ M tests/e2e_notation_activity.py
+== ../../sldb
+ M .sldb/core/documents/TaskCodeDoc/task-sldb-stores-add-guarda-tal-cual-un-enlace-absoluto-con-o-con-variable-de-entorno.yaml
+ M .sldb/core/models/InboxNoteDoc.yaml
+ M .sldb/core/models/RunDoc.yaml
+ M .sldb/core/models/TaskCodeDoc.yaml
+ M .sldb/core/store_index.yaml
+ M .sldb/store.yaml
+ M CHANGELOG.md
+ M desk/tasks/task-sldb-stores-add-guarda-tal-cual-un-enlace-absoluto-con-o-con-variable-de-entorno.md
+ M src/sldb/api/documents/apply_batch.py
+ M src/sldb/models/doc_anchor_value.py
+ M src/sldb/store/io/lock.py
+ M src/sldb/store/model_contract.py
+ M src/sldb/store/models/edge_node_record.py
+ M tests/api/test_doc_anchors.py
+ M tests/store/test_payload_projection.py
+ M uv.lock
+?? .herdr-coordination.md
+?? .sldb/core/documents/InboxNoteDoc/20261116-094415-unclear-models-validate-falla-con-no-module-named-deskops-base-para-modelos-deskops-models.yaml
+?? .sldb/core/documents/RunDoc/run-deskops-e-9c1e01636d14.yaml
+?? .sldb/core/documents/RunDoc/run-deskops-e-a7eadfe52463.yaml
+== ../../pron
+?? .deskops.log

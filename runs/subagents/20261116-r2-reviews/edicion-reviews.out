@@ -1,0 +1,10 @@
+task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia/preflight: reviewed
+review: review-task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia-preflight-1
+run_dir: runs/subagents/20261116-190941/context-review/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia/preflight/edea3a28caf5d893bdcf99fd3107525c0aabb15532957f7a9c57b8e48e762401/attempt-1
+input_sha256: edea3a28caf5d893bdcf99fd3107525c0aabb15532957f7a9c57b8e48e762401
+rc=0 preflight
+task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia/bundle: reviewed
+review: review-task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia-bundle-1
+run_dir: runs/subagents/20261116-190951/context-review/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia/bundle/dd93c533428f46400f38bae4fa59d75e31e5d1ea54d3cac5a2de4f4a40435246/attempt-1
+input_sha256: dd93c533428f46400f38bae4fa59d75e31e5d1ea54d3cac5a2de4f4a40435246
+rc=0 bundle

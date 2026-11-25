@@ -1,0 +1,172 @@
+{
+  "key": "task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/bundle",
+  "input_sha256": "4fb5423fda531e2fdaed004fe9bc582c104e018e7a79981132f25e887bbc4651",
+  "argv": [
+    "pi",
+    "--provider",
+    "deepseek",
+    "--model",
+    "deepseek-flash",
+    "--thinking",
+    "low",
+    "--offline",
+    "--no-session",
+    "--no-context-files",
+    "--no-skills",
+    "--no-extensions",
+    "--no-prompt-templates",
+    "--no-tools",
+    "--print",
+    "--system-prompt",
+    "Revisor barato aislado de un encargo de planificación. Trabajas solo con el input explícito: sin herramientas, historial ni otras fuentes. No ejecutas nada. Responde en español con estas secciones exactas: REFORMULACION (propósito, resultado, repo, límites), AMBIGUEDADES (numeradas, cada una con cita textual del input y qué obligaría a inventar; escribe \"ninguna\" si no hay), DRY-RUN (lecturas, cambios previstos, dependencias y validaciones futuras, sin ejecutar), FUTURO (lo que produce otro nodo o decide un humano, no ambigüedad). REFORMULACION describe el encargo del nodo, no esta revisión. DRY-RUN describe cómo lo ejecutaría un ejecutor futuro, hipotéticamente y sin ejecutar nada. Si el nodo es un agregado o paquete no ejecutable, dilo y además recorre cómo lo cumplen sus hijos, qué transfiere cada uno al siguiente y cómo se valida el resultado conjunto. Máximo 350 palabras.",
+    "@/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/runs/subagents/20261116-124651/context-review/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/bundle/4fb5423fda531e2fdaed004fe9bc582c104e018e7a79981132f25e887bbc4651/attempt-1/input.md"
+  ],
+  "model": "deepseek/deepseek-flash",
+  "profile": "runtime-pi-deepseek-flash",
+  "selection_reason": "deepseek-flash: perfil barato verificado en esta máquina por ritual-context-review (D4)",
+  "sources": [
+    {
+      "path": "desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md",
+      "sha256": "490c7b6c72fdc6e4e540fcfb8873a32a3cc5c61fdfe28203029d6f6ecec0568e",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/execution.md",
+      "sha256": "1e1f276948153414b47a428e9cdef41fca3084def14e942601541bfde213413b",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/testing.md",
+      "sha256": "bdf6263333b61cd58a3da8c64d9bf29f8562f7595de532fdcb90ec3ed2d979a0",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/closeout.md",
+      "sha256": "102af3eff35756f1a8a2d0e1092862418d891504ec08f8855125a5a5bc406d95",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md",
+      "sha256": "451269fb5a78129f8d1038928699e1db7a99fe0a87bc8a0879b8a35c08d3f6eb",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/atoms/atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz.md",
+      "sha256": "c79e7a01b6284a7a40a31bafb46bd7d361a82385d4d869a4500b3a7728ffbdc8",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/atoms/atom-cómo-corre-la-ci-de-graph-ui.md",
+      "sha256": "7897dd110fae1eca752e91aa192ca2fc8dacd4dbadb420cc13eafa784285f847",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/sldb_adapter.py",
+      "sha256": "4403f1d1de38c0d35cb241e2b7b81115a8129d69fa29d7fa2cc04aebc432b009",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views_routes.py",
+      "sha256": "e235c468ad9a3bb8b4447d6d00785dc9a022c085c5dafe86dd28efa08700eb13",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/projection_views.py",
+      "sha256": "808397fde76393e842854fd14b0e869edc55104dca9af6e30697571e937d398f",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/persistence.py",
+      "sha256": "f2fa74a9a9de49580cab138ac4f9a90e570ddc166b9d4ea4632c2865e71116c2",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/serve.py",
+      "sha256": "7b1147d4be6555d30e12489c3d2d809602c8c29dc2bff0b1e014f41a317e2328",
+      "projection": "whole_file"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "e43c97541d974b9618e083901dd2c76c417898876b64f259e8b3771f4245e9ea",
+      "projection": "whole_file"
+    },
+    {
+      "path": ".github/requirements-suite.txt",
+      "sha256": "c2cca7f52a1fc866cbf5a44a188d0a2c73ed342fb9c224ea1c53b7a02eaa50ea",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/test_projection_views.py",
+      "sha256": "ac9a8ec0887b228019f11cbff8117134ea00bc40adc7bc75b1d76156f25bef8d",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/test_mindmap_notation.py",
+      "sha256": "737e252adf6eced90a1a03b34db9d710c1a40acb82a9d1df7e8f0709660ab726",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/test_mindmap_skin.py",
+      "sha256": "66686bdf6dc2e7cb9e869ffffb9d749858338937dd98632c0165be38f4958d3c",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/e2e_notation_class.py",
+      "sha256": "36e69eddd34aa965a1a01ef77f16c43755219d20fc2e1110667809dd82e7e836",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/e2e_notation_sequence.py",
+      "sha256": "747b4ea559291f622b5e1ef2a476665f2f89a92f7482d716eb56c29d015055ae",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/e2e_notation_deployment.py",
+      "sha256": "0612d87c7e01aee69032939daa26ccd1f4ef30e3970f7a8341dbff5c7d930793",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/e2e_notation_activity.py",
+      "sha256": "a29d6540ebbf02074c09e8abb2375ae2258a03db608cd611bb1ce1503445258c",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/e2e_notation_style.py",
+      "sha256": "e57042e4a70c3045152cc99fedc239a85e23efa046c6218083a6451a25d35d6c",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/e2e_notation_legibility.py",
+      "sha256": "0e0942fe6432488330dc0c1445f3b5d212059af80c1c9ab332c9d67b42dc667f",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/e2e_mindmap_notation.py",
+      "sha256": "4aa782b6c26709cee5eab8ba0e39ab722113ff79c7dd93f6e75d0313036a6674",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/e2e_review_workbench_views.py",
+      "sha256": "f116430328e3423e49ee27c995c7a900bdde812dd59dbd4c00f401a70fc6d6b3",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/atoms/atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz.md",
+      "sha256": "c79e7a01b6284a7a40a31bafb46bd7d361a82385d4d869a4500b3a7728ffbdc8",
+      "projection": "whole_file"
+    }
+  ],
+  "omitted_sources": [
+    {
+      "path": "frontends/mindmap/views/specs/notation/",
+      "reason": "directory"
+    },
+    {
+      "path": "tests/fixtures/notation-pilots/",
+      "reason": "directory"
+    }
+  ],
+  "started": "2026-11-16T12:46:52.099616+00:00",
+  "finished": "2026-11-16T12:47:10.041443+00:00",
+  "retry_reason": "El input cambió: JP mudó todas las tareas a robocop2 (tag host:local -> host:robocop2, c3664af); el resto del contrato no cambió"
+}

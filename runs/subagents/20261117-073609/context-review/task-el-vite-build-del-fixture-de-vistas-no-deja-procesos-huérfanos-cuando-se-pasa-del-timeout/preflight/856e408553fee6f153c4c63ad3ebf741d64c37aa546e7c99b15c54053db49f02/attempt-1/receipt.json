@@ -1,0 +1,9 @@
+{
+  "key": "task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-huérfanos-cuando-se-pasa-del-timeout/preflight",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "856e408553fee6f153c4c63ad3ebf741d64c37aa546e7c99b15c54053db49f02",
+  "output_sha256": "65d1f6925dda52031b7a471059079584518e4532cdd8e24676b33212572d7d9c",
+  "start": "2026-11-17T07:36:09.718741+00:00",
+  "end": "2026-11-17T07:36:18.141034+00:00"
+}

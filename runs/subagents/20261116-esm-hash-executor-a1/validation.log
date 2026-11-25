@@ -1,0 +1,31 @@
+$ node --test tests/mindmap-workspace-reader.test.mjs tests/mindmap-workspace.test.mjs
+exit code: 0
+# tests 23
+# pass 23
+# fail 0
+
+$ node --test tests/*.test.mjs
+exit code: 0
+# tests 158
+# pass 158
+# fail 0
+
+$ systemd-run --user --scope -p MemoryMax=3G -- env TMPDIR=/dev/shm /dev/shm/venv-esm-e1/bin/python -m pytest -q tests/test_mindmap_workspace_reader.py
+exit code: 0
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+31 passed, 1 warning in 322.41s (0:05:22)
+
+## Corrección 1
+$ node --test tests/*.test.mjs
+exit code: 0
+# tests 158
+# pass 158
+# fail 0
+
+## Corrección 2
+$ node --test tests/*.test.mjs
+exit code: 0
+# tests 158
+# pass 158
+# fail 0

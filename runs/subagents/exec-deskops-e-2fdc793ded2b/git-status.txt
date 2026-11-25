@@ -1,0 +1,76 @@
+## master...origin/master [ahead 8]
+ M .sldb/core/documents/RunDoc/run-deskops-e-2fdc793ded2b.yaml
+ M .sldb/core/models/InboxNoteDoc.yaml
+ M .sldb/core/models/ReviewDoc.yaml
+ M .sldb/core/models/RunDoc.yaml
+ M .sldb/core/store_index.yaml
+ M runs/subagents/exec-deskops-e-2fdc793ded2b/run.md
+?? .sldb/core/documents/InboxNoteDoc/20261125-114503-unclear-queue-20261125t143819z-dispatch-executor-task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion-bundle-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion-preflight-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion-bundle-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion-preflight-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker-bundle-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker-preflight-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con-bundle-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con-preflight-1.yaml
+?? desk/inbox/20261125-114503-unclear-queue-20261125t143819z-dispatch-executor-task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con.md
+?? desk/reviews/task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion/
+?? desk/reviews/task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion/
+?? desk/reviews/task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker/
+?? desk/reviews/task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con/
+?? runs/subagents/20261116-124617/
+?? runs/subagents/20261116-124651/
+?? runs/subagents/20261116-124713/
+?? runs/subagents/20261116-124733/
+?? runs/subagents/20261116-125047/
+?? runs/subagents/20261116-125323/
+?? runs/subagents/20261116-125341/
+?? runs/subagents/20261116-125357/
+?? runs/subagents/20261116-125615/
+?? runs/subagents/20261116-125634/
+?? runs/subagents/20261116-125651/
+?? runs/subagents/20261116-125703/
+?? runs/subagents/20261116-172432/
+?? runs/subagents/20261116-172444/
+?? runs/subagents/20261116-172528/
+?? runs/subagents/20261116-174106/
+?? runs/subagents/20261116-175739/
+?? runs/subagents/20261116-175850/
+?? runs/subagents/20261116-184946/
+?? runs/subagents/20261116-185004/
+?? runs/subagents/20261116-190941/
+?? runs/subagents/20261116-190951/
+?? runs/subagents/20261116-esm-hash-executor-a1/
+?? runs/subagents/20261116-gate-findings-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a1/
+?? runs/subagents/20261116-ir13-executor-a2/
+?? runs/subagents/20261116-ir13-tester-a1/
+?? runs/subagents/20261116-ir13-tester-r2/
+?? runs/subagents/20261116-lector-executor-a1/
+?? runs/subagents/20261116-r2-reviews/
+?? runs/subagents/20261116-sldb-serve-rss/
+?? runs/subagents/20261116-specs-packages-executor-a1/
+?? runs/subagents/20261116-triaje-graph-ui/
+?? runs/subagents/20261117-013020/
+?? runs/subagents/20261117-013106/
+?? runs/subagents/20261117-033313/
+?? runs/subagents/20261117-040638/
+?? runs/subagents/20261117-045839/
+?? runs/subagents/20261117-045857/
+?? runs/subagents/20261117-073609/
+?? runs/subagents/20261117-073621/
+?? runs/subagents/20261125-143143/
+?? runs/subagents/20261125-143201/
+?? runs/subagents/20261125-143224/
+?? runs/subagents/20261125-143245/
+?? runs/subagents/20261125-143317/
+?? runs/subagents/20261125-143346/
+?? runs/subagents/20261125-143405/
+?? runs/subagents/20261125-143419/
+?? runs/subagents/exec-deskops-e-2fdc793ded2b/board.txt
+?? runs/subagents/exec-deskops-e-2fdc793ded2b/git-status.txt
+?? runs/subagents/exec-deskops-e-2fdc793ded2b/graph.txt
+?? runs/subagents/exec-deskops-e-2fdc793ded2b/next.txt
+?? runs/subagents/exec-deskops-e-2fdc793ded2b/prompt.md
+?? runs/subagents/exec-deskops-e-2fdc793ded2b/task.txt

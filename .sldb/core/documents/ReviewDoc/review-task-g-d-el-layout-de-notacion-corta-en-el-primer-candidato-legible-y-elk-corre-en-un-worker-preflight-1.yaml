@@ -1,0 +1,36 @@
+name: review-task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker-preflight-1
+path: desk/reviews/task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker/preflight-1.md
+source_hash: b23900ddee2f350ea4f17b79ca69a617b3563852f403fed8b041e85d5dd97680
+content_hash: ce717a4375aa1cb4466eeadfb2996a86cf591ba0255678106c67f6757e0cb0fd
+field_hashes:
+  id: bb0e3a07cb746e98010ab6d4f015678881cba3b8937214e622ae8281360ab747
+  title: 58ad7f90f51b4fb3c9fa0236221cffd420e887358f0f2040ab8e265b8af9b145
+  kind: b7aa467a101908787d614f7bfc1dadd75a976b85a3bf6022dd451c30158bbff2
+  fact: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  value: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  subject: b08cc30292a28bccc3ad2273743f9614cd8e6012ec8c91d6807fe461927db180
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 6874c40de9971944b9706ccc769074b7f77cb595ed78bafba748db5266461238
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: 449cb3ef2690cb2f08f216952591394b29be8d20f7677d88076f151b47ab1703
+  input_sha256: 7074825e0ddcea10efc0d3e9f30130d2b5f87c8814d8561122a20a0119cdf121
+  contract_sha256: 9fae0adef0cbbcd51d7eba484b8870bff253d5a9b36225d91906cdafc65a6615
+  output_sha256: 7076f3b4383fef01d8060ff20658e8bc23ee4b6d7eaf64c081e6d8878feacd74
+  verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
+  reason: a7cc59664eebb410616b5f83148ba2173c52786ff5e9e508744b077cc04031e4
+  created_at: 013c1e04739538fd9835aa42a176505e1db7f95e526e6866c9f97024e745a1d9
+  disposed_at: 8483bb173546417d30b4758e43506472e42a5f1b588d074b6fde7c8c0eefe013
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: 9bbd10b9a40579282cad9241a31e4ff0ddee823440043af2dc188923d2800c28
+  disposition: 80c281f5ba80e34c21d4157ee35d1284643d7168857d5f491e46244b3e146eae
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+provenance:
+  by: agent
+  at: '2026-11-25T14:36:14Z'
+  authority: generated
+  via: save_document_payload

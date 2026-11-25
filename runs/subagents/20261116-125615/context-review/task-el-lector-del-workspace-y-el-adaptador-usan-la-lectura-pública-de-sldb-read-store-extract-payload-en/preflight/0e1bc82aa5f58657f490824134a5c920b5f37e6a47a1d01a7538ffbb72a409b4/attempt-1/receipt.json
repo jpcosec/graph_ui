@@ -1,0 +1,9 @@
+{
+  "key": "task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en/preflight",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "0e1bc82aa5f58657f490824134a5c920b5f37e6a47a1d01a7538ffbb72a409b4",
+  "output_sha256": "15ed2b73caf1782be930a26f5e033ffd8c30678deeeaf554884448054939a20b",
+  "start": "2026-11-16T12:56:15.555499+00:00",
+  "end": "2026-11-16T12:56:30.967664+00:00"
+}

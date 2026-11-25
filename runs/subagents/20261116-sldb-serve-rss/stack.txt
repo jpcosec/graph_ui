@@ -1,0 +1,10 @@
+Thread 0x000070cbfc1ff6c0 (most recent call first):
+  File "/usr/lib/python3.12/copy.py", line 173 in _deepcopy_dict
+  File "/usr/lib/python3.12/copy.py", line 165 in deepcopy
+  File "/usr/lib/python3.12/copy.py", line 173 in _deepcopy_dict
+  File "/usr/lib/python3.12/copy.py", line 71 in copy
+  File "/usr/lib/python3.12/copy.py", line 173 in _deepcopy_atomic
+  File "/usr/lib/python3.12/copy.py", line 168 in deepcopy
+  File "/usr/lib/python3.12/copy.py", line 173 in _deepcopy_atomic
+  File "/usr/lib/python3.12/copy.py", line 45 in deepcopy
+  File 

@@ -1,0 +1,23 @@
+### AFTER tests/e2e_desk_ui.py (cwd /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui) 2026-11-16T12:31:31-03:00
+Mem:              31          19           3           1          10          11
+>       expect(page.locator('.notice.is-error')).to_contain_text('Herdr no está disponible')
+FAILED tests/e2e_desk_ui.py::test_board_columns_gates_advance_conflict_focus
+FAILED tests/e2e_desk_ui.py::test_task_page_sections_inheritance_and_advance
+FAILED tests/e2e_desk_ui.py::test_task_gate_shows_its_rule_findings - Asserti...
+FAILED tests/e2e_desk_ui.py::test_task_gate_without_findings_has_no_list - As...
+FAILED tests/e2e_desk_ui.py::test_drawer_lists_disk_and_copies_the_exact_command
+FAILED tests/e2e_desk_ui.py::test_inbox_ack_promote_and_conflict - AssertionE...
+FAILED tests/e2e_desk_ui.py::test_agents_without_herdr_shows_cause_and_runs_match_the_view
+FAILED tests/e2e_desk_ui.py::test_every_screen_loads_from_the_sidebar_with_visible_focus
+8 failed, 2 warnings in 677.14s (0:11:17)
+rc=1
+### AFTER tests/test_desk_ui_routes.py (cwd /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui) 2026-11-16T12:42:49-03:00
+Mem:              31          14           8           1          11          17
+FAILED tests/test_desk_ui_routes.py::test_each_view_route_returns_exactly_what_deskops_view_returns
+FAILED tests/test_desk_ui_routes.py::test_desk_selector_lists_registry_desks_with_a_desk_and_routes_views
+FAILED tests/test_desk_ui_routes.py::test_advance_delegates_to_desk_routes_with_revision_guard
+FAILED tests/test_desk_ui_routes.py::test_board_comes_from_sldb_serve_and_projects_to_deskops_view
+FAILED tests/test_desk_ui_routes.py::test_advance_with_the_etag_read_before_an_edit_is_409
+5 failed, 8 passed, 1 warning in 615.46s (0:10:15)
+rc=1
+ALLDONE

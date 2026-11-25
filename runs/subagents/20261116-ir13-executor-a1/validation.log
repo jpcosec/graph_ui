@@ -1,0 +1,38 @@
+# validation.log — T1 IR13 (executor deskops-e-687036bb547d, intento 1), 2026-11-16
+
+Entorno: venv aislado /dev/shm/venv-ir13 (python 3.13), con PATH=/dev/shm/venv-ir13/bin:$PATH y TMPDIR=/dev/shm.
+Instalado: -e sldb, -e pron, -e deskops, -e graph_ui, -e IR, pytest 9.2.0, playwright 1.55.0 (chromium-1187 de ~/.cache/ms-playwright).
+
+$ /dev/shm/venv-ir13/bin/python -c "import spec2viz"
+ModuleNotFoundError: No module named 'spec2viz'
+exit code: 1   (esperado: el entorno no tiene spec2viz)
+
+$ python -m pytest -q -rs --basetemp=<tmp> tests/test_projection_views.py tests/test_mindmap_notation.py tests/test_mindmap_skin.py
+20 passed, 1 warning in 32.84s   (0 skipped; -rs no lista nada)
+exit code: 0
+
+$ python -m pytest -q -rs --basetemp=<tmp> tests/e2e_notation_class.py tests/e2e_notation_sequence.py tests/e2e_notation_deployment.py tests/e2e_notation_activity.py tests/e2e_notation_style.py tests/e2e_notation_legibility.py tests/e2e_mindmap_notation.py tests/e2e_review_workbench_views.py
+21 passed, 1 warning in 365.29s (0:06:05)   (0 skipped; salida completa en e2e-pytest.out)
+exit code: 0
+
+$ grep -rnE 'from spec2viz|import spec2viz|importorskip\("spec2viz"\)|which\("spec2viz"\)|spec2viz\.sldb_models|spec2viz>=|spec2viz@' frontends tests pyproject.toml .github
+(sin salida)
+exit code: 1   (grep sin coincidencias; el `! grep` del contrato da 0)
+
+$ cd ../../IR && /dev/shm/venv-ir13/bin/specir retirement check --path graph_ui=../UIs/graph_ui
+Error: no path given for: deskops, pron, sldb, spec2viz/.sldb
+exit code: 2   (el comando exige la ruta de todo el inventario de la matriz)
+
+$ cd ../../IR && /dev/shm/venv-ir13/bin/specir retirement check --path graph_ui=../UIs/graph_ui --path deskops=../deskops --path pron=../pron --path sldb=../sldb --path spec2viz/.sldb=../spec2viz/.sldb
+audited repos: graph_ui, deskops, pron, sldb, IR
+audited stores: spec2viz/.sldb
+dependencies: 88   -> 0 de graph_ui (ver desglose abajo; salida completa en specir-retirement-check.txt)
+gate: failed, the retirement is not declared
+exit code: 1   (el gate global sigue abierto por otros repos y por filas de la matriz; graph_ui no aparece en ninguna línea de dependencia)
+
+Extra (no es del contrato; notation.mjs cambió un texto visible):
+$ node --test tests/mindmap-notation.test.mjs tests/mindmap-notation-style.test.mjs
+tests 27, pass 27, fail 0, skipped 0
+exit code: 0
+
+Desglose de las 88 dependencias por repo/store: IR 43, deskops 22, spec2viz/.sldb 19, pron 3, sldb 1, graph_ui 0. Filas de la matriz sin acreditar: 23.

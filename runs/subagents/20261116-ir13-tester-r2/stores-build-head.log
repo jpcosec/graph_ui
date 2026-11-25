@@ -1,0 +1,3 @@
+[warning] Sections rebuild: 2 documents missing on disk (RunDoc: 2); e.g. runs/subagents/20261116-ir13-executor-a1/run.md, runs/subagents/20261116-ir13-tester-a1/run.md
+built: links: 0, models: 0, tracked: 0, generated: 0, undeclared: 0, missing: 2
+missing: runs/subagents/20261116-ir13-executor-a1/run.md, runs/subagents/20261116-ir13-tester-a1/run.md

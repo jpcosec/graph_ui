@@ -1,0 +1,36 @@
+name: review-task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c-preflight-1
+path: desk/reviews/task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c/preflight-1.md
+source_hash: b51561a714b486a6dd8ac56395cd4edca1e533ee8e56ccf326bbd86948c5b1de
+content_hash: 92e5a3bdd6438f33976a57b17e350300f6a52783f336b2f287f486224b9d6b2b
+field_hashes:
+  id: 98c5043c5981f8f882ad71234208e11eafa89ebd5af1cf6acfd8672a6bbb5291
+  title: 56a7f96ce5e4f9ae37bafd61575c2ae9a87890c70c63e3393b0c779218da80fe
+  kind: b7aa467a101908787d614f7bfc1dadd75a976b85a3bf6022dd451c30158bbff2
+  fact: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  value: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  subject: b8fdf54c28e25020101a0e24aa3f044f1db27fe89ce9707488edcee6cb94e2a2
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 6874c40de9971944b9706ccc769074b7f77cb595ed78bafba748db5266461238
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: db8c34deb9f25d33e9a854970e9071862e55e532df4151621298e472597cd91c
+  input_sha256: c17fb2d3b21a2ec483fc96b077e32e417498b147558cc13f02258e6a36fc3692
+  contract_sha256: 62a4d50f0894d12f93d1a5abdf02a9441ae013925c074babdcc11d31a4008c5b
+  output_sha256: 7891a60658b5cd07a121a3daacfddcad4875dd29e11a8fb403d88fb0e572d4f5
+  verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
+  reason: 3c6d3771d9dd6c924d570f3b37fc3bac7e1b909580850947f7bba0160fcbf811
+  created_at: 25fc7e35bc16c61e1da9a11995fae84611b7c66bfb9be01fb78b7d33c73357c6
+  disposed_at: 1f9f96da960432e197001a2e3f7b23d4053274827de1c14f648241049d9c350f
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: 1a57fefa1c61e7eafb823c9eec8993b4127dae466b28be3cc3ae90ca7160d41e
+  disposition: b728db1d8d0209f92299e9013189be38eb9fb8eac0eac74ed0c711c1fe02ff89
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+provenance:
+  by: agent
+  at: '2026-11-25T15:57:13Z'
+  authority: generated
+  via: save_document_payload

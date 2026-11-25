@@ -1,0 +1,9 @@
+{
+  "key": "task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot/preflight",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "2ffa14171a9ff9f62515e92911678748fb958fd55c93be5b6e36dace2c39c1f2",
+  "output_sha256": "f5683aa2e7ba5ec888d2b74994aeeaedf879de3be4edd9f84f30a93d6651ced1",
+  "start": "2026-11-16T12:47:13.570122+00:00",
+  "end": "2026-11-16T12:47:29.392626+00:00"
+}

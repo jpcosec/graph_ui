@@ -1,0 +1,23 @@
+ M .sldb/core/models/InboxNoteDoc.yaml
+ M .sldb/core/models/RunDoc.yaml
+ M .sldb/core/store_index.yaml
+ M .sldb/store.yaml
+ M deskops/cli/commands/desk.py
+ M tests/fixtures/golden/scaffold/update.json
+ M tests/test_cli.py
+ M tests/test_legacy_task_states.py
+ M tests/test_review_doc.py
+?? .sldb/core/documents/InboxNoteDoc/20261116-081341-suggestion-create-document-pinnea-las-anclas-a-documentos-igual-que-save-document-payload.yaml
+?? .sldb/core/documents/InboxNoteDoc/20261116-082230-suggestion-sldb-api-template-anchors-los-p-rrafos-ancla-literales-de-la-plantilla-de-un-modelo-h1-de-placeholder.yaml
+?? .sldb/core/documents/InboxNoteDoc/20261116-083618-suggestion-referrers-y-rewrite-references-aceptan-graph-excluded-sources-y-no-duplican-menciones-del-frontmatter-h-a-h-c-de-cc35c.yaml
+?? .sldb/core/documents/InboxNoteDoc/20261116-094650-suggestion-editar-tags-de-una-tarea-deja-stale-sus-recibos-preflight-y-bundle.yaml
+?? .sldb/core/documents/InboxNoteDoc/20261116-094652-suggestion-cambiar-el-tag-host-de-una-tarea-deja-stale-sus-recibos-preflight-y-bundle.yaml
+?? .sldb/core/documents/RunDoc/run-deskops-e-bae0befe2582.yaml
+?? .sldb/core/documents/RunDoc/run-deskops-t-05549e84fdaf.yaml
+?? desk/inbox/20261116-081341-suggestion-create-document-pinnea-las-anclas-a-documentos-igual-que-save-document-payload.md
+?? desk/inbox/20261116-082230-suggestion-sldb-api-template-anchors-los-p-rrafos-ancla-literales-de-la-plantilla-de-un-modelo-h1-de-placeholder.md
+?? desk/inbox/20261116-083618-suggestion-referrers-y-rewrite-references-aceptan-graph-excluded-sources-y-no-duplican-menciones-del-frontmatter-h-a-h-c-de-cc35c.md
+?? desk/inbox/20261116-094650-suggestion-editar-tags-de-una-tarea-deja-stale-sus-recibos-preflight-y-bundle.md
+?? desk/inbox/20261116-094652-suggestion-cambiar-el-tag-host-de-una-tarea-deja-stale-sus-recibos-preflight-y-bundle.md
+?? runs/subagents/exec-deskops-e-bae0befe2582/
+?? runs/subagents/test-deskops-t-05549e84fdaf/

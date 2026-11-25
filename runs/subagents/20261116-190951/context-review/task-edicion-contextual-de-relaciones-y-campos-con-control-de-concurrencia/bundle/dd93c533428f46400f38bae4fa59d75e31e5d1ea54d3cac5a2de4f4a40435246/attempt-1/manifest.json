@@ -1,0 +1,81 @@
+{
+  "key": "task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia/bundle",
+  "input_sha256": "dd93c533428f46400f38bae4fa59d75e31e5d1ea54d3cac5a2de4f4a40435246",
+  "argv": [
+    "pi",
+    "--provider",
+    "deepseek",
+    "--model",
+    "deepseek-flash",
+    "--thinking",
+    "low",
+    "--offline",
+    "--no-session",
+    "--no-context-files",
+    "--no-skills",
+    "--no-extensions",
+    "--no-prompt-templates",
+    "--no-tools",
+    "--print",
+    "--system-prompt",
+    "Revisor barato aislado de un encargo de planificación. Trabajas solo con el input explícito: sin herramientas, historial ni otras fuentes. No ejecutas nada. Responde en español con estas secciones exactas: REFORMULACION (propósito, resultado, repo, límites), AMBIGUEDADES (numeradas, cada una con cita textual del input y qué obligaría a inventar; escribe \"ninguna\" si no hay), DRY-RUN (lecturas, cambios previstos, dependencias y validaciones futuras, sin ejecutar), FUTURO (lo que produce otro nodo o decide un humano, no ambigüedad). REFORMULACION describe el encargo del nodo, no esta revisión. DRY-RUN describe cómo lo ejecutaría un ejecutor futuro, hipotéticamente y sin ejecutar nada. Si el nodo es un agregado o paquete no ejecutable, dilo y además recorre cómo lo cumplen sus hijos, qué transfiere cada uno al siguiente y cómo se valida el resultado conjunto. Máximo 350 palabras.",
+    "@/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/runs/subagents/20261116-190951/context-review/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia/bundle/dd93c533428f46400f38bae4fa59d75e31e5d1ea54d3cac5a2de4f4a40435246/attempt-1/input.md"
+  ],
+  "model": "deepseek/deepseek-flash",
+  "profile": "runtime-pi-deepseek-flash",
+  "selection_reason": "deepseek-flash: perfil barato verificado en esta máquina por ritual-context-review (D4)",
+  "sources": [
+    {
+      "path": "desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md",
+      "sha256": "76099e80e73019d2dbb86918976af13124ba28a78aaab65a9d6202e596f91b86",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/execution.md",
+      "sha256": "1e1f276948153414b47a428e9cdef41fca3084def14e942601541bfde213413b",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/testing.md",
+      "sha256": "bdf6263333b61cd58a3da8c64d9bf29f8562f7595de532fdcb90ec3ed2d979a0",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/closeout.md",
+      "sha256": "102af3eff35756f1a8a2d0e1092862418d891504ec08f8855125a5a5bc406d95",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md",
+      "sha256": "451269fb5a78129f8d1038928699e1db7a99fe0a87bc8a0879b8a35c08d3f6eb",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/atoms/atom-workspace-presents-document-graph-code-and-changes-as-projections-of-the-same-node.md",
+      "sha256": "2eb6472f8d65175fcf9904eadcd4276cbbe3b759223ef13d40f426b0e1614549",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/serve.py",
+      "sha256": "7b1147d4be6555d30e12489c3d2d809602c8c29dc2bff0b1e014f41a317e2328",
+      "projection": "whole_file"
+    },
+    {
+      "path": "docs/workspace-ui.md",
+      "sha256": "454b2ff3304dc3e19957ed5e5d540f0e1e4a9245473b8816d6e508f3213dcda7",
+      "projection": "whole_file"
+    }
+  ],
+  "omitted_sources": [
+    {
+      "path": "frontends/mindmap/views/workspace/",
+      "reason": "directory"
+    },
+    {
+      "path": "tests/test_mindmap_workspace_edit.py",
+      "reason": "missing"
+    }
+  ],
+  "started": "2026-11-16T19:09:51.866654+00:00",
+  "finished": "2026-11-16T19:10:07.433725+00:00"
+}

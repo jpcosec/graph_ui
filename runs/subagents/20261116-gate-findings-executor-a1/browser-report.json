@@ -1,0 +1,86 @@
+{
+ "task-1": {
+  "ms": 4010,
+  "console": [],
+  "checks": [
+   {
+    "level_text": "error",
+    "code": "rules/rule-activation-task-code",
+    "what_full": true,
+    "class": "finding is-error"
+   }
+  ]
+ },
+ "task-2": {
+  "ms": 4412,
+  "console": [],
+  "checks": [
+   {
+    "level_text": "error",
+    "code": "rules/rule-activation-task-code",
+    "what_full": true,
+    "class": "finding is-error"
+   }
+  ]
+ },
+ "task-3": {
+  "ms": 3908,
+  "console": [],
+  "checks": [
+   {
+    "level_text": "error",
+    "code": "rules/rule-activation-task-code",
+    "what_full": true,
+    "class": "finding is-error"
+   }
+  ]
+ },
+ "board-1": {
+  "ms": 4274,
+  "console": [],
+  "checks": [
+   {
+    "level_text": "error",
+    "code": "rules/rule-activation-task-code",
+    "what_full": true,
+    "class": "finding is-error"
+   }
+  ]
+ },
+ "board-2": {
+  "ms": 4231,
+  "console": [],
+  "checks": [
+   {
+    "level_text": "error",
+    "code": "rules/rule-activation-task-code",
+    "what_full": true,
+    "class": "finding is-error"
+   }
+  ]
+ },
+ "board-3": {
+  "ms": 4764,
+  "console": [],
+  "checks": [
+   {
+    "level_text": "error",
+    "code": "rules/rule-activation-task-code",
+    "what_full": true,
+    "class": "finding is-error"
+   }
+  ]
+ },
+ "nofindings-task": {
+  "task": "task-readme-y-docs-dejan-de-nombrar-spec-artifacts-spec-fields-y-specregistry-borrados-en-cc30",
+  "gates": 1,
+  "ul_gate_findings": 0,
+  "console": []
+ },
+ "nofindings-board": {
+  "task": "task-readme-y-docs-dejan-de-nombrar-spec-artifacts-spec-fields-y-specregistry-borrados-en-cc30",
+  "gates": 1,
+  "ul_gate_findings": 0,
+  "console": []
+ }
+}

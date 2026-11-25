@@ -1,0 +1,6 @@
+task load 1: 4010 ms until gate finding visible
+task load 2: 4412 ms until gate finding visible
+task load 3: 3908 ms until gate finding visible
+board load 1: 4274 ms until gate finding visible
+board load 2: 4231 ms until gate finding visible
+board load 3: 4764 ms until gate finding visible

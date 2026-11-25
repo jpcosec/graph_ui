@@ -1,0 +1,2 @@
+node --test tests/mindmap-notation-layout.test.mjs tests/mindmap-notation.test.mjs tests/mindmap-notation-svg.test.mjs -> exit 0 (49 pass, 0 fail)
+pytest tests/e2e_mindmap_notation.py tests/e2e_notation_activity.py -> exit 1: 4 failed, todos por "BrowserType.launch: Executable doesn't exist" (Chromium de Playwright no instalado en el contenedor). No ejecutable aqui.

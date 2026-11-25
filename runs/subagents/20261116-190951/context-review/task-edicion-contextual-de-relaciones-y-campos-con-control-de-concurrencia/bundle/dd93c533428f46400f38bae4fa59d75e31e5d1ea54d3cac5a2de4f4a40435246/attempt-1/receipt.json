@@ -1,0 +1,9 @@
+{
+  "key": "task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia/bundle",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "dd93c533428f46400f38bae4fa59d75e31e5d1ea54d3cac5a2de4f4a40435246",
+  "output_sha256": "73a6aeec6bd4ef8d1adde4f71c1a8c4e26bbd0a3f54ca2ddfa01197d5dcd264e",
+  "start": "2026-11-16T19:09:51.866654+00:00",
+  "end": "2026-11-16T19:10:07.433725+00:00"
+}

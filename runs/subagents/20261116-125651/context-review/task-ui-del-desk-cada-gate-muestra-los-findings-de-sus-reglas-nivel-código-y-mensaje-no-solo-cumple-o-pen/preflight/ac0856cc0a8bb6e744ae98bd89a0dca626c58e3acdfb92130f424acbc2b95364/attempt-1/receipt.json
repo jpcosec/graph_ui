@@ -1,0 +1,9 @@
+{
+  "key": "task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen/preflight",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "ac0856cc0a8bb6e744ae98bd89a0dca626c58e3acdfb92130f424acbc2b95364",
+  "output_sha256": "ea5ca6904d4bd98dbdc6fc8ef7a3dee029fde1d7826dc80567fd425008af9131",
+  "start": "2026-11-16T12:56:51.759692+00:00",
+  "end": "2026-11-16T12:57:00.227362+00:00"
+}

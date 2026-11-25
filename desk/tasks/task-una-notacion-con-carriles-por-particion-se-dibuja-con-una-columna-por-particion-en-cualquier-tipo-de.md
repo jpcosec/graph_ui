@@ -1,0 +1,60 @@
+---
+sldb:
+  by: agent
+  at: '2026-11-25T17:44:54Z'
+  authority: generated
+  via: create_document
+id: task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de
+status: draft
+summary: ''
+tags: []
+current_node: ritual-execution
+history: []
+references: []
+depends_on: []
+pills: []
+files: []
+task_type: task.code
+inherits_from: []
+inherit_acceptance_context: false
+atoms: []
+---
+
+# una notación con carriles por partición se dibuja con una columna por partición en cualquier tipo de diagrama
+
+## Rationale
+
+_Explain why this task exists or the business driver behind it._
+
+ADR sldb/docs/architecture/mechanism-in-sldb-content-in-specir.md (JP, 2026-11-25): una notación pide un tipo de layout, no trae uno, y no hay código por notación. Hoy los carriles por partición solo existen para la actividad UML (views/specs/notation/notation-swimlanes.mjs, por data.partition) y el layout lanes es el de secuencia. BPMN y la notación de capas de specIR necesitan carriles y no los tienen.
+
+## Goal
+
+_Describe the concrete result this task must produce._
+
+Que el layout de carriles por partición sea una capacidad genérica de la vista de notación, que cualquier notación pueda pedir.
+
+## Scope
+
+_State what is in scope and what is out of scope._
+
+Dentro: frontends/mindmap/views/specs/notation/ (notation.mjs, notation-swimlanes.mjs, notation-layout.mjs). Fuera: la notación BPMN y la de capas (son de specIR), eventos y compuertas como formas nuevas.
+
+## Implementation Path
+
+_Outline the expected implementation route or affected surface._
+
+Leer docs/representacion/README.md. Si hace falta un tipo de layout que sldb no acepta hoy (sldb/src/sldb/notations/notation_constants.py, LAYOUT_KINDS), pedirlo por el inbox de sldb con deskops message send; no se resuelve en graph_ui.
+
+## Validation
+
+_List the checks required before this task can close._
+
+- node --test tests/notation-partition-lanes.test.mjs
+- python -m pytest -q tests/e2e_notation_activity.py tests/e2e_mindmap_notation.py
+
+## Done When
+
+_Name the observable condition that makes the task complete._
+
+Una notación de prueba que no es la de actividad, con nodos repartidos en tres particiones, se dibuja con tres columnas con su título y cada nodo dentro de la suya. La actividad UML se dibuja igual que antes. En el código de la vista no hay ninguna rama por nombre de notación ni por tipo de diagrama.

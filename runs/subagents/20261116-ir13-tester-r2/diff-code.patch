@@ -1,0 +1,695 @@
+diff --git a/frontends/mindmap/README.md b/frontends/mindmap/README.md
+index 9904210..f13c17f 100644
+--- a/frontends/mindmap/README.md
++++ b/frontends/mindmap/README.md
+@@ -47,11 +47,11 @@ las clases, que es la misma en ambos temas.
+   altura de la fila) y entra por la cabecera de la clase destino, etiquetada
+   con el campo. Filtro por texto; doble clic o ✎ abre «Editar clases» en esa
+   clase. Solo lectura: el contrato se edita en el diálogo.
+-- **🧩 Specs** (`/specs/notation`) — los specs de spec2viz del store,
++- **🧩 Specs** (`/specs/notation`) — los specs (`SpecDoc`) del store,
+   dibujados según su notación (UML de clases, statechart, componentes,
+   secuencia…). El catálogo son los `SpecDoc` agrupados por `category`; abrir
+   uno pide `GET /api/notation/view?spec=`, que delega en
+-  `spec2viz.notation_view.resolve_view`: graph_ui no casa glifos ni evalúa
++  `sldb.api.notations.resolve_view`: graph_ui no casa glifos ni evalúa
+   `where`, solo dibuja forma, compartimentos, marcas y terminales tal como
+   vienen. `draw: nest` es contención (el destino dentro del origen). Layout
+   `lanes` (secuencias): un carril por nodo en el orden de `nodes`, mensajes
+@@ -60,7 +60,7 @@ las clases, que es la misma en ambos temas.
+   `data.order`, filas = components indentados por `nest`, celda = link
+   `cell` (fila → columna); una fila sin celdas se dibuja vacía. Lo que aún
+   no tiene (`axis`, `draw: lane`) se dibuja como grafo y línea, con aviso.
+-  Estilo (contrato §13): cada nodo usa el `style` ya resuelto por spec2viz
++  Estilo (contrato §13): cada nodo usa el `style` ya resuelto por sldb
+   (relleno y trazo por tema, ícono de lucide junto al rótulo), las formas
+   `cylinder`, `queue`, `cloud`, `package` y `note` se dibujan como contorno, y
+   cada relación con `color` pinta su línea y su punta. El texto sobre un
+@@ -86,9 +86,9 @@ las clases, que es la misma en ambos temas.
+   grilla, con la combinación que más zoom da en el lienzo, y las aristas se
+   rutean ortogonales con A* esquivando nodos y títulos. Un título de
+   contenedor reserva el sitio de su ícono.
+-  Requiere spec2viz instalado y modo
++  Requiere modo
+   local (en remote, 501). Solo lectura. Contrato:
+-  `spec2viz/docs/notation-contract.md`.
++  `sldb/docs/architecture/notations-and-views.md`.
+ 
+ Tres diálogos:
+ 
+diff --git a/frontends/mindmap/persistence.py b/frontends/mindmap/persistence.py
+index b775cd8..f520759 100644
+--- a/frontends/mindmap/persistence.py
++++ b/frontends/mindmap/persistence.py
+@@ -56,7 +56,7 @@ class EditorStore:
+         return self.adapter.document_ir(name)
+ 
+     def notation_view(self, spec_ref):
+-        """Vista de notación de un SpecDoc, resuelta por spec2viz (ver sldb_adapter)."""
++        """Vista de notación de un SpecDoc, resuelta por sldb.api.notations (ver sldb_adapter)."""
+         return self.adapter.notation_view(spec_ref)
+ 
+     def save(self, request):
+diff --git a/frontends/mindmap/projection_views.py b/frontends/mindmap/projection_views.py
+index ea20f87..9d920fa 100644
+--- a/frontends/mindmap/projection_views.py
++++ b/frontends/mindmap/projection_views.py
+@@ -1,6 +1,6 @@
+ """Projection views: which slice of a store to look at, evaluated with sldb's API only.
+ 
+-A view is a ``ViewDoc`` of the store (its model lives in spec2viz, next to ``NotationDoc``;
++A view is a ``ViewDoc`` of the store (its model lives in sldb, next to ``NotationDoc``;
+ desk/drawer/PROJECTION_GRAMMAR_SPEC.md §3). It names models, ``where`` predicates and relation
+ types, never node ids or a store path, so the same view evaluates against any store:
+ 
+@@ -9,12 +9,12 @@ types, never node ids or a store path, so the same view evaluates against any st
+ - edges: the edges ``sldb.api.graph.execute_query`` keeps for ``RelationFilter(relations,
+   direction)``, between two documents of that node set;
+ - layout: the view's ``layout``, else its notation's ``layout`` (``NotationDoc.layout``);
+-- notation: with a ``notation``, spec2viz's ``resolve_documents`` applies it to the view's documents:
++- notation: with a ``notation``, ``sldb.api.notations.resolve_documents`` applies it to the view's documents:
+   each node's glyph, shape and resolved style (fill and stroke per theme, icon), each edge's colour,
+-  line and arrowhead (its ``LinkDoc``), the legend and the palette's ink per theme. Without spec2viz,
+-  or with a notation that does not resolve, the view still evaluates and ``notation.error`` says why.
++  line and arrowhead (its ``LinkDoc``), the legend and the palette's ink per theme. With a
++  notation that does not resolve, the view still evaluates and ``notation.error`` says why.
+ 
+-graph_ui only evaluates; drawing rules stay in spec2viz. The sldb calls live in
++graph_ui only evaluates; drawing rules stay in sldb. The sldb calls live in
+ ``mindmap.sldb_adapter`` (the one module of the mindmap that imports sldb).
+ """
+ from __future__ import annotations
+@@ -84,11 +84,9 @@ def _ink(documents: list[Any], palette: str) -> dict[str, str] | None:
+ 
+ def _notation(store: Path, view: dict[str, Any], nodes: list[dict[str, Any]], edges: list[dict[str, Any]],
+               documents: list[Any], pythonpath: str | None) -> dict[str, Any]:
+-    """The view's notation over its nodes and edges, as spec2viz resolves it (graph_ui only maps it back)."""
++    """The view's notation over its nodes and edges, as sldb resolves it (graph_ui only maps it back)."""
+     try:
+         resolved = notation_documents(store, str(view['notation']), [f"{n['model']}:{n['name']}" for n in nodes], pythonpath)
+-    except ImportError as exc:
+-        return {'error': f'spec2viz no está instalado: {exc}'}
+     except ValueError as exc:
+         return {'error': str(exc)}
+     by_doc = {n['doc']: n for n in resolved['nodes']}
+diff --git a/frontends/mindmap/serve.py b/frontends/mindmap/serve.py
+index 40b8b5e..0bf8825 100644
+--- a/frontends/mindmap/serve.py
++++ b/frontends/mindmap/serve.py
+@@ -131,7 +131,7 @@ class ProxyHandler(SimpleHTTPRequestHandler):
+     def _api_notation_view(self):
+         """GET /api/notation/view?spec=<SpecDoc>: el spec dibujado según su notación.
+ 
+-        Lo resuelve spec2viz (``resolve_view``) sobre el store local; sldb serve
++        Lo resuelve sldb (``sldb.api.notations.resolve_view``) sobre el store local; sldb serve
+         no tiene equivalente, así que en remote responde 501 explícito.
+         """
+         if self.backend_mode == 'remote':
+diff --git a/frontends/mindmap/sldb_adapter.py b/frontends/mindmap/sldb_adapter.py
+index 0324775..6b1aead 100644
+--- a/frontends/mindmap/sldb_adapter.py
++++ b/frontends/mindmap/sldb_adapter.py
+@@ -236,15 +236,12 @@ class SldbAdapter:
+         """Vista resuelta de un ``SpecDoc`` según su ``NotationDoc``.
+ 
+         El contrato de notación tiene un único intérprete,
+-        ``spec2viz.notation_view.resolve_view`` (spec2viz/docs/notation-contract.md):
+-        graph_ui no casa glifos ni evalúa ``where``, solo dibuja lo que devuelve.
+-        Errores: spec2viz ausente → 501; spec inexistente → 404; datos de
+-        notación incoherentes → 422.
++        ``sldb.api.notations.resolve_view``: graph_ui no casa glifos ni evalúa
++        ``where``, solo dibuja lo que devuelve.
++        Errores: spec inexistente → 404; datos de notación incoherentes → 422.
+         """
+-        try:
+-            from spec2viz.notation_view import ViewError, resolve_view
+-        except ImportError as exc:
+-            raise AdapterError(f"spec2viz no está instalado: {exc}", 501) from exc
++        from sldb.api.notations import ViewError, resolve_view
++
+         ref = spec_ref if ":" in spec_ref else f"SpecDoc:{spec_ref}"
+         with self.lock:
+             try:
+@@ -432,9 +429,9 @@ def relation_edges(store: str | Path, relation_types: list[str], direction: str)
+ 
+ def notation_documents(store: str | Path, notation: str, doc_refs: list[str], pythonpath: str | None = None) -> dict[str, Any]:
+     """La notación de una vista aplicada a sus documentos (``Model:name``), con el único intérprete
+-    del contrato: ``spec2viz.notation_view.resolve_documents`` (glifo, forma y estilo de cada nodo,
+-    links y leyenda). spec2viz ausente: ImportError; notación incoherente: ValueError."""
+-    from spec2viz.notation_view import ViewError, resolve_documents
++    del contrato: ``sldb.api.notations.resolve_documents`` (glifo, forma y estilo de cada nodo,
++    links y leyenda). Notación incoherente: ValueError."""
++    from sldb.api.notations import ViewError, resolve_documents
+ 
+     try:
+         return resolve_documents(Path(store), notation, doc_refs, pythonpath=pythonpath)
+diff --git a/frontends/mindmap/views/specs/notation/notation-deployment.mjs b/frontends/mindmap/views/specs/notation/notation-deployment.mjs
+index 0365dea..0be867c 100644
+--- a/frontends/mindmap/views/specs/notation/notation-deployment.mjs
++++ b/frontends/mindmap/views/specs/notation/notation-deployment.mjs
+@@ -1,4 +1,4 @@
+-// Layout propio de un despliegue (spec2viz §14) grande y anidado, cuando ELK no lo deja legible: con
++// Layout propio de un despliegue (contrato de notación §14) grande y anidado, cuando ELK no lo deja legible: con
+ // INCLUDE_CHILDREN, cada nivel de anidado suma su encabezado y su padding en cada capa, y ni el plegado
+ // ni la compactación actúan dentro de los contenedores. Aquí cada contenedor acomoda a sus hijos en
+ // columnas por flujo (de afuera hacia adentro) o en una grilla, eligiendo la proporción que maximiza
+diff --git a/frontends/mindmap/views/specs/notation/notation-style.mjs b/frontends/mindmap/views/specs/notation/notation-style.mjs
+index 8245f91..03c4b6a 100644
+--- a/frontends/mindmap/views/specs/notation/notation-style.mjs
++++ b/frontends/mindmap/views/specs/notation/notation-style.mjs
+@@ -1,4 +1,4 @@
+-// Estilo resuelto por spec2viz (contrato §13), en lógica pura: qué color toca en cada tema, de dónde
++// Estilo resuelto por sldb (contrato de notación §13), en lógica pura: qué color toca en cada tema, de dónde
+ // sale el color del texto sobre un relleno y el contorno de las formas que no son una caja. graph_ui
+ // no recalcula precedencias: node.style y link.color ya vienen resueltos.
+ 
+diff --git a/frontends/mindmap/views/specs/notation/notation-swimlanes.mjs b/frontends/mindmap/views/specs/notation/notation-swimlanes.mjs
+index 8b6cbcd..f0e3044 100644
+--- a/frontends/mindmap/views/specs/notation/notation-swimlanes.mjs
++++ b/frontends/mindmap/views/specs/notation/notation-swimlanes.mjs
+@@ -1,4 +1,4 @@
+-// Carriles UML de una activity (spec2viz §14, `data.partition`): una columna por partición, en orden
++// Carriles UML de una activity (contrato de notación §14, `data.partition`): una columna por partición, en orden
+ // de aparición, y el flujo bajando por filas. ELK no sirve aquí: los pasos de una partición no son
+ // contiguos en el flujo (Dev -> Script -> Dev), y un contenedor por partición lo apila en bloques. El
+ // layout y el ruteo ortogonal son propios y puros; la vista los recibe con la misma forma que el de
+diff --git a/frontends/mindmap/views/specs/notation/notation-view.js b/frontends/mindmap/views/specs/notation/notation-view.js
+index 60189fc..3f27298 100644
+--- a/frontends/mindmap/views/specs/notation/notation-view.js
++++ b/frontends/mindmap/views/specs/notation/notation-view.js
+@@ -8,8 +8,8 @@ import {bestLayout, pathOf, POINT_SHAPES} from './notation-layout.mjs';
+ import {glyphVars, paletteInk, themed, innerVars} from './notation-style.mjs';
+ import {GlyphIcon, ShapeOutline, NotationLegend, useIcons} from './notation-style.js';
+ 
+-// Vista genérica de notación: dibuja un spec de spec2viz tal como lo resuelve
+-// GET /api/notation/view (resolve_view de spec2viz). Nada aquí distingue UML,
++// Vista genérica de notación: dibuja un spec del store tal como lo resuelve
++// GET /api/notation/view (resolve_view de sldb.api.notations). Nada aquí distingue UML,
+ // statechart o secuencia: la forma viene del glifo y el trazo del link. El
+ // layout lo calcula ELK (notation-layout.mjs, jerárquico), nunca coordenadas del
+ // store: posiciones y plegado son estado de la superficie (contrato §7).
+@@ -59,7 +59,7 @@ function Glyph({glyph: g, container, selected, children, style, lines, outside,
+   const text = lines && lines.length ? lineList(lines) : g.label;
+   const label = html`<span className=${'glyph-label' + (g.label_style ? ' is-' + g.label_style : '')}>${text}</span>`;
+   const compartments = (g.compartments || []).filter(c => c.items && c.items.length);
+-  // Estilo resuelto por spec2viz (§13): relleno, trazo, texto e ícono; sin estilo, el de siempre.
++  // Estilo resuelto por sldb (§13): relleno, trazo, texto e ícono; sin estilo, el de siempre.
+   const vars = {...glyphVars(g.style, skin, ink), ...innerVars(g.shape)};
+   return html`<div className=${'glyph shape-' + g.shape + (container ? ' is-container' : '') + (selected ? ' selected' : '') + (g.style?.fill || g.style?.stroke ? ' is-styled' : '')}
+       style=${{...style, ...vars}} data-doc=${g.doc} data-glyph=${g.glyph} data-function=${g.function || ''} title=${g.doc}
+@@ -332,7 +332,7 @@ function NotationCanvas({skin}) {
+       <div className="notation-canvas" ref=${canvasRef} data-layout=${extent?.engine || ''}>
+         <${TerminalDefs}/>
+         ${!current && kb.documents.status === 'error' ? html`<div className="state" role="alert"><h2>No se pudo leer el store</h2><p>${kb.documents.error}</p></div>`
+-          : !current ? html`<div className="state"><h2>Este store no tiene specs de spec2viz</h2><p>Sincroniza uno con <code>spec2viz diagram sync spec.yml --store .sldb</code>.</p></div>`
++          : !current ? html`<div className="state"><h2>Este store no tiene specs</h2><p>Sincroniza uno con <code>sldb notations sync --spec spec.yml --store .sldb</code>.</p></div>`
+           : state.phase === 'error' ? html`<div className="state" role="alert"><h2>No se pudo dibujar ${current}</h2><p>${state.error}</p></div>`
+           : state.phase === 'loading' || !scene ? html`<div className="state"><p>Resolviendo la notación…</p></div>`
+           : scene.kind === 'lanes' ? html`<div className=${'notation-scroll' + (laneFit ? ' is-fit' : '')}><${LanesDiagram} scene=${scene} scale=${laneScale}/></div>`
+diff --git a/frontends/mindmap/views/specs/notation/notation.css b/frontends/mindmap/views/specs/notation/notation.css
+index 1194277..5412769 100644
+--- a/frontends/mindmap/views/specs/notation/notation.css
++++ b/frontends/mindmap/views/specs/notation/notation.css
+@@ -1,4 +1,4 @@
+-/* ---- Vista Specs: un spec de spec2viz dibujado según su notación ---- */
++/* ---- Vista Specs: un spec del store dibujado según su notación ---- */
+ /* R13: acotada al alto de la ventana (min-height:0 en la columna de la vista); la leyenda hace scroll en el catálogo, no estira el lienzo. */
+ .notation{flex:1;min-width:0;min-height:0;display:flex;background:var(--surface-app)}
+ 
+@@ -106,7 +106,7 @@
+ /* Los rótulos de arista se dibujan sobre los nodos (no los tapa el velo de un contenedor); ya evitan los nodos hoja. */
+ .notation-canvas .react-flow__edgelabel-renderer{z-index:5}
+ 
+-/* Estilo de notación (spec2viz §13): ícono antes del rótulo y formas dibujadas como contorno. */
++/* Estilo de notación (contrato §13): ícono antes del rótulo y formas dibujadas como contorno. */
+ .glyph-title-row{display:inline-flex;align-items:center;justify-content:center;gap:5px}
+ .glyph-icon{flex:none;color:var(--glyph-stroke,currentColor)}
+ /* Sobre un relleno declarado, el texto secundario usa el ink del relleno (legible en ambos temas). */
+@@ -134,7 +134,7 @@
+ .legend-line line{stroke-width:2}
+ .notation-canvas .react-flow__handle{opacity:0;pointer-events:none}
+ 
+-/* Activity (spec2viz §14): nota UML con la esquina doblada, unida a su paso por una línea punteada. */
++/* Activity (contrato §14): nota UML con la esquina doblada, unida a su paso por una línea punteada. */
+ .glyph[data-function="note"]:not(.is-styled) .glyph-outline path{fill:var(--warning-soft);stroke:var(--warning-border)}
+ .glyph[data-function="note"] .glyph-label{font-weight:400}
+ /* Carril UML (§14, data.partition): una columna por partición, recta, con su nombre arriba. */
+diff --git a/frontends/mindmap/views/specs/notation/notation.mjs b/frontends/mindmap/views/specs/notation/notation.mjs
+index 3d7e367..61cbb60 100644
+--- a/frontends/mindmap/views/specs/notation/notation.mjs
++++ b/frontends/mindmap/views/specs/notation/notation.mjs
+@@ -1,7 +1,7 @@
+ // Lógica pura de la vista de notación: catálogo de specs y escena a dibujar.
+ // La notación NO se interpreta aquí: el JSON de GET /api/notation/view ya trae
+ // el glifo, la forma, los compartimentos y el `draw` de cada link, resueltos
+-// por spec2viz (resolve_view, spec2viz/docs/notation-contract.md). Este módulo
++// por sldb (sldb.api.notations.resolve_view, sldb/docs/architecture/notations-and-views.md). Este módulo
+ // solo traduce ese resultado a cajas y aristas, y avisa de lo que la vista
+ // todavía no sabe dibujar en vez de inventarlo.
+ 
+@@ -95,7 +95,7 @@ export function buildScene(view) {
+     edges.push({
+       id: link.doc || `${link.source}->${link.target}#${index}`, source: link.source, target: link.target,
+       relation: link.relation, link: link.link || '', label: link.label || '',
+-      // Rótulos de extremo (§8d): plantillas del LinkDoc ya resueltas por spec2viz
++      // Rótulos de extremo (§8d): plantillas del LinkDoc ya resueltas por sldb
+       // (p. ej. multiplicidades de una asociación UML).
+       sourceLabel: link.source_label || '', targetLabel: link.target_label || '',
+       dash: dash(link.line), sourceEnd: terminal(link.source_end), targetEnd: terminal(link.target_end), order: link.order || 0,
+@@ -103,7 +103,7 @@ export function buildScene(view) {
+     });
+   }
+   for (const draw of fallbackDraws) notices.push(`El dibujo «${draw}» todavía no está soportado: esas relaciones se dibujan como líneas.`);
+-  if ((view.skipped || []).length) notices.push(`spec2viz omitió ${view.skipped.length} elemento(s) sin glifo ni link en la notación.`);
++  if ((view.skipped || []).length) notices.push(`sldb omitió ${view.skipped.length} elemento(s) sin glifo ni link en la notación.`);
+   // Un ciclo de anidado (A dentro de B dentro de A) no es dibujable: se corta.
+   for (const [child] of parentOf) {
+     const seen = new Set([child]);
+@@ -259,7 +259,7 @@ function laneSceneAt(view, wrap, measure, headMeasure = measure) {
+       sourceEnd: terminal(link.source_end), targetEnd: terminal(link.target_end)};
+   });
+   for (const draw of offDraws) notices.push(`El dibujo «${draw}» no es un mensaje de secuencia: esas relaciones se dibujan como mensajes.`);
+-  if ((view.skipped || []).length) notices.push(`spec2viz omitió ${view.skipped.length} elemento(s) sin glifo ni link en la notación.`);
++  if ((view.skipped || []).length) notices.push(`sldb omitió ${view.skipped.length} elemento(s) sin glifo ni link en la notación.`);
+   const frames = laneFrames(view.fragments, messages);
+   const right = Math.max(...lanes.map(l => l.x + l.width / 2),
+     ...messages.filter(m => m.self).map(m => m.x1 + LANE.loop + 6 + Math.max(...m.lines.map(t => measure(t, LANE_TEXT.size)))),
+@@ -340,7 +340,7 @@ export function gridScene(view) {
+   const grids = [...views.values()].map(v => ({view: v.view, label: v.label,
+     columns: v.stages.map((st, i) => ({id: st.doc, label: st.label || st.title || st.doc, order: st.data?.order ?? i, index: i}))
+       .sort((a, b) => a.order - b.order || a.index - b.index)}));
+-  if ((view.skipped || []).length) notices.push(`spec2viz omitió ${view.skipped.length} elemento(s) sin glifo ni link en la notación.`);
++  if ((view.skipped || []).length) notices.push(`sldb omitió ${view.skipped.length} elemento(s) sin glifo ni link en la notación.`);
+   return {kind: 'grid', grids, rows, cells: Object.fromEntries(cells), notices};
+ }
+ 
+diff --git a/frontends/mindmap/views_routes.py b/frontends/mindmap/views_routes.py
+index 3b91a72..e182745 100644
+--- a/frontends/mindmap/views_routes.py
++++ b/frontends/mindmap/views_routes.py
+@@ -17,7 +17,7 @@ from typing import Any
+ from mindmap.projection_views import VIEW_MODEL, ViewError, evaluate_view, find_view, list_views
+ from mindmap.sldb_adapter import ensure_model, write_document
+ 
+-VIEW_MODEL_REF = 'spec2viz.sldb_models:ViewDoc'
++VIEW_MODEL_REF = 'sldb.models.notation.view_doc:ViewDoc'
+ 
+ 
+ class RouteError(Exception):
+@@ -46,7 +46,7 @@ def _view_payload(store: Path, body: dict[str, Any]) -> dict[str, Any]:
+ 
+ 
+ def _ensure_view_model(store: Path) -> None:
+-    """Register spec2viz's ``ViewDoc`` in a store that has none yet (spec2viz must be installed)."""
++    """Register sldb's ``ViewDoc`` in a store that has none yet."""
+     try:
+         ensure_model(store, VIEW_MODEL, VIEW_MODEL_REF)
+     except Exception as exc:
+diff --git a/tests/e2e_mindmap_notation.py b/tests/e2e_mindmap_notation.py
+index e4d7890..bec48a7 100644
+--- a/tests/e2e_mindmap_notation.py
++++ b/tests/e2e_mindmap_notation.py
+@@ -1,7 +1,7 @@
+-"""E2E de la vista Specs: un spec de spec2viz dibujado según su notación.
++"""E2E de la vista Specs: un spec del store dibujado según su notación.
+ 
+-1. Store temporal real: `spec2viz diagram sync` de dos pilotos del repo de
+-   spec2viz (statechart con estado compuesto y diagrama de clases UML).
++1. Store temporal real: `sldb notations sync --spec` de dos pilotos de
++   tests/fixtures/notation-pilots (statechart con estado compuesto y diagrama de clases UML).
+ 2. La pestaña Specs lista los SpecDoc agrupados por `category` (vacía aquí).
+ 3. El statechart se dibuja con los subestados DENTRO del compuesto (nest como
+    contención de React Flow, no como arista), la marca `initial` y la
+@@ -24,9 +24,8 @@ from pathlib import Path
+ import pytest
+ 
+ MINDMAP = Path(__file__).parents[1] / "frontends" / "mindmap"
+-spec2viz = pytest.importorskip("spec2viz")
+-PILOTS = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz"
+-MATRIX = Path(spec2viz.__file__).resolve().parents[1] / "tests/fixtures/matrix.quotation-view.yml"
++PILOTS = Path(__file__).resolve().parent / "fixtures" / "notation-pilots"
++MATRIX = PILOTS / "matrix.quotation-view.yml"
+ 
+ try:
+     from playwright.sync_api import sync_playwright
+@@ -39,13 +38,11 @@ LANES_PORT = 8159
+ 
+ def _store(pilots=None):
+     pilots = pilots or [PILOTS / "state-diagram-sync-lifecycle.yml", PILOTS / "class-sldb-models.yml"]
+-    if not all(p.exists() for p in pilots) or not shutil.which("spec2viz"):
+-        pytest.skip("sin los pilotos o el CLI de spec2viz")
+     root = Path(tempfile.mkdtemp(prefix="kb-e2e-notation-"))
+     for pilot in pilots:
+         shutil.copy(pilot, root / pilot.name)
+     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
+-    subprocess.run(["spec2viz", "diagram", "sync", *(p.name for p in pilots), "--store", ".sldb"],
++    subprocess.run(["sldb", "notations", "sync", *[a for p in pilots for a in ("--spec", p.name)], "--store", ".sldb"],
+                    cwd=root, check=True, capture_output=True)
+     return root / ".sldb"
+ 
+diff --git a/tests/e2e_notation_activity.py b/tests/e2e_notation_activity.py
+index a3d93a5..03c3f51 100644
+--- a/tests/e2e_notation_activity.py
++++ b/tests/e2e_notation_activity.py
+@@ -1,4 +1,4 @@
+-"""E2E: activity specs in the Specs view (spec2viz contract §14), in Chromium.
++"""E2E: activity specs in the Specs view (notation contract §14), in Chromium.
+ 
+ tests/fixtures/notation-activity/activity-lanes.yml has partitions: UML swimlanes, one column per
+ partition in order of first appearance, with the flow going down. It checks that every step sits in
+@@ -118,14 +118,12 @@ SEPARATION = r"""() => {
+ def store(tmp_path_factory):
+     if sync_playwright is None:
+         pytest.skip("playwright no está instalado")
+-    if not shutil.which("spec2viz"):
+-        pytest.skip("sin el CLI de spec2viz")
+     root = tmp_path_factory.mktemp("activity")
+     specs = sorted(FIXTURES.glob("*.yml"))
+     for spec in specs:
+         shutil.copy(spec, root / spec.name)
+     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
+-    subprocess.run(["spec2viz", "diagram", "sync", *[s.name for s in specs], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
++    subprocess.run(["sldb", "notations", "sync", *[a for s in specs for a in ("--spec", s.name)], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
+     return root / ".sldb"
+ 
+ 
+diff --git a/tests/e2e_notation_class.py b/tests/e2e_notation_class.py
+index fadbc54..51ae742 100644
+--- a/tests/e2e_notation_class.py
++++ b/tests/e2e_notation_class.py
+@@ -48,14 +48,12 @@ ENDS = r"""() => {
+ def store(tmp_path_factory):
+     if sync_playwright is None:
+         pytest.skip("playwright no está instalado")
+-    if not shutil.which("spec2viz"):
+-        pytest.skip("sin el CLI de spec2viz")
+     root = tmp_path_factory.mktemp("class")
+     specs = sorted(FIXTURES.glob("*.yml"))
+     for spec in specs:
+         shutil.copy(spec, root / spec.name)
+     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
+-    subprocess.run(["spec2viz", "diagram", "sync", *[s.name for s in specs], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
++    subprocess.run(["sldb", "notations", "sync", *[a for s in specs for a in ("--spec", s.name)], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
+     return root / ".sldb"
+ 
+ 
+diff --git a/tests/e2e_notation_deployment.py b/tests/e2e_notation_deployment.py
+index e951edd..3c4011c 100644
+--- a/tests/e2e_notation_deployment.py
++++ b/tests/e2e_notation_deployment.py
+@@ -1,4 +1,4 @@
+-"""E2E: deployment specs in the Specs view (spec2viz contract §14), in Chromium.
++"""E2E: deployment specs in the Specs view (notation contract §14), in Chromium.
+ 
+ tests/fixtures/notation-deployment/deployment-nested-paths.yml nests nodes four levels deep (account >
+ network > cluster > service > artifact), joins nodes by communication paths with a label and a
+@@ -82,14 +82,12 @@ DEPLOYMENT = r"""() => {
+ def store(tmp_path_factory):
+     if sync_playwright is None:
+         pytest.skip("playwright no está instalado")
+-    if not shutil.which("spec2viz"):
+-        pytest.skip("sin el CLI de spec2viz")
+     root = tmp_path_factory.mktemp("deployment")
+     specs = [*sorted(FIXTURES.glob("*.yml")), DENSE]
+     for spec in specs:
+         shutil.copy(spec, root / spec.name)
+     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
+-    subprocess.run(["spec2viz", "diagram", "sync", *[s.name for s in specs], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
++    subprocess.run(["sldb", "notations", "sync", *[a for s in specs for a in ("--spec", s.name)], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
+     return root / ".sldb"
+ 
+ 
+diff --git a/tests/e2e_notation_legibility.py b/tests/e2e_notation_legibility.py
+index 9faee66..6a30f5f 100644
+--- a/tests/e2e_notation_legibility.py
++++ b/tests/e2e_notation_legibility.py
+@@ -2,7 +2,7 @@
+ 
+ A real temporary store gets two specs: tests/fixtures/notation-legibility/component-containers.yml
+ (two containers with long titles, nine unlinked children in one, labelled edges between
+-containers) and spec2viz's activity pilot (decisions and a loop back). In Chromium, for each:
++containers) and the activity pilot of tests/fixtures/notation-pilots (decisions and a loop back). In Chromium, for each:
+ 
+ - every diagram text renders at >= 10 px at the zoom «Ver todo» leaves;
+ - no two edge/pseudostate labels overlap, no node label spills out of its box;
+@@ -35,13 +35,11 @@ try:
+ except ImportError:  # pragma: no cover
+     sync_playwright = None
+ 
+-spec2viz = pytest.importorskip("spec2viz")
+-
+ ROOT = Path(__file__).resolve().parents[1]
+ MINDMAP = ROOT / "frontends" / "mindmap"
+ FIXTURES = ROOT / "tests" / "fixtures" / "notation-legibility"
+ FIXTURE, DENSE = FIXTURES / "component-containers.yml", FIXTURES / "deployment-dense.yml"
+-ACTIVITY = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz/activity-render-error-handling.yml"
++ACTIVITY = ROOT / "tests" / "fixtures" / "notation-pilots" / "activity-render-error-handling.yml"
+ COMPONENT, FLOW, DEPLOYMENT = "component.legibility-containers", "activity.render-error-handling", "deployment.legibility-dense"
+ 
+ # R13: lo que se ve del lienzo es su caja recortada por la ventana; un lienzo más alto que la ventana
+@@ -166,13 +164,11 @@ def _serve(store, *args, pythonpath=None):
+ def store(tmp_path_factory):
+     if sync_playwright is None:
+         pytest.skip("playwright no está instalado")
+-    if not ACTIVITY.exists() or not shutil.which("spec2viz"):
+-        pytest.skip("sin el piloto de actividad o el CLI de spec2viz")
+     root = tmp_path_factory.mktemp("legibility")
+     for spec in (FIXTURE, DENSE, ACTIVITY):
+         shutil.copy(spec, root / spec.name)
+     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
+-    subprocess.run(["spec2viz", "diagram", "sync", FIXTURE.name, DENSE.name, ACTIVITY.name, "--store", ".sldb"], cwd=root, check=True, capture_output=True)
++    subprocess.run(["sldb", "notations", "sync", "--spec", FIXTURE.name, "--spec", DENSE.name, "--spec", ACTIVITY.name, "--store", ".sldb"], cwd=root, check=True, capture_output=True)
+     return root / ".sldb"
+ 
+ 
+diff --git a/tests/e2e_notation_sequence.py b/tests/e2e_notation_sequence.py
+index 026d717..3650514 100644
+--- a/tests/e2e_notation_sequence.py
++++ b/tests/e2e_notation_sequence.py
+@@ -98,14 +98,12 @@ LEGEND = r"""() => {
+ def store(tmp_path_factory):
+     if sync_playwright is None:
+         pytest.skip("playwright no está instalado")
+-    if not shutil.which("spec2viz"):
+-        pytest.skip("sin el CLI de spec2viz")
+     root = tmp_path_factory.mktemp("sequence")
+     specs = sorted(FIXTURES.glob("*.yml"))
+     for spec in specs:
+         shutil.copy(spec, root / spec.name)
+     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
+-    subprocess.run(["spec2viz", "diagram", "sync", *[s.name for s in specs], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
++    subprocess.run(["sldb", "notations", "sync", *[a for s in specs for a in ("--spec", s.name)], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
+     return root / ".sldb"
+ 
+ 
+diff --git a/tests/e2e_notation_style.py b/tests/e2e_notation_style.py
+index 0f859aa..aeea926 100644
+--- a/tests/e2e_notation_style.py
++++ b/tests/e2e_notation_style.py
+@@ -1,4 +1,4 @@
+-"""E2E: the Specs view draws the style spec2viz resolves (contract §13) — colours, icons, shapes, legend.
++"""E2E: the Specs view draws the style sldb resolves (contract §13) — colours, icons, shapes, legend.
+ 
+ A real temporary store gets tests/fixtures/notation-style/component-infra.yml synced against the
+ notation tests/fixtures/notation-style/infra.yml (palette `default`). In Chromium:
+@@ -138,13 +138,11 @@ def _rgb(hex_colour):
+ def store(tmp_path_factory):
+     if sync_playwright is None:
+         pytest.skip("playwright no está instalado")
+-    if not shutil.which("spec2viz"):
+-        pytest.skip("sin el CLI de spec2viz")
+     root = tmp_path_factory.mktemp("style")
+     for spec in FIXTURES.glob("*.yml"):
+         shutil.copy(spec, root / spec.name)
+     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
+-    subprocess.run(["spec2viz", "diagram", "sync", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
++    subprocess.run(["sldb", "notations", "sync", "--spec", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
+                    cwd=root, check=True, capture_output=True)
+     return root / ".sldb"
+ 
+diff --git a/tests/e2e_review_workbench_views.py b/tests/e2e_review_workbench_views.py
+index 53ffd24..d0feccb 100644
+--- a/tests/e2e_review_workbench_views.py
++++ b/tests/e2e_review_workbench_views.py
+@@ -1,6 +1,6 @@
+ """E2E: projection views in review-workbench, against real servers and a real store.
+ 
+-A temporary store is built from spec2viz's pilots (``SpecNodeDoc`` documents joined by
++A temporary store is built from the pilots of tests/fixtures/notation-pilots (``SpecNodeDoc`` documents joined by
+ ``uses``/``inherits``/``reads``). Three real processes serve it: ``sldb serve`` (what
+ AntoniaFlowPage reads through ``/sldb``), the graph_ui server (``/api/views*``) and a production
+ build of review-workbench under ``vite preview``, whose proxy forwards both. In Chromium:
+@@ -16,7 +16,7 @@ build of review-workbench under ``vite preview``, whose proxy forwards both. In
+    with React Flow's classes, since no data path renders groups today) adds no frame either, RW1)
+    a view with a ``notation`` (a third store, synced from tests/fixtures/notation-style with a
+    styled notation) draws each node with its glyph's resolved style: the fill, stroke and icon the
+-   server resolved with spec2viz's ``resolve_documents``, painted on the node; each edge with its
++   server resolved with sldb's ``resolve_documents``, painted on the node; each edge with its
+    link's colour and dash; and the notation's legend in a canvas panel that covers no node.
+ """
+ import json
+@@ -37,12 +37,10 @@ try:
+ except ImportError:  # pragma: no cover
+     sync_playwright = None
+ 
+-spec2viz = pytest.importorskip("spec2viz")
+-
+ ROOT = Path(__file__).resolve().parents[1]
+ APP = ROOT / "apps" / "review-workbench"
+ MINDMAP = ROOT / "frontends" / "mindmap"
+-PILOTS = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz"
++PILOTS = ROOT / "tests" / "fixtures" / "notation-pilots"
+ HERE = ["component-exception-hierarchy.yml", "component-type-system.yml"]
+ THERE = ["component-architecture.yml"]
+ STYLE = ROOT / "tests" / "fixtures" / "notation-style"
+@@ -73,7 +71,7 @@ def _store(root: Path, pilots: list[str]) -> Path:
+     for pilot in pilots:
+         shutil.copy(PILOTS / pilot, root / pilot)
+     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
+-    subprocess.run(["spec2viz", "diagram", "sync", *pilots, "--store", ".sldb"], cwd=root, check=True, capture_output=True)
++    subprocess.run(["sldb", "notations", "sync", *[a for p in pilots for a in ("--spec", p)], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
+     return root / ".sldb"
+ 
+ 
+@@ -83,8 +81,6 @@ def stack():
+         pytest.skip("playwright no está instalado")
+     if not (shutil.which("npx") and (APP / "node_modules").is_dir()):
+         pytest.skip("review-workbench needs node and `npm ci` in apps/review-workbench")
+-    if not all((PILOTS / p).exists() for p in HERE + THERE) or not shutil.which("spec2viz"):
+-        pytest.skip("sin los pilotos o el CLI de spec2viz")
+     work = Path(tempfile.mkdtemp(prefix="rw-views-"))
+     processes = []
+     try:
+@@ -93,7 +89,7 @@ def stack():
+         for spec in STYLE.glob("*.yml"):
+             shutil.copy(spec, work / "styled" / spec.name)
+         subprocess.run(["sldb", "stores", "init", "--path", str(work / "styled")], check=True, capture_output=True)
+-        subprocess.run(["spec2viz", "diagram", "sync", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
++        subprocess.run(["sldb", "notations", "sync", "--spec", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
+                        cwd=work / "styled", check=True, capture_output=True)
+         styled = work / "styled" / ".sldb"
+         sldb_port, ui_port, app_port = _free_port(), _free_port(), _free_port()
+diff --git a/tests/test_mindmap_notation.py b/tests/test_mindmap_notation.py
+index 3696135..53b9dd3 100644
+--- a/tests/test_mindmap_notation.py
++++ b/tests/test_mindmap_notation.py
+@@ -1,10 +1,10 @@
+ """Contrato de GET /api/notation/view: un SpecDoc dibujado según su NotationDoc.
+ 
+ graph_ui no interpreta la notación: la resuelve
+-``spec2viz.notation_view.resolve_view`` (spec2viz/docs/notation-contract.md)
++``sldb.api.notations.resolve_view`` (sldb/docs/architecture/notations-and-views.md)
+ y este endpoint solo la transporta. El store es real y temporal: se arma con
+-``spec2viz diagram sync`` sobre los pilotos del repo de spec2viz, sin tocar
+-ningún store existente.
++``sldb notations sync --spec`` sobre los pilotos de tests/fixtures/notation-pilots,
++sin tocar ningún store existente.
+ """
+ import importlib.util
+ import json
+@@ -17,11 +17,10 @@ from pathlib import Path
+ 
+ import pytest
+ 
+-spec2viz = pytest.importorskip("spec2viz")
+-from spec2viz.notation_view import resolve_view  # noqa: E402
++from sldb.api.notations import resolve_view
+ 
+ MINDMAP = Path(__file__).resolve().parents[1] / "frontends/mindmap"
+-PILOTS = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz"
++PILOTS = Path(__file__).resolve().parent / "fixtures/notation-pilots"
+ STATECHART = "state.diagram-sync-lifecycle"
+ CLASSES = "class.sldb-models"
+ 
+@@ -37,12 +36,10 @@ def _load(name):
+ def store(tmp_path_factory):
+     root = tmp_path_factory.mktemp("notation")
+     pilots = [PILOTS / "state-diagram-sync-lifecycle.yml", PILOTS / "class-sldb-models.yml"]
+-    if not all(p.exists() for p in pilots) or not shutil.which("spec2viz"):
+-        pytest.skip("sin los pilotos o el CLI de spec2viz")
+     for pilot in pilots:
+         shutil.copy(pilot, root / pilot.name)
+     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
+-    subprocess.run(["spec2viz", "diagram", "sync", *(p.name for p in pilots), "--store", ".sldb"],
++    subprocess.run(["sldb", "notations", "sync", *[a for p in pilots for a in ("--spec", p.name)], "--store", ".sldb"],
+                    cwd=root, check=True, capture_output=True)
+     return root / ".sldb"
+ 
+@@ -76,7 +73,7 @@ def server(store, monkeypatch):
+ def test_view_is_resolve_view_verbatim(server, store):
+     status, body = server.get(f"/api/notation/view?spec={STATECHART}")
+     assert status == 200
+-    # graph_ui no reinterpreta: lo servido es exactamente lo que resuelve spec2viz.
++    # graph_ui no reinterpreta: lo servido es exactamente lo que resuelve sldb.
+     assert body == json.loads(json.dumps(resolve_view(str(store), f"SpecDoc:{STATECHART}", str(store.parent))))
+ 
+ 
+diff --git a/tests/test_mindmap_skin.py b/tests/test_mindmap_skin.py
+index c437e8c..10682c8 100644
+--- a/tests/test_mindmap_skin.py
++++ b/tests/test_mindmap_skin.py
+@@ -59,7 +59,7 @@ def test_every_var_reference_is_defined_in_the_skins():
+         text = path.read_text(encoding="utf-8")
+         used = set(VAR_USE_RE.findall(text))
+         # --class-color and --idea-color are set inline (per-element style), not skin tokens; so are
+-        # --glyph-* (the style spec2viz resolves for each glyph of the Specs view, always with a fallback)
++        # --glyph-* (the style sldb resolves for each glyph of the Specs view, always with a fallback)
+         # and --inner-* (the inner area of an outline shape, from notation-style.mjs).
+         used = {u for u in used if not u.startswith(("--class-color", "--glyph-", "--inner-")) and u != "--idea-color"}
+         gap = used - light_tokens
+diff --git a/tests/test_projection_views.py b/tests/test_projection_views.py
+index 64cb360..44f6eb3 100644
+--- a/tests/test_projection_views.py
++++ b/tests/test_projection_views.py
+@@ -1,6 +1,6 @@
+ """Projection views evaluated with sldb's API over real, temporary stores.
+ 
+-The stores are built with ``spec2viz diagram sync`` from spec2viz's own pilots: ``SpecNodeDoc``
++The stores are built with ``sldb notations sync --spec`` from tests/fixtures/notation-pilots: ``SpecNodeDoc``
+ documents joined by typed relations (``uses``, ``inherits``, ``reads``). A view names models,
+ ``where`` predicates and relation types, so the same view runs against a second store too.
+ """
+@@ -15,22 +15,18 @@ from pathlib import Path
+ 
+ import pytest
+ 
+-spec2viz = pytest.importorskip("spec2viz")
+-
+-from mindmap.projection_views import ViewError, evaluate_view  # noqa: E402
++from mindmap.projection_views import ViewError, evaluate_view
+ 
+ MINDMAP = Path(__file__).resolve().parents[1] / "frontends/mindmap"
+-PILOTS = Path(spec2viz.__file__).resolve().parents[1] / "docs/architecture/spec2viz"
++PILOTS = Path(__file__).resolve().parent / "fixtures/notation-pilots"
+ INHERITS = {"nodes": [{"model": "SpecNodeDoc", "where": ""}], "relations": ["inherits"]}
+ 
+ 
+ def _store(root: Path, pilots: list[str]) -> Path:
+-    if not all((PILOTS / p).exists() for p in pilots) or not shutil.which("spec2viz"):
+-        pytest.skip("sin los pilotos o el CLI de spec2viz")
+     for pilot in pilots:
+         shutil.copy(PILOTS / pilot, root / pilot)
+     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
+-    subprocess.run(["spec2viz", "diagram", "sync", *pilots, "--store", ".sldb"], cwd=root, check=True, capture_output=True)
++    subprocess.run(["sldb", "notations", "sync", *[a for p in pilots for a in ("--spec", p)], "--store", ".sldb"], cwd=root, check=True, capture_output=True)
+     return root / ".sldb"
+ 
+ 
+@@ -79,7 +75,7 @@ def styled_store(tmp_path_factory):
+     for spec in STYLE.glob("*.yml"):
+         shutil.copy(spec, root / spec.name)
+     subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
+-    subprocess.run(["spec2viz", "diagram", "sync", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
++    subprocess.run(["sldb", "notations", "sync", "--spec", "component-infra.yml", "--notation", "infra.yml", "--store", ".sldb"],
+                    cwd=root, check=True, capture_output=True)
+     return root / ".sldb"
+ 
+@@ -164,7 +160,7 @@ def test_http_errors_say_what_is_wrong(server, tmp_path):
+ 
+ 
+ def test_a_saved_view_is_a_viewdoc_of_the_store_and_evaluates_by_ref(server, store):
+-    pytest.importorskip("spec2viz.sldb_models").ViewDoc  # task a: the model lives in spec2viz
++    from sldb.models.notation.view_doc import ViewDoc  # noqa: F401  (task a: the model lives in sldb)
+     view = {**INHERITS, "title": "Herencia", "notation": "NotationDoc:component", "layout": {"kind": "graph", "style": "layered"}}
+     status, saved = _call(f"{server}/api/views/save", {"name": "herencia", "view": view})
+     assert status == 200 and saved["ref"] == "ViewDoc:herencia"

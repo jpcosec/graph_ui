@@ -1,0 +1,52 @@
+# grep independiente 2026-11-16T02:19:13-03:00
+$ grep -rn spec2viz frontends pyproject.toml .github
+exit: 1
+$ grep -rniE "spec2viz|spec_2_viz|spec-2-viz" frontends pyproject.toml .github src docs/*.md README.md (insensible a mayúsculas)
+exit: 1
+$ grep -rn spec2viz tests (lineas)
+tests/mindmap-notation.test.mjs:2:// Los fixtures son la salida REAL de `spec2viz notation view` sobre pilotos de
+tests/mindmap-notation.test.mjs:3:// spec2viz sincronizados en un store temporal:
+tests/mindmap-notation.test.mjs:4://   spec2viz diagram sync <spec.yml> --store .sldb
+tests/mindmap-notation.test.mjs:5://   spec2viz notation view <id> --store .sldb > tests/fixtures/notation-view-<x>.json
+tests/mindmap-notation.test.mjs:8:// matrix: matrix.quotation-view (spec2viz/tests/fixtures; grilla con filas anidadas);
+tests/mindmap-notation-style.test.mjs:1:// Estilo de notación (spec2viz §13) en la vista Specs: lógica pura de notation-style.mjs y el tamaño
+tests/fixtures/notation-view-class.json:3:  "title": "spec2viz documents in the sldb store",
+tests/fixtures/notation-style/infra.yml:1:# Test notation for the Specs view's glyph style (spec2viz contract §13): every new shape, the default
+tests/fixtures/notation-view-fragments.json:125:        "message": "spec2viz diagram sync a.yml b.yml --strict"
+tests/fixtures/notation-view-fragments.json:133:      "label": "spec2viz diagram sync a.yml b.yml --strict"
+tests/fixtures/notation-view-sequence.json:162:      "label": "spec2viz render spec.yml --backend mermaid"
+tests/fixtures/notation-deployment/deployment-nested-paths.yml:1:# Test spec for the Specs view's deployment drawing (spec2viz contract §14): nodes nested four levels
+tests/fixtures/notation-activity/activity-lanes.yml:1:# Test spec for the Specs view's activity drawing (spec2viz contract §14): one partition (swimlane)
+tests/fixtures/notation-activity/activity-notes-merge.yml:1:# Test spec for the Specs view's activity drawing without partitions (spec2viz contract §14): UML
+exit: 0
+$ grep -rln spec2viz docs desk/atoms | head
+docs/how-it-works.md
+docs/architecture/linting.md
+docs/diagrams/state.editor-lifecycle.mmd
+docs/diagrams/sequence.data-load.mmd
+docs/architecture.html
+docs/diagrams/activity.edit-flow.mmd
+docs/diagrams/deployment.runtime.mmd
+docs/diagrams/component.graph-ui.mmd
+docs/diagrams/sequence.data-load-target.mmd
+docs/reference/history/PROJECTION_LAYERING_SPEC.md
+docs/representacion/capas.md
+docs/representacion/02-prior-art/index.md
+docs/representacion/01-fundamentos/index.md
+docs/representacion/README.md
+docs/representacion/01-fundamentos/proyectar-vs-representar.md
+docs/representacion/03-diagrama-vocabulario/matriz/dsm.md
+docs/representacion/03-diagrama-vocabulario/matriz/dsm.assets/spec2viz-desde-mundo.py
+docs/representacion/01-fundamentos/sintaxis-abstracta-y-concreta.md
+docs/representacion/03-diagrama-vocabulario/matriz/dsm.assets/graph-ui.dsm.spec2viz.vega.json
+docs/representacion/03-diagrama-vocabulario/matriz/dsm.assets/graph-ui.dsm.spec2viz.yml
+docs/representacion/03-diagrama-vocabulario/arbol/mind-map.assets/manual-dos-padres.mundo.yaml
+docs/representacion/03-diagrama-vocabulario/arbol/mind-map.assets/manual.mundo.yaml
+docs/representacion/huecos.md
+docs/representacion/03-diagrama-vocabulario/arbol/mind-map.assets/manual.svg
+docs/representacion/03-diagrama-vocabulario/nodo-arista-tipado/uml-clases.md
+docs/representacion/plan-de-cierre.md
+docs/representacion/02-prior-art/spec2viz.md
+docs/representacion/03-diagrama-vocabulario/matriz/index.md
+docs/representacion/03-diagrama-vocabulario/arbol/mind-map.assets/manual.mmd
+docs/representacion/03-diagrama-vocabulario/posicion/uml-secuencia.md

@@ -1,0 +1,10 @@
+task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/preflight: reviewed
+review: review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-preflight-3
+run_dir: runs/subagents/20261116-124617/context-review/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/preflight/8b9885ad906e4d6c0c0eef179ed45a46af1cbc8c025a73a8c43a84fd0f00d075/attempt-1
+input_sha256: 8b9885ad906e4d6c0c0eef179ed45a46af1cbc8c025a73a8c43a84fd0f00d075
+rc=0
+task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/bundle: reviewed
+review: review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-bundle-2
+run_dir: runs/subagents/20261116-124651/context-review/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/bundle/4fb5423fda531e2fdaed004fe9bc582c104e018e7a79981132f25e887bbc4651/attempt-1
+input_sha256: 4fb5423fda531e2fdaed004fe9bc582c104e018e7a79981132f25e887bbc4651
+rc=0

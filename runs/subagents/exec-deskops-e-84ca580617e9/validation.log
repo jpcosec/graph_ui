@@ -1,0 +1,39 @@
+✔ nest se vuelve contención, no arista: los subestados viven dentro de syncing (2.91222ms)
+✔ el orden de capas pone cada contenedor antes que sus hijos (2.513167ms)
+✔ las terminales y el trazo salen del link, no del tipo de relación (0.297994ms)
+✔ lo que no se sabe dibujar se avisa y se dibuja como grafo/línea, sin descartarlo (0.267988ms)
+✔ carriles: uno por nodo en el orden de nodes, mensajes bajando por order (3.067337ms)
+✔ carriles: la autollamada es un bucle sobre su carril y ocupa su fila; los retornos traen su trazo (6.80346ms)
+✔ grilla: columnas por data.order agrupadas por vista, filas en preorden de nest (1.135278ms)
+✔ grilla: celda en la intersección fila × columna, filas vacías incluidas (0.651936ms)
+✔ grilla real de dos vistas: una tabla por vista, mismas filas en las dos (0.538318ms)
+✔ una grilla sin columnas cae a grafo con aviso (0.327834ms)
+✔ un ciclo de anidado se corta en vez de colgar el layout (0.916235ms)
+✔ catálogo: SpecDoc agrupados por category, los sin categoría al final (9.999187ms)
+✔ compartimentos: atributos y métodos de un spec de clases, una línea cada uno (0.287392ms)
+✔ los rótulos de extremo (§8d) pasan tal cual a la arista: multiplicidades UML (0.361126ms)
+✔ marcos de fragmento: abarcan sus filas y las líneas de vida que tocan; sin mensajes no hay marco (0.475032ms)
+✔ piloto real sequence.sync-pipeline: tres marcos con su operador y sus líneas de vida (1.172636ms)
+✔ R11: «Ver todo» de una secuencia: entera si se lee; si no, legible a lo ancho y con scroll (0.176891ms)
+✔ R11: el rótulo de un mensaje se parte en palabras y el hueco entre carriles vecinos lo aloja (1.229056ms)
+✔ el catálogo lista los ViewDoc con notación junto a los SpecDoc, en su propio grupo (0.322023ms)
+✔ viewAsNotation adapta la evaluación de un ViewDoc a la escena de un spec (0.513759ms)
+✔ viewAsNotation lanza el error de una notación que no resuelve (0.372787ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 153.802941
+...                                                                      [100%]
+=============================== warnings summary ===============================
+../../../../../../../../tmp/ws-venv/lib/python3.12/site-packages/_pytest/config/__init__.py:1636
+  /tmp/ws-venv/lib/python3.12/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+3 passed, 1 warning in 70.15s (0:01:10)
+exit 0

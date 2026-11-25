@@ -1,0 +1,51 @@
+Using Python 3.12.3 environment at: /dev/shm/venv-ir13-r2
+Resolved 17 packages in 266ms
+   Building pron @ file:///mnt/ssd/proyectos/SLDB_1/pron
+   Building deskops @ file:///mnt/ssd/proyectos/SLDB_1/deskops
+   Building structuredlanguagedb @ file:///mnt/ssd/proyectos/SLDB_1/sldb
+Downloading networkx (2.0MiB)
+Downloading pydantic-core (2.2MiB)
+ Downloaded pydantic-core
+ Downloaded networkx
+      Built deskops @ file:///mnt/ssd/proyectos/SLDB_1/deskops
+      Built pron @ file:///mnt/ssd/proyectos/SLDB_1/pron
+      Built structuredlanguagedb @ file:///mnt/ssd/proyectos/SLDB_1/sldb
+Prepared 17 packages in 2.05s
+Installed 17 packages in 5ms
+ + annotated-types==0.8.0
+ + click==8.5.1
+ + deskops==0.2.0 (from file:///mnt/ssd/proyectos/SLDB_1/deskops)
+ + jinja2==3.1.6
+ + linkify-it-py==2.2.0
+ + markdown-it-py==4.3.0
+ + markupsafe==3.0.4
+ + mdit-py-plugins==0.7.0
+ + mdurl==0.1.2
+ + networkx==3.7
+ + pron==1.0.0 (from file:///mnt/ssd/proyectos/SLDB_1/pron)
+ + pydantic==2.14.3
+ + pydantic-core==2.50.4
+ + pyyaml==6.0.3
+ + structuredlanguagedb==0.1.13 (from file:///mnt/ssd/proyectos/SLDB_1/sldb)
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.5
+Using Python 3.12.3 environment at: /dev/shm/venv-ir13-r2
+Resolved 27 packages in 375ms
+   Building graph-ui @ file:///mnt/ssd/proyectos/SLDB_1/UIs/graph_ui
+Downloading playwright (51.0MiB)
+Downloading pygments (1.2MiB)
+ Downloaded pygments
+ Downloaded playwright
+      Built graph-ui @ file:///mnt/ssd/proyectos/SLDB_1/UIs/graph_ui
+Prepared 9 packages in 785ms
+Installed 10 packages in 10ms
+ + execnet==2.1.2
+ + graph-ui==0.1.0 (from file:///mnt/ssd/proyectos/SLDB_1/UIs/graph_ui)
+ + greenlet==3.5.6
+ + iniconfig==2.3.1
+ + packaging==26.3
+ + playwright==1.65.2
+ + pluggy==1.7.0
+ + pygments==2.21.0
+ + pytest==9.2.0
+ + pytest-xdist==3.8.0

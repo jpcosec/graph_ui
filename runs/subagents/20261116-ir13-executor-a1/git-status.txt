@@ -1,0 +1,14 @@
+## master...origin/master
+ M .sldb/core/documents/TaskCodeDoc/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.yaml
+ M .sldb/core/models/RunDoc.yaml
+ M .sldb/core/models/TaskCodeDoc.yaml
+ M .sldb/core/store_index.yaml
+ M .sldb/store.yaml
+ M desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md
+ M frontends/desk/app.js
+ M frontends/desk/task.js
+?? .sldb/core/documents/RunDoc/
+?? .sldb/core/documents/TaskDoc/
+?? .sldb/runtime/
+?? runs/subagents/20261116-ir13-executor-a1/
+?? runs/subagents/20261116-triaje-graph-ui/

@@ -1,0 +1,9 @@
+{
+  "key": "task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij/bundle",
+  "technical_ok": false,
+  "returncode": null,
+  "input_sha256": "0232aaaade3a944b6c5af0d18841ac0909c43e01fb0dfb1891431c42d28d261d",
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "start": "2026-11-16T17:41:07.162616+00:00",
+  "end": "2026-11-16T17:56:07.284270+00:00"
+}

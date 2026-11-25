@@ -1,0 +1,55 @@
+== tests/e2e_notation_class.py (avail 18G)
+....                                                                     [100%]
+=============================== warnings summary ===============================
+../../../../../../dev/shm/venv-pkg-e1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-pkg-e1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+4 passed, 1 warning in 50.00s
+rc=0 secs=51
+== tests/e2e_notation_legibility.py (avail 18G)
+...                                                                      [100%]
+=============================== warnings summary ===============================
+../../../../../../dev/shm/venv-pkg-e1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-pkg-e1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+3 passed, 1 warning in 44.01s
+rc=0 secs=44
+== tests/e2e_mindmap_notation.py (avail 18G)
+..                                                                       [100%]
+=============================== warnings summary ===============================
+../../../../../../dev/shm/venv-pkg-e1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-pkg-e1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2 passed, 1 warning in 25.93s
+rc=0 secs=26
+== tests/test_mindmap_notation.py (avail 18G)
+.....                                                                    [100%]
+=============================== warnings summary ===============================
+../../../../../../dev/shm/venv-pkg-e1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-pkg-e1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+5 passed, 1 warning in 7.67s
+rc=0 secs=8
+== tests/test_projection_views.py (avail 18G)
+...........                                                              [100%]
+=============================== warnings summary ===============================
+../../../../../../dev/shm/venv-pkg-e1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-pkg-e1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+11 passed, 1 warning in 26.26s
+rc=0 secs=27

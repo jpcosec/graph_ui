@@ -1,0 +1,42 @@
+# Corrección 2: procedimiento de regeneración del comentario, seguido paso a paso en la copia /dev/shm/esm-e1/regen.test.mjs
+# copia: entrada https://esm.sh/linkify-it@5.0.2/es2022/linkify-it.mjs quitada de EXPECTED_SHA256; diff contra tests/mindmap-workspace-reader.test.mjs:
+24c24
+< } from '../frontends/mindmap/views/workspace/node/reader.mjs';
+---
+> } from 'file:///mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/views/workspace/node/reader.mjs';
+111c111
+< const indexHtml = readFileSync(new URL('../frontends/mindmap/index.html', import.meta.url), 'utf-8');
+---
+> const indexHtml = readFileSync(new URL('file:///mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/index.html'), 'utf-8');
+147,148d146
+<   'https://esm.sh/linkify-it@5.0.2/es2022/linkify-it.mjs':
+<     'a7f8bf81f86ab33b188173277252922bb577cb6c72e7f5f5b75d99d68a66a092',
+
+## Paso 1
+$ node --test /dev/shm/esm-e1/regen.test.mjs
+  # Error: A resource generated asynchronous activity after the test ended. This activity created the error "Error: GET https://esm.sh/linkify-it@5.0.2/es2022/linkify-it.mjs -> sin sha256 esperado en EXPECTED_SHA256" which triggered an uncaughtException event, caught by the test runner.
+  # pass 9
+  # fail 1
+exit code: 1
+=> URL nueva https://esm.sh/linkify-it@5.0.2/es2022/linkify-it.mjs: se agrega a la tabla con 64 ceros
+
+## Paso 2
+$ node --test /dev/shm/esm-e1/regen.test.mjs
+  # Error: A resource generated asynchronous activity after the test ended. This activity created the error "Error: GET https://esm.sh/linkify-it@5.0.2/es2022/linkify-it.mjs -> sha256 a7f8bf81f86ab33b188173277252922bb577cb6c72e7f5f5b75d99d68a66a092 != 0000000000000000000000000000000000000000000000000000000000000000" which triggered an uncaughtException event, caught by the test runner.
+  # pass 9
+  # fail 1
+exit code: 1
+=> https://esm.sh/linkify-it@5.0.2/es2022/linkify-it.mjs: se copia el hash obtenido a7f8bf81f86ab33b188173277252922bb577cb6c72e7f5f5b75d99d68a66a092 en su entrada
+
+## Paso 3
+$ node --test /dev/shm/esm-e1/regen.test.mjs
+  # pass 16
+  # fail 0
+exit code: 0
+=> la prueba pasa; fin del procedimiento
+
+# entrada final de la copia comparada con la del test real:
+  copia:   'https://esm.sh/linkify-it@5.0.2/es2022/linkify-it.mjs':
+  copia:     'a7f8bf81f86ab33b188173277252922bb577cb6c72e7f5f5b75d99d68a66a092',
+  real:    'https://esm.sh/linkify-it@5.0.2/es2022/linkify-it.mjs':
+  real:      'a7f8bf81f86ab33b188173277252922bb577cb6c72e7f5f5b75d99d68a66a092',

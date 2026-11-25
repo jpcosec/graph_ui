@@ -1,0 +1,107 @@
+TAP version 13
+# Subtest: la arista saliente resalta el campo del documento abierto
+ok 1 - la arista saliente resalta el campo del documento abierto
+  ---
+  duration_ms: 21.007339
+  type: 'test'
+  ...
+# Subtest: la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+ok 2 - la entrante de otro documento con el mismo nombre de campo no resalta el campo propio
+  ---
+  duration_ms: 6.219021
+  type: 'test'
+  ...
+# Subtest: el vecino a dos saltos tampoco resalta campos del documento abierto
+ok 3 - el vecino a dos saltos tampoco resalta campos del documento abierto
+  ---
+  duration_ms: 4.722583
+  type: 'test'
+  ...
+# Subtest: el foco de campo solo resalta las aristas que declara el documento abierto
+ok 4 - el foco de campo solo resalta las aristas que declara el documento abierto
+  ---
+  duration_ms: 3.653409
+  type: 'test'
+  ...
+# Subtest: correspondence cuenta solo elementos del documento abierto
+ok 5 - correspondence cuenta solo elementos del documento abierto
+  ---
+  duration_ms: 2.047227
+  type: 'test'
+  ...
+# Subtest: un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+ok 6 - un campo propio cuya procedencia apunta a otro destino no cuenta para la referencia seleccionada
+  ---
+  duration_ms: 1.739825
+  type: 'test'
+  ...
+# Subtest: relation_doc y structural no tienen campo: no resaltan ninguno
+ok 7 - relation_doc y structural no tienen campo: no resaltan ninguno
+  ---
+  duration_ms: 0.197747
+  type: 'test'
+  ...
+# Subtest: se conservan todas las procedencias reales: varias del dueño correcto
+ok 8 - se conservan todas las procedencias reales: varias del dueño correcto
+  ---
+  duration_ms: 0.21962
+  type: 'test'
+  ...
+# Subtest: sin identidad abierta no se resalta nada por propiedad
+ok 9 - sin identidad abierta no se resalta nada por propiedad
+  ---
+  duration_ms: 13.54051
+  type: 'test'
+  ...
+# Subtest: TABS contains document, graph, and code projections
+ok 10 - TABS contains document, graph, and code projections
+  ---
+  duration_ms: 5.800101
+  type: 'test'
+  ...
+# Subtest: filterCatalog filters by query and model without modifying input
+ok 11 - filterCatalog filters by query and model without modifying input
+  ---
+  duration_ms: 0.39393
+  type: 'test'
+  ...
+# Subtest: formatHash formats hashes safely
+ok 12 - formatHash formats hashes safely
+  ---
+  duration_ms: 4.467325
+  type: 'test'
+  ...
+# Subtest: parseCodeSnippet slices content with target line highlighted
+ok 13 - parseCodeSnippet slices content with target line highlighted
+  ---
+  duration_ms: 0.577179
+  type: 'test'
+  ...
+# Subtest: formatProblems distinguishes clean, node problems, store problems, and errors
+ok 14 - formatProblems distinguishes clean, node problems, store problems, and errors
+  ---
+  duration_ms: 0.528079
+  type: 'test'
+  ...
+# Subtest: filterGraphEdges and distinctEdgeTypes filter and extract relation types
+ok 15 - filterGraphEdges and distinctEdgeTypes filter and extract relation types
+  ---
+  duration_ms: 0.314485
+  type: 'test'
+  ...
+# Subtest: irSectionsWithCleanMeta extracts hierarchical IR structure with line spans
+ok 16 - irSectionsWithCleanMeta extracts hierarchical IR structure with line spans
+  ---
+  duration_ms: 1.468574
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 449.658392
+rc=0

@@ -1,0 +1,4 @@
+python -m pytest -q -p no:cacheprovider tests/e2e_embed_notation.py  -> exit 0 (1 passed)
+python -m pytest -q -p no:cacheprovider tests/e2e_mindmap_notation.py -> exit 1 (1 passed, 1 failed)
+  FAILED test_specs_view_draws_nest_markers_compartments_and_terminals: assert_nodes_framed margen 5.0 < 8
+  Reproducido igual en el checkout principal SIN mis cambios: fallo previo (entorno: chromium headless-shell de playwright en este contenedor).

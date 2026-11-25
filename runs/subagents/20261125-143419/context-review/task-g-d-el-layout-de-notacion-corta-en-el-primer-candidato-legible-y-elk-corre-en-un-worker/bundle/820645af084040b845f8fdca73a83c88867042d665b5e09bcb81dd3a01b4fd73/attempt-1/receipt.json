@@ -1,0 +1,9 @@
+{
+  "key": "task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker/bundle",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "820645af084040b845f8fdca73a83c88867042d665b5e09bcb81dd3a01b4fd73",
+  "output_sha256": "2c3aae9f9df6b77f68b03f77a5f8d25befca9892e6e3e2e3f203a505efc74245",
+  "start": "2026-11-25T14:34:20.294626+00:00",
+  "end": "2026-11-25T14:34:34.382914+00:00"
+}

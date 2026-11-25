@@ -1,0 +1,50 @@
+## master...origin/master
+ M .github/requirements-suite.txt
+ M .sldb/core/documents/AtomDoc/atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz.yaml
+ M .sldb/core/documents/TaskCodeDoc/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.yaml
+ M ".sldb/core/documents/TaskDecisionDoc/task-decisi\303\263n-de-jp-el-workspace-de-graph-ui-edita-y-ancla-c\303\263digo-softfactory-k03-k05-k12-o-solo-muestra.yaml"
+ M .sldb/core/models/AtomDoc.yaml
+ M .sldb/core/models/ReviewDoc.yaml
+ M .sldb/core/models/RunDoc.yaml
+ M .sldb/core/models/TaskCodeDoc.yaml
+ M .sldb/core/models/TaskDecisionDoc.yaml
+ M .sldb/core/store_index.yaml
+ M .sldb/store.yaml
+ M README.md
+ M desk/atoms/atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz.md
+ M "desk/tasks/task-decisi\303\263n-de-jp-el-workspace-de-graph-ui-edita-y-ancla-c\303\263digo-softfactory-k03-k05-k12-o-solo-muestra.md"
+ M desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md
+ M frontends/desk/app.js
+ M frontends/desk/task.js
+ M frontends/mindmap/README.md
+ M frontends/mindmap/persistence.py
+ M frontends/mindmap/projection_views.py
+ M frontends/mindmap/serve.py
+ M frontends/mindmap/sldb_adapter.py
+ M frontends/mindmap/views/specs/notation/notation-deployment.mjs
+ M frontends/mindmap/views/specs/notation/notation-style.mjs
+ M frontends/mindmap/views/specs/notation/notation-swimlanes.mjs
+ M frontends/mindmap/views/specs/notation/notation-view.js
+ M frontends/mindmap/views/specs/notation/notation.css
+ M frontends/mindmap/views/specs/notation/notation.mjs
+ M frontends/mindmap/views_routes.py
+ M pyproject.toml
+ M tests/e2e_mindmap_notation.py
+ M tests/e2e_notation_activity.py
+ M tests/e2e_notation_class.py
+ M tests/e2e_notation_deployment.py
+ M tests/e2e_notation_legibility.py
+ M tests/e2e_notation_sequence.py
+ M tests/e2e_notation_style.py
+ M tests/e2e_review_workbench_views.py
+ M tests/test_mindmap_notation.py
+ M tests/test_mindmap_skin.py
+ M tests/test_projection_views.py
+?? ".sldb/core/documents/ReviewDoc/review-task-decisi\303\263n-de-jp-el-workspace-de-graph-ui-edita-y-ancla-c\303\263digo-softfactory-k03-k05-k12-o-solo-muestra-owner-1.yaml"
+?? .sldb/core/documents/RunDoc/
+?? .sldb/core/documents/TaskDoc/
+?? .sldb/runtime/
+?? "desk/reviews/task-decisi\303\263n-de-jp-el-workspace-de-graph-ui-edita-y-ancla-c\303\263digo-softfactory-k03-k05-k12-o-solo-muestra/"
+?? runs/subagents/20261116-ir13-executor-a1/
+?? runs/subagents/20261116-triaje-graph-ui/
+?? tests/fixtures/notation-pilots/

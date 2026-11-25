@@ -1,0 +1,9 @@
+{
+  "key": "task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij/preflight",
+  "technical_ok": false,
+  "returncode": null,
+  "input_sha256": "164960cad5fdb9bd87dd45b9d827936761c594f9580abd3129d32fb0daaa8e94",
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "start": "2026-11-16T17:25:28.620162+00:00",
+  "end": "2026-11-16T17:40:28.734380+00:00"
+}

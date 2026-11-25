@@ -1,0 +1,62 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__ test_packages_nest_their_classes_with_a_readable_tab_and_their_kind_style ___
+
+packages_store = PosixPath('/dev/shm/pkg-e1-bt/packages0/.sldb')
+
+    def test_packages_nest_their_classes_with_a_readable_tab_and_their_kind_style(packages_store):
+        import yaml
+        spec = yaml.safe_load((PACKAGES / "class.packages.yml").read_text(encoding="utf-8"))
+        packages = spec["data"]["packages"]
+        doc = lambda name: f"SpecNodeDoc:{PACKAGES_SPEC}.{name}"
+        process, base = _serve(packages_store)
+        try:
+            with sync_playwright() as pw:
+                browser = pw.chromium.launch()
+                page = browser.new_page(viewport={"width": 1800, "height": 1200})
+                errors = []
+                page.on("pageerror", lambda e: errors.append(str(e)))
+                page.goto(f"{base}/specs/notation")
+                page.wait_for_selector(".notation-catalog button", timeout=30000)
+                view = page.evaluate("s => fetch('/api/notation/view?spec=' + encodeURIComponent(s)).then(r => r.json())", PACKAGES_SPEC)
+                styles = {n["doc"]: n.get("style") or {} for n in view["nodes"]}
+                _measure(page, PACKAGES_SPEC)  # abre el spec y pulsa «Ver todo»
+                geo = page.evaluate(PACKAGE_GEOMETRY)
+                # (a) cada clase dentro de su paquete y cada subpaquete dentro del suyo: dos niveles (core > billing/identity).
+                for name, package in packages.items():
+                    box = geo[doc(name)]
+                    assert box["container"] and box["shape"] == "shape-package", (name, box)
+                    for child in package["contains"]:
+                        assert _inside(geo[doc(child)], box), (name, child, geo[doc(child)], box)
+                assert set(packages["core"]["contains"]) == {"billing", "identity"}
+                assert all(not geo[doc(c)]["container"] for c in spec["data"]["classes"])
+                # (b) G2: la cabecera del paquete reserva su alto, el primer hijo empieza debajo y el título no queda tapado.
+                for name, package in packages.items():
+                    box = geo[doc(name)]
+                    assert box["title"] and box["title"]["text"] == package["label"] and box["title"]["onTop"], (name, box)
+                    first = min(geo[doc(c)]["top"] for c in package["contains"])
+                    assert box["head"]["bottom"] <= first + 0.5 and box["title"]["bottom"] <= first + 0.5, (name, box, first)
+                    # La carpeta UML envuelve la caja entera del contenedor; su pestaña sobresale arriba a la izquierda y el
+                    # título va en la pestaña o en una cabecera bajo ella; los hijos empiezan dentro del cuerpo, bajo el título.
+                    folder, title = box["folder"], box["title"]
+                    assert folder and abs(folder["left"] - box["left"]) <= 2 and abs(folder["right"] - box["right"]) <= 2, (name, box)
+                    assert abs(folder["top"] - box["top"]) <= 2 and abs(folder["bottom"] - box["bottom"]) <= 2, (name, box)
+                    assert folder["top"] < folder["bodyTop"] - 4 and folder["tabRight"] < folder["right"] - 4, (name, folder)
+                    in_tab = title["left"] >= folder["left"] - 0.5 and title["right"] <= folder["tabRight"] + 0.5 \
+                        and title["top"] >= folder["top"] - 0.5 and title["bottom"] <= folder["bodyTop"] + 0.5
+                    under_tab = title["top"] >= folder["bodyTop"] - 0.5
+                    assert in_tab or under_tab, (name, title, folder)
+>                   assert first >= folder["bodyTop"] - 0.5, (name, first, folder)
+E                   AssertionError: ('core', 448.8999938964844, {'left': 743.1500244140625, 'right': 1007.1500301361084, 'top': 386.20001220703125, 'bottom': 957.1000245809556, ...})
+E                   assert 448.8999938964844 >= (466.12601393938064 - 0.5)
+
+tests/e2e_notation_class.py:258: AssertionError
+=============================== warnings summary ===============================
+../../../../../../dev/shm/venv-pkg-e1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636
+  /dev/shm/venv-pkg-e1/lib/python3.13/site-packages/_pytest/config/__init__.py:1636: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 failed, 3 deselected, 1 warning in 11.30s
+rc=1 secs=12

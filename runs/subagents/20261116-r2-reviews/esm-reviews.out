@@ -1,0 +1,10 @@
+task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij/preflight: reviewed
+review: review-task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij-preflight-1
+run_dir: runs/subagents/20261116-172432/context-review/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij/preflight/337f552bddfaca792cf3413015be9a889d9038a8c4877c60aa79135c8cef25fa/attempt-1
+input_sha256: 337f552bddfaca792cf3413015be9a889d9038a8c4877c60aa79135c8cef25fa
+rc=0 preflight
+task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij/bundle: reviewed
+review: review-task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij-bundle-1
+run_dir: runs/subagents/20261116-172444/context-review/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij/bundle/0fc75e0da3492f71b7996f34db02cbbf56e7454ac18b62164f8ebefa5c8b0178/attempt-1
+input_sha256: 0fc75e0da3492f71b7996f34db02cbbf56e7454ac18b62164f8ebefa5c8b0178
+rc=0 bundle

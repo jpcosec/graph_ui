@@ -1,0 +1,20 @@
+Task: task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com
+Title: IR13: migrar graph_ui de spec2viz a sldb.api.notations (resolve_view, sync de specs, ViewDoc, pilotos como fixtures)
+Status: active
+Current node: ritual-testing
+Task type: task.code
+Phase: testing
+Required ritual:
+- desk/rituals/testing.md
+Required pills:
+- desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md
+Next actions:
+1. Confirm the handoff names the contract, touched files, and pill guardrails.
+2. Add or update relevant tests.
+3. Run the smallest relevant test scope, then broader validation if shared behavior changed.
+Advance when:
+- Relevant tests pass and the testing-to-closeout handoff is explicit.
+Sources:
+- task: desk/tasks/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com.md
+- board: desk/tasks/Board.md
+- workflow: deskops/spec/workflows/task_lifecycle.yaml

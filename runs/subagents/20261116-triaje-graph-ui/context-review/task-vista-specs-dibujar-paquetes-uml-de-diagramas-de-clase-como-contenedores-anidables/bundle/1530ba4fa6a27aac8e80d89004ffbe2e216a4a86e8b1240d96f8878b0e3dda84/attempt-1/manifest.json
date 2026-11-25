@@ -1,0 +1,106 @@
+{
+  "key": "task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/bundle",
+  "input_sha256": "1530ba4fa6a27aac8e80d89004ffbe2e216a4a86e8b1240d96f8878b0e3dda84",
+  "argv": [
+    "pi",
+    "--provider",
+    "deepseek",
+    "--model",
+    "deepseek-flash",
+    "--thinking",
+    "low",
+    "--offline",
+    "--no-session",
+    "--no-context-files",
+    "--no-skills",
+    "--no-extensions",
+    "--no-prompt-templates",
+    "--no-tools",
+    "--print",
+    "--system-prompt",
+    "Revisor barato aislado de un encargo de planificación. Trabajas solo con el input explícito: sin herramientas, historial ni otras fuentes. No ejecutas nada. Responde en español con estas secciones exactas: REFORMULACION (propósito, resultado, repo, límites), AMBIGUEDADES (numeradas, cada una con cita textual del input y qué obligaría a inventar; escribe \"ninguna\" si no hay), DRY-RUN (lecturas, cambios previstos, dependencias y validaciones futuras, sin ejecutar), FUTURO (lo que produce otro nodo o decide un humano, no ambigüedad). REFORMULACION describe el encargo del nodo, no esta revisión. DRY-RUN describe cómo lo ejecutaría un ejecutor futuro, hipotéticamente y sin ejecutar nada. Si el nodo es un agregado o paquete no ejecutable, dilo y además recorre cómo lo cumplen sus hijos, qué transfiere cada uno al siguiente y cómo se valida el resultado conjunto. Máximo 350 palabras.",
+    "@/home/jp/proyectos/SLDB_1/UIs/graph_ui/runs/subagents/20261116-triaje-graph-ui/context-review/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/bundle/1530ba4fa6a27aac8e80d89004ffbe2e216a4a86e8b1240d96f8878b0e3dda84/attempt-1/input.md"
+  ],
+  "model": "deepseek/deepseek-flash",
+  "profile": "runtime-pi-deepseek-flash",
+  "selection_reason": "deepseek-flash: perfil barato verificado en esta máquina por ritual-context-review (D4)",
+  "sources": [
+    {
+      "path": "desk/tasks/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables.md",
+      "sha256": "c258c5493badd30260597e74c2e9fac80bb85a8a6802e2554eca530e5ca01e20",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/execution.md",
+      "sha256": "1e1f276948153414b47a428e9cdef41fca3084def14e942601541bfde213413b",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/testing.md",
+      "sha256": "bdf6263333b61cd58a3da8c64d9bf29f8562f7595de532fdcb90ec3ed2d979a0",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/rituals/closeout.md",
+      "sha256": "102af3eff35756f1a8a2d0e1092862418d891504ec08f8855125a5a5bc406d95",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/contexts/pill-guardrail-no-mocks-no-stubs-no-fake-data-in-deliverables.md",
+      "sha256": "451269fb5a78129f8d1038928699e1db7a99fe0a87bc8a0879b8a35c08d3f6eb",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/atoms/atom-la-vista-specs-dibuja-lo-que-resuelve-spec2viz.md",
+      "sha256": "f9f87d2100fc0bba43fb970e3eb838fce2bad1f63d24309bc1d16e4c6f992e25",
+      "projection": "whole_file"
+    },
+    {
+      "path": "desk/atoms/atom-cómo-decide-el-layout-de-una-vista-su-estilo-de-arquitectura.md",
+      "sha256": "7f5a1a05cfa879a4ec6f5f067746cfc6ced690ba1fbdca33bd64e097ca46b8ed",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views/specs/notation/notation-view.js",
+      "sha256": "2a66a9e747f3d9df6113efe60941d3db97f48875d632a47e4ff47b47ccfd7d24",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views/specs/notation/notation.mjs",
+      "sha256": "bf599595fb99c85a159a8f567382ade7e7b0ef6ae771ec176572e30502c534c3",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views/specs/notation/notation-layout.mjs",
+      "sha256": "020b51d99075d6d5fdfafc55c0030c40bf3f81e5462e610cb30bbc73b554fd65",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views/specs/notation/notation-style.mjs",
+      "sha256": "4a35592755db09357a87e3296e8c1d262f724ab9ea87d859bc837142ee336d68",
+      "projection": "whole_file"
+    },
+    {
+      "path": "frontends/mindmap/views/specs/notation/notation.css",
+      "sha256": "0093853fd4c1812f7b54c29960f58c786621e6a36ccf7bb89f10448cca5dc3fd",
+      "projection": "whole_file"
+    },
+    {
+      "path": "tests/e2e_notation_class.py",
+      "sha256": "60a6d7139ba1367be8c2692faa9b93832f4bbf699d139e0391cc9ee9eebfaa30",
+      "projection": "whole_file"
+    }
+  ],
+  "omitted_sources": [
+    {
+      "path": "tests/notation-packages.test.mjs",
+      "reason": "missing"
+    },
+    {
+      "path": "tests/fixtures/notation-packages/class.packages.yml",
+      "reason": "missing"
+    }
+  ],
+  "started": "2026-11-16T03:54:54.305517+00:00",
+  "finished": "2026-11-16T03:55:04.401619+00:00"
+}

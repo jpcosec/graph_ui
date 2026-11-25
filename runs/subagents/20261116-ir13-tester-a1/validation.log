@@ -1,0 +1,48 @@
+# validation.log — tester deskops-t-3feb27738750 intento 1 — 2026-11-16T02:18:59-03:00
+Entorno: PATH=/dev/shm/venv-ir13/bin:$PATH TMPDIR=/dev/shm; cwd=/home/jp/proyectos/SLDB_1/UIs/graph_ui
+
+$ /dev/shm/venv-ir13/bin/python -c "import spec2viz"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import spec2viz
+ModuleNotFoundError: No module named 'spec2viz'
+exit code: 1
+which sldb: /dev/shm/venv-ir13/bin/sldb; which python: /dev/shm/venv-ir13/bin/python
+
+$ flock /dev/shm/sldb1-tests.lock python -m pytest -q -rs --basetemp=/dev/shm/ir13t-bt1.w04Z tests/test_projection_views.py tests/test_mindmap_notation.py tests/test_mindmap_skin.py
+exit code: 0
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+20 passed, 1 warning in 27.15s
+
+$ flock /dev/shm/sldb1-tests.lock python -m pytest -q -rs --basetemp=/dev/shm/ir13t-bt2.1Qmf tests/e2e_notation_class.py tests/e2e_notation_sequence.py tests/e2e_notation_deployment.py tests/e2e_notation_activity.py tests/e2e_notation_style.py tests/e2e_notation_legibility.py tests/e2e_mindmap_notation.py tests/e2e_review_workbench_views.py
+exit code: 0
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+21 passed, 1 warning in 399.97s (0:06:39)
+
+$ grep -rnE 'from spec2viz|import spec2viz|importorskip\("spec2viz"\)|which\("spec2viz"\)|spec2viz\.sldb_models|spec2viz>=|spec2viz@' frontends tests pyproject.toml .github
+exit code: 1 (1 = sin coincidencias; el '! grep' del contrato da 0)
+
+$ cd ../../IR && /dev/shm/venv-ir13/bin/specir retirement check --path graph_ui=../UIs/graph_ui   (tal cual el contrato)
+Error: no path given for: deskops, pron, sldb, spec2viz/.sldb
+exit code: 2
+
+$ cd ../../IR && /dev/shm/venv-ir13/bin/specir retirement check --path graph_ui=../UIs/graph_ui --path deskops=../deskops --path pron=../pron --path sldb=../sldb --path spec2viz/.sldb=../spec2viz/.sldb
+audited repos: graph_ui, deskops, pron, sldb, IR
+audited stores: spec2viz/.sldb
+dependencies: 88
+dependencias por repo/store:
+  IR: 43
+  pron: 3
+  deskops: 22
+  spec2viz/.sldb: 19
+  sldb: 1
+  graph_ui: 0
+gate: failed, the retirement is not declared
+exit code: 1 (gate global abierto por otros repos; salida completa en specir-retirement-check.txt)
+

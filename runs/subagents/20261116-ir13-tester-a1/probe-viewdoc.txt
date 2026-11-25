@@ -1,0 +1,84 @@
+# Prueba independiente: VIEW_MODEL_REF registra el ViewDoc de sldb en un store temporal — 2026-11-16T02:20:28-03:00
+workdir=/dev/shm/ir13t-viewdoc.6HLR port=43885 python=/dev/shm/venv-ir13/bin/python
+
+## A. store vacío + ensure_model directo
+init exit=0
+ugrep: warning: /dev/shm/ir13t-viewdoc.6HLR/a/.sldb/store.yaml: No such file or directory
+ViewDoc en store.yaml antes: 
+VIEW_MODEL_REF = sldb.models.notation.view_doc:ViewDoc | VIEW_MODEL = ViewDoc
+registrado antes: False
+registrado después: True
+clase: <class 'sldb.models.notation.view_doc.ViewDoc'> | archivo: /home/jp/proyectos/SLDB_1/sldb/src/sldb/models/notation/view_doc.py
+'spec2viz' en sys.modules: False
+exit=0
+ViewDoc en store.yaml después:
+ugrep: warning: /dev/shm/ir13t-viewdoc.6HLR/a/.sldb/store.yaml: No such file or directory
+spec2viz en el store A: 2 archivos
+
+## B. servidor real (serve.py) sobre store temporal con un piloto: POST /api/views/save
+init exit=0
+sldb notations sync exit=0
+Synced component.exception-hierarchy: 9 nodes, 8 edges (24 created, 0 updated, 0 deleted, relation types added: inherits, uses, notation NotationDoc:component)
+ugrep: warning: /dev/shm/ir13t-viewdoc.6HLR/b/.sldb/store.yaml: No such file or directory
+ViewDoc registrado tras el sync (antes de guardar): 
+server pid=1745526
+$ GET /api/views
+{"views": []}
+HTTP 200
+$ POST /api/views/save
+{"ok": true, "ref": "ViewDoc:herencia-tester", "view": {"nodes": [{"model": "SpecNodeDoc", "where": ""}], "relations": ["inherits"], "notation": "NotationDoc:component", "id": "herencia-tester", "name": "herencia-tester", "title": "Herencia (tester)"}}
+HTTP 200
+$ GET /api/views (después)
+{"views": [{"ref": "ViewDoc:herencia-tester", "payload": {"id": "herencia-tester", "name": "herencia-tester", "title": "Herencia (tester)", "nodes": [{"model": "SpecNodeDoc", "where": ""}], "relations": ["inherits"], "direction": "both", "notation": "NotationDoc:component", "layout": {}, "params": [], "sections": [], "description": ""}}]}
+HTTP 200
+$ GET /api/views/evaluate?view=herencia-tester
+{'ok': True, 'store': '/dev/shm/ir13t-viewdoc.6HLR/b/.sldb', 'view': ['description', 'direction', 'id', 'layout', 'name', 'nodes', 'notation', 'params', 'relations', 'sections', 'title'], 'nodes': 9, 'edges': 4, 'layout': ['direction', 'kind'], 'notation': ['edges', 'ink', 'legend', 'nodes', 'notation', 'palette', 'skipped']} HTTP 200
+notation.error: None
+$ GET /api/notation/view?spec=component.exception-hierarchy
+{"spec": "SpecDoc:component.exception-hierarchy", "title": "Exception Hierarchy and Pipeline Stages", "diagram_type": "component", "notation": "NotationDoc:component", "palette": "", "level": "types",
+HTTP 200
+$ GET /api/notation/view?spec=no-existe
+{"ok": false, "error": "SpecDoc:no-existe is not in the store"}
+HTTP 404
+server 1745526 cerrado (kill exit ok)
+ViewDoc en store.yaml B:
+ugrep: warning: /dev/shm/ir13t-viewdoc.6HLR/b/.sldb/store.yaml: No such file or directory
+documento guardado:
+<W>/b/sldb/views/herencia-tester.md
+<W>/b/.sldb_cache/edges/ViewDoc/herencia-tester.yaml
+<W>/b/.sldb_cache/semantic/ViewDoc/herencia-tester.yaml
+<W>/b/.sldb_cache/sections/ViewDoc/herencia-tester.yaml
+<W>/b/.sldb/core/documents/ViewDoc/herencia-tester.yaml
+spec2viz como ref de modelo en el store B:
+ugrep: warning: /dev/shm/ir13t-viewdoc.6HLR/b/.sldb/store.yaml: No such file or directory
+(fin)
+serve.log:
+KB Mindmap: http://127.0.0.1:43885/ · store: /dev/shm/ir13t-viewdoc.6HLR/b/.sldb
+127.0.0.1 - - [16/Nov/2026 02:20:34] "GET /api/notation/view?spec=no-existe HTTP/1.1" 404 -
+
+## C. Aclaración de la sonda (mi grep miraba <store>/store.yaml, que en un store nuevo no existe) — 2026-11-16T02:20:45-03:00
+init exit=0
+archivos del store vacío:
+.sldb/core/store_index.yaml
+menciones de spec2viz en el store vacío ANTES de registrar:
+exit grep=0
+ensure exit=0
+archivos que nombran ViewDoc DESPUÉS:
+.sldb/core/models/ViewDoc.yaml
+.sldb/core/store_index.yaml
+ref del modelo registrado:
+.sldb/core/models/ViewDoc.yaml:2:model_ref: sldb.models.notation.view_doc:ViewDoc
+.sldb/core/models/ViewDoc.yaml:3:path: /home/jp/proyectos/SLDB_1/sldb/src/sldb/models/notation/view_doc.py
+.sldb/core/store_index.yaml-2-models:
+.sldb/core/store_index.yaml:3:- name: ViewDoc
+.sldb/core/store_index.yaml:4:  model_ref: sldb.models.notation.view_doc:ViewDoc
+.sldb/core/store_index.yaml-5-  path: /home/jp/proyectos/SLDB_1/sldb/src/sldb/models/notation/view_doc.py
+.sldb/core/store_index.yaml:6:  models_index: .sldb/core/models/ViewDoc.yaml
+.sldb/core/store_index.yaml-7-  version: 1
+.sldb/core/store_index.yaml-8-  canonical: false
+.sldb/core/store_index.yaml-9-  family: null
+.sldb/core/store_index.yaml-10-  semantics:
+menciones de spec2viz DESPUÉS:
+.sldb/core/store_index.yaml:14:  - system.spec2viz
+.sldb/core/models/ViewDoc.yaml:17:- system.spec2viz
+exit grep=0

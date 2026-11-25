@@ -1,0 +1,14 @@
+tests/fixtures/notation-view-sequence.json:162:      "label": "spec2viz render spec.yml --backend mermaid"
+tests/mindmap-notation.test.mjs:2:// Los fixtures son la salida REAL de `spec2viz notation view` sobre pilotos de
+tests/mindmap-notation.test.mjs:3:// spec2viz sincronizados en un store temporal:
+tests/mindmap-notation.test.mjs:4://   spec2viz diagram sync <spec.yml> --store .sldb
+tests/mindmap-notation.test.mjs:5://   spec2viz notation view <id> --store .sldb > tests/fixtures/notation-view-<x>.json
+tests/mindmap-notation.test.mjs:8:// matrix: matrix.quotation-view (spec2viz/tests/fixtures; grilla con filas anidadas);
+tests/mindmap-notation-style.test.mjs:1:// Estilo de notación (spec2viz §13) en la vista Specs: lógica pura de notation-style.mjs y el tamaño
+tests/fixtures/notation-activity/activity-notes-merge.yml:1:# Test spec for the Specs view's activity drawing without partitions (spec2viz contract §14): UML
+tests/fixtures/notation-view-fragments.json:125:        "message": "spec2viz diagram sync a.yml b.yml --strict"
+tests/fixtures/notation-view-fragments.json:133:      "label": "spec2viz diagram sync a.yml b.yml --strict"
+tests/fixtures/notation-activity/activity-lanes.yml:1:# Test spec for the Specs view's activity drawing (spec2viz contract §14): one partition (swimlane)
+tests/fixtures/notation-style/infra.yml:1:# Test notation for the Specs view's glyph style (spec2viz contract §13): every new shape, the default
+tests/fixtures/notation-view-class.json:3:  "title": "spec2viz documents in the sldb store",
+tests/fixtures/notation-deployment/deployment-nested-paths.yml:1:# Test spec for the Specs view's deployment drawing (spec2viz contract §14): nodes nested four levels

@@ -1,0 +1,12 @@
+### BASELINE tests/test_desk_ui_routes.py (cwd /dev/shm/gate-e1-head) 2026-11-16T12:17:47-03:00
+Mem:              31          22           0           1           8           8
+FAILED tests/test_desk_ui_routes.py::test_each_view_route_returns_exactly_what_deskops_view_returns
+FAILED tests/test_desk_ui_routes.py::test_desk_selector_lists_registry_desks_with_a_desk_and_routes_views
+FAILED tests/test_desk_ui_routes.py::test_advance_delegates_to_desk_routes_with_revision_guard
+FAILED tests/test_desk_ui_routes.py::test_board_comes_from_sldb_serve_and_projects_to_deskops_view
+FAILED tests/test_desk_ui_routes.py::test_advance_with_the_etag_read_before_an_edit_is_409
+5 failed, 8 passed, 1 warning in 590.31s (0:09:50)
+rc=1
+### BASELINE tests/test_mindmap_deskops.py (cwd /dev/shm/gate-e1-head) 2026-11-16T12:27:40-03:00
+Mem:              31          13          10           2           9          17
+rc=143

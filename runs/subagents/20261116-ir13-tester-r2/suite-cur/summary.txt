@@ -1,0 +1,25 @@
+tests/test_auditor.py rc=0 1s avail_antes=19G maxrss_kb=41724 | 2 passed, 1 warning in 0.10s
+tests/test_ci_workflow.py rc=1 0s avail_antes=19G maxrss_kb=34192 | 1 failed, 5 passed, 1 warning in 0.13s
+tests/test_desk_ui_routes.py rc=1 666s avail_antes=19G maxrss_kb=2616192 | 5 failed, 8 passed, 1 warning in 664.62s (0:11:04)
+tests/test_editor.py rc=0 0s avail_antes=19G maxrss_kb=41808 | 2 passed, 3 warnings in 0.10s
+tests/test_mindmap_adapter.py rc=0 2s avail_antes=19G maxrss_kb=79368 | 7 passed, 1 warning in 1.51s
+tests/test_mindmap_compiler.py rc=0 1s avail_antes=19G maxrss_kb=77064 | 8 passed, 1 warning in 1.01s
+tests/test_mindmap_contract.py rc=0 1s avail_antes=19G maxrss_kb=32616 | 10 passed, 1 warning in 0.03s
+tests/test_mindmap_deskops.py rc=1 359s avail_antes=19G maxrss_kb=3056216 |     return handler.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+tests/test_mindmap_endpoints.py rc=0 5s avail_antes=19G maxrss_kb=102248 | 32 passed, 1 warning in 4.83s
+tests/test_mindmap_notation.py rc=0 8s avail_antes=19G maxrss_kb=83272 | 5 passed, 1 warning in 8.02s
+tests/test_mindmap_persistence.py rc=0 3s avail_antes=19G maxrss_kb=89048 | 4 passed, 1 warning in 2.26s
+tests/test_mindmap_quick_capture.py rc=0 2s avail_antes=19G maxrss_kb=85084 | 3 passed, 1 warning in 1.79s
+tests/test_mindmap_skin.py rc=0 0s avail_antes=19G maxrss_kb=32932 | 4 passed, 1 warning in 0.07s
+tests/test_mindmap_workers.py rc=0 7s avail_antes=19G maxrss_kb=75108 | 10 passed, 1 warning in 5.81s
+tests/test_mindmap_workspace.py rc=0 154s avail_antes=19G maxrss_kb=155428 | 17 passed, 1 warning in 153.99s (0:02:33)
+tests/test_mindmap_workspace_explorer.py rc=0 307s avail_antes=19G maxrss_kb=229912 | 40 passed, 1 warning in 305.81s (0:05:05)
+tests/test_mindmap_workspace_reader.py rc=0 287s avail_antes=19G maxrss_kb=218840 | 31 passed, 1 warning in 285.62s (0:04:45)
+tests/test_parallel_workspace_serve.py rc=0 25s avail_antes=19G maxrss_kb=102488 | 3 passed, 1 warning in 24.43s
+tests/test_projection_views.py rc=0 22s avail_antes=19G maxrss_kb=102524 | 11 passed, 1 warning in 21.98s
+tests/test_provider.py rc=0 1s avail_antes=19G maxrss_kb=41832 | 2 passed, 1 warning in 0.10s
+tests/test_representacion_docs.py rc=0 0s avail_antes=19G maxrss_kb=32968 | 4 passed, 1 warning in 0.08s
+tests/test_review_workbench.py rc=0 12s avail_antes=19G maxrss_kb=499608 | 3 passed, 1 warning in 12.06s
+tests/test_sldb_end_to_end.py rc=0 70s avail_antes=19G maxrss_kb=2379404 | 4 passed, 1 warning in 66.21s (0:01:06)
+tests/test_snapshot_adapter.py rc=0 1s avail_antes=19G maxrss_kb=68496 | 1 passed, 1 warning in 0.59s
+DONE

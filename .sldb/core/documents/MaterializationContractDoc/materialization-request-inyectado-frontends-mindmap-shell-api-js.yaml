@@ -1,0 +1,25 @@
+name: materialization-request-inyectado-frontends-mindmap-shell-api-js
+path: desk/materializations/materialization-request-inyectado-frontends-mindmap-shell-api-js.md
+source_hash: e8e61c93d208f4f766ea0ce4d6541e107aae26dab2b22d14e4325a49c5b6a358
+content_hash: b2f51752251d89031f53d569a5b8b7d6d921df6d87fd75cd4a30c8cfe5ca936c
+field_hashes:
+  id: 5287ba071ec7d236f67708d5dc7d3ddf887e1f9045d2ddab90ae80187d3ff0da
+  title: 9cc9ed06b50dd9710e818e36a20124e993f63098b3af780f5ac6b345385b0db3
+  source_atoms: 4834774676493d7a5736c148d2e56cd206cabc962cf84c671ac79d9850b5029a
+  target_kind: 4a1933b06cf695fcff4acaba1fdbaa7f10ce109d3c7f57bbf62f6bb572658de8
+  target_identity: c8955a4a605c0ff2ce0d9976f5fb53cffe5c8d83a658d984872a5987a8264bf7
+  intent: 982b988e468fbc69ee3f4376b0256dcc4db2a43fad137913f4934fcd19b7d9f8
+  validation: 7c5cce1648fb8b6c55ead2e39fad406581a8655be2aebb984ba55fe9975f19d9
+  tags: 313f1998e6313d2a230f5b50e9ae96ef4c9f60e04148c84f3e9b92c9c88f295a
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:request-inyectado
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-25T15:54:01Z'
+  authority: generated
+  via: create_document

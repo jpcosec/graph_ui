@@ -1,0 +1,36 @@
+name: review-task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion-bundle-1
+path: desk/reviews/task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion/bundle-1.md
+source_hash: 7c2667f21514a8f3f546ebecb5821e0e33f46af991d226ac874500f91e8caf29
+content_hash: 80d53dcb780fbc1f7c27b338291c9b45714c9a42e9159a0cceb5eb980dba71a2
+field_hashes:
+  id: f7aca466ada56e85626e619c9f22bd1ec795b79372a18ad6b947500729a046a4
+  title: edbc42908d5246895f18546b36d6128bf9ccce4ba85336863e17ce3ca200e5ed
+  kind: 4c522949265daa3973b2389b594a235b5c6e47c70d2af6e23bd14f8173f56280
+  fact: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  value: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  subject: fb524f9d702c32e4f50aa6f20b74f7eaf7a556d4fe5d1165fa910aae4a7d2d87
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 6874c40de9971944b9706ccc769074b7f77cb595ed78bafba748db5266461238
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: 9066ea5e48c1824552bc99130b10e75f5e1abe79e370b35536154656c36aba42
+  input_sha256: 3419123e680c8c310b4a540ca1b88e9721390abccb660a5b2f45e48787b9cff7
+  contract_sha256: 9e4cc467236e9cd0adbd6bc447b25d92aa0884b5203cfebf6dfc17114675c691
+  output_sha256: 607bc46058bd2b965906186c72c5030f6b3e316388040962a54ff59bff905a52
+  verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
+  reason: a7cc59664eebb410616b5f83148ba2173c52786ff5e9e508744b077cc04031e4
+  created_at: 009170713b3a7225dd9bc13751fbe1ab0438b2f6a69dccbf024804bc1446b5f6
+  disposed_at: 6a4177695b395a798fa9546a27033f1ad3d4942c1df9f3a82701fe940861fcce
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: d2a841784cfe993fa1dae68cf1a19f3de03e4fcb839a3b45aac6f554dfe19c78
+  disposition: 80c281f5ba80e34c21d4157ee35d1284643d7168857d5f491e46244b3e146eae
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+provenance:
+  by: agent
+  at: '2026-11-25T14:36:09Z'
+  authority: generated
+  via: save_document_payload

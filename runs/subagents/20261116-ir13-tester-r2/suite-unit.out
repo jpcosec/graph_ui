@@ -1,0 +1,87 @@
+Mon Nov 16 10:08:10 -03 2026
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.2.0, pluggy-1.7.0 -- /dev/shm/venv-ir13-r2/bin/python
+rootdir: /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui
+configfile: pyproject.toml
+plugins: xdist-3.8.0
+created: 4/4 workers
+4 workers [229 items]
+
+scheduling tests via LoadScheduling
+
+tests/test_desk_ui_routes.py::test_advance_with_the_etag_read_before_an_edit_is_409 
+tests/test_auditor.py::test_structural_audit_signals 
+tests/test_mindmap_adapter.py::test_an_unimportable_model_is_reported_not_fatal 
+tests/test_mindmap_contract.py::test_rejects_bad_view_positions 
+[gw3] [  0%] PASSED tests/test_mindmap_contract.py::test_rejects_bad_view_positions 
+[gw0] [  0%] PASSED tests/test_auditor.py::test_structural_audit_signals 
+tests/test_auditor.py::test_orphan_signal 
+[gw0] [  1%] PASSED tests/test_auditor.py::test_orphan_signal 
+tests/test_ci_workflow.py::test_mindmap_job_runs_pytest_without_e2e_and_every_node_test 
+tests/test_mindmap_contract.py::test_rejects_ref_class_name_mismatch 
+[gw3] [  1%] PASSED tests/test_mindmap_contract.py::test_rejects_ref_class_name_mismatch 
+tests/test_mindmap_contract.py::test_rejects_unknown_reference_kind 
+[gw3] [  2%] PASSED tests/test_mindmap_contract.py::test_rejects_unknown_reference_kind 
+tests/test_mindmap_contract.py::test_model_requires_fields_or_ref 
+[gw3] [  2%] PASSED tests/test_mindmap_contract.py::test_model_requires_fields_or_ref 
+tests/test_mindmap_contract.py::test_rejects_reference_with_empty_field_and_bad_kind 
+[gw3] [  3%] PASSED tests/test_mindmap_contract.py::test_rejects_reference_with_empty_field_and_bad_kind 
+tests/test_mindmap_contract.py::test_rejects_reference_to_undeclared_field_and_model 
+[gw3] [  3%] PASSED tests/test_mindmap_contract.py::test_rejects_reference_to_undeclared_field_and_model 
+tests/test_mindmap_deskops.py::test_board_routing_errors_empty_and_orphans 
+[gw0] [  3%] PASSED tests/test_ci_workflow.py::test_mindmap_job_runs_pytest_without_e2e_and_every_node_test 
+tests/test_ci_workflow.py::test_review_workbench_job_runs_the_toolchain_the_local_tests_run 
+[gw0] [  4%] PASSED tests/test_ci_workflow.py::test_review_workbench_job_runs_the_toolchain_the_local_tests_run 
+tests/test_ci_workflow.py::test_e2e_job_is_separate_and_installs_chromium 
+[gw0] [  4%] PASSED tests/test_ci_workflow.py::test_e2e_job_is_separate_and_installs_chromium 
+tests/test_ci_workflow.py::test_sibling_repos_come_from_git_main_branches_not_releases 
+[gw0] [  5%] FAILED tests/test_ci_workflow.py::test_sibling_repos_come_from_git_main_branches_not_releases 
+tests/test_ci_workflow.py::test_python_jobs_cover_the_supported_floor 
+[gw0] [  5%] PASSED tests/test_ci_workflow.py::test_python_jobs_cover_the_supported_floor 
+tests/test_ci_workflow.py::test_python_jobs_rebuild_the_derived_store_beside_deskops 
+[gw0] [  6%] PASSED tests/test_ci_workflow.py::test_python_jobs_rebuild_the_derived_store_beside_deskops 
+tests/test_desk_ui_routes.py::test_each_view_route_returns_exactly_what_deskops_view_returns 
+[gw2] [  6%] PASSED tests/test_mindmap_adapter.py::test_an_unimportable_model_is_reported_not_fatal 
+tests/test_mindmap_adapter.py::test_graph_ui_takes_pythonpath_from_the_cli_and_the_environment 
+[gw2] [  6%] PASSED tests/test_mindmap_adapter.py::test_graph_ui_takes_pythonpath_from_the_cli_and_the_environment 
+tests/test_mindmap_compiler.py::test_compile_json_generates_models_and_documents 
+[gw2] [  7%] PASSED tests/test_mindmap_compiler.py::test_compile_json_generates_models_and_documents 
+tests/test_mindmap_compiler.py::test_compile_json_rejects_unknown_model 
+[gw2] [  7%] PASSED tests/test_mindmap_compiler.py::test_compile_json_rejects_unknown_model 
+tests/test_mindmap_compiler.py::test_plan_source_supports_nonexistent_store 
+[gw2] [  8%] PASSED tests/test_mindmap_compiler.py::test_plan_source_supports_nonexistent_store 
+tests/test_mindmap_compiler.py::test_compile_json_invalid_payload_leaves_store_untouched 
+[gw2] [  8%] PASSED tests/test_mindmap_compiler.py::test_compile_json_invalid_payload_leaves_store_untouched 
+tests/test_mindmap_compiler.py::test_plan_rejects_unimportable_model_without_documents_and_writes_nothing 
+[gw2] [  9%] PASSED tests/test_mindmap_compiler.py::test_plan_rejects_unimportable_model_without_documents_and_writes_nothing 
+tests/test_mindmap_compiler.py::test_compile_json_valid_batch_still_registers_models 
+[gw2] [  9%] PASSED tests/test_mindmap_compiler.py::test_compile_json_valid_batch_still_registers_models 
+tests/test_mindmap_compiler.py::test_plan_source_validates_payloads_and_reports_real_changes 
+[gw2] [ 10%] PASSED tests/test_mindmap_compiler.py::test_plan_source_validates_payloads_and_reports_real_changes 
+tests/test_mindmap_compiler.py::test_plan_source_flags_class_conflict_and_unknown_model 
+[gw2] [ 10%] PASSED tests/test_mindmap_compiler.py::test_plan_source_flags_class_conflict_and_unknown_model 
+tests/test_mindmap_contract.py::test_fixture_represents_small_kb_without_ambiguity 
+[gw2] [ 10%] PASSED tests/test_mindmap_contract.py::test_fixture_represents_small_kb_without_ambiguity 
+tests/test_mindmap_contract.py::test_rejects_unsupported_version 
+[gw2] [ 11%] PASSED tests/test_mindmap_contract.py::test_rejects_unsupported_version 
+tests/test_mindmap_contract.py::test_rejects_duplicated_doc_id 
+[gw2] [ 11%] PASSED tests/test_mindmap_contract.py::test_rejects_duplicated_doc_id 
+tests/test_mindmap_contract.py::test_rejects_document_without_title 
+[gw2] [ 12%] PASSED tests/test_mindmap_contract.py::test_rejects_document_without_title 
+tests/test_mindmap_endpoints.py::test_models_detail 
+[gw2] [ 12%] PASSED tests/test_mindmap_endpoints.py::test_models_detail 
+tests/test_mindmap_endpoints.py::test_models_validate 
+[gw2] [ 13%] PASSED tests/test_mindmap_endpoints.py::test_models_validate 
+tests/test_mindmap_endpoints.py::test_models_template_edit 
+[gw2] [ 13%] PASSED tests/test_mindmap_endpoints.py::test_models_template_edit 
+tests/test_mindmap_endpoints.py::test_models_unknown_action 
+[gw2] [ 13%] PASSED tests/test_mindmap_endpoints.py::test_models_unknown_action 
+tests/test_mindmap_endpoints.py::test_models_fields_add_and_remove 
+[gw2] [ 14%] PASSED tests/test_mindmap_endpoints.py::test_models_fields_add_and_remove 
+tests/test_mindmap_endpoints.py::test_models_fields_add_requires_name 
+[gw2] [ 14%] PASSED tests/test_mindmap_endpoints.py::test_models_fields_add_requires_name 
+tests/test_mindmap_endpoints.py::test_models_promote_without_draft_is_rejected 
+[gw2] [ 15%] PASSED tests/test_mindmap_endpoints.py::test_models_promote_without_draft_is_rejected 
+tests/test_mindmap_endpoints.py::test_models_promote_installs_validated_draft 
+[gw2] [ 15%] PASSED tests/test_mindmap_endpoints.py::test_models_promote_installs_validated_draft 
+tests/test_mindmap_notation.py::test_view_is_resolve_view_verbatim 

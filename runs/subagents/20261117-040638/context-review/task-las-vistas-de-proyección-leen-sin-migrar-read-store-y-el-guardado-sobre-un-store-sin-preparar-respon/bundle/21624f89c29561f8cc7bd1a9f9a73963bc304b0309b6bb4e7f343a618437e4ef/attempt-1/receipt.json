@@ -1,0 +1,9 @@
+{
+  "key": "task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon/bundle",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "21624f89c29561f8cc7bd1a9f9a73963bc304b0309b6bb4e7f343a618437e4ef",
+  "output_sha256": "839673a9ec2d565715f460d5e5f99356c8ccd0a8f7d8fd87208c638fb65346ec",
+  "start": "2026-11-17T04:06:39.461261+00:00",
+  "end": "2026-11-17T04:07:14.501575+00:00"
+}

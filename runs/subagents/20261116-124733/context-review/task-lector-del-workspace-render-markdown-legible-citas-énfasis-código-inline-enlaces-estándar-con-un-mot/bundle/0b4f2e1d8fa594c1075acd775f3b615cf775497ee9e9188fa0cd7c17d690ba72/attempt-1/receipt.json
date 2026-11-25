@@ -1,0 +1,9 @@
+{
+  "key": "task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot/bundle",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "0b4f2e1d8fa594c1075acd775f3b615cf775497ee9e9188fa0cd7c17d690ba72",
+  "output_sha256": "104f3feeffaa33570a8454d257627aeae75a8d7a572b772f92e1d1beea3e3ee2",
+  "start": "2026-11-16T12:47:33.541660+00:00",
+  "end": "2026-11-16T12:47:51.602758+00:00"
+}

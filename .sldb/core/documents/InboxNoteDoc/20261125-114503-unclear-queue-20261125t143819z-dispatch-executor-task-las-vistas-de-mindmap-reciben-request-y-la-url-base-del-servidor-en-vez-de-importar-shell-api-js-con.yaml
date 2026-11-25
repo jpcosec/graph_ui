@@ -1,0 +1,25 @@
+name: 20261125-114503-unclear-queue-20261125t143819z-dispatch-executor-task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con
+path: desk/inbox/20261125-114503-unclear-queue-20261125t143819z-dispatch-executor-task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con.md
+source_hash: f067c02db4f44d289ea23841ca7d81ff8d48afef7901ab5da418611c14be43d6
+content_hash: 1229984e2588d468d4ac9a800cfa68b9facdfbe011845250ca5e7e0a7bcb3a92
+field_hashes:
+  kind: 683144a12969e0fd85512737e57b4db93ed15ee760906165a5516d581a77889a
+  sender_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: 1a9399826fb14248bcbb761558d1a9af2e71756677658ad0182e0e8d777565d8
+  status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
+  acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  acknowledged_at: 8e1021942c048c568cd0b8bf97da8cc0cfaa78bf1f01af05dd0cc0ea3ec1493a
+  ack_reason: e5143bcbb28edebf0ba66c6ade602acb27a790560e654d1ed8c1b6c610eb2968
+  title: ec0bfeaf2a733fafeaa679c304030f01c80495f8ec18b0361028ab1b720a5ddb
+  body: 1a1bb6ba812d8037010a17cbd27b27983980b9209a328747c14538597dc08c44
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
+provenance:
+  by: agent
+  at: '2026-11-25T14:47:13Z'
+  authority: generated
+  via: save_document_payload

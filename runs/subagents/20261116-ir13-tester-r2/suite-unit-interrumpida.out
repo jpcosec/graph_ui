@@ -1,0 +1,187 @@
+bringing up nodes...
+bringing up nodes...
+
+...........F......................................................F..FF. [ 31%]
+F....F.....F..F......................................----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 46794)
+Traceback (most recent call last):
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 164, in do_GET
+    return self.json_response(self.view(root, view, query))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 174, in view
+    return self.views.task(root, ids[0])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 128, in task
+    return self.view(root, 'task', params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 115, in view
+    result = self.serves.view(root, name, params)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 73, in view
+    target = f'{self.url(root)}/views/{name}' + (f'?{query}' if query else '')
+                ^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 47, in url
+    self.urls[root] = self._start(root)
+                      ^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/mindmap/deskops_routes.py", line 68, in _start
+    raise DeskError(f'sldb serve no respondió en {url} para {root}.', 502)
+mindmap.deskops_routes.DeskError: sldb serve no respondió en http://127.0.0.1:33457 para /dev/shm/pytest-of-robocop/pytest-317/popen-gw0/test_advance_delegates_to_desk0/repo.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/socketserver.py", line 692, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 119, in __init__
+    super().__init__(*args, directory=str(DESK_DIR), **kwargs)
+  File "/usr/lib/python3.12/http/server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "/usr/lib/python3.12/socketserver.py", line 761, in __init__
+    self.handle()
+  File "/usr/lib/python3.12/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.12/http/server.py", line 424, in handle_one_request
+    method()
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 167, in do_GET
+    return self.json_response({'ok': False, 'error': str(exc)}, getattr(exc, 'status', 503))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/frontends/desk/serve.py", line 136, in json_response
+    self.wfile.write(body)
+  File "/usr/lib/python3.12/socketserver.py", line 840, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+F.............F.... [ 62%]
+.......Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pytest/__main__.py", line 9, in <module>
+    raise SystemExit(_console_main())
+                     ^^^^^^^^^^^^^^^
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/_pytest/config/__init__.py", line 286, in _console_main
+    code = _main(prog=_get_prog_name(sys.argv))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/_pytest/config/__init__.py", line 262, in _main
+    ret: ExitCode | int = config.hook.pytest_cmdline_main(config=config)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_caller.py", line 197, in __call__
+    return self._hookexec(
+           ^^^^^^^^^^^^^^^
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_manager.py", line 183, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_execution.py", line 195, in _multicall
+    raise exception
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_execution.py", line 147, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/_pytest/main.py", line 380, in pytest_cmdline_main
+    return wrap_session(config, _main)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/_pytest/main.py", line 368, in wrap_session
+    config.hook.pytest_sessionfinish(
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_caller.py", line 197, in __call__
+    return self._hookexec(
+           ^^^^^^^^^^^^^^^
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_manager.py", line 183, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_execution.py", line 195, in _multicall
+    raise exception
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_execution.py", line 167, in _multicall
+    teardown.throw(exception)
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/_pytest/logging.py", line 901, in pytest_sessionfinish
+    return (yield)
+            ^^^^^
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_execution.py", line 167, in _multicall
+    teardown.throw(exception)
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/_pytest/terminal.py", line 992, in pytest_sessionfinish
+    result = yield
+             ^^^^^
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_execution.py", line 167, in _multicall
+    teardown.throw(exception)
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/_pytest/warnings.py", line 104, in pytest_sessionfinish
+    return (yield)
+            ^^^^^
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_execution.py", line 147, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/xdist/dsession.py", line 99, in pytest_sessionfinish
+    nm.teardown_nodes()
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/xdist/workermanage.py", line 117, in teardown_nodes
+    self.group.terminate(self.EXIT_TIMEOUT)
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/execnet/multi.py", line 237, in terminate
+    safe_terminate(
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/execnet/multi.py", line 348, in safe_terminate
+    reply.get()
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/execnet/gateway_base.py", line 327, in get
+    self.waitfinish(timeout)
+  File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/execnet/gateway_base.py", line 334, in waitfinish
+    if not self._result_ready.wait(timeout):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/threading.py", line 655, in wait
+    signaled = self._cond.wait(timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/threading.py", line 355, in wait
+    waiter.acquire()
+KeyboardInterrupt
+INTERNALERROR> Traceback (most recent call last):
+INTERNALERROR>   File "/usr/lib/python3.12/threading.py", line 359, in wait
+INTERNALERROR>     gotit = waiter.acquire(True, timeout)
+INTERNALERROR>             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INTERNALERROR> KeyboardInterrupt
+INTERNALERROR> 
+INTERNALERROR> During handling of the above exception, another exception occurred:
+INTERNALERROR> 
+INTERNALERROR> Traceback (most recent call last):
+INTERNALERROR>   File "/usr/lib/python3.12/queue.py", line 180, in get
+INTERNALERROR>     self.not_empty.wait(remaining)
+INTERNALERROR>   File "/usr/lib/python3.12/threading.py", line 364, in wait
+INTERNALERROR>     self._acquire_restore(saved_state)
+INTERNALERROR>   File "/usr/lib/python3.12/threading.py", line 311, in _acquire_restore
+INTERNALERROR>     def _acquire_restore(self, x):
+INTERNALERROR>     
+INTERNALERROR> KeyboardInterrupt
+INTERNALERROR> 
+INTERNALERROR> During handling of the above exception, another exception occurred:
+INTERNALERROR> 
+INTERNALERROR> Traceback (most recent call last):
+INTERNALERROR>   File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/_pytest/main.py", line 333, in wrap_session
+INTERNALERROR>     session.exitstatus = doit(config, session) or 0
+INTERNALERROR>                          ^^^^^^^^^^^^^^^^^^^^^
+INTERNALERROR>   File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/_pytest/main.py", line 387, in _main
+INTERNALERROR>     config.hook.pytest_runtestloop(session=session)
+INTERNALERROR>   File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_caller.py", line 197, in __call__
+INTERNALERROR>     return self._hookexec(
+INTERNALERROR>            ^^^^^^^^^^^^^^^
+INTERNALERROR>   File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_manager.py", line 183, in _hookexec
+INTERNALERROR>     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+INTERNALERROR>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INTERNALERROR>   File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_execution.py", line 195, in _multicall
+INTERNALERROR>     raise exception
+INTERNALERROR>   File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_execution.py", line 167, in _multicall
+INTERNALERROR>     teardown.throw(exception)
+INTERNALERROR>   File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/_pytest/logging.py", line 829, in pytest_runtestloop
+INTERNALERROR>     return (yield)  # Run all the tests.
+INTERNALERROR>             ^^^^^
+INTERNALERROR>   File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_execution.py", line 167, in _multicall
+INTERNALERROR>     teardown.throw(exception)
+INTERNALERROR>   File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/_pytest/terminal.py", line 723, in pytest_runtestloop
+INTERNALERROR>     result = yield
+INTERNALERROR>              ^^^^^
+INTERNALERROR>   File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/pluggy/_execution.py", line 147, in _multicall
+INTERNALERROR>     res = hook_impl.function(*args)
+INTERNALERROR>           ^^^^^^^^^^^^^^^^^^^^^^^^^
+INTERNALERROR>   File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/xdist/dsession.py", line 138, in pytest_runtestloop
+INTERNALERROR>     self.loop_once()
+INTERNALERROR>   File "/dev/shm/venv-ir13-r2/lib/python3.12/site-packages/xdist/dsession.py", line 154, in loop_once
+INTERNALERROR>     eventcall = self.queue.get(timeout=2.0)
+INTERNALERROR>                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INTERNALERROR>   File "/usr/lib/python3.12/queue.py", line 165, in get
+INTERNALERROR>     with self.not_empty:
+INTERNALERROR>   File "/usr/lib/python3.12/threading.py", line 303, in __exit__
+INTERNALERROR>     return self._lock.__exit__(*args)
+INTERNALERROR>            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+INTERNALERROR> RuntimeError: release unlocked lock

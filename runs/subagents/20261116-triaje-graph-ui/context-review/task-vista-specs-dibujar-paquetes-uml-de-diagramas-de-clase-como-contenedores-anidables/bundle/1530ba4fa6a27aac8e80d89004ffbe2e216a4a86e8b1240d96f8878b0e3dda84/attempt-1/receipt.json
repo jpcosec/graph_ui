@@ -1,0 +1,9 @@
+{
+  "key": "task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/bundle",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "1530ba4fa6a27aac8e80d89004ffbe2e216a4a86e8b1240d96f8878b0e3dda84",
+  "output_sha256": "4def66c58e1e98227c1ac14f86ff39a68ec6cfc8cc3919c5f6a3e91a184d85df",
+  "start": "2026-11-16T03:54:54.305517+00:00",
+  "end": "2026-11-16T03:55:04.401619+00:00"
+}

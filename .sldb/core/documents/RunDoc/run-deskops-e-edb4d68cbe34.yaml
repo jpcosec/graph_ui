@@ -1,7 +1,7 @@
 name: run-deskops-e-edb4d68cbe34
 path: runs/subagents/exec-deskops-e-edb4d68cbe34/run.md
-source_hash: 1ff74c9c003e9dbca644153cde54c551120c2d71d2326892f91277a4b34bf8c4
-content_hash: 87151f425b5bad026c743a27ac09e53c8e053894299597e622bd3e18b17268a6
+source_hash: da4ad44ccb3163e7e542b67912ccb40ec2ebcd9a55ccf13afb683c315def2a96
+content_hash: 25aec0f966a5bbab5b8db8899e009d594309640e3679e2b894ab030a6a877827
 field_hashes:
   id: 1377b8d072a3d6aeada3f99656398b14d488dd1f752522b297f878aaa52069dd
   title: d43bcf6124bc6a61dbda3f24dbef5105a26ee9463c1e0009ec52e32b1c868369
@@ -15,7 +15,7 @@ field_hashes:
   session_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   started_at: 99fefef9f8e423c67907a7fdaef3dcbea12b63bc5488d97b9f132f61fad2dc42
   intent_at: 99fefef9f8e423c67907a7fdaef3dcbea12b63bc5488d97b9f132f61fad2dc42
-  dispatch_confirmed_at: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  dispatch_confirmed_at: 2790af5572608e31f2a4042dc0dc6053ba73c2adfb47125c2800582dab933f3a
   external_ref: a435d14e57f9cb66b4a228282f611dbfd40e2a6cfdee4e862043b4dc16b8a5de
   ended_at: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   outcome: de2bc7968076346e1ae2e62d3fd6385361b3855025678cd2732d9132eb9965cb
@@ -30,6 +30,6 @@ semantic_tags:
 - workspace.desk.runs
 provenance:
   by: agent
-  at: '2026-11-25T15:58:46Z'
+  at: '2026-11-25T15:58:55Z'
   authority: generated
-  via: create_document
+  via: save_document_payload

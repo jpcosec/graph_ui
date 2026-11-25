@@ -1,0 +1,19 @@
+name: 20261125-121853-unclear-queue-20261125t151753z-dispatch-reap-task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion
+path: desk/inbox/20261125-121853-unclear-queue-20261125t151753z-dispatch-reap-task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion.md
+source_hash: 5be2879f37123878a0d80ba0ad34c376e05601f88495838a784436e0f4df908a
+content_hash: f7155a472cca62c1c537b0c1c9ff6e715a3d4165007dd937f39d1b8a4716dbf0
+field_hashes:
+  kind: 683144a12969e0fd85512737e57b4db93ed15ee760906165a5516d581a77889a
+  sender_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: 811580b5071e6e3aa0aafce1150942a77cc55831590333c8ca792834f5fc1115
+  status: 35ff74aeea25311f4fe759a6b762c8cd41a79adb23dd5615b92cf215175a63e5
+  ack_reason: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  title: f605d9789aaebcf33623b4fbd756ad807c00502c6b73484854357297a5ef63cd
+  body: e36514c9d250c41d3bfc0907a3a00aab70d84dc654672c0e5a4d299298c2877d
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
+provenance: null

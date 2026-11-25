@@ -1,0 +1,25 @@
+name: materialization-svg-lector-frontends-mindmap-views-specs-notation-notation-svg-mjs
+path: desk/materializations/materialization-svg-lector-frontends-mindmap-views-specs-notation-notation-svg-mjs.md
+source_hash: c3a16911495f757025549abb8b9a3c38e3c8143339798397181fdcb4f809fbcb
+content_hash: b04e209fd34111e1b46a489f1678e4889534b16b9f86e983958ef437c789cef0
+field_hashes:
+  id: 20b2aa697ca04b34480dba1e12aa3f2abe2c5a97565c2529d130eb9da2a0d30b
+  title: af49e8ad2d79b667e0196af6b50abfc49f5b0b3bb64c087e462d4bf895e6c118
+  source_atoms: f3a5a63fb6dca978d8ea73046c63fd0138f7dda09165881fdcd4f542fadde002
+  target_kind: 4a1933b06cf695fcff4acaba1fdbaa7f10ce109d3c7f57bbf62f6bb572658de8
+  target_identity: dbdc3d8ea7b8d766b736626c8e5454f52c339e0ecd555da560e0d9826ba6aaee
+  intent: e56d764de2d4287859fe80ce6c8dfb8cc98f581cc037108b1f6ce7f07e3d028c
+  validation: 28731c0696e9e992d0d9dca34fc01416e6d9a8e2ea892c56b182f3b6f5a860ca
+  tags: 074e0ea212e461cdde05863439d550efb5daf119ce11a909aef51de5c7d6e651
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:svg-lector
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-25T15:31:05Z'
+  authority: generated
+  via: create_document
