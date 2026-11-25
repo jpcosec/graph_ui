@@ -3,6 +3,7 @@
 // elección, y lo demás es lógica pura.
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {buildScene} from '../frontends/mindmap/views/specs/notation/notation.mjs';
 import {wrapText, sizeGlyph, containerHeader, edgeLabelBox, gridEdges, elkGraph, fromElk, bestLayout, fitZoom, legibleZoom,
   approximateMeasure, DIAMOND_RATIO, GRID_MIN, FONT, MIN_TEXT_PX, headerId, diamondPorts, routeOf, placeLabels, layoutIssues,
@@ -317,31 +318,25 @@ async function realElk() {
 const realElkInstance = await realElk();
 const counting = elk => { const c = {runs: 0, layout: g => { c.runs++; return elk.layout(g); }}; return c; };
 
-function activityView() {
-  const ids = ['receive_paths', 'iterate_path', 'try_render', 'load_step', 'validate_step', 'compile_step', 'render_step', 'write_output', 'echo_success', 'catch_error', 'done'];
-  const decision = new Set(['iterate_path', 'load_step', 'validate_step', 'compile_step', 'render_step']);
-  const link = (s, t, label = '') => ({source: s, target: t, draw: 'arrow', relation: 'flow', label});
-  const nodes = [{doc: 'start', shape: 'filled-circle', label: ''}, {doc: 'end', shape: 'bullseye', label: ''},
-    ...ids.map(id => ({doc: id, shape: decision.has(id) ? 'diamond' : 'rounded-box', label: id.replace(/_/g, ' ') + ' (paso de la actividad)'}))];
-  const links = [link('start', 'receive_paths'), link('receive_paths', 'iterate_path'), link('iterate_path', 'try_render', 'has_next'),
-    link('iterate_path', 'done', 'empty'), link('try_render', 'load_step'), link('load_step', 'validate_step', 'ok'), link('load_step', 'catch_error', 'ParseError'),
-    link('validate_step', 'compile_step', 'ok'), link('validate_step', 'catch_error', 'ValidationError'), link('compile_step', 'render_step', 'ok'),
-    link('compile_step', 'catch_error', 'CompileError'), link('render_step', 'write_output', 'ok'), link('render_step', 'catch_error', 'RenderError'),
-    link('write_output', 'echo_success'), link('echo_success', 'iterate_path'), link('catch_error', 'done'), link('done', 'end')];
-  return {diagram_type: 'activity', layout: {kind: 'graph', direction: 'TB'}, nodes, links};
-}
+const activityView = () => JSON.parse(readFileSync(new URL('./fixtures/notation-view-activity.json', import.meta.url), 'utf8'));
 
+// notation-view-activity.json es la salida real de sldb.api.notations.resolve_view sobre
+// tests/fixtures/notation-pilots/activity-render-error-handling.yml (13 nodos, 17 relaciones).
 test('G-D: la spec de actividad de 13 nodos no pasa del tope de corridas de ELK (antes 99)', {skip: !realElkInstance && 'elkjs no está instalado'}, async () => {
   const elk = counting(realElkInstance);
   const best = await bestLayout(elk, buildScene(activityView()), {measure, canvas: {width: 1200, height: 900}});
-  assert.ok(best && best.nodes.length >= 13);
-  assert.ok(elk.runs <= 60, `corridas de ELK: ${elk.runs}`);
+  assert.ok(best && best.nodes.length >= 13 && !best.issues.total && best.zoom >= legibleZoom);
+  // Mínimo alcanzable sin cambiar el layout de las specs que ya salen bien: 24 + 24 de los dos sentidos
+  // y 8 del rescate sin reservar rótulos, que corta en el primer candidato limpio.
+  assert.ok(elk.runs <= 56, `corridas de ELK: ${elk.runs}`);
 });
 
-test('G-D: con un primer candidato legible y sin problemas, ELK corre una sola vez', async () => {
+test('G-D: una spec que ya sale bien conserva el candidato de mayor zoom (no se corta en el primero limpio)', async () => {
   const scene = buildScene(containerView(['a', 'b', 'c', 'd']));
-  const fake = {runs: 0, layout: async () => { fake.runs++; return {width: 300, height: 200, children: [], edges: []}; }};
+  // El primer candidato es limpio y legible pero ancho; el tercero encuadra mejor: gana el de más zoom.
+  const sizes = [[900, 300], [900, 300], [500, 200]];
+  const fake = {runs: 0, layout: async () => { const [width, height] = sizes[Math.min(fake.runs++, 2)]; return {width, height, children: [], edges: []}; }};
   const best = await bestLayout(fake, scene, {measure, canvas: {width: 1000, height: 800}});
-  assert.equal(fake.runs, 1);
-  assert.ok(best.zoom >= legibleZoom && !best.issues.total);
+  assert.equal(fake.runs, 24);
+  assert.equal(best.width, 500);
 });

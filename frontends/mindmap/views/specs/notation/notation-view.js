@@ -23,13 +23,13 @@ const HANDLES = {TB: [Position.Top, Position.Bottom], BT: [Position.Bottom, Posi
   LR: [Position.Left, Position.Right], RL: [Position.Right, Position.Left]};
 
 let elkInstance = null;
-// ELK en un worker (la página no se congela mientras calcula); si el worker no carga, en el hilo principal.
-const ELK_WORKER_URL = 'https://cdn.jsdelivr.net/npm/elkjs@0.11.1/lib/elk-worker.min.js';
+// ELK en un worker (la página no se congela mientras calcula). El worker es un archivo vendorizado de graph_ui
+// (vendor/elk-worker.min.js, elkjs 0.11.1), no del CDN; si no carga, ELK corre en el hilo principal.
+const ELK_WORKER_URL = new URL('../../../vendor/elk-worker.min.js', import.meta.url).href;
 async function mainThreadElk() { return new ((await import('elkjs')).default)(); }
 async function workerElk() {
   const ELK = (await import('elkjs/lib/elk-api.js')).default;
-  const blob = new Blob([`importScripts(${JSON.stringify(ELK_WORKER_URL)});`], {type: 'text/javascript'});
-  const elk = new ELK({workerFactory: () => new Worker(URL.createObjectURL(blob))});
+  const elk = new ELK({workerFactory: () => new Worker(ELK_WORKER_URL)});
   await elk.layout({id: 'probe', children: [{id: 'a', width: 1, height: 1}]}); // falla si el worker no carga
   return elk;
 }

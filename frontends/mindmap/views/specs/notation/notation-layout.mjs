@@ -590,8 +590,8 @@ async function bestIn(elk, scene, {measure, canvas, candidates}) {
     const better = (a, b) => !b || a.issues.total < b.issues.total || (a.issues.total === b.issues.total && a.zoom > b.zoom + 1e-6);
     if (better(layout, best)) best = layout;
     if (candidate.ordered && better(layout, bestOrdered)) bestOrdered = layout;
-    // Primer candidato sin problemas y legible: se corta ahí (el orden de los candidatos es el de preferencia).
-    if (!layout.issues.total && layout.zoom >= legibleZoom) return layout;
+    // No se corta en el primer candidato limpio: el puntaje premia el que mejor encuadra (más zoom) y cortar
+    // antes cambiaba el layout de specs que ya salían bien. El ahorro está en los pases de rescate (allIn).
   }
   return bestOrdered && bestOrdered.zoom >= legibleZoom && bestOrdered.issues.total <= best.issues.total ? bestOrdered : best;
 }
