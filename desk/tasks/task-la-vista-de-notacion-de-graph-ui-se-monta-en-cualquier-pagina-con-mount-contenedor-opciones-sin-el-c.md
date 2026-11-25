@@ -1,9 +1,9 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-25T14:11:09Z'
+  at: '2026-11-25T14:23:58Z'
   authority: generated
-  via: create_document
+  via: save_document_payload
 id: task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c
 status: draft
 summary: ''
@@ -45,7 +45,7 @@ frontends/mindmap/embed/ (nuevo), la pagina host de prueba y una e2e nueva. Fuer
 
 _Outline the expected implementation route or affected surface._
 
-Repo /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui. El importmap que hoy pone index.html (react, @xyflow/react, ...) lo tiene que poner la pagina anfitriona: documentarlo en el modulo y en la pagina host. e2e nueva tests/e2e_embed_notation.py: sirve graph_ui (como hacen las e2e de notacion con _serve), abre host.html (otro origen o ruta fuera de mindmap), monta una spec de fixtures y comprueba lo mismo que tests/e2e_mindmap_notation.py en su caso basico (nodos dibujados, edicion de un label persiste).
+Repo /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui. El importmap que hoy pone index.html (react, @xyflow/react, ...) lo tiene que poner la pagina anfitriona: documentarlo en el modulo y en la pagina host. e2e nueva tests/e2e_embed_notation.py: sirve graph_ui (como hacen las e2e de notacion con _serve), abre host.html (otro origen o ruta fuera de mindmap), monta una spec de fixtures y comprueba lo mismo que tests/e2e_mindmap_notation.py en su caso basico . Correccion de la revision de johanes: la vista de notacion es de solo lectura (nodesConnectable=false, sin dialogos de edicion), no hay label que editar. La e2e embebida comprueba lo que la vista hace: lista el catalogo, dibuja un spec, cambia de spec, 'Ver todo' encuadra, y no hay errores de pagina (console/pageerror). El importmap que pone la pagina anfitriona incluye elkjs ademas de react y @xyflow/react.
 
 ## Validation
 
@@ -57,4 +57,4 @@ _List the checks required before this task can close._
 
 _Name the observable condition that makes the task complete._
 
-Una pagina ajena monta la vista de notacion con una llamada a mount(...) y tests/e2e_embed_notation.py pasa junto con tests/e2e_mindmap_notation.py.
+Una pagina ajena monta la vista de notacion con una llamada a mount(...), lista el catalogo, dibuja y cambia de spec y encuadra con 'Ver todo' sin errores de pagina; tests/e2e_embed_notation.py pasa junto con tests/e2e_mindmap_notation.py.

@@ -7,5 +7,62 @@
   "sandbox": {
     "enabled": false,
     "sandbox_root": ".tmp/deskops-sandbox"
-  }
+  },
+  "dispatch": {
+    "project": "sldb-1",
+    "workspace": "/mnt/ssd/proyectos/SLDB_1",
+    "templates_dir": "/home/robocop/.scion/project-configs/sldb-1__b0899ed7/.scion/templates",
+    "context_file": "/mnt/ssd/proyectos/SLDB_1/.bootstrap/graph_ui-scion-context.json",
+    "roles_root": "/mnt/ssd/proyectos/SLDB_1/deskops",
+    "roles": {
+      "executor": {
+        "role": "deskops-executor",
+        "harness": "claude",
+        "model_alias": "medium",
+        "harness_auth": "oauth-token",
+        "env_config": "/mnt/ssd/proyectos/SLDB_1/.bootstrap/ir-scion-env.yaml"
+      },
+      "tester": {
+        "role": "deskops-tester",
+        "harness": "pi",
+        "model_alias": "medium",
+        "harness_auth": "api-key",
+        "env_config": "/mnt/ssd/proyectos/SLDB_1/.bootstrap/pi-scion-env.yaml"
+      }
+    }
+  },
+  "queue_jobs": {
+    "dispatch-executor": {
+      "run": [
+        "sh",
+        "-c",
+        "deskops dispatch start executor --task \"$DESKOPS_TASK_ID\" --root \"$DESKOPS_ROOT\""
+      ],
+      "timeout": 600,
+      "retry_exit_codes": [
+        3
+      ]
+    },
+    "dispatch-tester": {
+      "run": [
+        "sh",
+        "-c",
+        "deskops dispatch start tester --task \"$DESKOPS_TASK_ID\" --root \"$DESKOPS_ROOT\""
+      ],
+      "timeout": 600,
+      "retry_exit_codes": [
+        3
+      ]
+    },
+    "dispatch-reap": {
+      "run": [
+        "sh",
+        "-c",
+        "deskops dispatch reap --task \"$DESKOPS_TASK_ID\" --root \"$DESKOPS_ROOT\""
+      ],
+      "timeout": 600
+    }
+  },
+  "queue_min_available_gb": 8,
+  "queue_max_psi_avg60": 10
 }

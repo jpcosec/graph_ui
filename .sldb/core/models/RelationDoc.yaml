@@ -3,8 +3,8 @@ model_ref: sldb.models.relation_doc:RelationDoc
 path: /home/robocop/proyectos/SLDB_1/sldb/src/sldb/models/relation_doc.py
 documents_index: .sldb/core/documents/RelationDoc.yaml
 sections_index: .sldb/runtime/sections/RelationDoc.yaml
-model_hash: e5f0cfc6dcdcd4b190e1c3aaa35b9e8c920c634775029b45ae6674f136e5c953
-roster_hash: d9e415f219db59220f0407771b6e5ab0a666ed5a1f44a5cd8b552f25d137ddbb
+model_hash: 131686b01539707de9b95d55ce4bc52777f80aa5042244d956583ba53f16e516
+roster_hash: 941ec31b1d0740eda73968a52c4c9d34ae32c80acabf8f508cbd42310b348547
 contract_hash: a71cc04505ddc23c00b8a9ff917e000e955fe11de68ddbaeb08da2bb1e68c9a6
 documents_count: 3
 version: 1

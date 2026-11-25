@@ -1,9 +1,9 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-25T14:11:24Z'
+  at: '2026-11-25T14:24:08Z'
   authority: generated
-  via: create_document
+  via: save_document_payload
 id: task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion
 status: draft
 summary: ''
@@ -44,7 +44,7 @@ frontends/mindmap/views/specs/notation/notation-svg.mjs (nuevo) y tests/mindmap-
 
 _Outline the expected implementation route or affected surface._
 
-Repo /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui. exportSvg llama sceneFor + bestLayout con la misma medida de texto que la vista (o una aproximada inyectable, como approximateMeasure de notation-layout.mjs) y dibuja glyphs, aristas y swimlanes con los estilos de notation-style.mjs. Test node: para las specs de tests/fixtures/notation-* (al menos una de actividad con carriles y una de clases), las posiciones de los nodos en el SVG coinciden con las de la escena que usa la vista (mismas posiciones relativas, tolerancia de 1 px).
+Repo /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui. exportSvg llama sceneFor + bestLayout con la misma medida de texto que la vista (o una aproximada inyectable, como approximateMeasure de notation-layout.mjs) y dibuja glyphs, aristas y swimlanes con los estilos de notation-style.mjs. Test node: para las specs de tests/fixtures/notation-* (al menos una de actividad con carriles y una de clases), las posiciones de los nodos en el SVG coinciden con las de la escena que usa la vista (mismas posiciones relativas, tolerancia de 1 px). Ampliacion (revision de johanes): bestLayout solo cubre la escena graph. Secuencias (lanes) y matrices (grid) calculan su geometria en laneScene y gridScene (notation.mjs), pero su dibujo vive como componentes htm en notation-view.js (LanesDiagram, GridDiagram). Para que exportSvg cubra los 8 tipos de diagrama, sacar ese dibujo a un modulo puro (p. ej. notation-draw.mjs) que usen tanto la vista como el exportador, sin cambiar lo que la vista muestra. La prueba incluye ademas una secuencia y una matriz. En node no hay canvas: las posiciones se comparan contra la escena calculada con la misma medida aproximada (approximateMeasure), no contra la del navegador.
 
 ## Validation
 
@@ -56,4 +56,4 @@ _List the checks required before this task can close._
 
 _Name the observable condition that makes the task complete._
 
-exportSvg produce un SVG valido de cada fixture de notacion y tests/mindmap-notation-svg.test.mjs confirma las mismas posiciones que la escena interactiva.
+exportSvg produce un SVG valido de los 8 tipos de diagrama (al menos actividad con carriles, clases, una secuencia y una matriz en la prueba), con las mismas posiciones que la escena calculada con la misma medida; la vista sigue dibujando igual usando el mismo modulo de dibujo; tests/mindmap-notation-svg.test.mjs y los tests node de notacion pasan.

@@ -7,6 +7,23 @@ attributes:
   sets:
     status: ready_for_testing
   terminal: false
+  hooks:
+  - name: evento-para-el-coordinador
+    run:
+    - sh
+    - -c
+    - mkdir -p runs/hooks && printf '%s %s %s %s->%s\n' "$(date -u +%FT%TZ)" "$DESKOPS_TASK_ID"
+      "$DESKOPS_TRANSITION" "$DESKOPS_FROM_NODE" "$DESKOPS_TO_NODE" >> runs/hooks/events.log
+    timeout: 30
+  - name: encola-reap-del-tester
+    run:
+    - deskops
+    - queue
+    - add
+    - dispatch-reap
+    - --root
+    - .
+    timeout: 60
 ---
 
 # Task hands to closeout

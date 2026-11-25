@@ -7,6 +7,25 @@ attributes:
   sets:
     status: active
   terminal: false
+  hooks:
+  - name: encola-reap-del-ejecutor
+    run:
+    - deskops
+    - queue
+    - add
+    - dispatch-reap
+    - --root
+    - .
+    timeout: 60
+  - name: encola-tester
+    run:
+    - deskops
+    - queue
+    - add
+    - dispatch-tester
+    - --root
+    - .
+    timeout: 60
 ---
 
 # Task activates
