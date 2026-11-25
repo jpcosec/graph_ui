@@ -1,0 +1,9 @@
+{
+  "key": "task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron/preflight",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "e1d16ab8aa800422f1c12b34af40030ae9e7564b27cb69ed4afbb5e6f91a09a8",
+  "output_sha256": "0c3196875a0948e4900bf2c7fbf37b372ee815eb2b3ddaa9e36776d56d75ebce",
+  "start": "2026-11-25T18:09:06.809721+00:00",
+  "end": "2026-11-25T18:09:13.513933+00:00"
+}

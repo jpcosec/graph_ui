@@ -1,16 +1,17 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-25T15:17:48Z'
+  at: '2026-11-25T18:10:25Z'
   authority: generated
   via: save_document_payload
 id: task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion
-status: active
+status: ready_for_testing
 summary: ''
 tags: []
-current_node: ritual-testing
+current_node: ritual-closeout
 history:
 - task_activates
+- task_hands_to_closeout
 references: []
 depends_on: []
 pills: []
@@ -46,6 +47,8 @@ frontends/mindmap/views/specs/notation/ (catalogo y carga), frontends/mindmap/vi
 _Outline the expected implementation route or affected surface._
 
 Repo /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui. specCatalog incluye tambien los ViewDoc que tengan notacion (marcados como vista, agrupados por category si la traen, si no en su propio grupo). Al elegir un ViewDoc, la vista pide su evaluacion (GET /api/views/evaluate?view=ViewDoc:<name>, ver views_routes.py:3-7) y, si el resultado trae lo mismo que GET /api/notation/view para un spec, lo dibuja con el mismo camino (sceneFor + bestLayout); si el payload difiere, adaptarlo en un punto (funcion pura testeada), sin un segundo layout. Test node en tests/mindmap-notation.test.mjs (o uno nuevo): specCatalog con un SpecDoc y un ViewDoc lista ambos. e2e nueva tests/e2e_notation_viewdoc.py: store temporal con un ViewDoc y una notacion propia (sincronizada con sldb notations sync), abre la vista de notacion, el ViewDoc aparece en la lista y al elegirlo se dibujan sus nodos.
+
+Intento 2: el intento 1 (rama deskops/deskops-e-84ca580617e9, commit d3076e4) no se pudo integrar: choca en frontends/mindmap/views/specs/notation/notation-view.js con G-D, ya en master (8f617a4 y d26ff31: corte en el primer candidato legible, ELK en un worker). Rehaz el cambio sobre master actual: parte de d3076e4 (git show d3076e4) y conserva lo de G-D (bestIn, worker de ELK). Corre tests/e2e_mindmap_notation.py y las pruebas de G-D (tests/*.test.mjs que toquen layout) además de las tuyas. No pongas Task-Id en el commit de código.
 
 ## Validation
 

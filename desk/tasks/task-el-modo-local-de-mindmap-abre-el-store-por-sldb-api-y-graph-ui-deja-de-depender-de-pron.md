@@ -1,9 +1,9 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-25T17:44:50Z'
+  at: '2026-11-25T18:25:54Z'
   authority: generated
-  via: create_document
+  via: save_document_payload
 id: task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron
 status: draft
 summary: ''
@@ -45,6 +45,8 @@ Dentro: frontends/mindmap/sldb_adapter.py, models_service.py, serve.py, pyprojec
 _Outline the expected implementation route or affected surface._
 
 Leer docs/mindmap-developer.md. sldb serve ya implementa las mismas operaciones sobre sldb.api (sldb/src/sldb/cli/serve/): se usan esas funciones, sin una capa nueva.
+
+Aclaraciones de la revisión: Repo: /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui. Los tres archivos son frontends/mindmap/sldb_adapter.py, frontends/mindmap/models_service.py y frontends/mindmap/serve.py. El ADR está en /mnt/ssd/proyectos/SLDB_1/sldb/docs/architecture/pron-is-archived.md. pyproject.toml y .github/requirements-suite.txt son los de graph_ui. Para registrar modelos y editar clases se usan las funciones públicas de sldb.api (las mismas que llaman las rutas de sldb/src/sldb/cli/serve/); si una operación solo existe en el router de serve y no en sldb.api, no se copia: se manda nota al inbox de sldb (deskops message send --to sldb --kind unclear) y se deja anotada en result-summary. Entorno sin pron: correr los tests con un venv o PYTHONPATH sin pron, o con un test que haga que import pron falle (monkeypatch de sys.modules) y compruebe que el modo local abre el store. La suite es python -m pytest -q tests desde la raíz de graph_ui. No poner Task-Id en el commit de código.
 
 ## Validation
 

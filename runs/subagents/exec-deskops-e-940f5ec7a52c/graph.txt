@@ -1,0 +1,75 @@
+Missing graph references:
+- missing_declared_target: materialization:materialization-pilotos-de-notación-como-fixtures-propios-de-graph-ui -> test_file:tests/fixtures/notation-pilots
+  provenance: desk/materializations/materialization-pilotos-de-notación-como-fixtures-propios-de-graph-ui.md:frontmatter
+  reason: declared target was not found among extracted graph nodes
+Informational (archived records):
+- planned_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/architecture/code-anchoring.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:36:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/decisiones/2026-11-codigo-en-el-workspace.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:22:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/decisiones/2026-11-codigo-en-el-workspace.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:48:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/decisiones/2026-11-codigo-en-el-workspace.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:60:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra -> doc:docs/decisiones/2026-11-codigo-en-el-workspace.md
+  provenance: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md:line:66:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia -> test_file:tests/test_mindmap_workspace_edit.py
+  provenance: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md:line:32:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia -> test_file:tests/test_mindmap_workspace_edit.py
+  provenance: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md:line:64:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia -> test_file:tests/test_mindmap_workspace_edit.py
+  provenance: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md:line:76:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-el-panel-embebido-lleva-el-tema-y-el-localstorage-con-alcance-a-su-contenedor -> test_file:tests/e2e_embed_notation.py
+  provenance: desk/tasks/task-el-panel-embebido-lleva-el-tema-y-el-localstorage-con-alcance-a-su-contenedor.md:line:48:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-el-panel-embebido-lleva-el-tema-y-el-localstorage-con-alcance-a-su-contenedor -> test_file:tests/e2e_embed_notation.py
+  provenance: desk/tasks/task-el-panel-embebido-lleva-el-tema-y-el-localstorage-con-alcance-a-su-contenedor.md:line:54:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor -> test_file:tests/e2e_notation_export.py
+  provenance: desk/tasks/task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor.md:line:48:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor -> test_file:tests/e2e_notation_export.py
+  provenance: desk/tasks/task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor.md:line:54:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor -> test_file:tests/e2e_notation_export.py
+  provenance: desk/tasks/task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor.md:line:60:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c -> test_file:tests/e2e_embed_notation.py
+  provenance: desk/tasks/task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c.md:line:48:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c -> test_file:tests/e2e_embed_notation.py
+  provenance: desk/tasks/task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c.md:line:54:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c -> test_file:tests/e2e_embed_notation.py
+  provenance: desk/tasks/task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c.md:line:60:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount -> test_file:tests/e2e_embed_notation.py
+  provenance: desk/tasks/task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount.md:line:54:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount -> test_file:tests/e2e_embed_views.py
+  provenance: desk/tasks/task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount.md:line:48:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount -> test_file:tests/e2e_embed_views.py
+  provenance: desk/tasks/task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount.md:line:54:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount -> test_file:tests/e2e_embed_views.py
+  provenance: desk/tasks/task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount.md:line:60:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento -> test_file:tests/test_mindmap_changes.py
+  provenance: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md:line:29:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento -> test_file:tests/test_mindmap_changes.py
+  provenance: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md:line:73:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+- planned_target: task:task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento -> test_file:tests/test_mindmap_changes.py
+  provenance: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md:line:80:source-file-reference
+  reason: declared target was not found among extracted graph nodes
+1 missing, 23 informational (23 planned_target)

@@ -1,0 +1,25 @@
+name: 20261125-153414-unclear-queue-20261125t182627z-dispatch-executor-task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron
+path: desk/inbox/20261125-153414-unclear-queue-20261125t182627z-dispatch-executor-task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron.md
+source_hash: bd37ac5c0726a5336075dfe203a746ba5d0edfe0f09b83279fc8c1e8460e4b2c
+content_hash: c8691499b062a6a09ed09313649aaa2bfa7e6fbee8867f5a8da6ae2557469773
+field_hashes:
+  kind: 683144a12969e0fd85512737e57b4db93ed15ee760906165a5516d581a77889a
+  sender_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: 85e3c6687edad05533b457a59bf7bda891bfbad11f40b245a34c2a4ebf25c450
+  status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
+  acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  acknowledged_at: 970ecfcbbdda12baa9b8fb7a1b0a14e154305bb96acac5d7e3f5337274590c2c
+  ack_reason: b97baa39bd695ec0ac764b2c237bae0a6f06704ef51b57c379a6377aa717d88b
+  title: 7d77c54ead8166b0ffdc4e9479caf4190f3ca4d052dde0ca8c618450e0c7dfba
+  body: b8b3390cc749230076249bac4c5271d3f8d8e4aad474798170077cda567c2643
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
+provenance:
+  by: agent
+  at: '2026-11-25T18:36:01Z'
+  authority: generated
+  via: save_document_payload

@@ -1,0 +1,41 @@
+## master...origin/master [ahead 35]
+ M .sldb/core/documents/RunDoc/run-deskops-t-3596621e0681.yaml
+ M .sldb/core/documents/TaskCodeDoc/task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron.yaml
+ M .sldb/core/documents/TaskCodeDoc/task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion.yaml
+ M .sldb/core/documents/TaskCodeDoc/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de.yaml
+ M .sldb/core/models/InboxNoteDoc.yaml
+ M .sldb/core/models/ReviewDoc.yaml
+ M .sldb/core/models/TaskCodeDoc.yaml
+ M .sldb/core/store_index.yaml
+ M desk/tasks/task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron.md
+ M desk/tasks/task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion.md
+ M desk/tasks/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de.md
+ M runs/subagents/exec-deskops-t-3596621e0681-testing/run.md
+?? .sldb/core/documents/InboxNoteDoc/20261125-153414-unclear-queue-20261125t182627z-dispatch-executor-task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron-bundle-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron-preflight-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-bundle-1.yaml
+?? .sldb/core/documents/ReviewDoc/review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-preflight-1.yaml
+?? desk/inbox/20261125-153414-unclear-queue-20261125t182627z-dispatch-executor-task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron.md
+?? desk/reviews/task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron/
+?? desk/reviews/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de/
+?? runs/subagents/20261125-180906/
+?? runs/subagents/20261125-180917/
+?? runs/subagents/20261125-180932/
+?? runs/subagents/20261125-180951/
+?? runs/subagents/exec-deskops-e-1a59b489ab46/board.txt
+?? runs/subagents/exec-deskops-e-1a59b489ab46/git-status.txt
+?? runs/subagents/exec-deskops-e-1a59b489ab46/graph.txt
+?? runs/subagents/exec-deskops-e-1a59b489ab46/next.txt
+?? runs/subagents/exec-deskops-e-1a59b489ab46/prompt.md
+?? runs/subagents/exec-deskops-e-1a59b489ab46/result-summary.md
+?? runs/subagents/exec-deskops-e-1a59b489ab46/task.txt
+?? runs/subagents/exec-deskops-e-1a59b489ab46/validation.log
+?? runs/subagents/exec-deskops-e-940f5ec7a52c/board.txt
+?? runs/subagents/exec-deskops-e-940f5ec7a52c/git-status.txt
+?? runs/subagents/exec-deskops-e-940f5ec7a52c/graph.txt
+?? runs/subagents/exec-deskops-e-940f5ec7a52c/next.txt
+?? runs/subagents/exec-deskops-e-940f5ec7a52c/prompt.md
+?? runs/subagents/exec-deskops-e-940f5ec7a52c/task.txt
+?? runs/subagents/exec-deskops-t-3596621e0681-testing/prompt.md
+?? runs/subagents/exec-deskops-t-3596621e0681-testing/result-summary.md

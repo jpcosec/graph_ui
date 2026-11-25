@@ -1,0 +1,2 @@
+node --test tests/mindmap-notation.test.mjs + tests de layout/notation (*.test.mjs que tocan layout): 111 pass, exit 0
+python -m pytest -q tests/e2e_notation_viewdoc.py tests/e2e_mindmap_notation.py: 3 passed, exit 0

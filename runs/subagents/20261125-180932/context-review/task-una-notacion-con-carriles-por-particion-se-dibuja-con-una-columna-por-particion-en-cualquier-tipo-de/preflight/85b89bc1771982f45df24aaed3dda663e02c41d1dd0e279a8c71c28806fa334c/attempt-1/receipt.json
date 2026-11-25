@@ -1,0 +1,9 @@
+{
+  "key": "task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de/preflight",
+  "technical_ok": true,
+  "returncode": 0,
+  "input_sha256": "85b89bc1771982f45df24aaed3dda663e02c41d1dd0e279a8c71c28806fa334c",
+  "output_sha256": "2dfa64e30118e261d1920173278491835bb239ecf65d3993c1171f2251a87802",
+  "start": "2026-11-25T18:09:33.370832+00:00",
+  "end": "2026-11-25T18:09:47.050222+00:00"
+}

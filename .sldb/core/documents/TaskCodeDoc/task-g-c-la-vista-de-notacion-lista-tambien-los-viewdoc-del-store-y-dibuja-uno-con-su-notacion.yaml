@@ -1,15 +1,15 @@
 name: task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion
 path: desk/tasks/task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion.md
-source_hash: 7528dfa6ad87a1ffe3d78b50c15b8ad994a80b6fed39570837d08d105e0c9121
-content_hash: fc3b585e96b10dead3019403c1d7bc8757f93b544dbc5f97b867aeb9404b5a29
+source_hash: 62783d8ff8dcbe45fe8c749f202cc74874d94e9feddf7b37458789fbe890f19c
+content_hash: 02784b69b11f6be2105b061ad5bfd25ddd87e7662e56ae1dec499c62ab70d7a8
 field_hashes:
   title: c31ea65364c901731ad441079efce6b3dec42571c21071ee6c91090024eb0103
   id: 711a55a65651c580649f885cc0c8e152f24de8d038fe15fd46b794b743a12742
-  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
+  status: bcd94c594cf5d9863f2b143c7e4c8c150564556c8b8fccd3f0e2ea8fe2b32a44
   summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
-  current_node: d10f5286503cbf750af0584acaec732741c2d9cfbae2a6d5b8ce45b8bf83b79d
-  history: f89b8fd2ac9e43a24ba505d162381268ed901d0695f62c6ad8ec2c62718dfa1c
+  current_node: 71574bcab867d8a2e20830806268bc698b67c239b762fe065d282e362267e872
+  history: 5e5f912dfd951bc27e8ab6d9693fb4ef1ab15074792771b91b7a7f78028c40ea
   why: 7492b90aa01e118a814fe5919b38b10af6f26b96bde878e42249e66817792730
   goal: 02c1e349f8a87ad98aaf7d2f35cdc504839bed84c4e48ce431ff1b9c80164892
   scope: 255d1cb58b2fe0b60654d3871aed08e9a437522d89fdcbc1b2548818c20d8a3d
@@ -17,7 +17,7 @@ field_hashes:
   depends_on: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
-  implementation_path: b21678efff4829cde004a2b6c94e66d68acee865451595028f5665c804366d23
+  implementation_path: 40158752056d2fefabf225ee3d551ed14958b460f91c2c4c41867bd336b1197b
   validation: 35d6d78536a273b242cb53558ddf12b48593d2e4a7a750eda626d79c8dd94385
   done_when: 80c43827b2893c01668c25db5590180281dc0392daa08e3dec75e97e427eee9e
   task_type: 430e281fc3506e5a61bf187bc4220dab834ca38806ca4f603f817cc82f9791bb
@@ -32,6 +32,6 @@ semantic_tags:
 - workspace.desk
 provenance:
   by: agent
-  at: '2026-11-25T15:17:48Z'
+  at: '2026-11-25T18:10:25Z'
   authority: generated
   via: save_document_payload
