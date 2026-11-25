@@ -61,8 +61,39 @@
         "deskops dispatch reap --task \"$DESKOPS_TASK_ID\" --root \"$DESKOPS_ROOT\""
       ],
       "timeout": 600
+    },
+    "integrate": {
+      "run": [
+        "deskops",
+        "integrate",
+        "--task-from-env",
+        "--root",
+        "."
+      ],
+      "timeout": 7200
     }
   },
   "queue_min_available_gb": 8,
-  "queue_max_psi_avg60": 10
+  "queue_max_psi_avg60": 10,
+  "integrate": {
+    "remote_url": "https://github.com/jpcosec/graph_ui.git",
+    "branch": "master",
+    "push_env": {
+      "GIT_TERMINAL_PROMPT": "0",
+      "GIT_CONFIG_COUNT": "3",
+      "GIT_CONFIG_KEY_0": "credential.helper",
+      "GIT_CONFIG_VALUE_0": "",
+      "GIT_CONFIG_KEY_1": "credential.helper",
+      "GIT_CONFIG_VALUE_1": "!f(){ echo username=jpcosec; echo \"password=$(gh auth token -u jpcosec)\"; }; f",
+      "GIT_CONFIG_KEY_2": "credential.https://github.com.username",
+      "GIT_CONFIG_VALUE_2": "jpcosec"
+    },
+    "suite": [
+      "sh",
+      "-c",
+      "node --test tests/*.test.mjs"
+    ],
+    "suite_timeout": 5400,
+    "tests_lock": "/dev/shm/sldb1-tests.lock"
+  }
 }
