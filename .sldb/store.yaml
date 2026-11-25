@@ -439,6 +439,8 @@ include:
     name: run-deskops-t-b34d7c2e6e14
   - path: runs/subagents/exec-deskops-e-d47d4a975df5/run.md
     name: run-deskops-e-d47d4a975df5
+  - path: runs/subagents/exec-deskops-t-475a7d5409d5-testing/run.md
+    name: run-deskops-t-475a7d5409d5
 graph_backend: networkx
 policy: {}
 tag_models:
