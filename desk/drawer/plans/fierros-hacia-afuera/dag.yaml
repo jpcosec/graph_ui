@@ -1,61 +1,77 @@
 id: fierros-hacia-afuera
-status: proposed
+status: accepted
 as_of: '2026-11-25'
-source: README.md de esta carpeta. Las tareas con `task` existen en desk/tasks del checkout de robocop2, en borrador.
-decisions:
-  render-principal: {state: decided, by: JP, on: '2026-11-25', decided: 'El render principal de un diagrama es graph_ui; HTML y SVG solo en línea'}
-  gestos-entran-ahora: {state: decided, by: JP, on: '2026-11-25', decided: 'La edición por gestos entra a este plan'}
-  bpmn-como-notacion: {state: decided, by: JP, on: '2026-11-25', decided: 'BPMN va como notación en el render principal'}
-  ui-specir-espera-panel: {state: decided, by: JP, on: '2026-11-25', decided: 'La UI de specIR espera al panel embebible'}
-  por-donde-escribe-la-edicion: {state: decided, by: JP, on: '2026-11-25', decided: 'por sldb, sin pron; pron se archiva'}
-  donde-caen-atomos-y-anotaciones: {state: decided, by: JP, on: '2026-11-25', decided: 'El panel del nodo (documento, átomos, referencias) es de sldb/surface'}
-  donde-vive-la-ui-de-specir: {state: decided, by: JP, on: '2026-11-25', decided: 'sldb/surface es el cascarón y monta el panel de graph_ui; graph_ui conserva un ambiente local mínimo (explorador y editor de grafos, con componentes de librería)'}
+source: README.md de esta carpeta. Las decisiones están en sldb/docs/architecture/ (ADR del 2026-11-25).
+adrs:
+- sldb/docs/architecture/surface-is-an-editor-contract.md
+- sldb/docs/architecture/pron-is-archived.md
+- sldb/docs/architecture/mechanism-in-sldb-content-in-specir.md
 tasks:
   G-A1:
     title: Las vistas reciben request y la URL base del servidor
     task: task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con
     depends_on: []
+    state: held
+    why: escritas para React 18 sin build; se rehacen como caso del contrato de editor
   G-A2:
     title: mount(contenedor, opciones) de la vista de notación, sin el cascarón
     task: task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c
-    depends_on: [G-A1]
-    review: 'Quitar "la edición de un label persiste" de la aceptación; agregar elkjs al importmap'
+    depends_on:
+    - G-A1
+    state: held
+    why: escritas para React 18 sin build; se rehacen como caso del contrato de editor
   G-A3:
     title: Tema y localStorage con alcance al contenedor
     task: task-el-panel-embebido-lleva-el-tema-y-el-localstorage-con-alcance-a-su-contenedor
-    depends_on: [G-A2]
+    depends_on:
+    - G-A2
+    state: held
+    why: escritas para React 18 sin build; se rehacen como caso del contrato de editor
   G-A4:
     title: Las demás vistas también se montan embebidas
     task: task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount
-    depends_on: [G-A2]
+    depends_on:
+    - G-A2
+    state: held
+    why: escritas para React 18 sin build; se rehacen como caso del contrato de editor
   G-B1:
     title: SVG del modo lector con el mismo layout que la vista
     task: task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion
     depends_on: []
     review: 'Cubrir también lanes y grid: sacar LanesDiagram y GridDiagram a un módulo puro'
+    state: task
   G-B2:
     title: HTML autocontenido del modo lector, que se abre sin servidor
     task: task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor
-    depends_on: [G-B1]
+    depends_on:
+    - G-B1
+    state: task
   G-C:
     title: La vista de notación lista y dibuja también ViewDoc
     task: task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion
     depends_on: []
+    state: task
   G-D:
     title: El layout corta en el primer candidato legible y ELK corre en un worker
     task: task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker
     depends_on: []
+    state: task
   G-E:
-    title: Panel de átomos por nodo y anotaciones guardadas en el store
-    depends_on: [donde-caen-atomos-y-anotaciones]
-    needs: 'sldb: cobertura de átomos en el payload; modelo de anotación (specIR tiene CatalogAnnotationsDoc)'
-  G-F:
-    title: Layout de BPMN (carriles, eventos, compuertas)
+    title: El modo local del adaptador abre el store por sldb.api, sin pron
     depends_on: []
-    needs: 'sldb: notación BPMN'
+  G-F:
+    title: Layout genérico de carriles por partición
+    depends_on: []
   G-G:
-    title: Edición por gestos desde el diagrama
-    depends_on: [por-donde-escribe-la-edicion]
+    title: 'Edición por gestos: el diagrama propone cambios a sldb'
+    depends_on:
+    - 'sldb: rechazo antes de escribir'
+    - 'sldb/surface: máquina común de guardado'
   G-H:
-    title: Tema de papel y vistas con la estructura del prototipo de Kimun
-    depends_on: [G-A2, donde-vive-la-ui-de-specir]
+    title: 'Ambiente local: explorador y editor de grafo sobre una plantilla de Astryx'
+    depends_on:
+    - G-A
+  G-A:
+    title: Editor de grafo como componente de integración de Astryx (reemplaza G-A1 a G-A4)
+    depends_on:
+    - 'sldb/surface: prueba de integración de Astryx'

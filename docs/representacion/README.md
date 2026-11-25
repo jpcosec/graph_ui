@@ -4,6 +4,12 @@
 > sldb (merge 6deb222, `sldb.api.graph`). Este corpus se escribió antes: sus citas a kgdb (commits,
 > rutas `src/kgdb/...`) describen el código tal como estaba en ese commit y se dejan así. Donde dice
 > «kgdb» como capa, léase hoy «la capa de grafo de sldb».
+>
+> **Nota (2026-11-25):** pron quedó archivado. Sigue vigente la distinción entre proyectar y
+> representar y que la notación es dato del store; quedó sin efecto todo lo que hace pasar la escritura
+> por formas de pron (el principio 3 y el plan de cierre): la edición escribe por la API de sldb. Las
+> notaciones, como contenido, pasan a specIR; sldb conserva el mecanismo (decidido, sin ejecutar).
+> Ver `sldb/desk/drawer/plans/superficie-como-contrato-de-editores/`.
 
 Este manual reúne lo que necesitamos entender para que `graph_ui` deje de *proyectar* datos y
 pase a *representarlos*: mostrar un mundo de `pron`/`sldb` con la notación y el significado de

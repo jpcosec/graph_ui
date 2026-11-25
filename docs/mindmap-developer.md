@@ -1,9 +1,15 @@
 # KB Mindmap: guía para desarrolladores
 
+> **Estado (2026-11-25).** Esta guía describe el código actual. Decidido por JP, sin ejecutar: pron
+> queda archivado y el adaptador pasa a hablar con la API de sldb (todo lo que hoy se le pide a
+> `pron.Store` existe en `sldb.api`); el tema y el montaje cambian cuando graph_ui pase a ser un
+> componente bajo el contrato de editores. Planes: `sldb/desk/drawer/plans/superficie-como-contrato-de-editores/`
+> y `sldb/desk/drawer/plans/pedidos-de-specir-y-graph-ui/`.
+
 ## Propósito
 
 `frontends/mindmap/` es una superficie de edición sobre cualquier store
-`pron`/`sldb` — documentos y clases. La UI lee el esquema registrado y los
+`sldb` — documentos y clases. La UI lee el esquema registrado y los
 documentos reales del store; no usa un fixture de nodos ni mantiene la KB
 como estado de `localStorage` (Brainstorm es la única excepción: su borrador
 de ideas, antes de convertir, sí vive en `localStorage`).
