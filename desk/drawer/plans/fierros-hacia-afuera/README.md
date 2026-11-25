@@ -1,171 +1,49 @@
-# Plan: los fierros de graph_ui hacia afuera
+# Plan: graph_ui como editor de grafo
 
-Escrito el 2026-11-25. Recoge lo decidido por JP ese día sobre qué tiene que poder entregar
-graph_ui a las demás interfaces y a specIR. El detalle de tareas y dependencias está en `dag.yaml`.
+Reescrito el 2026-11-25. Las decisiones y su porqué están en los ADR de sldb
+(`sldb/docs/architecture/`): `surface-is-an-editor-contract.md` (graph_ui es el caso de grafo del
+contrato de editor, sobre Astryx, con XState), `pron-is-archived.md` (la edición escribe por sldb)
+y `mechanism-in-sldb-content-in-specir.md` (las notaciones son contenido de specIR). El dibujo
+completo está en `sldb/desk/drawer/plans/superficie-como-contrato-de-editores/`. Aquí va solo el
+trabajo de graph_ui; estados y dependencias en `dag.yaml`.
 
-## De dónde sale
+## Dónde está parado
 
-JP fijó (2026-11-25) que **el render principal de un diagrama, con edición e interacción, es la
-vista de notación de graph_ui**, y que HTML o SVG queda solo para cuando el diagrama va en línea
-dentro de otro documento. Reafirma la decisión del 2026-10-17 (todo spec2viz se muestra sobre
-graph_ui).
+Medido el 2026-11-25 (graph_ui `36adfbb`, sldb `61c5847f`), en Chrome real, con las specs que eran
+el corpus de spec2viz:
 
-Pidió dos capacidades antes que cualquier otra cosa:
+- 38 specs válidas, de los 8 tipos de diagrama. Todas se dibujan sin errores de página ni avisos.
+- Una actividad de 13 nodos y 17 relaciones hace 99 corridas de ELK y tarda 3,5 s; las demás
+  hacen 24 y tardan 0,3 a 0,5 s. ELK corre sin worker y la página no responde mientras tanto.
+- La vista de notación es de solo lectura, y seleccionar un nodo solo lo resalta.
+- La vista solo lista `SpecDoc`. Un `ViewDoc` con notación se evalúa en el servidor y ninguna
+  vista lo muestra.
+- El modo local abre el store con `pron.world.store.Store` (`sldb_adapter.py`).
+- `frontends/mindmap` es React 18 con `htm`, sin build, con importmap.
 
-1. "graph_ui debería permitir exportar un panel de edición embebible, algo así como un componente
-   que se pueda llegar e insertar en cualquier otra UI y que tenga las mismas funcionalidades que
-   tiene en su propia UI ahora."
-2. "graph_ui debería permitir exportar html o svg de modo lector tal como los que tenía spec2viz."
-
-## Dónde está parado graph_ui
-
-Medido el 2026-11-25 en johanes (graph_ui `36adfbb`, sldb `61c5847f`), en Chrome real, con el
-corpus de specs de spec2viz (`IR/tests/visual/fixtures/`):
-
-- 38 specs válidas distintas, de los 8 tipos de diagrama. **Todas se dibujan sin errores de página
-  y sin avisos de "no sé dibujar esto".** En dibujo, la paridad con spec2viz ya está.
-- Una actividad de 13 nodos y 17 relaciones (`activity.render-error-handling`) hace 99 corridas de
-  ELK y tarda 3,5 s; las demás hacen 24 y tardan 0,3 a 0,5 s. ELK corre sin worker, así que la
-  página no responde mientras tanto.
-- Las specs sincronizadas sueltas caen todas en "Sin categoría"; la categoría la da la
-  sincronización del catálogo (`vistas.yml`).
-- La vista de notación es de **solo lectura** (`nodesConnectable=false`, sin diálogos).
-- La vista solo lista `SpecDoc`. Un `ViewDoc` con notación se evalúa en el servidor
-  (`POST /api/views/evaluate`) pero ninguna vista del frontend lo muestra.
-
-## Bloques
+## Trabajo
 
 | Bloque | Qué es | Estado al 2026-11-25 |
 |---|---|---|
-| A. Panel embebible | Montar una vista en una página ajena con una llamada, sin el cascarón | 4 tareas en borrador (G-A1 a G-A4) |
-| B. Modo lector | SVG y HTML autocontenido, con el mismo layout que la vista | 2 tareas en borrador (G-B1, G-B2) |
-| C. `ViewDoc` en la vista | La vista de notación lista y dibuja también `ViewDoc` | 1 tarea en borrador (G-C) |
-| D. Rendimiento del layout | Cortar la búsqueda de candidatos y correr ELK en un worker | 1 tarea en borrador (G-D) |
-| E. Átomos y anotaciones | Panel de átomos por nodo y anotaciones guardadas en el store | sin tarea |
-| F. BPMN | Layout de carriles, eventos y compuertas para una notación BPMN | decidido que va; sin brief |
-| G. Edición por gestos | Editar desde el diagrama | decidido que entra; sin diseño |
-| H. Tema y vistas nuevas | Tema de papel; vistas con la estructura del prototipo de Kimun | espera al bloque A |
+| A. Editor de grafo como caso del contrato | Componente de integración de Astryx en React 19: se monta en un contenedor ajeno, recibe cliente y tema, avisa la selección | Las tareas G-A1 a G-A4 se escribieron para React 18 sin build y están frenadas. Se rehacen cuando exista la prueba de integración de `sldb/surface` |
+| B. Modo lector | SVG y HTML autocontenido con el mismo layout que la vista | 2 tareas (G-B1, G-B2) |
+| C. `ViewDoc` en la vista | La vista lista y dibuja también `ViewDoc` | 1 tarea (G-C) |
+| D. Rendimiento del layout | Cortar la búsqueda de candidatos y correr ELK en un worker | 1 tarea (G-D) |
+| E. Sin pron | El modo local del adaptador abre el store por `sldb.api` | sin tarea |
+| F. Carriles por partición | Layout genérico de carriles, para BPMN y para las capas de specIR; sin código por notación | sin tarea |
+| G. Edición por gestos | Editar desde el diagrama, proponiendo cambios a sldb | sin tarea; depende del rechazo antes de escribir en sldb y de la máquina común de guardado |
+| H. Ambiente local | Explorador a la izquierda y editor de grafo, con una plantilla de Astryx | sin tarea; depende de A |
 
-### A. Panel embebible
+Ajuste pendiente de aplicar a G-B1: hoy cubre solo la escena de grafo. Las secuencias y las
+matrices calculan su geometría en `notation.mjs` pero su dibujo está dentro de `notation-view.js`
+(`LanesDiagram`, `GridDiagram`); hay que sacarlo a un módulo puro que usen la vista y el exportador.
 
-A favor: `SourceProvider` ya recibe `request` inyectado (`frontends/mindmap/app.js`,
-`source/source.js`). Lo que hoy lo impide:
+## Lo que ya no es de graph_ui
 
-- rutas absolutas a la raíz del servidor (`/api/...`, `/skins/*.css`, `/views/.../*.css`);
-- cinco vistas importan `request` de `shell/api.js` en vez de recibirlo;
-- el importmap de `index.html` (React, xyflow, elkjs) tiene que ponerlo la página anfitriona;
-- el tema va en `data-skin` de `<html>` y hay claves globales de `localStorage` (`kb-skin`,
-  `kb-notation-spec`, `kb-editor-route`).
+- El panel del nodo (documento, átomos, referencias) y las anotaciones son del editor de texto.
+- El tema: los tokens y skins propios se reemplazan por temas de Astryx.
 
-Ajustes de la revisión en frío, pendientes de aplicar a los briefs:
+## Sin decidir
 
-- **G-A2** pide probar que "la edición de un label persiste". La vista de notación no edita. La
-  prueba embebida tiene que comprobar lo que sí hace: listar el catálogo, dibujar un spec, cambiar
-  de spec, «Ver todo», sin errores de página. Falta `elkjs` en la lista del importmap.
-
-### B. Modo lector
-
-El generador usa la lógica pura que ya existe (`sceneFor`, `bestLayout`, `notation-style.mjs`,
-`notation-swimlanes.mjs`, `notation-deployment.mjs`), no un segundo layout.
-
-Ajuste de la revisión en frío:
-
-- **G-B1 cubre solo la escena de grafo.** Las secuencias (`lanes`) y las matrices (`grid`) calculan
-  su geometría en `notation.mjs` (`laneScene`, `gridScene`), pero su dibujo está dentro de
-  `notation-view.js` como componentes htm (`LanesDiagram`, `GridDiagram`). Para que el exportador
-  cubra los 8 tipos hay que sacar ese dibujo a un módulo puro que usen la vista y el exportador.
-- La prueba compara posiciones contra la escena calculada con la misma medida de texto aproximada:
-  en node no hay canvas.
-
-### G. Edición por gestos
-
-El diseño que existe es de septiembre (`docs/representacion/plan-de-cierre.md`, fase 3): un gesto
-escribe una forma de pron con huecos, declarada en un `GestureDoc`, por `POST /api/eval`. Nunca se
-construyó: no existe el endpoint ni `GestureDoc`.
-
-Cinco días después, el ADR `sldb/docs/architecture/sldb-absorbs-kgdb.md` (aceptado el 2026-09-20)
-dice que "graph_ui is a graphical UI over SLDB, not a surface over pron". Y hay un borrador más
-nuevo (`desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia`, del
-2026-11-16) que escribe con `sldb.api.apply_batch` pero valida relaciones con pron.
-
-Por dónde escribe la edición es una decisión abierta de JP (ver abajo).
-
-## Decisiones
-
-Tomadas por JP el 2026-11-25:
-
-- El render principal es graph_ui; HTML y SVG, solo en línea.
-- Los bloques A y B van primero.
-- La edición por gestos entra ahora, no después.
-- BPMN va como notación en el render principal, no solo como XML.
-- La UI nueva de specIR espera al panel embebible (bloque A) antes de decidirse.
-
-Abiertas:
-
-- **Por dónde escribe la edición**: por sldb sin pron, o por formas de pron. Depende de qué se
-  haga con pron (ver `sldb/desk/drawer/plans/pedidos-de-specir-y-graph-ui/`, sección pron).
-- **Dónde caen el panel de átomos y las anotaciones**: en la vista de notación de graph_ui, o como
-  vista aparte.
-- **Dónde vive la UI de specIR** cuando exista el panel: una app que lo incrusta, o vistas y un
-  tema dentro de graph_ui.
-
-## Quién lo corre
-
-El despacho de robocop2 (panel `wA:p1`) creó las tareas G-A, G-B, G-C y G-D en este desk. graph_ui
-todavía no tiene cola, integrate ni entrada en el timer de deskops; el despacho dijo que lo cablea
-copiando la configuración de IR. Hasta entonces nada de esto corre.
-
-## Segunda vuelta del 2026-11-25: superficies
-
-Decidido por JP en la conversación de delimitación. Manda sobre lo de arriba donde lo contradiga.
-
-- **El panel del nodo (documento, átomos, referencias) es de `sldb/surface`**, no de la vista de
-  notación. La superficie de sldb es la del documento; graph_ui es la del dibujo. El bloque E deja
-  de ser de graph_ui en esa parte.
-- **Las notaciones (UML, BPMN y las demás) son contenido de specIR**; sldb conserva el mecanismo.
-  El bloque F sigue siendo de graph_ui solo en el layout, que tiene que ser genérico (carriles por
-  partición), sin código por notación.
-- **La API de sldb pasa a fastmcp**, con una taxonomía de comandos primero (detalle en
-  `sldb/desk/drawer/plans/pedidos-de-specir-y-graph-ui/`). graph_ui pasará a ser cliente de eso.
-
-Inventario de interfaces al 2026-11-25:
-
-| Qué | Estado |
-|---|---|
-| `sldb/surface` (Vite + TS) | activa; un documento: ver, editar por payload, componer, extraer. Su maqueta tiene una pestaña "Grafo" con xyflow |
-| graph_ui `frontends/mindmap` | activa; mapa, flujo, esquema, notación, editor de clases |
-| graph_ui `frontends/desk`, `flow_editor`, `workspace`, y `apps/` | sin revisar; `flow_editor` sin cambios desde septiembre |
-| `UIs/sldb-ui` | archivada el 2026-11-21 |
-| `UIs/marcado-ui` | archivada el 2026-11-16 |
-| `UIs/kbsurfaces` | lanzador; todavía levanta la `sldb-ui` archivada |
-| Página HTML del catálogo de specIR | por retirar |
-
-Decidido por JP (2026-11-25):
-
-- **La superficie de sldb es el cascarón** y monta el panel embebible de graph_ui. Al seleccionar
-  un nodo, el panel avisa y la superficie muestra su documento: G-A2 necesita ese aviso de
-  selección. La pestaña "Grafo" de la maqueta de la superficie se reemplaza por el panel.
-- **graph_ui puede tener su propio ambiente local**: un explorador a la izquierda y el editor de
-  grafos, nada más. Sus componentes salen de librerías, no se escriben a mano.
-- La UI de specIR es entonces la superficie, el panel y un tema; no hay app en `IR/ui/`.
-
-Queda por ver qué pasa con lo que hoy tiene el cascarón de `mindmap` y no es explorador ni editor
-de grafos (editor de clases, vistas de mapa, flujo y esquema), y con `frontends/desk`,
-`flow_editor`, `workspace` y `apps/`.
-
-**pron se archiva** (JP, 2026-11-25). La edición por gestos (bloque G) escribe por sldb, sin pron;
-el diseño de septiembre con formas de pron y `GestureDoc` queda sin efecto. El modo local de
-`sldb_adapter.py` deja de usar `pron.world.store.Store`. Las tres decisiones abiertas de arriba
-quedaron cerradas.
-
-## Tercera vuelta del 2026-11-25: graph_ui es un caso del contrato de editor
-
-JP: surface pasa a ser un contrato de cómo se crea un editor, y graph_ui (editor de grafo) es uno
-de sus dos casos; el otro es el editor de texto de sldb. La estructura externa es Astryx, y
-nuestros editores son componentes paralelos a los suyos. XState es nuestro y se exige a nuestros
-editores. El detalle, el dibujo y el borrador del contrato están en
-`sldb/desk/drawer/plans/superficie-como-contrato-de-editores/`.
-
-Lo que cambia aquí: el bloque A (G-A1 a G-A4) apunta a una forma que no es la final, porque el
-panel embebible pasa a ser un componente de integración de Astryx con React 19 y build. Hay que
-revisar esas tareas antes de ejecutarlas.
+Qué pasa con lo que hoy tiene `mindmap` y no es explorador ni editor de grafo (editor de clases,
+vistas de mapa, flujo y esquema), y con `frontends/desk`, `flow_editor`, `workspace` y `apps/`.
