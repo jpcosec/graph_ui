@@ -1,7 +1,16 @@
+Task: task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion
+Title: G-C: la vista de notacion lista tambien los ViewDoc del store y dibuja uno con su notacion
+Status: ready_for_testing
+Current node: ritual-closeout
+Task type: task.code
+Lifecycle gates:
+- task_completes -> complete: closed [status = "ready_for_testing"]
+  blocked by: error: [rules/rule-closeout-task-code] TaskCodeDoc:task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion: Una tarea task.code se cierra con recibos evidence aceptados e intactos de tests, commit y atom o materialization (los escribe deskops closeout verify). | any(^subject: kind = "evidence" and fact = "tests" and anchor_state = "intact" and verdict = "accepted") (seen: {}) (witness: ReviewDoc:review-task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion-bundle-1 {"kind":"bundle"})
+
 ---
 sldb:
   by: agent
-  at: '2026-11-25T21:10:48Z'
+  at: '2026-11-25T18:10:25Z'
   authority: generated
   via: save_document_payload
 id: task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion
@@ -12,24 +21,14 @@ current_node: ritual-closeout
 history:
 - task_activates
 - task_hands_to_closeout
-references:
-- frontends/mindmap/views/specs/notation/notation-view.js
-- frontends/mindmap/views/specs/notation/notation.mjs
-- tests/e2e_notation_viewdoc.py
-- tests/mindmap-notation.test.mjs
-- eb722129796ba0139e09ad94636a437ce2dae2f2
+references: []
 depends_on: []
 pills: []
-files:
-- frontends/mindmap/views/specs/notation/notation-view.js
-- frontends/mindmap/views/specs/notation/notation.mjs
-- tests/e2e_notation_viewdoc.py
-- tests/mindmap-notation.test.mjs
+files: []
 task_type: task.code
 inherits_from: []
 inherit_acceptance_context: false
-atoms:
-- atom-la-vista-de-notacion-lista-y-dibuja-los-viewdoc-del-store
+atoms: []
 ---
 
 # G-C: la vista de notacion lista tambien los ViewDoc del store y dibuja uno con su notacion
@@ -71,3 +70,20 @@ _List the checks required before this task can close._
 _Name the observable condition that makes the task complete._
 
 La vista de notacion lista y dibuja un ViewDoc con su notacion; el test node y tests/e2e_notation_viewdoc.py pasan junto con tests/e2e_mindmap_notation.py.
+
+## Como probar (tester)
+
+Ubica el trabajo del ejecutor:
+
+    git log -1 --format=%H --grep "Task-Id: task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion"   # commit del ejecutor
+    git show --name-only <commit>                           # sus archivos
+
+Los tests a correr son los archivos tests/*.py de ese commit, mas tests/test_<modulo>.py cuando exista para cada modulo de codigo tocado; de a uno, con `TMPDIR=/tmp python -m pytest -q <archivo>`. No corras la suite completa: la corre integrate en el host.
+
+Escribe result-summary.md con el veredicto PASA o FALLA en la primera linea.
+
+## Temporales de pytest
+
+Antes de cualquier pytest exporta, para que sus temporales caigan en el /tmp del contenedor (muere con el agente) y no en el /dev/shm del host:
+
+    export PYTEST_ADDOPTS="--basetemp=/tmp/pytest-deskops-t-7f8600cb1dbb"
