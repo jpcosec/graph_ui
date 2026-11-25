@@ -1,42 +1,34 @@
+Task: task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron
+Title: el modo local de mindmap abre el store por sldb.api y graph_ui deja de depender de pron
+Status: draft
+Current node: ritual-execution
+Task type: task.code
+Lifecycle gates:
+- task_activates -> ritual-testing: closed [(none)]
+  post-hook encola-reap-del-ejecutor: deskops queue add dispatch-reap --root .
+  post-hook encola-tester: deskops queue add dispatch-tester --root .
+  blocked by: error: [rules/rule-activation-task-code] TaskCodeDoc:task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron: Una tarea task.code se activa con recibos preflight y bundle aceptados e intactos y sus dependencias cerradas. | any(^subject: anchor_state = "intact" and verdict = "accepted" and kind = "preflight") (seen: {}) (witness: ReviewDoc:review-task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron-bundle-1 {"anchor_state":"changed"})
+
 ---
 sldb:
   by: agent
-  at: '2026-11-25T21:35:50Z'
+  at: '2026-11-25T18:25:54Z'
   authority: generated
   via: save_document_payload
 id: task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron
-status: active
+status: draft
 summary: ''
 tags: []
-current_node: ritual-testing
-history:
-- task_activates
-references:
-- .github/requirements-suite.txt
-- frontends/mindmap/models_service.py
-- frontends/mindmap/persistence.py
-- frontends/mindmap/serve.py
-- frontends/mindmap/sldb_adapter.py
-- pyproject.toml
-- tests/test_ci_workflow.py
-- tests/test_mindmap_adapter.py
-- 6a192d3ba8848c480bbf7e4107c5a8eedda105e7
+current_node: ritual-execution
+history: []
+references: []
 depends_on: []
 pills: []
-files:
-- .github/requirements-suite.txt
-- frontends/mindmap/models_service.py
-- frontends/mindmap/persistence.py
-- frontends/mindmap/serve.py
-- frontends/mindmap/sldb_adapter.py
-- pyproject.toml
-- tests/test_ci_workflow.py
-- tests/test_mindmap_adapter.py
+files: []
 task_type: task.code
 inherits_from: []
 inherit_acceptance_context: false
-atoms:
-- atom-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-pron
+atoms: []
 ---
 
 # el modo local de mindmap abre el store por sldb.api y graph_ui deja de depender de pron
@@ -79,3 +71,26 @@ _List the checks required before this task can close._
 _Name the observable condition that makes the task complete._
 
 En un entorno sin pron instalado, la suite completa de tests/ pasa en modo local. Ningún archivo de frontends/ ni de src/ importa pron. pyproject.toml y requirements-suite.txt no lo nombran.
+
+## Entrega del ejecutor
+
+Al terminar, commitea solo los archivos que cambiaste para la tarea, nombrados uno por uno (los mismos que listas en result-summary.md):
+
+    git add <ruta> <ruta> ...
+    git commit -m "<resumen>" -m "Task-Id: task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron"
+
+Nunca uses `git add -A`, `git add -u` sobre todo el arbol ni `git stash`: puede haber trabajo ajeno sin commitear. No hagas push. Recien despues ejecuta `deskops advance task`.
+
+## Temporales de pytest
+
+Antes de cualquier pytest exporta, para que sus temporales caigan en el /tmp del contenedor (muere con el agente) y no en el /dev/shm del host:
+
+    export PYTEST_ADDOPTS="--basetemp=/tmp/pytest-deskops-e-940f5ec7a52c-a2"
+
+## Tu worktree
+
+Tu codigo vive en un worktree propio, en la rama `deskops/deskops-e-940f5ec7a52c-a2`:
+
+    /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui/.worktrees/deskops-e-940f5ec7a52c-a2
+
+Haz `cd` ahi: edita, corre los tests y commitea ahi (git add / git commit), no en el checkout principal /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui. Las operaciones de desk (`deskops ... --root /mnt/ssd/proyectos/SLDB_1/UIs/graph_ui`, evidencia en runs/subagents/..., `deskops advance task`) siguen usando el checkout principal. Al terminar, reap trae tus commits a la rama principal y borra el worktree.

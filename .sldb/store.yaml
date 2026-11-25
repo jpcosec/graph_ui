@@ -209,7 +209,6 @@ include:
   - desk/tasks/task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount.md
   - desk/tasks/task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor.md
   - desk/tasks/task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker.md
-  - desk/tasks/task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron.md
   - desk/tasks/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de.md
 - model: RuleDoc
   paths:
