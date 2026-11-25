@@ -1,0 +1,36 @@
+name: review-task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion-bundle-1
+path: desk/reviews/task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion/bundle-1.md
+source_hash: b2bb7a9e8efec7f0c54b28bc8553644ec576dd0b751a8e3e9d8eb8483e7c1228
+content_hash: 00fa0f269f5675d1066bc5808c9fc5635f704ae7a8042dd871508fcb2fc36549
+field_hashes:
+  id: 02255776f113e6fc1eef594c3418f578cddc3e1ac530f5efbdac7e0eb130f46a
+  title: 37d8b0368147f1b770e861a42251df0854d6567e43b5aa7ac49fecf1b3961158
+  kind: 4c522949265daa3973b2389b594a235b5c6e47c70d2af6e23bd14f8173f56280
+  fact: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  value: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  subject: 451f0eff9573073d01fc0e3e2df31da67d35558a3a59baf1baeb3f85448a3a08
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 6874c40de9971944b9706ccc769074b7f77cb595ed78bafba748db5266461238
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: 1e45b0f0b06337fcb89fe2c2e179a1b449a37d33de5329c611a91dedd8ae2e14
+  input_sha256: 78643854764b1bba284b4219a6a2307c681b8f31a5ecda54d198f6c81805ac7b
+  contract_sha256: c3c2236cfc9b82b603ff812104f4ddbc8eb8f3489a7a688bc2b689245a6a7ae9
+  output_sha256: 426373acd901d76517776b650b08df16f39a95da99bff01e190584eeb96bdb13
+  verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
+  reason: a7cc59664eebb410616b5f83148ba2173c52786ff5e9e508744b077cc04031e4
+  created_at: d7c202c59cb766acd6ecabdbda669312c7a19e96007153b9594573d7d6401f55
+  disposed_at: 6dd5c325e4e91b2a1818151b13b765ac55a2063694ef71b70c36f175c06d5c91
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: 15a9a1d731b675923895d19e68e4bf9b3748ccb5d10b644b9f0b1c35a3e3126d
+  disposition: 80c281f5ba80e34c21d4157ee35d1284643d7168857d5f491e46244b3e146eae
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+provenance:
+  by: agent
+  at: '2026-11-25T14:35:59Z'
+  authority: generated
+  via: save_document_payload

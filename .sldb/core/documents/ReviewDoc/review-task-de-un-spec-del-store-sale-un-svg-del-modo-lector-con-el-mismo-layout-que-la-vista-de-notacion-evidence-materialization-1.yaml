@@ -1,0 +1,36 @@
+name: review-task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion-evidence-materialization-1
+path: desk/reviews/task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion/evidence-materialization-1.md
+source_hash: 686312b969b178df56806d862ece45434dd4a13fda7faa154986028bc01d8525
+content_hash: 50ec324b2291cff096febcac2d97ae41038faae3620245a85c26ce0f5f8c2aae
+field_hashes:
+  id: 0283a3e8557934c68b25b4e29d52a0dc603b5798d044ef48af2d68f3947def45
+  title: 9c01a6cd533ce1c8e172582b14cf767bb8e25a71d31ffd893d74863e79d0f6d8
+  kind: edecec53ab11f560816e75a17681eb83886beace01d7fb927d99707d3d031aac
+  fact: b77d8cf6414796c495587568e836eb101f2c47c6cbab025c9e93d24db5ead67b
+  value: d95e68cb7c4f8a9386e99b440ad95abbcf0af1e74b33a37b243643ab7f0c2492
+  subject: 1a3239fa17c5e86fd282f26113ccd9e1160c5e57d22855dd4b3d63d62c8338d8
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 9eeef991471c47a0f748cc581c93b036c7560af99f0fcdf1ed75357a5551f1ac
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  input_sha256: 07d2890bfb364b18993b8d54caa07d3877cf3ba1edf075ac3d1171c3119d1c56
+  contract_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  output_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
+  reason: efc63aa9126fcc53e3ce751f539ea6a2674f1f8320ad8488559ab9d5c09be639
+  created_at: c6e73c87c1cf5a9263e6faa1e4999bec6065574363ac9e4280b2681a393ff150
+  disposed_at: c6e73c87c1cf5a9263e6faa1e4999bec6065574363ac9e4280b2681a393ff150
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: 9c566995bf59d62635ca0d499a516d8c2f943f3a15294cb863099ce72b5222ea
+  disposition: f9b2955427dcd3248129416bc89ad47dbf05356df003fe7f280f180181cd7143
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+provenance:
+  by: agent
+  at: '2026-11-25T15:26:17Z'
+  authority: generated
+  via: create_document

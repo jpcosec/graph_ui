@@ -208,7 +208,6 @@ include:
   - desk/tasks/task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c.md
   - desk/tasks/task-el-panel-embebido-lleva-el-tema-y-el-localstorage-con-alcance-a-su-contenedor.md
   - desk/tasks/task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount.md
-  - desk/tasks/task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion.md
   - desk/tasks/task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor.md
   - desk/tasks/task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion.md
   - desk/tasks/task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker.md
@@ -403,6 +402,16 @@ include:
     name: review-task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker-preflight-1
   - path: desk/reviews/task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker/bundle-1.md
     name: review-task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker-bundle-1
+  - path: desk/reviews/task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion/evidence-tests-1.md
+    name: review-task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion-evidence-tests-1
+  - path: desk/reviews/task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion/evidence-commit-1.md
+    name: review-task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion-evidence-commit-1
+  - path: desk/reviews/task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion/evidence-atom-1.md
+    name: review-task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion-evidence-atom-1
+  - path: desk/reviews/task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion/evidence-materialization-1.md
+    name: review-task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion-evidence-materialization-1
+  - path: desk/reviews/task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion/evidence-materialization-2.md
+    name: review-task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion-evidence-materialization-2
 - model: MaterializationContractDoc
   paths:
   - desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md
@@ -412,6 +421,10 @@ include:
   - desk/materializations/materialization-repos-hermanos-que-instala-la-ci-de-graph-ui.md
   - desk/materializations/materialization-la-ui-del-desk-dibuja-estado-gates-y-findings-tal-como-los-entrega-deskops-view.md
   - desk/materializations/materialization-el-lector-del-workspace-renderiza-markdown-con-markdown-it-sin-inyectar-html.md
+  - desk/materializations/materialization-svg-lector-frontends-mindmap-views-specs-notation-notation-draw-mjs.md
+  - desk/materializations/materialization-svg-lector-frontends-mindmap-views-specs-notation-notation-svg-mjs.md
+  - desk/materializations/materialization-svg-lector-frontends-mindmap-views-specs-notation-notation-view-js.md
+  - desk/materializations/materialization-svg-lector-tests-mindmap-notation-svg-test-mjs.md
 - model: RunDoc
   paths:
   - path: runs/subagents/exec-deskops-e-2fdc793ded2b/run.md

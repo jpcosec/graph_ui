@@ -1,7 +1,7 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-25T14:22:46Z'
+  at: '2026-11-25T15:32:01Z'
   authority: generated
   via: save_document_payload
 # board-xxx
@@ -18,7 +18,6 @@ tasks:
 - desk/tasks/task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c.md
 - desk/tasks/task-el-panel-embebido-lleva-el-tema-y-el-localstorage-con-alcance-a-su-contenedor.md
 - desk/tasks/task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount.md
-- desk/tasks/task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion.md
 - desk/tasks/task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor.md
 - desk/tasks/task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion.md
 - desk/tasks/task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker.md
@@ -56,11 +55,10 @@ _Generated from the task references above._
 - Edicion contextual de relaciones y campos con control de concurrencia [draft] - En el workspace de Mindmap (/workspace/node, puerto 8088; no el visor standalone de solo lectura de frontends/workspace en el 8090) se puede editar un campo de un documento desde 'Campos del Documento (IR)' de la proyección Documento y agregar o quitar una relación válida según el modelo desde el panel 'Contexto y Relaciones'. Cada escritura lleva la revisión del documento (su source_hash) y el servidor la rechaza con 409 si el documento cambió desde que se leyó, sin perder lo que el usuario escribió.
 - Decisión de JP: ¿el workspace de graph_ui edita y ancla código (softfactory K03/K05/K12) o solo muestra el estado de los CodeAnchorDoc de sldb? [draft] - Una decisión escrita de JP, con una de tres opciones: (A) graph_ui solo muestra, en la vista inspect, los anclajes de código de un documento y su estado (intact/changed/lost) leyendo CodeAnchorDoc por la API de sldb, sin editar código; (B) además edita fragmentos de código anclados desde el workspace (K05), con escritura y reanclaje por sldb; (C) nada de código en graph_ui; el tema pasa a la UI de deskops o se descarta.
 - Respaldar el enlace Workbench de la página de tarea con prueba y sacar las URLs base a configuración [draft] - Que la base del enlace Workbench (y la de Inspeccionar) se lea de configuración del servidor del desk en vez de constantes fijas en app.js, con valores por defecto iguales a los actuales, y que una prueba cubra el href del enlace Workbench de la página de tarea.
-- Las vistas de mindmap reciben request y la URL base del servidor en vez de importar shell/api.js con rutas absolutas [draft] - Que toda vista de frontends/mindmap/views reciba request (y la base URL) por su contexto/props, igual que SourceProvider ya recibe request inyectado (app.js, source/source.js), y que ninguna ruta del cliente sea absoluta a la raiz.
+- Las vistas de mindmap reciben request y la URL base del servidor en vez de importar shell/api.js con rutas absolutas [active] - Que toda vista de frontends/mindmap/views reciba request (y la base URL) por su contexto/props, igual que SourceProvider ya recibe request inyectado (app.js, source/source.js), y que ninguna ruta del cliente sea absoluta a la raiz.
 - La vista de notacion de graph_ui se monta en cualquier pagina con mount(contenedor, opciones) sin el cascaron [draft] - Un modulo frontends/mindmap/embed/notation.js que exporte mount(container, {baseUrl, spec, view, theme}) y unmount, que monte la vista de notacion con su SourceProvider y request(baseUrl) sin shell, y una pagina de ejemplo ajena (tests/fixtures/embed/host.html) que lo usa con una llamada.
 - El panel embebido lleva el tema y el localStorage con alcance a su contenedor [draft] - Que el tema se aplique en el contenedor (data-skin en el contenedor, css con alcance) y que las claves de almacenamiento lleven un prefijo por instancia (opcion storageKey de mount, default el de hoy en graph_ui).
 - Las demas vistas de mindmap tambien se montan embebidas con mount(...) [draft] - Que frontends/mindmap/embed exponga mount para cada vista registrada (o mount(container, {view: <id>, ...}) generico), con request, base, tema y storage como la de notacion.
-- De un spec del store sale un SVG del modo lector con el mismo layout que la vista de notacion [draft] - Un modulo puro frontends/mindmap/views/specs/notation/notation-svg.mjs con exportSvg(view, opts) -> string SVG, a partir del mismo payload de GET /api/notation/view, y una prueba que compare posiciones con la vista interactiva.
 - graph_ui exporta un HTML autocontenido del modo lector que se abre sin servidor [draft] - Un HTML autocontenido (SVG inline, css inline, sin fetch ni importmap) con zoom/arrastre basico y titulo, generado desde un spec del store por una ruta GET /api/notation/export?spec=..&format=svg|html y un boton de exportar en la vista de notacion.
-- G-C: la vista de notacion lista tambien los ViewDoc del store y dibuja uno con su notacion [draft] - Que la vista de notacion liste los ViewDoc del store junto a los SpecDoc y dibuje un ViewDoc con su notacion, reusando el mismo lienzo y layout.
+- G-C: la vista de notacion lista tambien los ViewDoc del store y dibuja uno con su notacion [active] - Que la vista de notacion liste los ViewDoc del store junto a los SpecDoc y dibuje un ViewDoc con su notacion, reusando el mismo lienzo y layout.
 - G-D: el layout de notacion corta en el primer candidato legible y ELK corre en un worker [draft] - Que bestLayout corte en el primer candidato sin problemas y con zoom legible, que ELK corra en un worker, y que una prueba fije un tope de corridas para esa spec.

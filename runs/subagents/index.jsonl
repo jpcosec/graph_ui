@@ -50,3 +50,4 @@
 {"task_id": "task-las-vistas-de-proyecci\u00f3n-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon", "run_id": null, "run_dir": "runs/subagents/20261117-viewsave-tester-a1", "session_sha256": null, "commit": null}
 {"task_id": "task-la-e2e-de-vistas-de-review-workbench-no-deja-procesos-vite-preview-hu\u00e9rfanos-al-terminar", "run_id": null, "run_dir": "runs/subagents/20261117-vite-huerfano-tester-a1", "session_sha256": null, "commit": null}
 {"task_id": "task-el-vite-build-del-fixture-de-vistas-no-deja-procesos-hu\u00e9rfanos-cuando-se-pasa-del-timeout", "run_id": null, "run_dir": "runs/subagents/20261117-vite-build-tester-a1", "session_sha256": null, "commit": null}
+{"task_id": "task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion", "run_id": null, "run_dir": null, "session_sha256": null, "mode": "superseded", "commit": null}
