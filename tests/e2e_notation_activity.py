@@ -208,3 +208,42 @@ def test_partitions_are_uml_swimlanes(store):
     finally:
         process.terminate()
         process.wait()
+
+
+FLOW = "activity.render-error-handling"
+FLOW_FIXTURE = ROOT / "tests" / "fixtures" / "notation-pilots" / "activity-render-error-handling.yml"
+
+
+@pytest.fixture(scope="module")
+def flow_store(tmp_path_factory):
+    if sync_playwright is None:
+        pytest.skip("playwright no está instalado")
+    root = tmp_path_factory.mktemp("activity-flow")
+    shutil.copy(FLOW_FIXTURE, root / FLOW_FIXTURE.name)
+    subprocess.run(["sldb", "stores", "init", "--path", str(root)], check=True, capture_output=True)
+    subprocess.run(["sldb", "notations", "sync", "--spec", FLOW_FIXTURE.name, "--store", ".sldb"], cwd=root, check=True, capture_output=True)
+    return root / ".sldb"
+
+
+@pytest.mark.parametrize("failure", ["404", "abort"])
+def test_elk_worker_failing_to_load_falls_back_to_the_main_thread(flow_store, failure):
+    process, base = _serve(flow_store)
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(viewport={"width": 1800, "height": 1200})
+            requested = []
+            def handle(route):
+                requested.append(route.request.url)
+                route.fulfill(status=404, body="not found") if failure == "404" else route.abort()
+            page.route("**/vendor/elk-worker.min.js", handle)
+            page.goto(f"{base}/specs/notation")
+            page.wait_for_selector(".notation-catalog button", timeout=30000)
+            page.click(f'[data-spec="{FLOW}"]')
+            page.wait_for_function("() => document.querySelectorAll('.notation-canvas .react-flow__node').length >= 13", timeout=60000)
+            assert requested, "el worker vendorizado no se pidió"
+            assert page.evaluate("() => document.querySelectorAll('.notation-canvas .react-flow__node').length") == 13
+            browser.close()
+    finally:
+        process.terminate()
+        process.wait()

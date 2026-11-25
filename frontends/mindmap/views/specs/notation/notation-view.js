@@ -27,10 +27,21 @@ let elkInstance = null;
 // (vendor/elk-worker.min.js, elkjs 0.11.1), no del CDN; si no carga, ELK corre en el hilo principal.
 const ELK_WORKER_URL = new URL('../../../vendor/elk-worker.min.js', import.meta.url).href;
 async function mainThreadElk() { return new ((await import('elkjs')).default)(); }
+const ELK_PROBE_MS = 4000;
 async function workerElk() {
   const ELK = (await import('elkjs/lib/elk-api.js')).default;
-  const elk = new ELK({workerFactory: () => new Worker(ELK_WORKER_URL)});
-  await elk.layout({id: 'probe', children: [{id: 'a', width: 1, height: 1}]}); // falla si el worker no carga
+  let fail; const failed = new Promise((_, reject) => { fail = reject; });
+  const elk = new ELK({workerFactory: () => {
+    const worker = new Worker(ELK_WORKER_URL);
+    worker.addEventListener('error', (event) => fail(new Error(`elk worker: ${event.message || 'no carga'}`)));
+    return worker;
+  }});
+  let timer;
+  const timeout = new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('elk worker: sin respuesta')), ELK_PROBE_MS); });
+  try { // falla si el worker no carga (404, red abortada) o no responde: el llamador cae al hilo principal
+    await Promise.race([elk.layout({id: 'probe', children: [{id: 'a', width: 1, height: 1}]}), failed, timeout]);
+  } catch (error) { try { elk.terminateWorker(); } catch { /* ya caído */ } throw error; }
+  finally { clearTimeout(timer); }
   return elk;
 }
 const elkReady = () => (elkInstance ||= (typeof Worker === 'undefined' ? mainThreadElk() : workerElk().catch(mainThreadElk)));
