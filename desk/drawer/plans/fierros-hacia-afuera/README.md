@@ -114,3 +114,58 @@ Abiertas:
 El despacho de robocop2 (panel `wA:p1`) creó las tareas G-A, G-B, G-C y G-D en este desk. graph_ui
 todavía no tiene cola, integrate ni entrada en el timer de deskops; el despacho dijo que lo cablea
 copiando la configuración de IR. Hasta entonces nada de esto corre.
+
+## Segunda vuelta del 2026-11-25: superficies
+
+Decidido por JP en la conversación de delimitación. Manda sobre lo de arriba donde lo contradiga.
+
+- **El panel del nodo (documento, átomos, referencias) es de `sldb/surface`**, no de la vista de
+  notación. La superficie de sldb es la del documento; graph_ui es la del dibujo. El bloque E deja
+  de ser de graph_ui en esa parte.
+- **Las notaciones (UML, BPMN y las demás) son contenido de specIR**; sldb conserva el mecanismo.
+  El bloque F sigue siendo de graph_ui solo en el layout, que tiene que ser genérico (carriles por
+  partición), sin código por notación.
+- **La API de sldb pasa a fastmcp**, con una taxonomía de comandos primero (detalle en
+  `sldb/desk/drawer/plans/pedidos-de-specir-y-graph-ui/`). graph_ui pasará a ser cliente de eso.
+
+Inventario de interfaces al 2026-11-25:
+
+| Qué | Estado |
+|---|---|
+| `sldb/surface` (Vite + TS) | activa; un documento: ver, editar por payload, componer, extraer. Su maqueta tiene una pestaña "Grafo" con xyflow |
+| graph_ui `frontends/mindmap` | activa; mapa, flujo, esquema, notación, editor de clases |
+| graph_ui `frontends/desk`, `flow_editor`, `workspace`, y `apps/` | sin revisar; `flow_editor` sin cambios desde septiembre |
+| `UIs/sldb-ui` | archivada el 2026-11-21 |
+| `UIs/marcado-ui` | archivada el 2026-11-16 |
+| `UIs/kbsurfaces` | lanzador; todavía levanta la `sldb-ui` archivada |
+| Página HTML del catálogo de specIR | por retirar |
+
+Decidido por JP (2026-11-25):
+
+- **La superficie de sldb es el cascarón** y monta el panel embebible de graph_ui. Al seleccionar
+  un nodo, el panel avisa y la superficie muestra su documento: G-A2 necesita ese aviso de
+  selección. La pestaña "Grafo" de la maqueta de la superficie se reemplaza por el panel.
+- **graph_ui puede tener su propio ambiente local**: un explorador a la izquierda y el editor de
+  grafos, nada más. Sus componentes salen de librerías, no se escriben a mano.
+- La UI de specIR es entonces la superficie, el panel y un tema; no hay app en `IR/ui/`.
+
+Queda por ver qué pasa con lo que hoy tiene el cascarón de `mindmap` y no es explorador ni editor
+de grafos (editor de clases, vistas de mapa, flujo y esquema), y con `frontends/desk`,
+`flow_editor`, `workspace` y `apps/`.
+
+**pron se archiva** (JP, 2026-11-25). La edición por gestos (bloque G) escribe por sldb, sin pron;
+el diseño de septiembre con formas de pron y `GestureDoc` queda sin efecto. El modo local de
+`sldb_adapter.py` deja de usar `pron.world.store.Store`. Las tres decisiones abiertas de arriba
+quedaron cerradas.
+
+## Tercera vuelta del 2026-11-25: graph_ui es un caso del contrato de editor
+
+JP: surface pasa a ser un contrato de cómo se crea un editor, y graph_ui (editor de grafo) es uno
+de sus dos casos; el otro es el editor de texto de sldb. La estructura externa es Astryx, y
+nuestros editores son componentes paralelos a los suyos. XState es nuestro y se exige a nuestros
+editores. El detalle, el dibujo y el borrador del contrato están en
+`sldb/desk/drawer/plans/superficie-como-contrato-de-editores/`.
+
+Lo que cambia aquí: el bloque A (G-A1 a G-A4) apunta a una forma que no es la final, porque el
+panel embebible pasa a ser un componente de integración de Astryx con React 19 y build. Hay que
+revisar esas tareas antes de ejecutarlas.

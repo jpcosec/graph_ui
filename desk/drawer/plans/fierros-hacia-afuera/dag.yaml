@@ -7,9 +7,9 @@ decisions:
   gestos-entran-ahora: {state: decided, by: JP, on: '2026-11-25', decided: 'La edición por gestos entra a este plan'}
   bpmn-como-notacion: {state: decided, by: JP, on: '2026-11-25', decided: 'BPMN va como notación en el render principal'}
   ui-specir-espera-panel: {state: decided, by: JP, on: '2026-11-25', decided: 'La UI de specIR espera al panel embebible'}
-  por-donde-escribe-la-edicion: {state: open, options: ['por sldb, sin pron', 'por formas de pron']}
-  donde-caen-atomos-y-anotaciones: {state: open, options: ['en la vista de notación', 'vista aparte']}
-  donde-vive-la-ui-de-specir: {state: open, options: ['app que incrusta el panel', 'vistas y tema dentro de graph_ui']}
+  por-donde-escribe-la-edicion: {state: decided, by: JP, on: '2026-11-25', decided: 'por sldb, sin pron; pron se archiva'}
+  donde-caen-atomos-y-anotaciones: {state: decided, by: JP, on: '2026-11-25', decided: 'El panel del nodo (documento, átomos, referencias) es de sldb/surface'}
+  donde-vive-la-ui-de-specir: {state: decided, by: JP, on: '2026-11-25', decided: 'sldb/surface es el cascarón y monta el panel de graph_ui; graph_ui conserva un ambiente local mínimo (explorador y editor de grafos, con componentes de librería)'}
 tasks:
   G-A1:
     title: Las vistas reciben request y la URL base del servidor
