@@ -114,3 +114,33 @@ Abiertas:
 El despacho de robocop2 (panel `wA:p1`) creó las tareas G-A, G-B, G-C y G-D en este desk. graph_ui
 todavía no tiene cola, integrate ni entrada en el timer de deskops; el despacho dijo que lo cablea
 copiando la configuración de IR. Hasta entonces nada de esto corre.
+
+## Segunda vuelta del 2026-11-25: superficies
+
+Decidido por JP en la conversación de delimitación. Manda sobre lo de arriba donde lo contradiga.
+
+- **El panel del nodo (documento, átomos, referencias) es de `sldb/surface`**, no de la vista de
+  notación. La superficie de sldb es la del documento; graph_ui es la del dibujo. El bloque E deja
+  de ser de graph_ui en esa parte.
+- **Las notaciones (UML, BPMN y las demás) son contenido de specIR**; sldb conserva el mecanismo.
+  El bloque F sigue siendo de graph_ui solo en el layout, que tiene que ser genérico (carriles por
+  partición), sin código por notación.
+- **La API de sldb pasa a fastmcp**, con una taxonomía de comandos primero (detalle en
+  `sldb/desk/drawer/plans/pedidos-de-specir-y-graph-ui/`). graph_ui pasará a ser cliente de eso.
+
+Inventario de interfaces al 2026-11-25:
+
+| Qué | Estado |
+|---|---|
+| `sldb/surface` (Vite + TS) | activa; un documento: ver, editar por payload, componer, extraer. Su maqueta tiene una pestaña "Grafo" con xyflow |
+| graph_ui `frontends/mindmap` | activa; mapa, flujo, esquema, notación, editor de clases |
+| graph_ui `frontends/desk`, `flow_editor`, `workspace`, y `apps/` | sin revisar; `flow_editor` sin cambios desde septiembre |
+| `UIs/sldb-ui` | archivada el 2026-11-21 |
+| `UIs/marcado-ui` | archivada el 2026-11-16 |
+| `UIs/kbsurfaces` | lanzador; todavía levanta la `sldb-ui` archivada |
+| Página HTML del catálogo de specIR | por retirar |
+
+Propuesta sin decidir: la superficie de sldb es el cascarón y monta el panel embebible de graph_ui;
+al seleccionar un nodo, el panel avisa y la superficie muestra su documento. Eso agrega a G-A2 un
+aviso de selección, y reemplaza la pestaña "Grafo" de la maqueta. La UI de specIR sería entonces
+la superficie, el panel y un tema, sin app en `IR/ui/`.
