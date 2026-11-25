@@ -419,6 +419,10 @@ include:
     name: review-task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con-evidence-atom-1
   - path: desk/reviews/task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con/evidence-materialization-1.md
     name: review-task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con-evidence-materialization-1
+  - path: desk/reviews/task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c/preflight-1.md
+    name: review-task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c-preflight-1
+  - path: desk/reviews/task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c/bundle-1.md
+    name: review-task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c-bundle-1
 - model: MaterializationContractDoc
   paths:
   - desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md
@@ -458,6 +462,8 @@ include:
     name: run-deskops-e-d47d4a975df5
   - path: runs/subagents/exec-deskops-t-475a7d5409d5-testing/run.md
     name: run-deskops-t-475a7d5409d5
+  - path: runs/subagents/exec-deskops-e-05de03b7c6d9/run.md
+    name: run-deskops-e-05de03b7c6d9
 graph_backend: networkx
 policy: {}
 tag_models:
