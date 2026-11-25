@@ -87,7 +87,7 @@ def test_adapter_view_revision_changes_on_write(tmp_path):
 
 def test_no_duplicate_sldb_imports_outside_adapter():
     """Regla del plan: solo el adaptador importa internos de SLDB (el resto,
-    incluido el editor de clases, pasa por pron.Store). Recorre todo
+    incluido el editor de clases, pasa por sldb.api desde el adaptador). Recorre todo
     frontends/mindmap/*.py en vez de una lista fija, para no dejar huecos
     cuando se agregue un módulo nuevo."""
     allowed = "sldb_adapter.py"

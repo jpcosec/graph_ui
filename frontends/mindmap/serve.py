@@ -3,8 +3,8 @@
 
 Dos modos, elegidos por GRAPH_UI_BACKEND (default 'local'):
 
-- local (intacto): EditorStore en proceso; depende de pron
-  (AVISO-imports-rotos.md) y de los módulos models_service/compilation.
+- local (intacto): EditorStore en proceso sobre sldb.api y los módulos
+  models_service/compilation.
 - remote: TODAS las lecturas que sldb serve expone hoy se sirven desde
   ahí (SLDB_URL): /api/schema, /api/graph, /api/edges*, /api/graph/*,
   /api/models, /api/models/detail, /api/lint, /api/health,
@@ -449,7 +449,7 @@ class ProxyHandler(SimpleHTTPRequestHandler):
                         template_edit as _template_edit, fields_add as _fields_add,
                         fields_remove as _fields_remove, validate as _validate, promote as _promote)
                     action = route.rsplit('/', 1)[-1]
-                    store = self.editor_store.pron_store
+                    store = self.editor_store.adapter
                     if action == 'detail':
                         self.json_response(_detail(store, request['model']))
                     elif action == 'list':
@@ -494,10 +494,8 @@ class ProxyHandler(SimpleHTTPRequestHandler):
 def _build_local_handler(store):
     """Arranque de siempre: EditorStore en proceso + compilador.
 
-    Imports diferidos a propósito: dependen de pron (AVISO-imports-rotos.md) y
-    solo deben cargarse en modo local; en modo remote el servidor arranca sin
-    pron. Si la dependencia falta, falla con el mismo ModuleNotFoundError de
-    siempre.
+    Imports diferidos a propósito: solo deben cargarse en modo local; en modo
+    remote el servidor arranca sin abrir ningún store.
     """
     from mindmap.persistence import EditorStore, SaveError
     from mindmap.compilation import CompilationService

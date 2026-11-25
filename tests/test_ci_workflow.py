@@ -58,12 +58,12 @@ def test_e2e_job_is_separate_and_installs_chromium():
 
 
 def test_sibling_repos_come_from_git_main_branches_not_releases():
-    """sldb, pron and deskops come from git; spec2viz is no longer a sibling (the Specs view
+    """sldb and deskops come from git; spec2viz is no longer a sibling (the Specs view
     resolves through sldb.api.notations)."""
     text = SUITE.read_text(encoding="utf-8")
     lines = [l for l in text.splitlines() if l and not l.startswith("#")]
-    assert len(lines) == 3 and all("git+https://github.com/jpcosec/" in l for l in lines)
-    assert [l.split(" @ ")[0] for l in lines] == ["structuredLanguageDB", "pron", "deskops"]
+    assert len(lines) == 2 and all("git+https://github.com/jpcosec/" in l for l in lines)
+    assert [l.split(" @ ")[0] for l in lines] == ["structuredLanguageDB", "deskops"]
     assert "spec2viz" not in text
 
 

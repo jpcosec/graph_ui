@@ -1,20 +1,16 @@
 """Adaptador único para las operaciones de SLDB usadas por el Mindmap.
 
-Por dentro delega en ``pron.world.store.Store`` — "la única puerta a sldb" (pron
-spec 12 §4) — en vez de reimplementar el CRUD/schema contra las clases del CLI de
-SLDB a mano. Se mantienen dos excepciones deliberadas, documentadas donde ocurren:
-``serialize()`` (función pura sobre objetos que ``Store.docs()`` ya devolvió, no es
-acceso a store) y ``resolve_ref``/``validate_ref`` (resuelven un ref arbitrario con
-un ``pythonpath`` arbitrario *antes* de que el modelo esté registrado en ningún
-store; ``pron.Store`` no tiene equivalente porque siempre resuelve a través de un
-modelo ya registrado).
+Por dentro delega en ``sldb.api`` — la única puerta a un store (ADR
+``sldb/docs/architecture/pron-is-archived.md``) — en vez de reimplementar el CRUD/schema
+contra las clases del CLI de SLDB a mano. ``resolve_ref``/``validate_ref`` resuelven un ref
+arbitrario con un ``pythonpath`` arbitrario *antes* de que el modelo esté registrado en ningún
+store.
 
 Regla: ninguna regla de validación, hash, tracking o reindexación se duplica en
 graph_ui; todo pasa por estas funciones.
 
-Los imports de pron son perezosos (dentro de ``__init__``): este módulo solo se usa
-en modo local; el modo remote de ``serve.py`` habla HTTP con sldb serve y no debe
-tocar pron.
+Este módulo solo se usa en modo local; el modo remote de ``serve.py`` habla HTTP con
+sldb serve.
 """
 from __future__ import annotations
 
@@ -25,10 +21,13 @@ from enum import Enum
 from pathlib import Path
 from typing import Any
 
+from sldb.api import (add_model, create_document, describe_model_fields, load_registered_model,
+                      load_runtime_documents, registered_models, save_document_payload, untrack_document)
 from sldb.cli.model_utils import resolve_model_ref
 from sldb.cli.serve.routes import serialize_document
 from sldb.cli.store_context import get_store_context
-from sldb.core.exceptions import SLDBStoreError  # re-exportada: el resto de mindmap no importa sldb
+from sldb.core.exceptions import SLDBError, SLDBStoreError  # re-exportada: el resto de mindmap no importa sldb
+from sldb.store.io import load_store_index
 from sldb.runtime.validation import render_model_markdown, validate_model_input_roundtrip
 
 VIEW_FILENAME = "mindmap-view.json"
@@ -84,37 +83,34 @@ class SldbAdapter:
     """Fachada de solo lectura y escritura sobre un store SLDB concreto."""
 
     def __init__(self, store: str | Path):
-        from pron.world.store import Store
-        from pron.world.store_error import StoreError
-
-        self._store_error = StoreError
         self.store, self.root = get_store_context(str(store))
         self.pythonpath = str(self.root)
         self.view_path = self.store / "runtime" / VIEW_FILENAME
         self.lock = threading.RLock()
-        self.pron = Store(root=self.root, pythonpath=self.pythonpath)
 
-    def _pron_for(self, pythonpath: str | None) -> Store:
+    def _path(self, pythonpath: str | None) -> str:
         """La mayoría de las llamadas usan el pythonpath del propio store; el
         compilador puede pedir uno distinto (módulos generados en otra carpeta)."""
-        if pythonpath and pythonpath != self.pythonpath:
-            return type(self.pron)(root=self.root, pythonpath=pythonpath)
-        return self.pron
+        return pythonpath or self.pythonpath
+
+    def _entries(self) -> list[Any]:
+        """Los modelos registrados en el store, por nombre."""
+        return registered_models(self.store)
 
     # ---------------------------------------------------------------- schema
 
     def schema(self) -> list[dict[str, Any]]:
         """Schema de SLDB enriquecido con el ``default`` real de cada campo.
 
-        La forma base viene de ``pron.Store.schema``; el default se lee por
+        La forma base viene de ``describe_model_fields``; el default se lee por
         introspección del modelo para que la UI pueda aplicar defaults válidos
         sin duplicar reglas de SLDB.
         """
         with self.lock:
             out = []
-            for entry in self.pron.store_index().models:
+            for entry in self._entries():
                 try:
-                    fields = self.pron.schema(entry.name)
+                    fields = [f.model_dump(exclude_none=True) for f in describe_model_fields(self.model_for(entry.name))]
                 except Exception as exc:  # noqa: BLE001  (G1: el resto del schema sigue sirviendo)
                     # Un modelo que no se importa no tumba el schema: se informa con su error
                     # real para que la UI lo muestre en vez de "no hay specs".
@@ -123,7 +119,7 @@ class SldbAdapter:
                     continue
                 model_dict = {"id": entry.name, "model_ref": entry.model_ref, "fields": fields}
                 try:
-                    model_type = self.pron.model_type(entry.name)
+                    model_type = self.model_for(entry.name)
                 except Exception:  # noqa: BLE001  (modelo no importable: schema base igual sirve)
                     out.append(model_dict)
                     continue
@@ -162,7 +158,9 @@ class SldbAdapter:
     # ---------------------------------------------------------------- lectura
 
     def documents(self, pythonpath: str | None = None) -> list[Any]:
-        return self._pron_for(pythonpath).docs()
+        return load_runtime_documents(
+            self.store, self._path(pythonpath),
+            include_linked=bool(load_store_index(self.store).stores))
 
     def graph(self) -> dict[str, Any]:
         with self.lock:
@@ -184,11 +182,11 @@ class SldbAdapter:
         return next((d for d in self.documents(pythonpath) if d.name == name), None)
 
     def model_names(self) -> set[str]:
-        return set(self.pron.model_names())
+        return {m.name for m in self._entries()}
 
     def model_refs(self) -> dict[str, str]:
         """Mapa nombre -> ref de los modelos registrados en el store."""
-        return {m.name: m.model_ref for m in self.pron.store_index().models}
+        return {m.name: m.model_ref for m in self._entries()}
 
     def export_models(self) -> list[dict[str, Any]]:
         """Preserve inline declarations; external classes keep their import refs."""
@@ -255,7 +253,7 @@ class SldbAdapter:
                 raise AdapterError(str(exc), 404 if missing else 422) from exc
 
     def model_for(self, model_name: str, pythonpath: str | None = None):
-        return self._pron_for(pythonpath).model_type(model_name)
+        return load_registered_model(self.store, model_name, self._path(pythonpath)).model_type
 
     # ------------------------------------------------------------- validación
 
@@ -294,49 +292,38 @@ class SldbAdapter:
 
     def create_document(self, name: str, model_name: str, payload: dict[str, Any],
                         output: Path, pythonpath: str | None = None) -> None:
-        """Local-only: crea vía pron (sldb api) en el store local. No tiene
-        equivalente en sldb serve (en remote los creates van a ``POST /save``)."""
-        # pron migró create() a DocId: `Store.create(doc_id, payload, path)`.
-        from pron.world.doc_id import DocId
-
+        """Local-only: crea vía ``sldb.api.create_document`` en el store local. En remote
+        los creates van a ``POST /save``."""
         try:
-            self._pron_for(pythonpath).create(DocId.of(model_name, name), payload, output)
-        except self._store_error as exc:
+            create_document(self.store, model_name, output, payload, name=name, pythonpath=self._path(pythonpath))
+        except SLDBError as exc:
             raise AdapterError(str(exc)) from exc
 
     def update_document(self, runtime_doc: Any, payload: dict[str, Any],
                         pythonpath: str | None = None) -> None:
-        """Local-only: replace vía pron en el store local. En remote los updates
+        """Local-only: replace vía ``sldb.api.save_document_payload``. En remote los updates
         van a ``POST /save`` (batch, con compare contra ``expected``)."""
-        # pron migró replace() a DocId: `Store.replace(doc_id, payload)`.
-        from pron.world.doc_id import DocId
-
         try:
-            self._pron_for(pythonpath).replace(
-                DocId.of(runtime_doc.model_name, runtime_doc.name), payload)
-        except self._store_error as exc:
+            save_document_payload(self.store, runtime_doc.model_name, runtime_doc.name, payload,
+                                  self._path(pythonpath))
+        except SLDBError as exc:
             raise AdapterError(str(exc)) from exc
 
     def delete_document(self, name: str, pythonpath: str | None = None) -> None:
         """Local-only: destrackea en el store local (el Markdown queda en disco).
         En remote los deletes van a ``POST /save``."""
-        # pron migró untrack() a DocId (necesita el modelo); se resuelve con el
-        # runtime doc, que es la misma fuente que usaba el untrack por nombre.
-        from pron.world.doc_id import DocId
-
         try:
-            doc = next((d for d in self.documents(pythonpath) if d.name == name), None)
-            if doc is None:
-                raise self._store_error(f'El documento {name!r} no está trackeado.')
-            self._pron_for(pythonpath).untrack(DocId.of(doc.model_name, doc.name))
-        except self._store_error as exc:
+            if not any(d.name == name for d in self.documents(pythonpath)):
+                raise AdapterError(f'El documento {name!r} no está trackeado.')
+            untrack_document(self.store, name, self._path(pythonpath))
+        except SLDBError as exc:
             raise AdapterError(str(exc)) from exc
 
     def default_document_path(self, model_name: str, name: str, pythonpath: str | None = None) -> Path:
         """Dónde debe vivir un documento nuevo de esta clase.
 
         Cada store decide su propio layout, no esta UI (somos el editor de
-        cualquier store pron, no solo de los que compilamos nosotros mismos):
+        cualquier store sldb, no solo de los que compilamos nosotros mismos):
         se reutiliza el directorio de un documento existente de la misma
         clase si ya hay uno. Una clase sin documentos todavía cae en
         ``<root>/<Clase>/``.
@@ -348,11 +335,12 @@ class SldbAdapter:
         return directory / f"{name}.md"
 
     def add_model(self, model_ref: str, pythonpath: str | None = None) -> None:
-        """Local-only: registra un modelo en el store local vía pron. No tiene
-        equivalente en sldb serve; el editor de clases en remote usa
-        ``POST /models/*``."""
-        if not self._pron_for(pythonpath).register_model(model_ref):
-            raise AdapterError(f"No se pudo registrar el modelo {model_ref!r}.")
+        """Local-only: registra un modelo en el store local vía ``sldb.api.add_model``.
+        El editor de clases en remote usa ``POST /models/*``."""
+        try:
+            add_model(self.store, model_ref, self._path(pythonpath))
+        except SLDBError as exc:
+            raise AdapterError(f"No se pudo registrar el modelo {model_ref!r}: {exc}") from exc
 
     def init_store(self) -> None:
         """Local-only: crea el store si no existe (KB vacía). En remote el store
@@ -399,9 +387,7 @@ class SldbAdapter:
 # ------------------------------------------------- vistas de proyección (cualquier store)
 #
 # Las vistas (mindmap.projection_views) se evalúan sobre el store que el operador elija, no solo
-# el de este adaptador, así que estas funciones reciben el store. Excepción deliberada al "todo
-# por pron.Store": pron no expone el índice de aristas filtrado por RelationFilter ni `where`
-# sobre un payload suelto; aquí se usa la API pública de sldb (sldb.api, sldb.api.graph).
+# el de este adaptador, así que estas funciones reciben el store. Se usa la API pública de sldb (sldb.api, sldb.api.graph).
 
 
 def runtime_documents(store: str | Path, pythonpath: str | None = None) -> list[Any]:
