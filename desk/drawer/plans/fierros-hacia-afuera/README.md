@@ -140,7 +140,15 @@ Inventario de interfaces al 2026-11-25:
 | `UIs/kbsurfaces` | lanzador; todavía levanta la `sldb-ui` archivada |
 | Página HTML del catálogo de specIR | por retirar |
 
-Propuesta sin decidir: la superficie de sldb es el cascarón y monta el panel embebible de graph_ui;
-al seleccionar un nodo, el panel avisa y la superficie muestra su documento. Eso agrega a G-A2 un
-aviso de selección, y reemplaza la pestaña "Grafo" de la maqueta. La UI de specIR sería entonces
-la superficie, el panel y un tema, sin app en `IR/ui/`.
+Decidido por JP (2026-11-25):
+
+- **La superficie de sldb es el cascarón** y monta el panel embebible de graph_ui. Al seleccionar
+  un nodo, el panel avisa y la superficie muestra su documento: G-A2 necesita ese aviso de
+  selección. La pestaña "Grafo" de la maqueta de la superficie se reemplaza por el panel.
+- **graph_ui puede tener su propio ambiente local**: un explorador a la izquierda y el editor de
+  grafos, nada más. Sus componentes salen de librerías, no se escriben a mano.
+- La UI de specIR es entonces la superficie, el panel y un tema; no hay app en `IR/ui/`.
+
+Queda por ver qué pasa con lo que hoy tiene el cascarón de `mindmap` y no es explorador ni editor
+de grafos (editor de clases, vistas de mapa, flujo y esquema), y con `frontends/desk`,
+`flow_editor`, `workspace` y `apps/`.
