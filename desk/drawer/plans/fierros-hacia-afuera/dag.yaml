@@ -1,0 +1,61 @@
+id: fierros-hacia-afuera
+status: proposed
+as_of: '2026-11-25'
+source: README.md de esta carpeta. Las tareas con `task` existen en desk/tasks del checkout de robocop2, en borrador.
+decisions:
+  render-principal: {state: decided, by: JP, on: '2026-11-25', decided: 'El render principal de un diagrama es graph_ui; HTML y SVG solo en línea'}
+  gestos-entran-ahora: {state: decided, by: JP, on: '2026-11-25', decided: 'La edición por gestos entra a este plan'}
+  bpmn-como-notacion: {state: decided, by: JP, on: '2026-11-25', decided: 'BPMN va como notación en el render principal'}
+  ui-specir-espera-panel: {state: decided, by: JP, on: '2026-11-25', decided: 'La UI de specIR espera al panel embebible'}
+  por-donde-escribe-la-edicion: {state: open, options: ['por sldb, sin pron', 'por formas de pron']}
+  donde-caen-atomos-y-anotaciones: {state: open, options: ['en la vista de notación', 'vista aparte']}
+  donde-vive-la-ui-de-specir: {state: open, options: ['app que incrusta el panel', 'vistas y tema dentro de graph_ui']}
+tasks:
+  G-A1:
+    title: Las vistas reciben request y la URL base del servidor
+    task: task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con
+    depends_on: []
+  G-A2:
+    title: mount(contenedor, opciones) de la vista de notación, sin el cascarón
+    task: task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c
+    depends_on: [G-A1]
+    review: 'Quitar "la edición de un label persiste" de la aceptación; agregar elkjs al importmap'
+  G-A3:
+    title: Tema y localStorage con alcance al contenedor
+    task: task-el-panel-embebido-lleva-el-tema-y-el-localstorage-con-alcance-a-su-contenedor
+    depends_on: [G-A2]
+  G-A4:
+    title: Las demás vistas también se montan embebidas
+    task: task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount
+    depends_on: [G-A2]
+  G-B1:
+    title: SVG del modo lector con el mismo layout que la vista
+    task: task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion
+    depends_on: []
+    review: 'Cubrir también lanes y grid: sacar LanesDiagram y GridDiagram a un módulo puro'
+  G-B2:
+    title: HTML autocontenido del modo lector, que se abre sin servidor
+    task: task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor
+    depends_on: [G-B1]
+  G-C:
+    title: La vista de notación lista y dibuja también ViewDoc
+    task: task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion
+    depends_on: []
+  G-D:
+    title: El layout corta en el primer candidato legible y ELK corre en un worker
+    task: task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker
+    depends_on: []
+  G-E:
+    title: Panel de átomos por nodo y anotaciones guardadas en el store
+    depends_on: [donde-caen-atomos-y-anotaciones]
+    needs: 'sldb: cobertura de átomos en el payload; modelo de anotación (specIR tiene CatalogAnnotationsDoc)'
+  G-F:
+    title: Layout de BPMN (carriles, eventos, compuertas)
+    depends_on: []
+    needs: 'sldb: notación BPMN'
+  G-G:
+    title: Edición por gestos desde el diagrama
+    depends_on: [por-donde-escribe-la-edicion]
+  G-H:
+    title: Tema de papel y vistas con la estructura del prototipo de Kimun
+    depends_on: [G-A2, donde-vive-la-ui-de-specir]
