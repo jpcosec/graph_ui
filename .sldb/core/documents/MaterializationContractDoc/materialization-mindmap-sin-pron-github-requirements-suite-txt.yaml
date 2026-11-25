@@ -1,0 +1,25 @@
+name: materialization-mindmap-sin-pron-github-requirements-suite-txt
+path: desk/materializations/materialization-mindmap-sin-pron-github-requirements-suite-txt.md
+source_hash: a9dd7e60c07271364ec47c4c3e844b147bf6449b7009c848320c032ca3e1b6f7
+content_hash: 83bed9db933ff36266c3779a32dcbdefb811bcf1394fb25d5b33ae79fdc0720a
+field_hashes:
+  id: 7667d9f91aadfcce5ac82dd3baac1555cf8d788bb0baccab5445c363dc39647d
+  title: 670e5c9ba4f3db6abc49c1e44decee4b4ab17e7f7fa435e0dd18d0e0a3c8f39a
+  source_atoms: f76058ff7ab7f7cfc18d7f92dd6089b0279e4af86a0cf8c8d4599a3d814370c3
+  target_kind: 4a1933b06cf695fcff4acaba1fdbaa7f10ce109d3c7f57bbf62f6bb572658de8
+  target_identity: 43f9eef36ec1935428dd89a49d6f92e62ea39f9febe4e2fd110deba51b784639
+  intent: af0d961b852c24a43f1f50607402e2299c20355a65703771d8146301c40e28d0
+  validation: dc16904b38efbbba6d3feb7d21f754479aa54cb8c286dfbde6eaf3554bf61d42
+  tags: 2c5087fc6e66e481687e2d684b70bc2b014eb521c2a287d9b1610722d1a5f79f
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:mindmap-sin-pron
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-25T21:35:56Z'
+  authority: generated
+  via: create_document

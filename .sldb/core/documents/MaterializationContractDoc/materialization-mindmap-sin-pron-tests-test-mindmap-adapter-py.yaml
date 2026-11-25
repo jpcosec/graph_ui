@@ -1,0 +1,25 @@
+name: materialization-mindmap-sin-pron-tests-test-mindmap-adapter-py
+path: desk/materializations/materialization-mindmap-sin-pron-tests-test-mindmap-adapter-py.md
+source_hash: a0e383fb903bcf4fb2b03b1f9dc34e8aa6d8c083853541831596355a52cf744a
+content_hash: c6a40984821fb03e291a8a5bb47afa0b598d5aa5fe4d58ff1d0268c4218bed01
+field_hashes:
+  id: 285ec0a93fa3e775d860fe121e36c71aafed618cea84b8ef64e7971d80f034b5
+  title: 5311afde763c7e103754d036e4947162afb1994b7dfed1fe0ef5ee8bf0188d9d
+  source_atoms: f76058ff7ab7f7cfc18d7f92dd6089b0279e4af86a0cf8c8d4599a3d814370c3
+  target_kind: 4d967a30111bf29f0eba01c448b375c1629b2fed01cdfcc3aed91f1b57d5dd5e
+  target_identity: 76b4cef3efcebcd47991b9fa8c70a758894047a756310fabfebfd703b1da998d
+  intent: 947f4513dc3091654320487ab9d5d0432ec01e2e21621c0318462656f65e8c4b
+  validation: dc16904b38efbbba6d3feb7d21f754479aa54cb8c286dfbde6eaf3554bf61d42
+  tags: 2c5087fc6e66e481687e2d684b70bc2b014eb521c2a287d9b1610722d1a5f79f
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:mindmap-sin-pron
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-25T21:36:38Z'
+  authority: generated
+  via: create_document

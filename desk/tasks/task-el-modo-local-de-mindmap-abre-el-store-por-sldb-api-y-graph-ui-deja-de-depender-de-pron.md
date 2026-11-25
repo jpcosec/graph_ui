@@ -1,7 +1,7 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-25T20:55:24Z'
+  at: '2026-11-25T21:35:50Z'
   authority: generated
   via: save_document_payload
 id: task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron
@@ -11,14 +11,32 @@ tags: []
 current_node: ritual-testing
 history:
 - task_activates
-references: []
+references:
+- .github/requirements-suite.txt
+- frontends/mindmap/models_service.py
+- frontends/mindmap/persistence.py
+- frontends/mindmap/serve.py
+- frontends/mindmap/sldb_adapter.py
+- pyproject.toml
+- tests/test_ci_workflow.py
+- tests/test_mindmap_adapter.py
+- 6a192d3ba8848c480bbf7e4107c5a8eedda105e7
 depends_on: []
 pills: []
-files: []
+files:
+- .github/requirements-suite.txt
+- frontends/mindmap/models_service.py
+- frontends/mindmap/persistence.py
+- frontends/mindmap/serve.py
+- frontends/mindmap/sldb_adapter.py
+- pyproject.toml
+- tests/test_ci_workflow.py
+- tests/test_mindmap_adapter.py
 task_type: task.code
 inherits_from: []
 inherit_acceptance_context: false
-atoms: []
+atoms:
+- atom-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-pron
 ---
 
 # el modo local de mindmap abre el store por sldb.api y graph_ui deja de depender de pron

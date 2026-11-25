@@ -1,0 +1,25 @@
+name: materialization-mindmap-sin-pron-pyproject-toml
+path: desk/materializations/materialization-mindmap-sin-pron-pyproject-toml.md
+source_hash: 117e7db5000ecd7cd4771030b84a3eda8cffc78c3571b594e57a7841017b5d86
+content_hash: 3612cc8d696e2af5b5c320a37c9096e417a2c81d8cf46c6ae784b8cd5b983221
+field_hashes:
+  id: 1a18ea0b3ba2e81d9455bf57b9f0839eeb114440cb581123321133fca27b0167
+  title: b7b807d5b08557b88faf4ded651284b28b076d7a808e71a11047117492720496
+  source_atoms: f76058ff7ab7f7cfc18d7f92dd6089b0279e4af86a0cf8c8d4599a3d814370c3
+  target_kind: 4a1933b06cf695fcff4acaba1fdbaa7f10ce109d3c7f57bbf62f6bb572658de8
+  target_identity: 9c6cd9431da5c16d2ee820ad552f266833f2ce755f554cbf9ffc5e0d3ccf1504
+  intent: 502553efbb82704222e74cea2235b6f645830dafa110ba1113453a2fa2db8721
+  validation: dc16904b38efbbba6d3feb7d21f754479aa54cb8c286dfbde6eaf3554bf61d42
+  tags: 2c5087fc6e66e481687e2d684b70bc2b014eb521c2a287d9b1610722d1a5f79f
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:mindmap-sin-pron
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-25T21:36:27Z'
+  authority: generated
+  via: create_document

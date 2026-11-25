@@ -1,15 +1,15 @@
 name: task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de
 path: desk/tasks/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de.md
-source_hash: 37c6fdfbe6d7b4eb5fd7999d55866953ac9d05ed2feac2212287279536b3a5c3
-content_hash: 0f4d4c791c95f0a36fa4cdd935117d438404c78320094a603cc0289b53e97a68
+source_hash: 2036036555f5e62ad81698fb61cc32b84718f1efae3f15bceed611b0f6c187c8
+content_hash: 6f886431d05097000b7c7cc0b11e277c546c74feed44077e5990db4a3675bc39
 field_hashes:
   title: df52b35eef0c4ab36a612b24dd5f62fb6b15d83694a547bf1e8d0f0ca9ceae0f
   id: c190d8f0de98cb44766f410ed3db4709a0e7ca55810b85d1b0cac65964576d6c
-  status: 6ae048f08fcab44bfbc8463f074bfdb40f94c6bdf56d3aad9a7e1c05e5d5b5c1
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
   summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
-  current_node: ff5161892aac34735bf10c411f7230b62b7b56446e230a5d26fb75afde4704b6
-  history: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  current_node: d10f5286503cbf750af0584acaec732741c2d9cfbae2a6d5b8ce45b8bf83b79d
+  history: f89b8fd2ac9e43a24ba505d162381268ed901d0695f62c6ad8ec2c62718dfa1c
   why: da0e14bd0fc0d36d39ebd83b0d3518557685260c25f8c7c1d735d7785a4e4e01
   goal: 096d5f5465421a7a414e373ab69e6729b253e6717f07eb37811723db0ec2c826
   scope: 8ba7de22f0e87e21cb05768c034daea38dcf617c0325510d712335eef5649882
@@ -17,6 +17,7 @@ field_hashes:
   depends_on: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   implementation_path: df9f8d756ca2f1f9cc1e90c6e0c01db28a2811d2b75d66b3c73515d538fa0a3a
   validation: 160a3edbbe9654ff4b0b6a2f01a1a9d70d3e466d3052d6729ba67fcc27378266
   done_when: 671f33ac5bd6ba73bd68e5ebc64ff1eb882d85b7d4a17ef638e15c27106ec745
@@ -32,6 +33,6 @@ semantic_tags:
 - workspace.desk
 provenance:
   by: agent
-  at: '2026-11-25T18:26:37Z'
+  at: '2026-11-25T21:32:15Z'
   authority: generated
   via: save_document_payload
