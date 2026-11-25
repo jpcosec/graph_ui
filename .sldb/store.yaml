@@ -204,6 +204,12 @@ include:
   - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
   - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
   - desk/tasks/task-respaldar-el-enlace-workbench-de-la-pagina-de-tarea-con-prueba-y-sacar-las-urls-base-a-configuracion.md
+  - desk/tasks/task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con.md
+  - desk/tasks/task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c.md
+  - desk/tasks/task-el-panel-embebido-lleva-el-tema-y-el-localstorage-con-alcance-a-su-contenedor.md
+  - desk/tasks/task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount.md
+  - desk/tasks/task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion.md
+  - desk/tasks/task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor.md
 - model: RuleDoc
   paths:
   - desk/lifecycle/rule-activation-task-aggregate.md

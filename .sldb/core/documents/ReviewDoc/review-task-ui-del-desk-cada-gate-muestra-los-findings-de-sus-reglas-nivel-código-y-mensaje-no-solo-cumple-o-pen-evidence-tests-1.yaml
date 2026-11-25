@@ -1,7 +1,7 @@
 name: review-task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen-evidence-tests-1
 path: desk/reviews/task-ui-del-desk-cada-gate-muestra-los-findings-de-sus-reglas-nivel-código-y-mensaje-no-solo-cumple-o-pen/evidence-tests-1.md
 source_hash: d8df104223d4f8d7ccc1b5c991a43e0d927e76e0fc428424cea584c52c6bd518
-content_hash: 1c50a5389c3cd4990326a5a4bfe1ad82ac7ce8db0a242eb4348a3aa0597bde2d
+content_hash: 31ec28bae80c53c211bdedb000c93267f4f8353cdb23ea2edb4f34126eea93f7
 field_hashes:
   id: f8fd50f834dba18852b716b9d798a94db1b4027376cee0e10b30719f740f0c56
   title: 2471e6036dd6a4f78025224ea0740b1761baca57e030f6479d1017701b76f500
@@ -14,6 +14,7 @@ field_hashes:
   actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   run_dir: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   input_sha256: e1536b90b514e007811a8124cd702ac78ba0397abca9b40ffe0cd65c5ca52867
+  contract_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   output_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
   reason: f0b34d753e58b0fb3309c8efe09053459af59d1d8ba9e6dfa4f6e5676714ecf1
@@ -22,7 +23,7 @@ field_hashes:
   disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   summary: 1f8e32d32f9de5797d2b51835cfe614635ea71094e6f9730ed5d99f9ccd4af02
   disposition: 05c07ef1ca9723c3943f4b5258b25135695e00f64961d84ec34586b8b7b01a35
-  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - representation.markdown
 - source.document.markdown

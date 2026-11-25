@@ -1,7 +1,7 @@
 name: review-task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij-bundle-3
 path: desk/reviews/task-la-prueba-node-del-lector-descarga-markdown-it-de-esm-sh-con-timeout-corto-y-verificando-un-hash-fij/bundle-3.md
 source_hash: 0195b39d98786dbb1a8cca3a1e547f0cb681f08a0e29b8db7fbc9afc235c3376
-content_hash: 0edde78d3a24c524dde507a749af52c396d29331882d38f687e98218caff2209
+content_hash: cd464071305f919b9611bf72b0ac7e14051d6f6471a0c5d44c15b4f2a0581275
 field_hashes:
   id: 2db7c71d8a3987fb1245cb1570dc9124cb5184074cad713154faf1e484982f0a
   title: 61615de75766db9e73c76707227c4f59dc0ebe81d66e43ac6cf9db6075a2aa44
@@ -14,6 +14,7 @@ field_hashes:
   actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   run_dir: 532125bb72cbddcd9e0b94e694f76a371e30b9214f0fe42ccb0b616b11038ce1
   input_sha256: fdb132b6a1657f5d0bfc7240df7637719e314b9f12c12d5927ba2e2991010c51
+  contract_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   output_sha256: 98ea978964c15c67dfa0639bff7e7d01bb8c33ec718154f170f544e3b17cc671
   verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
   reason: 1d1e56e74b055867b4e8e7346ecad8f5809d94dfb2d738b60448895e6f7499d7
@@ -22,7 +23,7 @@ field_hashes:
   disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   summary: 7849bd5d7db0698884314662432d45fb06dfd04c75d9413d26ca57626898fd70
   disposition: 289bf3251a30384e3fa921c554ec33be74f5627fd0fa44e1630283b244bf7654
-  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - representation.markdown
 - source.document.markdown

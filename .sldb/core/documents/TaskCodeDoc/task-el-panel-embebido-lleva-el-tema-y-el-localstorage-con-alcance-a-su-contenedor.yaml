@@ -1,0 +1,37 @@
+name: task-el-panel-embebido-lleva-el-tema-y-el-localstorage-con-alcance-a-su-contenedor
+path: desk/tasks/task-el-panel-embebido-lleva-el-tema-y-el-localstorage-con-alcance-a-su-contenedor.md
+source_hash: b878dbe9ed2c59c3dde005d46d54eb483e835795e9b2a5a9b994969ead4f0e6f
+content_hash: 5dd29ee2a01a830dac96611e82ef1f3f84ef63530ab31b7bc000be16d5927a56
+field_hashes:
+  title: 1beafa59936cbbe924a936b10ebcca10f2f18e5d17b59ab5e04f7da22d69ccf2
+  id: 96658f4d05c73c79ab92ef49d75540f3d8af6eece37877a43dff321637511f5c
+  status: 6ae048f08fcab44bfbc8463f074bfdb40f94c6bdf56d3aad9a7e1c05e5d5b5c1
+  summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  current_node: ff5161892aac34735bf10c411f7230b62b7b56446e230a5d26fb75afde4704b6
+  history: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  why: 58fa1287901bfa06a845034b9053edb39b9b5b48d7d2ee69119659108c1b23ce
+  goal: 8e4585921f4f41f848ec6262ab5c3890e6c233f4580d2d18138ce0e03c60a5bb
+  scope: 6e02bac92944d8c4264cf7870958dbcd2370c27a858a2f29ea9e30ac2f1862b0
+  references: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  depends_on: 8b992a61ce4413600ef69a12ccd54a6a1cec69d6fa9110de425fe982dbe9813a
+  pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  implementation_path: 0ae6ec5709549ecc3954ef09f65aef10c9343d32068bff0e93b23796f06a07e9
+  validation: 15e07702d8ae18b19b13e907a7bfd9b1be663021fc5055a3a9a3b162b83dd2e8
+  done_when: 6e6c68754f5cb86fe204f013d425e8d3d3daca8f17ce4a23fb51a92404f1545a
+  task_type: 430e281fc3506e5a61bf187bc4220dab834ca38806ca4f603f817cc82f9791bb
+  inherits_from: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  inherit_acceptance_context: fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa
+  atoms: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- board.tareas
+- representation.markdown
+- source.document.markdown
+- type.workflow.task
+- workspace.desk
+provenance:
+  by: agent
+  at: '2026-11-25T14:11:14Z'
+  authority: generated
+  via: create_document

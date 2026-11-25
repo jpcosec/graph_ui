@@ -1,7 +1,7 @@
 name: review-task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en-bundle-1
 path: desk/reviews/task-el-lector-del-workspace-y-el-adaptador-usan-la-lectura-pública-de-sldb-read-store-extract-payload-en/bundle-1.md
 source_hash: 37fbe9c35086c3791bcca0ae7ed9cf2093e3ad347c6a9bd38e6cc4cd5682e298
-content_hash: 14e19f053571446d69eccef80a57dabc4131e90e116a3854a3d213204984d797
+content_hash: 9647c8517660e65e3b587158cdde16ed3e0e645ff7a0bbfe7f2cf716da1e5781
 field_hashes:
   id: 44b56354c8228f9ec3d94328fdc8949a3697ba6041c346aeb2b37b4d39de2d7b
   title: 7385413ab7d8efeb6ef9d5ecad3ddb34351341c8b883dcd0cf0515998a804f73
@@ -14,6 +14,7 @@ field_hashes:
   actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   run_dir: c56e001354154403f6cacb79e81067434f45e23640b64a7432e74c4dfb25bb6b
   input_sha256: 23f2c7c1bda09d4204980e1873a7730dace4fb340415027fda944a3b38826a44
+  contract_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   output_sha256: baf2668ed41e93a1b8d7101bedb5700838731af118379f844e09b9157679fce0
   verdict: d5a7606c75f86f5046e5c8312a9819e4778be8ab33a7e8950d62f7ba620684fe
   reason: 7efeda1889a0b6b03abacd98e9c13a07870b722fa965f2208f89c242e942a785
@@ -22,7 +23,7 @@ field_hashes:
   disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   summary: 1ecbab11bbeeea9a7ce552b0c0e2ba0bd469aa47b8aea44779349ece65fe738e
   disposition: bd6625b761e620bb0094327dd6219d8a93f1656fb92a5cc4285f9a4b514a7246
-  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - representation.markdown
 - source.document.markdown

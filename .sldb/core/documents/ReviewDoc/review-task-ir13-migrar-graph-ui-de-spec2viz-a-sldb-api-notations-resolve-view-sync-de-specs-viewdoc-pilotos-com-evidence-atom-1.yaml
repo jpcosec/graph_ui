@@ -1,7 +1,7 @@
 name: review-task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com-evidence-atom-1
 path: desk/reviews/task-ir13-migrar-graph-ui-de-spec2viz-a-sldb-api-notations-resolve-view-sync-de-specs-viewdoc-pilotos-com/evidence-atom-1.md
 source_hash: fbe8a352965397c68399511b8ee4785fe7cf58896e6a2e96ca2d5c7336694e2c
-content_hash: cff8692a9a35f830ea9672e71ef0d07606c1e9f70e50f385fec6492496981f77
+content_hash: cd2db26869aa1c5ff0fa7f98b16af1d066f6471d1bdd44fa5baea387c22d8748
 field_hashes:
   id: dd65d1145ceebe0d4b1b823a5f67ce220872975c718d1ad5e266ab5b735408f9
   title: 25898c9d144f98b29e9c3bce908b51b4c1e22712c2fa6977e7b85dc942913d23
@@ -14,6 +14,7 @@ field_hashes:
   actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   run_dir: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   input_sha256: 41bec199d7eef5af47e065a43b81903cd546f1a7d02d3fd22937252c8253e706
+  contract_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   output_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   verdict: d5a7606c75f86f5046e5c8312a9819e4778be8ab33a7e8950d62f7ba620684fe
   reason: 08574f8e54a876ce16f2314b1c62209a2e47d8af6b6d4941a89feb3b39b7ba0e
@@ -22,7 +23,7 @@ field_hashes:
   disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   summary: db724b7e1d76252b1bb1cd688ed5e30736dc14b6c0990cd89f3176034a96a724
   disposition: f603b4b34b5ed8ef64c2b9d6b88d0abd59d2ee61b5c86e758374c57607836817
-  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - representation.markdown
 - source.document.markdown

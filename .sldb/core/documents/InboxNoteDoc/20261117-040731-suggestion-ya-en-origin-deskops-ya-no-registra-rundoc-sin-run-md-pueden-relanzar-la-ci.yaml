@@ -1,7 +1,7 @@
 name: 20261117-040731-suggestion-ya-en-origin-deskops-ya-no-registra-rundoc-sin-run-md-pueden-relanzar-la-ci
 path: desk/inbox/20261117-040731-suggestion-ya-en-origin-deskops-ya-no-registra-rundoc-sin-run-md-pueden-relanzar-la-ci.md
 source_hash: c388020d001bbdbdef7eecd912f4648d8d5d2c94b573e6c66209a7512fbfe6ec
-content_hash: 15052a1619a1f56b2872374bdb39201934b9f3b2fb6b0a3b4d7beb3830b061ac
+content_hash: c8194d7b0292cf94d7abd07e339a249682a9b7b356c12ca662ebae743f50c029
 field_hashes:
   kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
   sender_project: be1a918d36a26b50ff05a32144905fa0851e3a2c55c93b05726d8a3bab97b3e7
@@ -10,6 +10,7 @@ field_hashes:
   status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
   acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   acknowledged_at: 377eba3111e1bcafd88013ef68d81059c47516c6b07096301781175f0ac8d02f
+  ack_reason: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   title: 413a6df92672d7c1994e24e88b4bf718667ba50098db174bbab201fdd01d55f9
   body: 606c8c5f9e08a5c70bc39c26c2bcf5b4bef6a3c319b41908a4ae1aa2359b9daf
 semantic_tags:

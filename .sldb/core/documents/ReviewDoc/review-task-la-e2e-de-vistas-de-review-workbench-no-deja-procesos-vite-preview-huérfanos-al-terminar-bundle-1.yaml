@@ -1,7 +1,7 @@
 name: review-task-la-e2e-de-vistas-de-review-workbench-no-deja-procesos-vite-preview-huérfanos-al-terminar-bundle-1
 path: desk/reviews/task-la-e2e-de-vistas-de-review-workbench-no-deja-procesos-vite-preview-huérfanos-al-terminar/bundle-1.md
 source_hash: d4dbd7e8c25d46149ee7583d555d522504aa3253280a118409a6c7d03dc65353
-content_hash: 974b9d2285bca38bd8db9030d334a18cf652034e4baf709f6efe4e5c1fa8c365
+content_hash: 504947225fc8463b55e8d6d3c0ad009cfab7a0be1839c3e4a2d953ecfecd7693
 field_hashes:
   id: 77bb2d8248309ab600aa6e31a6a203046b88959a7a6d0b74faa2acdad158b482
   title: edef82026d2a7e0e051e1e3c5ef585f7af2232db058d2e5fb374f5c08d95ef0b
@@ -14,6 +14,7 @@ field_hashes:
   actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   run_dir: be87759d33c80c43a7312d3d1aadcbc7380ac5ba579aa1119302486f6fdbbd82
   input_sha256: f5323a2cb5823fb9f22e2c6d76aa593b5be498b8f1438953e5338c5d5349b187
+  contract_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   output_sha256: c05c6d5d326ac306f1912d607e6db521eff627d90b52a811ccbe4b3dc46c2913
   verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
   reason: f7c2b9ba605bed85a96439aec4ae0c9787eab09572c3aaa7901db822a39b4f8b
@@ -22,7 +23,7 @@ field_hashes:
   disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   summary: 2ed646781caccbfae43e0f09a88dbae1c1960004a44de1423e7c1504eb385195
   disposition: ce843c37b429e171f66437d1aca7b1c58deb7292999daafb4484dcf0e2bf67ac
-  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - representation.markdown
 - source.document.markdown

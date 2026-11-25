@@ -1,7 +1,7 @@
 name: repo-graph_ui
 path: desk/registry/repo-graph_ui.md
 source_hash: 0358760f5c6c4a902cecd33d4bb810720b841d8f1b0cd7a711fa2e45eaa78ad2
-content_hash: b0c235022fc57d772682e13107c8df2456676385c8bfa74a1e55053f647f23ef
+content_hash: 69c7806225dd117aeaf46d07c682bfd7ee3553269ba134ac9f42f5cca07d739e
 field_hashes:
   name: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   id: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
@@ -9,6 +9,8 @@ field_hashes:
   status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
   description: 09d5541e8b4974c9a4471667c420213785bab047afb3d16e833003fd6511a9ac
   tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  owns_paths: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  owns_topics: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - representation.markdown
 - source.document.markdown

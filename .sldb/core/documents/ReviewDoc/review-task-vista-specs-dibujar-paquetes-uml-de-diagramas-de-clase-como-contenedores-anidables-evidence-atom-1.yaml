@@ -1,7 +1,7 @@
 name: review-task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables-evidence-atom-1
 path: desk/reviews/task-vista-specs-dibujar-paquetes-uml-de-diagramas-de-clase-como-contenedores-anidables/evidence-atom-1.md
 source_hash: b5e8b568f5826d7b02d79965c9f2b345931e2b653af8ceb99b729075ac314317
-content_hash: a8515320745ebeb661797ba7fc7f02e5a0e47c2abfe4c3f61ff907cbff4b59b7
+content_hash: ca8c77ec029cce0e0ac3b5f0c8f5d4645d9e75a29eba0b8aac34e392a6de48b2
 field_hashes:
   id: 618a560ed16d5ff8201d20db8d4e2390175533dabd69f4dd585b024c03b6db36
   title: d83a192ae3ae3371c466da48de0caa14a4d08aa7455e69d59c763f36feed9f3b
@@ -14,6 +14,7 @@ field_hashes:
   actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   run_dir: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   input_sha256: c44e72953960b597a8bf20450d889f115788b30f087bf411715484f0381f8f46
+  contract_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   output_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
   reason: ce63b400d5010b4cefe18bc3d5a49d32cc1d2ba9b255253ad26d3ce8fa32122a
@@ -22,7 +23,7 @@ field_hashes:
   disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   summary: f1c5b75c85d415fe7cca9e920e229492f3a47b4bd8ed4c099d4bbad9c7df371d
   disposition: 998dd3729f766672941c50b588e9aeb7cbc0dc2b32ed0ebd0e27f137fbcfb59a
-  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - representation.markdown
 - source.document.markdown

@@ -1,0 +1,37 @@
+name: task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount
+path: desk/tasks/task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount.md
+source_hash: bf9d15d684d39543a272fcf6ade0b35c9470a71984c3517398506a25a50408bb
+content_hash: 2dd310d7db6791e39e58efacff867ad80cc41e61ccf4295f31e122957db3e075
+field_hashes:
+  title: 70ba17262e8523d964bc4201e0d80d6203fc22c9ed67d071cba484a9e6afe9f2
+  id: 5f9f79eacc10eb6e47e6fb30e394883a181f9a22b10c5aa5666c5c1baaf0d447
+  status: 6ae048f08fcab44bfbc8463f074bfdb40f94c6bdf56d3aad9a7e1c05e5d5b5c1
+  summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  current_node: ff5161892aac34735bf10c411f7230b62b7b56446e230a5d26fb75afde4704b6
+  history: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  why: 57a607169b4b13da52c9f84e2afa25b2c29ceb6c169f4b097ef0d36f508dcf55
+  goal: 02d19e892aeb71ce5490f1c01a0e44c6cd1dbb6a2647e1a31c610ddacf5a1262
+  scope: 270484d50acb85938d99425fed4a1bba5ca5daaf86bda3719eaf202daf9f46ba
+  references: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  depends_on: 109395d230141b17cd84caa1645e1eb2a4acd6d6ddf18c2a0f45a0860963f6d5
+  pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  implementation_path: a271537a8bab8bd7702d3871faf2d4f6dc211b85e0ce2f1a6282ff8ce05301da
+  validation: 44dbc4446f091e306b88f0f33c8e6efa3ee5c10f7d6cdb5bcd06ff0feb56c118
+  done_when: 09cf86d5cc956128211f842784ce86acfc2694260485d6e19d9848003595e8e1
+  task_type: 430e281fc3506e5a61bf187bc4220dab834ca38806ca4f603f817cc82f9791bb
+  inherits_from: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  inherit_acceptance_context: fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa
+  atoms: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- board.tareas
+- representation.markdown
+- source.document.markdown
+- type.workflow.task
+- workspace.desk
+provenance:
+  by: agent
+  at: '2026-11-25T14:11:19Z'
+  authority: generated
+  via: create_document

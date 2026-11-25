@@ -1,7 +1,7 @@
 name: 20261116-073057-suggestion-sldb-api-read-store-store-is-prepared-y-extract-payload-lectura-p-blica-sin-migrar
 path: desk/inbox/20261116-073057-suggestion-sldb-api-read-store-store-is-prepared-y-extract-payload-lectura-p-blica-sin-migrar.md
 source_hash: 832b8952444b256c5aee0cd96de6262c8cc58da30dbdfe6b0d9533ef1960aceb
-content_hash: 620fd24e0c7c28ad05ddf9613ec8507b855e58ae9b6d4d36b35deb7a23298397
+content_hash: 67b99d08e4abd4b56a119231195220a17e9c9366401ac4224e9cc58e247c8864
 field_hashes:
   kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
   sender_project: adf8f4fb55456ba91d0b029904c49d4d1b85540b989a86435dfb80c0a89f7efb
@@ -10,6 +10,7 @@ field_hashes:
   status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
   acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   acknowledged_at: 3a12176e6cee64a50516792c4201b5ebbcd3cec4cc83767d33624682fe2507fa
+  ack_reason: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   title: b1ca4607d45d8479f82b1c79066a0c45855ac3d28ec2b4b23b40b5ff6401fae8
   body: 21eff40830531a36c31c0eb8e5f1a0ed019a5686fdd9f5b330ada3f6fc0db44e
 semantic_tags:

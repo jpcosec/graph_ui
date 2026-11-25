@@ -1,7 +1,7 @@
 name: 20261115-224814-suggestion-ir13-pide-migrar-graph-ui-de-spec2viz-a-sldb-resolve-view-sync-de-specs-viewdoc-pilotos
 path: desk/inbox/20261115-224814-suggestion-ir13-pide-migrar-graph-ui-de-spec2viz-a-sldb-resolve-view-sync-de-specs-viewdoc-pilotos.md
 source_hash: 1fe53218ee402029c2af608154763bb94ca01f61d524ceed8a3ebbe269e7e733
-content_hash: a3342ad1a0f6204e2ffb856fc3f55a38efb114a1b5cd6cf060e198c56e1937d1
+content_hash: 8ec94f74d162f8cffc1fb5d900e71c1230f1ae69163f793c5d238a514ea05d66
 field_hashes:
   kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
   sender_project: bedfd7658116eea0e9c6aa56c43288b769f14cc22546ef2cbac2588069909ad8
@@ -10,6 +10,7 @@ field_hashes:
   status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
   acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   acknowledged_at: e4533eafd7c203621f2b4bd3b6aa7e3f018b8dba4661fa37737fe8b24d5ce497
+  ack_reason: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   title: a38b6c102d9948cfe8bfb19d2cdd1fc2430a8a461e4926fac2f25ffe20e8ac5f
   body: 0daab03d40fdec5b3f74d13e45a927abbde033c066d64a329d07e9b1e2028817
 semantic_tags:

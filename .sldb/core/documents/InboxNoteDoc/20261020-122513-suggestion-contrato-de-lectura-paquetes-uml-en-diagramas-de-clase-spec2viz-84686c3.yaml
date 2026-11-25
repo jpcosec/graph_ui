@@ -1,7 +1,7 @@
 name: 20261020-122513-suggestion-contrato-de-lectura-paquetes-uml-en-diagramas-de-clase-spec2viz-84686c3
 path: desk/inbox/20261020-122513-suggestion-contrato-de-lectura-paquetes-uml-en-diagramas-de-clase-spec2viz-84686c3.md
 source_hash: 4554b34a52df56e163a150f53d0913af381a5ba13fbd2419988dc0681b15d406
-content_hash: 9cffad24c3bcb0f7730dfe8bb25c7627e06005db8521cb6d28ce0baf55e29f1d
+content_hash: f832c2e8bea56ae59fc35d684e05ddf70233e3f6fef485f43e372026d7a784cf
 field_hashes:
   kind: f4accece99081750b6b8b5089a3f24b11d5ceba70797c3eb49000d84b98344fc
   sender_project: ceff6202e6805e3bc22d70f0f2e7fee9f6478bcff2cb6a60430793b5268a8e12
@@ -10,6 +10,7 @@ field_hashes:
   status: 02e31f51aa8b1b6a622c4f7c30fab328d711cad4c9da74b9965ada8aa15d9df2
   acknowledged_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   acknowledged_at: 8b52f01684087e1e6804ee1174415afb629779d76cba7d71ae992c517f62fcca
+  ack_reason: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   title: 19c40cd3c719c2f6a92934fcd5979b5520d9baa39d261c009dd43c6f0ff98d4f
   body: 9551719a2521484852618ecbe5d602db8090dbb68787518848fc7d0365adaad8
 semantic_tags:

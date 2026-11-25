@@ -1,7 +1,7 @@
 name: review-task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia-preflight-1
 path: desk/reviews/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia/preflight-1.md
 source_hash: 69e8cd4f14a1361ae663ba8dbaf26d10e8a3fb165e7d4bf7acd7cbc06e05093f
-content_hash: 58aa508c62af86dfd949d1ca6fdb32ac2c7f2140a67688227e5ed34bffc4b749
+content_hash: 10cb6c34492d00239e72ae6dffd890e81386071e135aa571934cea3fe58cbc48
 field_hashes:
   id: 0cedc7358e39688daa491fdd75c1c6776621af4a8a24485e5ec35e39fa3a0d06
   title: dc92f6e67e23b5cbcd1e795756157899197d2cbfd34857035454b8f4176193db
@@ -14,6 +14,7 @@ field_hashes:
   actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   run_dir: 7b5d4551ef39e4793008242b05d7e61e09a491b5c40e42687c6f46bb64354286
   input_sha256: 2da8a77b840dd5637140c862e1bf07e38e947047e116f88055427fc5acd49a31
+  contract_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   output_sha256: 0d35cb0ffee57ce23162f718961d6347f73b2761a771738d58ba5ae59eea4af9
   verdict: d5a7606c75f86f5046e5c8312a9819e4778be8ab33a7e8950d62f7ba620684fe
   reason: f433aea0a64d5c84b858981afd111d853d6fedcf6bdef84db61150d3fc238e6e
@@ -22,7 +23,7 @@ field_hashes:
   disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   summary: 566ce248dfef34af9a06438ac82c5154a11625dbc2cbd766231dae336e995d61
   disposition: 0841933deb0c3a7d0c82b5727f3e311ce60c3b747f966ce8a58a93a9db6b4a5f
-  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - representation.markdown
 - source.document.markdown

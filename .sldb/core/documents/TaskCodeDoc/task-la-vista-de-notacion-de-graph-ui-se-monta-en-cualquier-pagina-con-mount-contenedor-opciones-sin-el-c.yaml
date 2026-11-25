@@ -1,0 +1,37 @@
+name: task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c
+path: desk/tasks/task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c.md
+source_hash: 491018a367a36ac74ca5452f5007d74c902af6df6cf9b62a56d36ece6a8d1c03
+content_hash: 2e837b2d5594f7d6ee481c2ad3ee66b8416361ac01c4c81446c16b7ba70e1a91
+field_hashes:
+  title: b711174194b5ce0eafed590a7f106d1f1ad7af9bb153796c8f41235cc85b40ba
+  id: b500780fab625a74a79955eb048a30badf929fd80f45472a65e47dd66ae163cc
+  status: 6ae048f08fcab44bfbc8463f074bfdb40f94c6bdf56d3aad9a7e1c05e5d5b5c1
+  summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  current_node: ff5161892aac34735bf10c411f7230b62b7b56446e230a5d26fb75afde4704b6
+  history: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  why: c335bbd5b993a8b69189d0877db847b0ad590683431a35a2c1d01d1ba9aa724c
+  goal: b80070a88d6c3c8fd4515c70754c60445a5db0d35e318368fcb52754d72f6aaa
+  scope: d09ee1e9c516d1b3d1014f8118ef79633fba48dcdc90e13029d0bc2e8ca5b5b8
+  references: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  depends_on: 0590651d108979c46fba59ee45a9f6f4d877f81b38cc9040524f6fef3ffe9fd8
+  pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  implementation_path: 318cf430b6313a1d06d4947bd3ea95b5d3e91c9e525ca5707081aae047bafd72
+  validation: 15e07702d8ae18b19b13e907a7bfd9b1be663021fc5055a3a9a3b162b83dd2e8
+  done_when: 96007d72d6e862b3052d95717dc6bfbd6333bed24e3a91cd8cec6dbb0f09e1fd
+  task_type: 430e281fc3506e5a61bf187bc4220dab834ca38806ca4f603f817cc82f9791bb
+  inherits_from: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  inherit_acceptance_context: fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa
+  atoms: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- board.tareas
+- representation.markdown
+- source.document.markdown
+- type.workflow.task
+- workspace.desk
+provenance:
+  by: agent
+  at: '2026-11-25T14:11:09Z'
+  authority: generated
+  via: create_document

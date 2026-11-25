@@ -1,7 +1,7 @@
 name: repo-IR
 path: desk/registry/repo-IR.md
 source_hash: b0e870c4697e61e5d1769959a0bb004e6758278a0162b396ebecdd9bcf87c8b7
-content_hash: f81ba694ab145e0fdd2f83983d764e40efdd4a7e1d8974e82661350db595eb9e
+content_hash: 71529e79bc4de50f99bc59047304f03bd4884654f76198a86f6caefa292e3d9e
 field_hashes:
   name: bedfd7658116eea0e9c6aa56c43288b769f14cc22546ef2cbac2588069909ad8
   id: bedfd7658116eea0e9c6aa56c43288b769f14cc22546ef2cbac2588069909ad8
@@ -9,6 +9,8 @@ field_hashes:
   status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
   description: 32ddd939be638d9e8625055e74fc0966bc032838fd52851ab2854298d0416fc1
   tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  owns_paths: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  owns_topics: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - representation.markdown
 - source.document.markdown

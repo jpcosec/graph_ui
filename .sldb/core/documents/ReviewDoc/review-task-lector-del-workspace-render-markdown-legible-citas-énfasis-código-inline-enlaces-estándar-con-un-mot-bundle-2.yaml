@@ -1,7 +1,7 @@
 name: review-task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot-bundle-2
 path: desk/reviews/task-lector-del-workspace-render-markdown-legible-citas-énfasis-código-inline-enlaces-estándar-con-un-mot/bundle-2.md
 source_hash: 4bb8e555063a1e4a68fce96b56f40cc89c5985b55f4e85a505c9cd0ba81cc577
-content_hash: 2fbe86f74c203410e716a7fd7f6a0aa4d2be8ff205a25cdd4eb8687ae8f6dbc1
+content_hash: 3437fb81ef0a1941b39b2ec0acca1ce109cba2420ec8ef52ee5eb82957456eba
 field_hashes:
   id: c4c456461b68de7d2151a8d04a865d9911c03e454387aef470e707a584580af4
   title: 5907cabb3d43e403e168f7129605d3d4e26e79a5522bef5cc3efe649ef3957fd
@@ -14,6 +14,7 @@ field_hashes:
   actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   run_dir: d7eba569407d24a304995d67946bbed5d1a4da98d85cf4c2416f916524c637d8
   input_sha256: 129a324c8a84dae2e424cea7e3d02e97195447325654b29a0d3086542562c7e6
+  contract_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   output_sha256: 6266bbbada520e6d8da359b5529e8a950a63e235ea947c270c4b220b8e37a2e4
   verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
   reason: 94412156e419b8cfab6c40bb48636c100a1fe7a07c07cb90980d5906011c3a01
@@ -22,7 +23,7 @@ field_hashes:
   disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   summary: dcd92d77a5c7d27df852cc38ce2cd9ef2ef395ac3ae59659b450f2b344d2396f
   disposition: 6bd0f91b021a5ba489dd1b475ac9589db90736616dbe4512962678184b402900
-  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - representation.markdown
 - source.document.markdown

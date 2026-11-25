@@ -1,7 +1,7 @@
 name: review-task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon-evidence-materialization-1
 path: desk/reviews/task-las-vistas-de-proyección-leen-sin-migrar-read-store-y-el-guardado-sobre-un-store-sin-preparar-respon/evidence-materialization-1.md
 source_hash: 788ba83dd1781a477b4a49c279dc49c06850497bb03f9f3dba84cc3dd3b21721
-content_hash: 7316f57f1f9aee421c473957e75ca3443e3014a278cf2ec9662fd90b2cbbd407
+content_hash: e11d06c7c799bce99f24e3d6da4d8fdf9f3ccb6185db6857479ae10ab3e7fd0e
 field_hashes:
   id: f094e60ad15ae91b8225ee77dbc356eebabd78a63bda08f70dae53465f723b4e
   title: d2a4296ef30cd437abcb94e5a77ee4802cc8a9b1c08bddf26b7bce5afbf8193f
@@ -14,6 +14,7 @@ field_hashes:
   actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   run_dir: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   input_sha256: 07d2890bfb364b18993b8d54caa07d3877cf3ba1edf075ac3d1171c3119d1c56
+  contract_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   output_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
   reason: efc63aa9126fcc53e3ce751f539ea6a2674f1f8320ad8488559ab9d5c09be639
@@ -22,7 +23,7 @@ field_hashes:
   disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
   summary: 9c566995bf59d62635ca0d499a516d8c2f943f3a15294cb863099ce72b5222ea
   disposition: f9b2955427dcd3248129416bc89ad47dbf05356df003fe7f280f180181cd7143
-  tags: 26f66ebae91f717518f0d0c6585e99f1cbd539bcb3504598ddeb732dec3a0af9
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - representation.markdown
 - source.document.markdown
