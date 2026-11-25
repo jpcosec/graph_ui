@@ -3,7 +3,8 @@ import {ReactFlow, ReactFlowProvider, Controls, MiniMap, Handle, Position, useRe
 import {html} from '../../../shared/html.js';
 import {useViewContext} from '../../../shell/view-context.js';
 import {useSource} from '../../../source/source.js';
-import {specCatalog, sceneFor, compartmentLine, cellKey, LANE, LANE_TEXT, TERMINALS, laneFitScale} from './notation.mjs';
+import {specCatalog, sceneFor, compartmentLine, LANE, TERMINALS, laneFitScale} from './notation.mjs';
+import {TERMINAL_MARKERS, laneHeads, laneDrawing, gridModel} from './notation-draw.mjs';
 import {bestLayout, pathOf, POINT_SHAPES} from './notation-layout.mjs';
 import {glyphVars, paletteInk, themed, innerVars, containerOutline} from './notation-style.mjs';
 import {GlyphIcon, ShapeOutline, NotationLegend, useIcons} from './notation-style.js';
@@ -92,14 +93,12 @@ const nodeTypes = {glyph: GlyphNode};
 
 // Carriles: cabecera = glifo del participante, línea de vida vertical, un
 // mensaje por fila en orden de `order`. Una autollamada es un bucle.
-// La pestaña de un fragmento: su ancho sale del operador o del rótulo (12,5 px).
-const tabWidth = text => Math.max(34, String(text || '').length * 7.6 + 14);
-
 function LanesDiagram({scene, scale = 1}) {
-  const {lanes, messages, head, lifelineTop, width, height} = scene;
+  const {lanes, head, lifelineTop, width, height} = scene;
+  const draw = laneDrawing(scene);
   const icons = useIcons(lanes.map(l => l.glyph.style?.icon));
-  const heads = lanes.map(l => html`<div key=${l.id} className="lane-head" data-lane=${l.id}
-      style=${{left: (l.x - l.width / 2) + 'px', top: (LANE.top + head - l.height) + 'px', width: l.width + 'px', height: l.height + 'px'}}>
+  const heads = laneHeads(scene).map(l => html`<div key=${l.id} className="lane-head" data-lane=${l.id}
+      style=${{left: l.left + 'px', top: l.top + 'px', width: l.width + 'px', height: l.height + 'px'}}>
     <${Glyph} glyph=${l.glyph} lines=${l.lines} icons=${icons}/></div>`);
   const band = (LANE.top + head + 6) * scale;
   // R11: «Ver todo» escala el diagrama al lienzo; la caja exterior ocupa lo que se ve escalado. Los
@@ -110,69 +109,43 @@ function LanesDiagram({scene, scale = 1}) {
   </div>
   <div className="notation-lanes" style=${{width: width + 'px', height: height + 'px', transform: `scale(${scale})`, transformOrigin: '0 0'}}>
     <svg className="lanes-svg" width=${width} height=${height} aria-label="Mensajes">
-      ${lanes.map(l => html`<line key=${l.id} className="lifeline" data-lifeline=${l.id} x1=${l.x} x2=${l.x} y1=${lifelineTop} y2=${height - LANE.top}/>`)}
-      ${(scene.frames || []).map(f => html`<g key=${f.id} className="lane-frame" data-fragment=${f.id} data-orders=${f.orders.join(',')}>
+      ${draw.lifelines.map(l => html`<line key=${l.id} className="lifeline" data-lifeline=${l.id} x1=${l.x} x2=${l.x} y1=${l.y1} y2=${l.y2}/>`)}
+      ${draw.frames.map(f => html`<g key=${f.id} className="lane-frame" data-fragment=${f.id} data-orders=${f.orders.join(',')}>
         <rect x=${f.x} y=${f.y} width=${f.width} height=${f.height} className="frame-box"/>
-        <path d=${`M${f.x},${f.y + 18} h${tabWidth(f.operator || f.label)} l6,-6 v-12`} className="frame-tab"/>
-        <text x=${f.x + 6} y=${f.y + 14} className="frame-label" data-operator=${f.operator}>${f.operator || f.label}</text>
-        ${f.operator && f.label ? html`<text x=${f.x + tabWidth(f.operator) + 14} y=${f.y + 14} className="frame-guard">[${f.label}]</text>` : ''}
+        <path d=${f.tab} className="frame-tab"/>
+        <text x=${f.title.x} y=${f.title.y} className="frame-label" data-operator=${f.operator}>${f.title.text}</text>
+        ${f.guard ? html`<text x=${f.guard.x} y=${f.guard.y} className="frame-guard">${f.guard.text}</text>` : ''}
       </g>`)}
-      ${messages.map(m => {
-        const ends = {markerEnd: m.targetEnd ? `url(#nv-${m.targetEnd})` : undefined, markerStart: m.sourceEnd ? `url(#nv-${m.sourceEnd})` : undefined};
-        const path = m.self
-          ? `M${m.x1},${m.y - LANE.row / 3} h${LANE.loop} v${LANE.row / 3 * 2} h${-LANE.loop}`
-          : `M${m.x1},${m.y} L${m.x2},${m.y}`;
-        // Rótulo en líneas: encima de la flecha (la última pegada a ella) o, en una autollamada, a la derecha del bucle.
-        const lines = m.lines || [`${m.order}. ${m.label}`];
-        const tx = m.labelX ?? (m.self ? m.x1 + LANE.loop + 6 : (m.x1 + m.x2) / 2);
-        const lineY = i => (m.self ? m.y + 4 + i * LANE_TEXT.line : m.y - 6 - (lines.length - 1 - i) * LANE_TEXT.line);
-        return html`<g key=${m.id} className="lane-message" data-link=${m.link || ''} data-message=${m.id} data-order=${m.order} data-from=${m.from} data-to=${m.to} data-y=${m.y}>
-          <path d=${path} className="message-line" strokeDasharray=${m.dash} markerEnd=${ends.markerEnd} markerStart=${ends.markerStart}/>
-          <text textAnchor=${m.self ? 'start' : 'middle'} className="message-label">${lines.map((t, i) => html`<tspan key=${i} x=${tx} y=${lineY(i)}>${t}</tspan>`)}</text>
-        </g>`;
-      })}
+      ${draw.messages.map(m => html`<g key=${m.id} className="lane-message" data-link=${m.link} data-message=${m.id} data-order=${m.order} data-from=${m.from} data-to=${m.to} data-y=${m.y}>
+          <path d=${m.path} className="message-line" strokeDasharray=${m.dash} markerEnd=${m.targetEnd ? `url(#nv-${m.targetEnd})` : undefined} markerStart=${m.sourceEnd ? `url(#nv-${m.sourceEnd})` : undefined}/>
+          <text textAnchor=${m.anchor} className="message-label">${m.lines.map((t, i) => html`<tspan key=${i} x=${t.x} y=${t.y}>${t.text}</tspan>`)}</text>
+        </g>`)}
     </svg>
   </div></div>`;
 }
 
 // Grilla: una tabla por vista; columnas = stages, filas = components
 // (indentadas por anidado), celda marcada con su label. Una fila sin
-// celdas en una vista se dibuja vacía, no se omite.
+// celdas en una vista se dibuja vacía, no se omite. El modelo es el de notation-draw.mjs.
 function GridDiagram({scene}) {
-  return html`<div className="notation-grids">${scene.grids.map(grid => html`<table key=${grid.view} className="notation-grid" data-view=${grid.view}>
+  return html`<div className="notation-grids">${gridModel(scene).map(grid => html`<table key=${grid.view} className="notation-grid" data-view=${grid.view}>
     <caption>${grid.label}</caption>
     <thead><tr><th scope="col"></th>${grid.columns.map(c => html`<th key=${c.id} scope="col" data-col=${c.id}>${c.label}</th>`)}</tr></thead>
-    <tbody>${scene.rows.map(r => html`<tr key=${r.id} data-row=${r.id}>
+    <tbody>${grid.rows.map(r => html`<tr key=${r.id} data-row=${r.id}>
       <th scope="row" style=${{paddingLeft: (10 + r.depth * 16) + 'px'}} data-depth=${r.depth}>${r.label}</th>
-      ${grid.columns.map(c => {
-        const labels = scene.cells[cellKey(r.id, c.id)];
-        // G7: una celda marcada es una marca; lo que diga el link queda en el title (la
-        // columna ya nombra la vista), para que la grilla se lea de un vistazo.
-        const detail = labels ? labels.filter(Boolean).join(', ') : '';
-        return html`<td key=${c.id} data-cell=${r.id + '|' + c.id} className=${labels ? 'is-filled' : ''} title=${labels ? detail || c.label : undefined}>${labels ? html`<span className="cell-mark" aria-label=${detail || c.label}>●</span>` : ''}</td>`;
-      })}
+      ${r.cells.map(c => html`<td key=${c.col} data-cell=${r.id + '|' + c.col} className=${c.filled ? 'is-filled' : ''} title=${c.title}>${c.filled ? html`<span className="cell-mark" aria-label=${c.title}>●</span>` : ''}</td>`)}
     </tr>`)}</tbody>
   </table>`)}</div>`;
 }
 
 // Terminales como <marker> SVG propios: React Flow solo trae flechas.
 // orient=auto-start-reverse sirve el mismo marker para el origen.
-const MARKER_PATHS = {
-  'open-arrow': html`<path d="M1,1 L11,6 L1,11" fill="none"/>`,
-  'filled-arrow': html`<path d="M1,1 L11,6 L1,11 Z" className="solid"/>`,
-  'hollow-triangle': html`<path d="M1,1 L11,6 L1,11 Z" className="hollow"/>`,
-  'filled-triangle': html`<path d="M1,1 L11,6 L1,11 Z" className="solid"/>`,
-  'hollow-diamond': html`<path d="M1,6 L6,2 L11,6 L6,10 Z" className="hollow"/>`,
-  'filled-diamond': html`<path d="M1,6 L6,2 L11,6 L6,10 Z" className="solid"/>`,
-  'filled-circle': html`<circle cx="6" cy="6" r="4" className="solid"/>`,
-  'hollow-circle': html`<circle cx="6" cy="6" r="4" className="hollow"/>`,
-  'bar': html`<path d="M10,1 L10,11" fill="none"/>`,
-  'crowfoot': html`<path d="M11,1 L1,6 L11,11 M1,6 L11,6" fill="none"/>`,
-};
+const markerShape = m => (m.circle ? html`<circle ...${m.circle} className=${m.cls}/>`
+  : html`<path d=${m.d} fill=${m.cls ? undefined : 'none'} className=${m.cls || undefined}/>`);
 function TerminalDefs() {
   return html`<svg className="notation-defs" aria-hidden="true" width="0" height="0"><defs>
     ${TERMINALS.map(t => html`<marker key=${t} id=${'nv-' + t} className="notation-terminal" viewBox="0 0 12 12" refX="11" refY="6"
-      markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto-start-reverse">${MARKER_PATHS[t]}</marker>`)}
+      markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto-start-reverse">${markerShape(TERMINAL_MARKERS[t])}</marker>`)}
   </defs></svg>`;
 }
 
