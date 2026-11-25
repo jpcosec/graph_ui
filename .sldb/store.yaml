@@ -479,6 +479,13 @@ include:
   - desk/materializations/materialization-vista-viewdoc-frontends-mindmap-views-specs-notation-notation-mjs.md
   - desk/materializations/materialization-vista-viewdoc-tests-e2e-notation-viewdoc-py.md
   - desk/materializations/materialization-vista-viewdoc-tests-mindmap-notation-test-mjs.md
+  - desk/materializations/materialization-mindmap-sin-pron-github-requirements-suite-txt.md
+  - desk/materializations/materialization-mindmap-sin-pron-frontends-mindmap-models-service-py.md
+  - desk/materializations/materialization-mindmap-sin-pron-frontends-mindmap-persistence-py.md
+  - desk/materializations/materialization-mindmap-sin-pron-frontends-mindmap-serve-py.md
+  - desk/materializations/materialization-mindmap-sin-pron-frontends-mindmap-sldb-adapter-py.md
+  - desk/materializations/materialization-mindmap-sin-pron-pyproject-toml.md
+  - desk/materializations/materialization-mindmap-sin-pron-tests-test-ci-workflow-py.md
 - model: RunDoc
   paths:
   - path: runs/subagents/exec-deskops-e-2fdc793ded2b/run.md
