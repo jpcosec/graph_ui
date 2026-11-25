@@ -1,7 +1,7 @@
 name: atom-schemaregistry-how
 path: desk/atoms/atom-schemaregistry-how.md
 source_hash: 03a6b60354069253c8a9a9464ee004eb6f7cb5c4832997468b86837808cb2625
-content_hash: 0f40c51ea0b31889e43739a1644713d9bbbcad21fa765d7fc7d482cc6e5b473c
+content_hash: eaf4cd6497a43b7b29b8a495a9ca4ec46ffb36efc46e55ed290cf8f93e87bd9f
 field_hashes:
   id: 994534dc0dbd85655592ebef6bf2551c3d4c8682dbb90c9c3bf90b201bd3cd90
   title: 52ff5ede2822d1e4debf12e7d822692ef0dae087a58d1601e7a579cf6608612c
@@ -9,6 +9,7 @@ field_hashes:
   answer: 0e0df649f5b13b68d634e46318a4d762b1e538077eecf0e2a43aeb75bd20cea4
   tags: 16bb7390beff4cf11ce0114f0aec4f9aec498748c7eb016dd15f7c65a33e7c7e
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:frontend
 - representation.markdown

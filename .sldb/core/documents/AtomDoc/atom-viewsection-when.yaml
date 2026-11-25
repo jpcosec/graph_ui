@@ -1,7 +1,7 @@
 name: atom-viewsection-when
 path: desk/atoms/atom-viewsection-when.md
 source_hash: ba86ae7071f16398f0792c699247ac26ebb15120b791c5fa64b50408a31cdafb
-content_hash: dd21ac47c558ecc698dc244fe563fb97381f0a888894e14114f0543f585dd47e
+content_hash: 5d094b37a04cb2c9a9532401d9c185757e2fe1247414fbe875f81845af19559f
 field_hashes:
   id: add37c6d97e8668dca0a005c22ae1ce2866c98dea89a7a9b731b005e885c9185
   title: 65388f8b276cc94273a18b540c349f9e748a94a630983763d0c094fa92ba3e79
@@ -9,6 +9,7 @@ field_hashes:
   answer: 5a14409ad5544c73b2e5753024f1c6bbeabfdf8ce9958ec76f3ff5ac360c6ff0
   tags: 2b6bbf6c4cf6975e1495a3dcc7708c40728c4c654145b307ceb2d6366be83795
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:canvas
 - representation.markdown

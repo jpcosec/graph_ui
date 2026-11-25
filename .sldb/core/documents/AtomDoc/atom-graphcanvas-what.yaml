@@ -1,7 +1,7 @@
 name: atom-graphcanvas-what
 path: desk/atoms/atom-graphcanvas-what.md
 source_hash: bfcadfd527c6a4619eff58503aa6bbf7d2589423a0dc60d94bed92dff52ba49b
-content_hash: 814b477b561de63eed65bee7c3c476a775181a3af861288c495e5783595794d0
+content_hash: 0f60c5dfc82b1d0b15ffd34ae8bd57c4e0943b5a8430db5a3410d98a9d2b1e91
 field_hashes:
   id: 3785ac1457d0dcc5cf00c27e8a43e2a16c2f6b02a3c3fede299b947a1b9a5f54
   title: 16a14c8eacd8eb7475187df33db8d31f1aa9626f633425faac7eab2f0a2e5ea8
@@ -9,6 +9,7 @@ field_hashes:
   answer: 5cc43fa48c1dd31c9b221bd45cb9342e743112a2e415583ea7ea64f2a1ca1943
   tags: a4a473b6b74ffec7629166b0e792d1cd8db6b50b71a03e35ae0ec15b120ec2d2
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:canvas
 - representation.markdown

@@ -1,7 +1,7 @@
 name: atom-reviewworkbenchspa-how-not
 path: desk/atoms/atom-reviewworkbenchspa-how-not.md
 source_hash: 7e48a8a05f7204018ef8d1b69ee32efaa93cb1d5c019be679dfbc318e82d055e
-content_hash: 667539409fd70e931b84512577810994d18ba855c993ab5ca30f24200ca0161d
+content_hash: f0fe3fe69550c92dbc10fda1028e61f0f87b6a54e5efb0b601282d8c15a361b2
 field_hashes:
   id: e6725e6482300fb9b53177cc4e13f72565359e2464f1851de16ce09d623c0a44
   title: 645ce8adad1588e8ae8247cc355782f138eb7cb6c62a1ab42ad9705d90367769
@@ -9,6 +9,7 @@ field_hashes:
   answer: 7533808eaa11f66a42c7149ada98149c3e8a61f7123423f4a2aac1c993886bdc
   tags: dbfbda62a1eb93366a9c3145257e2125b45b8f04017c82213c663c56c8b59706
   provenance: b55ad2f4b44bb9f53b0e67becbb2f5d36284f79ea58f6d10ac7a2a603fc43446
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:frontend
 - representation.markdown

@@ -1,7 +1,7 @@
 name: atom-staticfixtures-why
 path: desk/atoms/atom-staticfixtures-why.md
 source_hash: e504eb7e5c8e81ad0f644e58ed017254dfff96fa0154b9d6a38054e108c1d16d
-content_hash: e2e69fc4a0bed05b8bd78be0fe994c7f31884515ebfae8899118a29afe6811b0
+content_hash: 52e41fbc5dc6674a48d625a288836ef4e0f49d5dae4f380698cf7d97f80fd86e
 field_hashes:
   id: e14f7a8915bd55497805218f0b69e44ed54dfa12588ff5c3b17a494fe42ff44f
   title: b23e16dded992306916a444b8e1b1a9fa78b145b6b0d0968e24b4839c0880fa8
@@ -9,6 +9,7 @@ field_hashes:
   answer: e16ffab0db8e33c47431d098da3cbe3e792cba4abd13226864163b3e3fd73910
   tags: 4b535fb25963f289e66fadb3d2673fbdfe267de1e7c06f7340a9855d8d6884e4
   provenance: e436159814638009720ca6c1d1b1bdaeff767a03ae3e5e159d2a67c5ff8dc1fd
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:runtime
 - representation.markdown

@@ -1,7 +1,7 @@
 name: task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c
 path: desk/tasks/task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c.md
 source_hash: 30c73d535b53c91194fafeb1e80faff09a559df56054700b1d998793eb3a8190
-content_hash: 5372177e99107009a3e0dafe147a0377f697dd9c7bf39af4bf1d1c1b02ea246a
+content_hash: 8ea79b3b13fd56bab0773f04e389feb549130ba83c5a598760a4d2806ce48ec9
 field_hashes:
   title: b711174194b5ce0eafed590a7f106d1f1ad7af9bb153796c8f41235cc85b40ba
   id: b500780fab625a74a79955eb048a30badf929fd80f45472a65e47dd66ae163cc
@@ -17,6 +17,7 @@ field_hashes:
   depends_on: 0590651d108979c46fba59ee45a9f6f4d877f81b38cc9040524f6fef3ffe9fd8
   pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   implementation_path: 5e6951848c8cc616bb9344c9c0e0b35091758f81933435432bf504e80e0e3b4b
   validation: 15e07702d8ae18b19b13e907a7bfd9b1be663021fc5055a3a9a3b162b83dd2e8
   done_when: 11e2266257f42d9415bc6fbb463d200096bd15256627dbb221e1049058cf007b

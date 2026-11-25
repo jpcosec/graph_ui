@@ -1,0 +1,25 @@
+name: materialization-partition-lanes-frontends-mindmap-views-specs-notation-notation-mjs
+path: desk/materializations/materialization-partition-lanes-frontends-mindmap-views-specs-notation-notation-mjs.md
+source_hash: 0ec5c9cc9f10bdc1cb306d663542eb72bf583ef25f980f3b5d6be0a6ac099b82
+content_hash: 44c1b894b8c87b4df752a200a745962c65418cf8dd88fa5a635ea8ec361557ed
+field_hashes:
+  id: c5d68fb80e72fcc89cb13a40b214afe3703eefb80d7b374f3774ca1edd3fb031
+  title: 89c6d688e864d3fa9d7d823ec52397c43121f1672b73b42d76ee80a6815a2384
+  source_atoms: 464f98124feda77170f5f5dd0349c35159373c1f81ffcf5b6e04a5c642726be5
+  target_kind: 4a1933b06cf695fcff4acaba1fdbaa7f10ce109d3c7f57bbf62f6bb572658de8
+  target_identity: ace108ec27a6c9b40283e9df1dfb211fb779645586846f1a7396581a08983b20
+  intent: c94c075402b3072722e43dfc9bf63d324827efeacdbc472ac1d0d6f5c2ce4bc4
+  validation: 60a63ec51b957f113e942a4609e505420d31d81254ecc93877538b42e18069e8
+  tags: 24f2be2086c0a9821ee6f4d291c97b7c8598d2dbefae9a3bf30891ca0f231312
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:partition-lanes
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-25T21:43:42Z'
+  authority: generated
+  via: create_document

@@ -1,7 +1,7 @@
 name: task-el-panel-embebido-lleva-el-tema-y-el-localstorage-con-alcance-a-su-contenedor
 path: desk/tasks/task-el-panel-embebido-lleva-el-tema-y-el-localstorage-con-alcance-a-su-contenedor.md
 source_hash: b878dbe9ed2c59c3dde005d46d54eb483e835795e9b2a5a9b994969ead4f0e6f
-content_hash: 5dd29ee2a01a830dac96611e82ef1f3f84ef63530ab31b7bc000be16d5927a56
+content_hash: dd1f711d270d491704e9e0c4e4499244037dc9199765c62b42b69664bf19b85b
 field_hashes:
   title: 1beafa59936cbbe924a936b10ebcca10f2f18e5d17b59ab5e04f7da22d69ccf2
   id: 96658f4d05c73c79ab92ef49d75540f3d8af6eece37877a43dff321637511f5c
@@ -17,6 +17,7 @@ field_hashes:
   depends_on: 8b992a61ce4413600ef69a12ccd54a6a1cec69d6fa9110de425fe982dbe9813a
   pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   implementation_path: 0ae6ec5709549ecc3954ef09f65aef10c9343d32068bff0e93b23796f06a07e9
   validation: 15e07702d8ae18b19b13e907a7bfd9b1be663021fc5055a3a9a3b162b83dd2e8
   done_when: 6e6c68754f5cb86fe204f013d425e8d3d3daca8f17ce4a23fb51a92404f1545a

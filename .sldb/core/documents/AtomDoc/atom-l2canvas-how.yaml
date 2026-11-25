@@ -1,7 +1,7 @@
 name: atom-l2canvas-how
 path: desk/atoms/atom-l2canvas-how.md
 source_hash: 1112cf64b183119ea9383376dc2fb4c4e8c28fae7f246206bc5d7813116f9a72
-content_hash: 92151c7cc39552aca5cedfc5d43752245882642fec4c2718d412e7b6d1e9b393
+content_hash: 741d32d67dc7cae1e7823bb40032d9050e3a74c55e2ee3b7ea7e417283af4552
 field_hashes:
   id: ee5a51402ebba38df89a5efe867bd02ebbd74bfc085ab9d79e949a324524a231
   title: 6ff1cfdf40d7206f2256e0cd84d9a2ce40a2716207eb339d4aa7cf0d2b068e9c
@@ -9,6 +9,7 @@ field_hashes:
   answer: bc143ea24d6482a21f10642fa1b2fa33b017d5b42ea549dbe13aa8784ab836d3
   tags: 8ec857b0ed26bf5492f223bf4956bd538e6874c7160e8d0b2d023fad44e624e0
   provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:frontend
 - representation.markdown

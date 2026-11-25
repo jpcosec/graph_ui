@@ -1,7 +1,7 @@
 name: atom-layoutstrategies-what
 path: desk/atoms/atom-layoutstrategies-what.md
 source_hash: ddab2937f3b57c606223b966a1f056726ed236ca1298e43b573e2dfdd71e5056
-content_hash: 1d20013534ca79e6e114176a56bd084bd94e374dcc16e6dac4f33a9fdcb4cf96
+content_hash: 9a0bf1b7e94e843fa338fa3027365ba624f50ebbaf5785ac3ee658dc836e43f9
 field_hashes:
   id: 34136d662983491a241c29031115944576d6209310ba735516a467e3420c26d1
   title: 8354f958452c2b9dc78e1525f76a28280b851642e5c510d28b8ef1d6e5202ae1
@@ -9,6 +9,7 @@ field_hashes:
   answer: 85dcd056705d22b46771bde7d876a8588588330be89c8372e3b92327180b9513
   tags: 197b7c519d91f0b656b1d69e8703f810f6c1d7845fceed07fea59d6c5a67f326
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:frontend
 - representation.markdown

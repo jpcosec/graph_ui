@@ -1,7 +1,7 @@
 name: atom-viewsection-why
 path: desk/atoms/atom-viewsection-why.md
 source_hash: 85b8a3ec6847a5bdbfff1f6964ed6f1290dcc41d0eb953413938b840c3d6d6de
-content_hash: f3da57cddabf25926b9bdc483b938de0234799cb51fa52b0573c4a38f59fe6c5
+content_hash: e1e4c885b3089b65c982732f919ebbb64cdd7be15a2a7ab4561da5621bb5f656
 field_hashes:
   id: 20301433090a7651fa5c487fa6c6d2dbb93f0bcb2ec5ca35d849a8bc06592c57
   title: 65388f8b276cc94273a18b540c349f9e748a94a630983763d0c094fa92ba3e79
@@ -9,6 +9,7 @@ field_hashes:
   answer: 78417867b21118004f0bddb4cd06ababcf35458708e48a5dadace06ac33a4399
   tags: 2b6bbf6c4cf6975e1495a3dcc7708c40728c4c654145b307ceb2d6366be83795
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:canvas
 - representation.markdown

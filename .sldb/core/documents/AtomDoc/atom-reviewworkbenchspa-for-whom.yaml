@@ -1,7 +1,7 @@
 name: atom-reviewworkbenchspa-for-whom
 path: desk/atoms/atom-reviewworkbenchspa-for-whom.md
 source_hash: 26005b775ec4f397f14fbc7a5dab524d81827c92c21255b46a08877dd5a1fbc5
-content_hash: 54b71f1a1f97660800981bc1a690baeda17c64792d5132c743e3e6e17682605e
+content_hash: 7859426648b1cf327de44bf6694f9d7dfe9bb6e4c7f19dce774110bb9ea0a117
 field_hashes:
   id: 1861986f3b0873484ed190c7f4fb3d01a602b1da009d73f377f47bd64d8a423f
   title: 645ce8adad1588e8ae8247cc355782f138eb7cb6c62a1ab42ad9705d90367769
@@ -9,6 +9,7 @@ field_hashes:
   answer: 26c0fdc07c7a3196a28fe2a23bf108c0bd58efa2ac52886457988be0b4440bdc
   tags: dbfbda62a1eb93366a9c3145257e2125b45b8f04017c82213c663c56c8b59706
   provenance: b55ad2f4b44bb9f53b0e67becbb2f5d36284f79ea58f6d10ac7a2a603fc43446
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:frontend
 - representation.markdown

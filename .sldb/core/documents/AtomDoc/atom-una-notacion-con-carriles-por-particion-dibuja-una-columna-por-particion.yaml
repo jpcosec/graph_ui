@@ -1,0 +1,23 @@
+name: atom-una-notacion-con-carriles-por-particion-dibuja-una-columna-por-particion
+path: desk/atoms/atom-una-notacion-con-carriles-por-particion-dibuja-una-columna-por-particion.md
+source_hash: 651a75a63e1a8119965165061604f7cf1e56526a55451de6d559521e081692f8
+content_hash: 91bc9593a305d6a75a61d39a6a4ae520f195d83cdf45ddd526acf269ab0bb517
+field_hashes:
+  id: 2bee97bb18e9732bf7ff6c55e2f0ae0a59151b658627bdf8e30d92f59ae0724d
+  title: 72c679651ebe004c332289ad4ec6ec7ef4dd2417e5065c2d370f7e350b3a816a
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 1e442ba0c21bdea46d919a021c656c1de510255740d7be280f6670dd7bc11ad7
+  tags: 24f2be2086c0a9821ee6f4d291c97b7c8598d2dbefae9a3bf30891ca0f231312
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:partition-lanes
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance:
+  by: agent
+  at: '2026-11-25T21:43:26Z'
+  authority: generated
+  via: create_document

@@ -147,11 +147,13 @@ include:
   - desk/lifecycle/closeout-task_completes.md
   - desk/lifecycle/execution-task_activates.md
   - desk/lifecycle/testing-task_hands_to_closeout.md
+  - desk/lifecycle/testing-task_returns_to_execution.md
 - model: RelationTypeDoc
   paths:
   - desk/lifecycle/type-task_activates.md
   - desk/lifecycle/type-task_completes.md
   - desk/lifecycle/type-task_hands_to_closeout.md
+  - desk/lifecycle/type-task_returns_to_execution.md
 - model: RelationTypeDoc
   paths:
   - path: sldb/relation_types/applies_to_source.md
@@ -228,6 +230,8 @@ include:
   - desk/lifecycle/rule-closeout-task-docs.md
   - desk/lifecycle/rule-closeout-task-external.md
   - desk/lifecycle/rule-closeout-task-refactor.md
+  - desk/lifecycle/rule-adr-owner-receipt.md
+  - desk/lifecycle/rule-adr-supersedes.md
 - model: TaskDecisionDoc
   paths:
   - desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md
@@ -459,6 +463,20 @@ include:
     name: review-task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron-evidence-atom-1
   - path: desk/reviews/task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron/evidence-materialization-1.md
     name: review-task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron-evidence-materialization-1
+  - path: desk/reviews/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de/evidence-tests-1.md
+    name: review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-evidence-tests-1
+  - path: desk/reviews/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de/evidence-commit-1.md
+    name: review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-evidence-commit-1
+  - path: desk/reviews/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de/evidence-atom-1.md
+    name: review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-evidence-atom-1
+  - path: desk/reviews/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de/evidence-tests-2.md
+    name: review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-evidence-tests-2
+  - path: desk/reviews/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de/evidence-commit-2.md
+    name: review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-evidence-commit-2
+  - path: desk/reviews/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de/evidence-atom-2.md
+    name: review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-evidence-atom-2
+  - path: desk/reviews/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de/evidence-materialization-1.md
+    name: review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-evidence-materialization-1
 - model: MaterializationContractDoc
   paths:
   - desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md
@@ -494,6 +512,10 @@ include:
   - desk/materializations/materialization-mindmap-sin-pron-pyproject-toml.md
   - desk/materializations/materialization-mindmap-sin-pron-tests-test-ci-workflow-py.md
   - desk/materializations/materialization-mindmap-sin-pron-tests-test-mindmap-adapter-py.md
+  - desk/materializations/materialization-partition-lanes-ontends-mindmap-views-specs-notation-notation-swimlanes-mjs.md
+  - desk/materializations/materialization-partition-lanes-frontends-mindmap-views-specs-notation-notation-mjs.md
+  - desk/materializations/materialization-partition-lanes-ests-fixtures-notation-partition-lanes-view-components-json.md
+  - desk/materializations/materialization-partition-lanes-tests-notation-partition-lanes-test-mjs.md
 - model: RunDoc
   paths:
   - path: runs/subagents/exec-deskops-e-2fdc793ded2b/run.md
@@ -537,7 +559,11 @@ policy: {}
 tag_models:
 - AtomDoc
 - ProtoAtomDoc
+- TaskDoc
 tag_namespaces:
+- name: artifact
+  hierarchical: false
+  folder_axis: false
 - name: domain
   hierarchical: true
   folder_axis: false
@@ -545,12 +571,21 @@ tag_namespaces:
     model: CrossroadDoc
     field: path
     value: bare
+- name: host
+  hierarchical: false
+  folder_axis: false
 - name: layer
   hierarchical: true
+  folder_axis: false
+- name: source
+  hierarchical: false
   folder_axis: false
 - name: system
   hierarchical: true
   folder_axis: false
 - name: topic
   hierarchical: true
+  folder_axis: false
+- name: workspace
+  hierarchical: false
   folder_axis: false

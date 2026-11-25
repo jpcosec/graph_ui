@@ -1,13 +1,14 @@
 name: atom-la-vista-de-notacion-lista-y-dibuja-los-viewdoc-del-store
 path: desk/atoms/atom-la-vista-de-notacion-lista-y-dibuja-los-viewdoc-del-store.md
 source_hash: 3c018acac02addd248e0c133a57a844beb98ffc3703fe936383eb13ef76f16c9
-content_hash: 1d0825cfc15eeefd462f93342a05d3190c253e99e04dbf07180cfa0323b1ca35
+content_hash: ac4a850533077563783daa1e5ef700c4ebfe1032f2ca82e99da4ac8ca46176fd
 field_hashes:
   id: 5682e1215df65610849b68577747975c86e628895849b217e37fca54548bb0ff
   title: bf96c960d5db69da88ecab362e9dd3fc24977319909eb88ff2fd2a4e473451f2
   five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
   answer: 39eb5a8fcd1519360f4f69b325d0675ac81b24e1670d9373ef4a81bdeb89f042
   tags: daa61cd52c5f1476d2707b4fa2752a8d9197193ed7f780a1d3c3a4654d2e83a4
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - representation.markdown
 - source.document.markdown

@@ -1,0 +1,25 @@
+name: materialization-partition-lanes-tests-notation-partition-lanes-test-mjs
+path: desk/materializations/materialization-partition-lanes-tests-notation-partition-lanes-test-mjs.md
+source_hash: 491e213a50b9840d5660f495cc8d7a026adcedb7b71117faa6cc0bdaa0efad81
+content_hash: 6d3bc6de16823c453ec00e957cd0ebb3f8148d9d77372edb1479eba998c69aca
+field_hashes:
+  id: 0dbfcbea869ac049c8970d89006d81ff757a2437e71e949dbe0e831aed736a82
+  title: 81e810cf31aa401c52047de44a228090c7904e2d2b5e23232ca0cfcf89850357
+  source_atoms: 464f98124feda77170f5f5dd0349c35159373c1f81ffcf5b6e04a5c642726be5
+  target_kind: 4d967a30111bf29f0eba01c448b375c1629b2fed01cdfcc3aed91f1b57d5dd5e
+  target_identity: 3a282af3a7b36a13e48020b9b79dd5fac1d98be14a871493022427074376117b
+  intent: 1ab75ab53103d4a74af8d467f92d7088112ff92149894ca72604638f82f68b97
+  validation: 60a63ec51b957f113e942a4609e505420d31d81254ecc93877538b42e18069e8
+  tags: 24f2be2086c0a9821ee6f4d291c97b7c8598d2dbefae9a3bf30891ca0f231312
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:partition-lanes
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-25T21:43:52Z'
+  authority: generated
+  via: create_document

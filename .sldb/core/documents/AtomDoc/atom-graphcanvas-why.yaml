@@ -1,7 +1,7 @@
 name: atom-graphcanvas-why
 path: desk/atoms/atom-graphcanvas-why.md
 source_hash: fc5bdea57c62108eb72981a7cda4143550c79638e006cbc82fbbf4e5fe433e41
-content_hash: d98c58b5e35ae0ec2acb82ea5bb1f15f12eacaf533b44c084a099660c3c47c46
+content_hash: 82502e308d8b05116bca66bfc5ceedc2489ec58a5ed63bfd686e657577aa1498
 field_hashes:
   id: 6eb94310455041a4108769854cda960842224460e979f5f80193728a9755c29c
   title: 16a14c8eacd8eb7475187df33db8d31f1aa9626f633425faac7eab2f0a2e5ea8
@@ -9,6 +9,7 @@ field_hashes:
   answer: d7d63436bed4d5fa5abbb0f935d923191ff5ba53ff7abf0714f039625d1b6b98
   tags: a4a473b6b74ffec7629166b0e792d1cd8db6b50b71a03e35ae0ec15b120ec2d2
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:canvas
 - representation.markdown

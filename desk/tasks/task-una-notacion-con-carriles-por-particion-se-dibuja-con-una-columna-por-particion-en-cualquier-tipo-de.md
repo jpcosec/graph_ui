@@ -1,7 +1,7 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-25T21:32:15Z'
+  at: '2026-11-25T22:40:47Z'
   authority: generated
   via: save_document_payload
 id: task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de
@@ -11,15 +11,25 @@ tags: []
 current_node: ritual-testing
 history:
 - task_activates
-references: []
+references:
+- frontends/mindmap/views/specs/notation/notation-swimlanes.mjs
+- frontends/mindmap/views/specs/notation/notation.mjs
+- tests/fixtures/notation-partition-lanes/view-components.json
+- tests/notation-partition-lanes.test.mjs
+- 5bee085097e8ee80b29730b3da7a36dce0bc97fa
 depends_on: []
 pills: []
-files: []
+files:
+- frontends/mindmap/views/specs/notation/notation-swimlanes.mjs
+- frontends/mindmap/views/specs/notation/notation.mjs
+- tests/fixtures/notation-partition-lanes/view-components.json
+- tests/notation-partition-lanes.test.mjs
 pointers: []
 task_type: task.code
 inherits_from: []
 inherit_acceptance_context: false
-atoms: []
+atoms:
+- atom-una-notacion-con-carriles-por-particion-dibuja-una-columna-por-particion
 ---
 
 # una notación con carriles por partición se dibuja con una columna por partición en cualquier tipo de diagrama

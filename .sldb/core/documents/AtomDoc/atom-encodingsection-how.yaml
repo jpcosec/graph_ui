@@ -1,7 +1,7 @@
 name: atom-encodingsection-how
 path: desk/atoms/atom-encodingsection-how.md
 source_hash: 83ea8ed8a24202ecfae330f9142431f68eb48fc57fa123fdbaa3ac02288e0862
-content_hash: 1e4eff21820c81bd88177ad10ad2d6d882e9d9bf1a9f6649693e9f96ac0dc28b
+content_hash: aa0f5e83bc6accf980fb930e599076eedf922d067fbc09df0221c47efe02fe8a
 field_hashes:
   id: 6b7ec00bedf94c63ca71b72f28312bc1660d3c25c2344cee577aa9e75bbbca88
   title: ac9da21a72b1bf925f838bf1e4f7a49033058a63435c09f6e4a2e723bfc6bf2a
@@ -9,6 +9,7 @@ field_hashes:
   answer: 247897fb0ade3907695f1cf949919da071fbbdb23308266660795b4b770111ab
   tags: ef6918bab7c9c2b33bc1dac4c0ff157288cd749a41654ccc4c0e68d71583b4a8
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:canvas
 - representation.markdown

@@ -1,7 +1,7 @@
 name: pill-guardrail-the-model-descriptor-is-a-real-contract-mirror-not-a-mock
 path: desk/contexts/pill-guardrail-the-model-descriptor-is-a-real-contract-mirror-not-a-mock.md
 source_hash: 93e5ea28a0ff5531ab63578ee45f4e20bd26baf66712ea569521b92fde335603
-content_hash: 5bf56d8ff6de453827d101bc73837fc0b7b36c5f3666c96a416daa16f994d7e5
+content_hash: 68dda6951de1442b9319fbd03854b7c6bdb45caf5da8ab58089a492a24d1116a
 field_hashes:
   title: 89a84b04dbb90d9c9d57277c50f0da4f78e39b12ccd0c5ee6a52e6b25d7ccbf6
   id: 67c3ecb22bcf018dade97386064b708830068269e19bf23b20715cbcb4271435
@@ -12,6 +12,7 @@ field_hashes:
   where: d9e58644604eeb33dcf57f698b7e17fd12971dec84ab457b52f8cfc94edaf662
   how: ddc2ea619d597e1ef242e89be3c10b90d4c97db6f5e6ef8f69ef9dd1e5257483
   how_not: e87f9366e1cd42184ca3c491757e6fddd5772f3db069e91c86be611ef5fa1475
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:document-model
 - representation.markdown

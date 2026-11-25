@@ -1,7 +1,7 @@
 name: task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker
 path: desk/tasks/task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker.md
 source_hash: 395906b71d64cd86f070c3f63e21593e2360b8f1bb2e46145335e4c6222e5ed8
-content_hash: 3824d41a7c80e59b2eb3ae6d311b33191d020a8f8dac34f8f1a73c31f6d326f7
+content_hash: 9028482dfccdf7157b33e8413b1fba0de154feb8f4dc33f31453100e2e516366
 field_hashes:
   title: 59c72b2daa2d35bd76895d310b92c7b69e99a54e4db2072ec38236940fd74c65
   id: 52ff271034e1dccaae501b0389fae0241fcf17f06e363a5a1e7584beb5dcfd56
@@ -17,6 +17,7 @@ field_hashes:
   depends_on: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   implementation_path: 0b64b4f0ddff13cb16ea530aa4491e4da0c930e74c135974358e8a99ad4ceaf5
   validation: 893be280ede33adee28b3275abccc5ee0143edeeb369464040754a5c8690cf8d
   done_when: 64a1d2f42a8625652628c3f9aa4f0bb2d4e4e2e5c331a0172231322bf2411d1d

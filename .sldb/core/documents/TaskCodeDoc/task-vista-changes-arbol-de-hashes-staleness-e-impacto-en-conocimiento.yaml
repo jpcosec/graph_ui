@@ -1,7 +1,7 @@
 name: task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento
 path: desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
 source_hash: 030eff7141822410eb30a22150dbcaf1897944bf0004b4ce5bd864d9ab42a6a4
-content_hash: d354cbd1f0204aab3f63cf30ae134b660559e764dd23ae1878967eb92dccaa42
+content_hash: e93cb976c774cc94b5674042d48c4d90f3ee9f1c0792c3edf02112c6b354da63
 field_hashes:
   title: 64e81c88cc64a1ce6bc685161b1aa2220ae569c32ca54dc8cd471df73196c1e0
   id: b99d3d0a86eeed0f7f69d45040dcad046a6d88ab7204b8539ef3efb10bc9656c
@@ -17,6 +17,7 @@ field_hashes:
   depends_on: d4832ef7c89e0ac34c3211c3fa3ac100b19e8de54954e049e04584bb62ec2cf0
   pills: 152ff78e6e9a43dc8fe8ec134273a101a6596f567c90e8b9774af04fd67d016c
   files: 18e3624376fafa6ca39813e698a8893a86514d251a604597b041ddad440f51cb
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   implementation_path: 9bb06aa691b195b5126d604d097bbc70744bd4b112997ca2e5f147cb65d21af7
   validation: 454f7d9dcc3fadadd6fa9e03223c8b6f900480ace3e9da6a0c6003d961498e34
   done_when: bf55caaf588382925a7e7fabc4a98921e7f13a9bffa221e981d61825657de503

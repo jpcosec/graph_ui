@@ -1,13 +1,14 @@
 name: atom-kgdb-s-query-language-has-no-relation-type-filter-yet
 path: desk/atoms/atom-kgdb-s-query-language-has-no-relation-type-filter-yet.md
 source_hash: 245ee57ee8e384fa7f11f157eb67bace20d6a2b37fff6edc5addcd14f9916d12
-content_hash: b3f8466f98c4f974f783cf3a7595b25a4d62ff4a05e7da4730c8515639291b82
+content_hash: 9dbed654337e733cc1b3bb70d2e490b83e42de8386f0a3c12e18346f909082cd
 field_hashes:
   id: 40ab804fe9aaa2a52d84c8fbd4418a04290720b553db109264e8add16fbeb67d
   title: d298f681ac0a51509063948b1381a6200058c89e8ae2cf9c147fd04282100c0d
   five_wh_one_plus: 0ac5b48a10a651e75b01f8d26468c18977ea336c90a9607a6163d0d330a4bb40
   answer: d91a5c7e0f9af38d99a5f6ed72dbd325b9e4528525a5fd8630c6c210e9ae215c
   tags: cb96889b3da309a666f83d14ee24fb4d02771a4dae95f5840aa69fb20b07168d
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:query
 - representation.markdown

@@ -1,7 +1,7 @@
 name: task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor
 path: desk/tasks/task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor.md
 source_hash: 6e594893ee4c2a1467454e6782188e8872d23ae8c1c4f9fe748058a58356f4f7
-content_hash: 4f8104a9821520ed092919ee2bfc32a8fb773955f2cdc7bdcc70412af7a7a566
+content_hash: 2e24e45813ed5011b3eaacdefae72f1284542782a77538377db0103b721dd7cc
 field_hashes:
   title: 00ffea1509b3d31ed8b225b082d67c59c8cdfeab3ff524c1ec9ee57cce1b441e
   id: 56d4c131783a25b7ad4a267909db69308f696816882d1af2082225e4b4cf930c
@@ -17,6 +17,7 @@ field_hashes:
   depends_on: 9046d41ffec3389a535a47439123e4b57927964d29c4abb124541e4fc95e8155
   pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   implementation_path: 439b0844163803a455438712237e073d09551fe79192181d3b14a0b71d089a4d
   validation: fe7895da33af39efce4f46fe96865282dc341969debb210226309d8d07a6cc63
   done_when: 476fa11cffe35d369228da30abd8932f8a878ffed23c49b38400e93cdb22d844

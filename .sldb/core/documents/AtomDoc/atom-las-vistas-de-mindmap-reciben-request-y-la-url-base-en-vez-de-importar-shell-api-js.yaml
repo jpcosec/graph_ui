@@ -1,13 +1,14 @@
 name: atom-las-vistas-de-mindmap-reciben-request-y-la-url-base-en-vez-de-importar-shell-api-js
 path: desk/atoms/atom-las-vistas-de-mindmap-reciben-request-y-la-url-base-en-vez-de-importar-shell-api-js.md
 source_hash: 3dd07b6e892b781bc13c77dfef7fa24f6e4f9103074184bdb23b27c21036c2f6
-content_hash: 51c634f070f340dbbcf5d3c3194cf0f8ef4f9a4b70bd9c2ac0c717b7fafc29c5
+content_hash: 68307f538f7c05b6e4157889f3f792905587dbb30edd72b1b8b7d2290477fecf
 field_hashes:
   id: af5de90f6f9eac2a2df7703b640bf5ca5c37432c0d46b307c96b1e1ef27e925b
   title: 7ae7a0f201b5b31b12fa5f35e7b33ec667a40392cfbaba60bc560af8b940dabc
   five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
   answer: 8774fe0d1b08c4817f9d0a1df99da4a91cd96923a24f4284c9b1cc2d72b96f98
   tags: 313f1998e6313d2a230f5b50e9ae96ef4c9f60e04148c84f3e9b92c9c88f295a
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - representation.markdown
 - source.document.markdown

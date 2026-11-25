@@ -1,7 +1,7 @@
 name: atom-editorengine-what
 path: desk/atoms/atom-editorengine-what.md
 source_hash: a769567e90cf7c3724c8b4f8a87c0e68b0beaa225e998954939dfe92ab14d2c3
-content_hash: c7677b22d4f0ed740e5497411e64255a1765acf7f472fa31e96f7b448c99f118
+content_hash: 7ee60c29483aa13367512bf8f4f12dfbb895b9619e55518e2878e99173f8705b
 field_hashes:
   id: f24fcf446622d9715e90dba79fc8cbac4d940ac79f42a584952a1708361f9e76
   title: 764f2c6b304edb8b6ce0d984b9cf6e5bc74f494236f5cd42d8df225afef8bb2b
@@ -9,6 +9,7 @@ field_hashes:
   answer: daadce0b7dd0c9160d2dccca66357bd9ccd3390270538b634f2cd3dab44b02a1
   tags: 7ae3211b1e2c490b28ade1179dbadb550e010493db5075b6ea3423c0ff89ff9e
   provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:backend
 - representation.markdown

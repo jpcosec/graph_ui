@@ -1,13 +1,14 @@
 name: atom-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-pron
 path: desk/atoms/atom-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-pron.md
 source_hash: 5e6c8f79d1c948d4d4ab2608f40e16dc8fbe6ffa21e007df3d8a008df483d353
-content_hash: e1ac7aea7f9ad9f166289534a0f4bd2f1a49601279894ca64da1d75bcbb88b83
+content_hash: d0bf7f93c6db409817c27b1050be46228f957a9182b2328d2a7ddbe0f35081fa
 field_hashes:
   id: a70e1924d5220401d3e3c783433b67ac423fffa2a3f89244ab2d812cc7c5e372
   title: 3fbb35426d3c52733cf9a1f809b5f3ba212cdec23627a6d067879e526576b5b1
   five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
   answer: b71d015c8dab269c3c9d8d72205c00bf92deecd743f326f66523452db2e0931b
   tags: 2c5087fc6e66e481687e2d684b70bc2b014eb521c2a287d9b1610722d1a5f79f
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - representation.markdown
 - source.document.markdown

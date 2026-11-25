@@ -1,7 +1,7 @@
 name: task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia
 path: desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
 source_hash: eb5751d4e11b9ff4e179d6608d7cb05bcb2220270cd8fbe07bbc0e9b99bcc674
-content_hash: b7ee615921fcde030a6ab0c760057b842d3f333d9818da0b0990b2eb65db96eb
+content_hash: 3fbbab51cec232b9a3935ed89947e6d8b6d9d706ed0242b9de4f20d994b7cec1
 field_hashes:
   title: 16b1bc2afc4bb0427d985ce0f314846709882f95bc936a5861b43c05eecc3be2
   id: 4a60ed58e76d73ba626ab3da8232ade4a02502f003ca9d61cba82f34eb119b79
@@ -17,6 +17,7 @@ field_hashes:
   depends_on: 9186920f07dfeb23b8da5119c250535f2ad5dfc326965e926283a839ac2406da
   pills: 152ff78e6e9a43dc8fe8ec134273a101a6596f567c90e8b9774af04fd67d016c
   files: c42b98284a807b3254c8ab0e3c8e87977d18f08c8c0e3a3b73c6f28d3c72f04c
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   implementation_path: 2aa778f5dd4ffd3761430c918ea3200c4594510b0caa9a93463c81b9137b3d05
   validation: cc1db0583a95f8be4b727daa2a623926588cba2b5290402303564aa236d0e6fd
   done_when: 16ac60c4a91de4f4479ee0d0105fbec8d5f41f67b0766e1a1cd255c70d4b1d63

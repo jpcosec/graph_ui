@@ -1,7 +1,7 @@
 name: atom-structuralauditor-when
 path: desk/atoms/atom-structuralauditor-when.md
 source_hash: 931844cc36adebc04112bb291c0fd210a6fc1ab3fcc36e1d40def02cff59817e
-content_hash: fecb75401ed0eb8d5e57308b4d84f3f16c9f5a1df2be8e52fb64a302379b304f
+content_hash: aa2b00accb42096eccc4dcee270e947e9a9866c99cef73b09759db29d3ac5b89
 field_hashes:
   id: 181f7206452933e7e24835d345905e574d90bad71917cf8e80b4d4dd44ff5a72
   title: 7faef7d43b38efc1a2ac319a4d179db0fbeb3922fc755ebbe2fb87c7d47a4a01
@@ -9,6 +9,7 @@ field_hashes:
   answer: 213fed6a02b2082a9ed5eea3c6be7b651ae669f6bcf7635f32ee5832bebb59de
   tags: 5f753985c54f6a9c870db586e0f8f8f015e95680b589e3938651e333aa1aabf8
   provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:backend
 - representation.markdown

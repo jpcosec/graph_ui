@@ -1,7 +1,7 @@
 name: atom-uistore-what
 path: desk/atoms/atom-uistore-what.md
 source_hash: c759c076d77c11ff0cc12c5b72e05b4bb88109cff62925077ab05ed2213c2274
-content_hash: 18bb1919751e42c25afb9bf0734a4f0cb17e2a0ea7b3354d2269317dc8790523
+content_hash: 2472c3b7f883ea3c9aab6aa58176786d9ad1a7bc58ce39601d096470f1531c0b
 field_hashes:
   id: 89e3648771b846ccc82c75972525a7a79611fd0ccc56b8bb77bbfe546f6af83e
   title: eadaf1555afa76adf298d00361ed110ebae3fdf4ced8dc46549bb1b13f4f940d
@@ -9,6 +9,7 @@ field_hashes:
   answer: fef360e77e0e6ddd18eafca7120a4ab6b5d062874c34ecf1ed9f10ce7e820aaa
   tags: e72d9d060036260f2eaf04f9f2ef71b0daa38fde4b297f17c35885182248ff2d
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:frontend
 - representation.markdown

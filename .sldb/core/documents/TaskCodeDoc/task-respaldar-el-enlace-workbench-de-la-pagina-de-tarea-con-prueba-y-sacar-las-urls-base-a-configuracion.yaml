@@ -1,7 +1,7 @@
 name: task-respaldar-el-enlace-workbench-de-la-pagina-de-tarea-con-prueba-y-sacar-las-urls-base-a-configuracion
 path: desk/tasks/task-respaldar-el-enlace-workbench-de-la-pagina-de-tarea-con-prueba-y-sacar-las-urls-base-a-configuracion.md
 source_hash: 85f5d3d010f8fefc409f793102ca30ec7e60b6c1f99ad90d69cfef092574aca6
-content_hash: 27eff194b78ef970a53bc5b04f340f16f85d2c8a5ace7b72fa5097b050697cb1
+content_hash: 3fdd05dd879a2a1bd75004c1a8e3a04e235e35d7c102214d00de20b0dcf2f9f9
 field_hashes:
   title: 8a44a8bf296253c2723fffb76d3311c839127e01ac41927eab2c96755d5dc3fb
   id: 1589857eeeab8d570387f4315695bb1da4aa83ae025f2d8716814fcbe6ac0d19
@@ -17,6 +17,7 @@ field_hashes:
   depends_on: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   implementation_path: f7825f52182d70504f34dec1854126323db8e5bf0f3493189ff5ab3860317657
   validation: 90dcc886a1bb16d744a2e224f1f3e0ba63a699df3934cf3e5b092f2b14d6e4dc
   done_when: 51a98b64181acf702ae17f9d851c0a4c031157ec09faba334a81c87810b94180

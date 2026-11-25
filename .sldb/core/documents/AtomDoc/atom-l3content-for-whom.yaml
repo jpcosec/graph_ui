@@ -1,7 +1,7 @@
 name: atom-l3content-for-whom
 path: desk/atoms/atom-l3content-for-whom.md
 source_hash: 53ac3884f48741fae02b8e9a3331c724a86873d3f7fcc408ba3c9a523971cede
-content_hash: deaa964c10d89983813da698f92cdf404131a900aac930b11b9c6a057221cbfd
+content_hash: 91c8fa10ec326e01c256d7aaf76ad54e748ed1f1535c9452b5783e04cd551889
 field_hashes:
   id: f199f876b13098fe8e928111007da48b159248b252614da64d4763d3956327ce
   title: 19f33969f9c1db28be4c50f083047f8064d0300d85aadd86bd32ea1874823378
@@ -9,6 +9,7 @@ field_hashes:
   answer: 2163fa8fa9bed55c94e709f990e2d61c238d5be3ccd4f8f0cb40025cad800809
   tags: ea84455200fa4623fe1555dc540cc16d3069426b710043d92096f3778091cc06
   provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:frontend
 - representation.markdown

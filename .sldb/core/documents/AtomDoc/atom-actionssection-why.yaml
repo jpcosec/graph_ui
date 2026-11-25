@@ -1,7 +1,7 @@
 name: atom-actionssection-why
 path: desk/atoms/atom-actionssection-why.md
 source_hash: 8149289d24707195f5114590db9228bbfa82be5528e4ac5cb081ed6e2ec4fdd3
-content_hash: bd1d089d116bb06965e65bb348ac05d8e8cc3aaaee276a15f0ea6e77f3ccf251
+content_hash: a43cf6a2a0ce7e30be0e63257637f7f723e981b5bf346a42869ec0fe2dcc67bf
 field_hashes:
   id: 49a3ab14401c53f3a28b80215c66a5a790b672ff97329d3e3318f61b079cca0f
   title: bce94eb1f02611a903fcc52ef6813061352195142db9dded21d4b43fbfe76e5b
@@ -9,6 +9,7 @@ field_hashes:
   answer: 8117111281f6aa1588f16ab0264b607e02e31239932bf3f61734bbd78eca3549
   tags: da029b11abafec3c253b63f80e1167637c23a5d0ad5bc6e967822c425f75fa2b
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:canvas
 - representation.markdown

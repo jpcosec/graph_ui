@@ -1,7 +1,7 @@
 name: atom-python-backend-where
 path: desk/atoms/atom-python-backend-where.md
 source_hash: 50463b43f7f4f7dc6f39c34aa03ace764bc28ea9ba9b70f346ebdaa93d42788f
-content_hash: 48792e7e1776bb520a7293eec15fc8cced80dc8b54bba56959dfb7ef3f4ff41f
+content_hash: 63dab96b1943e52ebd07cfd56fd695cd5cc6cb0b3b77603e2ff6afea03e6425f
 field_hashes:
   id: b94d66abf24fc31ca79f84fa5b01fca84b2a00e5b6e8e9358adbafa372be358f
   title: e53c86fc0212e56ba3fc178e27e0fdbeafcafa01206736127c9d12eb840e079c
@@ -9,6 +9,7 @@ field_hashes:
   answer: 69fe68a1f522b013dbd6aa3ad0c698f3a09f3755f15868dda731a4c5d1196d9c
   tags: c25c231416bd5e7a77c73aa56cefe2e97aa6dd31c3c887ec594ea603c2c95180
   provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:backend
 - representation.markdown

@@ -1,7 +1,7 @@
 name: atom-graphprovider-what
 path: desk/atoms/atom-graphprovider-what.md
 source_hash: 16ca0602d331a809e8fb514b211ac1e4c295fba1ae49c74bcc5062f08946cecc
-content_hash: 90da5b3b3656c411aab5ed37d4c64cd420266abc0df8869e27015f2040028425
+content_hash: 4d959e8f2fc968b381cc2166c359c76c3f5ec300dcdaf4fda1f346b7e70f7fbd
 field_hashes:
   id: c025bf9719814b8adb6a1edc108053d8e67d5a78b3dd266487c480eee4c2ac13
   title: d0e4427b71ccbabeaf1454988c9ab20d178fd0178c3e9a32e39559b33d7e998b
@@ -9,6 +9,7 @@ field_hashes:
   answer: 1371e0c9a69a9239a8e8504f12dff2fce1208029248acfb1f130924fa38f6989
   tags: b503305db2331e4a3eb55abe62d2e63ad16c1d44f01f411bcb58e111ba8e28fa
   provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:backend
 - representation.markdown

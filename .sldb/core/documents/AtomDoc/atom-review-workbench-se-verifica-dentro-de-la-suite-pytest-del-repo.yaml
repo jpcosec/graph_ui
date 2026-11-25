@@ -1,7 +1,7 @@
 name: atom-review-workbench-se-verifica-dentro-de-la-suite-pytest-del-repo
 path: desk/atoms/atom-review-workbench-se-verifica-dentro-de-la-suite-pytest-del-repo.md
 source_hash: 187aae6ddeb26d6c3789336aab58188cc317f30ba220833435742e568e03cc29
-content_hash: 05075fab4400241349853c9a4388c94a849c2e4bc7ad3efe4e7de2cda9ac4364
+content_hash: ff2dbc91f66d9bca91ce54c9b259dc110c31c65c60bb8fcac9b24b922a448c7c
 field_hashes:
   id: d545a31c8cbf10ec4e9f5f66294df87943dbc5163441b84575e5fdfde3d9f024
   title: a3aa982623ab7ac47cc625b50b58b59ea29a7e933108e32fc7c935a49753fc49
@@ -9,6 +9,7 @@ field_hashes:
   answer: 4849823004d2d8590969a4ceda7826eb50a5a2d9ddd986e8b8cf0182bcd2ffb7
   tags: 7e74b3c028518f7436631508ed9d3f9cd5eb4f2374d0fd99fc55474354cec1da
   provenance: baaf147470edf6d16c1ab7cf91e4c91435ccae8f291e35dd306dbe6cecacaa9c
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:review-workbench
 - representation.markdown

@@ -1,7 +1,7 @@
 name: atom-kgdb-to-ui-when
 path: desk/atoms/atom-kgdb-to-ui-when.md
 source_hash: 6260467789ab3354caa8b6010c942d3a16aa299762a2fc7d4bffe2109abb8fc6
-content_hash: e5db2f33fc81f3c7d538d9fc697efd71cd1d45616ed9d4cf8799623c0c6ea2fe
+content_hash: 824125bca59b79a981ce2a50e313e9b1fc764f5e074614a2664f0b4646a55bb0
 field_hashes:
   id: adf5f0e4c307aada3dc512c7b61cd6ae5bd3be924e23da8734a74b9154a57623
   title: 1580a07330a917229900bad113afb959f9a88de6dca1613e96acd7b877172af4
@@ -9,6 +9,7 @@ field_hashes:
   answer: 7c70bc531ab6a00990c88adc02ac0d704c3025216829d95e76f10cb070bbf306
   tags: da94272c303a1ccf9331a8cfd111352dbca98811a4b1d3d235c88b8adf412f16
   provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:backend
 - representation.markdown

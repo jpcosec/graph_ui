@@ -1,7 +1,7 @@
 name: task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra
 path: desk/tasks/task-decisión-de-jp-el-workspace-de-graph-ui-edita-y-ancla-código-softfactory-k03-k05-k12-o-solo-muestra.md
 source_hash: ae33beaeb8369fee3a3978eff903f96b4aa54ba8f77fbb3bbadeb6b4e1fa0c7d
-content_hash: 1eed4dcb2ec9c47b45672e2bc4ef0e2448d1a037f9ce4a74656232b8c950f4a4
+content_hash: fd09e28fc4dc9654b4cb15f350829c936046fd91cf5da9ebf797b5d042127509
 field_hashes:
   title: eb2b882d0d3aa62cc54122422ac1fbe115f551fd50a5b7e91dda7d7ac8e3a571
   id: 0fdcff7ebb6a6c13a66cc507955eb8413ce6340dd82729c4327afd8c311db94d
@@ -17,6 +17,7 @@ field_hashes:
   depends_on: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   files: ef02224cf94c4b578071fc9bb7861d659fcc2e3d604652721ed2fc3ed46a6f00
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   implementation_path: 43ab7566c72a6dda123e6c988f8ea87d3a5067f4df60a38a95baacabf7baad54
   validation: d091f18df47ab5d5c9a3ab69b5db88218e6ad0136d0492574f3fe0b8d61f0f54
   done_when: f2edbd60c3e2d37745482ad21277a2e828621e975ee9c969cbaf2d457ab0a947

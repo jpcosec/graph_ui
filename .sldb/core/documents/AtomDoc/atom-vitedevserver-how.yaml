@@ -1,7 +1,7 @@
 name: atom-vitedevserver-how
 path: desk/atoms/atom-vitedevserver-how.md
 source_hash: a584437fdd8bf6be2da85ea92c0efa98091c46cf0c59f10e6f7c5f67d923f0e9
-content_hash: f07d4a8063315fbebac1ebbc7b117efdbabf061659ac1ab257498912534dcb53
+content_hash: da5ab0dcbe74b6a36cd118c0e836a05cf922ce3f11744b97277ae7bd5a239c3a
 field_hashes:
   id: e261061b9c8e03cfc256b7f9015f47ce7de95603776ce1e840315fe3785ad166
   title: 5b21ec79d20b7bd0c2e971828644eccdf59d2116dfe578dc10d65ae861a1d140
@@ -9,6 +9,7 @@ field_hashes:
   answer: 4179e473d3e08ba727f6fb702a10e1e5dc6210f86bcbc51504afc28498de798d
   tags: e494618784dc3b911408ceda9d55ae70e05445973bd899f038d1aebd34a5e4be
   provenance: b55ad2f4b44bb9f53b0e67becbb2f5d36284f79ea58f6d10ac7a2a603fc43446
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:runtime
 - representation.markdown

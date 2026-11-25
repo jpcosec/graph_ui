@@ -1,0 +1,25 @@
+name: materialization-partition-lanes-ests-fixtures-notation-partition-lanes-view-components-json
+path: desk/materializations/materialization-partition-lanes-ests-fixtures-notation-partition-lanes-view-components-json.md
+source_hash: 1fbcce593c2b9ff1ffb6b4f47472389f4d50f921950d242a5735046524541311
+content_hash: 44ec3b140d0660c7596b03fcb82b27c576a84b10354ffc99f4486c53852cd324
+field_hashes:
+  id: 2ea67f709850b7c5325dc2d196dc6379f2081ea36770d9f080e3f0424127ffe9
+  title: 567740696d845cb5d95fe93a438d6bb9cc05da9c21d76bea5dffece37d2baaf8
+  source_atoms: 464f98124feda77170f5f5dd0349c35159373c1f81ffcf5b6e04a5c642726be5
+  target_kind: 4d967a30111bf29f0eba01c448b375c1629b2fed01cdfcc3aed91f1b57d5dd5e
+  target_identity: 565272f65c53cf51ec1adec195a3e7cccbd309183122eb56d923e830a426bfd4
+  intent: 0dace180fb8f32c9e698a04b9f1cb9924b4b6b7c80fc8558b2680138e6cfd318
+  validation: 60a63ec51b957f113e942a4609e505420d31d81254ecc93877538b42e18069e8
+  tags: 24f2be2086c0a9821ee6f4d291c97b7c8598d2dbefae9a3bf30891ca0f231312
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:partition-lanes
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-25T21:43:47Z'
+  authority: generated
+  via: create_document

@@ -1,7 +1,7 @@
 name: atom-el-estado-de-plegado-de-los-grupos-de-review-workbench-vive-en-ui-store
 path: desk/atoms/atom-el-estado-de-plegado-de-los-grupos-de-review-workbench-vive-en-ui-store.md
 source_hash: 0af806489574b05a1b95aec68ebde12680d79963c74137c5f6baa016e456e5b9
-content_hash: e52326a8eb378ecaf66a8bc92a3a698b449cbd931a2f9c8ca162b45de9367cb5
+content_hash: 09a5e60d28e1b021311d858c6cb53726c646aa704d727ee8b74b362e58cddde5
 field_hashes:
   id: f5ac9da26b98526d200606ead3958c4d04fa3a7ff686122f0c4d7941c97e6cb7
   title: 57aadbe9c927d765c0d22e66ee0cffffaa9f5f34d7ff58fd27d0d7c1df13181d
@@ -9,6 +9,7 @@ field_hashes:
   answer: 5a3d553ed9fb1cb89e0563cd9e53fc1d2181c64948d2f88994e122531301a79d
   tags: 3e0fd376f1c8e988b5ea605dbf26d19b4028822c25e8d69b538abfbe672d9757
   provenance: 5c53b1794c53745d73e19eedfc1314cfd6580f162545b4c01d3b95be8d96a8e6
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:review-workbench
 - representation.markdown

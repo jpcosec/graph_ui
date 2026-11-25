@@ -1,7 +1,7 @@
 name: atom-actionssection-how
 path: desk/atoms/atom-actionssection-how.md
 source_hash: 2b4993b29cb2da34217dbc333b4a34db7d95dea8010e991ae1e5edf12719bae5
-content_hash: 93bcbdf36b17feff889894d57d52015bb8a8a2f7b367b407833b952e869323d6
+content_hash: 3dd7c5041c1e3eb6a3d3099920c8a3c006ef45f2be95f3ad0c4b16bb35c626ca
 field_hashes:
   id: 7ea9c6c82ffe0bf31bd219d5fc96464aa4cd9e5e62502372b68fe867b45081b4
   title: bce94eb1f02611a903fcc52ef6813061352195142db9dded21d4b43fbfe76e5b
@@ -9,6 +9,7 @@ field_hashes:
   answer: a57b34accb91a87077e8198aa86a2288cae78ce6c7f6cfebc7adb9683cd24a57
   tags: da029b11abafec3c253b63f80e1167637c23a5d0ad5bc6e967822c425f75fa2b
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:canvas
 - representation.markdown

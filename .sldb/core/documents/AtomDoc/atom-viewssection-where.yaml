@@ -1,7 +1,7 @@
 name: atom-viewssection-where
 path: desk/atoms/atom-viewssection-where.md
 source_hash: d709fd6d865594cb2ba70769793a9040b739ef8e9e211d7698d122b4be87b02b
-content_hash: 467367c535e09d8ce3d1106232b78b03b8eb29eca4261beafd76f80a22b70bc8
+content_hash: 79fc0d376c636b9e69e99fba9be2d3b0e73af9710d5d6e909e767fb2995256c2
 field_hashes:
   id: f0bbc72c43aeb7b1b5ada85c71e9723a34718246b8e7389867d45e72e9045ac5
   title: 70f1191ebf949ce90784ba883f83505ed25847eaf05b26def49ef67f96409e10
@@ -9,6 +9,7 @@ field_hashes:
   answer: 7374129e28b7cf31df1d46abff8c9edb5ec1ed3626d02b74ad81aa77c359d862
   tags: 12902edad8254a90f98b1173749be2db5f0a42837037a2d95ad2505de620106d
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:canvas
 - representation.markdown

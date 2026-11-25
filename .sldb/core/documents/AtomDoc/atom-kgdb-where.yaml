@@ -1,7 +1,7 @@
 name: atom-kgdb-where
 path: desk/atoms/atom-kgdb-where.md
 source_hash: 6af5a69fc6583c9b7cbdb6edcf850f024c5f51376eddd6b25681b945fbc0e937
-content_hash: d22921034da0f817f7fabf914aaada001733328155314fd581d382a36c767e7a
+content_hash: 3dcb18298e73ceb78472854a00800b7cf136e40648190df48dc70b24c5c78212
 field_hashes:
   id: 20db743e0dbb3b36e29ed38802a29675b69c85a0047f0a9fe7d2a754a0ddfddf
   title: 8d6486e7ec6448eeaf91fe62cc9c4309d3b5dfabb047aed41181eff35f0367fd
@@ -9,6 +9,7 @@ field_hashes:
   answer: 195857415fdbc391e1b30b7c34d0f6108de71bc084ba231efb194b043f1878fa
   tags: 4b535fb25963f289e66fadb3d2673fbdfe267de1e7c06f7340a9855d8d6884e4
   provenance: dc66e4b71fc7e3ffc25767387da7c3c4c47754fb17a38e7bb62d7415a91be0da
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:runtime
 - representation.markdown

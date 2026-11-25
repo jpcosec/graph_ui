@@ -1,7 +1,7 @@
 name: atom-encodingsection-why
 path: desk/atoms/atom-encodingsection-why.md
 source_hash: a596a8834a231e710179530a8834c25009d70458f23c2172c5cc52184c968abc
-content_hash: 4def8eea245cb57f84a6af4de4c8edccd99e212aa65fab455bc4a7b58c1ffc25
+content_hash: 413d2006d7f1dc74af7f3bdcbfdc672ed173c28cf3623c0abef256780c75ce59
 field_hashes:
   id: ba8f1105a985ec9f0ab2e76eae168ac7b26e7c926631a5b3b0183fd317609905
   title: ac9da21a72b1bf925f838bf1e4f7a49033058a63435c09f6e4a2e723bfc6bf2a
@@ -9,6 +9,7 @@ field_hashes:
   answer: d1e4c677580431baef9955164e2603b7942ce5678949692710e652ffc0012b9f
   tags: ef6918bab7c9c2b33bc1dac4c0ff157288cd749a41654ccc4c0e68d71583b4a8
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:canvas
 - representation.markdown

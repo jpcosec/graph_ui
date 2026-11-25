@@ -1,7 +1,7 @@
 name: task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount
 path: desk/tasks/task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount.md
 source_hash: bf9d15d684d39543a272fcf6ade0b35c9470a71984c3517398506a25a50408bb
-content_hash: 2dd310d7db6791e39e58efacff867ad80cc41e61ccf4295f31e122957db3e075
+content_hash: e05376980abf9d3c95ce0a1700c5d4884ae98883ab19f99a65556c84410645d8
 field_hashes:
   title: 70ba17262e8523d964bc4201e0d80d6203fc22c9ed67d071cba484a9e6afe9f2
   id: 5f9f79eacc10eb6e47e6fb30e394883a181f9a22b10c5aa5666c5c1baaf0d447
@@ -17,6 +17,7 @@ field_hashes:
   depends_on: 109395d230141b17cd84caa1645e1eb2a4acd6d6ddf18c2a0f45a0860963f6d5
   pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   implementation_path: a271537a8bab8bd7702d3871faf2d4f6dc211b85e0ce2f1a6282ff8ce05301da
   validation: 44dbc4446f091e306b88f0f33c8e6efa3ee5c10f7d6cdb5bcd06ff0feb56c118
   done_when: 09cf86d5cc956128211f842784ce86acfc2694260485d6e19d9848003595e8e1

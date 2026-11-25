@@ -1,7 +1,7 @@
 name: atom-editorlifecycle-how-not
 path: desk/atoms/atom-editorlifecycle-how-not.md
 source_hash: b66ba652e5d1574f6510221d0d4b5dc5e5269a584df014fed86de9c9042a166c
-content_hash: 21264383ad46ace00f2483643f1603f4eb56431e793ffdad52bb45e6bcf647ed
+content_hash: 8d9dba0022fe86cbd284bab97ec81429cc3d3472077ae21bb956fdc89bb6c098
 field_hashes:
   id: 38e9755dcfd3398f921396de68b6112d02b31ae3bbbcae963d65c975c2be9488
   title: 47eded60b78e35a419a815fcf5d6b66e1f82da9f3afd9d5e8c40f13f77772899
@@ -9,6 +9,7 @@ field_hashes:
   answer: 5ecd80825a96f455ba49a405606ea9d6db8f7f86ce32871785f4905b91153524
   tags: 5cf60d69b3308b3be9a6645e503b1ed4d56b2a857aa689234f6fa9b985928553
   provenance: 0083d8568157d7b95e2b466b4bda4c09be4f98501554b0267cfccb652f53a201
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:runtime
 - representation.markdown

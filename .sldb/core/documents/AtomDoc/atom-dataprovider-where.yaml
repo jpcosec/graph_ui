@@ -1,7 +1,7 @@
 name: atom-dataprovider-where
 path: desk/atoms/atom-dataprovider-where.md
 source_hash: 1ab3264784f8df099f87a1f9fdc359bd2cfcbfdc0118849b6a03c1b0e4fbe397
-content_hash: 1a8ecd25e6a7d3fa4ad9b9bff7ee00753c38bafe5bde4145904cbfef0796ca4a
+content_hash: 663405e1442a168c95eb0c96d63f8d587c04edb127a09b343310bcb64a061b65
 field_hashes:
   id: aaefc25478560c94da674210b27c9b00be948eda5ab2376d6835e42f024d669e
   title: ec7fa83375200aef9b62514f9c890bd329a7c9f5c08d96143268234bfc1ef0e0
@@ -9,6 +9,7 @@ field_hashes:
   answer: c57fe001c6e620e6efed2c907553568fdc5a4c1e8a620dfa038f1d34c416ad30
   tags: 593672e3a83c9940c9025f745a97da3827935880117dc8357bc3ad29ef1ac19d
   provenance: dc66e4b71fc7e3ffc25767387da7c3c4c47754fb17a38e7bb62d7415a91be0da
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:frontend
 - representation.markdown

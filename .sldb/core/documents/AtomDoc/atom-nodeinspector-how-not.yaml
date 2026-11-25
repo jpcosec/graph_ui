@@ -1,7 +1,7 @@
 name: atom-nodeinspector-how-not
 path: desk/atoms/atom-nodeinspector-how-not.md
 source_hash: d7f98153a053a511cbedd89a670931091e9683446f8c71b3541d9ba15c5d61d0
-content_hash: 64a76346e5fab6cb1ad151966d71552bbb5b710240885bd454937af5ca696799
+content_hash: 48f5653ba25137ffdd080afbd3d2dfe0d99bc24ad787bc0a9b28f78f3f74c8fd
 field_hashes:
   id: e564d1f12b10a77fc98ed5bab5385bf0c6e03fb12fde1cbc31a301a46e64e720
   title: 964a6f88b4f4ad5bbdb0732a1132d67eefa19ed838ff98114d37bd4aea15bded
@@ -9,6 +9,7 @@ field_hashes:
   answer: c51d457f0b9bc5df661b1a388d930b2d43e0a8eaa376d36458d18f222d041d71
   tags: da029b11abafec3c253b63f80e1167637c23a5d0ad5bc6e967822c425f75fa2b
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:canvas
 - representation.markdown

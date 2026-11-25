@@ -1,7 +1,7 @@
 name: atom-python-backend-why
 path: desk/atoms/atom-python-backend-why.md
 source_hash: 77c1df1af2b83fe3c84325ba082dce490717d62e2027ccd67d414f41b6bf86b8
-content_hash: 72f9319e7f530a842d56e0fabb692a5fefc3b07d524b22ea3bb33255f8e754bb
+content_hash: c0c7e237a361d033e09ba7686352b59755ec06ece42c96643245efee5420c1f8
 field_hashes:
   id: 52e9d9f18dc7b92c2ffc3c0994fa65c515cccc6d8711ccfb6199d92648c77084
   title: e53c86fc0212e56ba3fc178e27e0fdbeafcafa01206736127c9d12eb840e079c
@@ -9,6 +9,7 @@ field_hashes:
   answer: c6f3c1d30311efb847fad8efb66bc75452d16906c9bddcc348dc0798b8145d11
   tags: c25c231416bd5e7a77c73aa56cefe2e97aa6dd31c3c887ec594ea603c2c95180
   provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:backend
 - representation.markdown

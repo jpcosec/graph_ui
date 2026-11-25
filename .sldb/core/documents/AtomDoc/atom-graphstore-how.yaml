@@ -1,7 +1,7 @@
 name: atom-graphstore-how
 path: desk/atoms/atom-graphstore-how.md
 source_hash: b71f04046994e4863993b0566e69758daab5423f3ed69efb28fb26aa9541e0df
-content_hash: ed733692fc651a91dfc000617448115d5a8569c034a7a1abaf7c3570e5d3f1e9
+content_hash: 743e3343e01651f71e9f046e1ef8f21e0e2e02718724e362bc6c2ace92bac086
 field_hashes:
   id: 7ee188c437acd4b57aed57004e1279d21cfe82114840143da02c1ee52a91e12d
   title: 62c7b754cf6892b336446a1bd855a4a9b2d31bcdbc55db7d6a49d3242a6effa1
@@ -9,6 +9,7 @@ field_hashes:
   answer: 60a13b3a1f81b114ae35de083b0bc99d6df2deb706407bf7a31f0b33c9536598
   tags: e72d9d060036260f2eaf04f9f2ef71b0daa38fde4b297f17c35885182248ff2d
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:frontend
 - representation.markdown

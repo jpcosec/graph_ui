@@ -1,7 +1,7 @@
 name: atom-structuralauditor-for-whom
 path: desk/atoms/atom-structuralauditor-for-whom.md
 source_hash: e9987e25b8b23cab73ac2227bcad4835fc895c9d2da85a6fde13712d7e056501
-content_hash: 4b210314f7fef6c6ab12673f5c47f70f212b0b9c62b511d1e3402dfc4032ec2f
+content_hash: fd6f84d218cd2606c7f6607725aa3cf820eefa1b87bccaad40d5f62fdcb5bac1
 field_hashes:
   id: c2d44b6558cde2b2d138a1e71ba278c80f4f327c5225175ba0d3877e143a16cb
   title: 7faef7d43b38efc1a2ac319a4d179db0fbeb3922fc755ebbe2fb87c7d47a4a01
@@ -9,6 +9,7 @@ field_hashes:
   answer: 05848e1cf8b7c931acde033d5340f176b8437436a758c90e983f67656886f71a
   tags: 5f753985c54f6a9c870db586e0f8f8f015e95680b589e3938651e333aa1aabf8
   provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:backend
 - representation.markdown

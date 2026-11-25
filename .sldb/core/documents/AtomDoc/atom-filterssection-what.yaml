@@ -1,7 +1,7 @@
 name: atom-filterssection-what
 path: desk/atoms/atom-filterssection-what.md
 source_hash: ec7a6654dcaaee84c53337c365966bd4cd2fd2141fd0c11561cdd66ea5d6bb20
-content_hash: 9af7b5956bdc7774f296eef56b2d23585e38b1ccc50d52fbb31699378928d558
+content_hash: 7d2bde003c4ab0a8983ce32225ea2499f05791a5b195044e5115d90e8f99886e
 field_hashes:
   id: eba24cddd7e9302e1a26f8cd2373dfef1359b66fbd653ec6dbb925aa04df521e
   title: ee6ee1017bec870d3accd15be32f7359a41a1c1e895dec0916a14855a4da1675
@@ -9,6 +9,7 @@ field_hashes:
   answer: 821de03222d55dad75856f137f780444579d5664ccbbe7ef6833521130215017
   tags: a817f68b476c13baac25486db0a090ef3a8db039e07023f4fe2ae4c2ad3f3588
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:canvas
 - representation.markdown

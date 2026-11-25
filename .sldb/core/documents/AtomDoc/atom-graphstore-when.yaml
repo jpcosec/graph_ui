@@ -1,7 +1,7 @@
 name: atom-graphstore-when
 path: desk/atoms/atom-graphstore-when.md
 source_hash: 1af25cc779cacf6057807fd21ce827a9419b7819799f2dba597963eb0b7581de
-content_hash: 36e4be2a3ef41d42251908cc62f30af01be91e6729f0b3b484cda74c86db1b1e
+content_hash: 7bcc92290c40731de03c0523200afb48fbc32345d6896485f57bb0c431660452
 field_hashes:
   id: 22848e303fce1c6d73abf3792a05d007d2aca73e8faa69d28599340752c7160f
   title: 62c7b754cf6892b336446a1bd855a4a9b2d31bcdbc55db7d6a49d3242a6effa1
@@ -9,6 +9,7 @@ field_hashes:
   answer: b1d2ddea4e0023934ca60aac333dfe68011180058dc65c49de96b9f4848a4475
   tags: e72d9d060036260f2eaf04f9f2ef71b0daa38fde4b297f17c35885182248ff2d
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:frontend
 - representation.markdown

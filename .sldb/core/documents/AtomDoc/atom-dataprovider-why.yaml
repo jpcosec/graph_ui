@@ -1,7 +1,7 @@
 name: atom-dataprovider-why
 path: desk/atoms/atom-dataprovider-why.md
 source_hash: 5414d25aca0ba38315fc0eb0b4e33aa92d85d27edfe9562f6ac023a8787a4c13
-content_hash: f3c5dae6d0d3c4be29da5ae1b1a4d831d77993bd2cfe0dedff5b9e9012e749d2
+content_hash: 92af1ea0b6513df278616d3b86d4a8446b78b00040601ed806f86a829da4303f
 field_hashes:
   id: 5819815e49b5716d1567eba3cd09f03ae43b89c7df28e81dbff26696542577d2
   title: ec7fa83375200aef9b62514f9c890bd329a7c9f5c08d96143268234bfc1ef0e0
@@ -9,6 +9,7 @@ field_hashes:
   answer: e505cc1f2677e748c2baca55452861cddb0ac804808032703703f29d608dd8b4
   tags: 593672e3a83c9940c9025f745a97da3827935880117dc8357bc3ad29ef1ac19d
   provenance: dc66e4b71fc7e3ffc25767387da7c3c4c47754fb17a38e7bb62d7415a91be0da
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:frontend
 - representation.markdown

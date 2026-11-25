@@ -1,7 +1,7 @@
 name: atom-viewsection-for-whom
 path: desk/atoms/atom-viewsection-for-whom.md
 source_hash: c1c29d5b8ad632642c178da00be5b900b3b950ceb2e32dc3d6f0a502e289bc01
-content_hash: 6aeef61c5070f50ee285643aea9034a6cf833913df1b93f40be19145a1857e50
+content_hash: cb42da74c1d466d996ac19a5bcb6e1741fd984a20c2fa4d3b8587616daef4775
 field_hashes:
   id: c3cd45fc6957fc039528194ad6f466d19c309d464140703861ddfee8a48077c5
   title: 65388f8b276cc94273a18b540c349f9e748a94a630983763d0c094fa92ba3e79
@@ -9,6 +9,7 @@ field_hashes:
   answer: d3f71a476c6b496db503336eb07fc7f71c2b60a064e6cf7cb9676d2ddb91bfa1
   tags: 2b6bbf6c4cf6975e1495a3dcc7708c40728c4c654145b307ceb2d6366be83795
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:canvas
 - representation.markdown

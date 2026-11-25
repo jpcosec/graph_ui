@@ -1,7 +1,7 @@
 name: atom-graphdata-contract-why
 path: desk/atoms/atom-graphdata-contract-why.md
 source_hash: ed7d1ff489997d72ad62fdfdd4260d9729d139be61e8e30aeabe236f0af43e4d
-content_hash: aa40b013a7902c343a5cbe35da736358826d3c7c5f47961a2b2f8d9671616c27
+content_hash: 8441c34666bef4c978d00ea6333ea7a5e8e88e34be9d87b26d7db5204cf76b39
 field_hashes:
   id: a1795db3b05cc2962de75097ef9274586198407a78b092911f44877cc659e3f0
   title: 63cd18bff0bf3d7a287fe34b7730380c8959516c0f7dcefba6396bae78795db1
@@ -9,6 +9,7 @@ field_hashes:
   answer: c5605b074ae5210721d48010d388a0e0031f2e862462fc291acfad2993314c6b
   tags: 6fcf0756b1f96b9ee0392fe4061fb1c26da197c5553b585957875985ab68feaa
   provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:backend
 - representation.markdown

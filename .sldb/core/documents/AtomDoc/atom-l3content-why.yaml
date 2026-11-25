@@ -1,7 +1,7 @@
 name: atom-l3content-why
 path: desk/atoms/atom-l3content-why.md
 source_hash: 993dc74e89bf465c8d64a97e1b20ec953f1d35512bc40b7861fc57510afe4c64
-content_hash: c3f455d2d53421db2d6a08e000f9f1411ea9ca52fd03ac764a1ddaa183f450c6
+content_hash: 741d4c1766eff2566bb4a2a3e71989314d86594da5d03c8b35b7b59ce90aac1a
 field_hashes:
   id: 4bf5568d0e536b9bf054530ff1d8922535b54ea5799fb24e3632dcd1f98ef5d7
   title: 19f33969f9c1db28be4c50f083047f8064d0300d85aadd86bd32ea1874823378
@@ -9,6 +9,7 @@ field_hashes:
   answer: 7d3399cdc448778cb8616edf380c1be2902a386f4024d61c3fcfd3455f5ae60a
   tags: ea84455200fa4623fe1555dc540cc16d3069426b710043d92096f3778091cc06
   provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:frontend
 - representation.markdown

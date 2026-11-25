@@ -1,7 +1,7 @@
 name: atom-nodeinspector-what
 path: desk/atoms/atom-nodeinspector-what.md
 source_hash: f7ea65e8ae1047a0931919516d1d3f5302fbeec65962a082941a5beb8e1d908f
-content_hash: 1eb77f3abb68a838ab1b642bd6921773a8330dc20308612f27dcde51625c143f
+content_hash: ecafde2d38c890a2dcf3bd6caaa0abe685a2d9784b7311c84c95c36e8aa34698
 field_hashes:
   id: 49475818efb8f873c2b4ce6f51ece0da70689d90f7260e4ac3a75a35632f1e6e
   title: 964a6f88b4f4ad5bbdb0732a1132d67eefa19ed838ff98114d37bd4aea15bded
@@ -9,6 +9,7 @@ field_hashes:
   answer: 65c10e63816d63b29e276d6d747097f6cb59165f8f8fbf9e3744330408fd8ae4
   tags: da029b11abafec3c253b63f80e1167637c23a5d0ad5bc6e967822c425f75fa2b
   provenance: 9ecbdbc7031a6c9cc4b8d2da8f9cb45de4d4bfca47670ece4f5d8e0ace36f6f0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:canvas
 - representation.markdown

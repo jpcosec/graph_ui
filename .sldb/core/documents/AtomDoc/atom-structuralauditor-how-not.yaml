@@ -1,7 +1,7 @@
 name: atom-structuralauditor-how-not
 path: desk/atoms/atom-structuralauditor-how-not.md
 source_hash: a5d165e704f1c4167a385a7c8e8628e189e57d643198f51b717b4fec2ffe768f
-content_hash: a7eb3bfa01b0bfc50ae7a2275015a0cabad134ea8ba714bd9230669b4ac0931f
+content_hash: b1a1723795d2bb868b36e24baca7d1ee12a92bec0c86efe97599d302e10cb7fc
 field_hashes:
   id: 5e71f1b86e5920e93d18642c6433b5cbb7291797239c090754f01cd6806bde2b
   title: 7faef7d43b38efc1a2ac319a4d179db0fbeb3922fc755ebbe2fb87c7d47a4a01
@@ -9,6 +9,7 @@ field_hashes:
   answer: a53675304cfd541f468d4fb27b794470a851e5eb590b96d700d2f0b811a6cca7
   tags: 5f753985c54f6a9c870db586e0f8f8f015e95680b589e3938651e333aa1aabf8
   provenance: 9797efa0beb69821539a545f78e44d765fddb8ef3ccc4b6b2548a966916c4dcf
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
 semantic_tags:
 - layer:backend
 - representation.markdown
