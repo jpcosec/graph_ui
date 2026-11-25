@@ -1,7 +1,7 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-25T14:21:10Z'
+  at: '2026-11-25T14:22:46Z'
   authority: generated
   via: save_document_payload
 # board-xxx
@@ -21,6 +21,7 @@ tasks:
 - desk/tasks/task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion.md
 - desk/tasks/task-graph-ui-exporta-un-html-autocontenido-del-modo-lector-que-se-abre-sin-servidor.md
 - desk/tasks/task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion.md
+- desk/tasks/task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker.md
 # List of pill-xxx paths
 pills: []
 # List of ritual-xxx paths
@@ -62,3 +63,4 @@ _Generated from the task references above._
 - De un spec del store sale un SVG del modo lector con el mismo layout que la vista de notacion [draft] - Un modulo puro frontends/mindmap/views/specs/notation/notation-svg.mjs con exportSvg(view, opts) -> string SVG, a partir del mismo payload de GET /api/notation/view, y una prueba que compare posiciones con la vista interactiva.
 - graph_ui exporta un HTML autocontenido del modo lector que se abre sin servidor [draft] - Un HTML autocontenido (SVG inline, css inline, sin fetch ni importmap) con zoom/arrastre basico y titulo, generado desde un spec del store por una ruta GET /api/notation/export?spec=..&format=svg|html y un boton de exportar en la vista de notacion.
 - G-C: la vista de notacion lista tambien los ViewDoc del store y dibuja uno con su notacion [draft] - Que la vista de notacion liste los ViewDoc del store junto a los SpecDoc y dibuje un ViewDoc con su notacion, reusando el mismo lienzo y layout.
+- G-D: el layout de notacion corta en el primer candidato legible y ELK corre en un worker [draft] - Que bestLayout corte en el primer candidato sin problemas y con zoom legible, que ELK corra en un worker, y que una prueba fije un tope de corridas para esa spec.
