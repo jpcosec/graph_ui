@@ -6,7 +6,7 @@
 // control visible; plegado no consulta. El estado se recuerda por vista (shared/workers-collapse.mjs).
 import {useState, useEffect} from 'react';
 import {html} from '../shared/html.js';
-import {request} from './api.js';
+import {useViewContext} from './view-context.js';
 import {basename, groupBySpace, normalizeStatus, statusLabel} from '../shared/workers.mjs';
 import {workersCollapsed, rememberWorkers} from '../shared/workers-collapse.mjs';
 
@@ -48,6 +48,7 @@ function workersList(groups) {
 }
 
 export function WorkersPanel({viewId = 'default', defaultCollapsed = false}) {
+  const {request} = useViewContext();
   const [state, setState] = useState({phase: 'loading', error: null, payload: null});
   const [collapsed, setCollapsed] = useState(() => workersCollapsed(viewId, defaultCollapsed));
   useEffect(() => { setCollapsed(workersCollapsed(viewId, defaultCollapsed)); }, [viewId, defaultCollapsed]);

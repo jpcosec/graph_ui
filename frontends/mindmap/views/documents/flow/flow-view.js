@@ -7,7 +7,7 @@ import {classStyle, classVar} from '../../../shared/classes.mjs';
 import {referenceFieldsOf} from '../../../shared/documents.mjs';
 import {irRefFields} from '../../../shared/document-ir.mjs';
 import {resolveToken} from '../../../shell/skin.js';
-import {request} from '../../../shell/api.js';
+import {useViewContext} from '../../../shell/view-context.js';
 import {useSource} from '../../../source/source.js';
 
 // Vista FLUJO: los documentos del store real como un grafo dirigido — un
@@ -54,6 +54,7 @@ function FlowNode({data,selected}) {
 const nodeTypes={flow:FlowNode};
 
 function FlowCanvas({skin}) {
+  const {request} = useViewContext();
   const kb=useSource();
   // Same projected subset as the KB map (source/projections.js): identity
   // pass-through when no projection is active.

@@ -1,6 +1,6 @@
 import {createRoot} from 'react-dom/client';
 import {html} from './shared/html.js';
-import {request} from './shell/api.js';
+import {ViewContext, createViewContext} from './shell/view-context.js';
 import {SourceProvider} from './source/source.js';
 import {ShellDialogsProvider} from './shell/dialogs.js';
 import {Shell} from './shell/shell.js';
@@ -11,6 +11,10 @@ import {VIEWS} from './shell/registry.js';
 // skins -> base -> shell -> views no matter which views are registered.
 // index.html only links the shell-level sheets that exist before any view
 // does. Runs once, before the first render, so nothing flashes unstyled.
+// The server base URL comes from the host element (data-base-url), default
+// '' = same origin; stylesheets and requests both resolve against it.
+const root = document.getElementById('root');
+const viewContext = createViewContext(root.dataset.baseUrl || '');
 const linked = new Set();
 for (const view of VIEWS) {
   for (const href of view.styles || []) {
@@ -18,11 +22,11 @@ for (const view of VIEWS) {
     linked.add(href);
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = href;
+    link.href = viewContext.resolveUrl(href);
     document.head.appendChild(link);
   }
 }
 
-createRoot(document.getElementById('root')).render(
-  html`<${SourceProvider} request=${request}><${ShellDialogsProvider}><${Shell}/></${ShellDialogsProvider}></${SourceProvider}>`
+createRoot(root).render(
+  html`<${ViewContext.Provider} value=${viewContext}><${SourceProvider} request=${viewContext.request}><${ShellDialogsProvider}><${Shell}/></${ShellDialogsProvider}></${SourceProvider}></${ViewContext.Provider}>`
 );

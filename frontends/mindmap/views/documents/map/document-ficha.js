@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import {html} from '../../../shared/html.js';
-import {request} from '../../../shell/api.js';
+import {useViewContext} from '../../../shell/view-context.js';
 import {classStyle} from '../../../shared/classes.mjs';
 import {irSectionsWithCleanMeta, irFields, irMeta} from '../../../shared/document-ir.mjs';
 
@@ -33,6 +33,7 @@ function FieldRow({field}) {
 // nunca el markdown crudo. Solo lectura; la edición sigue en el formulario
 // del diálogo. Si el IR no trae spans, no se inventan (SpanBadge no pinta).
 export function DocumentFicha({doc, payload}) {
+  const {request} = useViewContext();
   const [state, setState] = useState({status: 'loading', ir: null, error: ''});
   useEffect(() => {
     let alive = true;

@@ -1,7 +1,7 @@
 import {useEffect, useState, useRef} from 'react';
 import MarkdownIt from 'markdown-it';
 import {html} from '../../../shared/html.js';
-import {request} from '../../../shell/api.js';
+import {useViewContext} from '../../../shell/view-context.js';
 import {irSectionsWithCleanMeta, irFields} from '../../../shared/document-ir.mjs';
 import {
   TABS,
@@ -284,6 +284,7 @@ function describeSourceError(err) {
 }
 
 function WorkspaceView() {
+  const {request} = useViewContext();
   const [catalog, setCatalog] = useState([]);
   const [catalogError, setCatalogError] = useState('');
   // Estado de GET /nodes para el explorador: 'pending' | 'error' | 'ok'. Solo 'ok' confirma la carga de modelos.

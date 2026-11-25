@@ -1,6 +1,6 @@
 import {useEffect,useState,useRef} from 'react';
 import {html} from '../../../shared/html.js';
-import {request} from '../../../shell/api.js';
+import {useViewContext} from '../../../shell/view-context.js';
 import {filterTasks,counts,statusLabel,canAdvance} from './deskops.mjs';
 
 function Content({title,value}) {
@@ -8,6 +8,7 @@ function Content({title,value}) {
   return html`<section className="desk-section"><h3>${title}</h3>${values ? (values.length ? html`<ul>${values.map((v,i)=>html`<li key=${i}>${typeof v==='string'?v:JSON.stringify(v)}</li>`)}</ul>` : html`<p className="desk-muted">No declarado.</p>`) : html`<p className="desk-prose">${value || 'No declarado.'}</p>`}</section>`;
 }
 function DeskopsView() {
+  const {request} = useViewContext();
   const [board,setBoard]=useState(null),[detail,setDetail]=useState(null),[selected,setSelected]=useState('');
   const [query,setQuery]=useState(''),[status,setStatus]=useState(''),[loading,setLoading]=useState(true),[busy,setBusy]=useState(false),[error,setError]=useState(''),[detailError,setDetailError]=useState(''),[notice,setNotice]=useState('');
   const generation=useRef(0), boardGeneration=useRef(0);

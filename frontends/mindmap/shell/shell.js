@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import {html} from '../shared/html.js';
 import {useSource} from '../source/source.js';
 import {SKINS, getSkin, setSkin} from './skin.js';
-import {request} from './api.js';
+import {useViewContext} from './view-context.js';
 import {useBeforeUnload} from './use-before-unload.js';
 import {VIEWS} from './registry.js';
 import {useRoute, routeFor} from './router.js';
@@ -20,6 +20,7 @@ import {WorkersPanel} from './workers-panel.js';
 // the URL, owned by ./router.js: /{facet}/{view.id}.
 export function Shell() {
   const kb=useSource();
+  const {request}=useViewContext();
   const documents=kb.documents;
   const dialogs=useShellDialogs();
   const {view:activeView,navigate}=useRoute();

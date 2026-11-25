@@ -1,7 +1,7 @@
 import {useState, useEffect, useMemo, useRef} from 'react';
 import {ReactFlow, ReactFlowProvider, Controls, MiniMap, Handle, Position, useReactFlow, useNodesInitialized, applyNodeChanges, BaseEdge, EdgeLabelRenderer, getSmoothStepPath} from '@xyflow/react';
 import {html} from '../../../shared/html.js';
-import {request} from '../../../shell/api.js';
+import {useViewContext} from '../../../shell/view-context.js';
 import {useSource} from '../../../source/source.js';
 import {specCatalog, sceneFor, compartmentLine, cellKey, LANE, LANE_TEXT, TERMINALS, laneFitScale} from './notation.mjs';
 import {bestLayout, pathOf, POINT_SHAPES} from './notation-layout.mjs';
@@ -223,6 +223,7 @@ function edgesOf(edges, selected, hovered, setHovered, skin = 'light') {
 }
 
 function NotationCanvas({skin}) {
+  const {request} = useViewContext();
   const kb = useSource();
   const catalog = useMemo(() => specCatalog(kb.documents.working.documents), [kb.documents.working.documents]);
   const specIds = catalog.flatMap(g => g.specs.map(s => s.id));
