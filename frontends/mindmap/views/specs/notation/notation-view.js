@@ -3,7 +3,7 @@ import {ReactFlow, ReactFlowProvider, Controls, MiniMap, Handle, Position, useRe
 import {html} from '../../../shared/html.js';
 import {useViewContext} from '../../../shell/view-context.js';
 import {useSource} from '../../../source/source.js';
-import {specCatalog, sceneFor, compartmentLine, LANE, TERMINALS, laneFitScale} from './notation.mjs';
+import {specCatalog, isViewRef, viewAsNotation, sceneFor, compartmentLine, LANE, TERMINALS, laneFitScale} from './notation.mjs';
 import {TERMINAL_MARKERS, laneHeads, laneDrawing, gridModel} from './notation-draw.mjs';
 import {bestLayout, pathOf, POINT_SHAPES} from './notation-layout.mjs';
 import {glyphVars, paletteInk, themed, innerVars, containerOutline} from './notation-style.mjs';
@@ -245,7 +245,10 @@ function NotationCanvas({skin}) {
     if (!current) return;
     let cancelled = false;
     setState({phase: 'loading', view: null, error: null});
-    request('/api/notation/view?spec=' + encodeURIComponent(current))
+    // Un ViewDoc se evalúa en el servidor y se adapta a la forma del spec; el dibujo es el mismo.
+    (isViewRef(current)
+      ? request('/api/views/evaluate?view=' + encodeURIComponent(current)).then(result => viewAsNotation(result, current))
+      : request('/api/notation/view?spec=' + encodeURIComponent(current)))
       .then(view => { if (!cancelled) setState({phase: 'ok', view, error: null}); })
       .catch(error => { if (!cancelled) setState({phase: 'error', view: null, error: error?.body?.error || error?.message || 'No se pudo resolver el spec'}); });
     return () => { cancelled = true; };
@@ -305,14 +308,14 @@ function NotationCanvas({skin}) {
     <nav className="notation-catalog" aria-label="Specs del store">
       ${catalog.map(group => html`<section key=${group.category}><h3>${group.category}</h3><ul>
         ${group.specs.map(s => html`<li key=${s.id}><button type="button" className=${s.id === current ? 'active' : ''} aria-current=${s.id === current ? 'true' : undefined}
-          title=${s.summary || s.title} data-spec=${s.id} onClick=${() => choose(s.id)}><strong>${s.nav}</strong><small>${s.diagramType}${s.notation ? '' : ' · sin notación'}</small></button></li>`)}
+          title=${s.summary || s.title} data-spec=${s.id} data-kind=${s.kind} onClick=${() => choose(s.id)}><strong>${s.nav}</strong><small>${s.kind === 'view' ? 'vista' : s.diagramType}${s.notation ? '' : ' · sin notación'}</small></button></li>`)}
       </ul></section>`)}
       ${state.view?.legend ? html`<${NotationLegend} legend=${state.view.legend} skin=${skin || 'light'} ink=${ink} notation=${state.view.notation}/>` : ''}
     </nav>
     <div className="notation-main">
       <div className="notation-bar" role="toolbar" aria-label="Herramientas de la vista">
         <strong>${view ? view.title : current || 'Specs'}</strong>
-        ${view ? html`<span className="notation-meta">${view.notation.replace(/^NotationDoc:/, '')} · ${view.nodes.length} elementos · ${view.links.length} relaciones</span>` : ''}
+        ${view ? html`<span className="notation-meta">${String(view.notation).replace(/^NotationDoc:/, '')} · ${view.nodes.length} elementos · ${view.links.length} relaciones</span>` : ''}
         ${scene?.kind === 'lanes' ? html`<button type="button" aria-pressed=${laneFit ? 'true' : 'false'} onClick=${() => setLaneFit(true)}>⛶ Ver todo</button>
           <button type="button" className="notation-actual-size" aria-pressed=${laneFit ? 'false' : 'true'} onClick=${() => setLaneFit(false)}>100 %</button>` : ''}
         ${!scene || scene.kind === 'graph' ? html`<button type="button" onClick=${() => fitAll()}>⛶ Ver todo</button>

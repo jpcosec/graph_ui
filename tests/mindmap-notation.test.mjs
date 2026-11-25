@@ -11,7 +11,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {laneFrames, LANE, LANE_TEXT, LANE_LEGIBLE, laneFitScale, wrapLabel, specCatalog, buildScene, sceneFor, laneScene, gridScene, cellKey, byDepth, compartmentLine, glyphSize} from '../frontends/mindmap/views/specs/notation/notation.mjs';
+import {viewAsNotation, laneFrames, LANE, LANE_TEXT, LANE_LEGIBLE, laneFitScale, wrapLabel, specCatalog, buildScene, sceneFor, laneScene, gridScene, cellKey, byDepth, compartmentLine, glyphSize} from '../frontends/mindmap/views/specs/notation/notation.mjs';
 
 const fixture = name => JSON.parse(readFileSync(new URL(`./fixtures/notation-view-${name}.json`, import.meta.url)));
 const statechart = fixture('statechart'), sequence = fixture('sequence'), matrix = fixture('matrix'), coverage = fixture('matrix-coverage');
@@ -193,4 +193,42 @@ test('R11: el rótulo de un mensaje se parte en palabras y el hueco entre carril
   assert.ok(b.x - a.x >= Math.max(...first.lines.map(l => measure(l, LANE_TEXT.size))) + LANE_TEXT.margin - 1e-9, 'el hueco aloja el rótulo partido');
   assert.ok(c.x - b.x < b.x - a.x, 'un hueco sin rótulo largo es más angosto');
   assert.ok(scene.messages[1].y > first.y);
+});
+
+// ---- ViewDoc en el catálogo y su evaluación adaptada al mismo camino de dibujo ----
+const evaluated = {
+  view: {title: 'Mis cosas', notation: 'NotationDoc:n'},
+  layout: {kind: 'graph', direction: 'LR'},
+  nodes: [{id: 'sldb://document/Thing:a', model: 'Thing', name: 'a', title: 'A', payload: {x: 1}},
+    {id: 'sldb://document/Thing:b', model: 'Thing', name: 'b', title: 'B', payload: {}},
+    {id: 'sldb://document/Thing:c', model: 'Thing', name: 'c', title: 'C', payload: {}}],
+  edges: [{source: 'sldb://document/Thing:a', target: 'sldb://document/Thing:b', relation_type: 'next'}],
+  notation: {notation: 'NotationDoc:n', palette: '', nodes: {
+    'sldb://document/Thing:a': {glyph: 'GlyphDoc:n.t', shape: 'box', function: 't', keyword: '', label: 'A', style: {}},
+    'sldb://document/Thing:b': {glyph: 'GlyphDoc:n.t', shape: 'box', function: 't', keyword: '', label: 'B', style: {}}},
+    edges: [{link: 'LinkDoc:n.next', draw: 'line', line: 'dashed', target_end: 'open-arrow', label: 'sigue'}], legend: {}, skipped: []},
+};
+
+test('el catálogo lista los ViewDoc con notación junto a los SpecDoc, en su propio grupo', () => {
+  const catalog = specCatalog([
+    {id: 's1', model_name: 'SpecDoc', payload: {title: 'Spec', diagram_type: 'state', category: 'Diagramas'}},
+    {id: 'v1', model_name: 'ViewDoc', payload: {name: 'v1', title: 'Vista uno', notation: 'NotationDoc:n'}},
+    {id: 'v2', model_name: 'ViewDoc', payload: {name: 'v2', title: 'Sin notación', notation: ''}}]);
+  const entries = catalog.flatMap(g => g.specs.map(s => [g.category, s.kind, s.id]));
+  assert.deepEqual(entries, [['Diagramas', 'spec', 's1'], ['Vistas', 'view', 'ViewDoc:v1']]);
+});
+
+test('viewAsNotation adapta la evaluación de un ViewDoc a la escena de un spec', () => {
+  const view = viewAsNotation(evaluated, 'ViewDoc:v1');
+  assert.deepEqual(view.nodes.map(n => n.doc), ['Thing:a', 'Thing:b']);
+  assert.equal(view.skipped.length, 1, 'el nodo sin glifo se avisa, no se inventa');
+  const scene = sceneFor(view);
+  assert.equal(scene.kind, 'graph');
+  assert.deepEqual(scene.nodes.map(n => n.id), ['Thing:a', 'Thing:b']);
+  assert.deepEqual(scene.edges.map(e => [e.source, e.target, e.dash, e.targetEnd, e.label]), [['Thing:a', 'Thing:b', '6 4', 'open-arrow', 'sigue']]);
+  assert.equal(scene.direction, 'LR');
+});
+
+test('viewAsNotation lanza el error de una notación que no resuelve', () => {
+  assert.throws(() => viewAsNotation({...evaluated, notation: {error: 'no resuelve'}}), /no resuelve/);
 });

@@ -14,21 +14,63 @@ export const TERMINALS = ['open-arrow', 'filled-arrow', 'hollow-triangle', 'fill
 const UNCATEGORIZED = 'Sin categoría';
 
 // Catálogo = los SpecDoc del store agrupados por `category` (contrato §2b): no
-// hay otro documento de catálogo. Dentro de un grupo, por `nav` y luego título.
+// hay otro documento de catálogo. Los ViewDoc con notación entran en el mismo
+// catálogo, marcados `kind: 'view'` (su id es la ref `ViewDoc:<name>`); sin
+// `category` van en su propio grupo. Dentro de un grupo, por `nav` y luego título.
+export const VIEWS_GROUP = 'Vistas';
+export const isViewRef = id => String(id || '').startsWith('ViewDoc:');
 export function specCatalog(documents) {
-  const specs = (documents || []).filter(d => d && d.model_name === 'SpecDoc').map(d => {
+  const docs = (documents || []).filter(Boolean);
+  const specs = docs.filter(d => d.model_name === 'SpecDoc').map(d => {
     const p = d.payload || {};
-    return {id: d.id, title: p.title || d.id, nav: p.nav || p.title || d.id, summary: p.summary || '',
+    return {id: d.id, kind: 'spec', title: p.title || d.id, nav: p.nav || p.title || d.id, summary: p.summary || '',
       category: p.category || UNCATEGORIZED, diagramType: p.diagram_type || '', notation: p.notation || ''};
   });
+  const views = docs.filter(d => d.model_name === 'ViewDoc' && (d.payload || {}).notation).map(d => {
+    const p = d.payload || {};
+    const name = p.name || d.id;
+    return {id: `ViewDoc:${name}`, kind: 'view', title: p.title || name, nav: p.title || name, summary: p.description || '',
+      category: p.category || VIEWS_GROUP, diagramType: 'vista', notation: p.notation};
+  });
   const groups = new Map();
-  for (const spec of specs) {
+  for (const spec of [...specs, ...views]) {
     if (!groups.has(spec.category)) groups.set(spec.category, []);
     groups.get(spec.category).push(spec);
   }
   return [...groups.entries()]
     .sort(([a], [b]) => (a === UNCATEGORIZED) - (b === UNCATEGORIZED) || a.localeCompare(b))
     .map(([category, items]) => ({category, specs: items.sort((x, y) => x.nav.localeCompare(y.nav))}));
+}
+
+// GET /api/views/evaluate (ViewDoc evaluada) -> la forma de GET /api/notation/view, para que la
+// dibuje el mismo camino (sceneFor + layout). Único punto de adaptación: los nodos son documentos
+// `Model:name` con su glifo ya resuelto por sldb (notation.nodes por id) y las aristas llevan su link
+// en `notation.edges` por posición. Una notación que no resuelve se lanza como error, no se inventa.
+const plainDoc = ref => String(ref || '').replace(/^sldb:\/\/document\//, '');
+export function viewAsNotation(evaluated, ref = '') {
+  const notation = evaluated?.notation;
+  if (!notation) throw new Error('La vista no declara una notación.');
+  if (notation.error) throw new Error(notation.error);
+  const nodes = [], skipped = [];
+  for (const n of evaluated.nodes || []) {
+    const g = (notation.nodes || {})[n.id];
+    if (!g || !g.shape) { skipped.push(n.id); continue; }
+    nodes.push({doc: plainDoc(n.id), element: n.name, title: n.title, kind: n.model, collection: n.model, data: n.payload || {},
+      glyph: g.glyph || '', shape: g.shape, function: g.function || '', label: g.label || n.title || n.name,
+      label_style: '', keyword: g.keyword || '', style: g.style || {}, compartments: [], markers: [], refs: []});
+  }
+  const links = [];
+  (evaluated.edges || []).forEach((e, i) => {
+    const l = (notation.edges || [])[i];
+    if (!l) return;
+    links.push({source: plainDoc(e.source), target: plainDoc(e.target), relation: e.relation_type, link: l.link || '', doc: null,
+      order: 0, condition: '', draw: l.draw || 'line', line: l.line || 'solid', color: l.color || null,
+      source_end: l.source_end || 'none', target_end: l.target_end || 'none', label: l.label || ''});
+  });
+  const title = evaluated.view?.title || ref.replace(/^ViewDoc:/, '');
+  return {spec: ref, title, diagram_type: 'vista', notation: notation.notation, palette: notation.palette || '',
+    layout: evaluated.layout && Object.keys(evaluated.layout).length ? evaluated.layout : {kind: 'graph'},
+    nodes, links, legend: notation.legend, skipped: [...(notation.skipped || []), ...skipped]};
 }
 
 // Una línea de compartimento por item: los attributes/methods de un spec de
