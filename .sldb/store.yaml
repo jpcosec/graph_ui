@@ -425,6 +425,14 @@ include:
     name: review-task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c-preflight-1
   - path: desk/reviews/task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c/bundle-1.md
     name: review-task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c-bundle-1
+  - path: desk/reviews/task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron/preflight-1.md
+    name: review-task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron-preflight-1
+  - path: desk/reviews/task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron/bundle-1.md
+    name: review-task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron-bundle-1
+  - path: desk/reviews/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de/preflight-1.md
+    name: review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-preflight-1
+  - path: desk/reviews/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de/bundle-1.md
+    name: review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-bundle-1
 - model: MaterializationContractDoc
   paths:
   - desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md
