@@ -157,3 +157,15 @@ de grafos (editor de clases, vistas de mapa, flujo y esquema), y con `frontends/
 el diseño de septiembre con formas de pron y `GestureDoc` queda sin efecto. El modo local de
 `sldb_adapter.py` deja de usar `pron.world.store.Store`. Las tres decisiones abiertas de arriba
 quedaron cerradas.
+
+## Tercera vuelta del 2026-11-25: graph_ui es un caso del contrato de editor
+
+JP: surface pasa a ser un contrato de cómo se crea un editor, y graph_ui (editor de grafo) es uno
+de sus dos casos; el otro es el editor de texto de sldb. La estructura externa es Astryx, y
+nuestros editores son componentes paralelos a los suyos. XState es nuestro y se exige a nuestros
+editores. El detalle, el dibujo y el borrador del contrato están en
+`sldb/desk/drawer/plans/superficie-como-contrato-de-editores/`.
+
+Lo que cambia aquí: el bloque A (G-A1 a G-A4) apunta a una forma que no es la final, porque el
+panel embebible pasa a ser un componente de integración de Astryx con React 19 y build. Hay que
+revisar esas tareas antes de ejecutarlas.
