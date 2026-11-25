@@ -1,0 +1,19 @@
+name: 20261125-180013-unclear-queue-20261125t205527z-dispatch-reap-task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron
+path: desk/inbox/20261125-180013-unclear-queue-20261125t205527z-dispatch-reap-task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron.md
+source_hash: c20d5c3a9de8cd3fe175180071dac441a8885ba030295db1854254cdd92458c7
+content_hash: 91278fedfdd69e56900abd02fe98868141e405dcc8b23bfa777a1a1ee2f7c491
+field_hashes:
+  kind: 683144a12969e0fd85512737e57b4db93ed15ee760906165a5516d581a77889a
+  sender_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  target_project: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  created_at: d0ff34a8b112dd66edca80db55ae86f71935a96cd17e3166df49e1860439e993
+  status: 35ff74aeea25311f4fe759a6b762c8cd41a79adb23dd5615b92cf215175a63e5
+  ack_reason: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  title: 68276b48dc0bd1d6f4ac7d2b83d83907bca27f7a320edd52935fafc6e272dd91
+  body: a2d7993ef1eea48c243676c0295fab08c141ee8732ac4ad3f1a1397a3310e0d1
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.desk.inbox-note
+- workspace.desk.inbox
+provenance: null

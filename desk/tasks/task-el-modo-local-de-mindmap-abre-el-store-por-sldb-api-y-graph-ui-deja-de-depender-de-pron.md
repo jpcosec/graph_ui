@@ -1,15 +1,16 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-25T18:25:54Z'
+  at: '2026-11-25T20:55:24Z'
   authority: generated
   via: save_document_payload
 id: task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron
-status: draft
+status: active
 summary: ''
 tags: []
-current_node: ritual-execution
-history: []
+current_node: ritual-testing
+history:
+- task_activates
 references: []
 depends_on: []
 pills: []

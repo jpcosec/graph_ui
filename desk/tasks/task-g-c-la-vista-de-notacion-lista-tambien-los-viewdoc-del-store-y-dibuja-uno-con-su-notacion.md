@@ -1,7 +1,7 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-25T18:10:25Z'
+  at: '2026-11-25T21:10:48Z'
   authority: generated
   via: save_document_payload
 id: task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion
@@ -12,14 +12,24 @@ current_node: ritual-closeout
 history:
 - task_activates
 - task_hands_to_closeout
-references: []
+references:
+- frontends/mindmap/views/specs/notation/notation-view.js
+- frontends/mindmap/views/specs/notation/notation.mjs
+- tests/e2e_notation_viewdoc.py
+- tests/mindmap-notation.test.mjs
+- eb722129796ba0139e09ad94636a437ce2dae2f2
 depends_on: []
 pills: []
-files: []
+files:
+- frontends/mindmap/views/specs/notation/notation-view.js
+- frontends/mindmap/views/specs/notation/notation.mjs
+- tests/e2e_notation_viewdoc.py
+- tests/mindmap-notation.test.mjs
 task_type: task.code
 inherits_from: []
 inherit_acceptance_context: false
-atoms: []
+atoms:
+- atom-la-vista-de-notacion-lista-y-dibuja-los-viewdoc-del-store
 ---
 
 # G-C: la vista de notacion lista tambien los ViewDoc del store y dibuja uno con su notacion

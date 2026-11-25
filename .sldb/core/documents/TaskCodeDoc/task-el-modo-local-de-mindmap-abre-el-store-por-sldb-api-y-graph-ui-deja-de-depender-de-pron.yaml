@@ -1,15 +1,15 @@
 name: task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron
 path: desk/tasks/task-el-modo-local-de-mindmap-abre-el-store-por-sldb-api-y-graph-ui-deja-de-depender-de-pron.md
-source_hash: 2182ad01cf4ce92de81115c16bed2c83e79a080bcdfbcf0700ab1064decfa731
-content_hash: 643f4c14008569b79a0bdd194326fe2ae8f80f13d282ecbea02afafbe75969f6
+source_hash: d31dc7a4e8394790bb9deb39cdc936c752f4476ae7ec396b39637022393d722f
+content_hash: a2f90a51a3b3e7fb2036d9ed027a8c22be55677fdcea1dd86b9b5e09f4682d7e
 field_hashes:
   title: 7eb4c0be23cc98f49bc68ec3201c6eec983dd6f7bca0560fe6f226ea79697b63
   id: 5bc0c4d2b15322b7428c712ceb92e0a6029d0e56fedcb29afe4ced36aa0d7204
-  status: 6ae048f08fcab44bfbc8463f074bfdb40f94c6bdf56d3aad9a7e1c05e5d5b5c1
+  status: db0fb2bf5ebc424454c3e11b5ee8bfb43af24a52e561aa49e94143831dc6fd93
   summary: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
   tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
-  current_node: ff5161892aac34735bf10c411f7230b62b7b56446e230a5d26fb75afde4704b6
-  history: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  current_node: d10f5286503cbf750af0584acaec732741c2d9cfbae2a6d5b8ce45b8bf83b79d
+  history: f89b8fd2ac9e43a24ba505d162381268ed901d0695f62c6ad8ec2c62718dfa1c
   why: 28631da333b5a5be0225161404884e43238d4239d41ac82ea5bcdcf174b49ae6
   goal: cd6a250a05c71c4e408d4f1c150711b856a4269291539f19d6bdb832f00ce1de
   scope: ba30e5cd103bc3071a23ca8968803f0d12e5aada765fd6bd7e02dc98302829e7
@@ -32,6 +32,6 @@ semantic_tags:
 - workspace.desk
 provenance:
   by: agent
-  at: '2026-11-25T18:25:54Z'
+  at: '2026-11-25T20:55:24Z'
   authority: generated
   via: save_document_payload

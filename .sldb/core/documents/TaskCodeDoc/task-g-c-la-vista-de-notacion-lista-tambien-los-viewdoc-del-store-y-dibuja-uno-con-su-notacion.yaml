@@ -1,7 +1,7 @@
 name: task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion
 path: desk/tasks/task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion.md
-source_hash: 62783d8ff8dcbe45fe8c749f202cc74874d94e9feddf7b37458789fbe890f19c
-content_hash: 02784b69b11f6be2105b061ad5bfd25ddd87e7662e56ae1dec499c62ab70d7a8
+source_hash: 49fbcaecf9842c2e952ac246d482010031a85680c8cb17410422d3c7b755c9c4
+content_hash: 2fcbb81fff61b84e6e6e165e370bc91c967274960c1a4fd6dbc34a8232c44d28
 field_hashes:
   title: c31ea65364c901731ad441079efce6b3dec42571c21071ee6c91090024eb0103
   id: 711a55a65651c580649f885cc0c8e152f24de8d038fe15fd46b794b743a12742
@@ -13,17 +13,17 @@ field_hashes:
   why: 7492b90aa01e118a814fe5919b38b10af6f26b96bde878e42249e66817792730
   goal: 02c1e349f8a87ad98aaf7d2f35cdc504839bed84c4e48ce431ff1b9c80164892
   scope: 255d1cb58b2fe0b60654d3871aed08e9a437522d89fdcbc1b2548818c20d8a3d
-  references: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  references: 37fe6b6eb5d965430e7005453b76d3191d87fc1e1b93b30165616833dda9f48c
   depends_on: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   pills: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
-  files: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  files: bcbe24128e6568ed4a9a735543ab9e8f22d6d51c1a67820a88ec9fb37fe9390f
   implementation_path: 40158752056d2fefabf225ee3d551ed14958b460f91c2c4c41867bd336b1197b
   validation: 35d6d78536a273b242cb53558ddf12b48593d2e4a7a750eda626d79c8dd94385
   done_when: 80c43827b2893c01668c25db5590180281dc0392daa08e3dec75e97e427eee9e
   task_type: 430e281fc3506e5a61bf187bc4220dab834ca38806ca4f603f817cc82f9791bb
   inherits_from: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
   inherit_acceptance_context: fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa
-  atoms: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+  atoms: f546159e63540a134421101401518ff5e5e4ad2ba00bb7aac8f20ffe7f3f240b
 semantic_tags:
 - board.tareas
 - representation.markdown
@@ -32,6 +32,6 @@ semantic_tags:
 - workspace.desk
 provenance:
   by: agent
-  at: '2026-11-25T18:10:25Z'
+  at: '2026-11-25T21:10:48Z'
   authority: generated
   via: save_document_payload

@@ -1,0 +1,25 @@
+name: materialization-vista-viewdoc-frontends-mindmap-views-specs-notation-notation-view-js
+path: desk/materializations/materialization-vista-viewdoc-frontends-mindmap-views-specs-notation-notation-view-js.md
+source_hash: dbcf1b6101ee482b7d77742de2661efb50a0847a5cdd6070c39cb6bbf81a1266
+content_hash: af1753c9b309f29ded751c26abad04274198eec59cd1197c582954a6eaca29bc
+field_hashes:
+  id: 85d8c5309b6d83fad06e21c03865560df18711fde1e340ed5e947b7ff194d3fc
+  title: 0d2389ce88eab78d0075eea767fa914dd418e3a0712265b2f4bf48d08067517b
+  source_atoms: f546159e63540a134421101401518ff5e5e4ad2ba00bb7aac8f20ffe7f3f240b
+  target_kind: 4a1933b06cf695fcff4acaba1fdbaa7f10ce109d3c7f57bbf62f6bb572658de8
+  target_identity: 6954bcc66d6a527a83fb285035e48d57c836878fa0d3b4eaeeebd5099081417b
+  intent: c697ca85754d225e800f3fb0e682756e7d0a7ca9fea91806f0cd4c2a9aaa7d23
+  validation: b7f740cd10416c8d93f2eee57a03dcd90fdda284f2905f0a360175e37171f5ce
+  tags: daa61cd52c5f1476d2707b4fa2752a8d9197193ed7f780a1d3c3a4654d2e83a4
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:vista-viewdoc
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-25T21:11:04Z'
+  authority: generated
+  via: create_document
