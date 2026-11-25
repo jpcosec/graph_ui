@@ -33,6 +33,13 @@ seguir.
 
 ## Qué es esto ahora mismo
 
+**Decidido el 2026-11-25, sin ejecutar:** pron queda archivado (no agregues usos; el modo local de
+`sldb_adapter.py` todavía lo importa y hay que sacarlo), y graph_ui pasa a ser el editor de grafo
+bajo el contrato de editores de `sldb/surface`, como componente junto a los de Astryx, con React 19,
+build y su lógica en máquinas de XState. Antes de diseñar una vista, un tema o el panel embebible,
+lee `sldb/desk/drawer/plans/superficie-como-contrato-de-editores/` y
+`desk/drawer/plans/fierros-hacia-afuera/`. Lo que sigue describe el código de hoy.
+
 Editor visual de una KB SLDB. El desarrollo activo es
 `frontends/mindmap/`: servidor Python stdlib (`serve.py`, sin build), UI
 React/htm cargada por CDN (sin bundler). El frontend está ortogonalizado en

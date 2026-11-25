@@ -1,10 +1,14 @@
-# graph_ui — editor visual de un store pron/sldb
+# graph_ui — editor visual de un store sldb
+
+> **Estado (2026-11-25).** Decidido por JP, sin ejecutar: pron queda archivado y graph_ui deja de usarlo como puerta
+> al store (hoy el modo local todavía lo importa en `sldb_adapter.py`); graph_ui pasa a ser el editor de grafo, uno
+> de los dos casos del contrato de editores de `sldb/surface`. Lo que sigue describe el código tal como está.
+> Planes: `sldb/desk/drawer/plans/superficie-como-contrato-de-editores/` y `desk/drawer/plans/fierros-hacia-afuera/`.
 
 > Los imports rotos contra pron del 2026-09-17 quedaron resueltos el 2026-09-21; ver [AVISO-imports-rotos.md](AVISO-imports-rotos.md).
 
 
 El desarrollo activo está en `frontends/mindmap/`: un editor visual para
-cualquier store [`pron`](https://github.com/jpcosec/pron) — y por lo tanto de
 cualquier store `sldb` (que desde el merge 6deb222 incluye la capa de grafo que antes era kgdb). No es una KB fija: apunta
 al store que quieras con `SLDB_STORE` y edita sus documentos y sus clases.
 

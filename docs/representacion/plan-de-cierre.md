@@ -1,5 +1,11 @@
 # Plan de cierre
 
+> **Sin efecto desde el 2026-11-25.** Este plan trata a `graph_ui` como superficie de `pron` y hace que
+> cada gesto escriba una forma de pron por `POST /api/eval`, declarada en un `GestureDoc`. Nada de eso
+> se construyó, y pron quedó archivado: la edición por gestos escribe por la API de sldb. Lo reemplazan
+> `sldb/desk/drawer/plans/superficie-como-contrato-de-editores/` y, en este repo,
+> `desk/drawer/plans/fierros-hacia-afuera/`. Se conserva como registro.
+
 Qué falta para pasar del manual a las dos primeras visualizaciones (UML de clases y secuencia) con `graph_ui`
 como superficie de `pron`, y en qué orden. Escrito el 2026-09-15 después de verificar el estado de cada repo;
 las revisiones grandes de capas están en [`capas.md`](capas.md) §8 y aquí solo se ordenan.

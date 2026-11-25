@@ -4,6 +4,12 @@
 > en sldb (`sldb.api.graph`; `sldb edges` registra `RelationTypeDoc`/`RelationDoc`). La §3 y las
 > tablas describen kgdb tal como estaba en `846f331`; las responsabilidades que le asignan son hoy
 > de sldb.
+>
+> **Nota (2026-11-25):** pron quedó archivado y deja de ser una capa. De lo que este documento le
+> asigna, pasan a sldb rechazar una relación inválida antes de escribirla, prevalidar un movimiento
+> entero y el registro con deshacer entre sesiones (decidido, sin ejecutar); las formas, el léxico y
+> las proyecciones de sesión no pasan. Las revisiones de pron del §8 quedan sin efecto. Ver
+> `sldb/desk/drawer/plans/pedidos-de-specir-y-graph-ui/` (sección pron).
 
 Qué hace cada pieza del ecosistema en la representación, qué no hace, dónde está hoy cada responsabilidad
 y qué descubrimos al intentar representar 26 notaciones sobre ella. Es la base para las revisiones que

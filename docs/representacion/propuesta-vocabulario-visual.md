@@ -1,5 +1,9 @@
 # Propuesta: el vocabulario visual de `graph_ui`, superficie hermana del SHRDLU
 
+> **Nota (2026-11-25).** La parte de notación (`NotationDoc`, `GlyphDoc`, `LinkDoc`) se construyó en sldb. La parte
+> de gestos como formas de pron quedó sin efecto: pron está archivado y la edición escribe por la API de sldb. Ver
+> `sldb/desk/drawer/plans/superficie-como-contrato-de-editores/`.
+
 **Estado: tercera versión, para discutir.** No hay código nuevo en `graph_ui`. En `pron` hay código nuevo, las
 formas (mezcladas en `master` de `pron` en `ae2d0a3`), que esta propuesta usa.
 
