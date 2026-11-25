@@ -120,7 +120,7 @@ export const dash = line => (line === 'dashed' ? '6 4' : line === 'dotted' ? '2 
 export function buildScene(view) {
   const notices = [];
   const layout = view.layout || {kind: 'graph'};
-  if (!['graph', 'tree'].includes(layout.kind)) {
+  if (!['graph', 'tree', 'partition-lanes'].includes(layout.kind)) {
     notices.push(`El layout «${layout.kind}» de la notación todavía no está soportado: se dibuja como grafo.`);
   }
   const ids = new Set((view.nodes || []).map(n => n.doc));
@@ -154,14 +154,20 @@ export function buildScene(view) {
       seen.add(p);
     }
   }
-  // Activity (contrato §14): un carril por `data.partition`, en orden de aparición (el layout los
+  // Carriles por partición (contrato §14): la notación declara `layout: {kind: 'partition-lanes', by: <campo>}`
+  // y la vista lee ese campo del nodo (en `data`, o del nodo mismo); sin `by`, el campo es `partition`, el
+  // que ya declaraba la actividad UML. El título de cada columna es el valor del campo. No hay rama por
+  // notación ni por tipo de diagrama: solo el dato del layout.
+  const by = String(layout.by || 'partition');
+  const partitionOf = n => n.data?.[by] ?? n[by];
+  // Un carril por el campo de partición, en orden de aparición (el layout los
   // dibuja como columnas, notation-swimlanes.mjs), y una nota UML por `data.notes`, unida a su paso por
   // una línea punteada. Carriles y notas son nodos derivados del spec, no documentos: viven solo en la
   // escena; la nota va justo después de su paso (el orden del spec es el que ELK respeta).
   const ordered = [], lanes = [], laneOf = new Map();
   const specId = String(view.spec || '').replace(/^SpecDoc:/, '');
   for (const n of view.nodes || []) {
-    const name = n.data?.partition;
+    const name = partitionOf(n);
     if (name && !laneOf.has(name)) {
       const id = `${specId}#partition:${lanes.length}`;
       laneOf.set(name, id);
@@ -180,7 +186,7 @@ export function buildScene(view) {
   const containers = new Set(parentOf.values());
   const nodes = ordered.map(n => {
     const [width, height] = glyphSize(n);
-    const lane = laneOf.get(n.doc) || laneOf.get(n.data?.partition) || null;
+    const lane = laneOf.get(n.doc) || laneOf.get(partitionOf(n)) || null;
     return {id: n.doc, parent: parentOf.get(n.doc) || null, container: containers.has(n.doc), width, height, glyph: n, lane};
   });
   return {nodes, edges, notices, lanes, direction: layout.direction || 'TB', diagramType: view.diagram_type || ''};

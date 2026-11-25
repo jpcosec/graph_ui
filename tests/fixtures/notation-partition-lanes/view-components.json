@@ -1,0 +1,17 @@
+{
+  "spec": "SpecDoc:Comp",
+  "notation": "components-by-layer",
+  "diagram_type": "component",
+  "layout": {"kind": "partition-lanes", "by": "layer", "direction": "TB"},
+  "nodes": [
+    {"doc": "C.web", "label": "Web", "shape": "rounded-box", "data": {"layer": "Presentación"}},
+    {"doc": "C.api", "label": "API", "shape": "rounded-box", "data": {"layer": "Lógica"}},
+    {"doc": "C.svc", "label": "Servicio", "shape": "rounded-box", "data": {"layer": "Lógica"}},
+    {"doc": "C.db", "label": "Base", "shape": "rounded-box", "data": {"layer": "Datos"}}
+  ],
+  "links": [
+    {"doc": "R.web-api", "source": "C.web", "target": "C.api", "relation": "next", "draw": "line", "line": "solid", "target_end": "open-arrow", "order": 1},
+    {"doc": "R.api-svc", "source": "C.api", "target": "C.svc", "relation": "next", "draw": "line", "line": "solid", "target_end": "open-arrow", "order": 2},
+    {"doc": "R.svc-db", "source": "C.svc", "target": "C.db", "relation": "next", "draw": "line", "line": "solid", "target_end": "open-arrow", "order": 3}
+  ]
+}
