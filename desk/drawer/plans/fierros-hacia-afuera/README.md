@@ -152,3 +152,8 @@ Decidido por JP (2026-11-25):
 Queda por ver qué pasa con lo que hoy tiene el cascarón de `mindmap` y no es explorador ni editor
 de grafos (editor de clases, vistas de mapa, flujo y esquema), y con `frontends/desk`,
 `flow_editor`, `workspace` y `apps/`.
+
+**pron se archiva** (JP, 2026-11-25). La edición por gestos (bloque G) escribe por sldb, sin pron;
+el diseño de septiembre con formas de pron y `GestureDoc` queda sin efecto. El modo local de
+`sldb_adapter.py` deja de usar `pron.world.store.Store`. Las tres decisiones abiertas de arriba
+quedaron cerradas.
