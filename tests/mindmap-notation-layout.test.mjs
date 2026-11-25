@@ -301,3 +301,47 @@ test('R10: los nodos sueltos van en la grilla que más zoom da, al costado o deb
   assert.ok(layout.nodes.every(n => n.x + n.width <= layout.width + 1e-6 && n.y + n.height <= layout.height + 1e-6));
   assert.ok(layout.width / layout.height < 6, 'no una fila larga');
 });
+
+// G-D: bestLayout corta en el primer candidato sin problemas y legible. La spec de actividad de 13 nodos
+// (activity.render-error-handling) hacía 99 corridas de ELK; con un contador inyectado queda bajo el tope.
+async function realElk() {
+  const {existsSync} = await import('node:fs'), {fileURLToPath, pathToFileURL} = await import('node:url');
+  const here = fileURLToPath(new URL('..', import.meta.url));
+  const main = here.replace(/\/\.worktrees\/[^/]+\/?$/, '/');
+  for (const root of [here, main, `${here}apps/review-workbench/`, `${main}apps/review-workbench/`]) {
+    const file = `${root.replace(/\/?$/, '/')}node_modules/elkjs/lib/elk.bundled.js`;
+    if (existsSync(file)) { const m = await import(pathToFileURL(file)); return new (m.default.default || m.default)(); }
+  }
+  return null;
+}
+const realElkInstance = await realElk();
+const counting = elk => { const c = {runs: 0, layout: g => { c.runs++; return elk.layout(g); }}; return c; };
+
+function activityView() {
+  const ids = ['receive_paths', 'iterate_path', 'try_render', 'load_step', 'validate_step', 'compile_step', 'render_step', 'write_output', 'echo_success', 'catch_error', 'done'];
+  const decision = new Set(['iterate_path', 'load_step', 'validate_step', 'compile_step', 'render_step']);
+  const link = (s, t, label = '') => ({source: s, target: t, draw: 'arrow', relation: 'flow', label});
+  const nodes = [{doc: 'start', shape: 'filled-circle', label: ''}, {doc: 'end', shape: 'bullseye', label: ''},
+    ...ids.map(id => ({doc: id, shape: decision.has(id) ? 'diamond' : 'rounded-box', label: id.replace(/_/g, ' ') + ' (paso de la actividad)'}))];
+  const links = [link('start', 'receive_paths'), link('receive_paths', 'iterate_path'), link('iterate_path', 'try_render', 'has_next'),
+    link('iterate_path', 'done', 'empty'), link('try_render', 'load_step'), link('load_step', 'validate_step', 'ok'), link('load_step', 'catch_error', 'ParseError'),
+    link('validate_step', 'compile_step', 'ok'), link('validate_step', 'catch_error', 'ValidationError'), link('compile_step', 'render_step', 'ok'),
+    link('compile_step', 'catch_error', 'CompileError'), link('render_step', 'write_output', 'ok'), link('render_step', 'catch_error', 'RenderError'),
+    link('write_output', 'echo_success'), link('echo_success', 'iterate_path'), link('catch_error', 'done'), link('done', 'end')];
+  return {diagram_type: 'activity', layout: {kind: 'graph', direction: 'TB'}, nodes, links};
+}
+
+test('G-D: la spec de actividad de 13 nodos no pasa del tope de corridas de ELK (antes 99)', {skip: !realElkInstance && 'elkjs no está instalado'}, async () => {
+  const elk = counting(realElkInstance);
+  const best = await bestLayout(elk, buildScene(activityView()), {measure, canvas: {width: 1200, height: 900}});
+  assert.ok(best && best.nodes.length >= 13);
+  assert.ok(elk.runs <= 60, `corridas de ELK: ${elk.runs}`);
+});
+
+test('G-D: con un primer candidato legible y sin problemas, ELK corre una sola vez', async () => {
+  const scene = buildScene(containerView(['a', 'b', 'c', 'd']));
+  const fake = {runs: 0, layout: async () => { fake.runs++; return {width: 300, height: 200, children: [], edges: []}; }};
+  const best = await bestLayout(fake, scene, {measure, canvas: {width: 1000, height: 800}});
+  assert.equal(fake.runs, 1);
+  assert.ok(best.zoom >= legibleZoom && !best.issues.total);
+});

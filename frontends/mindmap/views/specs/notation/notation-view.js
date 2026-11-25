@@ -23,7 +23,17 @@ const HANDLES = {TB: [Position.Top, Position.Bottom], BT: [Position.Bottom, Posi
   LR: [Position.Left, Position.Right], RL: [Position.Right, Position.Left]};
 
 let elkInstance = null;
-const elkReady = () => (elkInstance ||= import('elkjs').then(m => new (m.default)()));
+// ELK en un worker (la página no se congela mientras calcula); si el worker no carga, en el hilo principal.
+const ELK_WORKER_URL = 'https://cdn.jsdelivr.net/npm/elkjs@0.11.1/lib/elk-worker.min.js';
+async function mainThreadElk() { return new ((await import('elkjs')).default)(); }
+async function workerElk() {
+  const ELK = (await import('elkjs/lib/elk-api.js')).default;
+  const blob = new Blob([`importScripts(${JSON.stringify(ELK_WORKER_URL)});`], {type: 'text/javascript'});
+  const elk = new ELK({workerFactory: () => new Worker(URL.createObjectURL(blob))});
+  await elk.layout({id: 'probe', children: [{id: 'a', width: 1, height: 1}]}); // falla si el worker no carga
+  return elk;
+}
+const elkReady = () => (elkInstance ||= (typeof Worker === 'undefined' ? mainThreadElk() : workerElk().catch(mainThreadElk)));
 
 // Medida real del texto con la misma fuente que el lienzo: la caja crece con su rótulo (G4).
 function canvasMeasure(element, weight = 600) {

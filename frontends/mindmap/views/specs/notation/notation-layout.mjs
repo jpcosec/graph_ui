@@ -497,7 +497,11 @@ export async function bestLayout(elk, scene, {measure = approximateMeasure, canv
   if (best && (best.zoom < legibleZoom || best.issues.total)) {
     const loose = candidates.map(c => ({...c, reserveLabels: false}));
     for (const direction of [scene.direction, PERPENDICULAR[scene.direction] || 'LR']) {
-      const tried = await allIn(elk, {...scene, direction}, {measure, canvas, candidates: loose});
+      const tried = await allIn(elk, {...scene, direction}, {measure, canvas, candidates: loose, stopAtGood: true});
+      if (tried.some(l => !l.issues.total && l.zoom >= legibleZoom)) {
+        for (const free of tried) if (better(free, best)) best = free;
+        break;
+      }
       // Los rótulos que no cupieron (encima de un nodo) piden su sitio a ELK en una segunda pasada,
       // solo ellos: los tres candidatos que mejor caben.
       const retry = tried.filter(l => l.issues.labelsOnNodes).sort((a, b) => b.zoom - a.zoom).slice(0, 3);
@@ -549,7 +553,7 @@ export function clipEnds(layout) {
 }
 
 // Todos los candidatos con ELK, cada uno con su zoom y sus problemas.
-async function allIn(elk, scene, {measure, canvas, candidates}) {
+async function allIn(elk, scene, {measure, canvas, candidates, stopAtGood = false}) {
   const out = [];
   for (const candidate of usable(scene, candidates)) {
     const built = elkGraph(scene, {measure, ...candidate});
@@ -559,6 +563,7 @@ async function allIn(elk, scene, {measure, canvas, candidates}) {
     Object.assign(layout, {zoom: fitZoom(layout, canvas), candidate, direction: scene.direction});
     layout.issues = layoutIssues(layout);
     out.push(layout);
+    if (stopAtGood && !layout.issues.total && layout.zoom >= legibleZoom) break;
   }
   return out;
 }
@@ -585,6 +590,8 @@ async function bestIn(elk, scene, {measure, canvas, candidates}) {
     const better = (a, b) => !b || a.issues.total < b.issues.total || (a.issues.total === b.issues.total && a.zoom > b.zoom + 1e-6);
     if (better(layout, best)) best = layout;
     if (candidate.ordered && better(layout, bestOrdered)) bestOrdered = layout;
+    // Primer candidato sin problemas y legible: se corta ahí (el orden de los candidatos es el de preferencia).
+    if (!layout.issues.total && layout.zoom >= legibleZoom) return layout;
   }
   return bestOrdered && bestOrdered.zoom >= legibleZoom && bestOrdered.issues.total <= best.issues.total ? bestOrdered : best;
 }
