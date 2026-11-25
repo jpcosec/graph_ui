@@ -204,7 +204,6 @@ include:
   - desk/tasks/task-edicion-contextual-de-relaciones-y-campos-con-control-de-concurrencia.md
   - desk/tasks/task-vista-changes-arbol-de-hashes-staleness-e-impacto-en-conocimiento.md
   - desk/tasks/task-respaldar-el-enlace-workbench-de-la-pagina-de-tarea-con-prueba-y-sacar-las-urls-base-a-configuracion.md
-  - desk/tasks/task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con.md
   - desk/tasks/task-la-vista-de-notacion-de-graph-ui-se-monta-en-cualquier-pagina-con-mount-contenedor-opciones-sin-el-c.md
   - desk/tasks/task-el-panel-embebido-lleva-el-tema-y-el-localstorage-con-alcance-a-su-contenedor.md
   - desk/tasks/task-las-demas-vistas-de-mindmap-tambien-se-montan-embebidas-con-mount.md
@@ -412,6 +411,14 @@ include:
     name: review-task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion-evidence-materialization-1
   - path: desk/reviews/task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion/evidence-materialization-2.md
     name: review-task-de-un-spec-del-store-sale-un-svg-del-modo-lector-con-el-mismo-layout-que-la-vista-de-notacion-evidence-materialization-2
+  - path: desk/reviews/task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con/evidence-tests-1.md
+    name: review-task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con-evidence-tests-1
+  - path: desk/reviews/task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con/evidence-commit-1.md
+    name: review-task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con-evidence-commit-1
+  - path: desk/reviews/task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con/evidence-atom-1.md
+    name: review-task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con-evidence-atom-1
+  - path: desk/reviews/task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con/evidence-materialization-1.md
+    name: review-task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con-evidence-materialization-1
 - model: MaterializationContractDoc
   paths:
   - desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md
@@ -425,6 +432,16 @@ include:
   - desk/materializations/materialization-svg-lector-frontends-mindmap-views-specs-notation-notation-svg-mjs.md
   - desk/materializations/materialization-svg-lector-frontends-mindmap-views-specs-notation-notation-view-js.md
   - desk/materializations/materialization-svg-lector-tests-mindmap-notation-svg-test-mjs.md
+  - desk/materializations/materialization-request-inyectado-frontends-mindmap-app-js.md
+  - desk/materializations/materialization-request-inyectado-frontends-mindmap-shell-api-js.md
+  - desk/materializations/materialization-request-inyectado-frontends-mindmap-shell-shell-js.md
+  - desk/materializations/materialization-request-inyectado-frontends-mindmap-shell-view-context-js.md
+  - desk/materializations/materialization-request-inyectado-frontends-mindmap-shell-workers-panel-js.md
+  - desk/materializations/materialization-request-inyectado-frontends-mindmap-views-documents-flow-flow-view-js.md
+  - desk/materializations/materialization-request-inyectado-frontends-mindmap-views-documents-map-document-ficha-js.md
+  - desk/materializations/materialization-request-inyectado-frontends-mindmap-views-specs-notation-notation-view-js.md
+  - desk/materializations/materialization-request-inyectado-frontends-mindmap-views-workflow-deskops-deskops-view-js.md
+  - desk/materializations/materialization-request-inyectado-frontends-mindmap-views-workspace-node-workspace-view-js.md
 - model: RunDoc
   paths:
   - path: runs/subagents/exec-deskops-e-2fdc793ded2b/run.md

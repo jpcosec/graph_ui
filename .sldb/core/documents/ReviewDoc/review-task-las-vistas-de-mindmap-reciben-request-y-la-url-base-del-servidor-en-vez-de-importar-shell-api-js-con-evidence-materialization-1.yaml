@@ -1,0 +1,36 @@
+name: review-task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con-evidence-materialization-1
+path: desk/reviews/task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con/evidence-materialization-1.md
+source_hash: 32d993ebff86fd3fab3eb0bd9f64494232a3f2e7e3dd81cc648c7aa231bd87a1
+content_hash: 21bfcbe3e0eb7feb0ff6dbfab162a6b757e2a8b9b8efeb59ec3bb67511d90742
+field_hashes:
+  id: 5a16ded684647b67b6a307b43254fb23f5a7ae270094c7f61c63258d2c6614ea
+  title: c0609b53b20db7194e7dca8e3d991b9d7364b1107ff8c4b8e7c2af613a280a20
+  kind: edecec53ab11f560816e75a17681eb83886beace01d7fb927d99707d3d031aac
+  fact: b77d8cf6414796c495587568e836eb101f2c47c6cbab025c9e93d24db5ead67b
+  value: 8ab32c40735e07975cddffce5ed4c703acae8b42b29a419cd7410d31f6ef4f9f
+  subject: f9850077e5c983bf0bb5724549b27d2b8558ec26c49157e10fb5836d75726d95
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 9eeef991471c47a0f748cc581c93b036c7560af99f0fcdf1ed75357a5551f1ac
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  input_sha256: 2033109a242bdedbe253e9b6466b88f156c240011f482a48a834e806926bb999
+  contract_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  output_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
+  reason: 1f4ff9390027aa602e36094b4f22be19070e34cb572d1a4aad3c39f9fa996548
+  created_at: cd68933ebce9574c5f196a0871ada22f040cbc37aa03cbcd97eea65fefaad957
+  disposed_at: cd68933ebce9574c5f196a0871ada22f040cbc37aa03cbcd97eea65fefaad957
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: c9ba499772562adcd9236d5ecd8b4145463792c942d6d947695f7e1308a51582
+  disposition: 000daa5d9784213d75ffc1f6b001d0cbbb3f1b27cc471535aa986940adfdca7a
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+provenance:
+  by: agent
+  at: '2026-11-25T15:54:53Z'
+  authority: generated
+  via: create_document

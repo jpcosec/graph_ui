@@ -1,0 +1,36 @@
+name: review-task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con-evidence-atom-1
+path: desk/reviews/task-las-vistas-de-mindmap-reciben-request-y-la-url-base-del-servidor-en-vez-de-importar-shell-api-js-con/evidence-atom-1.md
+source_hash: dd7c0cc6c560f61a654019263cf636825fd90990b25c20204fdd79f371798e2c
+content_hash: 9176ef1363c9b1882ddc7ea88a2c911b30ffaa81cb948492565a7a3ce3de2f18
+field_hashes:
+  id: 1bed7c19f964ca084c90e7cd550f62502b41e817902b181671ccfa7d006c78da
+  title: 587a32507e8de8f0cd271d80d6765442ad242c063f8c66040c40bc989628cf06
+  kind: edecec53ab11f560816e75a17681eb83886beace01d7fb927d99707d3d031aac
+  fact: c833c202b5b45ac10909767bb422916db457ddd48188a4ee591f0618893df0ba
+  value: af5de90f6f9eac2a2df7703b640bf5ca5c37432c0d46b307c96b1e1ef27e925b
+  subject: f9850077e5c983bf0bb5724549b27d2b8558ec26c49157e10fb5836d75726d95
+  subject_ref: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  engine: 9eeef991471c47a0f748cc581c93b036c7560af99f0fcdf1ed75357a5551f1ac
+  actor: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  run_dir: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  input_sha256: 6d64fbd17321ddf8ecc32aea3040829bd4577dd14477eb285d6991e63988099b
+  contract_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  output_sha256: 12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126
+  verdict: d288c584af270151f7b7cd7977b94160ce1d7b501dee2d6308f2ac84ebaacc99
+  reason: 67ab4cd81b1e8020d6ecb230d19254fd6812f84f3a9be741bd95cfa7e949d3f7
+  created_at: cd68933ebce9574c5f196a0871ada22f040cbc37aa03cbcd97eea65fefaad957
+  disposed_at: cd68933ebce9574c5f196a0871ada22f040cbc37aa03cbcd97eea65fefaad957
+  disposed_by: 1d147ab379788e0277ce278d918ca7cf9e0572dffeefc59e10d282ef146bd45c
+  summary: aa00d443c79c0de49efd86dbdd2bb8d5c23a9fdf80b56a27df067a38ccffdd81
+  disposition: 5c2dd55d586c9c09a7e78149c807c82dbfac0fdecbbea4593ee5a69d803bbd91
+  tags: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- type.workflow.review
+- workspace.desk.runs
+provenance:
+  by: agent
+  at: '2026-11-25T15:54:52Z'
+  authority: generated
+  via: create_document
