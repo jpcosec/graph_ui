@@ -486,6 +486,7 @@ include:
   - desk/materializations/materialization-mindmap-sin-pron-frontends-mindmap-sldb-adapter-py.md
   - desk/materializations/materialization-mindmap-sin-pron-pyproject-toml.md
   - desk/materializations/materialization-mindmap-sin-pron-tests-test-ci-workflow-py.md
+  - desk/materializations/materialization-mindmap-sin-pron-tests-test-mindmap-adapter-py.md
 - model: RunDoc
   paths:
   - path: runs/subagents/exec-deskops-e-2fdc793ded2b/run.md
@@ -522,6 +523,8 @@ include:
     name: run-deskops-t-85bb9600cb62
   - path: runs/subagents/exec-deskops-e-aeb0cab2d4a2/run.md
     name: run-deskops-e-aeb0cab2d4a2
+  - path: runs/subagents/exec-deskops-t-7c62dc444282-testing/run.md
+    name: run-deskops-t-7c62dc444282
 graph_backend: networkx
 policy: {}
 tag_models:
