@@ -445,6 +445,10 @@ include:
     name: review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-preflight-2
   - path: desk/reviews/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de/bundle-2.md
     name: review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-bundle-2
+  - path: desk/reviews/task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion/evidence-tests-1.md
+    name: review-task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion-evidence-tests-1
+  - path: desk/reviews/task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion/evidence-commit-1.md
+    name: review-task-g-c-la-vista-de-notacion-lista-tambien-los-viewdoc-del-store-y-dibuja-uno-con-su-notacion-evidence-commit-1
 - model: MaterializationContractDoc
   paths:
   - desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md
@@ -468,6 +472,10 @@ include:
   - desk/materializations/materialization-request-inyectado-frontends-mindmap-views-specs-notation-notation-view-js.md
   - desk/materializations/materialization-request-inyectado-frontends-mindmap-views-workflow-deskops-deskops-view-js.md
   - desk/materializations/materialization-request-inyectado-frontends-mindmap-views-workspace-node-workspace-view-js.md
+  - desk/materializations/materialization-vista-viewdoc-frontends-mindmap-views-specs-notation-notation-view-js.md
+  - desk/materializations/materialization-vista-viewdoc-frontends-mindmap-views-specs-notation-notation-mjs.md
+  - desk/materializations/materialization-vista-viewdoc-tests-e2e-notation-viewdoc-py.md
+  - desk/materializations/materialization-vista-viewdoc-tests-mindmap-notation-test-mjs.md
 - model: RunDoc
   paths:
   - path: runs/subagents/exec-deskops-e-2fdc793ded2b/run.md
