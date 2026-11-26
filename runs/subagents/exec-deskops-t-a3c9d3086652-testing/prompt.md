@@ -1,7 +1,16 @@
+Task: task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker
+Title: G-D: el layout de notacion corta en el primer candidato legible y ELK corre en un worker
+Status: ready_for_testing
+Current node: ritual-closeout
+Task type: task.code
+Lifecycle gates:
+- task_completes -> complete: closed [status = "ready_for_testing"]
+  blocked by: error: [rules/rule-closeout-task-code] TaskCodeDoc:task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker: Una tarea task.code se cierra con recibos evidence aceptados e intactos de tests, commit y atom o materialization (los escribe deskops closeout verify). | any(^subject: kind = "evidence" and fact = "tests" and anchor_state = "intact" and verdict = "accepted") (seen: {}) (witness: ReviewDoc:review-task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker-bundle-1 {"kind":"bundle"})
+
 ---
 sldb:
   by: agent
-  at: '2026-11-26T02:58:33Z'
+  at: '2026-11-25T20:39:50Z'
   authority: generated
   via: save_document_payload
 id: task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker
@@ -12,23 +21,14 @@ current_node: ritual-closeout
 history:
 - task_activates
 - task_hands_to_closeout
-references:
-- frontends/mindmap/views/specs/notation/notation-view.js
-- tests/e2e_notation_activity.py
-- 0680ce2e2ae6280ebc5b31a993e183b15debaded
-- 8f617a4
-- d26ff31
+references: []
 depends_on: []
 pills: []
-files:
-- frontends/mindmap/views/specs/notation/notation-view.js
-- tests/e2e_notation_activity.py
-pointers: []
+files: []
 task_type: task.code
 inherits_from: []
 inherit_acceptance_context: false
-atoms:
-- atom-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker
+atoms: []
 ---
 
 # G-D: el layout de notacion corta en el primer candidato legible y ELK corre en un worker
@@ -70,3 +70,20 @@ _List the checks required before this task can close._
 _Name the observable condition that makes the task complete._
 
 La spec de 13 nodos queda bajo el tope de corridas en la prueba node, las demas dan el mismo layout, ELK corre en un worker, y node --test de layout y la e2e de notacion pasan.
+
+## Como probar (tester)
+
+Ubica el trabajo del ejecutor:
+
+    git log -1 --format=%H --grep "Task-Id: task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker"   # commit del ejecutor
+    git show --name-only <commit>                           # sus archivos
+
+Los tests a correr son los archivos tests/*.py de ese commit, mas tests/test_<modulo>.py cuando exista para cada modulo de codigo tocado; de a uno, con `TMPDIR=/tmp python -m pytest -q <archivo>`. No corras la suite completa: la corre integrate en el host.
+
+Escribe result-summary.md con el veredicto PASA o FALLA en la primera linea.
+
+## Temporales de pytest
+
+Antes de cualquier pytest exporta, para que sus temporales caigan en el /tmp del contenedor (muere con el agente) y no en el /dev/shm del host:
+
+    export PYTEST_ADDOPTS="--basetemp=/tmp/pytest-deskops-t-a3c9d3086652"
