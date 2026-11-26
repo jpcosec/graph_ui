@@ -1,0 +1,25 @@
+name: materialization-layout-notacion-worker-tests-e2e-notation-activity-py
+path: desk/materializations/materialization-layout-notacion-worker-tests-e2e-notation-activity-py.md
+source_hash: 240a35e45861d4c6a2f0db27740347b56bab578b44a31a976bb0105a1bb01e40
+content_hash: 6e3d178e098bdb55e8707c432858cfb2ce136bc24805e1c3bda2e38873fff276
+field_hashes:
+  id: b35f208ace6120c6f0adf2591b78038d530748cba4d1f90684c0776e00fda3a7
+  title: 9da9123b2fedf8c006f3d55ced2f8005cf943b18c1cc40f89ef721fbdf7cb7b2
+  source_atoms: a8993b530f2ece15c1be6f6c93ec231e494418bda1c4e2e7b9a885cc6e72a5f8
+  target_kind: 4d967a30111bf29f0eba01c448b375c1629b2fed01cdfcc3aed91f1b57d5dd5e
+  target_identity: 12526e51bfc199f9ee2269064c64c1d214db916726088753a39e28b180fc16da
+  intent: 28cb679db6b88e28f0dd5a45b922977b5058c8ac11cd415487ce7ba473489be0
+  validation: 67c21ab336061258b8f658bb1e0013017ea974c7eb293ca1d02986c056d3a5fd
+  tags: 4d805c6f787a5b9c97c80a7713efe1937f06b5ce550d2ec1b98f55cadbc7ade0
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:layout-notacion-worker
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-26T02:58:42Z'
+  authority: generated
+  via: create_document

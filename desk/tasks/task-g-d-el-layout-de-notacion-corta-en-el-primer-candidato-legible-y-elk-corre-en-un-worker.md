@@ -1,7 +1,7 @@
 ---
 sldb:
   by: agent
-  at: '2026-11-25T20:39:50Z'
+  at: '2026-11-26T02:58:33Z'
   authority: generated
   via: save_document_payload
 id: task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker
@@ -12,14 +12,23 @@ current_node: ritual-closeout
 history:
 - task_activates
 - task_hands_to_closeout
-references: []
+references:
+- frontends/mindmap/views/specs/notation/notation-view.js
+- tests/e2e_notation_activity.py
+- 0680ce2e2ae6280ebc5b31a993e183b15debaded
+- 8f617a4
+- d26ff31
 depends_on: []
 pills: []
-files: []
+files:
+- frontends/mindmap/views/specs/notation/notation-view.js
+- tests/e2e_notation_activity.py
+pointers: []
 task_type: task.code
 inherits_from: []
 inherit_acceptance_context: false
-atoms: []
+atoms:
+- atom-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker
 ---
 
 # G-D: el layout de notacion corta en el primer candidato legible y ELK corre en un worker

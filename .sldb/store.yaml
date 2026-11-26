@@ -476,6 +476,14 @@ include:
     name: review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-evidence-atom-2
   - path: desk/reviews/task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de/evidence-materialization-1.md
     name: review-task-una-notacion-con-carriles-por-particion-se-dibuja-con-una-columna-por-particion-en-cualquier-tipo-de-evidence-materialization-1
+  - path: desk/reviews/task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker/evidence-tests-1.md
+    name: review-task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker-evidence-tests-1
+  - path: desk/reviews/task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker/evidence-commit-1.md
+    name: review-task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker-evidence-commit-1
+  - path: desk/reviews/task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker/evidence-atom-1.md
+    name: review-task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker-evidence-atom-1
+  - path: desk/reviews/task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker/evidence-materialization-1.md
+    name: review-task-g-d-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker-evidence-materialization-1
 - model: MaterializationContractDoc
   paths:
   - desk/materializations/materialization-backend-y-vista-specs-de-mindmap-resuelven-con-sldb-api-notations.md
@@ -515,6 +523,8 @@ include:
   - desk/materializations/materialization-partition-lanes-frontends-mindmap-views-specs-notation-notation-mjs.md
   - desk/materializations/materialization-partition-lanes-ests-fixtures-notation-partition-lanes-view-components-json.md
   - desk/materializations/materialization-partition-lanes-tests-notation-partition-lanes-test-mjs.md
+  - desk/materializations/materialization-layout-notacion-worker-frontends-mindmap-views-specs-notation-notation-view-js.md
+  - desk/materializations/materialization-layout-notacion-worker-tests-e2e-notation-activity-py.md
 - model: RunDoc
   paths:
   - path: runs/subagents/exec-deskops-e-2fdc793ded2b/run.md

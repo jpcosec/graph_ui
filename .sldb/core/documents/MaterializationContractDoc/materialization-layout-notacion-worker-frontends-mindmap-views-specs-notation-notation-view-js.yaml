@@ -1,0 +1,25 @@
+name: materialization-layout-notacion-worker-frontends-mindmap-views-specs-notation-notation-view-js
+path: desk/materializations/materialization-layout-notacion-worker-frontends-mindmap-views-specs-notation-notation-view-js.md
+source_hash: e118f02f24aef27fbeb4a50e25cb7f3d2f6996553ce2883a549f27d0e078d103
+content_hash: 26a1ef6f096d9c63d8f2c41e4dd687a1aa783e73f7da3a60dfe4358e7c7c64ca
+field_hashes:
+  id: 58e900d74c090611b281870c4d778d5bb0e166f2de7621fec33783d0b9ff72fd
+  title: 7d60966d60c22f65d739c78d09c167eed60031dc23bb6ef1adcfced2615be994
+  source_atoms: a8993b530f2ece15c1be6f6c93ec231e494418bda1c4e2e7b9a885cc6e72a5f8
+  target_kind: 4a1933b06cf695fcff4acaba1fdbaa7f10ce109d3c7f57bbf62f6bb572658de8
+  target_identity: 6954bcc66d6a527a83fb285035e48d57c836878fa0d3b4eaeeebd5099081417b
+  intent: 8387c7116f7344a62efd6235b5ea0ddb4005b1ba7f1d5ed479544c9d3c20f128
+  validation: 67c21ab336061258b8f658bb1e0013017ea974c7eb293ca1d02986c056d3a5fd
+  tags: 4d805c6f787a5b9c97c80a7713efe1937f06b5ce550d2ec1b98f55cadbc7ade0
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:layout-notacion-worker
+- type.knowledge.materialization_contract
+- workspace.desk.materializations
+provenance:
+  by: agent
+  at: '2026-11-26T02:58:38Z'
+  authority: generated
+  via: create_document

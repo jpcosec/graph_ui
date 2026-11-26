@@ -1,0 +1,23 @@
+name: atom-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker
+path: desk/atoms/atom-el-layout-de-notacion-corta-en-el-primer-candidato-legible-y-elk-corre-en-un-worker.md
+source_hash: de05114953c8a250bb9bb6267c39d107354cf0fc04097740ed843d7f24972f5b
+content_hash: 09140f74a1bad46629a4c0dc93fb5a7e3b7060af4b33fda9ddfd25f58a415e48
+field_hashes:
+  id: 16161aa23f22df7163306005fb3c87a22c0e06bf066623cdabcc511a928e675a
+  title: 7f0fb62bbbcdb4839228fe90374b3be5e6427da3b1facd5e439c62200b39f6d4
+  five_wh_one_plus: 5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f
+  answer: 241f14755ae3465ffd982cb49876b81bb1dab0a5a81c0bf5eb33f4c8a4e6e2ed
+  tags: 4d805c6f787a5b9c97c80a7713efe1937f06b5ce550d2ec1b98f55cadbc7ade0
+  pointers: 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+semantic_tags:
+- representation.markdown
+- source.document.markdown
+- system:graph_ui
+- topic:layout-notacion-worker
+- type.knowledge.atom
+- workspace.desk.atoms
+provenance:
+  by: agent
+  at: '2026-11-26T02:58:18Z'
+  authority: generated
+  via: create_document
